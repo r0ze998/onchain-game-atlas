@@ -21,7 +21,7 @@ async function getJson(url, { cg = false, tries = 4 } = {}) {
     if (cg) { const wait = lastCg + 3500 - Date.now(); if (wait > 0) await sleep(wait); lastCg = Date.now(); }
     try {
       const r = await fetch(url, { headers: { accept: 'application/json', 'user-agent': 'onchain-game-atlas (research; github.com/r0ze998/onchain-game-atlas)' } });
-      if (r.status === 429) { await sleep(60000); continue; }
+      if (r.status === 429) { console.warn('  429, waiting'); await sleep(45000); continue; }
       if (!r.ok) throw new Error(`HTTP ${r.status}`);
       return await r.json();
     } catch (e) {
@@ -58,13 +58,24 @@ function weekly(series) {
 }
 const round = (v, d = 6) => (typeof v === 'number' ? Number(v.toPrecision(d)) : v);
 
+// /coins/markets で全トークンを 1 回で取得し、価格の推移だけ個別に取る（レート制限を避けるため）
+const MARKETS = new Map();
+async function prefetchMarkets(ids) {
+  for (let i = 0; i < ids.length; i += 100) {
+    const chunk = ids.slice(i, i + 100);
+    const rows = await getJson(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=${chunk.join(',')}&per_page=250`, { cg: true });
+    for (const r of rows) MARKETS.set(r.id, r);
+  }
+}
 async function coin(id) {
   const base = `https://api.coingecko.com/api/v3/coins/${id}`;
-  const d = await getJson(`${base}?localization=false&tickers=false&community_data=false&developer_data=false&sparkline=false`, { cg: true });
-  const md = d.market_data || {};
+  const r = MARKETS.get(id);
+  if (!r) throw new Error(`${id}: not in /coins/markets`);
+  const d = { symbol: r.symbol, name: r.name, image: { large: r.image }, links: {} };
+  const md = { current_price: { usd: r.current_price }, market_cap: { usd: r.market_cap }, fully_diluted_valuation: { usd: r.fully_diluted_valuation }, ath: { usd: r.ath }, ath_date: { usd: r.ath_date }, atl: { usd: r.atl }, atl_date: { usd: r.atl_date } };
   let chart = [];
   try {
-    const c = await getJson(`${base}/market_chart?vs_currency=usd&days=365`, { cg: true });
+    const c = await getJson(`${base}/market_chart?vs_currency=usd&days=365`, { cg: true, tries: 2 });
     chart = weekly(c.prices || []).map(([t, v]) => [t, round(v, 5)]);
   } catch (e) { console.warn('  chart failed', id, e.message); }
   const price = md.current_price?.usd ?? null;
@@ -116,6 +127,8 @@ async function favicon(site) {
 }
 
 const { games } = loadAll();
+await prefetchMarkets([...new Set(games.flatMap((g) => [].concat(g.ids?.coingecko || [])))]);
+console.log(`markets: ${MARKETS.size} tokens`);
 const out = { fetchedAt: new Date().toISOString(), note: '市場データは取得日時点の値。研究データの数値（運営発表・実測・推定）とは別に扱う。', entries: {} };
 for (const g of games) {
   if (only && g.id !== only) { if (prev.entries[g.id]) out.entries[g.id] = prev.entries[g.id]; continue; }
@@ -155,6 +168,7 @@ for (const g of games) {
   }
   if (!e.errors.length) delete e.errors;
   if (e.coins.length || e.tvl || e.icon) out.entries[g.id] = e;
+  fs.writeFileSync(OUT, JSON.stringify({ ...out, partial: true }, null, 1));
 }
 fs.writeFileSync(OUT, JSON.stringify(out, null, 1));
 const n = Object.values(out.entries);
