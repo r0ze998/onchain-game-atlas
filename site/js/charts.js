@@ -282,7 +282,7 @@
       ['hypotheses', '設計仮説', '破綻条件と実験のコストを比べる', '#/hypotheses'],
       ['notebook', '研究ノート', '実験を選び、結果を記録する', '#/notebook'],
     ];
-    return `<ol class="flow">${steps.map(([k, t, d, h], i) => `<li><a href="${h}">${A.illu(k, 'flow-img')}<span class="flow-step">${i + 1}</span><b>${t}</b><span>${d}</span></a></li>`).join('')}</ol>`;
+    return `<ol class="flow">${steps.map(([k, t, d, h], i) => `<li><a href="${h}"><span class="flow-step">${i + 1}</span><b>${t}</b><span>${d}</span></a></li>`).join('')}</ol>`;
   };
 })();
 

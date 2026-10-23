@@ -242,7 +242,7 @@ await step('file:// でも開ける', async () => {
   assert.equal(await f.locator('.entry-item').count(), data.games.length);
 });
 
-await step('図とイラスト: ホームの図が描画され、ホバーで詳細、マスから一覧へ、画像はすべて読み込まれる', async () => {
+await step('図: ホームの図が描画され、ホバーとフォーカスで詳細、マスから一覧へ。画像は使わない', async () => {
   await p.goto('about:blank');
   await p.goto(BASE + '#/');
   assert.ok(await p.locator('#viz-status svg path, #viz-status svg rect:not(.hit)').count() > 5, 'status chart empty');
@@ -258,19 +258,12 @@ await step('図とイラスト: ホームの図が描画され、ホバーで詳
   assert.ok(/#\/entries\?cat=.+&onchain=/.test(p.url()), 'heatmap cell did not link to filtered list');
   const n = await p.locator('.entry-item').count();
   assert.ok(n > 0, 'filtered list empty');
+  // イラストは使わない（図はすべて研究データから描く SVG/HTML）
   for (const r of ['', 'timeline', 'hypotheses', 'about', 'insight/' + data.insights[0].id, 'entry/' + deep[0].id]) {
     await p.goto('about:blank');
     await p.goto(BASE + '#/' + r);
-    await p.waitForLoadState('networkidle');
-    const imgs = await p.$$eval('main img', (xs) => xs.map((x) => { x.loading = 'eager'; return x.src; }));
-    await p.waitForFunction(() => [...document.querySelectorAll('main img')].every((x) => x.complete), null, { timeout: 15000 });
-    const broken = await p.$$eval('main img', (xs) => xs.filter((x) => !x.naturalWidth).map((x) => x.src));
-    assert.deepEqual(broken, [], `broken images on ${r}`);
-    assert.ok(imgs.length > 0 || r.startsWith('entry'), `no illustration on ${r}`);
+    assert.equal(await p.locator('img').count(), 0, `unexpected image on ${r}`);
   }
-  assert.ok(data.illustrations.length <= 20, 'more than 20 illustrations (いらすとや terms)');
-  await p.goto(BASE + '#/about');
-  assert.equal(await p.locator('#credits + p + .table-wrap tbody tr').count(), data.illustrations.length, 'credit list incomplete');
   await p.goto(BASE + '#/entry/' + deep[0].id);
   assert.ok(await p.locator('.arch .meter').count() >= 4, 'architecture meters missing');
   await shot(p, 'entry-arch');

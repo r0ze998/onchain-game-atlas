@@ -79,13 +79,6 @@
   for (const q of D.questions) for (const e of q.cases || []) push(idx.questionsByGame, e.game, q);
   for (const h of D.hypotheses) for (const e of h.evidence || []) push(idx.hypothesesByGame, e.game, h);
 
-  // いらすとやのイラスト（data/illustrations.json）。装飾なので alt は内容の短い説明、読み上げ不要な場合は空にする
-  const ILLU = new Map((D.illustrations || []).map((x) => [x.key, x]));
-  A.illu = (key, cls = '', decorative = true) => {
-    const x = ILLU.get(key);
-    if (!x) return '';
-    return `<img class="illu ${cls}" src="${x.file}" alt="${decorative ? '' : A.esc(x.alt)}" loading="lazy" decoding="async">`;
-  };
   A.nodeName = (id) => idx.game.get(id)?.name || idx.concept.get(id)?.name || id;
   A.nodeHref = (id) => (idx.game.has(id) ? `#/entry/${id}` : idx.concept.has(id) ? `#/concept/${id}` : '#/');
   A.nodeLink = (id) => (idx.game.has(id) || idx.concept.has(id) ? `<a href="${A.nodeHref(id)}">${A.esc(A.nodeName(id))}</a>` : `<span class="muted" title="未収録">${A.esc(id)}（未収録）</span>`);

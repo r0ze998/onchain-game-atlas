@@ -12,7 +12,7 @@
   }).join('');
 
   // ---------- 問い ----------
-  V.questions = () => `<header class="page-head"><div class="page-head-text"><h1>問いから探す</h1><p class="lede">開発中に出てくる問いから、複数の事例へ進みます。各問いには「はい」に寄る事例と「いいえ」に寄る事例の両方を置き、関連するインサイトと設計仮説につなげています。</p></div>${A.illu('questions', 'page-illu')}</header>
+  V.questions = () => `<header class="page-head"><div class="page-head-text"><h1>問いから探す</h1><p class="lede">開発中に出てくる問いから、複数の事例へ進みます。各問いには「はい」に寄る事例と「いいえ」に寄る事例の両方を置き、関連するインサイトと設計仮説につなげています。</p></div></header>
     <div class="cards">${D.questions.map((q) => {
       const c = (st) => (q.cases || []).filter((e) => e.stance === st).length;
       return `<div class="card"><h3><a href="#/question/${esc(q.id)}">${esc(q.q)}</a></h3><p class="muted">${esc(q.why || '')}</p>
@@ -22,7 +22,7 @@
     const q = I.question.get(parts[1]);
     if (!q) return A.notFound();
     const labels = { support: q.labels?.support || '支持する事例', counter: q.labels?.counter || '反する事例', context: '文脈・条件付き' };
-    return `<div class="detail"><article><p class="small muted"><a href="#/questions">問い</a></p><header class="page-head compact"><div class="page-head-text"><h1>${esc(q.q)}</h1></div>${A.illu('questions', 'page-illu small')}</header>
+    return `<div class="detail"><article><p class="small muted"><a href="#/questions">問い</a></p><header class="page-head compact"><div class="page-head-text"><h1>${esc(q.q)}</h1></div></header>
       ${q.why ? `<p class="lede">${esc(q.why)}</p>` : ''}
       ${q.answer ? `<div class="note-box"><b>現時点の暫定回答：</b>${esc(q.answer)}</div>` : ''}
       ${evGroups(q.cases, labels)}
@@ -39,7 +39,7 @@
     const gt = params.get('gap') || '';
     const cf = params.get('conf') || '';
     const list = D.insights.filter((i) => (!gt || i.gap_type === gt) && (!cf || i.confidence === cf));
-    return `<header class="page-head"><div class="page-head-text"><h1>インサイトを検証する</h1><p class="lede">各インサイトは「主張・支持事例・反例・成立条件・確信度とその理由・次に試す小さな実験」で構成しています。「未解決の空白」と「需要が確認されていない領域」、「ブロックチェーンが不要な可能性」を区別しています。</p></div>${A.illu('insights', 'page-illu')}</header>
+    return `<header class="page-head"><div class="page-head-text"><h1>インサイトを検証する</h1><p class="lede">各インサイトは「主張・支持事例・反例・成立条件・確信度とその理由・次に試す小さな実験」で構成しています。「未解決の空白」と「需要が確認されていない領域」、「ブロックチェーンが不要な可能性」を区別しています。</p></div></header>
       <form class="toolbar" id="ins-filter"><label>種類<select name="gap"><option value="">すべて</option>${Object.entries(L.gap_type).map(([k, v]) => `<option value="${k}" ${gt === k ? 'selected' : ''}>${esc(v)}</option>`).join('')}</select></label>
       <label>確信度<select name="conf"><option value="">すべて</option>${['high', 'medium', 'low'].map((k) => `<option value="${k}" ${cf === k ? 'selected' : ''}>${esc(L.confidence[k])}</option>`).join('')}</select></label></form>
       <div class="cards">${list.map((i) => {
@@ -59,7 +59,7 @@
     const ex = i.experiment || {};
     const hs = (i.hypotheses || []).map((h) => I.hypothesis.get(h)).filter(Boolean);
     const qs = D.questions.filter((q) => (q.insights || []).includes(i.id));
-    return `<div class="detail"><article><p class="small muted"><a href="#/insights">インサイト</a></p><header class="page-head compact"><div class="page-head-text"><h1>${esc(i.title)}</h1></div>${A.illu('insights', 'page-illu small')}</header>
+    return `<div class="detail"><article><p class="small muted"><a href="#/insights">インサイト</a></p><header class="page-head compact"><div class="page-head-text"><h1>${esc(i.title)}</h1></div></header>
       <p><span class="conf conf-${esc(i.confidence)}">${esc(L.confidence[i.confidence])}</span> <span class="tag">${esc(L.gap_type[i.gap_type] || i.gap_type)}</span></p>
       <h2>主張</h2><p class="lede">${esc(i.claim)}</p>
       ${A.charts.balance(i.evidence || [])}
@@ -90,7 +90,7 @@
     const li = (arr) => `<ul>${(arr || []).map((x) => `<li>${esc(x)}</li>`).join('')}</ul>`;
     const row = (label, f) => `<tr><th scope="row" class="rowh">${label}</th>${hs.map((h) => `<td ${h.id === focus ? 'style="background:var(--accent-soft)"' : ''}>${f(h)}</td>`).join('')}</tr>`;
     const evs = (h, st) => (h.evidence || []).filter((e) => e.stance === st).map((e) => `<li>${A.nodeLink(e.game)}：${esc(e.note)}${A.cites(e.s)}</li>`).join('') || '<li class="muted">なし</li>';
-    return `<header class="page-head"><div class="page-head-text"><h1>設計仮説を比べる</h1><p class="lede">事例とインサイトから組み立てた具体的な設計仮説です。組み合わせるメカニクス、プレイヤーの選択、衝突するインセンティブ、破綻条件、チェーンが本当に必要か、最初の実験を同じ表で比べられます。どれも検証前の仮説であり、推奨ではありません。</p></div>${A.illu('hypotheses', 'page-illu')}</header>
+    return `<header class="page-head"><div class="page-head-text"><h1>設計仮説を比べる</h1><p class="lede">事例とインサイトから組み立てた具体的な設計仮説です。組み合わせるメカニクス、プレイヤーの選択、衝突するインセンティブ、破綻条件、チェーンが本当に必要か、最初の実験を同じ表で比べられます。どれも検証前の仮説であり、推奨ではありません。</p></div></header>
       <div class="hyp-cards">${D.hypotheses.map((h) => {
         const n = (st) => (h.evidence || []).filter((e) => e.stance === st).length;
         const need = { yes: '必要', partial: '一部のみ', no: '不要の可能性', unknown: '未判定' }[h.needs_chain?.answer] || '未判定';
@@ -145,7 +145,7 @@
       if (t === 'compare') return `<a href="#/compare/${esc(id)}">比較: ${esc(id.split(',').map(A.nodeName).join(' / '))}</a>`;
       return esc(key);
     };
-    return `<header class="page-head"><div class="page-head-text"><h1>研究ノート</h1><p class="lede">気になった事例の保存、メモ、比較セット、自分の設計仮説と検証結果をここに集めます。ログインは不要です。</p></div>${A.illu('notebook', 'page-illu')}</header>
+    return `<header class="page-head"><div class="page-head-text"><h1>研究ノート</h1><p class="lede">気になった事例の保存、メモ、比較セット、自分の設計仮説と検証結果をここに集めます。ログインは不要です。</p></div></header>
       <div class="warnbox read small"><b>保存場所について：</b>ノートはこのブラウザの localStorage にだけ保存されます。別のブラウザ・別の端末・プライベートウィンドウからは見えません。ブラウザのサイトデータ削除、ストレージの自動削除（例: Safari は長期間訪問しないサイトのデータを消すことがあります）、別のポートやドメインでの起動でも失われます。大事な記録は定期的に「JSON を書き出す」で保存してください。${A.store.ok ? '' : '<br><b>現在、このブラウザではノートを保存できていません。</b>'}</div>
       <div class="btn-row"><button class="btn primary" id="nb-export">JSON ファイルに書き出す</button>
         <button class="btn" id="nb-copy">JSON をコピー</button>
@@ -265,9 +265,6 @@
     <p>各事例の詳細画面と、このサイトの冒頭に表示している <code>sha256:…</code> は、研究データの元ファイル（YAML）から計算した指紋です。各ファイルの SHA-256 を葉として、隣り合う 2 つを連結して SHA-256 を取ることを繰り返したマークル木の根を「dataset root」と呼んでいます（葉が奇数のときは最後の葉を複製）。記述が 1 文字でも変わると、その事例のハッシュと root が変わります。</p>
     <p>使い道は、引用・保存した版と今の版が同じかを確かめることです。リポジトリを取得して <code>node scripts/verify-integrity.mjs [root]</code> を実行すると、手元のデータから再計算して公開値と照合できます。</p>
     <p class="note-box">このハッシュはどのブロックチェーンにも記録していません（タイムスタンプの証明にはなりません）。改ざん検知の手がかりであって、内容の正しさを保証するものではありません。現在の root: <code style="overflow-wrap:anywhere">${esc(D.integrity?.root || '')}</code>（葉 ${D.integrity?.leaves.length || 0} 件）</p>
-    <h2 id="credits">イラストのクレジット</h2>
-    <p>イラストは <a href="https://www.irasutoya.com/" target="_blank" rel="noopener">いらすとや</a>（みふねたかし氏）の素材を、<a href="https://www.irasutoya.com/p/terms.html" target="_blank" rel="noopener">利用規約</a>の範囲で使っています（参照日 2026-10-23。点数は 20 点以内）。表示時に CSS で単色化しています（いらすとやの FAQ が認める範囲の色の変更で、元の絵柄は変えていません）。図表はすべて研究データから自動で描いたもので、イラストは装飾であり、データの内容を表すものではありません。</p>
-    <div class="table-wrap"><table><thead><tr><th></th><th>素材</th><th>使用箇所</th></tr></thead><tbody>${(D.illustrations || []).map((x) => `<tr><td style="width:64px"><img src="${x.file}" alt="" style="width:48px;height:48px;object-fit:contain" loading="lazy"></td><td><a href="${esc(x.page)}" target="_blank" rel="noopener">${esc(x.title)}</a></td><td>${esc(x.used_for)}</td></tr>`).join('')}</tbody></table></div>
     <h2>研究ノートの保存</h2><p>ログイン不要で、このブラウザの localStorage に保存します。別のブラウザや端末とは共有されず、サイトデータの削除で消えます。JSON の書き出し・読み込みで移行・バックアップしてください。</p>
     <h2>データの追加</h2><p>研究データはリポジトリの <code>data/</code> にある YAML です。1 事例 1 ファイル（<code>data/games/&lt;id&gt;.yaml</code>）で、形式は <code>docs/RESEARCH_GUIDE.md</code> にあります。<code>npm run build</code> で検査とサイト用データの生成を行い、参照切れ・日付形式・出典の欠落があるとビルドが失敗します。</p>
     <p class="small muted">データ更新日: ${A.fmtDate(D.lastUpdated)}・ビルド日: ${A.fmtDate(D.generated)}</p></div>`;

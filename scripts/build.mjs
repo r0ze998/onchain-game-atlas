@@ -37,11 +37,6 @@ if (fs.existsSync(vdir)) {
 }
 const sv = path.join(vdir, '_synthesis.md');
 if (fs.existsSync(sv)) dataset.synthesisVerification = fs.readFileSync(sv, 'utf8');
-const il = path.join(ROOT, 'data', 'illustrations.json');
-if (fs.existsSync(il)) {
-  dataset.illustrations = JSON.parse(fs.readFileSync(il, 'utf8'));
-  for (const x of dataset.illustrations) if (!fs.existsSync(path.join(ROOT, 'site', x.file))) errors.push(`illustration file missing: ${x.file}`);
-}
 // 記録の指紋: 各 YAML ファイルの SHA-256 と、それらを葉とするマークル木の根。
 // 内容が 1 文字でも変わればハッシュが変わるので、引用・保存した版との照合に使える
 const sha = (buf) => crypto.createHash('sha256').update(buf).digest('hex');

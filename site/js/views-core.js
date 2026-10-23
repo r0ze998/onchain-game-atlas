@@ -61,7 +61,7 @@
     </section>
     <section class="home-sec">
       <h2>探し方</h2>
-      <div class="home-grid">${cards.map(([k, h, t, d]) => `<a class="nav-card" href="${h}">${A.illu(k, 'nav-illu')}<span><b>${t}</b><span class="muted">${d}</span></span></a>`).join('')}</div>
+      <div class="home-grid">${cards.map(([k, h, t, d]) => `<a class="nav-card" href="${h}"><span><b>${t}</b><span class="muted">${d}</span></span></a>`).join('')}</div>
     </section>
     <section class="home-sec read">
       <h2>読み方の約束</h2>
@@ -106,7 +106,7 @@
       <label>並び順<select name="sort"><option value="year" ${f.sort !== 'name' ? 'selected' : ''}>年代順</option><option value="name" ${f.sort === 'name' ? 'selected' : ''}>名前順</option></select></label>
       <button type="button" class="btn" id="reset-filter">条件をクリア</button>
     </form>`;
-    return `<header class="page-head"><div class="page-head-text"><h1>索引</h1><p class="lede">分類は「NFT があるからフルオンチェーン」といった判断を避け、オンチェーンの範囲・オフチェーン依存・管理者権限・ソース公開・第三者が実際に拡張できた範囲を別々に記録しています。</p></div>${A.illu('entries', 'page-illu')}</header>
+    return `<header class="page-head"><div class="page-head-text"><h1>索引</h1><p class="lede">分類は「NFT があるからフルオンチェーン」といった判断を避け、オンチェーンの範囲・オフチェーン依存・管理者権限・ソース公開・第三者が実際に拡張できた範囲を別々に記録しています。</p></div></header>
       ${tb}<p id="entry-count" class="muted small" aria-live="polite"></p><ul class="entry-list" id="entry-list"></ul>`;
   };
   V.entries.after = ({ params }) => {
@@ -349,7 +349,7 @@
     const byAccess = D.sources.reduce((m, s) => ((m[s.access] = (m[s.access] || 0) + 1), m), {});
     const primary = D.sources.filter((s) => s.primary).length;
     const unresolved = D.relations.filter((r) => !I.game.has(r.to) && !I.concept.has(r.to));
-    return `<div class="read"><header class="page-head"><div class="page-head-text"><h1>データ品質</h1><p class="lede">ビルド時の自動検査（日付形式、参照 ID、出典の有無、分類の列挙値、未来日付など）の結果と、出典の性質の内訳です。エラーが 1 件でもあるとビルドは失敗します。</p></div>${A.illu('quality', 'page-illu')}</header>
+    return `<div class="read"><header class="page-head"><div class="page-head-text"><h1>データ品質</h1><p class="lede">ビルド時の自動検査（日付形式、参照 ID、出典の有無、分類の列挙値、未来日付など）の結果と、出典の性質の内訳です。エラーが 1 件でもあるとビルドは失敗します。</p></div></header>
       <h2>自動検査</h2><p>エラー <b>${Q.errors.length}</b> 件・警告 <b>${Q.warnings.length}</b> 件（${A.fmtDate(D.generated)} ビルド）</p>
       ${Q.warnings.length ? `<details><summary>警告の一覧</summary><ul class="small">${Q.warnings.map((w) => `<li>${esc(w)}</li>`).join('')}</ul></details>` : ''}
       <h2>文の性質</h2><p>事実 ${c.fact}・当事者の主張 ${c.claim}・分析 ${c.analysis}・未確認 ${c.unknown}</p>
@@ -370,6 +370,6 @@
 
   V.about = () => document.getElementById('about-tpl') ? '' : A.aboutHtml();
 
-  function notFound() { return `<div class="read empty-state">${A.illu('notfound', 'empty-illu')}<h1>見つかりません</h1><p>URL の項目が存在しないか、名前が変わった可能性があります。</p><p><a class="btn" href="#/entries">索引から探す</a> <a class="btn" href="#/">ホームへ</a></p></div>`; }
+  function notFound() { return `<div class="read empty-state"><h1>見つかりません</h1><p>URL の項目が存在しないか、名前が変わった可能性があります。</p><p><a class="btn" href="#/entries">索引から探す</a> <a class="btn" href="#/">ホームへ</a></p></div>`; }
   A.notFound = notFound;
 })();

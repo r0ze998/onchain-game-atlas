@@ -18,5 +18,4 @@ const rest = head.replace(title, '').trim();
 fs.writeFileSync(path.join(out, 'index.html'), `${title}\n<meta name="claude:viewport-fit-sides" content="cover">\n${rest}\n${body.trim()}\n`);
 for (const f of ['style.css', 'data.generated.js']) fs.copyFileSync(path.join(site, f), path.join(out, f));
 for (const f of fs.readdirSync(path.join(site, 'js'))) fs.copyFileSync(path.join(site, 'js', f), path.join(out, 'js', f));
-fs.cpSync(path.join(site, 'img'), path.join(out, 'img'), { recursive: true });
 console.log('wrote', path.relative(ROOT, out));

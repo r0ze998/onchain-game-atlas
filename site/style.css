@@ -557,3 +557,9 @@ article h2 .secno + * { margin: 0; }
 .stats dt { flex-wrap: wrap; }
 .stats dt span { white-space: nowrap; }
 @media (max-width: 560px) { .stats dt span { display: none; } .brand { font-size: .9rem; } }
+
+/* イラスト撤去後のレイアウト調整 */
+.nav-card { grid-template-columns: minmax(0, 1fr); }
+.era-head { grid-template-columns: minmax(0, 1fr); }
+.page-head { grid-template-columns: minmax(0, 1fr); }
+.flow li a { justify-items: start; text-align: left; padding: 2.6rem 1rem 1rem; }

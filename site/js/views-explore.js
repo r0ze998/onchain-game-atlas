@@ -14,7 +14,7 @@
     const types = (params.get('types') || 'announce,testnet,launch,round,spec-change,pivot,end,incident,release,paper,other').split(',');
     const cat = params.get('cat') || '';
     const deepOnly = params.get('deep') === '1';
-    return `<header class="page-head"><div class="page-head-text"><h1>年表</h1><p class="lede">発表・テスト公開・公開・仕様変更・終了を区別しています。日付は資料で確認できた精度のまま表示し（年のみ・月まで・日まで）、仮の日付は置きません。時代区分は「何の制約が変わったか」で切っています。</p></div>${A.illu('timeline', 'page-illu')}</header>
+    return `<header class="page-head"><div class="page-head-text"><h1>年表</h1><p class="lede">発表・テスト公開・公開・仕様変更・終了を区別しています。日付は資料で確認できた精度のまま表示し（年のみ・月まで・日まで）、仮の日付は置きません。時代区分は「何の制約が変わったか」で切っています。</p></div></header>
       ${(V.timeline._chart = A.charts.launchesEnds()).html}
       <form class="toolbar" id="tl-filter" aria-label="年表の絞り込み">
         <fieldset class="chips"><legend>出来事の種類</legend>${TYPE_GROUPS.map(([k, v]) => `<label class="chip"><input type="checkbox" name="types" value="${k}" ${types.includes(k) ? 'checked' : ''}>${v}</label>`).join('')}</fieldset>
@@ -57,7 +57,7 @@
           lastYear = y;
           return head + A.eventLi(e);
         }).join('');
-        return `<section class="era" id="era-${esc(era.id)}"><div class="era-head">${A.illu(era.id, 'era-illu')}<div class="era-text"><p class="blk-label">BLOCK ${String(ei + 1).padStart(2, '0')} · ${ei ? `prev ← BLOCK ${String(ei).padStart(2, '0')}` : 'genesis'}</p><h2>${esc(era.title)} <span class="muted small">${A.fmtDate(era.from)} – ${era.to ? A.fmtDate(era.to) : '現在'}</span></h2>
+        return `<section class="era" id="era-${esc(era.id)}"><div class="era-head"><div class="era-text"><p class="blk-label">BLOCK ${String(ei + 1).padStart(2, '0')} · ${ei ? `prev ← BLOCK ${String(ei).padStart(2, '0')}` : 'genesis'}</p><h2>${esc(era.title)} <span class="muted small">${A.fmtDate(era.from)} – ${era.to ? A.fmtDate(era.to) : '現在'}</span></h2>
           ${era.summary ? `<p>${esc(era.summary)}</p>` : ''}
           ${era.changes?.length ? `<details><summary>何が変化したか（${era.changes.length}）</summary>${A.stmts(era.changes)}</details>` : ''}
           ${era.unchanged ? `<p class="small"><b>変わらなかったこと：</b>${esc(era.unchanged)}</p>` : ''}
@@ -77,7 +77,7 @@
     if (!ids.length) ids = A.store.tray().filter((x) => I.game.has(x));
     const pickOpts = D.games.slice().sort((a, b) => a.name.localeCompare(b.name)).map((g) => `<option value="${esc(g.id)}">${esc(g.name)}${g.depth === 'deep' ? '（深掘り）' : ''}</option>`).join('');
     const sets = A.store.data().compareSets;
-    const head = `<header class="page-head"><div class="page-head-text"><h1>設計を比較する</h1><p class="lede">2〜4 件を同じ軸で並べます。軸ごとの記述には事実・主張・分析のラベルと出典が付きます。総合点やランキングは意図的に作っていません。差の意味は自分で判断し、メモに残してください。</p></div>${A.illu('compare', 'page-illu')}</header>
+    const head = `<header class="page-head"><div class="page-head-text"><h1>設計を比較する</h1><p class="lede">2〜4 件を同じ軸で並べます。軸ごとの記述には事実・主張・分析のラベルと出典が付きます。総合点やランキングは意図的に作っていません。差の意味は自分で判断し、メモに残してください。</p></div></header>
       <div class="toolbar"><label>項目を追加<select id="cmp-add"><option value="">選択…</option>${pickOpts}</select></label>
       <div class="cmp-pick" id="cmp-current">${ids.map((id) => `<span class="tag primary">${esc(A.nodeName(id))} <button class="btn" style="padding:0 .3em" data-rm="${esc(id)}" aria-label="${esc(A.nodeName(id))} を外す">×</button></span>`).join('') || '<span class="muted small">未選択（索引や詳細の「比較に追加」でも選べます）</span>'}</div>
       ${ids.length >= 2 ? `<form id="cmp-save-form" class="cmp-save"><label>比較セットの名前<input type="text" id="cmp-save-name" value="${esc(ids.map(A.nodeName).join(' / '))}"></label><button class="btn" id="cmp-save">この組み合わせを保存</button></form>` : ''}
@@ -130,7 +130,7 @@
     const showTags = params.get('tags') !== '0';
     const basisF = params.get('basis') || '';
     const nodes = [...D.games.map((g) => ({ id: g.id, name: g.name, t: 'game' })), ...D.concepts.map((c) => ({ id: c.id, name: c.name, t: 'concept' }))].sort((a, b) => a.name.localeCompare(b.name));
-    return `<header class="page-head"><div class="page-head-text"><h1>発明のつながり</h1><p class="lede">中心に選んだ項目と、それに直接つながる項目だけを描きます（全体を一枚に描くと読めないため）。実線は当事者の言及やコードのフォークなど直接の証拠がある関係、破線は分析上の類似、点線は「その概念を使っている」というタグです。線の向きや配置に意味はありません。</p></div>${A.illu('graph', 'page-illu')}</header>
+    return `<header class="page-head"><div class="page-head-text"><h1>発明のつながり</h1><p class="lede">中心に選んだ項目と、それに直接つながる項目だけを描きます（全体を一枚に描くと読めないため）。実線は当事者の言及やコードのフォークなど直接の証拠がある関係、破線は分析上の類似、点線は「その概念を使っている」というタグです。線の向きや配置に意味はありません。</p></div></header>
       <div class="toolbar"><label>中心<select id="g-center">${nodes.map((n) => `<option value="${esc(n.id)}" ${n.id === center ? 'selected' : ''}>${n.t === 'concept' ? '［概念］' : ''}${esc(n.name)}</option>`).join('')}</select></label>
         <label>関係の根拠<select id="g-basis"><option value="">すべて</option><option value="confirmed" ${basisF === 'confirmed' ? 'selected' : ''}>確認された関係のみ</option><option value="analytic" ${basisF === 'analytic' ? 'selected' : ''}>分析上の類似のみ</option></select></label>
         <label class="chip" style="align-self:center"><input type="checkbox" id="g-tags" ${showTags ? 'checked' : ''}>概念タグも表示</label></div>
