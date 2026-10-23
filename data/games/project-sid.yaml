@@ -5,7 +5,7 @@ kind: research
 depth: index
 updated: "2026-10-23"
 chains: []
-team: "Altera.AL（Andrew Ahn, Nic Becker, Stephanie Carroll ほか、Guangyu Robert Yang）"
+team: "Altera.AL（arXiv の著者欄: Andrew Ahn, Nic Becker, Stephanie Carroll, Nico Christie, Manuel Cortes, Arda Demirci, Melissa Du, Frankie Li, Shuying Luo, Peter Y Wang, Mathew Willows, Feitong Yang, Guangyu Robert Yang）。Altera は 2025 年までに Fundamental Research Labs に改称したと報じられている"
 summary: >-
   Altera が 2024-10 に公開した技術報告。PIANO（並列に動く複数モジュールと、行動を一本化する認知コントローラ）という構成で、
   Minecraft の中に 10〜1000 人超の LLM エージェントを住まわせ、役割の分化、税法の遵守と改正、ミームと宗教の伝播を測った。
@@ -19,8 +19,8 @@ categories:
 status:
   value: archived
   as_of: "2026-10"
-  note: "技術報告（arXiv v1、2024-10-31）と動画を公開。コードは公開されていない。実験の継続や製品化は本エントリでは未確認。"
-  s: [src-sid-arxiv, src-sid-github]
+  note: "技術報告（arXiv v1、2024-10-31。参照日時点で改訂版なし）と動画を公開。GitHub リポジトリは PDF・README・画像のみ（コミット 2 件）でコードはない。2025-08 の報道では、Altera は Fundamental Research Labs と改称し、汎用アシスタント Fairies と表計算エージェント Shortcut を製品として挙げており、Project Sid や Minecraft への言及はない。Sid の実験の継続は未確認。"
+  s: [src-sid-arxiv, src-sid-github, src-sid-frl-2025]
 dates:
   announced: {date: "2024-10-31", s: [src-sid-arxiv], note: "arXiv 投稿日"}
 
@@ -51,7 +51,7 @@ compare:
   gameplay: {t: "人間のプレイヤーではなくエージェントが主体。エージェントは採集・クラフト・会話・投票を行い、研究者が条件を変えて社会の指標を測る。報告は人間と実時間で交流できる設計を掲げる。", k: fact, s: [src-sid-arxiv, src-sid-paper]}
   necessity: {t: "所有・支払い・第三者による検証を必要としない研究で、オンチェーン化の必然性はない。税（共同チェストへの預け入れ）や憲法改正もサーバー内の仕組みで実現した。", k: analysis, s: [src-sid-paper]}
   information: {t: "研究者が全エージェントの社会目標・会話・行動ログを記録して分析した。", k: fact, s: [src-sid-paper]}
-  persistence: {t: "研究用の実験で、各実行は数十分〜数時間（税の実験は 1200 秒、宗教の分析は 2 時間超）。常設の世界ではない。", k: fact, s: [src-sid-paper]}
+  persistence: {t: "研究用の実験で、各実行は数十分〜数時間（税の実験は 1200 秒、文化・宗教の 500 人の実行は 9000 秒）。常設の世界ではない。", k: fact, s: [src-sid-paper]}
   extensibility: {t: "コード非公開のため第三者は再現・拡張できない。", k: fact, s: [src-sid-github]}
   money_flow: {t: "資金循環はない。税はゲーム内アイテムを共同チェストに預ける行為として実装された。", k: fact, s: [src-sid-paper]}
   entry_barrier: {t: "一般参加の経路はない（研究報告のみ）。", k: fact, s: [src-sid-github]}
@@ -61,9 +61,10 @@ concepts: [c-ai-agent-player, m-production-chain]
 article:
   principles:
     - {t: "並列モジュール＋ボトルネックの意思決定（PIANO）: 会話・行動・記憶などを並列に走らせ、認知コントローラで 1 つの意図に絞ってから各出力に流すと、実時間環境でも「言うこととやることの不一致」を減らせると報告された。適用条件は実時間の応答が必要な環境。破綻条件は人数を増やしたとき計算資源が追いつかない場合で、1000 人超ではサーバーが限界を超えた。", k: analysis, s: [src-sid-paper]}
-    - {t: "共同体目標と社会的認識による役割分化: 同じ村に 30 人を置き、共同体目標（通常・芸術・武）を変えると役割の分布が変わり、他者のプロファイルを持てないエージェントは専門化しなかったと報告された。適用条件は他者についての記憶とやり取りがあること。破綻条件は役割の判定自体を LLM（GPT-4o）が社会目標の文から推定しているため、行動上の分業と言葉上の分業が区別しにくい点。", k: analysis, s: [src-sid-paper]}
+    - {t: "共同体目標と社会的認識による役割分化: 同じ村に 30 人を置き、共同体目標（通常・芸術・武）を変えると役割の分布が変わり、他者のプロファイルを持てないエージェントは専門化しなかったと報告された。適用条件は他者についての記憶とやり取りがあること。破綻条件は役割の判定自体を LLM（GPT-4o）が社会目標の文から推定している点。ただし報告は 30 人×3 回の実行で役割ごとの行動頻度も示し、多くの行動がほぼ 1 つの役割に限られた（芸術家は花摘み、農民は種集め等）としており、言葉だけの分業ではないという反論も報告内にある。各条件の実行回数は少ない。", k: analysis, s: [src-sid-paper]}
   counter_evidence:
-    - {t: "「文化と宗教の伝播」は、研究者が指定した Pastafarian の司祭エージェントが布教し、他のエージェントの発話に特定のキーワードが出たかで改宗を判定したもの。自発的な宗教の発生ではない。", k: fact, s: [src-sid-paper]}
+    - {t: "「文化と宗教の伝播」は、研究者が指定した Pastafarian の司祭エージェント（500 人中 20 人、1 つの町に配置）が布教し、他のエージェントの発話に「Pastafarian」「Spaghetti Monster」（間接的改宗は「Pasta」「Spaghetti」）が出たかで改宗を判定したもの。自発的な宗教の発生ではなく、信仰の内面や行動の変化は測っていない。", k: fact, s: [src-sid-paper], q: "used the inclusion of these two keywords in other agents’ speech as a proxy for religious conversion"}
+    - {t: "要旨は「10〜1000+ 人」を掲げるが、1000 人超の実行はサーバーの計算資源を超えてエージェントが時折応答しなくなったため、文化・宗教の結果は 500 人の 1 回の実行だけから分析されている。1000 人規模の文明的な振る舞いは報告の中で測定されていない。", k: fact, s: [src-sid-paper], q: "these runs exceeded the computational constraints of our Minecraft server environment, causing agents to be sporadically unresponsive"}
     - {t: "税法の実験は 25 人の有権者に賛成・反対の影響力エージェント 3 人と選挙管理エージェント 1 人を配置した設計で、税の時期も信号で知らされた。報告自身が、エージェントは基盤モデルの既存知識に基づくため民主制や貨幣のような制度の de novo な発生はシミュレートできないと限界に書いている。", k: fact, s: [src-sid-paper]}
     - {t: "報告は、視覚と空間推論の欠如により建築などの協働が制限されると述べる。生産・建設が中心の文明ゲームにそのまま当てはめられる証拠ではない。", k: fact, s: [src-sid-paper]}
     - {t: "チェーンを一切使わずに、多数エージェントの社会実験（統治・分業・文化伝播）を実施できた。エージェント文明にブロックチェーンが必要だという主張への反証になる一方、所有や第三者の拡張を扱っていないため、チェーンが役立つ部分を否定する証拠でもない。", k: analysis, s: [src-sid-paper]}
@@ -73,20 +74,22 @@ events:
 
 metrics:
   - {id: m-sid-items, type: other, value_text: "平均 17 種（上位は 30〜40 種）、集団で約 320 種で飽和", unit: items, period: "単一エージェント 30 分 / 49 人・4 時間", definition: "エージェントが取得した Minecraft アイテムの種類数（報告の図による）", nature: reported, s: [src-sid-paper]}
+  - {id: m-sid-tax, type: other, value_text: "税率が 20% から 5〜10% に改正されると、納税は 20% から 9% に低下", unit: "%", period: "1200 秒の実行（反税派インフルエンサー 3 人の条件、4 回の反復）", definition: "25 人の有権者が共同チェストに預けた在庫の割合（報告の図 10D による）", nature: reported, s: [src-sid-paper]}
   - {id: m-sid-scale, type: other, value_text: "単一社会 50〜100 人、文明 500〜1000 人（分析は 500 人の 1 回の実行）", unit: agents, period: "2024-10 報告", definition: "シミュレーションのエージェント数", nature: reported, s: [src-sid-paper]}
 
 relations:
-  - {to: generative-agents, type: similar-to, basis: analytic, note: "報告は Generative Agents を参考文献に挙げる。Smallville の 25 人に対し、Minecraft で数百〜1000 人規模へ広げた"}
+  - {to: generative-agents, type: similar-to, basis: analytic, note: "報告は Generative Agents を参考文献 [39] に挙げ、謝辞で Joon Sung Park に謝意を示す。Smallville の 25 人に対し、Minecraft で数十〜500 人（1000 人超は試行のみ）へ広げた"}
   - {to: ai-town, type: similar-to, basis: analytic, note: "いずれもオフチェーンのエージェント社会。AI Town はコード公開の基盤、Project Sid は非公開の研究"}
   - {to: realms-eternum, type: contrasts-with, basis: analytic, note: "生産・統治・戦争を持つ文明ゲームをオンチェーンで人間が遊ぶ例との対比。Sid はオフチェーンでエージェントだけの文明を測る"}
 
 unknowns:
   - "コードやデータの公開予定、再現実験の有無。"
   - "エージェントの実行コスト（報告に記載を確認できなかった）。"
-  - "Altera のその後の製品・研究の展開（本エントリでは調べていない）。"
+  - "Fundamental Research Labs（旧 Altera）への改称の正確な時期と、Project Sid の研究が継続しているか（2025-08 の報道は言及なし）。"
   - "人間のプレイヤーとエージェントが同じ世界で遊んだ実験の結果（報告は人間との実時間交流を可能にする設計と述べるのみ）。"
 
 sources:
   - {id: src-sid-arxiv, title: "Project Sid: Many-agent simulations toward AI civilization (arXiv:2411.00114)", url: "https://arxiv.org/abs/2411.00114", publisher: "arXiv", author: "Altera.AL et al.", type: paper, primary: true, published: "2024-10-31", accessed: "2026-10-23", access: fetched, lang: en, note: "要旨（10〜1000+ 人、PIANO、役割分化・集団規則・文化と宗教の伝播）"}
   - {id: src-sid-paper, title: "Project Sid: Many-agent simulations toward AI civilization (PDF)", url: "https://arxiv.org/pdf/2411.00114", publisher: "arXiv", author: "Altera.AL et al.", type: paper, primary: true, published: "2024-10-31", accessed: "2026-10-23", access: fetched, lang: en, note: "本文 35 ページ。実験設定、GPT-4o 依存、1000 人超でのサーバー限界、Pastafarian 司祭、限界節"}
   - {id: src-sid-github, title: "altera-al/project-sid", url: "https://github.com/altera-al/project-sid", publisher: "GitHub", type: code, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "技術報告の PDF・図・動画のみ。コードなし"}
+  - {id: src-sid-frl-2025, title: "Fundamental Research Labs Secures $33M Series A to Expand AI Assistant and Agent Platforms", url: "https://theaiinsider.tech/2025/08/07/fundamental-research-labs-secures-33m-series-a-to-expand-ai-assistant-and-agent-platforms/", publisher: "The AI Insider", author: "James Dargan", type: news, primary: false, published: "2025-08-07", accessed: "2026-10-23", access: fetched, lang: en, note: "「formerly known as Altera」、Prosus 主導の 3300 万ドルのシリーズ A、Fairies・Shortcut。Project Sid・Minecraft への言及なし"}

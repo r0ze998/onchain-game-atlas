@@ -34,6 +34,8 @@ if (fs.existsSync(vdir)) {
     if (fs.existsSync(f)) g.verification = fs.readFileSync(f, 'utf8');
   }
 }
+const sv = path.join(vdir, '_synthesis.md');
+if (fs.existsSync(sv)) dataset.synthesisVerification = fs.readFileSync(sv, 'utf8');
 dataset.quality = { errors, warnings };
 
 for (const w of warnings) console.log('WARN ', w);

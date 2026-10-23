@@ -70,6 +70,7 @@
       <h2>事例</h2>${evGroups(i.evidence)}
       <h2>確信度の理由</h2><p>${esc(i.confidence_reason)}</p>
       ${i.alternative ? `<h2>別の説明</h2><p>${esc(i.alternative)}</p>` : ''}
+      ${D.synthesisVerification ? '<p class="small muted">このインサイトの事例と出典の対応は、独立した検証役が照合しています（<a href="#/quality">データ品質</a>の統合層の検証記録）。</p>' : ''}
       <h2>次に試す小さな実験</h2><dl class="kv"><dt>やること</dt><dd>${esc(ex.design || i.experiment)}</dd>
         ${ex.signal ? `<dt>見る指標</dt><dd>${esc(ex.signal)}</dd>` : ''}${ex.kill ? `<dt>撤退・反証の基準</dt><dd>${esc(ex.kill)}</dd>` : ''}${ex.cost ? `<dt>規模の目安</dt><dd>${esc(ex.cost)}</dd>` : ''}</dl>
       <button class="btn primary" data-act="adopt-insight" data-id="${esc(i.id)}">この実験を研究ノートに記録</button>

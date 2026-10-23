@@ -30,10 +30,10 @@
       ロジックの固定・利用料の自動分配・運営不在での継続を約束したい場合のみチェーンが効く。最初の検証（他人の施設が使われるか）はサーバー上のプラグイン API で十分で、
       PixeLAW の分析が示すように同じ構造はチェーンなしでも書ける。
   evidence:
-    - {game: downstream, stance: support, note: "種別所有で拡張どうしの競合を避け、運営審査なしに機能を追加できる構造を実装した。", s: [src-downstream-plugin-rule]}
+    - {game: downstream, stance: support, note: "建物種別の所有者だけが実装を変えられる形で拡張どうしの競合を避け、運営審査なしに機能を追加できる構造を実装した（ただし owner は Rule の追加と状態書き込み権の付与を保持）。", s: [src-downstream-plugin-rule, src-downstream-game-contract]}
     - {game: primodium, stance: support, note: "システム単位の委任と報酬エスクローで、代行のような他者機能の利用をコア改修なしに作れる。", s: [src-primodium-bounty-example]}
-    - {game: biomes, stance: counter, note: "拡張機構は何度も作られたが、第三者の拡張とその利用の証拠は見つからなかった。", s: [src-biomes-experience-prs]}
-    - {game: downstream, stance: counter, note: "確認できた外部作例は運営の協力者によるもの。", s: [src-downstream-advanced-tutorials]}
+    - {game: biomes, stance: counter, note: "拡張機構は何度も作られたが、第三者の拡張とその利用の証拠は見つからなかった（PR は全 34 件が同一開発者）。", s: [src-biomes-experience-prs]}
+    - {game: downstream, stance: counter, note: "外部作例 3 件（作者は Playmint 外、うち 1kx はシード投資家）は運営のリポジトリに取り込まれて配布され、本番で他のプレイヤーに使われた記録は見つからない。", s: [src-downstream-advanced-tutorials, src-downstream-commits]}
   insights: [ins-permissionless-ext-unused, ins-trust-boundary, ins-minimal-primitive]
   experiment:
     design: オフチェーン試作で、作者 3〜5 人がレシピを定義し、利用側 20〜30 人が 1〜2 週間遊ぶ。バージョン固定あり／なしの 2 群。
@@ -41,8 +41,10 @@
     kill: 外注の再利用率が 10% 未満なら、「他人の機能の再利用」は中核から外す。
     cost: 小（チェーン不要。2〜3 週間の開発）
   relation_to_current: >-
-    「プレイヤーが作った機能を他のプレイヤーも利用・組み合わせられる」という現在の関心に最も近い仮説。ただし事例の証拠はむしろこの方向に否定的（需要が確認されていない）で、
-    最初の実験はそれを反証する機会として設計している。
+    「プレイヤーが作った機能を他のプレイヤーも利用・組み合わせられる」という現在の関心に最も近い仮説。支持する材料は、所有範囲に閉じた拡張や委任による代行が
+    技術的に実装できたこと（Downstream、Primodium）と、自分の競争力を上げる道具なら他人の作ったものも使われたこと（Dark Forest のプラグイン）に限られる。
+    反対の材料は、許可不要の拡張を中核に据えた世界で第三者の拡張が使われた証拠がほとんどないこと（Biomes、Downstream、PixeLAW、Primodium）で、事例の全体は需要が確認されていない方向に傾く。
+    最初の実験はこの点を反証できるように設計している。
 
 - id: hyp-short-season-civ
   short: 短期シーズン文明戦（持ち越しは名声のみ）
@@ -74,9 +76,9 @@
       短い試合は Eternum が運営シーケンサに移ったように、性能のためにチェーン依存を減らす圧力がかかりやすい。
   evidence:
     - {game: realms-eternum, stance: support, note: "数週間のシーズンから 60 分の Blitz と日替わり形式へ移った。", s: [src-realms-eternum-readme]}
-    - {game: dark-forest, stance: support, note: "ラウンド制で得点規則を変え、各ラウンドに再参加の鍵を配った。", s: [src-df-gameplay-policy, src-df-r3-wrapup]}
+    - {game: dark-forest, stance: support, note: "ラウンド制で得点規則を変え、得点した参加者に次ラウンドの招待鍵を配った（鍵を得た人数であり、実際の再参加数ではない）。", s: [src-df-gameplay-policy, src-df-r1-wrapup]}
     - {game: dark-forest, stance: counter, note: "ラウンド制でも同一集団が上位を占め続けた。", s: [src-df-r5-wrapup]}
-    - {game: realms-eternum, stance: counter, note: "短時間形式への移行は、「永続する文明」という当初の価値提案を手放すことでもあった。", s: [src-realms-eternum-readme]}
+    - {game: realms-eternum, stance: counter, note: "短時間形式への移行は、「永続する文明」という当初の価値提案を手放すことでもあり（エントリの分析）、現行版は運営のシーケンサと中継に依存を増やした。", s: [src-realms-eternum-readme]}
   insights: [ins-long-season-shrinks, ins-ordering-fairness, ins-veteran-concentration, ins-sink-new-asset, ins-zk-fog-compute]
   experiment:
     design: 同じルールで 2 時間・3 日・2 週間の 3 形式を試作し、各 10〜20 人。後発参加者（開始から 30% 経過後）を各形式に必ず含める。
@@ -84,8 +86,9 @@
     kill: どの形式でも後発の完走率が 30% 未満なら、追い上げ機構を作るまで長さの議論は保留。
     cost: 中
   relation_to_current: >-
-    現在の構想にある「10 分ごとのターン・秘匿進軍・14 日シーズン」とは長さの前提が異なる。長期シーズンを短期に置き換える根拠（Eternum の移行）と、
-    短期でも熟練集団が勝ち続ける反証（Dark Forest）の両方がある。
+    現在の構想にある「10 分ごとのターン・秘匿進軍・14 日シーズン」とは長さの前提が異なる。長期シーズンが短期で決着・縮小した事例（Eternum の S0・S1 と Blitz への移行、Conquest.eth の活動の集中）は
+    短期化を支持し、ラウンド制でも熟練集団が勝ち続けた事例（Dark Forest）は短期化だけでは新規参入の問題が解けないことを示す。
+    14 日という長さそのものの良し悪しを直接示す事例はない（Dark Forest の 1〜2 週間のラウンドが最も近い）。
 
 - id: hyp-ai-lieutenants
   short: AI は人間の部下（方針だけ与える）
@@ -120,7 +123,7 @@
     - {game: parallel-colony, stance: support, note: "公開版は人間の指示を中心にした遊びとして出ている。", s: [src-colony-official]}
     - {game: freysa, stance: counter, note: "チェーンは資金の流れを示したが、AI 判定の公正さは検証されていなかった。", s: [src-freysa-blog-verifiable-games]}
     - {game: sunflower-land, stance: counter, note: "換金のある農業ゲームの規約は、AI エージェントやヘッドレスクライアントを禁止している。", s: [src-sunflower-land-docs-prohibited]}
-    - {game: realms-eternum, stance: counter, note: "エージェントを入れる試みは NPC 軍に留まり、内部でも複数のエージェント開発が削除された。", s: [src-realms-eternum-s1-config, src-realms-eternum-hired-agents]}
+    - {game: realms-eternum, stance: counter, note: "エージェントを入れる試みは S1 では運営制御の NPC 軍に留まり、内部でも 3 つのエージェント／ヘッドレスの試みが削除された（削除理由は運営文書の説明）。ただし 2026-09 に新しい実行環境が追加され、作り直し中とも読める。", s: [src-realms-eternum-s1-config, src-realms-eternum-hired-agents, src-realms-eternum-agent-runner]}
   insights: [ins-human-decision-preparation, ins-llm-judge-trust, ins-agent-society-offchain]
   experiment:
     design: 30 分のシナリオを「AI なし」「方針のみ」「個別命令可」の 3 群で 6〜9 人ずつ遊んでもらう。AI はローカル実行、チェーンなし。
@@ -129,7 +132,9 @@
     cost: 小
   relation_to_current: >-
     現在の構想の「コードが候補を出し、モデルが選び、コードが検証する」構造とほぼ同じだが、ここでは AI を対等な参加者ではなく部下として扱う点が異なる。
-    人間と AI が対等に長期で遊んだ事例は見つからなかったため、対等性を前提にした設計への支持は乏しい。
+    支持する材料は、人間の判断を準備・指示に集める設計が商用で試されたこと（AI Arena、Parallel Colony）。反対・未確認の材料は、AI の判定の公正さをチェーンで示せなかったこと（Freysa）、
+    換金のあるゲームが AI によるプレイを禁止したこと（Sunflower Land）、AI を参加者にする試みが NPC に留まったこと（Eternum）。
+    人間と AI が対等に長期で遊んだ事例は見つからず、対等性を前提にした設計にも部下型の設計にも、長期の実証はない。
 
 - id: hyp-offchain-first
   short: チェーンなしで核を検証
@@ -166,7 +171,9 @@
     kill: なし（この仮説は他の仮説のベースラインとして使う）。
     cost: 小〜中
   relation_to_current: >-
-    現在の構想がチェーン（Solana 互換）と参加費・賞金を前提にしていることへの反対仮説。根拠となる事例は多いが、運営不在での継続や第三者参加を価値にするなら逆の結論になる。
+    現在の構想がチェーン（Solana 互換）と参加費・賞金を前提にしていることへの反対仮説。遊びと不正対策がサーバー側にあった事例（Pixels、Sunflower Land）や AI 社会の研究は
+    この仮説を支持する。一方、運営不在でも第三者が遊び場を再展開できた事例（Dark Forest の Lobbies）や、匿名の参加費から賞金を即時に積む決済（Freysa）はチェーン側の利点を示し、
+    運営不在での継続や第三者参加を価値にするなら逆の結論になる。ただしその利点も、ホストチェーンや運営の存続に依存した（Redstone 上の世界）。
 
 - id: hyp-automation-league
   short: 自動化を公認したボット部門
@@ -197,7 +204,7 @@
       ボットの公平な扱い（同じ API・同じ手数料・行動ログの公開）を第三者に検証させたい場合にはチェーンが役立つ。単一運営の大会ならサーバーでも可能。
   evidence:
     - {game: dark-forest, stance: support, note: "自動化を公認し、ツール作りが競技になった。プラグインコンテストも開かれた。", s: [src-df-gameplay-policy, src-df-plugins-contest]}
-    - {game: huntercoin, stance: support, note: "公開盤面に換金可能な報酬を置いた結果、ボット軍団の競争になった。禁止より公認の方が現実的とする根拠。", s: [src-huntercoin-bgamer-2018]}
+    - {game: huntercoin, stance: support, note: "公開盤面に換金可能な報酬を置いた結果、ボット軍団の競争になった（開発者の証言）。禁止する仕組みのない公開盤面ではボットが避けにくいことを示す。", s: [src-huntercoin-bgamer-2018]}
     - {game: dark-forest, stance: counter, note: "同一集団が上位を占め続け、R5 では公平性の論争が起きた。", s: [src-df-r5-wrapup]}
     - {game: sunflower-land, stance: counter, note: "換金のある運営は、逆に AI エージェントやヘッドレスクライアントを禁止する方向を取った。", s: [src-sunflower-land-docs-prohibited]}
   insights: [ins-public-state-automation, ins-permissionless-ext-unused, ins-veteran-concentration]
@@ -208,3 +215,5 @@
     cost: 小〜中
   relation_to_current: >-
     人間と AI を同じ世界に置く構想に対し、「同じ盤面に置かず部門を分ける」という代替案。AI を公平に扱う問題を、AI を特別扱いしないことで回避する。
+    自動化を公認してツール作りを競技にした事例（Dark Forest）は部門化の土台になり得るが、そこでも同一集団が上位を占め続けた。
+    換金のある運営は逆に AI によるプレイを禁止した（Sunflower Land）。人間部門と AI 部門を分けて運営した事例は確認できず、どちらの構想も実証は乏しい。

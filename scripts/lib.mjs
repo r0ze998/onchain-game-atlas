@@ -100,8 +100,10 @@ export function buildDataset(raw, { today = new Date().toISOString().slice(0, 10
   const byUrl = new Map();
   for (const s of sources.values()) {
     const key = s.url.replace(/\/$/, '').replace(/^http:/, 'https:');
-    if (byUrl.has(key)) warn(`source ${s.id}`, `same url as ${byUrl.get(key)}`);
-    else byUrl.set(key, s.id);
+    // 別エントリが同じ資料を各自の出典として登録するのは許容。同じエントリ内の重複だけ警告する
+    const prev = byUrl.get(key);
+    if (prev && sources.get(prev).owner === s.owner) warn(`source ${s.id}`, `same url as ${prev} in the same entry`);
+    else if (!prev) byUrl.set(key, s.id);
   }
 
   const gameIds = new Set();

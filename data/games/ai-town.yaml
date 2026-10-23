@@ -19,10 +19,10 @@ categories:
 status:
   value: active
   as_of: "2026-10"
-  note: "GitHub リポジトリの最新コミットは 2026-08-25（clone で確認）。"
+  note: "GitHub リポジトリの最新コミットは 2026-08-25（clone で確認）。ただし 2025-03 以降のコミットは月 0〜4 件の保守的な更新で、活発な機能開発ではない。デモの稼働状況は未確認。"
   s: [src-aitown-repo]
 dates:
-  launched: {date: "2023-08", s: [src-aitown-repo], note: "README の画面写真の日付（2023-08-14）と LICENSE の年（2023）から月精度で推定した。正確な公開日は未確認"}
+  launched: {date: "2023-08", s: [src-aitown-repo, src-aitown-cryptoslate], note: "リポジトリでの開発は 2023-07-15 のコミットから始まり、2023-08-16 の CryptoSlate が a16z によるコード公開を報じている。正確な公開日は未確認"}
 
 architecture:
   onchain:
@@ -31,7 +31,7 @@ architecture:
     s: [src-aitown-repo]
   offchain:
     - {item: "Convex 上のゲームエンジン（60 ティック/秒の論理を 1 秒ごとのステップにまとめて実行し、差分を保存）", s: [src-aitown-repo]}
-    - {item: "LLM 推論（既定は Ollama の llama3、Together.ai や OpenAI 互換 API も可）", s: [src-aitown-repo]}
+    - {item: "LLM 推論（参照日の既定は Ollama の llama3、Together.ai や OpenAI 互換 API も可）。2023-08 の公開時の構成は Convex・Pinecone・Clerk・OpenAI・Fly と報じられており、既定の LLM は後に変わった", s: [src-aitown-repo, src-aitown-cryptoslate]}
     - {item: "ブラウザが 5 分放置されるとシミュレーションを停止する cron（費用抑制）", s: [src-aitown-repo]}
   admin:
     level: significant
@@ -58,8 +58,13 @@ compare:
 
 concepts: [c-ai-agent-player, c-client-plugins]
 
+article:
+  counter_evidence:
+    - {t: "「共有状態・決定的なステップ実行をデータベースで実現できる」という見方には限界がある。参加者は状態遷移の正しさを独立に検証できず、デプロイした者は状態を任意に書き換え・停止できる（testing:stop、5 分放置で停止する cron）。チェーンが提供する第三者検証・運営からの独立性は AI Town では扱われていない。", k: analysis, s: [src-aitown-repo]}
+    - {t: "人間とエージェントが同じ入力経路で行動できる設計は確認できるが、人間とエージェントが混在する町で長期的な遊びが生まれたことを示す資料は見つからなかった。「人間と AI が同じ世界で遊ぶ基盤」が実際に使われた規模は不明。", k: unknown}
+
 events:
-  - {id: ev-aitown-release, date: "2023-08", type: release, title: "AI Town を公開", detail: "公開月は README の画面写真の日付による推定", s: [src-aitown-repo]}
+  - {id: ev-aitown-release, date: "2023-08", type: release, title: "AI Town を公開", detail: "2023-08-16 の報道で公開済み。Convex との協業で作られたと報じられた", s: [src-aitown-repo, src-aitown-cryptoslate]}
 
 relations:
   - {to: generative-agents, type: influenced-by, basis: confirmed, note: "README が「Inspired by the research paper Generative Agents」と明記", s: [src-aitown-repo]}
@@ -72,3 +77,4 @@ unknowns:
 
 sources:
   - {id: src-aitown-repo, title: "a16z-infra/ai-town", url: "https://github.com/a16z-infra/ai-town", publisher: "GitHub (a16z-infra)", type: code, primary: true, published: "2023-08", accessed: "2026-10-23", access: fetched, lang: en, note: "git clone で README・ARCHITECTURE.md・LICENSE を確認。最新コミット 2026-08-25"}
+  - {id: src-aitown-cryptoslate, title: "VC firm a16z releases open-source microverse packed with generative AI NPCs in AI Town", url: "https://cryptoslate.com/vc-firm-a16z-releases-open-source-microverse-packed-with-generative-ai-npcs-in-ai-town/", publisher: "CryptoSlate", author: "Liam 'Akiba' Wright", type: news, primary: false, published: "2023-08-16", accessed: "2026-10-23", access: fetched, lang: en, note: "a16z がコードを公開、Convex Dev と協業、Stanford の Generative Agents 論文に着想。当時の構成は Convex・Pinecone・Clerk・OpenAI・Fly。ブロックチェーン要素への言及なし"}

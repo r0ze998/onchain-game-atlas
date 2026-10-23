@@ -20,8 +20,8 @@ categories:
 status:
   value: active
   as_of: "2026-10"
-  note: "公式サイトは参照日に Play Now の導線を持ち（2026 年の著作権表示）、SDK リポジトリは 2026-10-22 に更新。利用規模は未確認。2025-12 更新のページが Sepolia の pre-release に言及していると検索要約にあったが本文は未読。"
-  s: [src-influence-site, src-influence-github-org]
+  note: "公式サイトは参照日に Play Now の導線（game.influenceth.io、HTTP 200 を確認）を持ち（2026 年の著作権表示）、SDK リポジトリの最新コミットは 2026-10-20（GitHub の組織ページ上の更新表示は 2026-10-22）。利用規模は未確認。公式 Substack の最新投稿は 2024-09-12 の物語記事で、運営状況の公式発表は 2024-09 以降見つからない。検索要約にあった「2025-12 の Sepolia pre-release」は 2024-02-23 公開・2025-12-02 更新の games.gg 記事で、mainnet 前（2024-02）のテストを指しており新たなテストの証拠ではない。"
+  s: [src-influence-site, src-influence-github-org, src-influence-sdk, src-influence-substack-archive]
 dates:
   announced: {date: "2021", s: [src-influence-starknet-launch], note: "Starknet 公式記事は 2021 年に Starknet へのコミットを決めた最初期のチームと記載。最初の告知日は未確認"}
   launched: {date: "2024-06-27", s: [src-influence-starknet-launch, src-influence-bankless], note: "Starknet mainnet で正式稼働"}
@@ -32,13 +32,13 @@ architecture:
     detail: >-
       Starknet 上の Influence Dispatcher コントラクトが run_system でシステムを実行し、全状態をコンポーネント（例: Crew）として保持する。
       公式記事は全行動がオンチェーンで誰でも閲覧できると述べる。小惑星・クルーメイト・クルー・船は Ethereum と Starknet の両方に NFT コントラクトがある。
-    s: [src-influence-sdk, src-influence-starknet-launch]
+      トークノミクス文書は、SWAY の継続的な発行はすべて L1 Ethereum 側で行い、Starknet 側の SWAY は発行できないとする。
+    s: [src-influence-sdk, src-influence-starknet-launch, src-influence-tokenomics]
   offchain:
     - {item: "公式クライアント（game.influenceth.io）と SDK による読み取り・描画", s: [src-influence-site, src-influence-sdk]}
-    - {item: "SWAY の継続的な発行は L1 Ethereum 側で行う計画だったと検索要約にある（本文未読）", s: [src-influence-tokenomics]}
   admin:
     level: unknown
-    detail: "Dispatcher のアップグレード権限・停止権限は確認できなかった。SWAY の Starknet コントラクトは当初アップグレード可能で管理者役割を持ち、ローンチ前に放棄予定だったと検索要約にある（本文未読）。"
+    detail: "Dispatcher のアップグレード権限・停止権限は確認できなかった。トークノミクス文書（v3.0、2024-06-22）は、Starknet の SWAY コントラクトは当初アップグレード可能で管理者役割を持ち、ローンチ前にその役割を取り消して不変にすると述べる（運営の計画。実際に取り消されたかはオンチェーンで未確認）。"
     s: [src-influence-tokenomics]
   open_source:
     level: partial
@@ -61,6 +61,11 @@ compare:
 
 concepts: [c-onchain-rules, c-onchain-state, m-production-chain, m-land, c-nft-asset, c-fungible-ingame-token, c-ecs-engine, c-autonomous-world]
 
+article:
+  counter_evidence:
+    - {t: "status: active の根拠は公式サイトの Play Now 導線と SDK のコミットで、プレイヤー数や取引量の公開データ、2024-09 以降の公式の運営報告は見つからなかった。「稼働している」ことと「遊ばれている」ことは区別が必要。", k: analysis, s: [src-influence-site, src-influence-sdk, src-influence-github-org]}
+    - {t: "「unstoppable」「コミュニティが最終的に運営する」という主張に対し、SWAY の Starknet コントラクトは当初アップグレード可能な管理者役割付きで展開され、ゲームコントラクトのソースと Dispatcher の権限は確認できない。運営からの独立性は主張の段階にとどまる。", k: analysis, s: [src-influence-starkware-invest, src-influence-tokenomics, src-influence-github-org]}
+
 events:
   - {id: ev-influence-starkware, date: "2023-04-10", type: funding, title: "StarkWare が Unstoppable Games に戦略的出資", detail: "額は非公表。当時は 2023 年夏のローンチを予定", s: [src-influence-starkware-invest]}
   - {id: ev-influence-mainnet, date: "2024-06-27", type: launch, title: "Starknet mainnet で正式稼働", s: [src-influence-starknet-launch, src-influence-bankless]}
@@ -73,19 +78,21 @@ relations:
 unknowns:
   - "プレイヤー数・継続率・SWAY の流通量など規模を示す数値。"
   - "ゲームコントラクトのソース公開とアップグレード・停止権限。"
-  - "2024-06 の mainnet 稼働後の運営状況（2025-12 の Sepolia pre-release への言及の意味）。"
+  - "2024-06 の mainnet 稼働後の運営状況（公式 Substack の運営報告は 2024-06 以降なし）。SWAY 管理者役割の取り消しが実行されたか。"
   - "2021 年の Ethereum 上の小惑星販売の日時・規模（SDK に L1 の Asteroid NFT はあるが販売経緯は未確認）。"
 contradictions:
   - {t: "Starknet 公式ブログ（2023）は Influence を Dojo で作られたゲームとして挙げるが、Influence の SDK は独自の Dispatcher を使い Dojo への言及がない。", s: [src-influence-starknet-dojo-blog, src-influence-sdk]}
   - {t: "StarkWare 出資の記事（2023-04）は 2023 年夏のローンチ予定と記すが、mainnet 稼働は 2024-06-27。", s: [src-influence-starkware-invest, src-influence-starknet-launch]}
+  - {t: "製品数の記載が資料で異なる: Starknet 公式記事は「nearly 200」のプレイヤー製品、Bankless は「over 240 items」、公式サイトは 250 のクラフト可能な資源。", s: [src-influence-starknet-launch, src-influence-bankless, src-influence-site]}
 
 sources:
   - {id: src-influence-starknet-launch, title: "Influence: Live on Mainnet", url: "https://www.starknet.io/blog/influence-live-on-mainnet/", publisher: "Starknet blog", type: official-blog, primary: true, published: "2024-06-25", accessed: "2026-10-23", access: fetched, lang: en, note: "2024-06-27 ローンチ、22 原料・11 種の小惑星、5 職種、全行動オンチェーン"}
-  - {id: src-influence-bankless, title: "Influence: How to Play the New Starknet Game", url: "https://www.bankless.com/play-influence-starknet-game", publisher: "Bankless", type: news, primary: false, published: "2024-06-25", accessed: "2026-10-23", access: fetched, lang: en, note: "SWAY のフェアローンチ、NPC なし、Starter Pack 30 ドルから"}
+  - {id: src-influence-bankless, title: "Influence: How to Play the New Starknet Game", url: "https://www.bankless.com/play-influence-starknet-game", publisher: "Bankless", type: news, primary: false, published: "2024-06-25", accessed: "2026-10-23", access: fetched, lang: en, note: "SWAY のフェアローンチ、NPC なし、Starter Pack 30 ドルから。著者は Influence のコミュニティ・スチュワード（Jean-Paul Faraj）によるゲスト寄稿で、独立した報道ではない"}
   - {id: src-influence-starkware-invest, title: "Unstoppable Games Announces Strategic Investment from StarkWare", url: "https://influenceth.substack.com/p/starkware-invests-in-influence", publisher: "Influence (Substack)", author: "Chris Lexmond", type: official-blog, primary: true, published: "2023-04-10", accessed: "2026-10-23", access: fetched, lang: en, note: "StarkWare の株式出資（額非公表）、Starknet 選定理由、2023 年夏ローンチ予定"}
   - {id: src-influence-sdk, title: "influenceth/sdk (Influence SDK)", url: "https://github.com/influenceth/sdk", publisher: "GitHub", type: code, primary: true, published: "2026-10-22", accessed: "2026-10-23", access: fetched, lang: en, note: "git clone で README を確認。Ethereum / Starknet のアドレス、Dispatcher の run_system・ReadComponent。Dojo への言及なし"}
   - {id: src-influence-github-org, title: "Influence (GitHub organization)", url: "https://github.com/influenceth", publisher: "GitHub", type: code, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "19 リポジトリ。sdk・cubit・ibis・client 等の更新日"}
   - {id: src-influence-site, title: "Influence", url: "https://influenceth.io/", publisher: "Unstoppable Games", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "Play Now、25 万の小惑星、250 の製品、PvP は将来拡張"}
   - {id: src-influence-chaincatcher, title: "AW Frontier: The Ultimate Guide to Starknet's Full-Chain Games", url: "https://www.chaincatcher.com/en/article/2114963", publisher: "ChainCatcher", type: analysis, primary: false, published: "2024-02-23", accessed: "2026-10-23", access: fetched, lang: en, note: "テストネットの限定版、ドキュメントを読む必要がある複雑さ"}
-  - {id: src-influence-tokenomics, title: "Influence Tokenomics Overview", url: "https://influenceth.substack.com/p/influence-tokenomics-overview", publisher: "Influence (Substack)", type: official-blog, primary: true, accessed: "2026-10-23", access: snippet, lang: en, note: "検索要約のみ。SWAY の Starknet 契約の管理者役割と L1 側の発行"}
+  - {id: src-influence-tokenomics, title: "Influence Tokenomics Overview", url: "https://influenceth.substack.com/p/influence-tokenomics-overview", publisher: "Influence (Substack)", type: official-blog, primary: true, published: "2023-03-16", accessed: "2026-10-23", access: fetched, lang: en, note: "検証時に本文取得（文書は Version 3.0 - June 22nd, 2024）。SWAY の Starknet 契約は当初アップグレード可能で管理者役割付き・ローンチ前に取り消し予定、継続発行は L1 のみ、外部投資家への割当なし"}
   - {id: src-influence-starknet-dojo-blog, title: "Dojo on Starknet", url: "https://www.starknet.io/blog/dojo-on-starknet/", publisher: "Starknet blog", type: official-blog, primary: true, published: "2023-07-13", accessed: "2026-10-23", access: fetched, lang: en, note: "Influence を Dojo で作られたゲームとして列挙"}
+  - {id: src-influence-substack-archive, title: "Influence - Space Strategy MMO (Substack archive)", url: "https://influenceth.substack.com/archive", publisher: "Influence (Substack)", type: official-blog, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "検証時に archive API で取得。最新 8 件は 2023-03〜2024-09。最新は 2024-09-12 の物語記事「Outside」で、運営状況の記述なし"}

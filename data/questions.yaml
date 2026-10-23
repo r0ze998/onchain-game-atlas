@@ -5,12 +5,12 @@
   labels: {support: 成立した・工夫で成立し得た, counter: 成立しにくかった}
   answer: >-
     「全公開のまま」は、計算と自動化の競争に置き換わりやすい（Fomo3D・Huntercoin）。ZK やコミット・リビールで秘匿は技術的に成立した（Dark Forest・Conquest.eth・zkHunt）が、
-    霧を総当たりで晴らせる設計では駆け引きより計算力が効いた。全公開でも、襲撃と報復の社会的な駆け引きは生まれた（Primodium）。
+    霧を総当たりで晴らせる設計では駆け引きより計算力が効いた。全公開でも、襲撃と報復の社会的な駆け引きはプレイヤー記事に記録された（Primodium）。
   cases:
     - {game: dark-forest, stance: support, note: "ハッシュ化座標と ZK 移動証明で、公開台帳上の戦場の霧を実現した。", s: [src-df-announce]}
     - {game: conquest-eth, stance: support, note: "艦隊の移動をコミット・リビールで秘匿する。", s: [src-conquest-handbook]}
-    - {game: primodium, stance: support, note: "全公開の世界でも襲撃と報復、首位への集中攻撃といった社会的な駆け引きが記録された。", s: [src-primodium-wasd]}
-    - {game: dark-forest, stance: counter, note: "霧は GPU による探索で晴らされ、上位は計算と自動化で決まった。", s: [src-df-r3-wrapup]}
+    - {game: primodium, stance: support, note: "全公開の世界でも襲撃と報復、首位への集中攻撃といった社会的な駆け引きがプレイヤー記事（WASD、v0.7.1）に記録された。", s: [src-primodium-wasd]}
+    - {game: dark-forest, stance: counter, note: "霧は GPU による探索で晴らされ、上位争いは計算と自動化に大きく左右された（ただし R1 の 2 位はほぼ手動だった）。", s: [src-df-r3-wrapup, src-df-r1-wrapup]}
     - {game: fomo3d, stance: counter, note: "完全公開の状態と決定的乱数は、有利なときだけ実行する攻撃を許した。", s: [src-fomo3d-secbit-solution]}
     - {game: zkhunt, stance: context, note: "応答義務と時間切れによる清算で秘匿移動を成立させる小型実験。", s: [src-zkhunt-liquidation]}
   insights: [ins-zk-fog-compute, ins-public-state-automation, ins-ordering-fairness]
@@ -28,8 +28,8 @@
     - {game: sunflower-land, stance: support, note: "勝利条件のない農業世界として 2021 年から 2026 年まで継続。", s: [src-sunflower-land-git-history]}
     - {game: dark-forest, stance: support, note: "ラウンドごとに世界と得点規則をリセットした。", s: [src-df-gameplay-policy]}
     - {game: dark-forest, stance: counter, note: "それでも同一集団が R2〜R5 の上位を占めた。", s: [src-df-r5-wrapup]}
-    - {game: realms-eternum, stance: counter, note: "到達型の勝利条件で S0・S1 が数週間で決着し、後発の遊ぶ期間が短くなった。", s: [src-realms-eternum-git-history]}
-    - {game: primodium, stance: counter, note: "全公開の世界では不在のプレイヤーが一方的に狙われた。", s: [src-primodium-wasd]}
+    - {game: realms-eternum, stance: counter, note: "到達型の勝利条件で S0 は 2 週間余り、S1 も数週間で決着したとみられ（S1 はコミット履歴からの推定）、後発の遊ぶ期間が短くなった。", s: [src-realms-eternum-x-s0-champions, src-realms-eternum-git-history]}
+    - {game: primodium, stance: counter, note: "プレイヤー記事（WASD）では、首位に立った直後に宣戦され一晩で 18 回襲撃されて 50 位前後に落ちた。全公開の世界では目立つ・不在のプレイヤーが狙われやすい。", s: [src-primodium-wasd]}
     - {game: sunflower-land, stance: context, note: "新規アカウントの資源売却手数料を 100% にし、進行で下げる。新規を守るのではなく使い捨てアカウントを防ぐ設計。", s: [src-sunflower-land-docs-marketplace]}
   insights: [ins-long-season-shrinks, ins-veteran-concentration]
   hypotheses: [hyp-short-season-civ]
@@ -45,10 +45,10 @@
   cases:
     - {game: dark-forest, stance: support, note: "換金用トークンを持たないラウンド制で、各ラウンド 1700〜2500 人規模（ホワイトリスト数等、定義は回ごと）。", s: [src-df-r3-wrapup, src-df-r5-wrapup]}
     - {game: cryptokitties, stance: support, note: "盛り上がりから 8 年後も少数の交配取引が続いている。", s: [src-ck-etherscan-txs]}
-    - {game: pixels, stance: counter, note: "報酬対象を絞った直後に日次ウォレットが約 69% 減少した。", s: [src-pixels-bg-ch2-drop]}
-    - {game: sunflower-land, stance: counter, note: "2022 年の作り直し後も DAU が大きく減った（Naavik）。報酬なしで残った層の直接の証拠はない。", s: [src-sunflower-land-naavik]}
+    - {game: pixels, stance: counter, note: "報酬対象を絞った直後に日次ウォレットが 90 万超から 25.2 万へ減少した（見出しは 69% 減、本文の数値では約 72% 減）。", s: [src-pixels-bg-ch2-drop]}
+    - {game: sunflower-land, stance: counter, note: "2022 年の作り直し後も、同期取引から集計した DAU がピーク比 83% 減った（Naavik、2022-08）。報酬なしで残った層の直接の証拠はない。", s: [src-sunflower-land-naavik]}
     - {game: axie-infinity, stance: counter, note: "報酬目的のアカウント分割が効率的だったと運営自身が書いている。", s: [src-axie-blog-season20]}
-    - {game: stepn, stance: counter, note: "利用者数が報酬トークンの価格と連動して大きく動いた。", s: [src-stepn-decrypt-2023]}
+    - {game: stepn, stance: counter, note: "Dune の MAU（Decrypt 引用）は 2022-05 の 70 万超から 12 月に 4.5 万弱へ減り、同時期に報酬トークン GST の価格も急落した（連動は時期の一致からの推測）。", s: [src-stepn-decrypt-2023, src-stepn-coingecko-gst]}
   insights: [ins-reward-metrics-misread, ins-sink-new-asset]
   hypotheses: [hyp-offchain-first]
   open: "報酬を段階的に外したときの残存率を、人間とボットを区別して測った公開データはない。"
@@ -63,8 +63,8 @@
   cases:
     - {game: dark-forest, stance: support, note: "プラグインが多数作られ共有された（ただし鍵リスクで他人のものの使用は戒められた）。", s: [src-df-plugins-repo]}
     - {game: loot, stance: support, note: "派生が 100 を超えた（ただし相互接続は乏しい）。", s: [src-loot-resources]}
-    - {game: biomes, stance: counter, note: "拡張の PR はほぼ同一開発者、第三者の PR は未マージ。", s: [src-biomes-experience-prs]}
-    - {game: downstream, stance: counter, note: "外部作例は運営の協力者のもの。", s: [src-downstream-advanced-tutorials]}
+    - {game: biomes, stance: counter, note: "拡張の PR は全 34 件が同一開発者で、第三者の PR（Biocash）は未マージのまま。", s: [src-biomes-experience-prs, src-biomes-biocash-pr]}
+    - {game: downstream, stance: counter, note: "外部作例 3 件（作者は Playmint 外、うち 1kx はシード投資家）は運営のリポジトリに取り込まれて配布され、本番で他のプレイヤーに使われた記録は見つからない。", s: [src-downstream-advanced-tutorials, src-downstream-commits]}
     - {game: pixelaw, stance: counter, note: "公開アプリは主に中核メンバーの作で、アプリ間の相互作用の実例も少ない。", s: [src-pixelaw-examples]}
     - {game: primodium, stance: counter, note: "第三者が本番 World に登録した拡張の実例を確認できなかった。", s: [src-primodium-world-ext]}
   insights: [ins-permissionless-ext-unused, ins-trust-boundary, ins-minimal-primitive]
@@ -77,11 +77,11 @@
   labels: {support: 人間の決定が残る設計があった, counter: AI 参加の実態が限定的だった}
   answer: >-
     確認できた事例では、人間の決定は試合中の操作から「準備・方針・指示」に移った（AI Arena、Parallel Colony）。Freysa では人間が AI を攻略対象として扱った。
-    AI が人間と対等なプレイヤーとして長期に参加した事例はなく、Eternum の AI 軍は運営制御の NPC だった。
+    AI が人間と対等なプレイヤーとして長期に参加した事例はなく、Eternum S1 の AI 軍は運営制御の NPC だった（2026-09 にエージェントの実行環境が作り直され始めたが稼働は未確認）。
   cases:
     - {game: ai-arena, stance: support, note: "人間はデモ作成・学習設定・試合選択で関与し、試合は無人で回る。", s: [src-aiarena-notion-training]}
     - {game: parallel-colony, stance: support, note: "人間の指示を中心にした遊びとして公開された。", s: [src-colony-official]}
-    - {game: freysa, stance: support, note: "人間が AI を説得・攻略する遊び。共有文脈で人間同士も影響し合った。", s: [src-freysa-site-act1]}
+    - {game: freysa, stance: support, note: "人間が AI を説得・攻略する遊び。全メッセージが公開され、参加者は他人の失敗を読んで手を変えた（過去メッセージが AI の文脈に入るとは運営の説明で、文脈長の記述は資料で食い違う）。", s: [src-freysa-site-act1, src-freysa-theblock-win]}
     - {game: realms-eternum, stance: counter, note: "エージェント・プレイヤー構想は、運営 controller の NPC 軍として実装された。", s: [src-realms-eternum-s1-config]}
     - {game: ai-arena, stance: counter, note: "報酬はステーク量にも比例し、育成の判断と資金の差が競合した。", s: [src-aiarena-notion-nrn-rewards]}
     - {game: generative-agents, stance: context, note: "人間が介入しないエージェント社会でも計画・記憶に基づく行動が観察された（オフチェーン研究）。", s: [src-ga-arxiv]}
@@ -99,7 +99,7 @@
   cases:
     - {game: dark-forest, stance: support, note: "ルールがコントラクトにあり、誰でも Lobbies で宇宙を展開できた。", s: [src-df-lobbies]}
     - {game: loot-survivor, stance: support, note: "参加料の分配や保守処理を誰でも呼べる関数にした。", s: [src-ls-code-lib15]}
-    - {game: freysa, stance: support, note: "匿名の参加費から賞金が即時に積み上がる決済。", s: [src-freysa-theblock-win]}
+    - {game: freysa, stance: support, note: "匿名の参加費から賞金が即時に積み上がる決済（ただし Act III 以降はカード購入にも対応した）。", s: [src-freysa-theblock-win, src-freysa-site-act1]}
     - {game: pixels, stance: counter, note: "報酬を中央集権的な仕組みに移し、法定通貨での換金を予定。", s: [src-pixels-bg-stacked]}
     - {game: sunflower-land, stance: counter, note: "遊びと不正対策の大半がサーバー側にある。", s: [src-sunflower-land-docs-collectibles]}
     - {game: freysa, stance: counter, note: "AI の判定は検証されておらず、参加者は実質的に運営を信頼していた。", s: [src-freysa-blog-verifiable-games]}
@@ -113,13 +113,16 @@
   labels: {support: 運営なしで残った・続いた, counter: 運営やホストの停止で失われた}
   answer: >-
     汎用チェーン上の、外部依存の少ない部分は残った（CryptoKitties の交配、Loot の袋、Dark Forest のコードと Lobbies）。専用チェーン上の世界は、
-    ホストの停止で拡張ごと失われた（Sky Strife、Downstream、Biomes の後継、Pirate Nation）。「残る」ことと「遊ばれ続ける」ことは別。
+    ホストの停止で拡張ごと失われたとみられるか（Sky Strife、Downstream。いずれも移行記録がないことからの推論）、停止が告知・報道された（Pirate Nation、DUST Chain）。
+    運営が別チェーンへ移した例（DUST）もあり、残るかどうかは移行を担う主体の有無にも左右された。「残る」ことと「遊ばれ続ける」ことは別（Conquest.eth はコントラクトが残るが活動はほぼ止まった）。
   cases:
     - {game: cryptokitties, stance: support, note: "交配取引が 2026 年も確認できる。", s: [src-ck-etherscan-txs]}
     - {game: dark-forest, stance: support, note: "公式休止後もコードと Lobbies が残った。", s: [src-df-lobbies]}
-    - {game: sky-strife, stance: counter, note: "Lattice の事業縮小と Redstone 停止で終了。", s: [src-sky-strife-winding-down]}
-    - {game: downstream, stance: counter, note: "ホストチェーンの停止で世界と拡張が失われた。", s: [src-downstream-l2beat-redstone]}
-    - {game: pirate-nation, stance: counter, note: "専用チェーンの停止が報じられた。", s: [src-pn-bcg-kill]}
+    - {game: sky-strife, stance: counter, note: "World が載っていた Redstone は Lattice の事業終了で 2026-05-15 に停止した（告知は 2026-04-14 の X 投稿）。Winding Down 告知は Sky Strife に触れておらず、世界が失われたことは推論。", s: [src-sky-strife-winding-down, src-sky-strife-play-client]}
+    - {game: downstream, stance: counter, note: "唯一の展開先 Redstone の停止後、世界と拡張は失われたとみられる（移行記録なし）。", s: [src-downstream-lattice-x, src-downstream-l2beat-redstone]}
+    - {game: pirate-nation, stance: counter, note: "専用チェーン（L3）の停止が報じられた。", s: [src-pn-bcg-kill, src-pn-bcg-shutdown-date]}
+    - {game: biomes, stance: context, note: "DUST は Redstone 停止前に同じワールドアドレスのまま DUST Chain へ移行したが、移行先も 2026-12-31 の停止を告知している。", s: [src-biomes-migration-2026, src-biomes-dust-site]}
+    - {game: conquest-eth, stance: context, note: "Gnosis Chain 上のコントラクトは残っているが、2025-1 版の活動は 2025-10 以降ほぼゼロ（dormant）。残ることと遊ばれ続けることは別。", s: [src-conquest-gnosis-logs]}
     - {game: loot-survivor, stance: context, note: "不変のコントラクトでも、運営は新コントラクトの別経済へ移った。", s: [src-ls-docs-contracts]}
   insights: [ins-host-dependency]
   hypotheses: [hyp-offchain-first]

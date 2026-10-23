@@ -8,7 +8,7 @@
     Counterparty 上のカード資産（Spells of Genesis、Rare Pepe）など、汎用スマートコントラクトがない中での試みが並ぶ。
   changes:
     - {t: "汎用スマートコントラクトがないため、ゲームのルールを実行するにはチェーン自体を作る（Huntercoin は Namecoin 由来の専用チェーンで盤面をブロック検証に組み込んだ）か、資産の発行だけをチェーンに置くしかなかった。", k: analysis, s: [src-huntercoin-code]}
-    - {t: "賭けゲームの大量の小額取引が Bitcoin のブロック空間と議論を圧迫し、ゲームの取引量とチェーンの容量の衝突が早くから現れた。", k: analysis, s: [src-satoshidice-btc082]}
+    - {t: "賭けゲームの大量の小額取引が Bitcoin の取引の大きな割合を占めたとされ（比率の定義と数値は資料により異なる）、ゲームの取引量とチェーンの容量の衝突が早くから現れた。2013-05 の Bitcoin 0.8.2 は極小出力を非標準化した（リリースノートは SatoshiDice に言及していない）。", k: analysis, s: [src-satoshidice-fed-2014, src-satoshidice-bitcoinwiki, src-satoshidice-btc082]}
   unchanged: 遊びのルールの大半はチェーン外にあり、「所有」以外をチェーンに置く実用的な手段はまだなかった。
   key_games: [huntercoin, satoshi-dice, spells-of-genesis, rare-pepe, etherization]
 
@@ -21,7 +21,7 @@
     共有チェーン上のゲームがチェーン全体と資源を奪い合うことを示した。
   changes:
     - {t: "非代替トークン（後の ERC-721）により、ゲーム資産の所有と移転を運営の DB の外で扱えるようになった。CryptoKitties の交配規則はコントラクトに実装された。", k: analysis, s: [src-ck-sourcify-kittycore]}
-    - {t: "ゲームの人気が共有チェーンの容量を圧迫し、手数料の高騰が運営と他の利用者の双方に問題になった（占有率の数値は資料により幅がある）。", k: analysis, s: [src-ck-techcrunch-2017-12]}
+    - {t: "ゲームの人気が共有チェーンの容量を圧迫し、混雑が運営と他の利用者の双方に問題になった（運営は出産手数料を引き上げた。占有率は報道で 11〜25%、検証役の標本計測では日により約 6〜21% と幅がある）。", k: analysis, s: [src-ck-techcrunch-2017-12]}
     - {t: "時間制限のあるゲームが、ゲーム内の選択ではなく取引の順序（ブロック空間）で決着し得ることが Fomo3D で示された。", k: analysis, s: [src-fomo3d-solmaz]}
   unchanged: 遊びの大半（画像、UI、対戦ルール）はサーバー側にあり、共有チェーンの処理能力は大量のゲーム内行動に足りなかった。
   key_games: [cryptokitties, fomo3d, etheremon, gods-unchained, decentraland]
@@ -36,7 +36,7 @@
   changes:
     - {t: "専用チェーンにより高頻度の資産操作が可能になったが、少数の署名者に依存するブリッジが単一障害点になった（Ronin）。", k: analysis, s: [src-rekt-ronin]}
     - {t: "ZK 証明をブラウザで生成し、公開台帳上で位置を隠したまま行動を検証できるようになった。", k: analysis, s: [src-df-announce]}
-    - {t: "報酬トークンの換金価値が地域の賃金を上回る期間、資産の貸借（スカラーシップ）で参加者が急増した。", k: analysis, s: [src-reuters-ph-ditch, src-cg-scholarship-study]}
+    - {t: "換金可能な報酬と資産の貸借（スカラーシップ）で参加者が急増した。報酬は一部地域の賃金と比べられる水準だった（Reuters の例ではスカラーの日収は最低賃金をやや下回る）が、報酬価格の下落とともに参加者は離れた。", k: analysis, s: [src-reuters-ph-ditch, src-cg-scholarship-study]}
     - {t: "統計値も絵もない最小の資産を無料請求で配ることで、短期間に多数の派生が集まった。", k: analysis, s: [src-loot-resources]}
   unchanged: 報酬経済は新規流入に依存し、利用指標は報酬目的の参加と区別されなかった。
   key_games: [axie-infinity, dark-forest, loot, stepn, wolf-game, sunflower-land, defi-kingdoms]
@@ -49,7 +49,7 @@
     MUD や Dojo といったオンチェーンゲーム用の基盤と、ゲーム向けの L2 / L3（Redstone など）が整い、ルールと状態をすべてチェーンに置き、
     第三者が拡張できる「Autonomous Worlds」の試作が相次いだ。同時に P2E の縮小と、報酬設計の見直しが進んだ。
   changes:
-    - {t: "ECS 型のオンチェーンフレームワークで、状態の同期・名前空間ごとの権限・第三者システムの追加が標準化された。", k: analysis, s: [src-mud-docs-world, src-mud-docs-access]}
+    - {t: "ECS 型のオンチェーンフレームワーク（MUD など）が、状態の同期・名前空間ごとの権限・第三者システムの追加を共通の仕組みとして提供した。", k: analysis, s: [src-mud-docs-world, src-mud-docs-access]}
     - {t: "ゲーム専用の L2 / L3 により、ターン制や RTS のような高頻度の行動をオンチェーンで扱えるようになった。", k: analysis, s: [src-mud-redstone-live]}
     - {t: "Autonomous Worlds という考え方が言語化され、運営に依存しない世界と許可不要の拡張が設計目標として掲げられた。", k: analysis, s: [src-awe-0xparc-part1]}
   unchanged: 拡張の仕組みは整ったが、第三者が作り他のプレイヤーが使った拡張の証拠は乏しく、プレイヤー数の公表もほとんどなかった。
@@ -61,10 +61,11 @@
   to: null
   summary: >-
     言語モデルのエージェントをゲームの相手・参加者・NPC にする試み（Freysa、AI Arena、Eternum の AI 軍、Parallel Colony）が現れた。
-    一方で、ゲーム専用チェーンの停止や運営母体の縮小により、Autonomous Worlds の試作の多くが失われ、残ったゲームは短い試合形式やオフチェーン化へ移った。
+    一方で、ゲーム専用チェーンの停止や運営母体の縮小により、Autonomous Worlds の試作のいくつかは失われたとみられ（Redstone 上の Sky Strife・Downstream）、移行先のチェーンも停止を告知した（DUST）。
+    残ったゲームの一部は短い試合形式や運営シーケンサ、オフチェーン化へ移った。
   changes:
     - {t: "AI に判定・運営をさせるゲームが現れたが、チェーンが示したのは資金の流れで、AI の判定の公正さは検証されていなかった。", k: analysis, s: [src-freysa-blog-verifiable-games]}
-    - {t: "ゲーム専用 L2 の運営母体の縮小で、その上の世界が拡張ごと失われた。", k: analysis, s: [src-sky-strife-winding-down]}
-    - {t: "長期シーズンの文明ゲームが、短時間の試合形式と運営シーケンサへ移った。", k: analysis, s: [src-realms-eternum-readme]}
+    - {t: "ゲーム専用 L2（Redstone）が運営母体 Lattice の事業終了で 2026-05-15 に停止し、移行されなかった世界は拡張ごと失われたとみられる。運営が別チェーンへ移した例（DUST）もあるが、移行先も停止を告知した。", k: analysis, s: [src-downstream-lattice-x, src-downstream-l2beat-redstone, src-sky-strife-winding-down, src-biomes-migration-2026, src-biomes-dust-site]}
+    - {t: "長期シーズンの文明ゲーム（Realms: Eternum）が、短時間の試合形式と運営シーケンサへ移った。", k: analysis, s: [src-realms-eternum-readme, src-realms-eternum-git-history]}
   unchanged: 人間と AI が対等なプレイヤーとして長期に同じ世界で遊んだ事例は確認できない。
   key_games: [freysa, ai-arena, realms-eternum, parallel-colony, daydreams, magicblock]

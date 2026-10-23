@@ -10,7 +10,7 @@ summary: >-
   Parallel Studios が 2024-03 に発表した、AI アバターが自分の Solana ウォレットを持って自律的に取引・クラフトする「AI サバイバルシミュレーション」。
   構想では、Parallel の Avatar NFT から生まれるアバターが LLM で動き、PRIME トークンで作成・行動し、エージェント用インフラ Wayfinder が中核とされた。
   2025-09 に Solana Seeker 端末限定のアーリーアルファを経て、2026-09 に iOS/Android の基本無料ゲーム「Colony: Survival」として世界公開されたが、
-  参照日時点の公式ページはブロックチェーン・ウォレット・PRIME・NFT に一切触れず、会話できる AI 入植者と生成 3D 装備を前面に出している。
+  参照日時点の公式ページと公式ゲームガイドの本文はブロックチェーン・ウォレット・PRIME・NFT に触れず、会話できる AI 入植者と生成 3D 装備を前面に出している（サイト共通のフッターには OpenSea の Parallel コレクションへのリンクが残る）。チェーン要素が製品から除去されたのか、表に出していないだけなのかは確認できていない。
 selection_reason: >-
   「AI エージェントがオンチェーンで自律的に取引する」構想を大手 Web3 ゲーム会社が掲げ、その後の製品で公開面からチェーン要素が消えた例であり、
   AI ゲームにチェーンが必要かという問いへの直接の反証候補として重要。状態の変化は報道と公式ページで確認でき、ゲーム内部にチェーン要素が残るかは未確認である点も明示する。
@@ -21,19 +21,20 @@ status:
   value: pivoted
   as_of: "2026-10"
   note: >-
-    2026-09 にモバイルの基本無料ゲームとして世界公開され、遊べる状態（active）。ただし当初の「アバターが自分のウォレットで自律取引する Solana ゲーム」から、
-    公開面ではチェーン要素を出さないモバイル F2P へ設計の重心が移ったため pivoted とした。ゲーム内部でチェーンが使われているかは未確認。
+    2026-09-03 にモバイルの基本無料ゲームとして世界公開され、遊べる状態（active）。pivoted とした根拠は、確認できたゲーム設計の変化
+    （2024 年の「アバターが専用ウォレットで人間の直接操作なしに取引する」構想 → 人間が拠点を建て AI 入植者に助言する 4X）と、公開面からチェーン要素が消えたこと。
+    チェーン要素が製品から除去されたことは確認していない。報道も「目立たなくなった」と書くにとどまり、第三者のゲーム DB は Avatar NFT 保有者が Colony でアバターを使えると記す（一次資料で未確認）。
   s: [src-colony-official, src-colony-bcg-launch, src-colony-bcg-2024]
 dates:
   announced: {date: "2024-03", s: [src-colony-bcg-2024, src-colony-wayfinder-paper], note: "ホワイトペーパーと Solana での展開を発表（Wayfinder 論文の作成日は 2024-03-14）"}
-  launched: {date: "2026-09", s: [src-colony-bcg-launch, src-colony-mobilegamer], note: "iOS/Android で世界公開。2025-09-22 から Seeker 限定のアーリーアルファ"}
+  launched: {date: "2026-09-03", s: [src-colony-bcg-launch, src-colony-mobilegamer], note: "iOS/Android で世界公開（BlockchainGamer.biz は 9/3、MobileGamer.biz は 9/4 付で「silent launch」と記載）。2025-09-22 から Seeker 限定のアーリーアルファ"}
 
 architecture:
   onchain:
     level: unknown
     detail: >-
       2024 年の構想では、アバター NFT とゲーム内取引を Solana に置き、各アバターが専用ウォレットを制御して自律的に取引するとされた。
-      2025-09 のアルファは Solana Seeker 端末限定だったが、具体的なオンチェーン処理は報道に書かれていない。2026-09 公開版の公式ページはチェーンに言及せず、
+      2025-09 のアルファは Solana Seeker 端末限定で、報道は「deep blockchain simulation experience」と形容したが、具体的なオンチェーン処理は書かれていない。2026-09 公開版の公式ページはチェーンに言及せず、
       報道は「ブロックチェーン基盤や PRIME は公開ストアの説明では目立たない」と述べるにとどまる。現行版で何がオンチェーンかは確認できなかった。
     s: [src-colony-bcg-2024, src-colony-egamers-alpha, src-colony-bcg-launch, src-colony-official]
   offchain:
@@ -63,7 +64,8 @@ concepts: [c-ai-agent-player, c-nft-asset, m-production-chain, m-pvp-territory]
 
 article:
   counter_evidence:
-    - {t: "「AI エージェントが自律的にオンチェーン取引するゲーム」として発表されたが、2 年半後の世界公開版の公式ページはブロックチェーン・ウォレット・PRIME・NFT に一切言及しない。報道も、公開版ではこれらが目立たず、NFT やウォレットなしで始められると書く。AI を中心にしたゲームでチェーンが体験の必須要素にならなかった例である。", k: fact, s: [src-colony-official, src-colony-bcg-launch]}
+    - {t: "「AI エージェントが自律的にオンチェーン取引するゲーム」として発表されたが、2 年半後の世界公開版の公式ページと公式ゲームガイド（gameplay・FAQ）の本文はブロックチェーン・ウォレット・PRIME・NFT に言及しない。報道も、公開版ではこれらが目立たず、NFT やウォレットなしで始められると書く（PANews は製品ホームページから「quietly removed」と表現）。", k: fact, s: [src-colony-official, src-colony-guide, src-colony-bcg-launch, src-colony-panews]}
+    - {t: "少なくとも入口の体験では、AI を中心にしたゲームでチェーンが必須要素にならなかった例と読める。ただし内部での利用や NFT 保有者向けの機能が残っている可能性があり、「チェーンが不要だった」ことの証明ではない。", k: analysis}
     - {t: "ただし、公開面で言及しないことはゲーム内部でチェーンを使っていないことを意味しない。運営がチェーン要素の扱いを説明した一次資料は見つからなかった。", k: unknown}
     - {t: "当初の「アバターが人間の直接操作なしに行動する」構想に対し、現行版では人間が入植者に話しかけ、ジレンマに答え、拠点を建てる。人間の意思決定は外されず、AI は会話相手・助言の受け手に位置付け直された。", k: fact, s: [src-colony-bcg-2024, src-colony-official]}
 
@@ -71,12 +73,16 @@ events:
   - {id: ev-colony-announce, date: "2024-03", type: announce, title: "Colony のホワイトペーパーと Solana 展開を発表", detail: "アバターが専用ウォレットで自律取引、PRIME で支払い、2025 年までは公開しない見込み", s: [src-colony-bcg-2024]}
   - {id: ev-colony-wayfinder, date: "2024-03-14", type: paper, title: "Wayfinder ホワイトペーパー（Colony の中核インフラと記載）", s: [src-colony-wayfinder-paper]}
   - {id: ev-colony-alpha, date: "2025-09-22", type: testnet, title: "Solana Seeker 限定のアーリーアルファ", detail: "10 ドルのクレート販売。約 1 年の限定テストの後とされる", s: [src-colony-egamers-alpha, src-colony-bcg-launch]}
-  - {id: ev-colony-global, date: "2026-09", type: launch, title: "「Colony: Survival」を iOS/Android で世界公開", detail: "基本無料。公開面でチェーン要素が目立たない", s: [src-colony-bcg-launch, src-colony-mobilegamer, src-colony-official]}
+  - {id: ev-colony-global, date: "2026-09-03", type: launch, title: "「Colony: Survival」を iOS/Android で世界公開", detail: "基本無料。公開面でチェーン要素が目立たない", s: [src-colony-bcg-launch, src-colony-mobilegamer, src-colony-official]}
 
 relations:
   - {to: ai-arena, type: similar-to, basis: analytic, note: "いずれも Web3 ゲーム会社が AI エージェントを中心に据えたが、事業の重心がチェーン外（AI Arena は SDK・ロボティクス、Colony はモバイル F2P）へ移った"}
   - {to: daydreams, type: similar-to, basis: analytic, note: "エージェントがウォレットを持ちオンチェーンで行動するという構想が共通（Wayfinder）"}
   - {to: freysa, type: contrasts-with, basis: analytic, note: "Freysa はチェーンを決済に限定して使い続けた。Colony は公開版でチェーン要素を前面から外した"}
+
+contradictions:
+  - {t: "Solana の X 投稿（2024-12、検索要約のみ）はアルファを 2025 年 Q1 と予告したが、Seeker 限定アルファの開始は 2025-09-22 だった。", s: [src-colony-solana-x-2024, src-colony-egamers-alpha]}
+  - {t: "第三者のゲーム DB は「Holders of Parallel’s Avatar NFTs can use their Avatars in Colony」と記し、チェーンに Ethereum と Solana を挙げる一方、PRIME の獲得・消費は現行のゲーム文書に書かれていないとする。公式ページと公式ガイドの本文には NFT・アバター連携の記述がない。", s: [src-colony-bgfun, src-colony-official, src-colony-guide]}
 
 unknowns:
   - "現行版でアバター NFT・Solana 上の取引・PRIME が使われているか、構想段階の資産保有者への扱い。"
@@ -88,8 +94,11 @@ unknowns:
 sources:
   - {id: src-colony-official, title: "Colony: Survival – AI Colony-Building Game | Parallel", url: "https://parallel.life/colony", publisher: "Parallel Studios", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "現行の公式ページ。iOS/Android、基本無料、AI 入植者・Dilemmas・Fabricator・PvP。ブロックチェーン・ウォレット・PRIME・NFT の語は本文に出現しない（筆者が確認）"}
   - {id: src-colony-wayfinder-paper, title: "Wayfinder whitepaper v1", url: "https://paper.wayfinder.ai/wayfinder_paper_v1.pdf", publisher: "Wayfinder", type: paper, primary: true, published: "2024-03-14", accessed: "2026-10-23", access: fetched, lang: en, note: "Colony の中核インフラとしての Wayfinder、エージェント（shells）が専用ウォレットを制御し自律取引する構想"}
-  - {id: src-colony-bcg-2024, title: "Parallel drops details about forthcoming Solana-based AI sim Colony", url: "https://www.blockchaingamer.biz/?p=31058", publisher: "BlockchainGamer.biz", author: "Jenny Jordan", type: news, primary: false, published: "2024-03-19", accessed: "2026-10-23", access: fetched, lang: en, note: "ホワイトペーパーの内容（アバターの専用ウォレット、Solana、PRIME、2025 年まで公開されない見込み）"}
+  - {id: src-colony-bcg-2024, title: "Parallel drops details about forthcoming Solana-based AI sim Colony", url: "https://www.blockchaingamer.biz/?p=31058", publisher: "BlockchainGamer.biz", author: "Jenny Jordan", type: news, primary: false, published: "2024-03-19", accessed: "2026-10-23", access: fetched, lang: en, note: "ページ表示は最終更新 2024-03-19。ホワイトペーパーの内容（アバターの専用ウォレット、Solana、PRIME、2025 年まで公開されない見込み）"}
   - {id: src-colony-egamers-alpha, title: "Early Alpha Launch of Parallel Colony on Solana for Seeker Phones", url: "https://egamers.io/early-alpha-launch-of-parallel-colony-on-solana-for-seeker-phones/", publisher: "eGamers.io", type: news, primary: false, published: "2025-09-22", accessed: "2026-10-23", access: fetched, lang: en, note: "2025-09-22 Seeker 限定アルファ、10 ドルのクレート、具体的なオンチェーン処理の記述なし"}
-  - {id: src-colony-bcg-launch, title: "Parallel launches AI-powered Colony: Survival globally on mobile", url: "https://www.blockchaingamer.biz/?p=42884", publisher: "BlockchainGamer.biz", author: "Jon Jordan", type: news, primary: false, published: "2026-09-09", accessed: "2026-10-23", access: fetched, lang: en, note: "9/3 世界公開、基本無料、ブロックチェーン・NFT・PRIME は公開面で目立たない、NFT やウォレットなしで開始可能"}
+  - {id: src-colony-bcg-launch, title: "Parallel launches AI-powered Colony: Survival globally on mobile", url: "https://www.blockchaingamer.biz/?p=42884", publisher: "BlockchainGamer.biz", author: "Jon Jordan", type: news, primary: false, published: "2026-09-09", accessed: "2026-10-23", access: fetched, lang: en, note: "ページ表示は「Last updated Sep 9, 2026」。9/3 世界公開、基本無料、ブロックチェーン・NFT・PRIME は公開面で目立たない、NFT やウォレットなしで開始可能"}
   - {id: src-colony-mobilegamer, title: "New game digest: Saints Row: The Third, Overwatch Rush, Palworld Online, Bleach, Colony and more", url: "https://mobilegamer.biz/new-game-digest-saints-row-overwatch-palworld-bleach-colony-and-more/", publisher: "MobileGamer.biz", type: news, primary: false, published: "2026-09-04", accessed: "2026-10-23", access: fetched, lang: en, note: "「silent launch」で iOS/Android 公開"}
   - {id: src-colony-solana-x-2024, title: "Solana on X: Parallel Colony alpha coming Q1, 2025", url: "https://x.com/solana/status/1872756542338171182", publisher: "Solana (X)", type: social, primary: true, published: "2024-12", accessed: "2026-10-23", access: snippet, lang: en, note: "検索結果の要約のみ。「AI agents will autonomously transact on Solana」「Alpha coming Q1, 2025」"}
+  - {id: src-colony-guide, title: "Colony Game Guide (overview / gameplay / FAQ)", url: "https://parallel.life/colony/game-guide/gameplay", publisher: "Parallel Studios", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "検証時に取得。拠点・入植者・クラフト・PvE レーン戦・PvP マップ・Fabricator（Weave）・サブスクリプション。本文に NFT・PRIME・ウォレット・Solana・ブロックチェーン・Seeker の語なし（サイト共通の翻訳文字列には Parallel TCG 用の PRIME・ウォレット表記がある）"}
+  - {id: src-colony-bgfun, title: "Colony: Survival Overview, Parallel's AI Colony-Builder", url: "https://blockchaingames.fun/games/colony-survival/", publisher: "blockchaingames.fun", type: wiki, primary: false, accessed: "2026-10-23", access: fetched, lang: en, note: "第三者のゲーム DB。Avatar NFT 保有者は Colony でアバターを使える、チェーンは Ethereum・Solana、PRIME は現行文書に記載なし、と記す。出典不明"}
+  - {id: src-colony-panews, title: "Web3 Games Begin to Embrace AI, Perhaps Not Just About Chasing Trends or Changing Narratives", url: "https://panews.io/articles/01a0af2c-c3b6-7219-8ebb-61df6e43938e", publisher: "PANews", author: "Zen", type: analysis, primary: false, accessed: "2026-10-23", access: fetched, lang: en, note: "PRIME・NFT・ブロックチェーン・ウォレットが製品ホームページから「quietly removed」と記す。公開日の表示なし"}

@@ -37,6 +37,9 @@
     </div>
     <div class="home-grid">${cards.map(([h, t, d]) => `<a class="card" href="${h}"><h3>${t}</h3><p class="muted">${d}</p></a>`).join('')}</div>
     <div class="read">
+      <h2>主な知見（インサイト ${D.insights.length} 件）</h2>
+      <p class="small muted">確信度は証拠の量と質の評価で、正しさの保証ではありません。各インサイトに反例と次の実験があります。</p>
+      <ul>${D.insights.map((i) => `<li><a href="#/insight/${esc(i.id)}">${esc(i.title)}</a> <span class="conf conf-${esc(i.confidence)}">${esc(L.confidence[i.confidence])}</span> <span class="tag">${esc(L.gap_type[i.gap_type] || i.gap_type)}</span></li>`).join('')}</ul>
       <h2>使い方の例</h2>
       <ol>
         <li><a href="#/questions">問い</a>から気になる問いを選び、支持事例と反例を読む。</li>
@@ -340,6 +343,7 @@
       <h2>確認できなかった事項（${unknownCount}）</h2>
       ${D.games.filter((g) => g.unknowns?.length).map((g) => `<details><summary>${esc(g.name)}（${g.unknowns.length}）</summary><ul>${g.unknowns.map((u) => `<li>${esc(u)}</li>`).join('')}</ul></details>`).join('')}
       <h2>独立検証の状況</h2><p>深掘り ${D.games.filter((g) => g.depth === 'deep').length} 件中 ${D.games.filter((g) => g.depth === 'deep' && g.verification).length} 件、索引 ${D.games.filter((g) => g.depth === 'index').length} 件中 ${D.games.filter((g) => g.depth === 'index' && g.verification).length} 件が検証役の再確認を受けています。</p>
+      ${D.synthesisVerification ? `<details><summary>インサイト・問い・設計仮説・時代区分（統合層）の検証記録</summary><div class="small" style="white-space:pre-wrap">${esc(D.synthesisVerification)}</div></details>` : '<p>統合層（インサイト等）は未検証です。</p>'}
       <details><summary>未検証の項目</summary><ul class="small">${D.games.filter((g) => !g.verification).map((g) => `<li><a href="#/entry/${esc(g.id)}">${esc(g.name)}</a>（${esc(L.depth[g.depth])}）</li>`).join('') || '<li>なし</li>'}</ul></details>
       ${D.linkcheck ? `<h2>リンク検査</h2><p>${esc(D.linkcheck.summary)}</p><p class="small muted">「サイトが自動検査を拒否」は自動の HTTP 検査が 403/429 で拒否されたもので、調査時は閲覧用の経路で参照しています。GitHub はこの環境では HTTP が遮断されるため、git でリポジトリの存在だけを確かめています（ファイル単位は未確認）。</p>
         <h3>到達できなかった URL</h3><ul class="small">${D.sources.filter((s) => s.link && (['missing', 'missing-repo', 'network-error'].includes(s.link) || s.link.startsWith('http-'))).map((s) => `<li><a href="#/source/${esc(s.id)}">${esc(s.title)}</a> — ${A.linkLabel(s.link)}・資料の参照状態: ${esc(L.access[s.access])}</li>`).join('') || '<li>なし</li>'}</ul>` : ''}
