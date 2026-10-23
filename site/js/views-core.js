@@ -226,7 +226,7 @@
     if (!g.verification) return `<p class="note-box">この項目は独立した検証役による再確認をまだ受けていません。調査役の記述のみです。</p>`;
     const verdict = (g.verification.match(/総合判定[^\n]*\n?[^\n]*/) || [''])[0].replace(/[#*]/g, '').trim();
     return `<details class="card"><summary><b>検証記録</b>（独立した検証役による原資料との照合）${verdict ? '：' + esc(verdict.slice(0, 120)) : ''}</summary>
-      <div class="small" style="white-space:pre-wrap;margin-top:.5rem">${esc(g.verification)}</div></details>`;
+      <div class="small" class="pre" style="margin-top:.5rem">${esc(g.verification)}</div></details>`;
   };
 
   // ---------- 概念 ----------
@@ -343,7 +343,7 @@
       <h2>確認できなかった事項（${unknownCount}）</h2>
       ${D.games.filter((g) => g.unknowns?.length).map((g) => `<details><summary>${esc(g.name)}（${g.unknowns.length}）</summary><ul>${g.unknowns.map((u) => `<li>${esc(u)}</li>`).join('')}</ul></details>`).join('')}
       <h2>独立検証の状況</h2><p>深掘り ${D.games.filter((g) => g.depth === 'deep').length} 件中 ${D.games.filter((g) => g.depth === 'deep' && g.verification).length} 件、索引 ${D.games.filter((g) => g.depth === 'index').length} 件中 ${D.games.filter((g) => g.depth === 'index' && g.verification).length} 件が検証役の再確認を受けています。</p>
-      ${D.synthesisVerification ? `<details><summary>インサイト・問い・設計仮説・時代区分（統合層）の検証記録</summary><div class="small" style="white-space:pre-wrap">${esc(D.synthesisVerification)}</div></details>` : '<p>統合層（インサイト等）は未検証です。</p>'}
+      ${D.synthesisVerification ? `<details><summary>インサイト・問い・設計仮説・時代区分（統合層）の検証記録</summary><div class="small pre">${esc(D.synthesisVerification)}</div></details>` : '<p>統合層（インサイト等）は未検証です。</p>'}
       <details><summary>未検証の項目</summary><ul class="small">${D.games.filter((g) => !g.verification).map((g) => `<li><a href="#/entry/${esc(g.id)}">${esc(g.name)}</a>（${esc(L.depth[g.depth])}）</li>`).join('') || '<li>なし</li>'}</ul></details>
       ${D.linkcheck ? `<h2>リンク検査</h2><p>${esc(D.linkcheck.summary)}</p><p class="small muted">「サイトが自動検査を拒否」は自動の HTTP 検査が 403/429 で拒否されたもので、調査時は閲覧用の経路で参照しています。GitHub はこの環境では HTTP が遮断されるため、git でリポジトリの存在だけを確かめています（ファイル単位は未確認）。</p>
         <h3>到達できなかった URL</h3><ul class="small">${D.sources.filter((s) => s.link && (['missing', 'missing-repo', 'network-error'].includes(s.link) || s.link.startsWith('http-'))).map((s) => `<li><a href="#/source/${esc(s.id)}">${esc(s.title)}</a> — ${A.linkLabel(s.link)}・資料の参照状態: ${esc(L.access[s.access])}</li>`).join('') || '<li>なし</li>'}</ul>` : ''}

@@ -1,6 +1,6 @@
 {
-  "checked": "2026-10-23T08:06:47.407Z",
-  "summary": "2026-10-23 に 663 件の URL を検査: 到達 458、サイトがボットを拒否 (403/429) 32、接続エラー 5、この検査環境のプロキシで遮断（調査時は別経路で参照） 14、GitHub リポジトリの存在を git で確認 150、GitHub リポジトリが見つからない 1、http-405 1、404/410 2",
+  "checked": "2026-10-23T08:29:22.519Z",
+  "summary": "2026-10-23 に 696 件の URL を検査: 到達 473、サイトがボットを拒否 (403/429) 35、接続エラー 7、http-401 1、この検査環境のプロキシで遮断（調査時は別経路で参照） 14、GitHub リポジトリの存在を git で確認 160、GitHub リポジトリが見つからない 1、http-405 2、404/410 3",
   "results": [
     {
       "url": "http://archive.org/wayback/available?url=lattice.xyz/blog/sky-strife-autonomous-mode&timestamp=20240101",
@@ -36,6 +36,11 @@
       "url": "https://1kx.capital/writing/modding-worlds-building-hexcraft-with-downstream",
       "code": 200,
       "status": "ok"
+    },
+    {
+      "url": "https://99bitcoins.com/half-of-all-bitcoin-transactions-might-come-from-online-gambling/",
+      "code": 403,
+      "status": "refused"
     },
     {
       "url": "https://aavegotchi.substack.com/p/the-aavegotchi-launch-is-imminent",
@@ -96,6 +101,12 @@
       "url": "https://api.coingecko.com/api/v3/coins/stepn",
       "code": 200,
       "status": "ok"
+    },
+    {
+      "url": "https://api.llama.fi/protocol/defi-kingdoms",
+      "code": 0,
+      "status": "network-error",
+      "err": "curl: (28) Operation timed out after 25002 milliseconds with 0 bytes received"
     },
     {
       "url": "https://api.roninchain.com/rpc",
@@ -168,6 +179,11 @@
       "status": "ok"
     },
     {
+      "url": "https://base-mainnet.public.blastapi.io",
+      "code": 401,
+      "status": "http-401"
+    },
+    {
       "url": "https://betakit.com/arenax-labs-closes-6-million-to-develop-ai-powered-battle-game/",
       "code": 200,
       "status": "ok"
@@ -223,7 +239,17 @@
       "status": "ok"
     },
     {
+      "url": "https://bitpinas.com/learn-how-to-guides/hamsterverse-game-guide/",
+      "code": 200,
+      "status": "ok"
+    },
+    {
       "url": "https://blockchaingamer.biz/features/interviews/35334/luke-barwikowski-pixels-one-year-on",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://blockchaingames.fun/games/colony-survival/",
       "code": 200,
       "status": "ok"
     },
@@ -648,6 +674,11 @@
       "status": "ok"
     },
     {
+      "url": "https://cryptoslate.com/vc-firm-a16z-releases-open-source-microverse-packed-with-generative-ai-npcs-in-ai-town/",
+      "code": 200,
+      "status": "ok"
+    },
+    {
       "url": "https://dailydot.com/rare-pepe-frog-meme-economy",
       "code": 200,
       "status": "ok"
@@ -719,6 +750,11 @@
     },
     {
       "url": "https://decrypt.co/236491/ethereum-fighting-game-ai-arena-token-launch",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://decrypt.co/241678/long-awaited-illuvium-ethereum-games-launch-epic-store",
       "code": 200,
       "status": "ok"
     },
@@ -1015,6 +1051,11 @@
       "status": "ok"
     },
     {
+      "url": "https://egamers.io/defi-kingdoms-pulls-the-plug-on-dfk-chain-heads-back-to-avalanche-c-chain-august-28/",
+      "code": 200,
+      "status": "ok"
+    },
+    {
       "url": "https://egamers.io/early-alpha-launch-of-parallel-colony-on-solana-for-seeker-phones/",
       "code": 200,
       "status": "ok"
@@ -1190,6 +1231,11 @@
       "status": "ok"
     },
     {
+      "url": "https://forklog.com/en/hamster-kombat-launches-second-season-and-announces-new-airdrop/",
+      "code": 200,
+      "status": "ok"
+    },
+    {
       "url": "https://forklog.com/en/hamster-kombat-loses-nearly-260-million-players-post-listing/",
       "code": 200,
       "status": "ok"
@@ -1330,6 +1376,11 @@
       "status": "repo-ok"
     },
     {
+      "url": "https://github.com/aavegotchi/aavegotchi-geist",
+      "code": 0,
+      "status": "repo-ok"
+    },
+    {
       "url": "https://github.com/altera-al/project-sid",
       "code": 0,
       "status": "repo-ok"
@@ -1350,6 +1401,11 @@
       "status": "repo-ok"
     },
     {
+      "url": "https://github.com/Argus-Labs/world-engine/blob/main/docs/cardinal/snapshots.mdx",
+      "code": 0,
+      "status": "repo-ok"
+    },
+    {
       "url": "https://github.com/Argus-Labs/world-engine/commits/main",
       "code": 0,
       "status": "repo-ok"
@@ -1360,12 +1416,27 @@
       "status": "repo-ok"
     },
     {
+      "url": "https://github.com/BibliothecaDAO/eternum/blob/42c410487a44fa3fde85a0401b55821f432e66a5/client/apps/game-docs/docs/pages/overview/disclaimer.mdx",
+      "code": 0,
+      "status": "repo-ok"
+    },
+    {
       "url": "https://github.com/BibliothecaDAO/eternum/blob/42c410487a44fa3fde85a0401b55821f432e66a5/config/environments/_shared_.ts",
       "code": 0,
       "status": "repo-ok"
     },
     {
+      "url": "https://github.com/BibliothecaDAO/eternum/blob/72502c04995f5adfa47b4776cc3887fedaa1f40e/client/apps/game-docs/docs/pages/blitz/key-concepts.mdx",
+      "code": 0,
+      "status": "repo-ok"
+    },
+    {
       "url": "https://github.com/BibliothecaDAO/eternum/blob/d2282fe3f4d34685639f004d50ddd35713c3aeba/client/apps/game-docs/docs/pages/seasons/rewards.mdx",
+      "code": 0,
+      "status": "repo-ok"
+    },
+    {
+      "url": "https://github.com/BibliothecaDAO/eternum/blob/main/apps/agent-runner/README.md",
       "code": 0,
       "status": "repo-ok"
     },
@@ -1690,12 +1761,22 @@
       "status": "repo-ok"
     },
     {
+      "url": "https://github.com/FlynnSC/zk-hunt/blob/1c83e32497f4936d38a8f2606483d660537d0597/README.md",
+      "code": 0,
+      "status": "repo-ok"
+    },
+    {
       "url": "https://github.com/FlynnSC/zk-hunt/blob/main/packages/contracts/src/systems/LiquidationSystem.sol",
       "code": 0,
       "status": "repo-ok"
     },
     {
       "url": "https://github.com/FlynnSC/zk-hunt/tree/main/packages/circuits/src",
+      "code": 0,
+      "status": "repo-ok"
+    },
+    {
+      "url": "https://github.com/guiltygyoza/isaac",
       "code": 0,
       "status": "repo-ok"
     },
@@ -1786,6 +1867,11 @@
     },
     {
       "url": "https://github.com/pixelaw/core/blob/main/contracts/src/apps/paint.cairo",
+      "code": 0,
+      "status": "repo-ok"
+    },
+    {
+      "url": "https://github.com/pixelaw/core/blob/main/contracts/src/core/actions.cairo",
       "code": 0,
       "status": "repo-ok"
     },
@@ -1945,6 +2031,11 @@
       "status": "repo-ok"
     },
     {
+      "url": "https://github.com/Provable-Games/death-mountain/commits/main",
+      "code": 0,
+      "status": "repo-ok"
+    },
+    {
       "url": "https://github.com/Provable-Games/docs/blob/main/src/pages/lootsurvivor/beasts/collectibles.mdx",
       "code": 0,
       "status": "repo-ok"
@@ -2026,6 +2117,11 @@
     },
     {
       "url": "https://github.com/Provable-Games/loot-survivor/blob/main/ui/src/app/components/tutorial/Prescience2Tutorial.tsx",
+      "code": 0,
+      "status": "repo-ok"
+    },
+    {
+      "url": "https://github.com/Provable-Games/loot-survivor/commits/main",
       "code": 0,
       "status": "repo-ok"
     },
@@ -2141,8 +2237,9 @@
     },
     {
       "url": "https://habr.com/en/articles/187196",
-      "code": 200,
-      "status": "ok"
+      "code": 0,
+      "status": "network-error",
+      "err": "curl: (35) Recv failure: Connection reset by peer"
     },
     {
       "url": "https://hackernoon.com/a-comprehensive-solution-to-bugs-in-fomo3d-like-games-ab3b054f3cc5",
@@ -2211,6 +2308,11 @@
     },
     {
       "url": "https://influenceth.io/",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://influenceth.substack.com/archive",
       "code": 200,
       "status": "ok"
     },
@@ -2501,6 +2603,11 @@
       "status": "ok"
     },
     {
+      "url": "https://panews.io/articles/01a0af2c-c3b6-7219-8ebb-61df6e43938e",
+      "code": 200,
+      "status": "ok"
+    },
+    {
       "url": "https://paper.wayfinder.ai/wayfinder_paper_v1.pdf",
       "code": 200,
       "status": "ok"
@@ -2517,6 +2624,11 @@
     },
     {
       "url": "https://parallel.life/colony",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://parallel.life/colony/game-guide/gameplay",
       "code": 200,
       "status": "ok"
     },
@@ -2627,6 +2739,16 @@
       "status": "ok"
     },
     {
+      "url": "https://rpc.dustproject.org",
+      "code": 405,
+      "status": "http-405"
+    },
+    {
+      "url": "https://rpc.gnosischain.com",
+      "code": 404,
+      "status": "missing"
+    },
+    {
       "url": "https://skystrife.xyz/",
       "code": 200,
       "status": "ok"
@@ -2662,6 +2784,11 @@
       "status": "ok"
     },
     {
+      "url": "https://sourcify.dev/server/v2/contract/1/0xb40d0312BaC389AE0a05053020Aac80c9237358B?fields=sources",
+      "code": 200,
+      "status": "ok"
+    },
+    {
       "url": "https://sourcify.dev/server/v2/contract/1/0xEB834ae72B30866af20a6ce5440Fa598BfAd3a42",
       "code": 200,
       "status": "ok"
@@ -2683,6 +2810,11 @@
     },
     {
       "url": "https://techcrunch.com/2017/12/03/people-have-spent-over-1m-buying-virtual-cats-on-the-ethereum-blockchain/",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://theaiinsider.tech/2025/08/07/fundamental-research-labs-secures-33m-series-a-to-expand-ai-assistant-and-agent-platforms/",
       "code": 200,
       "status": "ok"
     },
@@ -2717,6 +2849,11 @@
       "status": "ok"
     },
     {
+      "url": "https://threadreaderapp.com/thread/2083238250311725278",
+      "code": 200,
+      "status": "ok"
+    },
+    {
       "url": "https://tokeninsight.com/en/news/the-loot-community-supports-agld-to-become-a-community-governance-token-temporarily-leading-the-way",
       "code": 403,
       "status": "refused"
@@ -2727,7 +2864,17 @@
       "status": "ok"
     },
     {
+      "url": "https://tokenscan.io/api/issuances/PEPECASH",
+      "code": 200,
+      "status": "ok"
+    },
+    {
       "url": "https://tokenscan.io/api/issuances/RAREPEPE",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://tonapi.io/v2/jettons/EQAJ8uWd7EBqsmpSWaRdf_I-8R8-XHwh3gsNKhy-UrdrPcUo",
       "code": 200,
       "status": "ok"
     },
@@ -2808,6 +2955,11 @@
     },
     {
       "url": "https://whitepaper.stepn.com/change-log.md",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://whitepaper.stepn.com/earning-module/gmt-earning-advanced.md",
       "code": 200,
       "status": "ok"
     },
@@ -3218,6 +3370,16 @@
       "status": "refused"
     },
     {
+      "url": "https://www.theblock.co/news/regulation/2022-05-29-stepn-to-block-mainland-china-users-in-compliance-with-regulators-scmp-says-149289",
+      "code": 403,
+      "status": "refused"
+    },
+    {
+      "url": "https://www.theblock.co/post/117342/nft-collectibles-see-significant-drop-in-sales-volumes",
+      "code": 403,
+      "status": "refused"
+    },
+    {
       "url": "https://www.theblock.co/post/130322/play-to-earn-game-axie-infinity-where-does-the-money-come-from",
       "code": 403,
       "status": "refused"
@@ -3289,6 +3451,11 @@
     },
     {
       "url": "https://x.com/latticexyz/status/2044103611072835744",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://x.com/ProofOfPlay/status/2084699843868733615",
       "code": 200,
       "status": "ok"
     },

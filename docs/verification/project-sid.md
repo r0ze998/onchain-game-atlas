@@ -1,0 +1,25 @@
+# 検証ログ: project-sid
+
+- 確認日: 2026-10-23
+- 確認した出典: 3 / 3（arXiv abs メタデータ、PDF 全文を pdftotext で照合、GitHub は WebFetch）。追加 1 件（The AI Insider 2025-08）
+
+## 直したこと
+- team「Andrew Ahn, Nic Becker, Stephanie Carroll ほか」→ arXiv の著者欄 13 名を列挙し、2025 年の Fundamental Research Labs への改称を付記
+- status.note: 「実験の継続や製品化は未確認」→ 2025-08 報道で Altera が Fundamental Research Labs に改称し、製品は Fairies・Shortcut で Sid/Minecraft への言及なし、を追記（出典追加）
+- compare.persistence「宗教の分析は 2 時間超」→「500 人の実行は 9000 秒」（方法節の値。2 時間は「2 時間経っても飽和しない」の記述）
+- principles（役割分化）「行動上の分業と言葉上の分業が区別しにくい」→ 報告が役割別の行動頻度（図 9）も示している反論を併記（批判の過大）
+- relations の note「数百〜1000 人規模へ広げた」→「数十〜500 人（1000 人超は試行のみ）」。謝辞に Joon Sung Park がある点を追記
+- metrics: 税の実験（20%→9%）を追加
+
+## 追加した反証・矛盾
+- 宗教: 500 人中 20 人を司祭として 1 つの町に配置、改宗はキーワード（Pastafarian / Spaghetti Monster、間接は Pasta / Spaghetti）で判定。逐語 q を付与
+- 規模: 要旨は 10〜1000+ だが、1000 人超はサーバー限界でエージェントが応答しなくなり、文化・宗教は 500 人 1 回の実行のみから分析（逐語 q 付き）
+
+## 確認できたこと
+- arXiv 2411.00114 v1（2024-10-31、改訂なし）、PIANO、GPT-4o 依存、S3 への意見保存、25+3+1 の税実験・1200 秒・信号による納税、限界節（視覚・空間推論の欠如、de novo な制度の発生は不可）、平均 17 種・上位 30〜40 種・約 320 種、Generative Agents を参考文献 [39] に掲載。GitHub は PDF・README・画像のみ（コミット 2 件）
+
+## 確認できなかったこと
+- 実行コスト、コード公開予定、改称の正確な時期、人間と同じ世界での実験結果
+
+## 総合判定
+修正済み — 調査役の懐疑的な読み（宗教・規模）は原文で裏付けられた。著者・時間の細部と過大な批判 1 件を修正し、後継企業の状況を追加。

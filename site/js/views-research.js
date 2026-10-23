@@ -166,7 +166,7 @@
       <h2>比較セット（${d.compareSets.length}）</h2>
       <ul>${d.compareSets.map((s) => `<li><a href="#/compare/${esc(s.ids.join(','))}">${esc(s.name)}</a> <span class="small muted">${esc(s.ids.map(A.nodeName).join(' / '))}</span> <button class="btn danger" data-set-del="${esc(s.id)}">削除</button></li>`).join('') || '<li class="muted">なし（比較画面で保存）</li>'}</ul>
       <h2>メモ（${notes.length}）</h2>
-      <ul>${notes.map(([k, v]) => `<li>${noteLink(k)} <span class="small muted">${esc(v.updated.slice(0, 10))}</span><div class="small" style="white-space:pre-wrap">${esc(v.text)}</div></li>`).join('') || '<li class="muted">なし</li>'}</ul>`;
+      <ul>${notes.map(([k, v]) => `<li>${noteLink(k)} <span class="small muted">${esc(v.updated.slice(0, 10))}</span><div class="small" class="pre">${esc(v.text)}</div></li>`).join('') || '<li class="muted">なし</li>'}</ul>`;
   };
   V.notebook.after = () => {
     A.$('#nb-export').addEventListener('click', () => {

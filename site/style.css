@@ -234,3 +234,13 @@ svg.ego .elabel { font-size: 10px; fill: var(--muted); }
 .home-grid a.card .muted { font-size: .88rem; }
 .toolbar label { max-width: 100%; min-width: 0; }
 .toolbar select, .toolbar input { max-width: 100%; }
+.pre { white-space: pre-wrap; overflow-wrap: anywhere; }
+main li, main td, main summary { overflow-wrap: anywhere; }
+@media (max-width: 860px) {
+  .top { position: static; }
+  .brand { flex: 1; font-size: .95rem; }
+  .menu-btn { margin-left: 0; }
+  .detail aside .sticky { top: 1rem; }
+}
+.tl li.year::before { display: none; }
+.toolbar label.chip { flex-direction: row; align-items: center; gap: .3em; font-size: .85rem; color: var(--text); }
