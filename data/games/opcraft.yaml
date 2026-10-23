@@ -4,6 +4,10 @@ aliases: [MUDCraft]
 kind: game
 depth: index
 updated: "2026-10-23"
+links:
+  website: {url: https://opcraft.mud.dev/, status: archived, note: "2022-10-31 に凍結した公開テスト世界の閲覧専用クライアント", s: [src-opcraft-repo]}
+  github: https://github.com/latticexyz/opcraft
+  blog: https://lattice.xyz/blog
 chains: [Optimism Bedrock テストネット（Lattice が運用した OP Stack チェーン）]
 team: "Lattice"
 summary: >-

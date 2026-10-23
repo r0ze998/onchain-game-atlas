@@ -5,6 +5,10 @@ aliases: [Loot, LOOT, "Loot Project", "Lootverse"]
 kind: protocol
 depth: deep
 updated: "2026-10-23"
+links:
+  website: https://www.lootproject.com/
+  x: https://x.com/lootproject
+  discord: https://discord.gg/KuYyKXam9G
 chains: [Ethereum mainnet]
 team: "Dom Hofmann（Vine 共同創業者）が個人で公開。以後の派生は Will Papper（Adventure Gold）、BibliothecaDAO（Realms / Loot Survivor）など第三者"
 summary: >-

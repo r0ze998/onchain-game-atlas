@@ -5,6 +5,10 @@ aliases: [HUC, "HunterCoin", "Huntercore（後継実装）"]
 kind: game
 depth: deep
 updated: "2026-10-23"
+links:
+  website: https://xaya.io/huntercoin-legacy
+  discord: https://discord.gg/FdZWZj4
+  github: https://github.com/chronokings/huntercoin
 chains: [Huntercoin（Namecoin 由来の独自チェーン。SHA-256 / Scrypt の二重アルゴリズム、マージマイニング）]
 team: "Chronokings（snailbrain = Andrew Colosimo ほか。初期開発者 thecoder / Mikhail Sindeyev、2014 年以降は Daniel Kraft（domob）がコア保守）。後に同じ創業者が Chimaera → Xaya を始めた"
 summary: >-

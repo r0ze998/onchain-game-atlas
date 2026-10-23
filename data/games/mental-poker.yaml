@@ -5,6 +5,8 @@ aliases: ["SRA protocol", "Shamir–Rivest–Adleman Mental Poker"]
 kind: research
 depth: index
 updated: "2026-10-23"
+links:
+  website: https://people.csail.mit.edu/rivest/pubs.html#SRA81
 chains: []
 team: "Adi Shamir, Ronald L. Rivest, Leonard M. Adleman（MIT Laboratory for Computer Science）。問題提起は Robert W. Floyd"
 summary: >-

@@ -5,6 +5,11 @@ aliases: [HMSTR, HamsterVerse]
 kind: game
 depth: index
 updated: "2026-10-23"
+links:
+  website: https://hamsterkombat.io/
+  play: https://t.me/hamster_kombat_bot
+ids:
+  coingecko: hamster-kombat
 chains: [TON（HMSTR トークン）]
 team: "Hamster Kombat チーム（詳細未確認）"
 summary: >-

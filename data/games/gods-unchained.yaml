@@ -5,6 +5,13 @@ aliases: [GU]
 kind: game
 depth: index
 updated: "2026-10-23"
+links:
+  website: https://godsunchained.com/
+  x: https://x.com/GodsUnchained
+  discord: https://discord.com/invite/godsunchained
+  blog: https://godsunchained.com/blog
+ids:
+  coingecko: gods-unchained
 chains: [Ethereum mainnet（初期）, Immutable X, Immutable zkEVM（2025 年に移行予定）]
 team: "Immutable（旧 Fuel Games。Robbie Ferguson ほか）"
 summary: >-

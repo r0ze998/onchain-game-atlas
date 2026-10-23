@@ -5,6 +5,11 @@ aliases: [FoMo3D, "FOMO3D Long", "FoMo3D Long Official", F3D, exitscam.me]
 kind: game
 depth: deep
 updated: "2026-10-23"
+links:
+  website: https://exitscam.me/
+  discord: https://discord.gg/DbapvnH
+ids:
+  defillama: fomo3d
 chains: [Ethereum mainnet]
 team: "Team JUST（匿名。コントラクトのヘッダには Inventor / Justo / Sumpunk / Mantso と「© Jekyll Island Inc. 2018」。PoWH3D（P3D）と同じチーム）"
 summary: >-

@@ -5,6 +5,11 @@ aliases: ["Illuvium: Overworld", "Illuvium: Arena", "Illuvium: Zero", ILV]
 kind: game
 depth: index
 updated: "2026-10-23"
+links:
+  website: https://illuvium.io/
+ids:
+  coingecko: illuvium
+  defillama: illuvium
 chains: ["Ethereum（ILV、NFT）", "Immutable X / Immutable zkEVM（ゲーム内 NFT）"]
 team: "Illuvium（オーストラリア、2020 年創業。CEO Kieran Warwick）"
 summary: >-

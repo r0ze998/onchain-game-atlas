@@ -5,6 +5,14 @@ aliases: [LS, LS1, "Loot Survivor 1.5", "Loot Survivor 2", LS2, "Death Mountain"
 kind: game
 depth: deep
 updated: "2026-10-23"
+links:
+  website: https://lootsurvivor.io/
+  docs: https://docs.provable.games/lootsurvivor
+  x: https://x.com/LootSurvivor
+  discord: https://discord.gg/lootsurvivor
+  github: https://github.com/Provable-Games/loot-survivor
+ids:
+  coingecko: survivor-2
 chains: [Starknet mainnet, Starknet testnet（Goerli / Sepolia）]
 team: "当初は BibliothecaDAO（Realms）の GitHub 組織で開発（コミュニティ記事は Loothero の作と記す）。現在は Provable Games, Inc.。Bibliotheca DAO は「最初のインキュベーター」と公式文書が記載"
 summary: >-

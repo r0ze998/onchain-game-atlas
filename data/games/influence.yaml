@@ -4,6 +4,13 @@ aliases: [Adalia]
 kind: game
 depth: index
 updated: "2026-10-23"
+links:
+  website: https://www.influenceth.io/
+  play: https://game.influenceth.io/
+  x: https://x.com/influenceth
+  discord: https://discord.gg/8QW2EAEHgK
+  github: https://github.com/influenceth
+  blog: https://influenceth.substack.com/
 chains: [Ethereum mainnet（Asteroid・Crewmate 等の NFT と L1 側の SWAY）, Starknet mainnet（ゲーム本体の Dispatcher と各 NFT・SWAY）]
 team: "Unstoppable Games, Inc."
 summary: >-

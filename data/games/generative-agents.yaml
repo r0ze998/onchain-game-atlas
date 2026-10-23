@@ -4,6 +4,9 @@ aliases: ["Smallville", "Generative Agents（Park et al. 2023）"]
 kind: research
 depth: index
 updated: "2026-10-23"
+links:
+  website: https://arxiv.org/abs/2304.03442
+  github: https://github.com/joonspk-research/generative_agents
 chains: []
 team: "Joon Sung Park, Joseph C. O'Brien, Carrie J. Cai, Meredith Ringel Morris, Percy Liang, Michael S. Bernstein（Stanford University / Google Research）"
 summary: >-

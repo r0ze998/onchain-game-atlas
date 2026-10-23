@@ -5,6 +5,10 @@ aliases: ["Proof of Play", "Apex", "Boss Chain"]
 kind: game
 depth: index
 updated: "2026-10-23"
+links:
+  github: https://github.com/proofofplay/piratenation-contracts
+ids:
+  coingecko: pirate-token
 chains: [Polygon（初期）, Arbitrum Nova, "Apex（Arbitrum L3）", "Boss Chain（Arbitrum L3）", Ethereum mainnet（PFP NFT）, Abstract（Arcade 版）]
 team: "Proof of Play（CEO Amitt Mahajan、FarmVille の共同制作者）"
 summary: >-

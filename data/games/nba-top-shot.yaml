@@ -5,6 +5,11 @@ aliases: [Top Shot, NBATS]
 kind: game
 depth: index
 updated: "2026-10-23"
+links:
+  website: https://nbatopshot.com/
+  x: https://x.com/nbatopshot
+  discord: https://discord.gg/nbatopshot
+  blog: https://blog.nbatopshot.com/
 chains: [Flow]
 team: "Dapper Labs（NBA・NBPA のライセンス）"
 summary: >-

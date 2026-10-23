@@ -4,6 +4,16 @@ aliases: [FrenPet, $FP]
 kind: game
 depth: index
 updated: "2026-10-23"
+links:
+  website: https://frenpet.xyz/
+  docs: https://docs.frenpet.xyz/
+  x: https://x.com/frenpetonbase
+  discord: https://discord.gg/u2R3VauhBg
+  telegram: https://t.me/frenpet
+  blog: https://docs.frenpet.xyz/blog
+ids:
+  coingecko: frenpet
+  defillama: fren-pets
 chains: [Base]
 team: "@cadu_veloso と @surfcoderepeat による 2 人の自己資金チーム（運営記載）"
 summary: >-

@@ -5,6 +5,12 @@ aliases: ["Ephemeral Rollups", "MagicBlock Engine", BOLT]
 kind: platform
 depth: index
 updated: "2026-10-23"
+links:
+  website: https://www.magicblock.xyz/
+  docs: https://docs.magicblock.gg/
+  x: https://x.com/magicblock
+  discord: https://discord.com/invite/MBkdC3gxcv
+  github: https://github.com/magicblock-labs
 chains: [Solana（基盤層）, MagicBlock Ephemeral Rollups（SVM 互換の一時実行層）]
 team: "MagicBlock（Magicblock Pte. Ltd.）。共同創業者 Andrea Fortugno, Gabriele Picco"
 summary: >-

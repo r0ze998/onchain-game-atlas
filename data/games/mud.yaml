@@ -4,6 +4,12 @@ aliases: [MUD v1, MUD v2, "MUD: An engine for Autonomous Worlds"]
 kind: engine
 depth: index
 updated: "2026-10-23"
+links:
+  website: https://mud.dev/
+  docs: https://mud.dev/introduction
+  x: https://x.com/latticexyz
+  github: https://github.com/latticexyz/mud
+  blog: https://lattice.xyz/blog
 chains: [EVM 互換チェーン全般（Redstone、OP Mainnet、Base、Optimism Bedrock テストネット等で利用例）]
 team: "Lattice（alvarius、ludens ほか）。オープンソース（MIT）"
 summary: >-

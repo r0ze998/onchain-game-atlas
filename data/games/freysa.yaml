@@ -4,6 +4,12 @@ aliases: ["Freysa AI", "Freysa Act I"]
 kind: game
 depth: deep
 updated: "2026-10-23"
+links:
+  website: https://freysa.ai/
+  x: https://x.com/freysa_ai
+  github: https://github.com/0xfreysa
+ids:
+  coingecko: freysa-ai
 chains: [Base（参加費・賞金）, Ethereum mainnet（後続の Reflections // 2049 NFT のみ）]
 team: "Freysa 開発チーム（公式資料では個人名を明示せず。運営主体を Eternis AI とする報道があるが一次資料では未確認）"
 summary: >-

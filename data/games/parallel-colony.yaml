@@ -4,6 +4,10 @@ aliases: ["Parallel Colony", "Colony: Survival"]
 kind: game
 depth: index
 updated: "2026-10-23"
+links:
+  website: https://parallel.life/colony
+  x: https://x.com/ParallelColony
+  discord: https://discord.gg/paralleltcg
 chains: [Solana（2024 年の構想と 2025-09 の Seeker 限定アルファ）]
 team: "Parallel Studios（Echelon Prime Foundation のエコシステム）"
 summary: >-
