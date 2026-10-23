@@ -5,6 +5,15 @@ aliases: ["Sunflower Farmers", "SFF", "Bumpkins"]
 kind: game
 depth: deep
 updated: "2026-10-23"
+links:
+  website: https://sunflower-land.com/
+  play: https://sunflower-land.com/play/
+  docs: https://docs.sunflower-land.com/
+  x: https://x.com/0xsunflowerland
+  discord: https://discord.gg/sunflowerland
+  github: https://github.com/sunflower-land/sunflower-land
+ids:
+  coingecko: sunflower-land
 chains: [Polygon（農場 NFT・収集品・旧 SFL）, Base（FLOWER）, Ronin（FLOWER の入出金）]
 team: "Thought Farm Pty Ltd（シドニー。CEO/創業者 Adam Hannigan）と外部の貢献者"
 summary: >-

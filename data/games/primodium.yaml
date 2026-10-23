@@ -5,6 +5,10 @@ aliases: ["Primodium: Empires（後継の別作品）"]
 kind: game
 depth: deep
 updated: "2026-10-23"
+links:
+  docs: https://developer.primodium.com/
+  x: https://x.com/primodiumgame
+  github: https://github.com/primodiumxyz
 chains: [Primodium 専用テストネット（Caldera、chain 12523）, Primodium testnet（Caldera Sepolia 系、chain 10017）, Base Sepolia（2025 年の再展開）, "Base mainnet（後継の Primodium: Empires のみ）"]
 team: "Primodium Inc.（primodiumxyz）"
 summary: >-

@@ -4,6 +4,14 @@ aliases: [Eternum, Realms, "Realms: Blitz", "Realms: Frontier"]
 kind: game
 depth: deep
 updated: "2026-10-23"
+links:
+  website: https://realms.world/
+  docs: https://docs.realms.world/
+  x: https://x.com/RealmsEternum
+  discord: https://discord.gg/realmsworld
+  github: https://github.com/BibliothecaDAO/eternum
+ids:
+  coingecko: lords
 chains: [Starknet mainnet（Season 0・1、Dojo ワールド）, Cartridge Slot（Blitz の一時期のデプロイ）, 自前の Starknet 系アプリチェーン（Katana のち Madara、2026-08 以降）]
 team: "BibliothecaDAO（Realms / Loot Realms）。主要コミット作者は djizus、ponderingdemocritus、aymericdelab、Credence、Loaf ほか"
 summary: >-

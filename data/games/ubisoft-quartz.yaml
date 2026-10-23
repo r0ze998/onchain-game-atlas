@@ -5,6 +5,8 @@ aliases: [Quartz, Digits]
 kind: platform
 depth: index
 updated: "2026-10-23"
+links:
+  website: https://quartz.ubisoft.com/
 chains: [Tezos]
 team: "Ubisoft（Strategic Innovation Lab、ブロックチェーン技術ディレクター Didier Genevois ほか）"
 summary: >-

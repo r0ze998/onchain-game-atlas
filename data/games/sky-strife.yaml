@@ -5,6 +5,11 @@ aliases: [MUDWar]
 kind: game
 depth: deep
 updated: "2026-10-23"
+links:
+  website: https://skystrife.xyz/
+  docs: https://docs.skystrife.xyz/
+  x: https://x.com/skystrifeHQ
+  github: https://github.com/latticexyz/skystrife-public
 chains: [Redstone Holesky testnet, Redstone Garnet testnet, Redstone mainnet (chain 690)]
 team: "Lattice の社内ゲームスタジオ（中心開発者 kooshaba）。2024 年の autonomous mode 移行時に kooshaba 率いる独立スタジオとして分離すると告知"
 summary: >-

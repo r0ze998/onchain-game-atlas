@@ -5,6 +5,11 @@ aliases: [Sorare Football, Sorare NBA, Sorare MLB]
 kind: game
 depth: index
 updated: "2026-10-23"
+links:
+  website: https://sorare.com/
+  x: https://x.com/sorare
+  discord: https://discord.gg/sorare
+ids:
 chains: [Ethereum mainnet（初期）, StarkEx（2021-07〜）, Solana（2025-10〜、カード）, Base（ETH 残高）]
 team: "Sorare SAS（フランス。Nicolas Julia / Adrien Montfort）"
 summary: >-

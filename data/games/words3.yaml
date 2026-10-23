@@ -4,6 +4,11 @@ aliases: [words3]
 kind: game
 depth: index
 updated: "2026-10-23"
+links:
+  website: https://www.words3.xyz/
+  docs: https://docs.words3.xyz/
+  x: https://x.com/0xsmallbrain
+  github: https://github.com/smallbraingames/words3-contracts
 chains: [Optimism（OP Mainnet、初期版）, Base mainnet（v2）, Redstone mainnet（v2）, 各種テストネット]
 team: "Small Brain Games"
 summary: >-

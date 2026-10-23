@@ -5,6 +5,14 @@ aliases: [GMT, GST, "Green Satoshi Token", "Green Metaverse Token", "Find Satosh
 kind: game
 depth: index
 updated: "2026-10-23"
+links:
+  website: https://www.stepn.com/
+  whitepaper: https://whitepaper.stepn.com/
+  x: https://x.com/Stepnofficial
+  discord: https://discord.com/invite/stepn
+  telegram: https://t.me/STEPNofficial
+ids:
+  coingecko: [stepn, green-satoshi-token]
 chains: [Solana, BNB Chain, Polygon, Ethereum（GMT・GST の ERC 版は現在 inactive と記載）]
 team: "Find Satoshi Lab（FSL）"
 summary: >-

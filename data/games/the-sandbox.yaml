@@ -5,6 +5,14 @@ aliases: [Sandbox, TSB]
 kind: platform
 depth: index
 updated: "2026-10-23"
+links:
+  website: https://www.sandbox.game/
+  docs: https://docs.sandbox.game/en
+  whitepaper: https://installers.sandbox.game/The_Sandbox_Whitepaper_2020.pdf
+  x: https://x.com/TheSandboxGame
+  discord: https://discord.gg/thesandboxgame
+ids:
+  coingecko: the-sandbox
 chains: [Ethereum mainnet]
 team: "The Sandbox（旧 Pixowl。2018-08 に Animoca Brands が買収。共同創業者 Arthur Madrid / Sébastien Borget）"
 summary: >-

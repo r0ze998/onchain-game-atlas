@@ -5,6 +5,11 @@ aliases: [Woolf, "$WOOL", "Wolf Game 2.0"]
 kind: game
 depth: index
 updated: "2026-10-23"
+links:
+  website: https://wolf.game/
+  docs: https://wolf-game.gitbook.io/getting-started
+  x: https://x.com/wolfdotgame
+  discord: https://discord.gg/wolfgame
 chains: [Ethereum mainnet, Blast（2024 年に移行と報道）, Solana（2025 年の Wolf Game 2.0）]
 team: "匿名の開発チーム（コントラクトの展開者アドレスは 0x2502…8DEF）。2023-08 に Pixel Vault が買収したと報道。2025 年時点の CEO は GFunk（仮名）"
 summary: >-

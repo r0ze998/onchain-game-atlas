@@ -5,6 +5,13 @@ aliases: [SoG, BitCrystals, BCY]
 kind: game
 depth: index
 updated: "2026-10-23"
+links:
+  website: https://spellsofgenesis.com/
+  play: https://play.spellsofgenesis.com/
+  docs: https://docs.spellsofgenesis.com/
+  x: https://x.com/SpellsofGenesis
+  discord: https://discord.com/invite/H4UXSaJ
+  telegram: https://t.me/EverdreamSoft
 chains: [Bitcoin（Counterparty）]
 team: "EverdreamSoft SA（スイス・ジュネーブ。CEO Shaban Shaame。前作 Moonga）"
 summary: >-

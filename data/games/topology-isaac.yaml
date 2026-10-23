@@ -5,6 +5,9 @@ aliases: [Isaac, "Isaac Alpha"]
 kind: game
 depth: index
 updated: "2026-10-23"
+links:
+  github: https://github.com/guiltygyoza/isaac
+  blog: https://topology.substack.com/
 chains: [StarkNet testnet]
 team: "Topology（GuiltyGyoza ほか。2022-12 時点でエンジニア 3 人以下）"
 summary: >-

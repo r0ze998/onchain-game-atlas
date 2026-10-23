@@ -4,6 +4,10 @@ aliases: ["PixeLAW Core", "Pixel World"]
 kind: platform
 depth: deep
 updated: "2026-10-23"
+links:
+  docs: https://pixelaw.github.io/book/
+  x: https://x.com/0xPixeLAW
+  github: https://github.com/pixelaw
 chains: [Starknet Sepolia（設定ファイルで確認）, Starknet mainnet（設定ファイルのみ・ワールドアドレスはコメントアウト）, 自前の Katana インスタンス（クライアント設定で mainnet と称するもの）, MUD 版は EVM 系（第三者移植）]
 team: "PixeLAW（Caspar Oostendorp / thiscaspar、shora / syora、OwnerOfJK、mariz ほか。コミット履歴から確認できた主な作者）"
 summary: >-

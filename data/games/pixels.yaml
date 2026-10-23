@@ -5,6 +5,15 @@ aliases: ["Pixels Online", "Core Pixels"]
 kind: game
 depth: deep
 updated: "2026-10-23"
+links:
+  website: https://www.pixels.xyz/
+  play: https://play.pixels.xyz/
+  docs: https://help.pixels.xyz/en/
+  whitepaper: https://litepaper.pixels.xyz/
+  x: https://x.com/pixels_online
+  discord: https://discord.gg/pixels
+ids:
+  coingecko: pixels
 chains: [Polygon（〜2023-10）, Ronin（2023-10〜）, "Ethereum（Farm Land NFT と PIXEL の ERC-20）"]
 team: "Pixels（創業者・CEO Luke Barwikowski）"
 summary: >-

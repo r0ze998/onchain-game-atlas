@@ -5,6 +5,8 @@ aliases: [zkHunt, ZK-Hunt]
 kind: game
 depth: index
 updated: "2026-10-23"
+links:
+  github: https://github.com/FlynnSC/zk-hunt
 chains: [ローカルの開発チェーン（anvil）のみ確認]
 team: "Flynn Calcutt（GitHub: FlynnSC の表示名）。README は技術解説を 0xPARC ブログに置くと記す"
 summary: >-

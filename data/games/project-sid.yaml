@@ -4,6 +4,9 @@ aliases: ["Project Sid", "PIANO"]
 kind: research
 depth: index
 updated: "2026-10-23"
+links:
+  website: https://arxiv.org/abs/2411.00114
+  github: https://github.com/altera-al/project-sid
 chains: []
 team: "Altera.AL（arXiv の著者欄: Andrew Ahn, Nic Becker, Stephanie Carroll, Nico Christie, Manuel Cortes, Arda Demirci, Melissa Du, Frankie Li, Shuying Luo, Peter Y Wang, Mathew Willows, Feitong Yang, Guangyu Robert Yang）。Altera は 2025 年までに Fundamental Research Labs に改称したと報じられている"
 summary: >-
