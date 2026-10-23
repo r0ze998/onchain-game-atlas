@@ -10,7 +10,7 @@ team: "ludens（0xPARC ブログ掲載）。関連: Autonomous Worlds Network（
 summary: >-
   2022-08-03 に 0xPARC ブログで公開された ludens の論考。「世界」を実体の容れ物と導入規則（introduction rule）の組として定義し、
   ブロックチェーンを導入規則を形式化し誰もが検証できる「正典（canon）の技術」と位置付け、その上の世界を Autonomous Worlds と呼んだ。
-  「誰も Autonomous Worlds を止められない」という主張は、その後の MUD・Redstone・Biomes/DUST・Downstream など多くのプロジェクトが掲げる理念の参照点になった。
+  「Nobody can unplug Autonomous Worlds（誰も AW の電源を抜けない）」という主張は、後続の DUST が README で本論考に直接リンクして目標に掲げるなど、AW を名乗るプロジェクトの参照点になった（Downstream・Etherplay 等も AW の語を使うが、本論考への直接言及は確認できなかった）。
   2023 年には 0xPARC と Autonomous Worlds Network が論集『Autonomous Worlds N1』を刊行した。
 selection_reason: >-
   オンチェーンゲームの一系統（AW）の語彙と目標を定めた原典で、後続プロジェクトが自らの設計を説明する際に直接リンクしている。
@@ -48,7 +48,7 @@ compare:
   gameplay: {t: "ゲームではない。世界を「実体と、何が世界内（diegetic）かを決める導入規則」の組として定義する概念枠組み。", k: fact, s: [src-awe-0xparc-part1]}
   necessity: {t: "ブロックチェーンは導入規則をコードで形式化し、誰でも状態根を検証できるため、特権的な個人や機器なしに世界の境界を保てる、というのが中心の主張。", k: claim, who: "ludens", s: [src-awe-0xparc-part1], q: "Autonomous Worlds have hard diegetic boundaries, formalised introduction rules, and no need for privileged individuals to keep the World alive."}
   information: {t: "論考は状態がすべて公開・検証可能であることを前提にしており、秘匿情報は扱っていない。", k: analysis, s: [src-awe-0xparc-part1]}
-  persistence: {t: "「少なくとも一人がコンセンサスに参加する限り実体は世界内にとどまる」とし、「誰も止められない」と述べる。同時に、自律性は存亡の危機を経て事後的にしか測れないとも書いている。", k: claim, who: "ludens", s: [src-awe-0xparc-part1], q: "Of course, autonomy is something you can only measure in retrospect."}
+  persistence: {t: "「少なくとも一人がコンセンサスに参加する限り実体は世界内にとどまる」とし、「誰も Autonomous Worlds の電源を抜けない（unplug）」と述べる。同時に、自律性は存亡の危機を経て事後的にしか測れないとも書いている。", k: claim, who: "ludens", s: [src-awe-0xparc-part1], q: "Of course, autonomy is something you can only measure in retrospect."}
   extensibility: {t: "未確認（Part 1 は拡張の仕組みを論じていない）。", k: unknown}
   money_flow: {t: "該当しない。AW Network は出版・公開資源・集会に資金を出し調整する 0xPARC 加盟組織と自己紹介している。", k: fact, s: [src-awe-aw-network]}
   entry_barrier: {t: "該当しない。", k: unknown}
@@ -59,7 +59,7 @@ article:
   principles:
     - {t: "導入規則としてのチェーン: 「何が世界に存在するか」を決める規則（導入規則）をコードで形式化し、誰でも検証できるようにすれば、運営者が去っても世界の境界は保たれる。適用条件は、状態とルールの両方がチェーン上にあり、第三者がノードやクライアントを独立に動かせること。破綻条件は、世界がゲーム専用チェーンなど少数の運営者が維持する基盤に載る場合で、「止められない」は基盤運営者の継続に依存する。", k: analysis, s: [src-awe-0xparc-part1]}
   counter_evidence:
-    - {t: "論考自身が「存亡の危機が来るまで自律性はしばしば演技的」と認めている。Redstone（2026-05 停止）上の Downstream・Biomes や、2026-12 停止予定の DUST Chain のように、AW を掲げた世界がホストチェーン停止に直面した例があり、「誰も止められない」は少なくともゲーム専用チェーンでは成り立たなかった。", k: analysis, s: [src-awe-0xparc-part1, src-awe-l2beat-redstone]}
+    - {t: "論考自身が「存亡の危機が来るまで自律性はしばしば演技的」と認めている。Redstone（2026-05 停止）上の Downstream・Biomes や、2026-12 停止予定の DUST Chain のように、AW を掲げた世界がホストチェーン停止に直面した例があり、「誰も止められない」は少なくともゲーム専用チェーンでは成り立たなかった。ただし論考の条件は「少なくとも一人がコンセンサスに参加する限り」であり、単一運営者のシーケンサーに依存する L2 はそもそも論考の想定する基盤（誰でも合意に参加できるチェーン）を満たしていなかった、と論考側から反論し得る。", k: analysis, s: [src-awe-0xparc-part1, src-awe-l2beat-redstone, src-awe-lattice-x]}
     - {t: "論考は、ハードな境界は商取引に、ソフトな境界はファンフィクションに向くと述べ、ハードな境界が常に望ましいとは主張していない。ゲームにとってどちらが良いかは論考の範囲外。", k: fact, s: [src-awe-0xparc-part1]}
 
 events:
@@ -77,12 +77,14 @@ relations:
 
 unknowns:
   - "Part 2（Ethereum とスマートコントラクトを基盤としたデジタル物理）が公開されたか。"
-  - "ludens の実名・所属（Lattice との関係）を示す一次資料。"
+  - "ludens の実名・所属（Lattice との関係）を示す一次資料。検索では Lattice CEO Justin Glibert を「From Economicus to Ludens」と題するポッドキャスト回があるのみで、同一人物と断定できる一次資料は見つからなかった。"
   - "論集 N1 の初版刊行月（Metalabel のリリース日は 2024-05-15 で、これは第 2 版の販売開始とみられる）。"
-contradictions: []
+contradictions:
+  - {t: "論集 N1 の初出: AW Network の紹介記事（2023-08-09）は N1 の「release」を過去のこととして述べるが、Metalabel は最初の部数を Istanbul の AW Assembly（Devconnect 2023。同記事はそこで「re-print」を配布すると予告）参加者限定としたと記す。記事前に限定配布（プレイテスト等での回覧）があった可能性があり、初版の時期は確定できない。", s: [src-awe-aw-network, src-awe-n1-metalabel]}
 
 sources:
   - {id: src-awe-0xparc-part1, title: "Autonomous Worlds (Part 1)", url: "https://0xparc.org/blog/autonomous-worlds", publisher: "0xPARC blog", author: "ludens", type: paper, primary: true, published: "2022-08-03", accessed: "2026-10-23", access: fetched, lang: en, note: "SPA のため WebFetch では本文が出ず、サイトの JS バンドルに埋め込まれた記事本文（base64）を curl で取得して読んだ"}
   - {id: src-awe-aw-network, title: "Introducing the Autonomous Worlds Network", url: "https://0xparc.org/blog/autonomous-worlds-network", publisher: "0xPARC blog", author: "arb, caroline, ludens", type: official-blog, primary: true, published: "2023-08-09", accessed: "2026-10-23", access: fetched, lang: en, note: "同上の方法で本文を確認（記事は hidden 扱い）。AW Network の役割、Residency、N1、Devconnect 2023"}
   - {id: src-awe-n1-metalabel, title: "Autonomous Worlds N1", url: "https://autonomousworlds.metalabel.com/aw01", publisher: "Metalabel (0xPARC / Autonomous Worlds Network)", type: paper, primary: true, published: "2024-05-15", accessed: "2026-10-23", access: fetched, lang: en, note: "目次（10 論考）、印刷 1000 部、第 2 版 333 部"}
+  - {id: src-awe-lattice-x, title: "After five years, Lattice is winding down. Redstone shuts down May 15, 2026 (23:59 UTC).", url: "https://x.com/latticexyz/status/2044103611072835744", publisher: "Lattice (X)", type: social, primary: true, published: "2026-04-14", accessed: "2026-10-23", access: fetched, lang: en, note: "Redstone 停止の一次告知。X の公開埋め込み API で冒頭と投稿日時を取得。検証役が追加"}
   - {id: src-awe-l2beat-redstone, title: "Redstone - L2BEAT", url: "https://l2beat.com/layer2s/projects/redstone", publisher: "L2BEAT", type: analysis, primary: false, accessed: "2026-10-23", access: fetched, lang: en, note: "Redstone の 2026-05-15 停止"}

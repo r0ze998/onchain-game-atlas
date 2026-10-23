@@ -25,7 +25,7 @@ status:
   s: [src-gu-zkevm-faq, src-gu-decrypt-mobile-2024]
 dates:
   announced: {date: "2018-07", s: [src-gu-wikipedia-immutable], note: "Fuel Games が予約販売を開始"}
-  launched: {date: "2019", s: [src-gu-wikipedia-immutable], note: "Wikipedia は 2019 年に Android / iOS / Windows / macOS 向けに公開と記載（Decrypt は 2018 年に Ethereum で公開と記載。contradictions 参照）"}
+  launched: {date: "2019", s: [src-gu-wikipedia-immutable, src-gu-mittr-2019], note: "Wikipedia は 2019 年に Android / iOS / Windows / macOS 向けに公開と記載。MIT TR（2019-07-11）は同週に非公開テストを経てベータ版が一般公開されたと報じた（Decrypt は 2018 年に Ethereum で公開と記載。contradictions 参照）"}
 
 architecture:
   onchain:
@@ -50,7 +50,7 @@ compare:
   gameplay: {t: "Hearthstone 型の 1 対 1 のデジタルカード対戦。ランク戦の勝利で報酬を得る。", k: fact, s: [src-gu-mittr-2019]}
   necessity: {t: "カードの所有と二次流通だけをチェーンに置く構成で、ルールはサーバー。チェーンが提供するのは運営外での売買と所有の記録で、対戦の公正さやルールの永続性ではない。", k: analysis, s: [src-gu-mittr-2019]}
   information: {t: "手札・山札は通常のサーバー型カードゲームと同様に秘匿される（対戦がチェーン外のため）。", k: analysis, s: [src-gu-mittr-2019]}
-  persistence: {t: "NFT は残るが、対戦にはサーバーが必要。Wikipedia は「カードは更新できないがオフラインでも使える」と記すが、ゲームとしての継続は運営に依存する。", k: analysis, s: [src-gu-wikipedia-immutable]}
+  persistence: {t: "NFT は残るが、対戦はチェーン外のサーバーで行われるため、ゲームとしての継続は運営に依存する。", k: analysis, s: [src-gu-mittr-2019]}
   extensibility: {t: "未確認", k: unknown}
   money_flow: {t: "予約販売・パック販売（2019 年報道で予約販売収入 400 万ドル）、マーケットの取引手数料 9%。Forge で NFT 化する際に GODS を消費する。", k: fact, s: [src-gu-mittr-2019, src-gu-zkevm-faq]}
   entry_barrier: {t: "無料で始められ、プレーンカードは NFT ではない。売買・NFT 化にはウォレットと GODS、MetaMask 等からの操作では IMX のガスが必要。", k: fact, s: [src-gu-zkevm-faq]}
@@ -85,11 +85,11 @@ unknowns:
   - "第三者による拡張（デッキツール・トーナメント運営等）の範囲。コントラクトの管理権限。"
   - "公式ブログ（portal.godsunchained.com）の大半は 403 で取得できず、タイムライン記事は未読。"
 contradictions:
-  - {t: "公開年: Wikipedia（Immutable）は 2019 年公開、Decrypt（2024）は 2018 年に Ethereum で公開と記載（2018 年は予約販売開始）。", s: [src-gu-wikipedia-immutable, src-gu-decrypt-mobile-2024]}
+  - {t: "公開年: Wikipedia（Immutable）は 2019 年公開、Decrypt（2024）は 2018 年に Ethereum で公開と記載（2018 年は予約販売開始）。MIT TR は 2019-07 にベータ版が一般公開されたとし、正式公開はその後。", s: [src-gu-wikipedia-immutable, src-gu-decrypt-mobile-2024, src-gu-mittr-2019]}
 
 sources:
-  - {id: src-gu-mittr-2019, title: "This blockchain-based card game shows us the future of ownership", url: "https://www.technologyreview.com/2019/07/11/693/this-blockchain-based-card-game-shows-us-the-future-of-ownership/", publisher: "MIT Technology Review", author: "Mike Orcutt", type: news, primary: false, published: "2019-07-11", accessed: "2026-10-23", access: fetched, lang: en, note: "カードと所有者のみチェーン、ゲームはオフチェーン、予約販売 400 万ドル"}
+  - {id: src-gu-mittr-2019, title: "This blockchain-based card game shows us the future of ownership", url: "https://www.technologyreview.com/2019/07/11/693/this-blockchain-based-card-game-shows-us-the-future-of-ownership/", publisher: "MIT Technology Review", author: "Mike Orcutt", type: news, primary: false, published: "2019-07-11", accessed: "2026-10-23", access: fetched, lang: en, note: "カードと所有者のみチェーン、ゲームはオフチェーン、予約販売 400 万ドル、2019-07 にベータ一般公開"}
   - {id: src-gu-zkevm-faq, title: "FAQ for Gods Unchained migrating over to Immutable zkEVM", url: "https://portal.godsunchained.com/blog/gods-unchained-immutable-zkevm-migration-faq", publisher: "Gods Unchained", type: official-blog, primary: true, published: "2025-04-11", accessed: "2026-10-23", access: fetched, lang: en, note: "NFT の自動移行、プレーンカードは対象外、Forge 停止、手数料 9%、IMX ガス"}
-  - {id: src-gu-wikipedia-immutable, title: "Immutable (company)", url: "https://en.wikipedia.org/wiki/Immutable_(company)", publisher: "Wikipedia", type: wiki, primary: false, accessed: "2026-10-23", access: fetched, lang: en, note: "2018-07 予約販売、2019 年公開と改名、2022-07 の人員削減、2023-12 の ESRB 評価"}
+  - {id: src-gu-wikipedia-immutable, title: "Immutable (company)", url: "https://en.wikipedia.org/wiki/Immutable_(company)", publisher: "Wikipedia", type: wiki, primary: false, accessed: "2026-10-23", access: fetched, lang: en, note: "2018-07 予約販売、2019 年公開と改名、シード 240 万ドル、2023-12 の ESRB 評価と Epic の一時掲載停止（日付なし）"}
   - {id: src-gu-decrypt-mobile-2024, title: "Ethereum NFT Card Game 'Gods Unchained' Hits iOS and Android", url: "https://decrypt.co/219587/ethereum-nft-card-game-gods-unchained-ios-android", publisher: "Decrypt", author: "Andrew Hayward", type: news, primary: false, published: "2024-02-29", accessed: "2026-10-23", access: fetched, lang: en, note: "モバイル早期アクセス、Passport、NFT 売上約 3.5 億ドル（CryptoSlam）"}
   - {id: src-gu-genesis-sale, title: "Immutable Sells out US$6.2 Million Genesis Sale", url: "https://www.samoaobserver.ws/category/article/52530", publisher: "Samoa Observer (Business Wire)", type: news, primary: false, published: "2019-10-30", accessed: "2026-10-23", access: snippet, lang: en, note: "404 で本文取得不可。検索要約: 33,333 ETH、約 620 万ドル"}

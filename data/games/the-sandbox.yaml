@@ -58,13 +58,13 @@ concepts: [m-land, c-nft-asset, c-fungible-ingame-token, e-p2e, e-royalty-creato
 
 article:
   counter_evidence:
-    - {t: "2022-10 に DappRadar の「24 時間にコントラクトと取引したウォレット」は 522（過去最高は約 4,503）。CEO の Arthur Madrid は、この指標はユーザー間取引と一次販売しか反映しないとし、1 日に 1 回以上接続した人を DAU と定義すると反論した。同社は当時約 20 万の月間アクティブを主張した。オンチェーン指標と運営指標の乖離は Decentraland と同じ構造である。", k: fact, s: [src-tsb-coindesk-2022, src-tsb-wikipedia]}
-    - {t: "2025-08 の再編では、共同創業者 2 名が執行職から退き、約 250 人のうち半数超の削減が報じられた（人数は The Big Whale の報道で会社は未確認）。会社は理由として AI による効率化を挙げた。", k: claim, who: "Sébastien Borget（Cointelegraph の記事内）", s: [src-tsb-cointelegraph-2025], q: "allows us to accelerate our deployment of content, features, and LiveOps while maintaining a leaner, more agile team"}
+    - {t: "2022-10 に DappRadar の「24 時間にコントラクトと取引したウォレット」は 522（過去最高は約 4,503）。CEO の Arthur Madrid は、この指標はユーザー間取引と一次販売しか反映しないとし、1 日に 1 回以上接続した人を DAU と定義すると反論した。Wikipedia（Bloomberg 2022-10-23 を出典）によれば、同社は当時約 20 万の月間アクティブを主張し、Animoca Brands の Yat Siu は約 500 という日次の数字は利用の実態を表さないと述べた（CoinDesk には MAU の数値はない）。オンチェーン指標と運営指標の乖離は Decentraland と同じ構造である。", k: fact, s: [src-tsb-coindesk-2022, src-tsb-wikipedia]}
+    - {t: "2025-08 の再編では、共同創業者 2 名が執行職から退き、The Big Whale は「少なくとも従業員の 50%」の削減と報じた（会社は人数を明かしていない。総従業員数は記事に記載なし）。会社は理由として AI による効率化を挙げた。", k: claim, who: "Sébastien Borget（Cointelegraph の記事内）", s: [src-tsb-cointelegraph-2025], q: "allows us to accelerate our deployment of content, features, and LiveOps while maintaining a leaner, more agile team"}
 
 metrics:
   - {id: m-tsb-dappradar-2022-10, type: wallets, value: 522, unit: wallets, period: "2022-10 初旬の 24 時間", definition: "DappRadar: コントラクトと取引した一意ウォレット数", nature: measured, s: [src-tsb-coindesk-2022]}
   - {id: m-tsb-dappradar-peak, type: wallets, value: 4503, value_text: "約 4,503", unit: wallets, period: "2022-10 時点の過去最高（日次）", definition: "DappRadar の日次一意ウォレットの過去最高", nature: measured, s: [src-tsb-coindesk-2022]}
-  - {id: m-tsb-mau-claim-2022, type: mau, value: 200000, value_text: "約 20 万", unit: players, period: "2022-10 頃", definition: "会社が主張した月間アクティブ（定義は 1 日 1 回以上の接続に基づくと CEO が説明）", nature: reported, s: [src-tsb-wikipedia, src-tsb-coindesk-2022]}
+  - {id: m-tsb-mau-claim-2022, type: mau, value: 200000, value_text: "約 20 万", unit: players, period: "2022-10 頃", definition: "会社が主張した月間アクティブ（Wikipedia が Bloomberg 2022-10-23 を出典に記載。MAU の定義は不明。CoinDesk で CEO が述べたのは DAU の定義「1 日 1 回以上接続した人」のみ）", nature: reported, s: [src-tsb-wikipedia]}
   - {id: m-tsb-alpha-users, type: players, value: 200000, value_text: "20 万超", unit: players, period: "2021-11-29〜12-20（Alpha）", definition: "Alpha 期間の利用者数（Wikipedia、定義不明）", nature: reported, s: [src-tsb-wikipedia]}
   - {id: m-tsb-land-count, type: other, value: 166464, unit: parcels, period: "2020 年ホワイトペーパー", definition: "LAND の総区画数（408×408）", nature: reported, s: [src-tsb-whitepaper]}
   - {id: m-tsb-seriesb-2021, type: funding, value: 93000000, unit: USD, period: "2021-11", definition: "Series B 調達額（Wikipedia）", nature: reported, s: [src-tsb-wikipedia]}
@@ -86,10 +86,10 @@ unknowns:
   - "正式版の公開日、2023 年以降の利用者数、DAO の実際の権限。"
   - "2025-08 以降の運営方針（報道されたミームコイン・Base 関連の計画の実施状況）。"
 contradictions:
-  - {t: "利用者数: DappRadar 522（取引ウォレット/24h）、会社主張の約 20 万 MAU（ログイン基準）。", s: [src-tsb-coindesk-2022, src-tsb-wikipedia]}
+  - {t: "利用者数: DappRadar 522（取引ウォレット/24h、CoinDesk）、Wikipedia は出典不明の報告として約 500 DAU、会社主張の約 20 万 MAU（定義不明）。", s: [src-tsb-coindesk-2022, src-tsb-wikipedia]}
 
 sources:
   - {id: src-tsb-whitepaper, title: "The Sandbox White Paper — 2020", url: "https://installers.sandbox.game/The_Sandbox_Whitepaper_2020.pdf", publisher: "The Sandbox", type: paper, primary: true, published: "2020", accessed: "2026-10-23", access: fetched, lang: en, note: "curl＋pdftotext で読んだ。166,464 LAND、ERC-1155 ASSETS、5% 手数料、AWS / S3 / IPFS。2026-07-31 付で「歴史的文書・現状を表さない」注記が追加"}
   - {id: src-tsb-coindesk-2022, title: "It's Lonely in the Metaverse: Decentraland's 38 Daily Active Users in a $1.3B Ecosystem", url: "https://www.coindesk.com/web3/2022/10/07/its-lonely-in-the-metaverse-decentralands-38-daily-active-users-in-a-13b-ecosystem/", publisher: "CoinDesk", author: "Cam Thompson", type: news, primary: false, published: "2022-10-07", accessed: "2026-10-23", access: fetched, lang: en, note: "The Sandbox 522、過去最高約 4,503、Arthur Madrid の反論"}
-  - {id: src-tsb-wikipedia, title: "The Sandbox (company)", url: "https://en.wikipedia.org/wiki/The_Sandbox_(company)", publisher: "Wikipedia", type: wiki, primary: false, accessed: "2026-10-23", access: fetched, lang: en, note: "Pixowl 買収、Alpha、Series B、2022 年の利用者数"}
-  - {id: src-tsb-cointelegraph-2025, title: "Animoca's Sandbox overhauls as co-founders confirm new strategic roles", url: "https://cointelegraph.com/news/the-sandbox-restructuring-ai-layoffs-cofounders-role-shift", publisher: "Cointelegraph", author: "Helen Partz", type: news, primary: false, published: "2025-08-28", accessed: "2026-10-23", access: fetched, lang: en, note: "経営体制変更、人員削減（規模は The Big Whale）、Borget の発言"}
+  - {id: src-tsb-wikipedia, title: "The Sandbox (company)", url: "https://en.wikipedia.org/wiki/The_Sandbox_(company)", publisher: "Wikipedia", type: wiki, primary: false, accessed: "2026-10-23", access: fetched, lang: en, note: "Pixowl 買収（487.5 万ドル）、Alpha（20 万超）、Series B（9300 万ドル）、2022-10 の約 500 DAU と約 20 万 MAU の主張（Bloomberg 出典）"}
+  - {id: src-tsb-cointelegraph-2025, title: "Animoca's Sandbox overhauls as co-founders confirm new strategic roles", url: "https://cointelegraph.com/news/the-sandbox-restructuring-ai-layoffs-cofounders-role-shift", publisher: "Cointelegraph", author: "Helen Partz", type: news, primary: false, published: "2025-08-28", accessed: "2026-10-23", access: fetched, lang: en, note: "経営体制変更（Madrid は会長、Borget はグローバルアンバサダー）、人員削減「少なくとも 50%」（The Big Whale の報道として）、Borget の発言"}

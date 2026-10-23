@@ -22,11 +22,11 @@ categories:
 status:
   value: ended
   as_of: "2026-10"
-  note: "2022-12 の公式ニュースレターが、2 回のアルファの後に Isaac を棚上げ（shelved）したと説明。チームは Shoshin、続いて MuMu（MovyMovy）へ移った。参照日時点で topology-gg の GitHub 組織の isaac リポジトリはゲームと無関係な内容を表示していた。"
-  s: [src-isaac-what-happened, src-isaac-after, src-isaac-github-org]
+  note: "2022-12 の公式ニュースレターが、2 回のアルファの後に Isaac を棚上げ（shelved）したと説明。チームは Shoshin、続いて MuMu（MovyMovy）へ移った。参照日時点で topology-gg の GitHub 組織の isaac リポジトリはゲームと無関係な内容を表示していたが、ゲームのソースは guiltygyoza/isaac に残っている（最後の Isaac 本体の変更は 2022-09-10）。"
+  s: [src-isaac-what-happened, src-isaac-after, src-isaac-github-org, src-isaac-repo]
 dates:
   announced: {date: "2022-05-01", s: [src-isaac-presents], note: "DEFCON '22 での発表をまとめた記事"}
-  launched: {date: "2022", s: [src-isaac-what-happened], note: "Solve2Mint 2.0 の後に StarkNet テストネットで Isaac Alpha を 2 ラウンド実施。正確な日付は記載なし"}
+  launched: {date: "2022-08", s: [src-isaac-what-happened, src-isaac-repo], note: "Solve2Mint 2.0 の後に StarkNet テストネットで Isaac Alpha を 2 ラウンド実施（記事に日付なし）。コミット履歴では 2022-08-02 にクローズド・アルファ用パラメータ、2022-08-19 にオープン・アルファのコントラクト展開、2022-09-10 に alpha2 の変更"}
   ended: {date: "2022-12", s: [src-isaac-what-happened], note: "2022-12-13 の記事で棚上げを説明（棚上げ自体の日付は不明）"}
 
 architecture:
@@ -39,13 +39,14 @@ architecture:
   offchain:
     - {item: "バックエンド（同期）とフロントエンド（3 種のビュー）。保留中の建設がプレイヤー間で同期されない、建設した設備が地図に出ない等の不具合を、StarkNet フルノードの不安定さとバックエンド同期の問題に帰している", s: [src-isaac-what-happened, src-isaac-after]}
   admin:
-    level: unknown
-    detail: "Isaac Protocol（最小限の自律的ガバナンス）を予定していたと説明。実際の管理権限は確認できなかった。"
-    s: [src-isaac-presents]
+    level: significant
+    detail: "主要コントラクト（universe・lobby・charter・fsm・dao）は Goerli 上にプロキシ経由で展開され（deployed_isaac.json）、プロキシの change_implementation_hash は定数アドレス GYOZA だけが呼べる。Isaac Protocol（最小限の自律的ガバナンス、リポジトリでは CarseDAO）を予定していたと説明されたが、運用で実装の差し替え権限が移譲されたかは確認できなかった。"
+    s: [src-isaac-presents, src-isaac-repo]
   open_source:
-    level: unknown
-    detail: "発表記事は公開時にコントラクトを完全公開すると述べたが、参照日時点で topology-gg/isaac リポジトリにゲームのコードは見当たらなかった。"
-    s: [src-isaac-presents, src-isaac-github-org]
+    level: full
+    detail: "guiltygyoza/isaac に Cairo コントラクト（RK4 の軌道積分、Fiat–Shamir 風の種更新のコメントを含む）、各ビューのフロントエンド、Apibara バックエンド、Solve2Mint 2.0 が公開されている（Isaac 部分は Apache 2.0）。topology-gg/isaac は参照日時点で無関係な内容に置き換わっていた。"
+    url: "https://github.com/guiltygyoza/isaac"
+    s: [src-isaac-repo, src-isaac-presents, src-isaac-github-org]
   extensibility:
     level: unknown
     detail: "クライアント非依存（プレイヤーが独自のビューを作れる）を設計価値に掲げたが、第三者クライアントの例は確認できなかった。"
@@ -68,6 +69,7 @@ article:
     - {t: "複雑さは最初の実プレイまでの時間を延ばす: 三体シミュレーション・ティック・建設・在庫・3 種のビュー・協調を最初から揃えようとすると、コアループの欠陥が実プレイヤーの前で露呈するまでに時間がかかる。運営は「効果的な反復＝反復回数×反復間の進歩」を指標とし、コア・メカニクスから始めるべきだったと総括した。", k: claim, who: "Topology", s: [src-isaac-what-happened, src-isaac-after], q: "Complexity at the birth of a project lengthens the time to iteration #0 with real players"}
   counter_evidence:
     - {t: "失敗の主因として運営が挙げたのは、協調ツール不足、インフラの不安定さ、ブロック時間、抽象的な見た目、直線的な進行で、いずれも「オンチェーンだから成立しない」ことの直接証拠ではない。より速い基盤と小さな設計なら成立した可能性は検証されていない。", k: analysis, s: [src-isaac-what-happened]}
+    - {t: "アルファ参加者は 50 問のオンチェーン・パズル（S2M2）を解いた層から集められており、一般のプレイヤーより技術的関心が高い可能性がある。協力が成立しなかったことの一般化には選抜の偏りも考慮が要る。", k: analysis, s: [src-isaac-what-happened]}
     - {t: "参加者は約 13 人・2 ラウンドのみで、文明・工場型の協力ゲームの成否を一般化するにはサンプルが小さすぎる。", k: fact, s: [src-isaac-what-happened]}
 
 metrics:
@@ -77,6 +79,7 @@ metrics:
 events:
   - {id: ev-isaac-s2m-call, date: "2022-03-29", type: other, title: "StarkNet コミュニティコールで GuiltyGyoza が Solve to Mint を発表", s: [src-isaac-community-call]}
   - {id: ev-isaac-presents, date: "2022-05-01", type: announce, title: "「Topology presents Isaac」公開（DEFCON '22 の発表）", s: [src-isaac-presents]}
+  - {id: ev-isaac-open-alpha, date: "2022-08-19", type: testnet, title: "オープン・アルファのコントラクトを展開（コミット）", detail: "2022-08-02 にクローズド・アルファ用パラメータ、2022-09-10 に alpha2 の変更", s: [src-isaac-repo]}
   - {id: ev-isaac-shelved, date: "2022-12-13", type: end, title: "「What happened to Isaac?」で棚上げを説明", detail: "テストネットのアルファ 2 ラウンド（約 13 人）の後に中断", s: [src-isaac-what-happened]}
 
 relations:
@@ -85,9 +88,9 @@ relations:
   - {to: m-production-chain, type: built-with, basis: confirmed, note: "採取機→精製所→発電機→推進機関の生産網", s: [src-isaac-presents, src-isaac-what-happened]}
 
 unknowns:
-  - "アルファ各ラウンドの正確な日付と期間、コントラクトアドレス。"
-  - "コントラクトのソースが公開されたか（現在の topology-gg/isaac は無関係な内容）。"
-  - "Isaac Protocol（ガバナンス）が実装されたか。"
+  - "アルファ各ラウンドの正確な期間（展開記録のアドレスがどのラウンドに対応するかも未確認）。"
+  - "Isaac Protocol（ガバナンス）が運用で使われたか（リポジトリに CarseDAO のコードと dao プロキシの展開記録はある）。"
+  - "アルファ各ラウンドの公式な開始・終了日（コミットからは 2022-08〜09 としか言えない）。"
 contradictions: []
 
 sources:
@@ -96,3 +99,4 @@ sources:
   - {id: src-isaac-after, title: "What happened after Isaac?", url: "https://topology.substack.com/p/what-happened-after-isaac", publisher: "Topology's Newsletter", author: "Topology", type: retrospective, primary: true, published: "2022-12-14", accessed: "2026-10-23", access: fetched, lang: en, note: "Shoshin（エージェントが戦う格闘ゲーム）、MuMu への移行、「設計は引き算」"}
   - {id: src-isaac-community-call, title: "Community Call #11 | Presenting MatchboxDAO, OGame, Guiltygyoza presenting Solve 2 Mint", url: "https://www.starknet.io/blog/community-call-11-presenting-matchboxdao-ogame-guiltygyoza-presenting-solve-2-mint-video/", publisher: "Starknet (starknet.io)", type: talk, primary: true, published: "2022-03-29", accessed: "2026-10-23", access: fetched, lang: en, note: "Solve to Mint: オンチェーン検証のパズルで NFT を配布"}
   - {id: src-isaac-github-org, title: "topology-gg (GitHub organization)", url: "https://github.com/topology-gg", publisher: "GitHub", type: code, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "固定表示の isaac リポジトリは説明にトークンのアドレスを含み、clone した中身は 2014 年起点の無関係な技術面接質問集だった"}
+  - {id: src-isaac-repo, title: "guiltygyoza/isaac", url: "https://github.com/guiltygyoza/isaac", publisher: "GitHub", author: "guiltygyoza / Topology", type: code, primary: true, published: "2024-07-23", accessed: "2026-10-23", access: fetched, lang: en, note: "検証役が clone（1,370 コミット、2022-02-04〜、Isaac 本体の最終変更 2022-09-10、以後は依存更新のみ）。Cairo コントラクト、proxy.cairo（GYOZA のみ実装差し替え可）、deploy/deployed_isaac.json（alpha-goerli のプロキシ）、CarseDAO、各ビュー、S2M2、Apache 2.0"}

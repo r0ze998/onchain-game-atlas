@@ -109,7 +109,7 @@ article:
     - {t: "CryptoSlam のデータとして、取引高は 2021-09 の 2.21 億ドルから 10 月には 1200 万ドル未満へ 95% 減少し、累計二次流通は約 2.8 億ドルと報じられた。", k: fact, s: [src-loot-decrypt-2022]}
     - {t: "2022-01 時点で 7 日間の取引は 200 ETH 未満、1 日の売買は 8 件未満、フロアは 1.75 ETH、保有ウォレットは 2541 だった（NonFungible）。2022-08 のフロアは 0.93 ETH（Decrypt）。", k: fact, s: [src-loot-nonfungible-2022, src-loot-decrypt-2022]}
     - {t: "2022-06 に Gitcoin で 13 万ドルの Lootverse Round が告知され、Royalty DAO は 2021-12-25 に 25 ETH の遡及的公共財助成を可決した（保有 144 ETH）。", k: fact, s: [src-loot-decrypt-2022, src-loot-nonfungible-2022]}
-    - {t: "2023 年以降、BibliothecaDAO の Loot Survivor が Starknet 上で公開され、2025-05 にもリポジトリが更新されている。参照日の Loot 本体は保有アドレス 2326、24 時間移転 0。", k: fact, s: [src-loot-survivor-repo, src-loot-etherscan-token]}
+    - {t: "2023 年以降、BibliothecaDAO の Loot Survivor が Starknet 上で公開され、リポジトリの main は 2024-08 まで更新されている。参照日の Loot 本体は保有アドレス 2326、24 時間移転 0。", k: fact, s: [src-loot-survivor-repo, src-loot-etherscan-token]}
   retention_evidence:
     - {t: "示されている指標: 保有ウォレット数は 2022-01 に 2541、2026-10 に 2326（Etherscan 表示）。保有者の数は大きく減っていないが、取引はほぼ止まっている。", k: fact, s: [src-loot-nonfungible-2022, src-loot-etherscan-token]}
     - {t: "示されている指標: 派生の数（100 超、一覧 95 件）は「作る側」の関心を示すが、各派生の利用者数や存続は一覧に記載がない。", k: fact, s: [src-loot-nonfungible-2022, src-loot-resources]}
@@ -164,7 +164,6 @@ events:
   - {id: ev-loot-gitcoin, date: "2022-06", type: other, title: "Gitcoin で Lootverse Round（13 万ドル）を告知", s: [src-loot-decrypt-2022]}
 
 relations:
-  - {to: loot-survivor, type: similar-to, basis: confirmed, note: "Loot Survivor 側から見て Loot の派生（README が OG loot contract に基づくと明記）", s: [src-loot-survivor-repo]}
   - {to: realms-eternum, type: similar-to, basis: analytic, note: "Realms (for Adventurers) は Loot 派生の土地 NFT で、Eternum はその系譜（Decrypt 2022 が Realms: Eternum を Lootverse のゲームとして紹介）。"}
   - {to: dope-wars-roll-your-own, type: similar-to, basis: analytic, note: "Dope Wars は Loot 形式の派生として知られるが、本調査では一次資料で未確認"}
   - {to: autonomous-worlds-essay, type: similar-to, basis: analytic, note: "運営不在で第三者が意味を足す世界という発想が重なる。影響関係は未確認"}
@@ -202,4 +201,4 @@ sources:
   - {id: src-loot-nonfungible-2022, title: "The derivatives of Loot (for Adventurers)", url: "https://nonfungible.com/blog/the-derivatives-of-loot-for-adventurers", publisher: "NonFungible.com", type: analysis, primary: false, published: "2022-01-18", accessed: "2026-10-23", access: fetched, lang: en, note: "100 超の派生、7 日 200 ETH 未満、フロア 1.75 ETH、2541 ウォレット、Royalty DAO 144 ETH"}
   - {id: src-loot-decrypt-2022, title: "Loot, One Year Later: The NFT Hype Is Dead—But 'Lootverse' Hope Lives On", url: "https://decrypt.co/108354/loot-one-year-later-nft-hype-dead-lootverse-hope-lives-on", publisher: "Decrypt", author: "Andrew Hayward", type: retrospective, primary: false, published: "2022-08-26", accessed: "2026-10-23", access: fetched, lang: en, note: "取引高 95% 減（CryptoSlam）、フロア 0.93 ETH、Hofmann の発言、Eternum・Loot MMO・Loot 2 の状況、5% ロイヤリティ、Gitcoin"}
   - {id: src-loot-theblock-2021-09, title: "NFT collectibles see significant drop in sales volumes", url: "https://www.theblock.co/post/117342/nft-collectibles-see-significant-drop-in-sales-volumes", publisher: "The Block", type: news, primary: false, published: "2021-09-10", accessed: "2026-10-23", access: fetched, lang: en, note: "CryptoSlam データ。Loot・CryptoPunks・BAYC・Art Blocks の週次取引高が 44〜82% 減（個別の値はなし）"}
-  - {id: src-loot-survivor-repo, title: "BibliothecaDAO/loot-survivor", url: "https://github.com/BibliothecaDAO/loot-survivor", publisher: "GitHub (BibliothecaDAO)", type: code, primary: true, published: "2025-05", accessed: "2026-10-23", access: fetched, lang: en, note: "git clone（最終コミット 2025-05-06）。README: OG loot に基づく装備、Starknet、Cairo、Apibara、LORDS、Pragma VRF"}
+  - {id: src-loot-survivor-repo, title: "BibliothecaDAO/loot-survivor", url: "https://github.com/BibliothecaDAO/loot-survivor", publisher: "GitHub (BibliothecaDAO)", type: code, primary: true, published: "2024-08", accessed: "2026-10-23", access: fetched, lang: en, note: "git clone。検証役の再確認では main の最終コミットは 2024-08-08 で、全ブランチ中でも最新（初版の「2025-05-06」は再現せず）。README: OG loot に基づく装備、onchain arcade、Starknet、Apibara、LORDS。Pragma の乱数（VRF）は README ではなくコード（contracts/game/src/lib.cairo の pragma_lib）で確認"}

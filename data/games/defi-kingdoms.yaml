@@ -5,12 +5,13 @@ aliases: [DFK, Serendale, Crystalvale, "DFK Chain"]
 kind: game
 depth: index
 updated: "2026-10-23"
-chains: [Harmony（2021-08〜2022-10）, "DFK Chain（Avalanche Subnet、2022-03〜）", "Klaytn / Kaia（2022-12〜）", Metis（DFK Colosseum、2024-10〜）]
+chains: [Harmony（2021-08〜2022-10）, "DFK Chain（Avalanche Subnet、2022-03〜2026-08-28 終了予定と告知）", "Klaytn / Kaia（2022-12〜）", Metis（DFK Colosseum、2024-10〜）, "Avalanche C-Chain（2026-08 以降の移行先と告知）"]
 team: "Kingdom Studios"
 summary: >-
   DEX と流動性マイニングをファンタジー王国の建物（Marketplace、Gardens、Jeweler など）として見せることから始まり、ヒーロー NFT とクエストを加えた DeFi 一体型のゲーム。
   2021-08 に Harmony で開始し、2022-03 に自前の Avalanche Subnet「DFK Chain」で第 2 王国 Crystalvale を開いた。
   2022-06 の Harmony の Horizon ブリッジ攻撃（約 1 億ドル）の約 2 か月後、Harmony の Serendale を Klaytn へ移すと発表し、2022-10 に Harmony 版を閉じた。王国ごとに別チェーン・別トークン（JEWEL、CRYSTAL、JADE）を持つ構成になった。
+  さらに 2026-07 には、専用チェーン DFK Chain を 2026-08-28 で終了し Avalanche C-Chain へ移ると告知した。
 selection_reason: >-
   「DeFi をゲームの皮で包む」型の代表であり、ゲーム専用チェーン（Subnet）を持ち、ホストチェーンの事故（ブリッジ攻撃）とチェーン側の誘因（Klaytn の資金提供）によって王国ごと移転した記録が公式ドキュメントで追えるから。
   チェーン選択がゲームの存続を左右する、という利用者の設計上の論点に直接関係する。
@@ -21,8 +22,8 @@ categories:
 status:
   value: active
   as_of: "2026-10"
-  note: "公式ドキュメント（2025-08-08 更新）は DFK Chain・Kaia・Metis の 3 チェーンでゲームが稼働中とする。2026 年の利用者数は未確認。"
-  s: [src-defi-kingdoms-docs-home]
+  note: "公式ドキュメント（2025-08-08 更新）は DFK Chain・Kaia・Metis の 3 チェーンで稼働とするが、運営は 2026-07-31 に DFK Chain を 2026-08-28 で終了し Avalanche C-Chain へ資産を移すと告知した（「DeFi Kingdoms の終わりではない」）。DefiLlama の DFK Chain の TVL は 2026-08 に流出し 9 月以降ほぼ 0。移行の完了と 2026 年の利用者数は未確認。"
+  s: [src-defi-kingdoms-docs-home, src-defi-kingdoms-x-sunset, src-defi-kingdoms-llama]
 dates:
   launched: {date: "2021-08-22", s: [src-defi-kingdoms-docs-realms], note: "Serendale 1.0 を Harmony で DEX と流動性マイニング報酬として開始"}
 
@@ -60,6 +61,8 @@ concepts: [e-p2e, c-own-chain, c-nft-asset, e-dual-token, e-sink-faucet]
 article:
   counter_evidence:
     - {t: "Harmony からの離脱は Horizon ブリッジ攻撃の約 2 か月後だったが、報道は離脱理由を「Harmony との協業の難しさ」とし、攻撃を原因とは書いていない。Klaytn 側が協業に対価を払ったと運営幹部が AMA で述べており、移転はホストチェーンの事故よりチェーン間の誘致競争で説明できる可能性がある。", k: claim, who: "The Block / Kingdom Studios 社長 Dreamer", s: [src-defi-kingdoms-theblock-leave], q: "this is another major chain paying for a collaboration with DFK"}
+    - {t: "「ブリッジ攻撃でホストチェーンを離れた」という読みに対し、オンチェーンの TVL は攻撃前にすでに大きく減っていた。DefiLlama の Defi Kingdoms（Harmony・Klaytn）の TVL は 2022-01-14 の約 9.0 億ドルが 2022-06-01 には約 4,400 万ドルで、Horizon 攻撃（2022-06）以前に 95% 減っている。", k: fact, s: [src-defi-kingdoms-llama]}
+    - {t: "専用チェーンは「ガスと安定性を管理するため」に作られたが、運営は 2026 年にその DFK Chain 自体を畳んで汎用チェーン（Avalanche C-Chain）へ戻ると決めた。ゲーム専用チェーンが小規模になった後も維持できるとは限らないことを示す。", k: analysis, s: [src-defi-kingdoms-docs-chain, src-defi-kingdoms-x-sunset, src-defi-kingdoms-egamers-sunset]}
   constraints:
     - {t: "王国ごとにチェーンと Power Token が分かれ（Harmony の JEWEL、DFK Chain の CRYSTAL、Kaia の JADE）、利用者と流動性がチェーン間で分断される構成になった。", k: analysis, s: [src-defi-kingdoms-docs-realms, src-defi-kingdoms-docs-home]}
 
@@ -70,17 +73,25 @@ events:
   - {id: ev-dfk-harmony-close, date: "2022-10-12", type: end, title: "Harmony の Serendale を閉鎖し Outpost 化", s: [src-defi-kingdoms-docs-realms]}
   - {id: ev-dfk-serendale-klaytn, date: "2022-12-07", type: launch, title: "Serendale 2.0 を Klaytn（現 Kaia）で開始（JADE）", s: [src-defi-kingdoms-docs-realms]}
   - {id: ev-dfk-colosseum, date: "2024-10-04", type: launch, title: "PvP の DFK Colosseum を Metis で開始", s: [src-defi-kingdoms-docs-realms]}
+  - {id: ev-dfk-chain-sunset-announce, date: "2026-07-31", type: announce, title: "DFK Chain を 2026-08-28 で終了し Avalanche C-Chain へ移ると告知", detail: "DFK 由来の資産は運営が移し、JEWEL・ブリッジ済み資産は利用者が自分で移す必要がある。第三者向け SDK の公開も予告。報道はインフラ費用の削減が目的とする", s: [src-defi-kingdoms-x-sunset, src-defi-kingdoms-egamers-sunset]}
+  - {id: ev-dfk-chain-sunset, date: "2026-08-28", type: end, title: "DFK Chain 終了予定日", detail: "実際に停止したかは一次資料で未確認。DefiLlama の DFK Chain TVL は 2026-09-01 に約 22 万ドルから 50 ドル台へ落ちた", s: [src-defi-kingdoms-x-sunset, src-defi-kingdoms-llama]}
 
 relations:
   - {to: aavegotchi, type: similar-to, basis: analytic, note: "DeFi の仕組みをゲームの中心に据えた同時期の例"}
   - {to: axie-infinity, type: similar-to, basis: analytic, note: "ゲーム専用チェーン（Ronin / DFK Chain）を持った P2E"}
   - {to: c-own-chain, type: similar-to, basis: analytic, note: "Avalanche Subnet でゲーム専用チェーンを運用"}
 
+metrics:
+  - {id: m-dfk-tvl-peak-2022-01, type: tvl, value: 901428760, value_text: "約 9.0 億ドル", unit: USD, period: "2022-01-14", definition: "DefiLlama の Defi Kingdoms（Harmony・Klaytn の合計）TVL の最大値", nature: measured, s: [src-defi-kingdoms-llama]}
+  - {id: m-dfk-tvl-2022-06, type: tvl, value: 44160520, value_text: "約 4,400 万ドル", unit: USD, period: "2022-06-01", definition: "同上（Horizon 攻撃前）", nature: measured, s: [src-defi-kingdoms-llama]}
+  - {id: m-dfk-chain-tvl-2026-07, type: tvl, value: 630000, value_text: "約 63 万ドル → 2026-09 以降ほぼ 0", unit: USD, period: "2026-07 下旬", definition: "DefiLlama の DFK Chain のチェーン TVL（ピークは 2022-04-04 の約 4.1 億ドル）", nature: measured, s: [src-defi-kingdoms-llama]}
+
 unknowns:
   - "Horizon ブリッジ攻撃が DFK の資産（Harmony 上のブリッジ済みトークンと流動性）に与えた具体的な影響"
   - "利用者数の推移（Harmony 期、DFK Chain 期、Kaia 期）"
   - "コントラクトのソース公開とクエスト・戦闘判定のオンチェーン範囲"
   - "Klaytn からの対価の条件"
+  - "2026-08-28 の DFK Chain 終了が予定どおり行われたか、Crystalvale の資産・遊びが Avalanche C-Chain でどこまで再開したか"
 
 sources:
   - {id: src-defi-kingdoms-docs-home, title: "DeFi Kingdoms Whitepaper (docs home)", url: "https://docs.defikingdoms.com/", publisher: "DeFi Kingdoms Docs", type: official-docs, primary: true, published: "2025-08-08", accessed: "2026-10-23", access: fetched, lang: en, note: "3 チェーンで稼働、Power Token、ナビゲーション"}
@@ -88,3 +99,6 @@ sources:
   - {id: src-defi-kingdoms-docs-chain, title: "DeFi Kingdoms Blockchain", url: "https://docs.defikingdoms.com/how-defi-kingdoms-works/defi-kingdoms-blockchain", publisher: "DeFi Kingdoms Docs", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "Avalanche Subnet、JEWEL がガス、バリデータへの手数料 25%"}
   - {id: src-defi-kingdoms-docs-gardens, title: "The Gardens", url: "https://docs.defikingdoms.com/how-defi-kingdoms-works/the-gardens", publisher: "DeFi Kingdoms Docs", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "エポック、ロック率、プロジェクトへの追加 mint、引き出し手数料"}
   - {id: src-defi-kingdoms-theblock-leave, title: "DeFi Kingdoms to leave Harmony for metaverse-focused blockchain", url: "https://www.theblock.co/post/164497/defi-kingdoms-to-leave-harmony-for-metaverse-focused-blockchain", publisher: "The Block", type: news, primary: false, published: "2022-08-23", accessed: "2026-10-23", access: fetched, lang: en, note: "Klaytn への移転、Harmony との協業の難しさ、Klaytn の対価"}
+  - {id: src-defi-kingdoms-x-sunset, title: "DFK Chain Sunset & The Road Ahead (X thread, via Thread Reader)", url: "https://threadreaderapp.com/thread/2083238250311725278", publisher: "DeFi Kingdoms (@DeFiKingdoms) / Thread Reader App", type: social, primary: true, published: "2026-07-31", accessed: "2026-10-23", access: fetched, lang: en, note: "公式スレッドの転載。2026-08-28 に DFK Chain 終了、Avalanche C-Chain へ移行、SDK 公開予定"}
+  - {id: src-defi-kingdoms-egamers-sunset, title: "DeFi Kingdoms Pulls the Plug on DFK Chain, Heads Back to Avalanche C-Chain August 28", url: "https://egamers.io/defi-kingdoms-pulls-the-plug-on-dfk-chain-heads-back-to-avalanche-c-chain-august-28/", publisher: "EGamers.io", author: "George Tsagkarakis", type: news, primary: false, published: "2026-08-04", accessed: "2026-10-23", access: fetched, lang: en, note: "インフラ費用の削減が目的、ブリッジ資産は自分で移す必要"}
+  - {id: src-defi-kingdoms-llama, title: "DefiLlama API: protocol/defi-kingdoms and historicalChainTvl/DFK", url: "https://api.llama.fi/protocol/defi-kingdoms", publisher: "DefiLlama", type: onchain-data, primary: false, accessed: "2026-10-23", access: fetched, lang: en, note: "検証役が取得。プロトコル TVL（Harmony・Klaytn）と DFK Chain のチェーン TVL（https://api.llama.fi/v2/historicalChainTvl/DFK）の日次系列"}

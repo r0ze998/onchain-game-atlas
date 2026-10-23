@@ -20,8 +20,8 @@ categories:
 status:
   value: unknown
   as_of: "2026-10"
-  note: "2025 年初めに Season 2（HamsterVerse）を開始したと報じられたが、2026 年の稼働状況は一次資料で確認できなかった。"
-  s: [src-hamster-kombat-decrypt-explainer]
+  note: "2025-02-19 に Season 2（HamsterVerse）を開始したと ForkLog が報じた（Decrypt 2025-01-02 更新時点では計画段階）。TON 上の HMSTR は参照日にも保有者を持つが、2026 年のゲームの稼働状況は一次資料で確認できなかった。"
+  s: [src-hamster-kombat-forklog-s2, src-hamster-kombat-decrypt-explainer, src-hamster-kombat-tonapi]
 dates:
   launched: {date: "2024", s: [src-hamster-kombat-decrypt-explainer], note: "正確な開始日は未確認。Decrypt の解説初出は 2024-06-02"}
 
@@ -35,8 +35,8 @@ architecture:
     - {item: "不正検出（行動分析）と BAN", s: [src-hamster-kombat-decrypt-purge]}
   admin:
     level: significant
-    detail: "配分基準・不正判定・没収（68 億 HMSTR）を運営が一方的に決めた。没収分の半分は他の参加者へ、残りは焼却・供給から除外と説明された。"
-    s: [src-hamster-kombat-decrypt-purge]
+    detail: "配分基準・不正判定・没収（68 億 HMSTR）を運営が一方的に決めた。没収分の半分は他の参加者へ、残りは焼却・供給から除外と説明された。TON 上の HMSTR jetton は参照日時点で mintable=true で、admin アドレス（ウォレット）が設定されている（tonapi で確認）。"
+    s: [src-hamster-kombat-decrypt-purge, src-hamster-kombat-tonapi]
   open_source:
     level: unknown
     detail: "ソース公開は確認できなかった。"
@@ -58,7 +58,7 @@ concepts: [e-points-airdrop, m-farming-idle, e-p2e]
 
 article:
   counter_evidence:
-    - {t: "配布後に月間利用者が約 86% 減った一方、運営の代表者は「シーズン制なので想定どおり」とし、月間利用者は 3,000 万超を保っていると述べた。ただしその 3,000 万が報酬（Season 2 のエアドロップ）を期待して残ったのか、娯楽として残ったのかを区別する資料はなく、「報酬なしで残った層」の証拠にはならない。", k: claim, who: "運営 (Hamster Kombat) の代表者", s: [src-hamster-kombat-forklog-decline, src-hamster-kombat-forklog-reengage], q: "our MAU remains above 30 million"}
+    - {t: "配布後に月間利用者が大きく減った（Telegram のデータで 9 月下旬の 1 億超→11 月初めの 4,400 万未満。ForkLog の「3 億→4,090 万」は累計と月間を比べている）一方、運営の代表者は「シーズン制なので想定どおり」とし、月間利用者は 3,000 万超を保っていると述べた。ただしその 3,000 万が報酬（Season 2 のエアドロップ）を期待して残ったのか、娯楽として残ったのかを区別する資料はなく、「報酬なしで残った層」の証拠にはならない。", k: claim, who: "運営 (Hamster Kombat) の代表者", s: [src-hamster-kombat-forklog-decline, src-hamster-kombat-forklog-reengage], q: "our MAU remains above 30 million"}
   principles:
     - {t: "オフチェーンのポイント＋一回限りのエアドロップは、配布日を境に誘因が消える。適用条件はゲームの楽しさが報酬期待より弱いこと。配布直前の一括 BAN（230 万）は多重アカウントを事後に排除できるが、正規参加者の不信（基準の後出し）を同時に生む。", k: analysis, s: [src-hamster-kombat-decrypt-purge, src-hamster-kombat-forklog-decline]}
 
@@ -66,22 +66,30 @@ metrics:
   - {id: m-hamster-kombat-players-2024, type: players, value: 300000000, value_text: "3 億超（累計、運営主張）", unit: players, period: "2024（配布前）", definition: "運営が主張する累計プレイヤー数", nature: reported, s: [src-hamster-kombat-ct-131m, src-hamster-kombat-decrypt-explainer]}
   - {id: m-hamster-kombat-eligible-2024-09, type: players, value: 131000000, value_text: "約 1.31 億（Decrypt は約 1.29 億）", unit: accounts, period: "2024-09", definition: "エアドロップ対象として認められたアカウント", nature: reported, s: [src-hamster-kombat-ct-131m, src-hamster-kombat-decrypt-alltime-low]}
   - {id: m-hamster-kombat-bans-2024-09, type: other, value: 2300000, value_text: "230 万超", unit: accounts, period: "2024-09-23 発表", definition: "運営が BAN したチーター", nature: reported, s: [src-hamster-kombat-decrypt-purge]}
-  - {id: m-hamster-kombat-mau-2024-11, type: mau, value: 40900000, value_text: "3 億（9 月末）→ 4,090 万", unit: players, period: "2024-11 初め", definition: "Telegram ボットのアプリ統計による月間の「タッパー」数（ForkLog が引用）", nature: reported, s: [src-hamster-kombat-forklog-decline]}
+  - {id: m-hamster-kombat-mau-2024-11, type: mau, value: 40900000, value_text: "4,090 万（Decrypt は「4,400 万未満、9 月下旬は 1 億超」）", unit: players, period: "2024-11 初め", definition: "Telegram のミニアプリ統計による月間利用者数（ForkLog・Decrypt が引用）", nature: reported, s: [src-hamster-kombat-forklog-decline, src-hamster-kombat-decrypt-alltime-low], note: "ForkLog は 9 月末の「3 億」と比べるが、3 億は累計プレイヤー数で月間値ではない。同じ定義の比較は Decrypt の 1 億超→4,400 万未満"}
+  - {id: m-hamster-kombat-mau-2025-02, type: mau, value: 11680000, value_text: "1,168 万", unit: players, period: "2025-02-24", definition: "月間の総プレイヤー数（BitPinas。出典の明示なし、Telegram の統計と見られる）", nature: reported, s: [src-hamster-kombat-bitpinas-s2]}
+  - {id: m-hamster-kombat-holders-2026-10, type: wallets, value: 1350945, value_text: "135 万", unit: wallets, period: "2026-10-23", definition: "TON 上の HMSTR jetton の保有アドレス数（tonapi の holders_count）", nature: measured, s: [src-hamster-kombat-tonapi], note: "取引所の預かり分は 1 アドレスにまとまるため人数を表さない。運営は 2024-11 に「1,100 万超のトークン保有者」と述べた（取引所内の保有を含むと見られる）"}
 
 events:
   - {id: ev-hamster-kombat-bans, date: "2024-09-23", type: other, title: "230 万超のチーターを BAN、68 億 HMSTR を没収", detail: "1 人が 400 超のアカウントを 1 つの Binance アドレスに接続した例などを公表", s: [src-hamster-kombat-decrypt-purge]}
   - {id: ev-hamster-kombat-airdrop, date: "2024-09-26", type: launch, title: "HMSTR を TON 上で配布・上場", s: [src-hamster-kombat-ct-131m, src-hamster-kombat-decrypt-alltime-low]}
   - {id: ev-hamster-kombat-decline, date: "2024-11", type: other, title: "月間利用者が約 4,090 万に減少と報道", s: [src-hamster-kombat-forklog-decline]}
+  - {id: ev-hamster-kombat-season2, date: "2025-02-19", type: release, title: "Season 2（HamsterVerse）開始と新エアドロップの告知", s: [src-hamster-kombat-forklog-s2]}
 
 relations:
   - {to: pixels, type: similar-to, basis: analytic, note: "報酬期待で巨大な利用者数を集め、配布・報酬改定の前後に大量 BAN と急減が起きた"}
   - {to: e-points-airdrop, type: similar-to, basis: analytic, note: "オフチェーンのポイントを将来のトークン配分の基準にした代表例"}
 
+contradictions:
+  - {t: "配布後の月間利用者の減少を、ForkLog は「3 億（9 月末）→4,090 万」とし、Decrypt は Telegram のデータで「1 億超（9 月下旬）→4,400 万未満」とする。3 億は累計で、月間同士の比較は Decrypt の値", s: [src-hamster-kombat-forklog-decline, src-hamster-kombat-decrypt-alltime-low]}
+  - {t: "エアドロップ対象者数を Cointelegraph・ForkLog は 1.31 億、Decrypt（2024-11）は約 1.29 億、BitPinas は 1.3 億とする", s: [src-hamster-kombat-ct-131m, src-hamster-kombat-decrypt-alltime-low, src-hamster-kombat-bitpinas-s2]}
+
 unknowns:
   - "ゲームの正確な開始日と運営主体"
   - "累計 3 億の定義（Telegram アカウント単位か）と重複・ボットの割合"
   - "配布後に残った月間 3,000〜4,000 万の内訳（Season 2 報酬期待か娯楽か）"
-  - "2025〜2026 年の稼働状況と利用者数（2025-02 の 1,168 万という数字は検索結果の要約でしか見ていない）"
+  - "2025 年夏予定とされた Season 2 エアドロップが実施されたか、2026 年の稼働状況と利用者数"
+  - "運営の「1,100 万超のトークン保有者」と、チェーン上の保有アドレス数（2026-10 で 135 万）の差のうち、取引所預かりと売却・離脱の内訳"
   - "運営の収益源（広告・提携など）"
 
 sources:
@@ -91,3 +99,6 @@ sources:
   - {id: src-hamster-kombat-decrypt-alltime-low, title: "Hamster Kombat token hits all-time low", url: "https://decrypt.co/289725/hamster-kombat-all-time-low-price", publisher: "Decrypt", type: news, primary: false, published: "2024-11-02", accessed: "2026-10-23", access: fetched, lang: en, note: "約 1.29 億対象、TON、価格の最安値"}
   - {id: src-hamster-kombat-forklog-reengage, title: "Hamster Kombat developers aim to re-engage players", url: "https://forklog.com/en/hamster-kombat-developers-aim-to-reengage-players/", publisher: "ForkLog", type: news, primary: false, published: "2024-11-19", accessed: "2026-10-23", access: fetched, lang: en, note: "運営代表者の「想定どおり」「MAU 3,000 万超」"}
   - {id: src-hamster-kombat-forklog-decline, title: "Hamster Kombat loses nearly 260 million players post-listing", url: "https://forklog.com/en/hamster-kombat-loses-nearly-260-million-players-post-listing/", publisher: "ForkLog", type: news, primary: false, published: "2024-11-04", accessed: "2026-10-23", access: fetched, lang: en, note: "3 億→4,090 万（月間）、1.31 億受領、230 万 BAN"}
+  - {id: src-hamster-kombat-forklog-s2, title: "Hamster Kombat Launches Second Season and Announces New Airdrop", url: "https://forklog.com/en/hamster-kombat-launches-second-season-and-announces-new-airdrop/", publisher: "ForkLog", type: news, primary: false, published: "2025-02-19", accessed: "2026-10-23", access: fetched, lang: en, note: "Season 2（HamsterVerse）開始。ForkLog 英語版は AI 翻訳と表示"}
+  - {id: src-hamster-kombat-bitpinas-s2, title: "Telegram Game Hamster Kombat Start Season Two as ‘HamsterVerse’", url: "https://bitpinas.com/learn-how-to-guides/hamsterverse-game-guide/", publisher: "BitPinas", type: news, primary: false, published: "2025-02", accessed: "2026-10-23", access: fetched, lang: en, note: "2025-02-24 時点の月間 1,168 万、対象 1.3 億"}
+  - {id: src-hamster-kombat-tonapi, title: "tonapi: HMSTR jetton (EQAJ8uWd7EBqsmpSWaRdf_I-8R8-XHwh3gsNKhy-UrdrPcUo)", url: "https://tonapi.io/v2/jettons/EQAJ8uWd7EBqsmpSWaRdf_I-8R8-XHwh3gsNKhy-UrdrPcUo", publisher: "tonapi.io", type: onchain-data, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "検証役の計測。holders_count 1,350,945、mintable=true、admin はウォレット、総供給約 1,000 億"}

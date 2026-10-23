@@ -41,13 +41,13 @@ architecture:
     level: significant
     detail: >-
       EIP-2535 Diamond で全面的にアップグレード可能。diamondCut は当初チームのマルチシグのみが呼べ、DAO への移管は「段階的」とされた。
-      2025 年の移転では、アップグレード権限を使って Polygon の全コントラクトを停止し、閲覧専用・転送不可にした。
+      2025 年の移転では、アップグレード権限を使って Polygon の全コントラクトを停止し、閲覧専用・転送不可にした（担保の引き出しと出品の取り消しのみ可能）。
     s: [src-aavegotchi-docs-governance, src-aavegotchi-blog-base]
   open_source:
     level: full
-    detail: "コントラクトは MIT ライセンスで公開（Polygon 版のリポジトリ）。Base 版のリポジトリは未確認。"
+    detail: "Polygon 版コントラクトは MIT で公開（aavegotchi-contracts）。Base 版は aavegotchi-geist リポジトリ（README 題「Aavegotchi Base Contracts」、MIT）で公開されている。"
     url: "https://github.com/aavegotchi/aavegotchi-contracts"
-    s: [src-aavegotchi-github-contracts]
+    s: [src-aavegotchi-github-contracts, src-aavegotchi-github-geist]
   extensibility:
     level: official-api
     detail: "DAO が setGameManager でミニゲーム管理コントラクトを指定でき、Gotchi Battler のような外部チームのゲームが DAO の投票で報酬配分に組み込まれた。サブグラフ・コントラクトの読み取りは公開。"
@@ -55,7 +55,7 @@ architecture:
 
 compare:
   gameplay: {t: "ポータルを開けて候補から 1 体を選んで召喚し、担保を預け、ウェアラブルを装備して特性値を上げ、定期的に撫でて親密度を保つ。シーズンごとの希少性・親密度・経験値の順位で GHST を得る。Gotchiverse の REALM 区画（最大 420,069、発行済み 5 万）では、Alchemica で作った設置物を置いて資源を採掘し、Aavegotchi で祭壇から Alchemica を「channel」する（親密度が 2 下がる）。", k: fact, s: [src-aavegotchi-docs-gotchis, src-aavegotchi-docs-rarity, src-aavegotchi-docs-gotchiverse]}
-  necessity: {t: "担保（aToken）の保有と特性・画像をコントラクトに置くこと自体が売りであり、DeFi との結合にはチェーンが必要だった。一方で遊びの多くは順位表への参加で、DAO 自身が Rarity の順位表が「停滞」したと書いている。", k: analysis, s: [src-aavegotchi-docs-rarity, src-aavegotchi-docs-svg]}
+  necessity: {t: "担保（aToken）の保有と特性・画像をコントラクトに置くこと自体が売りであり、DeFi との結合にはチェーンが必要だった。一方で遊びの多くは順位表への参加で、公式ドキュメント自身が Rarity の順位表が近年のシーズンで「stale」になったと書いている。", k: analysis, s: [src-aavegotchi-docs-rarity, src-aavegotchi-docs-svg]}
   information: {t: "特性値・装備・画像はコントラクトから誰でも読める。", k: fact, s: [src-aavegotchi-docs-svg]}
   persistence: {t: "データがコントラクト内にあるため、移転時もスナップショットから同じ ID・特性で Base に複製できた。旧 Polygon のトークンは転送不可の ERC-721 として残る。", k: fact, s: [src-aavegotchi-blog-base]}
   extensibility: {t: "DAO の承認を経た外部ゲームの統合とコントラクトの読み取りは可能。", k: fact, s: [src-aavegotchi-docs-governance, src-aavegotchi-docs-rarity]}
@@ -68,11 +68,12 @@ article:
   principles:
     - {t: "定期的なオンチェーン行動を減衰する値で報いる（親密度: 撫でないと 1 日 1 ずつ減る）: 毎日の参加をチェーン上で証明でき、順位報酬と結べる。破綻条件は行動が単純で自動化できる場合で、撫でる行為は取引 1 回で済むため、人間の関与の証明にはならない。", k: analysis, s: [src-aavegotchi-docs-gotchis]}
   counter_evidence:
+    - {t: "移転の公式説明（Base のインフラ・配布力・Ethereum との整合）とは別に、The Block は提案時の事情として Pixelcraft の大幅な人員削減と資金の延命、L3 市場の不振、Polygon PoS の TVL の停滞を挙げており、また L3 Geist の終了は DAO の投票結果にかかわらず決まっていたと報じた。移転は DAO の意思というより開発会社の経営判断の色が濃い。", k: claim, who: "The Block（Coderdan の提案文の引用）", s: [src-aavegotchi-theblock-vote, src-aavegotchi-blog-base]}
     - {t: "オンチェーンの状態はチェーン移転を「スナップショット＋再 mint」で可能にしたが、それはアップグレード権限で旧コントラクトを凍結できたからであり、所有の永続性が運営・DAO の権限に依存することも示した。所有者のいないスマートコントラクトに置かれた資産は移せなかった。", k: fact, s: [src-aavegotchi-blog-base]}
 
 events:
   - {id: ev-aavegotchi-haunt1, date: "2021-03-02", type: launch, title: "Polygon で Haunt 1（ポータル 1 万個）を公開", s: [src-aavegotchi-substack-launch]}
-  - {id: ev-aavegotchi-base-vote, date: "2025-04", type: other, title: "DAO が Base への移転と L3 Geist の終了を可決", detail: "賛成率は報道により 95% 超または 93%", s: [src-aavegotchi-theblock-vote]}
+  - {id: ev-aavegotchi-base-vote, date: "2025-04", type: other, title: "DAO が Base への移転と L3 Geist の終了を可決", detail: "The Block によれば Snapshot で 95% 超の賛成。Geist の終了は提案の結果にかかわらず行うと Pixelcraft 側が述べていた", s: [src-aavegotchi-theblock-vote]}
   - {id: ev-aavegotchi-base, date: "2025-07-25", type: pivot, title: "Polygon の全コントラクトを凍結し Base へ移転", detail: "REALM・設置物・タイル・Alchemica/GLTR は後続の移転とされた", s: [src-aavegotchi-blog-base]}
 
 relations:
@@ -82,17 +83,18 @@ relations:
 
 unknowns:
   - "Polygon 期・Base 期の利用者数・継続率"
-  - "Base 版コントラクトのソース公開とアップグレード権限の現状（DAO へ移管済みか）"
+  - "Base 版コントラクトのアップグレード権限の現状（DAO へ移管済みか。ソースは aavegotchi-geist で公開）"
   - "Gotchiverse の Alchemica 採掘がボット・自動化をどう扱ったか"
   - "Haunt 1 の販売結果"
 
 sources:
   - {id: src-aavegotchi-substack-launch, title: "The Aavegotchi Launch is imminent! [Aavegotchi Monthly Highlights #February]", url: "https://aavegotchi.substack.com/p/the-aavegotchi-launch-is-imminent", publisher: "Aavegotchi (Substack)", type: official-blog, primary: true, published: "2021-02-25", accessed: "2026-10-23", access: fetched, lang: en, note: "3/2 の Haunt 1、ポータル 1 万、Polygon、Chainlink VRF"}
   - {id: src-aavegotchi-blog-base, title: "Aavegotchi Has Migrated to Base", url: "https://blog.aavegotchi.com/aavegotchi-has-migrated-to-base/", publisher: "Aavegotchi Blog", type: official-blog, primary: true, published: "2025-07-25", accessed: "2026-10-23", access: fetched, lang: en, note: "凍結・スナップショット・再 mint、移転の理由"}
-  - {id: src-aavegotchi-theblock-vote, title: "Aavegotchi NFT gaming community votes to migrate to Base, sunset Polygon deployment", url: "https://www.theblock.co/post/350021/aavegotchi-nft-gaming-community-votes-to-migrate-to-base-sunset-polygon-deployment", publisher: "The Block", type: news, primary: false, published: "2025-04-08", accessed: "2026-10-23", access: snippet, lang: en, note: "検索結果の要約のみ。投票の可決"}
+  - {id: src-aavegotchi-theblock-vote, title: "Aavegotchi NFT gaming community votes to migrate to Base, sunset Polygon deployment", url: "https://www.theblock.co/post/350021/aavegotchi-nft-gaming-community-votes-to-migrate-to-base-sunset-polygon-deployment", publisher: "The Block", type: news, primary: false, published: "2025-04-08", accessed: "2026-10-23", access: fetched, lang: en, note: "WebFetch で本文確認（curl は 403）。95% 超で可決、人員削減・L3 不振・Polygon の TVL 停滞、Geist 終了"}
   - {id: src-aavegotchi-docs-gotchis, title: "Aavegotchis", url: "https://docs.aavegotchi.com/own/game-items/aavegotchis", publisher: "Aavegotchi Docs", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "特性値、親密度の減衰、経験値、Gotchi Lending"}
   - {id: src-aavegotchi-docs-rarity, title: "Rarity Farming", url: "https://docs.aavegotchi.com/own/earning-in-aavegotchi/rarity-farming", publisher: "Aavegotchi Docs", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "シーズン約 150 万 GHST、DAO の投票、Gotchi Battler"}
   - {id: src-aavegotchi-docs-governance, title: "Governance", url: "https://docs.aavegotchi.com/developers/aavegotchi-contracts/extending-aavegotchi-contracts/governance", publisher: "Aavegotchi Docs", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "diamondCut はマルチシグ、DAO 関数一覧"}
   - {id: src-aavegotchi-docs-svg, title: "Fetching Onchain SVGs", url: "https://docs.aavegotchi.com/developers/aavegotchi-contracts/reading-from-aavegotchi-contracts/onchain-svgs", publisher: "Aavegotchi Docs", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "SVG をコントラクトデータとして保存"}
   - {id: src-aavegotchi-docs-gotchiverse, title: "Gotchiverse", url: "https://docs.aavegotchi.com/own/game-items/gotchiverse", publisher: "Aavegotchi Docs", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "REALM 区画、設置物、Alchemica の採掘と channel"}
   - {id: src-aavegotchi-github-contracts, title: "aavegotchi/aavegotchi-contracts", url: "https://github.com/aavegotchi/aavegotchi-contracts", publisher: "GitHub", type: code, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "MIT、Polygon 版のみ"}
+  - {id: src-aavegotchi-github-geist, title: "aavegotchi/aavegotchi-geist (Aavegotchi Base Contracts)", url: "https://github.com/aavegotchi/aavegotchi-geist", publisher: "GitHub", type: code, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "README と LICENSE を raw で確認。Base 版の Diamond コントラクト、MIT"}

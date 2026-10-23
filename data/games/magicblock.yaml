@@ -69,6 +69,7 @@ article:
   counter_evidence:
     - {t: "ゲーム向け ECS の BOLT は「Fully On-chain games と Autonomous Worlds」のための枠組みとして公開されたが、参照日時点で非推奨・保守停止と明記されている。資金調達時の利用例もデリバティブ取引・通信・価格配信が多く、ゲーム特化の基盤としての需要は確認できない。", k: fact, s: [src-mb-bolt-repo, src-mb-pulse2]}
     - {t: "10 ms のブロック時間や数百万 TPS への水平拡張は公式の主張であり、独立した計測は今回確認していない。", k: claim, who: "MagicBlock 公式ドキュメント", s: [src-mb-docs-intro]}
+    - {t: "論文の要旨は状態の分断も「信頼の仮定の妥協」もなく拡張できると述べるが、現行文書では ER 中の状態の確定を「分散型の Security Committee」による不正証明に委ね、その構成は説明されておらず、公開バリデータは MagicBlock のエンドポイントとして列挙されている。委任中の正しさと可用性は、少なくとも文書上は基盤層と同じ信頼モデルとは言えない。", k: analysis, s: [src-mb-arxiv, src-mb-docs-er]}
 
 metrics:
   - {id: m-mb-blocktime-claim, type: other, value: 10, unit: ms, period: "参照日 2026-10-23", definition: "公式ドキュメントが主張する ER の状態遷移・ブロック時間（Solana 既定 400 ms との対比）", nature: reported, s: [src-mb-docs-intro]}
@@ -79,6 +80,7 @@ events:
   - {id: ev-mb-paper, date: "2023-11-05", type: paper, title: "論文「Ephemeral Rollups are All you Need」arXiv 初版", detail: "v4 は 2025-02-14", s: [src-mb-arxiv]}
   - {id: ev-mb-funding-2024, date: "2024-09", type: funding, title: "300 万ドルの資金調達（a16z CSX 主導）", s: [src-mb-pulse2]}
   - {id: ev-mb-funding-2025, date: "2025-04-24", type: funding, title: "750 万ドルのシード（Lightspeed Faction 主導）", s: [src-mb-pulse2]}
+  - {id: ev-mb-bolt-deprecated, date: "2026-05-28", type: other, title: "BOLT の README に非推奨・保守停止の告知を追加", detail: "それ以前の最後のコード変更は 2025-10-19", s: [src-mb-bolt-repo]}
 
 relations:
   - {to: mud, type: similar-to, basis: analytic, note: "BOLT はオンチェーン ECS という点で MUD と同じ発想（Solana / SVM 向け）"}
@@ -87,18 +89,18 @@ relations:
   - {to: c-ecs-engine, type: built-with, basis: confirmed, note: "BOLT は ECS アーキテクチャ", s: [src-mb-bolt-repo]}
 
 unknowns:
-  - "BOLT の非推奨化の時期と理由。"
+  - "BOLT の非推奨化の理由（告知は 2026-05-28 に README へ追加されたが、理由の説明は見つからなかった）。"
   - "ER 上で動いたゲームの数・利用者数・取引量。"
   - "Security Committee の構成、不正証明の実装状況、委任中の検閲・停止に対する保証。"
   - "MagicBlock の創業時期（報道は 2023-09 と記すが一次資料未確認）。"
 contradictions: []
 
 sources:
-  - {id: src-mb-docs-intro, title: "The high-performance engine for onchain games and applications on Solana (MagicBlock docs introduction)", url: "https://docs.magicblock.gg/introduction", publisher: "MagicBlock docs", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "SVM 互換、10 ms、ゼロに近い手数料、水平拡張、TEE"}
+  - {id: src-mb-docs-intro, title: "Why MagicBlock? (MagicBlock docs introduction)", url: "https://docs.magicblock.gg/introduction", publisher: "MagicBlock docs", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "ページ名は「Why MagicBlock?」。SVM 互換（「down to the bytecode」）、10 ms、minimal or zero-fee、複数 ER で毎秒数百万取引、TEE。いずれも計測方法の記載なし"}
   - {id: src-mb-docs-er, title: "Ephemeral Rollup (MagicBlock docs)", url: "https://docs.magicblock.gg/pages/ephemeral-rollups-ers/introduction/ephemeral-rollup", publisher: "MagicBlock docs", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "委任・実行・コミット・委任解除の流れ、Delegation Program、公開バリデータ、不正証明と Security Committee"}
   - {id: src-mb-docs-whitepaper, title: "Whitepaper (MagicBlock docs)", url: "https://docs.magicblock.gg/pages/overview/additional-information/whitepaper.md", publisher: "MagicBlock docs", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "論文 arXiv 2311.02650 への案内と要旨"}
   - {id: src-mb-arxiv, title: "Ephemeral Rollups are All you Need", url: "https://arxiv.org/abs/2311.02650", publisher: "arXiv", author: "Gabriele Picco, Andrea Fortugno", type: paper, primary: true, published: "2023-11-05", accessed: "2026-10-23", access: fetched, lang: en, note: "FOC ゲームの拡張、ECS 部品化、ティック・証明可能なセッション・ガスレス取引。v4 は 2025-02-14"}
-  - {id: src-mb-bolt-repo, title: "magicblock-labs/bolt", url: "https://github.com/magicblock-labs/bolt", publisher: "GitHub", author: "Magicblock Pte. Ltd.", type: code, primary: true, published: "2026-05-28", accessed: "2026-10-23", access: fetched, lang: en, note: "git clone。非推奨・保守停止の告知、FOC ゲームと AW 向け ECS、MIT"}
+  - {id: src-mb-bolt-repo, title: "magicblock-labs/bolt", url: "https://github.com/magicblock-labs/bolt", publisher: "GitHub", author: "Magicblock Pte. Ltd.", type: code, primary: true, published: "2026-05-28", accessed: "2026-10-23", access: fetched, lang: en, note: "git clone。非推奨・保守停止の告知（README へは 2026-05-28 のコミットで追加、それ以前の最終コード変更は 2025-10）、FOC ゲームと AW 向け ECS、MIT"}
   - {id: src-mb-validator-repo, title: "magicblock-labs/magicblock-validator", url: "https://github.com/magicblock-labs/magicblock-validator", publisher: "GitHub", type: code, primary: true, published: "2026-10-21", accessed: "2026-10-23", access: fetched, lang: en, note: "git clone。ER 用 SVM バリデータ、Business Source License 1.1"}
   - {id: src-mb-github-org, title: "magicblock-labs (GitHub organization)", url: "https://github.com/magicblock-labs", publisher: "GitHub", type: code, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "delegation-program、ephemeral-rollups-sdk、Session Keys、Solana.Unity-SDK 等"}
   - {id: src-mb-pulse2, title: "MagicBlock: $7.5 Million Seed Funding Raised For Decentralized Solana Game And App Platform", url: "https://pulse2.com/magicblock-7-5-million-seed-raised-for-decentralized-solana-game-and-app-platform/", publisher: "Pulse 2.0", type: news, primary: false, published: "2025-04-24", accessed: "2026-10-23", access: fetched, lang: en, note: "750 万ドル（Lightspeed Faction 主導）、前回 300 万ドル（a16z CSX、2024-09）、Supersize・Flash Trade・dTelecom・Pyth Lazer・Jito"}

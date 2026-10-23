@@ -20,10 +20,10 @@ categories:
   - {id: aw, role: secondary, reason: "許可不要・永続・合成可能な「無限ゲーム」を掲げ、第三者の同盟・市場コントラクトを公認"}
   - {id: ai, role: secondary, reason: "2026 年に AI エージェント向け CLI・MCP サーバー・スキル定義を公開"}
 status:
-  value: unknown
+  value: dormant
   as_of: "2026-10"
-  note: "リポジトリは 2026-02 まで更新され、2025-1 版の展開記録（Gnosis Chain）がある。conquest.game は参照日時点で「ローンチを待つ」告知ページで、現在稼働中の版の状態は確認できなかった。"
-  s: [src-conquest-repo, src-conquest-site]
+  note: "リポジトリは 2026-02 まで更新され、2025-1 版の展開記録（Gnosis Chain）がある。2025-1 版の OuterSpace（0xD833…）のイベントログは約 200 万ブロック（約 4 か月）ごとの集計で 2024-11〜2025-03 に 14,157 件、2025-03〜07 に 1,859 件、2025-07〜10 に 66 件、2025-10〜2026-02 に 27 件、2026-02 以降は 1 件で、参照日時点でほぼ動いていない（コントラクトは存続）。conquest.game は「ローンチを待つ」告知ページ。"
+  s: [src-conquest-repo, src-conquest-site, src-conquest-gnosis-logs]
 dates:
   launched: {date: "2022-04", s: [src-conquest-infinite-games], note: "作者のブログが「4 月に Defcon で開始」と記載（DEFCON 版）。それ以前の alpha 版の時期は未確認"}
 
@@ -65,18 +65,19 @@ article:
     - {t: "コミット・リビールによる艦隊の秘匿: 行き先のハッシュだけを先に出し到着後に明かすと、ZK 回路なしで「どこへ向かっているか分からない」状態を作れる。適用条件は、移動に時間がかかり、到着時刻の後に明かす猶予（12 時間）を設けられること。破綻条件は、プレイヤーがリビールを忘れる・オフラインになる場合で、代行サービスへの信頼が必要になる（Conquest は行き先を運営にも隠す代行で対処）。", k: analysis, s: [src-conquest-handbook]}
     - {t: "読み取り専用の拡張は寿命をゲームに預けられる: 作者は、ゲームのコントラクトへ書き戻さない拡張でも、ゲームが続く限り生き続けると主張する。破綻条件は、ゲーム自体が版の作り直しやチェーン移行で別コントラクトになる場合で、拡張も追従が必要になる。", k: analysis, s: [src-conquest-infinite-games, src-conquest-repo]}
   counter_evidence:
-    - {t: "第三者ツール（bugout-dev のボット・分析、地図、統計）の多くは 2022 年に作られ、その後更新が止まっている（地図 2022-05、bugout-dev 2022-09）。「拡張はゲームと同じだけ生きる」という主張に対し、実際の第三者拡張は短命だった。", k: fact, s: [src-conquest-third-party]}
+    - {t: "第三者ツール（bugout-dev のボット・分析、地図）の多くは 2022 年に作られ、その後更新が止まっている（地図 2022-05、bugout-dev 2022-09）。統計サイト yonadaa/conquest.eth-stats は 2025-02 まで更新があり、2025-1 版の活動期と重なる。「拡張はゲームと同じだけ生きる」という主張に対し、第三者拡張の多くは短命で、続いたものも版の活動期間に連動していた。", k: fact, s: [src-conquest-third-party]}
+    - {t: "「終わらない一つの世界」を掲げながら、実際の 2025-1 版のオンチェーン活動は 2024-11〜2025-03 に集中し、2025-10 以降はほぼ途絶えた（イベントログ計測）。無期限の設計でも、参加は版の公開直後の短期間に集中する点で期間制ラウンドと大差ない可能性がある。", k: analysis, s: [src-conquest-gnosis-logs]}
 
 events:
   - {id: ev-conquest-defcon, date: "2022-04", type: launch, title: "DEFCON 版を Gnosis Chain で開始", s: [src-conquest-infinite-games]}
-  - {id: ev-conquest-infinite-games, date: "2022-08-19", type: other, title: "作者が「Infinite Games」を公開", detail: "許可不要・永続・不変・プログラム可能・相互運用可能なゲームの定義", s: [src-conquest-infinite-games]}
+  - {id: ev-conquest-infinite-games, date: "2022-08-19", type: other, title: "作者が「Infinite Games」を公開", detail: "相互運用可能・許可不要・永続（persistent）・不変の 4 性質による無限ゲームの定義（プログラム可能性は基盤のブロックチェーンの性質として別に述べる）", s: [src-conquest-infinite-games]}
   - {id: ev-conquest-mcp, date: "2026-02", type: release, title: "AI エージェント向け CLI／MCP ツールとスキル定義を公開", detail: "@conquest-eth/tools。2025-1 版のコントラクトを対象", s: [src-conquest-mcp, src-conquest-repo]}
 
 relations:
   - {to: dark-forest, type: contrasts-with, basis: analytic, note: "同じ宇宙戦略・秘匿情報を、ZK ではなくコミット・リビールで、ラウンド制ではなく無期限で実装"}
   - {to: c-commit-reveal, type: built-with, basis: confirmed, note: "FleetsCommit / FleetsReveal facet", s: [src-conquest-repo, src-conquest-handbook]}
   - {to: c-ai-agent-player, type: built-with, basis: confirmed, note: "MCP サーバーとエージェント用スキル", s: [src-conquest-mcp]}
-  - {to: autonomous-worlds-essay, type: similar-to, basis: analytic, note: "README は「infinite games と autonomous worlds」を並べて言及。直接の影響関係は未確認"}
+  - {to: autonomous-worlds-essay, type: similar-to, basis: analytic, note: "README は Etherplay を「Autonomous Worlds, or what we like to call Infinite Games」を作るスタジオと自己紹介し、両者を同一視している。ただし ludens の論考への言及・リンクはなく、直接の影響関係は未確認（Infinite Games 記事は 2022-08-19、論考は 2022-08-03 で時期が近い）", s: [src-conquest-repo]}
 
 unknowns:
   - "プレイヤー数・ステーク総額・継続率（公表値を見つけられなかった）。"
@@ -90,5 +91,6 @@ sources:
   - {id: src-conquest-handbook, title: "conquest-eth-player-handbook", url: "https://github.com/wighawag/conquest-eth-player-handbook", publisher: "GitHub (Etherplay)", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "git clone。艦隊の 2 トランザクション、12 時間の猶予、Agent Service、同盟、マーケットプラグイン"}
   - {id: src-conquest-infinite-games, title: "Infinite Games", url: "https://ronan.eth.limo/blog/infinite-games/", publisher: "ronan.eth", author: "Ronan Sandford", type: official-blog, primary: true, published: "2022-08-19", accessed: "2026-10-23", access: fetched, lang: en, note: "無限ゲームの定義、4 月の Defcon 開始、読み取り専用の拡張"}
   - {id: src-conquest-mcp, title: "wighawag/mcp-conquest-eth", url: "https://github.com/wighawag/mcp-conquest-eth", publisher: "GitHub", type: code, primary: true, published: "2026-02", accessed: "2026-10-23", access: fetched, lang: en, note: "git clone。2025-1 版向け MCP。本体リポジトリの lobsters/tools へ移動"}
-  - {id: src-conquest-third-party, title: "GitHub repository search: conquest-eth", url: "https://github.com/search?q=conquest-eth&type=repositories", publisher: "GitHub", type: code, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "GitHub API 検索で確認。bugout-dev/conquest-eth（分析・ボット、更新 2022-09）、yonadaa/conquest.eth-stats、kompotkot/conquest-eth-map（2022-05）"}
+  - {id: src-conquest-third-party, title: "GitHub repository search: conquest-eth", url: "https://github.com/search?q=conquest-eth&type=repositories", publisher: "GitHub", type: code, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "GitHub 検索で確認。bugout-dev/conquest-eth（分析・ボット、更新 2022-09）、yonadaa/conquest.eth-stats（更新 2025-02-17）、kompotkot/conquest-eth-map（2022-05）。日付は GitHub の Updated 表示"}
+  - {id: src-conquest-gnosis-logs, title: "Gnosis Chain eth_getLogs for OuterSpace 2025-1 (0xD833d4dBBb0C19aF1EEf76540d66E2076a5e9D72)", url: "https://rpc.gnosischain.com", publisher: "Gnosis Chain public RPC", type: onchain-data, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "検証役が 2026-10-23 に最新ブロック 48,898,162 から 200 万ブロックずつ遡ってログ件数を計測。アドレスは deployments/2025_1/OuterSpace.json（chainId 100）"}
   - {id: src-conquest-site, title: "CONQUEST", url: "https://conquest.game", publisher: "Etherplay", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "ローンチ待ちの告知ページ"}

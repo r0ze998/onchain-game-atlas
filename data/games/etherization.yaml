@@ -10,7 +10,7 @@ team: "bSpend（bitcointalk のアカウント。Bspend の創業者 Vedran Kaji
 summary: >-
   2016 年 6 月に告知され、2016-09-16 に Ethereum メインネットへデプロイされた、Civilization 風の都市争奪・経済戦略ゲーム。
   プレイヤーは ETH を自分の「国庫」に入れ、都市を取得し、3 種のユニット（三すくみ）で隣接都市を攻め、5 種の建物から他プレイヤーの行動の手数料を得る。
-  1 手ごとに一定時間（告知時 30 分）の待ち時間があり、ガス上限のためにロジックを 3 つのコントラクトに分けた。後年、都市を ERC-721 でラップし Polygon 上の layer 2 版を公開している。
+  1 手ごとに一定時間の待ち時間があり（告知時 30 分、デプロイされたコードの WAIT_TIME は 14400 秒＝4 時間）、ガス上限のためにロジックを 3 つのコントラクト（本体と utils 2 つ）に分けた。後年、都市を ERC-721 でラップし Polygon 上の layer 2 版を公開している。
 selection_reason: >-
   CANDIDATES では 2018 年頃の文明ゲームとされていたが、調査の結果 2016 年の Ethereum 初期に、都市・ユニット・生産建物・他者の行動からの手数料という
   「文明シミュレーションの経済」をコントラクトに書いた非常に早い例であることが分かった。資料は乏しく、一次資料は告知投稿・現行の公式ページ・コントラクトに限られる。
@@ -21,8 +21,8 @@ status:
   value: unknown
   as_of: "2026-10"
   note: >-
-    公式ページは Polygon 上の layer 2 版が稼働中と記し、フロントエンドを Arweave に置くと説明する。2016 年のコントラクトの取引数は Etherscan 上 145 件。
-    実際のプレイヤー数・活動状況は確認できなかった。
+    公式ページは Polygon 上の layer 2 版が稼働中と記し、フロントエンドを Arweave に置くと説明する。2016 年のコントラクトの取引数は Etherscan 上 145 件（最新は 2026-06-25）。
+    eth_call による 2016 年コントラクトの登録プレイヤー数は 29、都市数は 296。Polygon 版の実際のプレイヤー数・活動状況は確認できなかった。
   s: [src-etherization-about, src-etherization-etherscan]
 dates:
   announced: {date: "2016-06-24", s: [src-etherization-bitcointalk], note: "bitcointalk の告知スレッド（Reddit 投稿への誘導）"}
@@ -34,14 +34,18 @@ architecture:
     detail: >-
       告知によれば、国庫への ETH の出し入れ、都市の取得、ユニット（pikemen / swordsmen / horsemen）の生産・移動・攻撃、建物（quarry / farm / woodworks / metalworks / stables）による
       手数料分配がコントラクトで実行され、ガス上限のため 3 つのコントラクトに分割された。2016 年のコントラクトは Etherscan で検証済み（Solidity 0.3.5）。
-      本調査ではソースを直接読めておらず、ルールの詳細はコードでは未確認。
-    s: [src-etherization-bitcointalk, src-etherization-etherscan]
+      検証役が Sourcify で本体ソースを確認: 開始費用 START_PRICE 1 ETH、都市 0.8 ETH、建物 0.5 ETH、ユニット 0.2 ETH、維持費 0.02 ETH、WAIT_TIME 14400 秒、地図 34×34（＝1156 マス）、都市あたりユニット上限 10。
+      出金時に 1% を手数料として留保し、移動・攻撃等の状態変更は utilsAddress / utilsAddress2 として登録された 2 つの外部コントラクトが本体の setter を呼んで行う（utils のソースは本調査では未確認）。
+    s: [src-etherization-bitcointalk, src-etherization-etherscan, src-etherization-sourcify]
   offchain:
     - {item: "フロントエンドとソースコードを Arweave に置き、ENS（wethz.eth）等から参照すると公式ページは記す", s: [src-etherization-about]}
   admin:
-    level: unknown
-    detail: "2016 年コントラクトの管理者権限は確認できなかった。公式ページは「100% decentralized」と主張するが、根拠となるコード確認はしていない。"
-    s: [src-etherization-about]
+    level: significant
+    detail: >-
+      2016 年の本体コントラクトでは、デプロイ者（wizardAddress）が setUtils / setUtils2 で utils コントラクトのアドレスを任意に差し替えられ、utils として登録されたアドレスは setTreasury・setOwner・setMap・setUnit などで
+      全プレイヤーの国庫残高や都市の所有者を書き換えられる。wizard は sweepCommission で「残高 − プレイヤー国庫合計」の範囲を引き出せる。
+      したがって公式ページの「100% decentralized」は、少なくとも 2016 年コントラクトについてはコード上の根拠がない（Polygon 版は未確認）。
+    s: [src-etherization-sourcify, src-etherization-about]
   open_source:
     level: partial
     detail: "2016 年コントラクトは Etherscan で検証済み、Polygon 側も Etherscan / Polygonscan で検証済みと公式ページは記す。GitHub 等のリポジトリは確認できなかった。"
@@ -52,13 +56,13 @@ architecture:
     s: []
 
 compare:
-  gameplay: {t: "都市を取得し、隣接（インデックス差 3 以内）する都市へユニットを動かして攻撃・占領する。ユニットは三すくみ。生産建物を持つと、他プレイヤーがそのユニットや建物に払う費用の一部を得る。1 手ごとに待ち時間がある。", k: fact, s: [src-etherization-bitcointalk]}
+  gameplay: {t: "都市を取得し、隣接（告知ではインデックス差 3 以内）する都市へユニットを動かして攻撃・占領する（移動・攻撃の実装は utils 側で未確認。本体の start() は新しい都市を 34×34 の地図上で既存都市の 8 近傍に置くことを要求する）。ユニットは三すくみ。生産建物を持つと、他プレイヤーがそのユニットや建物に払う費用の一部を得る。1 手ごとに待ち時間がある（コード上 4 時間）。", k: fact, s: [src-etherization-bitcointalk, src-etherization-sourcify]}
   necessity: {t: "国庫が ETH そのもので、他者の行動から手数料を得る経済を運営なしに執行することが主眼であり、資金の扱いに関してはチェーンの役割が大きい。ゲームの面白さに対してチェーンが必要かは資料からは判断できない。", k: analysis, s: [src-etherization-bitcointalk]}
   information: {t: "都市・ユニット・国庫はコントラクトの状態として公開されると見られるが、秘匿情報の有無は未確認。", k: unknown}
   persistence: {t: "2016 年のコントラクトは Ethereum 上に残り（残高約 1.9 ETH、取引 145 件）、公式ページは後継の Polygon 版とフロントエンドの Arweave 配置を案内する。", k: fact, s: [src-etherization-etherscan, src-etherization-about]}
   extensibility: {t: "未確認。", k: unknown}
   money_flow: {t: "プレイヤーが国庫に ETH を入れ、ユニット・建物・維持費の支払いが建物の所有者に分配され、都市の占領で他者の国庫を得る。告知は「上手に遊べば利益を出せる」とした。", k: fact, s: [src-etherization-bitcointalk], q: "Players add or withdraw ether to their treasury; by playing well they can increase it and make profit."}
-  entry_barrier: {t: "Ethereum ウォレットと、国庫に入れる ETH が必要。都市取得の費用は一次資料では確認できなかった（二次資料は 2 ETH とするが未取得）。", k: fact, s: [src-etherization-bitcointalk]}
+  entry_barrier: {t: "Ethereum ウォレットと、国庫に入れる ETH が必要。2016 年コントラクトでは開始に最低 1 ETH（START_PRICE）を送る必要があり、二次資料の「2 ETH」とは一致しない。", k: fact, s: [src-etherization-bitcointalk, src-etherization-sourcify]}
 
 concepts: [c-onchain-rules, c-onchain-state, m-pvp-territory, m-production-chain, e-p2e, c-nft-asset]
 
@@ -66,15 +70,19 @@ article:
   principles:
     - {t: "他者の行動に課金する生産建物: 建物の所有者が、同種のユニット生産・建設・維持のたびに手数料を得る設計は、「他プレイヤーが作った機能の利用料」をゲーム経済に組み込む最初期の形と見られる。成立条件は継続的な行動量があること。行動が減ると建物の収益も消え、Fomo3D 型の後続参加者依存と同じ弱点を持つ。", k: analysis, s: [src-etherization-bitcointalk]}
   counter_evidence:
-    - {t: "2016 年コントラクトの取引数は 145 件にとどまり、ゲームが大規模に遊ばれた証拠は見当たらない。文明ゲームの先駆とする評価は、規模ではなく設計上の先行性に限られる。", k: analysis, s: [src-etherization-etherscan]}
+    - {t: "2016 年コントラクトの取引数は 145 件、登録プレイヤーは 29 人にとどまり、ゲームが大規模に遊ばれた証拠は見当たらない。文明ゲームの先駆とする評価は、規模ではなく設計上の先行性に限られる。", k: analysis, s: [src-etherization-etherscan, src-etherization-rpc]}
+    - {t: "「100% decentralized」という公式の主張に対し、2016 年コントラクトはデプロイ者が utils コントラクトを差し替えれば全プレイヤーの国庫と都市所有を書き換えられる構造で、運営不在で動く設計ではなかった。", k: fact, s: [src-etherization-sourcify, src-etherization-about]}
 
 metrics:
   - {id: m-etherization-2016-tx, type: transactions, value: 145, unit: tx, period: "2016-09-16〜参照日 2026-10-23", definition: "2016 年コントラクト（0xb40d…358B）の取引数（Etherscan 表示。内部取引・他の 2 コントラクトは含まない可能性）", nature: measured, s: [src-etherization-etherscan]}
-  - {id: m-etherization-cities, type: other, value: 1156, unit: towns, period: "設計値", definition: "公式ページが記す町（都市）の総数", nature: reported, s: [src-etherization-about]}
+  - {id: m-etherization-cities, type: other, value: 1156, unit: towns, period: "設計値", definition: "公式ページが記す町（都市）の総数。2016 年コントラクトの地図 34×34 と一致", nature: reported, s: [src-etherization-about, src-etherization-sourcify]}
+  - {id: m-etherization-players-2016c, type: players, value: 29, unit: players, period: "2016-09-16〜2026-10-23 の累計", definition: "2016 年コントラクトの numPlayers()（eth_call、検証役取得）", nature: measured, s: [src-etherization-rpc]}
+  - {id: m-etherization-citycount-2016c, type: other, value: 296, unit: cities, period: "2026-10-23 時点", definition: "2016 年コントラクトの numCities()（eth_call、検証役取得）", nature: measured, s: [src-etherization-rpc]}
+  - {id: m-etherization-treasury-2016c, type: tvl, value: 1.8256, value_text: "約 1.826 ETH（コントラクト残高は約 1.907 ETH）", unit: ETH, period: "2026-10-23 時点", definition: "totalBalances()（プレイヤー国庫の合計）。残高との差は運営手数料分", nature: measured, s: [src-etherization-rpc]}
 
 events:
   - {id: ev-etherization-ann, date: "2016-06-24", type: announce, title: "bitcointalk で「Etherization - Ethereum strategy game」を告知", s: [src-etherization-bitcointalk]}
-  - {id: ev-etherization-deploy, date: "2016-09-16", type: launch, title: "Etherization コントラクトを Ethereum メインネットにデプロイ", detail: "ブロック 2269698", s: [src-etherization-deploy-tx]}
+  - {id: ev-etherization-deploy, date: "2016-09-16", type: launch, title: "Etherization コントラクトを Ethereum メインネットにデプロイ", detail: "ブロック 2269698（2016-09-16 11:33:53 UTC）。検証役がアーカイブ RPC の receipt で contractAddress と時刻を確認。デプロイ者 0x060b…283F の最初の取引がこの作成で、同アドレスからの他のコントラクト作成はない", s: [src-etherization-deploy-tx, src-etherization-rpc]}
 
 relations:
   - {to: realms-eternum, type: similar-to, basis: analytic, note: "都市・資源・戦争をオンチェーンで扱う文明型ゲームの遠い先例。影響関係の証拠はない"}
@@ -82,17 +90,22 @@ relations:
   - {to: m-production-chain, type: similar-to, basis: analytic, note: "生産建物が他者の生産に課金する。加工連鎖そのものではない"}
 
 unknowns:
-  - "2016 年コントラクトのソースの中身（管理者権限、都市価格、待ち時間の定数）。Etherscan で検証済みだが本調査では読めなかった。"
+  - "utils / utils2 コントラクトのアドレス・ソースと、移動・攻撃ルールの実装（本体の setter を呼ぶ側）。告知の「3 コントラクト」のうち 2 つは公式ページに載っていない。"
   - "2016 年に実際に何人が遊んだか、いつまで活動があったか。"
   - "開発者の実名（Vedran Kajić とする記述は二次資料のみ）。"
   - "Polygon 版の公開日、活動量、2016 年版との関係（ラップの仕組み）。"
-  - "「34 × 34 の地図」「最初は 2 ETH」など二次資料の数値（Adam McBride の記事は medium.com で取得不可）。"
+  - "「最初は 2 ETH」という二次資料の数値の根拠（Adam McBride の記事は medium.com で取得不可。コード上は 1 ETH、地図 34×34 はコードと一致）。"
+  - "告知（2016-06）とデプロイ（2016-09）の間にテストネットや別アドレスでの先行版があったか。"
 contradictions:
   - {t: "CANDIDATES.md は 2018 年頃の文明ゲームとしていたが、告知は 2016-06、コントラクトのデプロイは 2016-09-16。", s: [src-etherization-bitcointalk, src-etherization-deploy-tx]}
-  - {t: "総都市数: 公式ページは 1156 の町とし、2016 年の告知投稿には数の記載がない。", s: [src-etherization-about, src-etherization-bitcointalk]}
+  - {t: "総都市数: 公式ページは 1156 の町とし、2016 年の告知投稿には数の記載がない（コードの地図 34×34＝1156 と一致）。", s: [src-etherization-about, src-etherization-bitcointalk, src-etherization-sourcify]}
+  - {t: "待ち時間: 告知は 1 手ごと 30 分、デプロイされたコードの WAIT_TIME は 14400 秒（4 時間）。告知後に変更されたとみられる。", s: [src-etherization-bitcointalk, src-etherization-sourcify]}
+  - {t: "分散性: 公式ページは「100% decentralized」とするが、2016 年コントラクトはデプロイ者が utils を差し替えて国庫・所有を書き換えられる。", s: [src-etherization-about, src-etherization-sourcify]}
 
 sources:
-  - {id: src-etherization-bitcointalk, title: "Etherization - Ethereum strategy game", url: "https://bitcointalk.org/index.php?topic=1525827.0", publisher: "Bitcoin Forum", author: "bSpend", type: forum, primary: true, published: "2016-06-24", accessed: "2026-10-23", access: fetched, lang: en, note: "ルール概要（国庫、30 分の待ち、3 ユニット、5 建物、隣接、3 コントラクト分割）"}
+  - {id: src-etherization-bitcointalk, title: "Etherization - Ethereum strategy game", url: "https://bitcointalk.org/index.php?topic=1525827.0", publisher: "Bitcoin Forum", author: "bSpend", type: forum, primary: true, published: "2016-06-24", accessed: "2026-10-23", access: fetched, lang: en, note: "初投稿（2016-06-24）はタイトルと Reddit へのリンクのみで、ルール概要（国庫、30 分の待ち、3 ユニット、5 建物、隣接、3 コントラクト分割）は返信 #2（2016-06-25）の引用部分にある。メインネット公開を告げる投稿はスレッドにない"}
   - {id: src-etherization-about, title: "Etherization", url: "https://about.etherization.org/", publisher: "Etherization", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "2016 年コントラクトと ERC-721 / Polygon のアドレス、1156 の町、layer 2 稼働、Arweave、「100% decentralized」の主張"}
-  - {id: src-etherization-etherscan, title: "Etherization contract 0xb40d0312BaC389AE0a05053020Aac80c9237358B", url: "https://etherscan.io/address/0xb40d0312BaC389AE0a05053020Aac80c9237358B", publisher: "Etherscan", type: onchain-data, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "検証済み（Solidity 0.3.5-nightly 2016-08-08）、取引 145 件、残高約 1.9 ETH"}
+  - {id: src-etherization-etherscan, title: "Etherization contract 0xb40d0312BaC389AE0a05053020Aac80c9237358B", url: "https://etherscan.io/address/0xb40d0312BaC389AE0a05053020Aac80c9237358B", publisher: "Etherscan", type: onchain-data, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "検証済み（Solidity 0.3.5-nightly 2016-08-08）、取引 145 件、残高約 1.907 ETH、最新取引 2026-06-25"}
+  - {id: src-etherization-sourcify, title: "Etherization verified source (0xb40d0312BaC389AE0a05053020Aac80c9237358B)", url: "https://sourcify.dev/server/v2/contract/1/0xb40d0312BaC389AE0a05053020Aac80c9237358B?fields=sources", publisher: "Sourcify", type: code, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "検証役が取得。Etherization.sol（価格定数、WAIT_TIME 14400、34×34 地図、wizard の setUtils / sweepCommission、utils 経由の setter 群、出金 1% 留保）"}
+  - {id: src-etherization-rpc, title: "Ethereum JSON-RPC eth_call / eth_getTransactionReceipt against Etherization (publicnode, drpc)", url: "https://ethereum-rpc.publicnode.com", publisher: "PublicNode RPC / dRPC", type: onchain-data, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "検証役が取得: numPlayers 29、numCities 296、totalBalances 1.8256 ETH、WAIT_TIME 14400、START_PRICE 1 ETH、残高 1.907 ETH。作成 tx の receipt（eth.drpc.org）でブロック 2269698・2016-09-16 11:33:53 UTC を確認"}
   - {id: src-etherization-deploy-tx, title: "Etherization contract creation tx 0x640c7bdfc16225d38f1b9afc78141873e367d995a523f0fe9efddabf067fbc0f", url: "https://etherscan.io/tx/0x640c7bdfc16225d38f1b9afc78141873e367d995a523f0fe9efddabf067fbc0f", publisher: "Etherscan", type: onchain-data, primary: true, published: "2016-09-16", accessed: "2026-10-23", access: fetched, lang: en, note: "ブロック 2269698、2016-09-16 11:33:53 UTC"}

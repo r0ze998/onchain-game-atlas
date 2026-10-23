@@ -57,7 +57,7 @@ compare:
   information: {t: "移動データ・判定結果・報酬計算は運営側にあり、プレイヤーはチューリング・スコアを信号の色で見るだけ。判定の詳細は不正対策のため限定公開と明記。", k: fact, s: [src-stepn-wp-anticheat]}
   persistence: {t: "運営が GPS を止めれば報酬は得られない。2022-07-15 に中国本土のアカウントへの GPS 提供を停止すると 2022-05 に発表した。", k: fact, s: [src-stepn-decrypt-china]}
   extensibility: {t: "第三者による拡張の仕組みは確認できない。", k: fact, s: [src-stepn-wp-overview]}
-  money_flow: {t: "新規参加者が GMT 等でスニーカー（NFT）を買い、移動で GST/GMT を得て、作成・修理・レベル上げで燃やす。マーケットの取引手数料 2% は運営の運営費に充てると 2022-02 に記載。Q1 2022 のマーケット手数料・ロイヤルティ収入は 192,635 SOL と FSL の報告にあると ForkLog は報じた。", k: fact, s: [src-stepn-wp-changelog, src-stepn-forklog-2022-04]}
+  money_flow: {t: "新規参加者が GMT 等でスニーカー（NFT）を買い、移動で GST/GMT を得て、作成・修理・レベル上げで燃やす。マーケットの取引手数料 2% は運営の運営費に充てると 2022-02-19 の変更履歴に記載。Q1 2022 のマーケット手数料・ロイヤルティ収入は 192,635 SOL と FSL の報告にあると ForkLog は報じた。", k: fact, s: [src-stepn-wp-changelog, src-stepn-forklog-2022-04]}
   entry_barrier: {t: "スニーカー NFT の購入が必須（2022-04 時点で最安 11.59 SOL ≈ 1,216 ドルと ForkLog は記載）。メールで登録しアプリ内ウォレットを作る。エネルギー上限は保有スニーカー数で増える。", k: fact, s: [src-stepn-wp-getting-started, src-stepn-forklog-2022-04, src-stepn-wp-energy]}
 
 concepts: [e-p2e, e-dual-token, e-sink-faucet, c-nft-asset, c-fungible-ingame-token, m-bot-automation]
@@ -67,19 +67,20 @@ article:
     - {t: "二重トークンで作成コストを動的に付け替える: 報酬トークン（GST）の価格が暴落・暴騰すると固定の作成コストが機能しなくなるため、STEPN は 2022 年に作成コストの GST/GMT 比率を何度も改め、2023-06 には追加 GMT コストを GST/GMT 比で決めるようにした。適用条件は二つのトークンの価格が独立に動き、片方を sink の調整弁にできること。破綻条件は両方の価格が新規流入に依存している場合で、調整は下落の速度を変えるだけになる。", k: analysis, s: [src-stepn-wp-changelog, src-stepn-blockcrunch]}
     - {t: "現実の行動を報酬にするなら判定はオフチェーンの運営に集中する: GPS の真偽判定（SMAC）とチューリング・スコアによる出金制限は、運営を信頼しない設計と両立しない。適用条件は運営が判定の正当性を担保できる規模であること。破綻条件は判定を回避する端末・ボットの改良が報酬額に見合う場合。", k: analysis, s: [src-stepn-wp-anticheat]}
   counter_evidence:
-    - {t: "利用者の急減は中国本土の GPS 停止発表（2022-05-26）と時期が重なるが、Motley Fool は類似アプリとの競争、暗号資産市況、季節性も挙げている。トークン設計だけが原因とは断定できない。", k: claim, who: "The Motley Fool（Dominic Basulto）", s: [src-stepn-fool-2022-10, src-stepn-decrypt-china]}
+    - {t: "利用者の急減は中国本土の GPS 停止発表（2022-05-26）と時期が重なるが、Motley Fool は類似アプリとの競争、暗号資産市況、季節性を挙げ、中国には触れていない。トークン設計だけが原因とは断定できない。", k: claim, who: "The Motley Fool（Dominic Basulto）", s: [src-stepn-fool-2022-10, src-stepn-decrypt-china]}
     - {t: "Blockcrunch は、利用者が稼ぎ続ける選択は容易なので既存利用者の継続は保たれやすく、より大きなリスクは損益分岐の長さが新規参加を妨げることだと分析した。継続率の悪化ではなく流入の停止が問題だった可能性がある。", k: claim, who: "Blockcrunch（Jason Choi, Javier Ang）", s: [src-stepn-blockcrunch]}
 
 metrics:
   # --- 運営発表（reported）---
-  - {id: m-stepn-dau-2022-04-reported, type: dau, value: 300000, value_text: "30 万", unit: players, period: "2022-04（2022-04-17 頃の週）", definition: "運営の X 投稿「300k DAU」を ForkLog が引用（定義非公開）", nature: reported, s: [src-stepn-forklog-2022-04]}
-  - {id: m-stepn-dau-mau-twitter-reported, type: mau, value: 1700000, value_text: "MAU 約 170 万・DAU 約 40 万", unit: players, period: "2022 年前半（公開から約 6 か月）", definition: "Blockcrunch が StepN の Twitter を出典として記載した値（元投稿は未確認、定義非公開）", nature: reported, s: [src-stepn-blockcrunch]}
+  - {id: m-stepn-dau-2022-04-reported, type: dau, value: 300000, value_text: "30 万", unit: players, period: "2022-04（運営の 2022-04-17 の投稿で「this week」）", definition: "運営の X 投稿「We have also achieved 300k DAU this week.」を ForkLog が引用（定義非公開）", nature: reported, s: [src-stepn-forklog-2022-04]}
+  - {id: m-stepn-dau-mau-twitter-reported, type: mau, value: 1700000, value_text: "MAU 約 170 万・DAU 約 40 万", unit: players, period: "2022-06-30 以前のピーク（日付不明）", definition: "Blockcrunch が「peak record」として記載し、画像キャプションで StepN の Twitter 投稿のスクリーンショットとした値（元投稿は未確認、定義非公開）", nature: reported, s: [src-stepn-blockcrunch]}
   - {id: m-stepn-revenue-2022q1, type: revenue, value: 192635, value_text: "192,635 SOL（約 2,681 万ドル）", unit: SOL, period: "2022-Q1", definition: "NFT マーケット手数料とロイヤルティ。FSL の報告として ForkLog が記載", nature: reported, s: [src-stepn-forklog-2022-04]}
   # --- 第三者計測・推定（Dune 等）---
-  - {id: m-stepn-mau-2022-05-dune, type: mau, value: 700000, value_text: "70 万超", unit: users, period: "2022-05（ピーク）", definition: "Dune のダッシュボードによる月間アクティブ数（Decrypt が引用。集計定義は不明）", nature: estimated, s: [src-stepn-decrypt-2023]}
+  - {id: m-stepn-mau-2022-05-dune, type: mau, value: 700000, value_text: "70 万超", unit: users, period: "2022-05（ピーク）", definition: "Dune のダッシュボード「STEPN (GMT-GST) Core Metrics」（nguyentoan 作）による月間アクティブ数を Decrypt が引用。集計定義は不明で、Dune はこの環境で再確認不可", nature: estimated, s: [src-stepn-decrypt-2023]}
   - {id: m-stepn-mau-2022-12-dune, type: mau, value: 45000, value_text: "4.5 万弱", unit: users, period: "2022-12", definition: "同上（Decrypt が引用した Dune の最終月）", nature: estimated, s: [src-stepn-decrypt-2023]}
-  - {id: m-stepn-mau-dau-2022-10, type: mau, value: 99000, value_text: "MAU 9.9 万・DAU 5,800", unit: players, period: "2022-10 頃", definition: "Motley Fool が「最新のデータ」として記載（出典名なし）", nature: estimated, s: [src-stepn-fool-2022-10]}
-  - {id: m-stepn-gst-supply-growth, type: other, value_text: "流通量 +2500%（1 日 20%）", unit: "%", period: "2022-04〜06（記事時点の過去 3 か月）", definition: "GST 流通供給の増加率（Blockcrunch の分析）", nature: estimated, s: [src-stepn-blockcrunch]}
+  # --- 出典の性質が確定できないもの ---
+  - {id: m-stepn-mau-dau-2022-10, type: mau, value: 99000, value_text: "MAU 9.9 万・DAU 5,800", unit: players, period: "2022-10 頃", definition: "Motley Fool の「STEPN now lists 99,000 monthly active users but only 5,800 daily active users」。文言は運営の掲示を示唆するが一次資料は未確認で、第三者集計の可能性もある。同記事は MAU のピークを 5 月の約 70 万とし、Dune の値と整合", nature: estimated, s: [src-stepn-fool-2022-10], note: "運営発表（reported）か第三者推定（estimated）かを確定できないため、保守的に estimated とした"}
+  - {id: m-stepn-gst-supply-growth, type: other, value_text: "流通量 +2500%（1 日 20%）", unit: "%", period: "2022-04〜06（記事時点の過去 3 か月）", definition: "GST 流通供給の増加率（Blockcrunch の分析。同期間に時価総額 +100%、価格約 -92% と併記）", nature: estimated, note: "「2500%（1 日 20%）」は単純割りでも複利でも約 3 か月とは整合しない（記事内の換算方法は不明）", s: [src-stepn-blockcrunch]}
   # --- 市場データ（market）---
   - {id: m-stepn-gmt-ath, type: token_price, value: 4.11, unit: USD, period: "2022-04-27", definition: "GMT の史上最高値（CoinGecko 集計）", nature: measured, s: [src-stepn-coingecko-gmt]}
   - {id: m-stepn-gst-ath, type: token_price, value: 8.51, unit: USD, period: "2022-04-28", definition: "GST（Solana 版）の史上最高値（CoinGecko 集計）。Decrypt は CoinMarketCap 等をもとに 9.03 ドルと記載", nature: measured, s: [src-stepn-coingecko-gst, src-stepn-decrypt-china]}
@@ -91,12 +92,13 @@ events:
   - {id: ev-stepn-dual-earning-split, date: "2022-02-04", type: spec-change, title: "GMT 報酬を Comfort 値で決定、GST と GMT を同時に得られない仕様に", detail: "GMT の move&earn は 3 年ごとに半減と記載", s: [src-stepn-wp-changelog]}
   - {id: ev-stepn-gmt-tge, date: "2022-03-09", type: launch, title: "GMT のトークン生成（60 億）", s: [src-stepn-wp-gmt-vesting]}
   - {id: ev-stepn-mint-cost-may, date: "2022-05-02", type: spec-change, title: "Common スニーカーの作成コストを GST 50%・GMT 50% に", s: [src-stepn-wp-changelog]}
-  - {id: ev-stepn-china, date: "2022-05-26", type: incident, title: "中国本土アカウントへの GPS 停止（2022-07-15 実施）を発表", detail: "発表直後に GST・GMT が急落", s: [src-stepn-decrypt-china]}
+  - {id: ev-stepn-china, date: "2022-05-26", type: incident, title: "中国本土アカウントへの GPS 停止（2022-07-15 実施）を発表", detail: "発表直後に GST・GMT が急落。Decrypt・The Block は発表を「木曜」と記し、2022-05-26 は記事日付からの暦の換算", s: [src-stepn-decrypt-china, src-stepn-theblock-china]}
   - {id: ev-stepn-dynamic-mint, date: "2022-06-08", type: spec-change, title: "作成クールダウンを 72 時間に、基本作成コスト増と動的作成コスト", s: [src-stepn-wp-changelog]}
-  - {id: ev-stepn-rainbow, date: "2022-08-15", type: spec-change, title: "Rainbow スニーカー、GMT 報酬ページ、エネルギー要件の撤廃", s: [src-stepn-wp-changelog]}
+  - {id: ev-stepn-rainbow, date: "2022-08-15", type: spec-change, title: "GMT 報酬の 3 エネルギー要件を撤廃、Rainbow スニーカーの説明を追加", s: [src-stepn-wp-changelog]}
   - {id: ev-stepn-halving-cliff, date: "2022-09-27", type: spec-change, title: "GMT 報酬の半減を 2 年ごとの段階的半減に変更", s: [src-stepn-wp-changelog]}
   - {id: ev-stepn-gmt-pricing, date: "2022-12-10", type: spec-change, title: "全 NFT のマーケット価格を GMT 建てに", s: [src-stepn-wp-changelog]}
-  - {id: ev-stepn-halving-removed, date: "2024-04-04", type: spec-change, title: "GMT 報酬の半減メカニズムを撤廃", s: [src-stepn-wp-changelog]}
+  - {id: ev-stepn-halving-removed, date: "2024-04-04", type: spec-change, title: "GMT 報酬の半減メカニズムを撤廃", detail: "のちに 2026-01-01 から半減を再導入（ev-stepn-halving-back）", s: [src-stepn-wp-changelog]}
+  - {id: ev-stepn-halving-back, date: "2026-01-01", type: spec-change, title: "GMT 報酬の半減を再導入", detail: "当初 2024-10-09 予定から延期されたと公式は記す。変更履歴では 2026-01-12 に「Add GMT Halving information」", s: [src-stepn-wp-gmt-advanced, src-stepn-wp-changelog]}
 
 relations:
   - {to: axie-infinity, type: similar-to, basis: analytic, note: "NFT 購入を前提に報酬トークンを得る P2E。新規流入への依存と報酬トークンの下落という同じ構造"}
@@ -106,8 +108,12 @@ unknowns:
   - "運営自身が公表した MAU / DAU の一次資料（X の元投稿）と定義。2022-09 の「472 万ユーザー」（登録数）は検索要約でのみ確認し、本文は取得できなかった。"
   - "一般公開（Public Beta）の開始日。"
   - "継続率、プレイヤーあたりの平均収支、新規スニーカー購入額の推移。"
+  - "変更履歴の日付はホワイトペーパーの更新日であり、アプリでの実施日と一致するかは確認していない（events の spec-change 日付はこの更新日）。"
+  - "Dune のダッシュボード（Decrypt が引用）の集計定義。dune.com はこの環境で遮断され再確認できなかった。"
   - "中国本土ユーザーの比率と、GPS 停止の実際の影響の大きさ。"
 contradictions:
+  - {t: "GMT の Ethereum 版: Tokenomic ページは ETH 版コントラクトを「inactive」と記すが、Governance & Ecosystem fund ページは 2023-06-17 に投資家・アドバイザー・チーム・エコシステム基金の残り 30.85 億 GMT を Ethereum に移し月次配布用マルチシグに置いたと記し、GMT Vesting ページも ETH 版を注記なしで掲載する。", s: [src-stepn-wp-tokenomic, src-stepn-wp-governance, src-stepn-wp-gmt-vesting]}
+  - {t: "GMT 報酬の半減: 変更履歴は 2024-04-04 に半減メカニズムを撤廃と記すが、GMT Earning Advanced ページは 2026-01-01 に半減を「再導入」したと記す（撤廃後の再導入）。", s: [src-stepn-wp-changelog, src-stepn-wp-gmt-advanced]}
   - {t: "GST の史上最高値: CoinGecko（Solana 版）は 8.51 ドル（2022-04-28）、Decrypt は 9.03 ドルと記載（集計元・チェーン版の違いの可能性）。", s: [src-stepn-coingecko-gst, src-stepn-decrypt-china]}
   - {t: "2022-12 の MAU: Decrypt は Dune の最終月を 4.5 万弱とし、検索で見た NFTNow の記事は「1 年後」に 3 万弱と記す（後者は本文未取得）。", s: [src-stepn-decrypt-2023]}
 
@@ -129,3 +135,5 @@ sources:
   - {id: src-stepn-fool-2022-10, title: "Should Investors Be Worried About STEPN?", url: "https://www.fool.com/investing/2022/10/20/should-investors-be-worried-about-stepn", publisher: "The Motley Fool", author: "Dominic Basulto", type: analysis, primary: false, published: "2022-10-20", accessed: "2026-10-23", access: fetched, lang: en, note: "MAU 9.9 万・DAU 5,800、競合・市況・季節性"}
   - {id: src-stepn-coingecko-gmt, title: "GMT (stepn) - CoinGecko API coin data", url: "https://api.coingecko.com/api/v3/coins/stepn", publisher: "CoinGecko", type: onchain-data, primary: false, accessed: "2026-10-23", access: fetched, lang: en, note: "ATH 4.11 ドル（2022-04-27）、ATL 0.0058 ドル（2026-08-18）、現在 0.0072 ドル"}
   - {id: src-stepn-coingecko-gst, title: "STEPN Green Satoshi Token on Solana (green-satoshi-token) - CoinGecko API coin data", url: "https://api.coingecko.com/api/v3/coins/green-satoshi-token", publisher: "CoinGecko", type: onchain-data, primary: false, accessed: "2026-10-23", access: fetched, lang: en, note: "ATH 8.51 ドル（2022-04-28）、現在 0.00079 ドル"}
+  - {id: src-stepn-wp-gmt-advanced, title: "GMT Earning Advanced (STEPN Whitepaper)", url: "https://whitepaper.stepn.com/earning-module/gmt-earning-advanced.md", publisher: "STEPN Whitepaper", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "検証役が取得。GMT 報酬は 2022-09-28 に有効化、半減は 2024-10-09 予定から延期され 2026-01-01 に開始"}
+  - {id: src-stepn-theblock-china, title: "Stepn to block mainland China users in compliance with regulators, SCMP says", url: "https://www.theblock.co/news/regulation/2022-05-29-stepn-to-block-mainland-china-users-in-compliance-with-regulators-scmp-says-149289", publisher: "The Block", author: "Mike Millard", type: news, primary: false, published: "2022-05-29", accessed: "2026-10-23", access: fetched, lang: en, note: "検証役が取得。発表は「木曜」に Twitter で、7 月 15 日に GPS と IP 位置情報の提供を停止。中国ユーザー比率の記載なし"}

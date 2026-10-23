@@ -28,11 +28,11 @@ status:
   note: >-
     長期形式の Eternum は Season 1 が「Concluded」と表示されて以降（2025-09 の docs）、公開シーズンの再開を確認できなかった（S2 用ブランチは 2026-03 にマージ）。
     2026-08 時点の内部設計文書は、構成済みのどの Eternum にも勝利条件がない（pointsForWin = 0）と記す。
-    一方、60 分の Blitz（2026-03 に Series 0）と日替わりで無料の Frontier（2026-10 に実装）は自前のアプリチェーン上で稼働しており、リポジトリは参照日も活発に更新されている。
+    一方、60 分の Blitz（2026-03 に Series 0）と日替わりで無料の Frontier（2026-09 に実装開始、2026-10 も改修中）は自前のアプリチェーン上で稼働しており、リポジトリは参照日も活発に更新されている。
   s: [src-realms-eternum-changelog-2025-09, src-realms-eternum-value-plane, src-realms-eternum-readme, src-realms-eternum-git-history]
 dates:
   announced: {date: "2023-02", s: [src-realms-eternum-git-history], note: "eternum リポジトリの初回コミットは 2023-02-13。ゲームとしての告知日は未確認"}
-  launched: {date: "2024-12-11", s: [src-realms-eternum-bankless-s0-guide], note: "Season 0 が Starknet mainnet で開始（Bankless の初心者ガイド）。Starknet 公式の告知投稿は 2024-12-10 付で「まもなく」と記す"}
+  launched: {date: "2024-12-11", s: [src-realms-eternum-bankless-s0-guide, src-realms-eternum-x-s0-champions], note: "Season 0 が Starknet mainnet で開始（Bankless の初心者ガイド「went live Wednesday, December 11」）。運営は S0 を「mainnet preview」と呼んだ（公式 X 記事）"}
 
 architecture:
   onchain:
@@ -45,7 +45,7 @@ architecture:
     s: [src-realms-eternum-s1-contracts, src-realms-eternum-readme, src-realms-eternum-value-plane, src-realms-eternum-athanor]
   offchain:
     - {item: "S1 のエージェント軍は 1 つの agent controller アドレスが所有・操作する（意思決定はオフチェーン）。controller アドレスは管理者が設定", s: [src-realms-eternum-s1-contracts, src-realms-eternum-s1-config]}
-    - {item: "Torii（S1〜2026-08）や Herald（2026-09 以降）による状態配信、three.js / React クライアント", s: [src-realms-eternum-readme, src-realms-eternum-git-history]}
+    - {item: "Torii（S1〜2026-08）や Herald（2026-08-27 にコード追加、以後の現行版）による状態配信、three.js / React クライアント", s: [src-realms-eternum-readme, src-realms-eternum-git-history]}
     - {item: "S1 の賞金は開発チームが手動で配布（エージェント報酬を除く）。S0 の部族報酬は部族長のウォレットに送られ、部族長が分配", s: [src-realms-eternum-prize-s1, src-realms-eternum-s0-rewards]}
     - {item: "現行版のサインイン・シャード一覧・ゲーム起動は Cloudflare Workers、L2 と L3 の間の結果・入金は運営の operator が中継", s: [src-realms-eternum-readme, src-realms-eternum-value-plane]}
     - {item: "S0/S1 のアカウントとセッションキーは Cartridge Controller（2026-08 に撤去）", s: [src-realms-eternum-bankless-s1, src-realms-eternum-git-history]}
@@ -54,8 +54,9 @@ architecture:
     detail: >-
       S1 のコントラクトには管理者だけが呼べる設定関数が多数あり（assert_caller_is_admin が 33 箇所）、エージェント controller、銀行手数料、戦闘・移動・生産の各種パラメータ、ブリッジのホワイトリストを設定できる。
       Dojo ワールドの所有者はシステムの差し替えも可能。公式の免責事項は「不変のコントラクト」とするが、設定権限との関係は確認できなかった。
-      現行版では運営がシーケンサ・VRF 鍵・ゲーム作成（registrar）・L2/L3 間の中継を持ち、2026-08 の内部監査は誰でも順位確定を呼べて賞金プールを凍結させ得る欠陥を指摘した（本番の LORDS 投入前）。
-    s: [src-realms-eternum-s1-contracts, src-realms-eternum-disclaimer, src-realms-eternum-loop-audit, src-realms-eternum-athanor]
+      現行版では運営がシーケンサ・VRF 鍵・ゲーム作成（registrar）・L2/L3 間の中継を持ち、2026-08-31 の内部監査は誰でも順位確定を呼べて賞金プールを凍結させ得る欠陥を指摘した（本番の LORDS 投入前。修正済みかは本検証で未確認）。
+      S1 当時の免責事項も「不変のコントラクト」と書いていた。
+    s: [src-realms-eternum-s1-contracts, src-realms-eternum-disclaimer, src-realms-eternum-disclaimer-s1, src-realms-eternum-loop-audit, src-realms-eternum-athanor]
   open_source:
     level: full
     detail: "コントラクト、クライアント、インデクサ、デプロイ、内部設計文書まで BibliothecaDAO/eternum で公開（2023-02 以降の約 1.7 万コミット）。"
@@ -73,10 +74,10 @@ compare:
   gameplay: {t: "Realms（または Village）を地図に置き、食料と 22 種の資源を生産し、ロバで輸送し、LORDS 建て AMM で売買し、3 兵種 3 段階の軍で探索・略奪・攻城を行い、Hyperstructure の建設・保持で勝利点を稼ぐ。部族（Tribe）で協力する。", k: fact, s: [src-realms-eternum-key-concepts, src-realms-eternum-bankless-s0-guide]}
   necessity: {t: "資源・LORDS・Realms が外部市場と同じトークンで、ゲーム内で稼いだ資源を ERC20 として持ち出せる点、誰でもボットやエージェントで参加できる点にはオンチェーンの意味がある。一方、運営は 2026 年に自前のシーケンサへ移り、賞金の中継も運営が担っており、価値のある部分だけを L2 に残す方向へ設計を変えた。", k: analysis, s: [src-realms-eternum-key-concepts, src-realms-eternum-value-plane]}
   information: {t: "地図は霧に覆われ、探索した六角形が全員に公開される。状態はオンチェーンで読めるが、秘匿情報の暗号的な仕組みは確認できなかった。Frontier ではタイルの中身が公開の瞬間に決まり事前偵察できない。", k: fact, s: [src-realms-eternum-key-concepts, src-realms-eternum-frontier]}
-  persistence: {t: "シーズン終了時に全行動が停止し、期限（S0 は 48 時間、現行の免責事項では 7 日）内に持ち出さない LORDS と資源は永久にロックされる。各シーズンの世界は持続しない。", k: fact, s: [src-realms-eternum-s0-rewards, src-realms-eternum-disclaimer]}
+  persistence: {t: "シーズン終了時に全行動が停止し、期限（S0・S1 は 48 時間、現行の免責事項では 7 日）内に持ち出さない LORDS と資源は永久にロックされる。各シーズンの世界は持続しない。", k: fact, s: [src-realms-eternum-s0-rewards, src-realms-eternum-disclaimer-s1, src-realms-eternum-disclaimer]}
   extensibility: {t: "コードは全面公開でボット・エージェント・第三者クライアントがコントラクトを呼べるが、ルールの追加は運営のみ。エージェント軍の操作は管理者設定のアドレスに限られた。", k: fact, s: [src-realms-eternum-s1-contracts, src-realms-eternum-readme]}
   money_flow: {t: "S0/S1 は 100 万 LORDS 規模の賞金プール（S1 は加えて 10 万 STRK）を運営側が用意し、資源ブリッジ手数料の一部をプールに加えた。プレイヤーは Season Pass（Realms 保有者は無料、他は二次市場で購入）や LORDS を支払い、AMM 手数料の一部は veLORDS へ。Blitz は参加料（例: Gladiator 250 LORDS）を賞金にする。", k: fact, s: [src-realms-eternum-prize-s1, src-realms-eternum-bankless-s0-guide, src-realms-eternum-lords, src-realms-eternum-changelog-2025-09]}
-  entry_barrier: {t: "S0 は Season Pass と Starknet ウォレットが必要。S1 で現金・ステーブルコインで参加できる Village（NFT 不要）を導入。LORDS の入手には ETH のブリッジ・スワップ等の手順が要る。Frontier（2026-10）は無料。", k: fact, s: [src-realms-eternum-bankless-s1, src-realms-eternum-lords, src-realms-eternum-frontier]}
+  entry_barrier: {t: "S0 は Season Pass と Starknet ウォレットが必要。S1 で現金・ステーブルコインで参加できる Village（NFT 不要）を導入。LORDS の入手には ETH のブリッジ・スワップ等の手順が要る。Frontier（2026-09 以降）は無料。", k: fact, s: [src-realms-eternum-bankless-s1, src-realms-eternum-lords, src-realms-eternum-frontier]}
 
 concepts: [c-onchain-rules, c-onchain-state, m-seasons, m-production-chain, m-pvp-territory, m-land, c-fungible-ingame-token, c-nft-asset, c-ai-agent-player, c-own-chain, c-gas-abstraction, c-onchain-randomness, c-ecs-engine, e-entry-fee-prize, e-sink-faucet, c-autonomous-world, m-bot-automation]
 proposed_concepts:
@@ -110,17 +111,20 @@ article:
     - {t: "運営（BibliothecaDAO）: ルールと設定、賞金プールの用意と（S1 では手動の）配布、Season Pass の発行、エージェント controller の運用、2026 年以降はシーケンサ・VRF 鍵・L2/L3 中継の運用を担う。", k: fact, s: [src-realms-eternum-prize-s1, src-realms-eternum-s1-config, src-realms-eternum-athanor, src-realms-eternum-value-plane]}
     - {t: "Realm 保有者: 8,000 個の Realms NFT ごとに Season Pass を無料で発行でき、Pass は二次市場で売買される。征服され得る Realm は高リスク・高権限の参加枠。", k: fact, s: [src-realms-eternum-key-concepts, src-realms-eternum-bankless-s1]}
     - {t: "部族（Tribe）: S0・S1 の勝利賞金は上位 10 部族に配られ、S1 では部族長が部族配分の 30% を得て残りを貢献度で分ける。", k: fact, s: [src-realms-eternum-prize-s1, src-realms-eternum-s0-rewards]}
-    - {t: "エージェント: S1 のエージェント軍は探索時に確率で出現し、10〜35 LORDS を抱え、同時最大 1,000・通算最大 10,000 体（S1 設定値）。一つの controller アドレスが所有し、性格は Cartridge VRF で決まる。開発者は個別に手設計していないと述べた。", k: fact, s: [src-realms-eternum-s1-config, src-realms-eternum-s1-contracts, src-realms-eternum-bankless-s1]}
+    - {t: "エージェント: S1 のエージェント軍は探索時に確率で出現し、10〜35 LORDS を抱え、同時最大 1,000・通算最大 10,000 体（S1 設定値）。一つの controller アドレスが所有する。", k: fact, s: [src-realms-eternum-s1-config, src-realms-eternum-s1-contracts]}
+    - {t: "開発者は、エージェントは個別に手設計しておらず、性格は Cartridge VRF のオンチェーン乱数で決まり、プレイヤーと 1 対 1 で同等ではない NPC だと説明した。", k: claim, who: "Loaf（Bankless 記事内の発言）", s: [src-realms-eternum-bankless-s1], q: "The agents this season are NPCs, not one-to-one equivalents of players"}
     - {t: "コンテンツ制作者: S0 は 20 万 LORDS、S1 は 15 万 LORDS＋2.5 万 STRK を芸術・文化的貢献に配分した（運営の裁量）。", k: fact, s: [src-realms-eternum-bankless-s0-guide, src-realms-eternum-prize-s1]}
   trajectory:
     - {t: "2023-02 にリポジトリ開始。2024-03 に Dojo 6 と「realms world L3」向けのリファクタ、2024-10〜12 に Season Pass を実装し mainnet へ展開した。", k: fact, s: [src-realms-eternum-git-history]}
-    - {t: "Season 0 は 2024-12-11 に Starknet mainnet で開始し、勝利点 6,320,000 で終了、終了後 48 時間で持ち出し、という規則だった。開発者は約 800 の登録があったと述べた。終了は 2024-12 下旬とみられるが（公式 X 投稿の検索結果）、本文は読めていない。", k: fact, s: [src-realms-eternum-bankless-s0-guide, src-realms-eternum-s0-rewards, src-realms-eternum-bankless-s1, src-realms-eternum-x-s0-champions]}
+    - {t: "Season 0 は 2024-12-11 に Starknet mainnet で開始し、勝利点 6,320,000 で終了、終了後 48 時間で持ち出し、という規則だった。2024-12-27 の公式 X 記事は優勝部族（@orden_gg）と個人優勝（@yanik_ai）を発表し、銀行からのブリッジは 2024-12-28 21:30 GMT、勝利点の申請は 2024-12-30 に締め切ると告知した。", k: fact, s: [src-realms-eternum-bankless-s0-guide, src-realms-eternum-s0-rewards, src-realms-eternum-x-s0-champions]}
+    - {t: "開発者は S0 に約 800 の登録があったと述べた。", k: claim, who: "Loaf（Bankless 記事内の発言）", s: [src-realms-eternum-bankless-s1], q: "Season 0 attracted about 800 sign-ups."}
     - {t: "Season 1 は 2025-04-30 に Pass 段階、05-07 に Settling、05-14 に Empire を開始。Village、Labor、リアルタイムのスタミナ制戦闘、T1〜T3 兵、エージェント軍、4 区分の賞金（100 万 LORDS＋10 万 STRK）を導入した。", k: fact, s: [src-realms-eternum-bankless-s1, src-realms-eternum-bankless-returns, src-realms-eternum-prize-s1]}
-    - {t: "コミット履歴では 2025-06-04 に「fix season end」「season winner message」があり、S1 は 2025-06 上旬に終了したとみられる。2025-09 の docs は「Eternum (Season 1 - Concluded)」と表示した。", k: fact, s: [src-realms-eternum-git-history, src-realms-eternum-changelog-2025-09]}
-    - {t: "2025-07 から 2 時間の短時間形式 Blitz を開発（Slot へのデプロイが続く）、2025-09 に参加料つきブラケット、2026-03 に初の公式 Blitz シリーズ（Series 0）を開始し、試合時間を 90 分から 60 分に短縮した。", k: fact, s: [src-realms-eternum-git-history, src-realms-eternum-changelog-2025-09, src-realms-eternum-changelog-2026-03, src-realms-eternum-docs-llm]}
-    - {t: "2026-08 に自前の Katana アプリチェーン、続いて Madara へ移り、「Cartridge out」（2026-08-26）、sozo を自前のネイティブ・デプロイヤに置換（2026-09-12）。2026-10 に無料の日替わり形式 Frontier を実装した。", k: fact, s: [src-realms-eternum-git-history, src-realms-eternum-readme, src-realms-eternum-frontier]}
+    - {t: "コミット履歴では 2025-05-30 に終了状態の警告、2025-06-04 に「fix season end」「season winner message」、2025-06-07 に「claim buttons」がある。2025-09 の docs は「Eternum (Season 1 - Concluded)」と表示した。", k: fact, s: [src-realms-eternum-git-history, src-realms-eternum-changelog-2025-09]}
+    - {t: "上のコミットから S1 は 2025-06 上旬に終了したとみられるが、公式の終了告知・優勝者は確認できていない。", k: analysis, s: [src-realms-eternum-git-history]}
+    - {t: "2025-07 から短時間形式 Blitz を開発（2025-09 時点の docs は 1 試合 2 時間と記載。Slot へのデプロイが続く）、2025-09 に参加料つきブラケット、2026-03 に初の公式 Blitz シリーズ（Series 0）を開始し、試合時間を 90 分から 60 分に短縮した。", k: fact, s: [src-realms-eternum-git-history, src-realms-eternum-blitz-docs-2025-09, src-realms-eternum-changelog-2025-09, src-realms-eternum-changelog-2026-03, src-realms-eternum-docs-llm]}
+    - {t: "2026-08-06 に Slot を外して AWS 上の自前 Katana アプリチェーンへ、2026-08-24 から Madara への移行作業、「Cartridge out」（2026-08-26）、sozo を自前のネイティブ・デプロイヤに置換（2026-09-12）。無料の日替わり形式 Frontier は 2026-09-21〜22 に実装・docs 追加され、2026-10 も改修が続く。", k: fact, s: [src-realms-eternum-git-history, src-realms-eternum-readme, src-realms-eternum-frontier]}
   retention_evidence:
-    - {t: "示されている指標: S0 の登録約 800（開発者の発言）、S0 開始直後の Starknet トランザクションの約 36%（ゲスト記事、出典不明）。Bankless は S0 に「数百人」が参加したと書く。", k: fact, s: [src-realms-eternum-bankless-s1, src-realms-eternum-sovereign-frontier]}
+    - {t: "示されている指標: S0 の登録約 800（開発者の発言）、S0 開始直後の Starknet トランザクションの約 36%（ゲスト記事、出典不明）。いずれも運営側または第三者の記述で、独立した計測ではない。", k: claim, who: "Loaf（Bankless）、thinkDecade（Sovereign Frontier）", s: [src-realms-eternum-bankless-s1, src-realms-eternum-sovereign-frontier]}
     - {t: "S1 の参加者数、S0 → S1 の継続率、S1 → Blitz への移行人数は公表を見つけられなかった。利用者が以前行ったベンチマークの数値とも照合できていない。", k: unknown}
     - {t: "シーズンの長さそのものが定着度の手がかりになる: S0 は開始から 2 週間余り、S1 は Empire 開始から 3 週間程度で終了条件に達したとみられ、「数週間〜」と宣伝された長期形式が短期で決着している。", k: analysis, s: [src-realms-eternum-bankless-s0-guide, src-realms-eternum-git-history, src-realms-eternum-x-s0-champions]}
     - {t: "示されていない指標: DAU、一意ウォレット数、ボット・複数アカウント比率、エージェント軍が実際に何体出現し何体倒されたか、賞金の受取人数と集中度。", k: unknown}
@@ -142,10 +146,13 @@ article:
     - {t: "長期シーズンから短時間マッチへ: 数週間の MMO を、60 分・最大 24 人のマッチと日替わりの PvE に分解すると、負荷・参加の敷居・賞金の確定が扱いやすくなる。適用条件はマッチ単位で完結するルールと MMR があること。破綻条件は「永続する文明」という当初の価値提案を手放すことになる点。", k: analysis, s: [src-realms-eternum-readme, src-realms-eternum-changelog-2026-03]}
   counter_evidence:
     - {t: "長期の文明 MMO という形式自体が持続しなかった可能性: S1 終了（2025-06）以降、長期形式の公開シーズンは確認できず、運営は 60 分の Blitz と日替わりの Frontier に移った。オンチェーンでも「数週間続く世界」は運営の判断で止まり得る。", k: fact, s: [src-realms-eternum-changelog-2025-09, src-realms-eternum-readme, src-realms-eternum-value-plane]}
-    - {t: "「1,000 のエージェント・プレイヤー」構想（2025-01）に対し、S1 で実装されたのは管理者が設定した controller が操作する NPC 軍で、上限 1,000 は同時出現数の設定値だった。AI が人間と対等なプレイヤーとして参加した証拠ではない。", k: fact, s: [src-realms-eternum-bankless-eliza, src-realms-eternum-s1-config, src-realms-eternum-bankless-s1], q: "We are pushing to have 1000 agents in the upcoming season, all fighting over $lords and supremacy of the world."}
+    - {t: "主張: 2025-01-03、Loaf は次のシーズンに 1,000 のエージェントを投入し LORDS と覇権を争わせると X に投稿した（Bankless 2025-01-06 が埋め込みで引用）。", k: claim, who: "Loaf（@lordOfAFew）", s: [src-realms-eternum-bankless-eliza], q: "We are pushing to have 1000 agents in the upcoming season, all fighting over $lords and supremacy of the world."}
+    - {t: "これに対し S1 で実装されたのは管理者が設定した controller が操作する NPC 軍で、上限 1,000 は同時出現数の設定値だった。AI が人間と対等なプレイヤーとして参加した証拠ではない。", k: fact, s: [src-realms-eternum-s1-config, src-realms-eternum-s1-contracts, src-realms-eternum-bankless-s1]}
     - {t: "「Ethereum に保護され Starknet でスケールする」という柱に対し、2026 年の現行版は運営が運用する Madara シーケンサ上で動き、価値の中継も運営の operator が担う。フルオンチェーンを掲げた旗艦ゲームが、運営依存を増やす方向へ移った。", k: fact, s: [src-realms-eternum-intro, src-realms-eternum-readme, src-realms-eternum-value-plane]}
-    - {t: "AI エージェントへの投資の歩留まり: 3 つのエージェント／ヘッドレスの試みが「呼び出し元がない」「Cartridge とともに死んだ」として削除された、と内部文書自身が書く。", k: fact, s: [src-realms-eternum-hired-agents], q: "Died with Cartridge."}
-    - {t: "集中の手がかり: S0 の優勝部族は orden で、Dark Forest v0.6 で上位を占めた orden_gg と同名だと検索結果の要約で確認した（本文未読）。同じ熟練集団がオンチェーン戦略ゲームを横断して勝つ構図の可能性があるが、同一集団かは検証していない。", k: analysis, s: [src-realms-eternum-x-s0-champions]}
+    - {t: "AI エージェントへの投資の歩留まり: 3 つのエージェント／ヘッドレスの試みが「呼び出し元がない」「Cartridge とともに死んだ」ために削除された、と内部設計文書自身が説明する（削除の事実はコミットで確認できるが、理由は運営の説明）。", k: claim, who: "BibliothecaDAO（内部設計文書 hired-agents brief）", s: [src-realms-eternum-hired-agents], q: "Died with Cartridge."}
+    - {t: "上の「歩留まり」解釈への反証: 同じ文書に基づく apps/agent-runner（「雇われたエージェント」1 体を GameClient 経由で動かす）が 2026-09-13 に追加され、2026-10-20 まで更新が続いている。エージェント路線は放棄ではなく作り直しの途中とも読める（実プレイでの稼働実績は未確認）。", k: fact, s: [src-realms-eternum-agent-runner, src-realms-eternum-git-history]}
+    - {t: "賞金処理の運営依存: S0 終了時の公式告知は、勝利点の申請を済ませた者にも「計算を更新したので再申請を」と求め、S1 の賞金はエージェント報酬を除き開発チームが手動で配布した。S1 の docs が約束した「将来のシーズンではコントラクトによる自動配布」は、現行設計でも運営 operator の中継（stage 1）にとどまる。", k: fact, s: [src-realms-eternum-x-s0-champions, src-realms-eternum-prize-s1, src-realms-eternum-value-plane], q: "Some calculations were updated."}
+    - {t: "集中の手がかり: S0 の公式発表は優勝部族として X アカウント @orden_gg を挙げた（検証時に本文を確認）。Dark Forest で知られる orden_gg と同じ名前で、同じ熟練集団がオンチェーン戦略ゲームを横断して勝つ構図の可能性があるが、同一集団かは検証していない。", k: analysis, s: [src-realms-eternum-x-s0-champions]}
     - {t: "参加規模の証拠は S0 の約 800 登録という開発者発言程度で、継続率や S1 の規模は公表がない。「オンチェーン MMO が文明シミュレーションとして人を集め続けた」という主張を支える数値は見つからなかった。", k: analysis, s: [src-realms-eternum-bankless-s1]}
 
 metrics:
@@ -161,12 +168,13 @@ events:
   - {id: ev-eternum-repo, date: "2023-02-13", type: other, title: "eternum リポジトリ開始", s: [src-realms-eternum-git-history]}
   - {id: ev-eternum-season-pass, date: "2024-12-02", type: release, title: "Season Pass を mainnet に展開", s: [src-realms-eternum-git-history]}
   - {id: ev-eternum-s0, date: "2024-12-11", type: launch, title: "Season 0 開始（Starknet mainnet）", detail: "100 万 LORDS の賞金、28 種の資源トークン TGE", s: [src-realms-eternum-bankless-s0-guide]}
-  - {id: ev-eternum-daydreams-1000, date: "2025-01-06", type: announce, title: "次シーズンに 1,000 エージェントを目指すと表明", s: [src-realms-eternum-bankless-eliza]}
+  - {id: ev-eternum-daydreams-1000, date: "2025-01-03", type: announce, title: "次シーズンに 1,000 エージェントを目指すと表明", detail: "Loaf（@lordOfAFew）の X 投稿。Bankless 記事（2025-01-06）に埋め込みで引用", s: [src-realms-eternum-bankless-eliza]}
+  - {id: ev-eternum-s0-end, date: "2024-12-27", type: end, title: "Season 0 の優勝者発表と持ち出し期限の告知", detail: "ブリッジ締切 2024-12-28 21:30 GMT、勝利点申請締切 2024-12-30", s: [src-realms-eternum-x-s0-champions]}
   - {id: ev-eternum-s1, date: "2025-05-14", type: round, title: "Season 1 Empire 段階開始", detail: "04-30 Pass、05-07 Settling。Village・Labor・エージェント軍", s: [src-realms-eternum-bankless-s1, src-realms-eternum-bankless-returns]}
   - {id: ev-eternum-s1-end, date: "2025-06", type: end, title: "Season 1 終了（コミット履歴からの推定）", s: [src-realms-eternum-git-history, src-realms-eternum-changelog-2025-09]}
   - {id: ev-eternum-blitz-series0, date: "2026-03-28", type: spec-change, title: "Blitz Series 0、試合時間を 60 分に", s: [src-realms-eternum-changelog-2026-03]}
   - {id: ev-eternum-cartridge-out, date: "2026-08-26", type: pivot, title: "Cartridge を外し自前アカウント・Madara へ", detail: "2026-09 に sozo をネイティブ・デプロイヤへ置換", s: [src-realms-eternum-git-history]}
-  - {id: ev-eternum-frontier, date: "2026-10-07", type: release, title: "Frontier（日替わり・無料の PvE）実装", s: [src-realms-eternum-git-history, src-realms-eternum-frontier]}
+  - {id: ev-eternum-frontier, date: "2026-09", type: release, title: "Frontier（日替わり・無料の PvE）実装", detail: "2026-09-21〜22 に Frontier の preset・シーズン作成と docs ページを追加", s: [src-realms-eternum-git-history, src-realms-eternum-frontier]}
 
 relations:
   - {to: dojo, type: built-with, basis: confirmed, note: "S0・S1 は Dojo ワールド（2026-09 にネイティブ Cairo へ移行）", s: [src-realms-eternum-bankless-s0-guide, src-realms-eternum-git-history]}
@@ -182,38 +190,43 @@ relations:
 
 unknowns:
   - "S1 の参加者数、S0 → S1 → Blitz の継続率、賞金の受取人数と集中度。"
-  - "S0 と S1 の正確な終了日と優勝者（S0 は公式 X の検索要約のみ）。"
+  - "S0 の終了条件到達日時（2024-12-27 の発表以前）と、S1 の正確な終了日・優勝者。"
   - "S1 のエージェント軍が実際に LLM で動いたのか、何体出現し何体倒されたか。"
   - "S1 期間中に管理者設定関数が実際に呼ばれたか（パラメータ変更の有無）。"
   - "長期形式 Eternum の S2 が公開されるか。2026-03 にブランチがマージされたが、公開シーズンは確認できなかった。"
   - "ボット・複数アカウントの規模と、運営の扱い（禁止・公認）。"
+  - "2026-08-31 の内部監査が指摘した blocker（誰でも呼べる順位確定）と create_game の権限問題が修正済みか。"
+  - "S0 の参加者数を「数百人」とする Bankless の記述は、検証時に引用元の Bankless 記事（S1・Returns）内に見つからなかった。"
   - "S0 紹介記事の言う「地図上の位置に独自ロジックを置ける仕組み」が実装されたか。"
 contradictions:
-  - {t: "Blitz の試合時間: 旧 docs は 2 時間、2026-03 の changelog は 90 分から 60 分へ短縮、現行 README は 60 分。時期による変更。", s: [src-realms-eternum-docs-llm, src-realms-eternum-changelog-2026-03, src-realms-eternum-readme]}
+  - {t: "Blitz の試合時間: 2025-09 時点の docs は 2 時間、2026-03 の changelog は 90 分から 60 分へ短縮、現行 README・llm.txt は 60 分。時期による変更。", s: [src-realms-eternum-blitz-docs-2025-09, src-realms-eternum-changelog-2026-03, src-realms-eternum-readme, src-realms-eternum-docs-llm]}
   - {t: "勝利点の閾値: S0 ガイドは 6,320,000、検索で見た docs の版は 9,620,000 と記載（版による違いの可能性。後者は検索要約のみ）。", s: [src-realms-eternum-bankless-s0-guide]}
-  - {t: "S0 の賞金: Bankless のガイドは 100 万 LORDS の内訳を 4 区分で示すが、Sovereign Frontier の記事は個人・部族の 60 万と別枠の制作者 20 万しか示さない。", s: [src-realms-eternum-bankless-s0-guide, src-realms-eternum-sovereign-frontier]}
-  - {t: "持ち出し期限: S0 は 48 時間、現行の免責事項は 7 日。", s: [src-realms-eternum-s0-rewards, src-realms-eternum-disclaimer]}
-  - {t: "「不変のコントラクト」という免責事項と、S1 コードの管理者専用設定関数。", s: [src-realms-eternum-disclaimer, src-realms-eternum-s1-contracts]}
+  - {t: "S0 の賞金: Bankless のガイドは 100 万 LORDS の内訳を 4 区分（実績 20 万を含む）で示すが、Sovereign Frontier の記事は個人・部族の 60 万と制作者 20 万を示し、実績（Special Achievements）の額を書かない。", s: [src-realms-eternum-bankless-s0-guide, src-realms-eternum-sovereign-frontier]}
+  - {t: "持ち出し期限: S0 と S1 当時の免責事項は 48 時間、現行（2026-08 以降）の免責事項は 7 日。また S0 の公式 X 告知はゲーム内に残ったトークンを「burned」と書き、docs は「permanently locked」と書く。", s: [src-realms-eternum-s0-rewards, src-realms-eternum-disclaimer-s1, src-realms-eternum-disclaimer, src-realms-eternum-x-s0-champions]}
+  - {t: "S1 当時の免責事項も「Eternum is governed entirely by immutable smart contracts」と書いたが、同時期（コミット 42c4104）の S1 コードには管理者専用の設定関数が 33 箇所ある。", s: [src-realms-eternum-disclaimer-s1, src-realms-eternum-s1-contracts]}
 
 sources:
   - {id: src-realms-eternum-readme, title: "BibliothecaDAO/eternum README (Realms)", url: "https://github.com/BibliothecaDAO/eternum", publisher: "GitHub", type: code, primary: true, published: "2026-10-23", accessed: "2026-10-23", access: fetched, lang: en, note: "git clone で確認。Frontier / Blitz / Eternum、自前の Starknet アプリチェーン、Madara・Herald・L2 の役割"}
   - {id: src-realms-eternum-git-history, title: "BibliothecaDAO/eternum commit history", url: "https://github.com/BibliothecaDAO/eternum/commits/main", publisher: "GitHub", type: code, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "履歴を clone（約 1.7 万コミット）。Season Pass 展開、S1 終了、Blitz、Cartridge out、ネイティブ化の日付と作者"}
   - {id: src-realms-eternum-s1-contracts, title: "BibliothecaDAO/eternum contracts/game at commit 42c4104 (Season 1)", url: "https://github.com/BibliothecaDAO/eternum/tree/42c410487a44fa3fde85a0401b55821f432e66a5/contracts/game", publisher: "GitHub", type: code, primary: true, published: "2025-05", accessed: "2026-10-23", access: fetched, lang: en, note: "AgentOwner / AgentConfig、agent controller による操作、assert_caller_is_admin の設定関数群"}
   - {id: src-realms-eternum-s1-config, title: "BibliothecaDAO/eternum config/environments/_shared_.ts at commit 42c4104", url: "https://github.com/BibliothecaDAO/eternum/blob/42c410487a44fa3fde85a0401b55821f432e66a5/config/environments/_shared_.ts", publisher: "GitHub", type: code, primary: true, published: "2025-05", accessed: "2026-10-23", access: fetched, lang: en, note: "AGENT_FIND_PROBABILITY 5%、MAX_CURRENT 1000、MAX_LIFETIME 10000、10〜35 LORDS"}
+  - {id: src-realms-eternum-disclaimer-s1, title: "Eternum docs: Disclaimer (overview/disclaimer.mdx at commit 42c4104, Season 1)", url: "https://github.com/BibliothecaDAO/eternum/blob/42c410487a44fa3fde85a0401b55821f432e66a5/client/apps/game-docs/docs/pages/overview/disclaimer.mdx", publisher: "GitHub", type: official-docs, primary: true, published: "2025-05", accessed: "2026-10-23", access: fetched, lang: en, note: "検証役が追加。S1 当時の免責事項。不変・未監査のコントラクト、終了後 48 時間の持ち出し、4 日のスコア登録"}
+  - {id: src-realms-eternum-blitz-docs-2025-09, title: "Eternum docs: Blitz key concepts (blitz/key-concepts.mdx at commit 72502c0)", url: "https://github.com/BibliothecaDAO/eternum/blob/72502c04995f5adfa47b4776cc3887fedaa1f40e/client/apps/game-docs/docs/pages/blitz/key-concepts.mdx", publisher: "GitHub", type: official-docs, primary: true, published: "2025-09", accessed: "2026-10-23", access: fetched, lang: en, note: "検証役が追加。「Each Blitz game runs for exactly 2 hours」、Eternum Day は 5 分"}
+  - {id: src-realms-eternum-agent-runner, title: "BibliothecaDAO/eternum apps/agent-runner/README.md", url: "https://github.com/BibliothecaDAO/eternum/blob/main/apps/agent-runner/README.md", publisher: "GitHub", type: code, primary: true, published: "2026-09-13", accessed: "2026-10-23", access: fetched, lang: en, note: "検証役が追加。雇われたエージェント 1 体を Pi エージェント＋GameClient で動かすランナー。2026-09-13 追加、2026-10-20 更新"}
   - {id: src-realms-eternum-s0-rewards, title: "Eternum docs: Victory and Rewards (Season 0, seasons/rewards.mdx at commit d2282fe)", url: "https://github.com/BibliothecaDAO/eternum/blob/d2282fe3f4d34685639f004d50ddd35713c3aeba/client/apps/game-docs/docs/pages/seasons/rewards.mdx", publisher: "GitHub", type: official-docs, primary: true, published: "2025-01", accessed: "2026-10-23", access: fetched, lang: en, note: "48 時間の持ち出し、END_GAME、VP 比例の個人賞金、部族賞金は部族長へ"}
   - {id: src-realms-eternum-intro, title: "Realms docs: Introduction (overview/introduction.mdx)", url: "https://github.com/BibliothecaDAO/eternum/blob/main/apps/game-docs/docs/pages/overview/introduction.mdx", publisher: "GitHub", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "Fully Onchain・Agent-Native の柱、Eternum と Blitz"}
   - {id: src-realms-eternum-disclaimer, title: "Realms docs: Disclaimer and Risk Acknowledgment", url: "https://github.com/BibliothecaDAO/eternum/blob/main/apps/game-docs/docs/pages/overview/disclaimer.mdx", publisher: "GitHub", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "不変・未監査のコントラクト、シーズン終了で 7 日の持ち出し期限"}
   - {id: src-realms-eternum-lords, title: "Realms docs: $LORDS Token", url: "https://github.com/BibliothecaDAO/eternum/blob/main/apps/game-docs/docs/pages/overview/lords.mdx", publisher: "GitHub", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "総供給 3 億、AMM 基軸、ロバの材料、Blitz 参加料"}
   - {id: src-realms-eternum-key-concepts, title: "Realms docs: Eternum Key Concepts", url: "https://github.com/BibliothecaDAO/eternum/blob/main/apps/game-docs/docs/pages/eternum/key-concepts.mdx", publisher: "GitHub", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "Realms 8,000、Village 48,000、資源・Labor・ERC20、霧と探索、軍、部族"}
   - {id: src-realms-eternum-agora, title: "Realms docs: The Agora", url: "https://github.com/BibliothecaDAO/eternum/blob/main/apps/game-docs/docs/pages/overview/agora.mdx", publisher: "GitHub", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "LORDS/資源の定積 AMM と LP"}
-  - {id: src-realms-eternum-frontier, title: "Realms docs: Frontier", url: "https://github.com/BibliothecaDAO/eternum/blob/main/apps/game-docs/docs/pages/frontier/introduction.mdx", publisher: "GitHub", type: official-docs, primary: true, published: "2026-10", accessed: "2026-10-23", access: fetched, lang: en, note: "日替わりマップ、無料、PvE のみ、領地は持ち越し"}
+  - {id: src-realms-eternum-frontier, title: "Realms docs: Frontier", url: "https://github.com/BibliothecaDAO/eternum/blob/main/apps/game-docs/docs/pages/frontier/introduction.mdx", publisher: "GitHub", type: official-docs, primary: true, published: "2026-09-22", accessed: "2026-10-23", access: fetched, lang: en, note: "日替わりマップ、無料、PvE のみ、領地は持ち越し。ページ追加 2026-09-22、最終更新 2026-10-20"}
   - {id: src-realms-eternum-docs-contracts, title: "Realms docs: Native contracts", url: "https://github.com/BibliothecaDAO/eternum/blob/main/apps/game-docs/docs/pages/development/contracts.mdx", publisher: "GitHub", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "contracts/l3/world-native、クラスサイズ 81,920 felt 上限"}
   - {id: src-realms-eternum-value-plane, title: "Realms value plane — both formats on the L2/L3 split", url: "https://github.com/BibliothecaDAO/eternum/blob/main/docs/plans/realms-value-plane-design.md", publisher: "GitHub", type: code, primary: true, published: "2026-08-29", accessed: "2026-10-23", access: fetched, lang: en, note: "内部設計文書。pointsForWin = 0、Blitz は appchain、価値は L2・状態は L3、operator 中継"}
   - {id: src-realms-eternum-loop-audit, title: "Value-plane loop audit — 2026-08-31", url: "https://github.com/BibliothecaDAO/eternum/blob/main/docs/plans/value-plane-loop-audit-2026-08-31.md", publisher: "GitHub", type: code, primary: true, published: "2026-08-31", accessed: "2026-10-23", access: fetched, lang: en, note: "誰でも呼べる順位確定で賞金プールが凍結し得る blocker、permissionless な create_game"}
   - {id: src-realms-eternum-hired-agents, title: "Hired agents — architecture brief", url: "https://github.com/BibliothecaDAO/eternum/blob/main/docs/plans/hired-agents-architecture-brief.md", publisher: "GitHub", type: code, primary: true, published: "2026-09-12", accessed: "2026-10-23", access: fetched, lang: en, note: "削除された 3 つのエージェント／ヘッドレスの試み（Axis は Cartridge とともに終了）、96 ボットのハーネス"}
   - {id: src-realms-eternum-athanor, title: "ATHANOR (deploy/athanor/README.md)", url: "https://github.com/BibliothecaDAO/eternum/blob/main/deploy/athanor/README.md", publisher: "GitHub", type: code, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "シャード＝Madara シーケンサ＋ネイティブ契約＋Herald、運営の鍵管理"}
   - {id: src-realms-eternum-prize-s1, title: "Prize Pool (Eternum Season 1)", url: "https://docs.realms.world/eternum/prize-pool", publisher: "Realms docs", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "100 万 LORDS＋10 万 STRK の 4 区分、手動配布、エージェント 10〜35 LORDS"}
-  - {id: src-realms-eternum-docs-llm, title: "Eternum docs llm.txt", url: "https://eternum-docs.realms.world/llm.txt", publisher: "Realms docs", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "冒頭 10 万字のみ読了。Blitz 60 分、Series 0、人間と AI が同じルール"}
+  - {id: src-realms-eternum-docs-llm, title: "Eternum docs llm.txt", url: "https://eternum-docs.realms.world/llm.txt", publisher: "Realms docs", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "Blitz 60 分、Series 0、人間と AI が同じルール。検証時に全文を取得し「2 時間」の記述がないことを確認"}
   - {id: src-realms-eternum-changelog-2025-09, title: "Changelog: 3rd September 2025", url: "https://eternum-docs.realms.world/changelog/3-september-2025", publisher: "Realms docs", type: official-docs, primary: true, published: "2025-09-03", accessed: "2026-10-23", access: fetched, lang: en, note: "Gladiator 250 LORDS、Blitz の倉庫撤廃、ナビに「Season 1 - Concluded」"}
   - {id: src-realms-eternum-changelog-2026-03, title: "Changelog: 28th March 2026", url: "https://eternum-docs.realms.world/changelog/28-march-2026", publisher: "Realms docs", type: official-docs, primary: true, published: "2026-03-28", accessed: "2026-10-23", access: fetched, lang: en, note: "Blitz Series 0、90 → 60 分、MMR、Axis のヘッドレスモード"}
   - {id: src-realms-eternum-bankless-s0-guide, title: "Eternum 101: How to Play Starknet's New Onchain MMO", url: "https://www.bankless.com/read/play-eternum-starknets-mmo", publisher: "Bankless", author: "heynejc, OExcess", type: news, primary: false, published: "2024-12-12", accessed: "2026-10-23", access: fetched, lang: en, note: "S0 開始 12/11、6,320,000 VP、100 万 LORDS、28 資源トークン、END_GAME"}
@@ -223,4 +236,4 @@ sources:
   - {id: src-realms-eternum-bankless-eliza, title: "Eliza Daydreams: A New Blueprint for Onchain Gaming Agents", url: "https://www.bankless.com/read/eliza-daydreams-onchain-gaming", publisher: "Bankless", author: "William M. Peaster", type: news, primary: false, published: "2025-01-06", accessed: "2026-10-23", access: fetched, lang: en, note: "次シーズンに 1,000 エージェントを目指すという Loaf の発言"}
   - {id: src-realms-eternum-daydreams-readme-2024, title: "daydreamsai/daydreams readme.md (2025-01 版)", url: "https://github.com/daydreamsai/daydreams/blob/main/readme.md", publisher: "GitHub", type: code, primary: true, published: "2025-01", accessed: "2026-10-23", access: fetched, lang: en, note: "履歴を clone し 2025-01-10 以前の版を確認。「currently the only supported game is Eternum」"}
   - {id: src-realms-eternum-chaincatcher, title: "AW Frontier: The Ultimate Guide to Starknet's Full-Chain Games", url: "https://www.chaincatcher.com/en/article/2114963", publisher: "ChainCatcher", type: analysis, primary: false, published: "2024-02-23", accessed: "2026-10-23", access: fetched, lang: en, note: "Realms は Loot に基づく、BibliothecaDAO が Loot Survivor と Eternum を開発、Dojo の保守チーム"}
-  - {id: src-realms-eternum-x-s0-champions, title: "Eternum Season 0 crowns its champions + time sensitive actions (Realms on X)", url: "https://x.com/RealmsEternum/status/1872493966916235630", publisher: "X", type: social, primary: true, published: "2024-12-27", accessed: "2026-10-23", access: snippet, lang: en, note: "本文は 402 で取得不可。検索要約で部族 orden・個人 yanik_ai の優勝を確認。日付は投稿 ID から算出"}
+  - {id: src-realms-eternum-x-s0-champions, title: "Eternum Season 0 crowns its champions + time sensitive actions (Realms on X)", url: "https://x.com/RealmsEternum/status/1872493966916235630", publisher: "X", type: social, primary: true, published: "2024-12-27", accessed: "2026-10-23", access: fetched, lang: en, note: "検証時に本文を取得（現在のアカウント名は @realms_gg）。優勝部族 @orden_gg・個人 @yanik_ai、ブリッジ締切 12-28 21:30 GMT、勝利点申請締切 12-30、「Some calculations were updated」、S0 を mainnet preview と呼ぶ。投稿表示日 2024-12-27"}

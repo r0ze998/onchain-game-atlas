@@ -9,7 +9,7 @@ team: "dojoengine（Tarrence van As / Cartridge が創始。主要コミット�
 summary: >-
   Cairo で書く Starknet 向けのオンチェーンゲーム・フレームワーク。ゲーム状態を ECS（モデル＝コンポーネント、システム＝コントラクト）として 1 つの World コントラクトに登録し、
   sozo（ビルド・移行）、Katana（高速シーケンサ）、Torii（インデクサ）で開発から運用までを揃える。
-  2023-01 に Cartridge の Tarrence van As が開始し、Eternum・Loot Survivor・Roll Your Own・PixeLAW などがこの上に作られた。
+  2023-01 に Cartridge の Tarrence van As が開始し、Eternum（S0・S1）・Roll Your Own・PixeLAW などがこの上に作られた（Loot Survivor が Dojo 製かは本調査で未確認）。
 selection_reason: >-
   Starknet 系のフルオンチェーンゲームの大半が依存した基盤であり、MUD と並ぶオンチェーン ECS の代表例。
   World の名前空間・所有者・writer 権限とアップグレード機能が、どこまで「許可不要の拡張」と「運営の管理権限」を両立させたかを確認できる。
@@ -21,7 +21,7 @@ categories:
 status:
   value: active
   as_of: "2026-10"
-  note: "dojo リポジトリの最終コミットは 2026-05-06（v1.8.0）。Katana・Torii は別リポジトリに分離され、Katana は 2026 年も更新が続く。"
+  note: "dojo リポジトリの最終コミットは 2026-05-06（sozo v1.8.7 のリリース準備。v* 形式の最新タグは v1.8.0、2025-10-31）。dojo 本体のコミット数は 2023 年 1,264、2024 年 938、2025 年 513、2026 年 12 と急減している。Katana・Torii は別リポジトリに分離され、Katana は 2026-07 まで更新が続く（2026 年 275 コミット）。"
   s: [src-dojo-repo, src-dojo-katana-repo]
 dates:
   announced: {date: "2023-07-13", s: [src-dojo-starknet-blog], note: "Starknet 公式ブログの紹介記事。GitHub 上の開始はそれ以前（2023-01）"}
@@ -57,7 +57,7 @@ architecture:
     s: [src-dojo-world-contract, src-dojo-pixelaw-core]
 
 compare:
-  gameplay: {t: "エンジンでありゲームではない。Eternum（文明・戦争 MMO）、Loot Survivor（ローグライク）、Roll Your Own（取引ゲーム）、PixeLAW（ピクセル AW）などが作られた。", k: fact, s: [src-dojo-starknet-blog, src-dojo-chaincatcher]}
+  gameplay: {t: "エンジンでありゲームではない。Eternum（文明・戦争 MMO、S0・S1）、Roll Your Own（取引ゲーム）、PixeLAW（ピクセル AW）などが作られた。", k: fact, s: [src-dojo-starknet-blog, src-dojo-eternum-history, src-dojo-pixelaw-core]}
   necessity: {t: "ECS による状態の構造化と Torii による自動索引は、オンチェーンゲームのクライアント同期の手間を減らす。証明可能性（Cairo / STARK）を掲げるが、実運用の多くは Katana のアプリチェーンや Slot のように単一シーケンサで動いた例もあり、検証可能性の度合いはデプロイ先に依存する。", k: analysis, s: [src-dojo-repo, src-dojo-eternum-history]}
   information: {t: "World の状態とイベントは公開。秘匿情報の仕組みはエンジンの標準機能としては確認できなかった。", k: unknown}
   persistence: {t: "World はチェーン上に残るが、名前空間 owner がアップグレード権限を持ち続ける限り、ルールの不変性はゲームごとの運用次第。", k: analysis, s: [src-dojo-world-contract]}
@@ -69,14 +69,16 @@ concepts: [c-ecs-engine, c-onchain-state, c-onchain-rules, c-permissionless-exte
 
 article:
   constraints:
-    - {t: "旗艦ゲームの離脱: Eternum は 2026-08〜09 に Cartridge を外し、sozo を自前のネイティブ・デプロイヤに置き換え、ネイティブ Cairo（world-native）と自前の Madara シーケンサに移った。", k: fact, s: [src-dojo-eternum-history]}
+    - {t: "旗艦ゲームの離脱: Eternum は 2026-08〜09 に Cartridge を外し、sozo を自前のネイティブ・デプロイヤに置き換え、ネイティブ Cairo（world-native）と自前の Madara シーケンサに移った。現行の contracts/l3 配下の Scarb.toml に dojo 依存は見当たらない。", k: fact, s: [src-dojo-eternum-history]}
+    - {t: "Eternum の離脱理由についてエンジン側・Eternum 側の公式説明は確認できなかった。Cartridge（アカウント・Slot）の撤去と同時期であり、Dojo 固有の問題が理由かは分からない。", k: unknown}
     - {t: "Katana と Torii は 2025-04 に dojo 本体の依存から外され、別リポジトリで開発されている。エンジンは複数の独立した構成要素の組み合わせになった。", k: fact, s: [src-dojo-repo, src-dojo-katana-repo]}
   counter_evidence:
+    - {t: "「active」の判定への反証: dojo 本体リポジトリは 2026 年に 12 コミットしかなく、2026-05-06 以降更新がない。開発の中心が katana・torii 等の別リポジトリへ移ったとも、エンジン本体が保守段階に入ったとも読める。", k: analysis, s: [src-dojo-repo, src-dojo-katana-repo]}
     - {t: "「許可不要で拡張できる World」という設計に対し、確認できた主要ゲーム（Eternum・PixeLAW）では、第三者による世界ルールの追加はほぼ見られず、PixeLAW でも例示アプリは中核メンバーの作が大半だった。エンジンの拡張性は、実際の第三者拡張の多さを保証しない。", k: analysis, s: [src-dojo-pixelaw-core, src-dojo-eternum-history]}
 
 events:
   - {id: ev-dojo-init, date: "2023-01-08", type: other, title: "dojo リポジトリ開始（Tarrence van As「dojo init」）", s: [src-dojo-repo]}
-  - {id: ev-dojo-katana, date: "2023-05", type: release, title: "Katana・sozo の World 移行機能をマージ", s: [src-dojo-repo]}
+  - {id: ev-dojo-katana, date: "2023-05-18", type: release, title: "Katana ブランチを dojo 本体にマージ", detail: "sozo の migrate 機能は 2023-02〜03 から開発されている", s: [src-dojo-repo]}
   - {id: ev-dojo-v010, date: "2023-07-24", type: release, title: "v0.1.0", s: [src-dojo-repo]}
   - {id: ev-dojo-v100, date: "2024-11-10", type: release, title: "v1.0.0", s: [src-dojo-repo]}
   - {id: ev-dojo-split, date: "2025-04-22", type: spec-change, title: "Katana・Torii への依存を dojo 本体から除去", s: [src-dojo-repo]}
@@ -101,7 +103,7 @@ contradictions:
 sources:
   - {id: src-dojo-repo, title: "dojoengine/dojo", url: "https://github.com/dojoengine/dojo", publisher: "GitHub", type: code, primary: true, published: "2026-05-06", accessed: "2026-10-23", access: fetched, lang: en, note: "git clone と履歴取得。初回コミット 2023-01-08（Tarrence van As）、v0.1.0 2023-07-24、v1.0.0 2024-11-10、2025-04 に katana・torii 依存を除去、監査記載"}
   - {id: src-dojo-world-contract, title: "dojoengine/dojo crates/dojo/core/src/world/world_contract.cairo", url: "https://github.com/dojoengine/dojo/blob/main/crates/dojo/core/src/world/world_contract.cairo", publisher: "GitHub", type: code, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "register_namespace（誰でも）、grant_owner / grant_writer、upgrade_contract / upgrade_model"}
-  - {id: src-dojo-katana-repo, title: "dojoengine/katana", url: "https://github.com/dojoengine/katana", publisher: "GitHub", type: code, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "High-performant sequencer for Dojo、Apache-2.0、1,598 コミット"}
+  - {id: src-dojo-katana-repo, title: "dojoengine/katana", url: "https://github.com/dojoengine/katana", publisher: "GitHub", type: code, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "High-performant sequencer for Dojo、Apache-2.0、1,598 コミット（検証時に clone で確認、最終コミット 2026-07-21）"}
   - {id: src-dojo-starknet-blog, title: "Dojo on Starknet", url: "https://www.starknet.io/blog/dojo-on-starknet/", publisher: "Starknet blog", type: official-blog, primary: true, published: "2023-07-13", accessed: "2026-10-23", access: fetched, lang: en, note: "Katana・Torii・Sozo の説明、Influence・Realms・Dope Wars を挙げる"}
   - {id: src-dojo-cartridge-interview, title: "Interview with Tarrence from Cartridge, a Starknet Gaming Console", url: "https://nurstardeepdive.substack.com/p/interview-with-tarrence-from-cartridge", publisher: "Nurstar (Starknet Chinese Community)", type: interview, primary: true, published: "2023-04-06", accessed: "2026-10-23", access: fetched, lang: en, note: "Cartridge が Dojo に多くの資源を投じ、Controller・Dojo・RYO を並行開発"}
   - {id: src-dojo-chaincatcher, title: "AW Frontier: The Ultimate Guide to Starknet's Full-Chain Games", url: "https://www.chaincatcher.com/en/article/2114963", publisher: "ChainCatcher", type: analysis, primary: false, published: "2024-02-23", accessed: "2026-10-23", access: fetched, lang: en, note: "Dojo は 2023-02 作成、Cartridge・Realms・Briq・Topology が保守と記載"}

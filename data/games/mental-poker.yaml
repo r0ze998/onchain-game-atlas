@@ -66,7 +66,7 @@ article:
     - {t: "事後検証による抑止: 途中は秘匿し、終了時に全鍵を公開して不正の有無を検証する構成は、オンチェーンのコミット・リビールと同型である。適用条件はゲーム終了まで参加者が鍵を保持し公開する動機があること。破綻条件は負けそうな側が鍵を公開せず離脱する場合で、論文はこの離脱問題を扱っていない。", k: analysis, s: [src-mp-tm125]}
   counter_evidence:
     - {t: "論文自身が「公平な配札は不可能」と証明したうえで実用的プロトコルを示しており、その安全性は計算量的仮定に依存する（情報理論的には相手の手札は決まっている）と著者は結論でヒントを出している。", k: fact, s: [src-mp-tm125]}
-    - {t: "Goldwasser と Micali（1982）は、Mental Poker では「カードの正確な値の計算が困難」なだけでは不十分で、部分情報も敵に渡らないことを示す必要があると論じ、Lipton の「How to Cheat at Mental Poker」（1981）を参照した。元のプロトコルの具体的な暗号関数に弱点があったことを示す。", k: fact, s: [src-mp-gm82]}
+    - {t: "Goldwasser と Micali（1982）は、Mental Poker では「カードの正確な値の計算が困難」なだけでは不十分で、部分情報も敵に渡らないことを示す必要があると論じ、SRA は可換暗号による「エレガントな解」を示したが部分情報が漏れないことを証明できず、実装上の問題がいくつか Lipton の「How to Cheat at Mental Poker」（1981）で指摘されたと記した。弱点の具体的内容は Lipton の本文を未確認のため、GM 論文の記述として扱う。", k: fact, s: [src-mp-gm82]}
 
 events:
   - {id: ev-mp-tm125, date: "1979-02", type: paper, title: "MIT/LCS/TM-125「Mental Poker」刊行", detail: "不可能性の証明と可換暗号による配札プロトコル", s: [src-mp-tm125]}
@@ -79,13 +79,14 @@ relations:
   - {to: conquest-eth, type: similar-to, basis: analytic, note: "途中を秘匿し後で公開して検証するコミット・リビール型の構成"}
 
 unknowns:
-  - "Lipton「How to Cheat at Mental Poker」（1981）の本文。今回は Goldwasser–Micali 論文の参照文献と二次資料の要約でしか確認していない。"
+  - "Lipton「How to Cheat at Mental Poker」（GM 論文の参考文献では Proceedings of the AMS short course on Cryptology, January 1981）の本文。今回は Goldwasser–Micali 論文の参照と二次資料の要約でしか確認していない。"
   - "Mental Poker のプロトコルを実際にオンチェーンゲームに実装した例（今回の調査範囲では未確認）。"
 contradictions:
+  - {t: "刊行月: DSpace の表紙とメタデータは February 1979 だが、Wikipedia の脚注は「Technical Memo LCS/TM-125, MIT, April 1979」と記す（DTIC 版 AD-A066331 へのリンク付き、DTIC 版は未確認）。", s: [src-mp-tm125, src-mp-wikipedia]}
   - {t: "日付: 表紙は February 1979、内表紙は January 29, 1979、本文冒頭は November 29, 1978。Goldwasser–Micali の参考文献は「MIT Technical Report, 1978」と記す。", s: [src-mp-tm125, src-mp-gm82]}
 
 sources:
-  - {id: src-mp-tm125, title: "Mental Poker (MIT/LCS/TM-125)", url: "https://dspace.mit.edu/server/api/core/bitstreams/396e61cc-49ec-4cad-8aee-da9ebd3a5d9f/content", publisher: "MIT Laboratory for Computer Science (DSpace@MIT)", author: "Adi Shamir, Ronald L. Rivest, Leonard M. Adleman", type: paper, primary: true, published: "1979-02", accessed: "2026-10-23", access: fetched, lang: en, note: "全文 OCR テキストを取得。不可能性の証明、可換暗号の 5 性質、Rabin の錠前の比喩、終了時の鍵公開"}
+  - {id: src-mp-tm125, title: "Mental Poker (MIT/LCS/TM-125)", url: "https://dspace.mit.edu/server/api/core/bitstreams/396e61cc-49ec-4cad-8aee-da9ebd3a5d9f/content", publisher: "MIT Laboratory for Computer Science (DSpace@MIT)", author: "Adi Shamir, Ronald L. Rivest, Leonard M. Adleman", type: paper, primary: true, published: "1979-02", accessed: "2026-10-23", access: fetched, lang: en, note: "DSpace の OCR テキスト（MIT-LCS-TM-125.pdf.txt）を取得。項目 hdl.handle.net/1721.1/148953 のメタデータは dc.date.issued 1979-02、シリーズ MIT-LCS-TM-125（タイトルは誤記で「Metal Poker」）。不可能性の証明、可換暗号の 5 性質、Rabin の錠前の比喩、終了時の鍵公開、多人数化は読者に委ねる"}
   - {id: src-mp-bib, title: "SRA81 bibtex entry (Mental Poker, The Mathematical Gardner)", url: "https://people.csail.mit.edu/rivest/pubs/SRA81.bib.txt", publisher: "Ronald L. Rivest (MIT CSAIL)", type: paper, primary: true, published: "1981", accessed: "2026-10-23", access: fetched, lang: en, note: "書籍収録: The Mathematical Gardner, D. A. Klarner 編, Prindle, Weber, and Schmidt, 1981, pp. 37–43"}
-  - {id: src-mp-gm82, title: "Probabilistic Encryption & How To Play Mental Poker Keeping Secret All Partial Information", url: "https://www.cs.purdue.edu/homes/ninghui/readings/Qual2/Goldwasser-Micali82.pdf", publisher: "STOC 1982 (copy hosted at Purdue)", author: "Shafi Goldwasser, Silvio Micali", type: paper, primary: true, published: "1982", accessed: "2026-10-23", access: fetched, lang: en, note: "Mental Poker の要件に部分情報の非漏洩を加え、Lipton (1981) と SRA の報告を参照"}
+  - {id: src-mp-gm82, title: "Probabilistic Encryption & How To Play Mental Poker Keeping Secret All Partial Information", url: "https://www.cs.purdue.edu/homes/ninghui/readings/Qual2/Goldwasser-Micali82.pdf", publisher: "STOC 1982 (copy hosted at Purdue)", author: "Shafi Goldwasser, Silvio Micali", type: paper, primary: true, published: "1982", accessed: "2026-10-23", access: fetched, lang: en, note: "STOC 1982（PDF の ACM 表記 0-89791-067-2/82/005/0365）。Mental Poker の要件に部分情報の非漏洩を加え、SRA は部分情報の非漏洩を証明できず実装上の問題を Lipton [10]（Proceedings of the AMS short course on Cryptology, January 1981）が指摘したと記す。SRA の参照は「MIT Technical Report, 1978」"}
   - {id: src-mp-wikipedia, title: "Mental poker", url: "https://en.wikipedia.org/wiki/Mental_poker", publisher: "Wikipedia", type: wiki, primary: false, accessed: "2026-10-23", access: fetched, lang: en, note: "後続研究（Yung 1984、Schindelhauer 1998、libtmcg、Golle 2005）の概観。部分情報の漏洩が意味的安全性の定義につながったと記述"}

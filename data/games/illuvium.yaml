@@ -9,11 +9,11 @@ chains: ["Ethereum（ILV、NFT）", "Immutable X / Immutable zkEVM（ゲーム�
 team: "Illuvium（オーストラリア、2020 年創業。CEO Kieran Warwick）"
 summary: >-
   PC 向けオープンワールド収集 RPG（Overworld）と自動戦闘（Arena）、土地で資源を採る Zero からなる大型予算の Web3 ゲーム。
-  2022-06 の土地販売で 7,200 万ドル超を集め、2024-07-25 に Epic Games Store でオープンベータを開始した。
+  2022-06 の土地販売で 7,200 万ドル超を集め、2024-07-25 に Epic Games Store で公開した（運営は「正式ローンチ」と称し、事前報道は「オープンベータ」と呼んだ）。
   その後トークン ILV は高値から 98% 下落（2024-12 時点の報道）し、月約 90 万ドルの支出削減、賃金カットを経て、2026 年には縮小した MMO を主な賭けとしている。
 selection_reason: >-
   ゲームの完成前にトークン・土地 NFT で巨額の資金を集める「資金調達先行型」の代表例で、リリース後の利用者定着が示されないまま支出削減に入った経過が追えるから。
-  土地で資源を採る（Zero）という利用者の構想に近い要素を持ちながら、その要素が出荷されたかどうか自体が不明確な点も、反証側の材料になる。
+  土地で資源を採る（Zero）という利用者の構想に近い要素を持ち、Decrypt は 2024-07 に Zero もモバイル・PC・Mac で公開されたと報じたが、その後の稼働・利用は確認できない点も、反証側の材料になる。
 categories:
   - {id: assets, role: primary, reason: "土地・Illuvial などの NFT とトークン ILV が資金調達と経済の中心"}
   - {id: p2e, role: secondary, reason: "ILV のステーキング報酬と、土地販売の ETH をステーカーへ配分する仕組み"}
@@ -23,7 +23,7 @@ status:
   note: "2026-08 の報道では、残る人員はほぼ MMO（2026-12 目標、範囲縮小）に集中し、外部スタジオがライセンスで Primal Tactica を開発中。Overworld・Arena の現在の稼働状況と利用者数は未確認。"
   s: [src-illuvium-cryptoslate-2026]
 dates:
-  launched: {date: "2024-07-25", s: [src-illuvium-bg-openbeta], note: "Epic Games Store での PC オープンベータ（Overworld と Arena）"}
+  launched: {date: "2024-07-25", s: [src-illuvium-decrypt-launch, src-illuvium-bg-openbeta], note: "Epic Games Store で公開。Decrypt（当日）は運営が「official game launch」と称し 3 作（Zero を含む）を出したとし、事前の BlockchainGamer.biz は Overworld と Arena のオープンベータ、Zero は後日とした"}
 
 architecture:
   onchain:
@@ -57,6 +57,7 @@ concepts: [c-nft-asset, m-land, e-p2e]
 
 article:
   counter_evidence:
+    - {t: "「資金が尽きて縮小した」という読みへの留保: 2024-12 時点で運営は 7,000 万ドル超相当の ILV を金庫に持つと報じられ、2026-08 には削減で 12 か月超の運転資金を確保したと CEO が述べた。縮小は資金枯渇ではなく、トークン価格下落下での支出抑制の選択とも読める（現金残高は非公開）。", k: claim, who: "BlockchainGamer.biz / Kieran Warwick (CEO)", s: [src-illuvium-bg-2025, src-illuvium-cryptoslate-2026]}
     - {t: "大型予算のゲームであっても、リリース後の利用者数は公表されず、2 年足らずで支出削減と範囲縮小に入った。資金量は定着の代わりにならなかった。一方で、ゲームとしての評価や利用者数の一次データがないため、失敗の原因をオンチェーン要素に帰すこともできない。", k: analysis, s: [src-illuvium-bg-2025, src-illuvium-cryptoslate-2026]}
 
 metrics:
@@ -66,9 +67,9 @@ metrics:
 events:
   - {id: ev-illuvium-land-sale, date: "2022-06", type: funding, title: "土地 NFT 販売で 7,200 万ドル超", s: [src-illuvium-decrypt-land]}
   - {id: ev-illuvium-series-a-2024, date: "2024-03", type: funding, title: "1,200 万ドルのシリーズ A を発表", s: [src-illuvium-bg-openbeta]}
-  - {id: ev-illuvium-open-beta, date: "2024-07-25", type: launch, title: "Epic Games Store で PC オープンベータ（Overworld + Arena）", s: [src-illuvium-bg-openbeta]}
+  - {id: ev-illuvium-open-beta, date: "2024-07-25", type: launch, title: "Epic Games Store で公開（運営は正式ローンチと呼称）", detail: "Overworld・Arena・Zero（Zero はモバイル・PC・Mac）と Decrypt は報じた", s: [src-illuvium-decrypt-launch, src-illuvium-bg-openbeta]}
   - {id: ev-illuvium-refocus, date: "2024-12", type: pivot, title: "Overworld を 2025 年の最優先にすると発表、支出削減", s: [src-illuvium-bg-2025]}
-  - {id: ev-illuvium-mmo, date: "2026-02-23", type: pivot, title: "評議会が MMO の範囲縮小と 2026-12 の目標を確認", s: [src-illuvium-cryptoslate-2026]}
+  - {id: ev-illuvium-mmo, date: "2026-02", type: pivot, title: "評議会が MMO の範囲縮小と 2026-12 の目標を確認", s: [src-illuvium-cryptoslate-2026]}
 
 relations:
   - {to: axie-infinity, type: similar-to, basis: analytic, note: "生物の収集・自動戦闘を中心にした NFT ゲーム"}
@@ -76,16 +77,18 @@ relations:
 
 unknowns:
   - "オープンベータ以降の利用者数・継続率"
-  - "Illuvium: Zero（土地で資源を採る作品）が実際に出荷されたか"
-  - "累計の資金調達額（報道により 6,000 万ドル、1.32 億ドル、1.5 億ドル超と食い違う）"
+  - "Illuvium: Zero（土地で資源を採る作品）の公開後の稼働・利用状況（Decrypt は 2024-07-25 に公開と報じたが、事前報道は「後日」としていた）"
+  - "累計の資金調達額（報道により 6,000 万ドル、VC 2,700 万ドル、1.32 億ドル、1.5 億ドル超と食い違う）"
   - "Overworld・Arena の現在の稼働状況"
 
 contradictions:
-  - {t: "累計資金を、BlockchainGamer.biz は NFT 販売を含めて 1.5 億ドル超とし、CryptoSlate は Capital Brief の約 6,000 万ドル（2024）を挙げ、1.32 億ドルという SNS 上の主張を裏付けないとする", s: [src-illuvium-bg-openbeta, src-illuvium-cryptoslate-2026]}
-  - {t: "土地販売の内訳: Decrypt は総額 7,200 万ドル超としつつ、配布する 4,018 ETH（約 740 万ドル）と焼却する sILV2（約 2,200 万ドル）しか内訳を示さず、合計と一致しない", s: [src-illuvium-decrypt-land]}
+  - {t: "累計資金を、BlockchainGamer.biz は 2024-06 に NFT 販売を含めて 1.5 億ドル超、2024-12 に「NFT 販売 1 億ドル超と VC 2,700 万ドル」とし、CryptoSlate は Capital Brief の約 6,000 万ドル（2024）を挙げ、1.32 億ドルという SNS 上の主張は顧客への土地販売と資金調達を混同していると指摘する", s: [src-illuvium-bg-openbeta, src-illuvium-bg-2025, src-illuvium-cryptoslate-2026]}
+  - {t: "2024-07-25 の公開を、BlockchainGamer.biz（事前）は Overworld と Arena のオープンベータで Zero は後日とし、Decrypt（当日）は運営が「正式ローンチ」と称して Zero を含む 3 作を出したとする", s: [src-illuvium-bg-openbeta, src-illuvium-decrypt-launch]}
+  - {t: "土地販売の使途: Decrypt は総額 7,200 万ドル超のうち、ステーカーへの配布 4,018 ETH（約 740 万ドル）と焼却する sILV2（約 2,200 万ドル）のみを示し、残りの扱いは書かれていない（矛盾ではなく内訳の欠落）", s: [src-illuvium-decrypt-land]}
 
 sources:
-  - {id: src-illuvium-decrypt-land, title: "Ethereum NFT Game Illuvium Sells Over $72M in Digital Land Plots", url: "https://decrypt.co/102139/ethereum-nft-game-illuvium-sells-over-72m-in-digital-land-plots", publisher: "Decrypt", type: news, primary: false, accessed: "2026-10-23", access: fetched, lang: en, note: "19,969 区画、4,018 ETH の配布、sILV2 の焼却、当時は未プレイ可能"}
-  - {id: src-illuvium-bg-openbeta, title: "Illuvium revamps features ahead of its open beta launch on 25th July", url: "https://www.blockchaingamer.biz/?p=32985", publisher: "BlockchainGamer.biz", type: news, primary: false, accessed: "2026-10-23", access: fetched, lang: en, note: "Epic Games Store、Overworld/Arena/Zero、zkEVM、1,200 万ドルのシリーズ A"}
+  - {id: src-illuvium-decrypt-land, title: "Ethereum NFT Game Illuvium Sells Over $72M in Digital Land Plots", url: "https://decrypt.co/102139/ethereum-nft-game-illuvium-sells-over-72m-in-digital-land-plots", publisher: "Decrypt", author: "Andrew Hayward", type: news, primary: false, published: "2022-06-06", accessed: "2026-10-23", access: fetched, lang: en, note: "19,969 区画、4,018 ETH の配布、sILV2 の焼却、当時は未プレイ可能"}
+  - {id: src-illuvium-bg-openbeta, title: "Illuvium revamps features ahead of its open beta launch on 25th July", url: "https://www.blockchaingamer.biz/?p=32985", publisher: "BlockchainGamer.biz", author: "Jenny Jordan", type: news, primary: false, published: "2024-06-27", accessed: "2026-10-23", access: fetched, lang: en, note: "Epic Games Store、Overworld/Arena/Zero、zkEVM、1,200 万ドルのシリーズ A"}
   - {id: src-illuvium-bg-2025, title: "Illuvium refocuses on MMOG lite Overworld for 2025", url: "https://www.blockchaingamer.biz/?p=36322", publisher: "BlockchainGamer.biz", author: "Jon Jordan", type: news, primary: false, published: "2024-12-20", accessed: "2026-10-23", access: fetched, lang: en, note: "Overworld 最優先、ILV 98% 下落、年 1,100 万ドルの支出、マイクロトランザクション依存の反省"}
   - {id: src-illuvium-cryptoslate-2026, title: "Illuvium says six months of cuts bought it another year as MMO becomes its main remaining bet", url: "https://cryptoslate.com/illuvium-says-six-months-of-cuts-bought-it-another-year-as-mmo-becomes-its-main-remaining-bet/", publisher: "CryptoSlate", author: "Liam 'Akiba' Wright", type: news, primary: false, published: "2026-08-22", accessed: "2026-10-23", access: fetched, lang: en, note: "削減と 12 か月超の運転資金、MMO の範囲縮小、NDA 下の議事"}
+  - {id: src-illuvium-decrypt-launch, title: "Long-Awaited ‘Illuvium’ Ethereum Games Launch on Epic Store", url: "https://decrypt.co/241678/long-awaited-illuvium-ethereum-games-launch-epic-store", publisher: "Decrypt", author: "Ryan S. Gladwin", type: news, primary: false, published: "2024-07-25", accessed: "2026-10-23", access: fetched, lang: en, note: "3 作を Epic Games Store で公開、運営は「official game launch」と呼称、Zero はモバイル・PC・Mac"}

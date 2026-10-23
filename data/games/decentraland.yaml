@@ -24,7 +24,7 @@ status:
   note: "公式サイトはデスクトップ・モバイルのクライアント配布を掲げる（参照日）。2024-10 に Decentraland 2.0 のベータ版デスクトップクライアントを公開（Wikipedia）。"
   s: [src-dcl-site, src-dcl-wikipedia]
 dates:
-  launched: {date: "2020-02", s: [src-dcl-wikipedia], note: "一般公開（ブラウザ版）。開発は 2015 年から、ICO は 2017 年"}
+  launched: {date: "2020-02", s: [src-dcl-wikipedia], note: "一般公開（ブラウザ版）。Wikipedia の本文は 2020-02、情報ボックスは 2020-02-20。開発は 2015 年から、ICO は 2017 年"}
 
 architecture:
   onchain:
@@ -64,12 +64,12 @@ concepts: [m-land, c-nft-asset, c-fungible-ingame-token, c-autonomous-world]
 article:
   retention_evidence:
     - {t: "示されている指標（測定）: 2022-10 時点で DappRadar が数えた「過去 24 時間にコントラクトと取引した一意ウォレット」は 38、過去最高でも 1 日 675。Dapp.com は 2022-10-05 に 312（7 月以降の中央値約 600）。", k: fact, s: [src-dcl-coindesk-2022, src-dcl-cryptoslate-2022]}
-    - {t: "示されている指標（運営発表）: 1 日平均 8000 人（クリエイティブディレクター Sam Hamilton）、コミュニティのダッシュボードで 2022-10-03〜09 の 1 日あたり一意訪問者 6999、9 月の月間アクティブ 56,697、同時期にコントラクトと取引した利用者 1074。", k: claim, who: "Decentraland（Sam Hamilton / 公式ツイート、CoinDesk の記事内）", s: [src-dcl-coindesk-2022], q: "DappRadar doesn't track our users, only people interacting with our contracts"}
+    - {t: "示されている指標（運営発表）: 1 日平均 8000 人（クリエイティブディレクター Sam Hamilton）、コミュニティのダッシュボードで 2022-10-03〜09 の 1 日あたり一意訪問者 6999、9 月の月間アクティブ 56,697、同時期にコントラクトと取引した利用者 1074。財団は「アクティブ」を「ログインして区画の外へ移動した人」と定義した（CoinDesk）。", k: claim, who: "Decentraland（Sam Hamilton / 公式ツイート、CoinDesk の記事内）", s: [src-dcl-coindesk-2022], q: "DappRadar doesn't track our users, only people interacting with our contracts"}
     - {t: "第三者分析は DCL Metrics の DAU が直近 90 日で 12,304 から 7,800 に 37% 減り、2021-12 の共同創業者の発言（DAU 18,000、MAU 30 万）と比べて 56% 超減少したと計算した。", k: claim, who: "Naavik（Lars Doucet, Devin Becker）", s: [src-dcl-naavik]}
     - {t: "示されていない指標: 運営発表の DAU の厳密な定義（ゲスト・ボットの扱い）、滞在時間、継続率。", k: unknown}
   counter_evidence:
-    - {t: "「38 人」は取引したウォレット数で、訪問者数ではない。一方、運営の 8000 人はチェーンと無関係な訪問を数えた運営側の数字である。どちらを採るかで「土地 NFT の世界は空っぽか」の結論が反転するため、オンチェーン指標だけで仮想世界の利用を評価するのは誤りで、運営発表だけを信じるのも検証不能である。", k: analysis, s: [src-dcl-coindesk-2022, src-dcl-cryptoslate-2022]}
-    - {t: "LAND の平均売価はピーク付近の約 9845 ドルから 2418 ドルへ 75% 下落し、マーケットの月間取引高は 2200 万ドルから約 88 万ドルへ 96% 超減少したと第三者分析は述べた。土地の希少性が利用を生むという想定には反証になる。", k: claim, who: "Naavik（Dune の @metaland クエリ等を引用）", s: [src-dcl-naavik]}
+    - {t: "「38 人」は取引したウォレット数で、訪問者数ではない。一方、運営の 8000 人や 56,697 MAU は「ログインして区画の外へ移動した人」という運営自身の定義による、チェーンと無関係な訪問の数で、ゲスト・ボット・重複の扱いは公表されていない。どちらを採るかで「土地 NFT の世界は空っぽか」の結論が反転するため、オンチェーン指標だけで仮想世界の利用を評価するのは誤りで、運営発表だけを信じるのも検証不能である。", k: analysis, s: [src-dcl-coindesk-2022, src-dcl-cryptoslate-2022]}
+    - {t: "LAND の平均売価はピーク付近の約 9845 ドルから 2418 ドルへ 75% 下落し、マーケットの月間取引高は 2021-12 のピーク 2200 万ドルから 2022-08 の約 87.9 万ドルへ 96% 超減少したと第三者分析は述べた。土地の希少性が利用を生むという想定には反証になる。", k: claim, who: "Naavik（Dune の @metaland クエリ等を引用）", s: [src-dcl-naavik]}
 
 metrics:
   - {id: m-dcl-dappradar-2022-10, type: wallets, value: 38, unit: wallets, period: "2022-10 初旬の 24 時間", definition: "DappRadar: プラットフォームのコントラクトと取引した一意ウォレット数（訪問者数ではない）", nature: measured, s: [src-dcl-coindesk-2022]}
@@ -77,7 +77,7 @@ metrics:
   - {id: m-dcl-dappcom-2022-10-05, type: wallets, value: 312, unit: wallets, period: "2022-10-05", definition: "Dapp.com: コントラクトと取引したウォレット数", nature: measured, s: [src-dcl-cryptoslate-2022]}
   - {id: m-dcl-dau-claim-2022, type: dau, value: 8000, unit: players, period: "2022（発言時点）", definition: "運営発表の 1 日平均利用者（受動的な訪問者を含む、定義の詳細は非公開）", nature: reported, s: [src-dcl-coindesk-2022]}
   - {id: m-dcl-visitors-2022-10, type: dau, value: 6999, unit: visitors, period: "2022-10-03〜10-09", definition: "コミュニティのダッシュボードによる 1 日あたり一意訪問者（運営が提示）", nature: reported, s: [src-dcl-coindesk-2022]}
-  - {id: m-dcl-mau-2022-09, type: mau, value: 56697, unit: players, period: "2022-09", definition: "運営が公式ツイートで示した月間アクティブ（DCL Metrics と定義が異なる可能性を運営自身が注記）", nature: reported, s: [src-dcl-coindesk-2022]}
+  - {id: m-dcl-mau-2022-09, type: mau, value: 56697, unit: players, period: "2022-09", definition: "運営が公式ツイートで示した月間アクティブ。財団の定義は「ログインして区画の外へ移動した人」（CoinDesk）。DCL Metrics と定義が異なる可能性を運営自身が注記", nature: reported, s: [src-dcl-coindesk-2022]}
   - {id: m-dcl-contract-users-2022-09, type: wallets, value: 1074, unit: users, period: "2022-09（運営ツイート時点）", definition: "運営発表のスマートコントラクトと取引した利用者数", nature: reported, s: [src-dcl-coindesk-2022]}
   - {id: m-dcl-dau-dclmetrics-2022, type: dau, value_text: "12,304 → 7,800", unit: players, period: "2022-07〜09 頃（直近 90 日）", definition: "DCL Metrics の DAU（Naavik の引用）", nature: reported, s: [src-dcl-naavik]}
   - {id: m-dcl-ico-2017, type: funding, value: 26000000, unit: USD, period: "2017", definition: "ICO による調達額（Wikipedia）", nature: reported, s: [src-dcl-wikipedia]}
@@ -102,8 +102,8 @@ contradictions:
 
 sources:
   - {id: src-dcl-whitepaper, title: "Decentraland White paper: A blockchain-based virtual world", url: "https://decentraland.org/whitepaper.pdf", publisher: "Decentraland", author: "Esteban Ordano, Ariel Meilich, Yemel Jardi, Manuel Araoz", type: paper, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "PDF を pdftotext で読んだ。三層構成、LAND は MANA の焼却で取得、隣接区画の制約"}
-  - {id: src-dcl-coindesk-2022, title: "It's Lonely in the Metaverse: Decentraland's 38 Daily Active Users in a $1.3B Ecosystem", url: "https://www.coindesk.com/web3/2022/10/07/its-lonely-in-the-metaverse-decentralands-38-daily-active-users-in-a-13b-ecosystem/", publisher: "CoinDesk", author: "Cam Thompson", type: news, primary: false, published: "2022-10-07", accessed: "2026-10-23", access: fetched, lang: en, note: "DappRadar の定義と数値、Decentraland・Sandbox の反論（10-10 更新）"}
+  - {id: src-dcl-coindesk-2022, title: "It's Lonely in the Metaverse: Decentraland's 38 Daily Active Users in a $1.3B Ecosystem", url: "https://www.coindesk.com/web3/2022/10/07/its-lonely-in-the-metaverse-decentralands-38-daily-active-users-in-a-13b-ecosystem/", publisher: "CoinDesk", author: "Cam Thompson", type: news, primary: false, published: "2022-10-07", accessed: "2026-10-23", access: fetched, lang: en, note: "DappRadar の定義（スマートコントラクトと取引した一意アドレス）と数値、Decentraland の MAU 定義、Decentraland・Sandbox の反論（記事内更新 10-10、バイライン上の更新 10-13）"}
   - {id: src-dcl-cryptoslate-2022, title: "Decentraland has just 30 daily active users despite billion dollar plus market cap – DappRadar data", url: "https://cryptoslate.com/decentraland-has-just-30-daily-active-users-despite-billion-dollar-plus-market-cap/", publisher: "CryptoSlate", type: news, primary: false, published: "2022-10-06", accessed: "2026-10-23", access: fetched, lang: en, note: "30 DAU のツイート、Dapp.com の 312"}
   - {id: src-dcl-naavik, title: "Decentraland: The Open-Source & Decentralized Ghost Town", url: "https://naavik.co/deep-dives/decentraland-ghost-town/", publisher: "Naavik", author: "Lars Doucet, Devin Becker", type: analysis, primary: false, published: "2022-10-03", accessed: "2026-10-23", access: fetched, lang: en, note: "オンチェーン要素、DAO と SAB、DCL Metrics の DAU 推移、LAND 価格・取引高の下落"}
-  - {id: src-dcl-wikipedia, title: "Decentraland", url: "https://en.wikipedia.org/wiki/Decentraland", publisher: "Wikipedia", type: wiki, primary: false, accessed: "2026-10-23", access: fetched, lang: en, note: "ICO 2600 万ドル、2020-02 公開、2022 年の利用者論争、2024-10 の 2.0 ベータ"}
+  - {id: src-dcl-wikipedia, title: "Decentraland", url: "https://en.wikipedia.org/wiki/Decentraland", publisher: "Wikipedia", type: wiki, primary: false, accessed: "2026-10-23", access: fetched, lang: en, note: "ICO 2600 万ドル（2017）、2020-02 公開（情報ボックス 2020-02-20）、2024-10 の 2.0 ベータ。2022 年の利用者論争は検証時の本文取得範囲では確認できず"}
   - {id: src-dcl-site, title: "Decentraland", url: "https://decentraland.org/", publisher: "Decentraland", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "モバイル版の告知、ダウンロード案内（日付なし）"}

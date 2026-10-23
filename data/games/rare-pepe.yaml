@@ -77,6 +77,7 @@ metrics:
 
 events:
   - {id: ev-rarepepe-first, date: "2016-09-09", type: launch, title: "最初のカード RAREPEPE を 300 枚発行", s: [src-rarepepe-tokenscan-issuances]}
+  - {id: ev-rarepepe-pepecash, date: "2016-09-17", type: release, title: "PEPECASH を 10 億枚発行（ブロック 430263）", detail: "2016-09-27 にロック。Directory の「流通約 7 億・約 3 億焼却」と整合", s: [src-rarepepe-tokenscan-pepecash]}
   - {id: ev-rarepepe-dailydot, date: "2017-02-21", type: other, title: "Daily Dot が Rare Pepe 経済を報道（500 枚超、申請料 4,000 PEPECASH）", s: [src-rarepepe-dailydot-2017]}
   - {id: ev-rarepepe-auction-2018, date: "2018-01-13", type: other, title: "ニューヨークでのライブオークションで Homer Simpson 風の Rare Pepe が 38,500 ドル", s: [src-rarepepe-wikipedia]}
 
@@ -100,6 +101,7 @@ sources:
   - {id: src-rarepepe-directory-pepecash, title: "What is PepeCash", url: "https://rarepepedirectory.com/?page_id=1405", publisher: "Rare Pepe Directory", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "約 7 億 PEPECASH、初期配布（RAREPEPE 等の保有者）、申請料の半分を焼却"}
   - {id: src-rarepepe-tokenscan-asset, title: "RAREPEPE asset (Counterparty)", url: "https://tokenscan.io/api/asset/RAREPEPE", publisher: "TokenScan (旧 XChain)", type: onchain-data, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "供給 298、ロック済み、分割不可、発行者アドレス"}
   - {id: src-rarepepe-tokenscan-issuances, title: "RAREPEPE issuances (Counterparty)", url: "https://tokenscan.io/api/issuances/RAREPEPE", publisher: "TokenScan (旧 XChain)", type: onchain-data, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "ブロック 428919（2016-09-09 01:46 UTC）に 300 枚発行、428997 でロック"}
+  - {id: src-rarepepe-tokenscan-pepecash, title: "PEPECASH issuances (Counterparty)", url: "https://tokenscan.io/api/issuances/PEPECASH", publisher: "TokenScan (旧 XChain)", type: onchain-data, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "検証役が取得。ブロック 430263（2016-09-17 17:06 UTC）に 1,000,000,000 発行、431786（2016-09-27）でロック"}
   - {id: src-rarepepe-wallet-site, title: "Rare Pepe Wallet", url: "https://rarepepewallet.com", publisher: "Rare Pepe Wallet", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "Down for maintenance、別ドメインへの案内"}
   - {id: src-rarepepe-dailydot-2017, title: "The Rare Pepe economy is real, and there's serious money behind it", url: "https://dailydot.com/rare-pepe-frog-meme-economy", publisher: "The Daily Dot", author: "Jay Hathaway", type: news, primary: false, published: "2017-02-21", accessed: "2026-10-23", access: fetched, lang: en, note: "500 超のカード、4,000 PEPECASH の申請料、価格例"}
   - {id: src-rarepepe-wikipedia, title: "Rare Pepe", url: "https://en.wikipedia.org/wiki/Rare_Pepe", publisher: "Wikipedia", type: wiki, primary: false, accessed: "2026-10-23", access: fetched, lang: en, note: "36 シリーズ 1,774 枚、2018-01-13 のオークション（38,500 ドル）"}

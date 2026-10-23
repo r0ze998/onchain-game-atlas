@@ -6,7 +6,7 @@ kind: game
 depth: index
 updated: "2026-10-23"
 chains: [ローカルの開発チェーン（anvil）のみ確認]
-team: "Flynn Swainston-Calcutt（GitHub: FlynnSC）。README は技術解説を 0xPARC ブログに置くと記す"
+team: "Flynn Calcutt（GitHub: FlynnSC の表示名）。README は技術解説を 0xPARC ブログに置くと記す"
 summary: >-
   MUD（v0.16 系）上に作られた、ZK 証明による秘匿移動と情報の非対称性を試す RTS 風 PvP の試作。平原では位置が公開され、ジャングルに入ると
   位置は Poseidon コミットメントとしてのみ保存され、移動の正当性は circom の回路で証明される。相手は「どこにいる可能性があるか」の集合しか追えない。
@@ -56,7 +56,7 @@ compare:
   information: {t: "ジャングル内の位置はコミットメントのみ公開。相手が見られるのは入った地点と可能性のある位置の集合で、移動ごとに広がり、ジャングルを出ると確定する。", k: fact, s: [src-zkhunt-circuits, src-zkhunt-ethresearch]}
   persistence: {t: "公開ネットワークでの展開を確認できず、遊ぶにはローカルで構築する必要がある。", k: fact, s: [src-zkhunt-repo]}
   extensibility: {t: "ソース公開による改造（フォーク）のみ。第三者の改造例が 1 件確認できる。", k: fact, s: [src-zkhunt-ethglobal]}
-  money_flow: {t: "トークン・資産・賞金は確認できない（研究用の試作）。", k: fact, s: [src-zkhunt-repo]}
+  money_flow: {t: "コントラクトにトークン・デポジット・賞金の実装はない（研究用の試作）。2023-05 時点の README の解説は、参加時にデポジットを置き、死亡時に一部を戦利品として落とし、応答しなければ全額没収（slash）される設計を説明していたが、実装された清算は当該プレイヤーの全ユニットを殺す処理である。", k: fact, s: [src-zkhunt-repo, src-zkhunt-readme-2023-05, src-zkhunt-liquidation]}
   entry_barrier: {t: "Rust・foundry・circom・snarkjs の導入、回路の準備、ローカルチェーンの起動が必要で、開発者向け。", k: fact, s: [src-zkhunt-repo]}
 
 concepts: [c-zk-hidden-info, m-fog-of-war, c-commit-reveal, c-ecs-engine, c-onchain-rules]
@@ -69,6 +69,7 @@ article:
     - {t: "応答義務つきの秘匿: 隠れた側に「探索されたマスにいない」ことを期限内に証明させ、応答がなければ清算する。適用条件は応答期限がネットワークの確定時間より十分長いこと。破綻条件は応答期限が短い（コード上の RESPONSE_PERIOD は 5 秒）か、プレイヤーがオフラインになりやすい場合で、秘匿の代償が「常時オンライン」になる。", k: analysis, s: [src-zkhunt-liquidation, src-zkhunt-circuits]}
   counter_evidence:
     - {t: "公開ネットワークでの運営やプレイヤー数の記録はなく、メカニクスが遊びとして成立するかは検証されていない。", k: fact, s: [src-zkhunt-repo]}
+    - {t: "RESPONSE_PERIOD = 5 秒はローカルの開発チェーン（anvil）でのみ動かされたコードの値であり、公開ネットワーク向けに調整された値とは限らない。「応答期限が短すぎる」という評価をこの定数だけから下すのは早い。", k: analysis, s: [src-zkhunt-liquidation, src-zkhunt-readme-2023-05]}
     - {t: "応答しないと清算される設計は、秘匿情報を持つ側に常時オンラインと証明生成の負担を課す。秘匿の価値が操作負担を上回るかは不明。", k: analysis, s: [src-zkhunt-liquidation]}
 
 events:
@@ -83,16 +84,18 @@ relations:
   - {to: c-zk-hidden-info, type: built-with, basis: confirmed, note: "circom 回路で秘匿移動を証明", s: [src-zkhunt-circuits]}
 
 unknowns:
-  - "0xPARC ブログの技術解説（0xparc.org/blog/zk-hunt）の本文。JavaScript 描画のため取得できなかった。公開日も未確認。"
+  - "0xPARC ブログの技術解説（0xparc.org/blog/zk-hunt）の本文。JavaScript 描画のため取得できなかった（バンドル内にも本文なし）。公開日も未確認。2023-10-10 に README から削られた長文解説（2023-05-18 版、267 行）が同趣旨と見られ、代替として参照した。"
   - "公開テストネット等での展開・プレイテストの有無と参加者数。"
   - "0xPARC からの助成の有無と金額。"
 contradictions:
+  - {t: "デポジット: 2023-05 版 README の解説は、参加時のデポジットと、応答しないプレイヤーのデポジット没収（slash）で応答義務を「金銭的に保証する」と説明するが、コントラクトにデポジットの実装はなく、清算は全ユニットの死亡として実装されている。", s: [src-zkhunt-readme-2023-05, src-zkhunt-liquidation]}
   - {t: "MUD のバージョン: リポジトリの package.json は @latticexyz/* 0.16.4、ETHGlobal の提出作品は「MUD 1.2」上と記載。", s: [src-zkhunt-repo, src-zkhunt-ethglobal]}
 
 sources:
-  - {id: src-zkhunt-repo, title: "FlynnSC/zk-hunt", url: "https://github.com/FlynnSC/zk-hunt", publisher: "GitHub", author: "Flynn Swainston-Calcutt", type: code, primary: true, published: "2023-10-10", accessed: "2026-10-23", access: fetched, lang: en, note: "git clone（全履歴 40 コミット、2022-09-22〜2023-10-10）。README、MUD 0.16.4、MIT、ゲーム操作"}
+  - {id: src-zkhunt-repo, title: "FlynnSC/zk-hunt", url: "https://github.com/FlynnSC/zk-hunt", publisher: "GitHub", author: "Flynn Calcutt (FlynnSC)", type: code, primary: true, published: "2023-10-10", accessed: "2026-10-23", access: fetched, lang: en, note: "git clone（全履歴 40 コミット、2022-09-22〜2023-10-10）。README、MUD 0.16.4、MIT、ゲーム操作"}
   - {id: src-zkhunt-circuits, title: "zk-hunt packages/circuits/src (jungleMove, hiddenSearch, hiddenSearchResponse, hiddenSearchLiquidation 等)", url: "https://github.com/FlynnSC/zk-hunt/tree/main/packages/circuits/src", publisher: "GitHub", type: code, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "回路のコメント: コミットメントと 1 マス移動、暗号化チャレンジとナリファイア、清算の証明"}
-  - {id: src-zkhunt-liquidation, title: "zk-hunt packages/contracts/src/systems/LiquidationSystem.sol", url: "https://github.com/FlynnSC/zk-hunt/blob/main/packages/contracts/src/systems/LiquidationSystem.sol", publisher: "GitHub", type: code, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "応答期間（Constants.sol で RESPONSE_PERIOD = 5 秒）経過後に清算"}
+  - {id: src-zkhunt-liquidation, title: "zk-hunt packages/contracts/src/systems/LiquidationSystem.sol", url: "https://github.com/FlynnSC/zk-hunt/blob/main/packages/contracts/src/systems/LiquidationSystem.sol", publisher: "GitHub", type: code, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "応答期間（Constants.sol で RESPONSE_PERIOD = 5 秒）経過後に清算。LiquidationLib は対象の操作者が持つ全ユニットを KillLib で殺す（デポジットの没収はない）"}
   - {id: src-zkhunt-0xparc-blog, title: "ZK Hunt (0xPARC blog)", url: "https://0xparc.org/blog/zk-hunt", publisher: "0xPARC", type: official-blog, primary: true, accessed: "2026-10-23", access: unreachable, lang: en, note: "README が技術解説の所在として挙げる。ページは JS 描画で本文を取得できなかった"}
   - {id: src-zkhunt-ethresearch, title: "Completely Recursive SNARK Circuit - The Savior of \"Play to Earn\"", url: "https://ethresear.ch/t/completely-recursive-snark-circuit-the-savior-of-play-to-earn/18439", publisher: "Ethereum Research forum", author: "Mirror (Salus)", type: forum, primary: false, published: "2024-01-23", accessed: "2026-10-23", access: fetched, lang: en, note: "ZK Hunt の平原・ジャングル、潜在位置集合、Poseidon コミットメントの説明"}
   - {id: src-zkhunt-ethglobal, title: "TIL ZK Hunt n Fhenix (ETHGlobal showcase)", url: "https://ethglobal.com/showcase/til-zk-hunt-n-fhenix-dm1qk", publisher: "ETHGlobal", type: forum, primary: false, accessed: "2026-10-23", access: fetched, lang: en, note: "ETHOnline 2024。ZK Hunt（MUD 1.2 と記載）をフォークし新しい移動規則の回路を作成"}
+  - {id: src-zkhunt-readme-2023-05, title: "zk-hunt README.md @1c83e32 (pre-2023-10 version with full write-up)", url: "https://github.com/FlynnSC/zk-hunt/blob/1c83e32497f4936d38a8f2606483d660537d0597/README.md", publisher: "GitHub", author: "Flynn Calcutt (FlynnSC)", type: code, primary: true, published: "2023-05-18", accessed: "2026-10-23", access: fetched, lang: en, note: "検証役が git 履歴から取得。動機（秘匿状態と情報非対称性の回復）、平原・ジャングル移動、槍・探索、デポジットと没収による『forced interactivity』の説明。2023-10-10 のコミットで README から削除"}

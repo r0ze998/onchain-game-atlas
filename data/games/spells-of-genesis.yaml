@@ -60,6 +60,7 @@ concepts: [c-nft-asset, c-fungible-ingame-token, m-collectible-cards]
 
 metrics:
   - {id: m-sog-bcy-sale, type: other, value: 70000000, value_text: "7000 万 BCY（総発行予定 1 億）", unit: BCY, period: "2015-08（トークンセール）", definition: "トークンセールで販売予定とされた BitCrystals の数（調達額ではない）", nature: reported, s: [src-sog-btcmag-2015, src-sog-counterparty-forum]}
+  - {id: m-sog-mau-projection-2015, type: mau, value: 50000, unit: players, period: "2015-08 時点の見込み（公開後数か月）", definition: "CEO Shaban Shaame がトークンセール時に示した MAU の見込み（有料 2,500 人×月 40 ドルで月 10 万ドル相当の BCY 需要とする試算）。実績ではない", nature: estimated, s: [src-sog-btcmag-sale]}
   - {id: m-sog-moonga-downloads, type: other, value: 250000, value_text: "25 万超", unit: downloads, period: "2015-05 時点", definition: "前作 Moonga のダウンロード数（SoG ではない）", nature: reported, s: [src-sog-btcmag-2015]}
 
 events:
@@ -80,10 +81,11 @@ unknowns:
   - "現在カードが Bitcoin（Counterparty）以外のチェーンにもあるか（公式サイトは OpenSea・LooksRare にも言及）。"
   - "「Blockchainize」の具体的な手順と、運営がゲーム内カードとチェーン上カードの対応をどう管理しているか。"
 contradictions:
+  - {t: "BCY トークンセール時の需要試算（MAU 5 万・有料 2,500 人）はゲーム公開（2017-04）の約 2 年前に示された見込みで、実績値は公表されていない。", s: [src-sog-btcmag-sale]}
   - {t: "「最初の NFT モバイルゲーム」とする公式の主張に対し、独立した検証は見つからない。2015 年の最初のカード発行とゲームの公開（2017-04-20）には 2 年の差がある。", s: [src-sog-site]}
 
 sources:
   - {id: src-sog-site, title: "Spells of Genesis", url: "https://www.spellsofgenesis.com", publisher: "EverdreamSoft", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "2015-03-11 の最初のカード、2017-04-20 公開、2023 年の ChainChronicles、対応プラットフォーム"}
-  - {id: src-sog-counterparty-forum, title: "Spells of Genesis - Using Counterparty to Innovate Game Economy", url: "https://forums.counterparty.io/t/spells-of-genesis-using-counterparty-to-innovate-game-economy/924", publisher: "Counterparty Forum", author: "edshnin", type: forum, primary: true, published: "2015-02-16", accessed: "2026-10-23", access: fetched, lang: en, note: "カードへの Counterparty トークン割当、ロック、BitCrystals、7000 万枚の販売"}
+  - {id: src-sog-counterparty-forum, title: "Spells of Genesis - Using Counterparty to Innovate Game Economy", url: "https://forums.counterparty.io/t/spells-of-genesis-using-counterparty-to-innovate-game-economy/924", publisher: "Counterparty Forum", author: "edshnin", type: forum, primary: true, published: "2015-02-16", accessed: "2026-10-23", access: fetched, lang: en, note: "カードへの Counterparty トークン割当、ロック、BitCrystals、7000 万枚の販売（総発行 1 億の記載はこの投稿にはなく Bitcoin Magazine による）"}
   - {id: src-sog-btcmag-2015, title: "Moonga Game Series to Utilize Blockchain for In-game Assets and Crowdfunding", url: "https://bitcoinmagazine.com/articles/moonga-game-series-utilize-blockchain-game-assets-crowdfunding-1431120521", publisher: "Bitcoin Magazine", author: "Andrew Wagner", type: news, primary: false, published: "2015-05-09", accessed: "2026-10-23", access: fetched, lang: en, note: "EverdreamSoft、Moonga、1 億 BCY、焼却と再利用"}
-  - {id: src-sog-btcmag-sale, title: "Popular Arcade Game Launches Token Sale with Shapeshift", url: "https://bitcoinmagazine.com/articles/popular-arcade-game-launches-token-sale-shapeshift-1438641359", publisher: "Bitcoin Magazine", author: "Joseph Young", type: news, primary: false, published: "2015-08-04", accessed: "2026-10-23", access: fetched, lang: en, note: "2015-08-04 のセール開始、Swarm から移行、ShapeShift"}
+  - {id: src-sog-btcmag-sale, title: "Popular Arcade Game Launches Token Sale with Shapeshift", url: "https://bitcoinmagazine.com/articles/popular-arcade-game-launches-token-sale-shapeshift-1438641359", publisher: "Bitcoin Magazine", author: "Joseph Young", type: news, primary: false, published: "2015-08-04", accessed: "2026-10-23", access: fetched, lang: en, note: "2015-08-04 のセール開始、Swarm から移行、ShapeShift、MAU 5 万・有料 2,500 人の見込み"}

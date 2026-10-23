@@ -48,13 +48,14 @@ compare:
   information: {t: "所有と通し番号はチェーン上で公開される。", k: fact, s: [src-ubisoft-quartz-sixthaxis]}
   persistence: {t: "NFT は残るが、ゲーム内の価値は Breakpoint に限られ、同作の開発終了後は追加されず、他作へも移せない。", k: fact, s: [src-ubisoft-quartz-destructoid-end]}
   extensibility: {t: "なし（確認できず）。", k: unknown}
-  money_flow: {t: "最初は無料配布、のち販売と二次流通。販売実績は乏しいと報じられたが、本エントリで本文を読めた資料はない。", k: unknown}
+  money_flow: {t: "最初は無料配布、のち販売と二次流通。GamesBeat は Ars Technica の報道として、数千個発行された Digits の転売成立は 96 件にとどまったと伝えた（Ars Technica の原記事は未読）。", k: claim, who: "GamesBeat（Ars Technica の報道を引用）", s: [src-ubisoft-quartz-gamesbeat-end]}
   entry_barrier: {t: "対象国（米・加・西・仏・独・伊・白・豪・伯）の PC 版プレイヤー向けのベータ。", k: fact, s: [src-ubisoft-quartz-sixthaxis]}
 
 concepts: [c-nft-asset]
 
 article:
   counter_evidence:
+    - {t: "「短期間で撤退した」という読みは Quartz の Breakpoint 展開には当てはまるが、Ubisoft のブロックチェーン事業全体ではない。KitGuru（2026-08）によれば、Ubisoft は後続の NFT 系タイトル Champions Tactics を 2026 年まで運営し、ブロックチェーン要素の支援をやめたうえで 2026-10 末にサーバーを停止するとした。", k: claim, who: "KitGuru（VGC の報道を引用）", s: [src-ubisoft-quartz-kitguru-2026]}
     - {t: "Quartz の失敗はブロックチェーンの限界ではなく、評価の低い既存作（Breakpoint）を選んだこと、装飾品だけで遊びに影響しないこと、利用者の反発による、という別の説明もありうる。撤退が「オンチェーン資産一般の不要」を証明するわけではない。", k: analysis, s: [src-ubisoft-quartz-destructoid-end]}
 
 events:
@@ -66,14 +67,17 @@ relations:
   - {to: gods-unchained, type: similar-to, basis: analytic, note: "資産所有だけをチェーンに載せ、ルールはサーバー側に置く構成"}
   - {to: dark-forest, type: contrasts-with, basis: analytic, note: "ルール自体をオンチェーンにした例との対照"}
 
+contradictions:
+  - {t: "KitGuru（2026-08）は Quartz が Rainbow Six Siege と統合したと書くが、2022 年の Destructoid は Breakpoint の Digits を Rainbow Six Siege 等の他作へ持ち込む予定はないとし、Quartz の配布先として確認できるのは Breakpoint のみ", s: [src-ubisoft-quartz-kitguru-2026, src-ubisoft-quartz-destructoid-end]}
+
 unknowns:
-  - "Digits の発行数・販売数・売上（Tom's Hardware の「約 400 ドル」は本文を読めず未確認）"
+  - "Digits の発行数・販売数・売上（Tom's Hardware の「約 400 ドル」は本文を読めず未確認。転売 96 件は GamesBeat 経由の二次情報）"
   - "Quartz プラットフォーム自体の終了日と、Digit 保有者への扱い"
   - "Breakpoint 以外の Ubisoft 作品で Digit が配布されたか"
 
 sources:
   - {id: src-ubisoft-quartz-sixthaxis, title: "Ubisoft launches Quartz to try and sell NFTs in Ghost Recon Breakpoint", url: "https://www.thesixthaxis.com/2021/12/07/ubisoft-launches-quartz-to-try-and-sell-nfts-in-ghost-recon-breakpoint/", publisher: "TheSixthAxis", author: "Stefan L", type: news, primary: false, published: "2021-12-07", accessed: "2026-10-23", access: fetched, lang: en, note: "Tezos、Digits、通し番号、対象国、Ubisoft の説明"}
   - {id: src-ubisoft-quartz-destructoid-end, title: "Bad game, made worse, now done", url: "https://www.destructoid.com/ghost-recon-breakpoint-nft-final-update-ubisoft-quartz-digits/", publisher: "Destructoid", author: "Chris Moyse", type: news, primary: false, published: "2022-04-06", accessed: "2026-10-23", access: fetched, lang: en, note: "Breakpoint の最終コンテンツ、サーバー維持、他作へ移せない"}
-  - {id: src-ubisoft-quartz-gamesbeat-end, title: "Ubisoft ends making NFTs and other updates for Ghost Recon: Breakpoint", url: "https://gamesbeat.com/?p=209522", publisher: "GamesBeat", type: news, primary: false, published: "2022-04-07", accessed: "2026-10-23", access: fetched, lang: en, note: "3/17 が最後の Digit、Quartz は他で継続との説明"}
+  - {id: src-ubisoft-quartz-gamesbeat-end, title: "Ubisoft ends making NFTs and other updates for Ghost Recon: Breakpoint", url: "https://gamesbeat.com/?p=209522", publisher: "GamesBeat", type: news, primary: false, published: "2022-04-07", accessed: "2026-10-23", access: fetched, lang: en, note: "3/17 が最後の Digit、Quartz は他で継続との説明、Ars Technica を引いた転売 96 件。2025-06-19 更新表記"}
   - {id: src-ubisoft-quartz-decrypt-end, title: "Ubisoft Will Bring Tezos NFTs to Other Games as Ghost Recon Support Ends", url: "https://decrypt.co/97090/ubisoft-tezos-nfts-other-games-ghost-recon-support-ends", publisher: "Decrypt", type: news, primary: false, accessed: "2026-10-23", access: fetched, lang: en, note: "Quartz サイトによれば 3/17 が最後、他作で継続予定"}
-  - {id: src-ubisoft-quartz-kitguru-2026, title: "Ubisoft is shutting down another NFT-based game project", url: "https://www.kitguru.net/?p=743254", publisher: "KitGuru", type: news, primary: false, published: "2026-08-03", accessed: "2026-10-23", access: fetched, lang: en, note: "Quartz は重要な利用者基盤を得られなかった、Champions Tactics のブロックチェーン要素終了"}
+  - {id: src-ubisoft-quartz-kitguru-2026, title: "Ubisoft is shutting down another NFT-based game project", url: "https://www.kitguru.net/?p=743254", publisher: "KitGuru", type: news, primary: false, published: "2026-08-03", accessed: "2026-10-23", access: fetched, lang: en, note: "Quartz は重要な利用者基盤を得られなかった、Champions Tactics のブロックチェーン要素終了・10 月末にサーバー停止。Quartz を Rainbow Six Siege と結びつける記述は他資料と矛盾"}

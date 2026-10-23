@@ -10,7 +10,7 @@ team: "Dapper Labs（NBA・NBPA のライセンス）"
 summary: >-
   NBA の試合映像の一場面（Moment）をパックで販売し、Dapper Labs が作ったブロックチェーン Flow 上の NFT として売買させる収集プラットフォーム。
   2020-10 の公開ベータから一般層に広がり、2021-02 には月間取引高が 2 億ドルを超えたが、2022 年後半には月 270 万ドル程度まで落ちた。
-  運営発表の「登録者 100 万人」と、オンチェーンで測った購入者数（ピーク月 18 万程度、2022-10 は 1.35 万未満）の差が大きい。
+  運営発表の「登録者 100 万人」と、第三者集計の購入者数（The First Mint によるピーク 18.4 万〔出典不明・複数アカウントを含む可能性〕、CryptoSlam による 2022-10 の二次市場の一意購入者 1.35 万未満）の差が大きい。
   Moment が証券に当たるとする集団訴訟は 2024 年に 400 万ドルで和解した。
 selection_reason: >-
   CryptoKitties の開発元が専用チェーンを作り、一般層向けにクレジットカード決済で NFT を売った最大級の事例。
@@ -37,7 +37,7 @@ architecture:
     - {item: "映像コンテンツとライセンス管理", s: [src-nbats-site]}
   admin:
     level: significant
-    detail: "Moment の発行、マーケット、チェーン（Flow）自体が Dapper Labs の管理下で始まった。2024 年の和解条件には、Flow が十分に分散化されるための事業上の変更が含まれた（検索要約）。原告は数か月にわたり出金を妨げたと主張した。"
+    detail: "Moment の発行、マーケット、チェーン（Flow）自体が Dapper Labs の管理下で始まった。2024 年の和解条件には、Flow が十分に分散化されるための事業上の変更が含まれた（検索要約）。原告は数か月にわたり出金を妨げたと主張した。一方、2022-03 以降は他の 4 つのマーケットプレイスでも Moment の販売が認められた（The Block）。"
     s: [src-nbats-theblock-2024]
   open_source:
     level: unknown
@@ -65,6 +65,7 @@ article:
     - {t: "示されていない指標: 登録者のうち継続して購入・閲覧する人数、カストディ口座内の取引とオンチェーン取引の区別、複数アカウントの規模。", k: unknown}
   counter_evidence:
     - {t: "「100 万人の登録」と「1.35 万人の月間購入者」は定義が違う数字であり、前者を利用者の規模とする報道も、後者を「誰も使っていない」とする報道も、どちらも片面的である。収集プラットフォームでは閲覧・保有だけの利用者がオンチェーン指標に現れない。", k: analysis, s: [src-nbats-ledger-2021, src-nbats-decrypt-2022]}
+    - {t: "「マーケットを運営が独占する」という見方への反証として、2022-03 以降は Dapper 以外の 4 つのマーケットプレイスでも Moment の販売が認められている。ただし発行と Flow の初期運営は Dapper に集中していた。", k: fact, s: [src-nbats-theblock-2024]}
     - {t: "2024 年の和解で Dapper は Moment が証券でないとの立場を維持しつつ 400 万ドルを支払った。運営がチェーンと市場を管理する設計は、所有の「分散性」を主張しにくくし、法的リスクを生む。", k: fact, s: [src-nbats-theblock-2024]}
 
 metrics:
@@ -95,7 +96,7 @@ unknowns:
   - "カストディ型ウォレットと出金制限の具体的な仕組み（一次資料未確認）。"
   - "2023 年以降の購入者数・取引額（2024-05 に月 190 万ドルという報道は検索要約のみ）。"
 contradictions:
-  - {t: "利用者規模: 運営は 2021-05 に登録 100 万超（購入は約半数）、The First Mint は購入者のピークを 2021-03 の 18.4 万、CryptoSlam の 2021-02 一意購入者は 8 万超（検索要約）。登録・購入経験・月間購入の定義が異なる。", s: [src-nbats-ledger-2021, src-nbats-firstmint-2023]}
+  - {t: "利用者規模: 運営は 2021-05 に登録 100 万超（購入は約半数）、The First Mint は購入者のピークを 2021-03 の 18.4 万、CryptoSlam の 2022-10 二次市場の一意購入者は 1.35 万未満。登録・購入経験・月間購入の定義が異なる（初版の「2021-02 の一意購入者 8 万超（検索要約）」は出典が付いておらず削除）。", s: [src-nbats-ledger-2021, src-nbats-firstmint-2023]}
 
 sources:
   - {id: src-nbats-ap-2021, title: "Dapper Labs, creators of NBA Top Shot, get $305M in funding", url: "https://www.news4jax.com/business/2021/03/30/dapper-labs-creators-of-nba-top-shot-get-305m-in-funding/", publisher: "Associated Press (via News4JAX)", author: "Matt Ott", type: news, primary: false, published: "2021-03-30", accessed: "2026-10-23", access: fetched, lang: en, note: "3.05 億ドル、売上 5 億ドル、80 万超のアカウント、公開ベータは 10 月開始"}

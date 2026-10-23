@@ -20,7 +20,7 @@ categories:
 status:
   value: unknown
   as_of: "2026-10"
-  note: "公式リポジトリの最終更新は 2024-08（GitHub 表示）。etheremon.com は参照日時点でカジノの紹介サイトになっている。後継の Ethermon の現状は確認できなかった（公式ドメインは名前解決できず）。"
+  note: "公式リポジトリの最終更新は 2024-08（GitHub 表示）だが、コミット履歴の最終は 2018-03-13（refactor ERC721）。etheremon.com は参照日時点でカジノの紹介サイトになっている。後継の Ethermon の現状は確認できなかった（公式ドメインは名前解決できず）。"
   s: [src-etheremon-github-org, src-etheremon-site-now]
 dates:
   launched: {date: "2017-12", s: [src-etheremon-bgamer-2018, src-etheremon-code], note: "共同創業者は 2017-12 に始めたと述べ、コントラクトの最初のコミットは 2017-12-24"}
@@ -38,7 +38,7 @@ architecture:
   admin:
     level: significant
     detail: >-
-      各コントラクトに owner とモデレーターがあり、モデレーターはモンスターの経験値の増減、型相性・ゲーム設定の変更、城の除去、コントラクト参照先の変更、ETH の引き出しができる。
+      各コントラクトに owner とモデレーターがあり、モデレーターはモンスターの経験値の増減（increaseMonsterExp / decreaseMonsterExp）、任意のモンスターの作成・上書き（addMonsterObj / setMonsterObj、EtheremonData）、型相性・ゲーム設定の変更、城の除去、コントラクト参照先の変更、ETH の引き出しができる。
       owner は isMaintaining で機能を停止できる。
     s: [src-etheremon-code]
   open_source:
