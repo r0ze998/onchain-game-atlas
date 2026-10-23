@@ -78,7 +78,7 @@
       <p class="lede read">2〜4 件を同じ軸で並べます。軸ごとの記述には事実・主張・分析のラベルと出典が付きます。総合点やランキングは意図的に作っていません。差の意味は自分で判断し、メモに残してください。</p>
       <div class="toolbar"><label>項目を追加<select id="cmp-add"><option value="">選択…</option>${pickOpts}</select></label>
       <div class="cmp-pick" id="cmp-current">${ids.map((id) => `<span class="tag primary">${esc(A.nodeName(id))} <button class="btn" style="padding:0 .3em" data-rm="${esc(id)}" aria-label="${esc(A.nodeName(id))} を外す">×</button></span>`).join('') || '<span class="muted small">未選択（索引や詳細の「比較に追加」でも選べます）</span>'}</div>
-      ${ids.length >= 2 ? `<button class="btn" id="cmp-save">この組み合わせを保存</button>` : ''}
+      ${ids.length >= 2 ? `<form id="cmp-save-form" class="cmp-save"><label>比較セットの名前<input type="text" id="cmp-save-name" value="${esc(ids.map(A.nodeName).join(' / '))}"></label><button class="btn" id="cmp-save">この組み合わせを保存</button></form>` : ''}
       <a class="btn" href="#/compare/dark-forest,axie-infinity" ${I.game.has('dark-forest') && I.game.has('axie-infinity') ? '' : 'hidden'}>例: Dark Forest と Axie Infinity</a></div>
       ${sets.length ? `<p class="small">保存した比較: ${sets.map((s) => `<a class="tag" href="#/compare/${esc(s.ids.join(','))}">${esc(s.name)}</a>`).join('')}</p>` : ''}`;
     if (ids.length < 2) return head + `<p class="note-box">比較するには 2 件以上を選んでください。</p>`;
@@ -113,9 +113,9 @@
       go([...ids, v]);
     });
     A.$$('[data-rm]').forEach((b) => b.addEventListener('click', () => go(ids.filter((x) => x !== b.dataset.rm))));
-    A.$('#cmp-save')?.addEventListener('click', () => {
-      const name = prompt('比較セットの名前', ids.map(A.nodeName).join(' / '));
-      if (name === null) return;
+    A.$('#cmp-save-form')?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = A.$('#cmp-save-name').value.trim() || ids.map(A.nodeName).join(' / ');
       A.store.saveCompareSet(name, ids);
       A.toast('比較セットを研究ノートに保存しました');
       A.rerender();

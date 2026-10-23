@@ -135,11 +135,16 @@
     };
     return `<h1>研究ノート</h1>
       <div class="warnbox read small"><b>保存場所について：</b>ノートはこのブラウザの localStorage にだけ保存されます。別のブラウザ・別の端末・プライベートウィンドウからは見えません。ブラウザのサイトデータ削除、ストレージの自動削除（例: Safari は長期間訪問しないサイトのデータを消すことがあります）、別のポートやドメインでの起動でも失われます。大事な記録は定期的に「JSON を書き出す」で保存してください。${A.store.ok ? '' : '<br><b>現在、このブラウザではノートを保存できていません。</b>'}</div>
-      <div class="btn-row"><button class="btn primary" id="nb-export">JSON を書き出す</button>
-        <label class="btn" for="nb-import-file">JSON を読み込む</label><input type="file" id="nb-import-file" accept="application/json,.json" class="vh">
+      <div class="btn-row"><button class="btn primary" id="nb-export">JSON ファイルに書き出す</button>
+        <button class="btn" id="nb-copy">JSON をコピー</button>
+        <label class="btn" for="nb-import-file">JSON ファイルを読み込む</label><input type="file" id="nb-import-file" accept="application/json,.json" class="vh">
         <label class="small muted" style="align-self:center"><input type="checkbox" id="nb-replace"> 読み込み時に現在のノートを置き換える（既定は統合）</label>
-        <button class="btn danger" id="nb-clear">ノートをすべて消去</button></div>
-      <p class="small muted">書き出したファイルには、保存した項目・メモ・比較セット・仮説と検証記録・比較中の項目が含まれます。研究データ本体は含みません。</p>
+        <button class="btn danger" id="nb-clear" data-armed="0">ノートをすべて消去</button></div>
+      <p class="small muted">書き出したデータには、保存した項目・メモ・比較セット・仮説と検証記録・比較中の項目が含まれます。研究データ本体は含みません。ファイルの保存が使えない環境（埋め込み表示など）では「JSON をコピー」か下の欄を使ってください。</p>
+      <details class="card"><summary>JSON を表示・貼り付けて読み込む</summary>
+        <label for="nb-json" class="small">ノートの JSON（全選択してコピーできます。別の JSON を貼り付けて読み込むこともできます）</label>
+        <textarea id="nb-json" rows="8" style="width:100%;font-family:var(--mono);font-size:.8rem">${esc(A.store.exportJSON())}</textarea>
+        <div class="btn-row"><button class="btn" id="nb-json-import">この欄の JSON を読み込む</button></div></details>
 
       <h2>自分の仮説と検証記録（${d.hypotheses.length}）</h2>
       <details ${d.hypotheses.length ? '' : 'open'}><summary>新しい仮説を書く</summary>
@@ -159,35 +164,54 @@
         ${h.results.length ? `<ul class="small">${h.results.map((r) => `<li>${A.fmtDate(r.date)}：${esc(r.text)}</li>`).join('')}</ul>` : ''}
         <div class="btn-row"><label class="small">状態 <select data-h-status="${esc(h.id)}">${Object.entries(STATUS).map(([k, v]) => `<option value="${k}" ${h.status === k ? 'selected' : ''}>${v}</option>`).join('')}</select></label>
           <form data-h-result="${esc(h.id)}" style="display:flex;gap:.3rem;flex:1;min-width:14rem"><label class="vh" for="r-${esc(h.id)}">結果を追記</label><input id="r-${esc(h.id)}" name="r" placeholder="結果・観察を追記" style="flex:1"><button class="btn">追記</button></form>
-          <button class="btn danger" data-h-del="${esc(h.id)}">削除</button></div></div>`).join('')}</div>
+          <button class="btn danger" data-h-del="${esc(h.id)}" data-armed="0">削除</button></div></div>`).join('')}</div>
 
       <h2>保存した項目（${saved.length}）</h2>
       <ul>${saved.map(([id, v]) => `<li>${A.nodeLink(id)} <span class="small muted">${esc(v.savedAt.slice(0, 10))}</span> <button class="btn" data-act="save" data-id="${esc(id)}">外す</button></li>`).join('') || '<li class="muted">なし（各項目の「保存」で追加）</li>'}</ul>
       <h2>比較セット（${d.compareSets.length}）</h2>
       <ul>${d.compareSets.map((s) => `<li><a href="#/compare/${esc(s.ids.join(','))}">${esc(s.name)}</a> <span class="small muted">${esc(s.ids.map(A.nodeName).join(' / '))}</span> <button class="btn danger" data-set-del="${esc(s.id)}">削除</button></li>`).join('') || '<li class="muted">なし（比較画面で保存）</li>'}</ul>
       <h2>メモ（${notes.length}）</h2>
-      <ul>${notes.map(([k, v]) => `<li>${noteLink(k)} <span class="small muted">${esc(v.updated.slice(0, 10))}</span><div class="small" class="pre">${esc(v.text)}</div></li>`).join('') || '<li class="muted">なし</li>'}</ul>`;
+      <ul>${notes.map(([k, v]) => `<li>${noteLink(k)} <span class="small muted">${esc(v.updated.slice(0, 10))}</span><div class="small pre">${esc(v.text)}</div></li>`).join('') || '<li class="muted">なし</li>'}</ul>`;
   };
   V.notebook.after = () => {
     A.$('#nb-export').addEventListener('click', () => {
       A.download(`onchain-game-atlas-notebook-${new Date().toISOString().slice(0, 10)}.json`, A.store.exportJSON());
       A.toast('書き出しました');
     });
-    A.$('#nb-import-file').addEventListener('change', async (e) => {
-      const file = e.target.files[0];
-      if (!file) return;
+    const doImport = (text) => {
       try {
-        const r = A.store.importJSON(await file.text(), A.$('#nb-replace').checked ? 'replace' : 'merge');
-        A.toast(`読み込みました（保存 ${r.saved}・メモ ${r.notes}・比較 ${r.compareSets}・仮説 ${r.hypotheses}）`);
+        const r = A.store.importJSON(text, A.$('#nb-replace').checked ? 'replace' : 'merge');
         A.rerender();
+        A.toast(`読み込みました（保存 ${r.saved}・メモ ${r.notes}・比較 ${r.compareSets}・仮説 ${r.hypotheses}）`);
       } catch (err) {
         A.toast(`読み込めませんでした: ${err.message}`);
       }
+    };
+    A.$('#nb-import-file').addEventListener('change', async (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      doImport(await file.text());
       e.target.value = '';
     });
-    A.$('#nb-clear').addEventListener('click', () => {
-      if (confirm('研究ノートをすべて消去します。先に書き出しましたか？')) { A.store.clearAll(); A.rerender(); }
+    A.$('#nb-json-import').addEventListener('click', () => doImport(A.$('#nb-json').value));
+    A.$('#nb-copy').addEventListener('click', async () => {
+      const text = A.store.exportJSON();
+      try { await navigator.clipboard.writeText(text); A.toast('JSON をコピーしました'); }
+      catch (err) {
+        const d = A.$('#nb-json').closest('details'); d.open = true;
+        const ta = A.$('#nb-json'); ta.value = text; ta.focus(); ta.select();
+        A.toast('コピーできない環境です。欄の JSON を選択したので、手動でコピーしてください');
+      }
     });
+    // 確認ダイアログを使わず、2 回押しで実行する（埋め込み表示では confirm() が使えないため）
+    const armed = (btn, label, run) => btn.addEventListener('click', () => {
+      if (btn.dataset.armed === '1') return run();
+      btn.dataset.armed = '1';
+      btn.textContent = label;
+      setTimeout(() => { if (btn.isConnected && btn.dataset.armed === '1') { btn.dataset.armed = '0'; btn.textContent = btn.dataset.orig; } }, 5000);
+    });
+    const clr = A.$('#nb-clear'); clr.dataset.orig = clr.textContent;
+    armed(clr, 'もう一度押すと全消去（先に書き出しを）', () => { A.store.clearAll(); A.rerender(); A.toast('研究ノートを消去しました'); });
     A.$('#nb-new-h').addEventListener('submit', (e) => {
       e.preventDefault();
       const fd = new FormData(e.target);
@@ -197,7 +221,7 @@
     });
     A.$$('[data-h-status]').forEach((s) => s.addEventListener('change', () => { A.store.updateHypothesis(s.dataset.hStatus, { status: s.value }); A.toast('状態を更新しました'); }));
     A.$$('[data-h-result]').forEach((f) => f.addEventListener('submit', (e) => { e.preventDefault(); A.store.addResult(f.dataset.hResult, f.r.value); A.rerender(); }));
-    A.$$('[data-h-del]').forEach((b) => b.addEventListener('click', () => { if (confirm('この仮説を削除しますか？')) { A.store.deleteHypothesis(b.dataset.hDel); A.rerender(); } }));
+    A.$$('[data-h-del]').forEach((b) => { b.dataset.orig = b.textContent; armed(b, 'もう一度押すと削除', () => { A.store.deleteHypothesis(b.dataset.hDel); A.rerender(); }); });
     A.$$('[data-set-del]').forEach((b) => b.addEventListener('click', () => { A.store.deleteCompareSet(b.dataset.setDel); A.rerender(); }));
   };
 

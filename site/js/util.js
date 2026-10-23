@@ -143,6 +143,7 @@
     history.replaceState(null, '', `#${path}${qs ? '?' + qs : ''}`);
   };
   A.download = (filename, text) => {
+    // 埋め込み表示などでダウンロードが無効な環境では何も起きないため、呼び出し側でコピー手段も用意している
     const blob = new Blob([text], { type: 'application/json' });
     const a = document.createElement('a');
     a.href = URL.createObjectURL(blob);

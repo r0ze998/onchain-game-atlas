@@ -96,7 +96,7 @@ await step('比較: 3 件を追加して表を描画し、比較セットを保�
   await p.click('nav#nav a[data-nav=compare]');
   await p.waitForSelector('.cmp-table');
   assert.equal(await p.locator('.cmp-table thead th').count(), 4);
-  p.once('dialog', (d) => d.accept('テスト比較'));
+  await p.fill('#cmp-save-name', 'テスト比較');
   await p.click('#cmp-save');
   await p.goto(BASE + '#/notebook');
   assert.ok((await p.locator('main').textContent()).includes('テスト比較'));
@@ -166,7 +166,8 @@ await step('研究ノート: メモ保存→再読み込みで保持→エクス
   assert.ok(json.notes[`entry:${g.id}`]);
   assert.ok(json.saved[g.id]);
   assert.ok(json.hypotheses[0].results.length === 1);
-  p.once('dialog', (d) => d.accept());
+  await p.click('#nb-clear');
+  assert.ok((await p.locator('main').textContent()).includes('E2E メモ'), 'cleared on first click');
   await p.click('#nb-clear');
   assert.ok((await p.locator('main').textContent()).includes('保存した項目（0）'));
   await p.setInputFiles('#nb-import-file', file);
@@ -181,6 +182,11 @@ await step('研究ノート: メモ保存→再読み込みで保持→エクス
   await p.waitForTimeout(300);
   assert.ok((await p.locator('#toast').textContent()).includes('読み込めませんでした'));
   assert.ok((await p.locator('main').textContent()).includes('E2E メモ'));
+  // 貼り付けによる読み込み（ファイル保存が使えない環境向け）
+  await p.locator('#nb-json').evaluate((el) => { el.closest('details').open = true; });
+  await p.fill('#nb-json', fs.readFileSync(file, 'utf8').replace('E2E メモ', 'E2E 貼付メモ'));
+  await p.click('#nb-json-import');
+  assert.ok((await p.locator('main').textContent()).includes('E2E 貼付メモ'), 'paste import failed');
   await shot(p, 'notebook');
 });
 
