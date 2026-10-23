@@ -360,7 +360,7 @@
     return `$${v.toPrecision(3)}`;
   };
   C.usd = usd;
-  const pct = (v) => (v == null ? '—' : `${v > 0 ? '+' : ''}${v.toFixed(v > -10 && v < 10 ? 1 : 0)}%`);
+  const pct = (v) => (v == null ? '—' : `${v > 0 ? '+' : ''}${v.toFixed((v > -10 && v < 10) || v <= -99 ? 1 : 0)}%`);
   C.pct = pct;
 
   // 小さな折れ線（面）。series: [[x(ts or 'YYYY-MM'), value], ...]

@@ -227,8 +227,8 @@
     <textarea id="note-${esc(key)}" data-note="${esc(key)}" placeholder="このブラウザにだけ保存されます">${esc(A.store.note(key))}</textarea>
     <div class="small muted" data-note-status="${esc(key)}">${A.store.note(key) ? '保存済み' : '入力すると自動保存'}</div></div>`;
 
-  A.metricTable = (ms) => `<div class="table-wrap"><table><thead><tr><th>指標</th><th>値</th><th>期間・時点</th><th>性質</th><th>定義・注記</th><th>出典</th></tr></thead><tbody>
-    ${ms.map((m) => `<tr><td>${esc(L.metric_type[m.type] || m.type)}${m.game && !A._inEntry ? `<div class="small"><a href="#/entry/${esc(m.game)}">${esc(A.nodeName(m.game))}</a></div>` : ''}</td>
+  A.metricTable = (ms) => `<div class="table-wrap"><table class="mt"><thead><tr><th>指標</th><th>値</th><th>期間・時点</th><th>性質</th><th>定義・注記</th><th>出典</th></tr></thead><tbody>
+    ${ms.map((m) => `<tr><td>${esc(L.metric_type[m.type] || m.type)}${m.game && m.game !== A.ctxEntry ? `<div class="small"><a href="#/entry/${esc(m.game)}">${esc(A.nodeName(m.game))}</a></div>` : ''}</td>
     <td class="num">${m.value_text ? esc(m.value_text) : A.fmtNum(m.value)} ${esc(m.unit)}</td><td>${esc(m.period)}</td>
     <td><span class="k ${m.nature === 'measured' ? 'k-fact' : m.nature === 'reported' ? 'k-claim' : 'k-analysis'}">${esc(L.nature[m.nature])}</span></td>
     <td>${esc(m.definition)}${m.note ? `<div class="small muted">${esc(m.note)}</div>` : ''}</td><td>${A.cites(m.s)}</td></tr>`).join('')}</tbody></table></div>`;
