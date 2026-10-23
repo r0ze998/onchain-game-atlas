@@ -276,6 +276,17 @@ await step('図とイラスト: ホームの図が描画され、ホバーで詳
   await shot(p, 'entry-arch');
 });
 
+await step('記録の指紋: ホームに root、詳細にハッシュと検証バッジ', async () => {
+  await p.goto(BASE + '#/');
+  assert.ok((await p.locator('.root-hash code').textContent()).startsWith('sha256:' + data.integrity.root.slice(0, 16)));
+  assert.equal(await p.locator('.chain .blk').count(), data.eras.length);
+  await p.goto(BASE + '#/entry/' + deep[0].id);
+  assert.ok((await p.locator('.rec-meta').textContent()).includes('sha256:' + deep[0].hash.slice(0, 12)));
+  assert.ok(await p.locator('.vbadge.ok').count() === 1);
+  await p.goto(BASE + '#/about?s=integrity');
+  assert.ok((await p.locator('#integrity').count()) === 1);
+});
+
 await step('ダークモード: 主要画面で横スクロールなし・図が描画される', async () => {
   const dpage = await newPage({ viewport: { width: 1280, height: 900 }, colorScheme: 'dark' });
   for (const r of ['', 'timeline', 'entry/' + deep[0].id, 'hypotheses']) {

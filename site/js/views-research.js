@@ -261,10 +261,19 @@
     <h2>日付</h2><p>日付は資料で確認できた精度のまま（年・年月・年月日）保持します。出来事の日、資料の公開日、参照日は別々に記録しています。年表で「項目の日付欄から生成」と書かれた行は、項目の発表日・公開日・終了日から自動で作った出来事です。</p>
     <h2>関係</h2><p>「確認された関係」は当事者の言及やコードのフォークなど直接証拠がある場合だけです。似ているだけのものは「分析上の類似」として破線で区別します。</p>
     <h2>出典の扱い</h2><p>実際に内容を確認した資料は「参照済み」、検索結果の要約だけで見た資料は「検索要約のみ」とし、後者だけを根拠にした事実はデータ品質ページに一覧化しています。引用は 200 文字以内の逐語引用に限り、画像は転載していません。</p>
+    <h2 id="integrity">記録の指紋（内容ハッシュとマークルルート）</h2>
+    <p>各事例の詳細画面と、このサイトの冒頭に表示している <code>sha256:…</code> は、研究データの元ファイル（YAML）から計算した指紋です。各ファイルの SHA-256 を葉として、隣り合う 2 つを連結して SHA-256 を取ることを繰り返したマークル木の根を「dataset root」と呼んでいます（葉が奇数のときは最後の葉を複製）。記述が 1 文字でも変わると、その事例のハッシュと root が変わります。</p>
+    <p>使い道は、引用・保存した版と今の版が同じかを確かめることです。リポジトリを取得して <code>node scripts/verify-integrity.mjs [root]</code> を実行すると、手元のデータから再計算して公開値と照合できます。</p>
+    <p class="note-box">このハッシュはどのブロックチェーンにも記録していません（タイムスタンプの証明にはなりません）。改ざん検知の手がかりであって、内容の正しさを保証するものではありません。現在の root: <code style="overflow-wrap:anywhere">${esc(D.integrity?.root || '')}</code>（葉 ${D.integrity?.leaves.length || 0} 件）</p>
     <h2 id="credits">イラストのクレジット</h2>
-    <p>イラストは <a href="https://www.irasutoya.com/" target="_blank" rel="noopener">いらすとや</a>（みふねたかし氏）の素材を、<a href="https://www.irasutoya.com/p/terms.html" target="_blank" rel="noopener">利用規約</a>の範囲で使っています（参照日 2026-10-23。点数は 20 点以内）。図表はすべて研究データから自動で描いたもので、イラストは装飾であり、データの内容を表すものではありません。</p>
+    <p>イラストは <a href="https://www.irasutoya.com/" target="_blank" rel="noopener">いらすとや</a>（みふねたかし氏）の素材を、<a href="https://www.irasutoya.com/p/terms.html" target="_blank" rel="noopener">利用規約</a>の範囲で使っています（参照日 2026-10-23。点数は 20 点以内）。表示時に CSS で単色化しています（いらすとやの FAQ が認める範囲の色の変更で、元の絵柄は変えていません）。図表はすべて研究データから自動で描いたもので、イラストは装飾であり、データの内容を表すものではありません。</p>
     <div class="table-wrap"><table><thead><tr><th></th><th>素材</th><th>使用箇所</th></tr></thead><tbody>${(D.illustrations || []).map((x) => `<tr><td style="width:64px"><img src="${x.file}" alt="" style="width:48px;height:48px;object-fit:contain" loading="lazy"></td><td><a href="${esc(x.page)}" target="_blank" rel="noopener">${esc(x.title)}</a></td><td>${esc(x.used_for)}</td></tr>`).join('')}</tbody></table></div>
     <h2>研究ノートの保存</h2><p>ログイン不要で、このブラウザの localStorage に保存します。別のブラウザや端末とは共有されず、サイトデータの削除で消えます。JSON の書き出し・読み込みで移行・バックアップしてください。</p>
     <h2>データの追加</h2><p>研究データはリポジトリの <code>data/</code> にある YAML です。1 事例 1 ファイル（<code>data/games/&lt;id&gt;.yaml</code>）で、形式は <code>docs/RESEARCH_GUIDE.md</code> にあります。<code>npm run build</code> で検査とサイト用データの生成を行い、参照切れ・日付形式・出典の欠落があるとビルドが失敗します。</p>
     <p class="small muted">データ更新日: ${A.fmtDate(D.lastUpdated)}・ビルド日: ${A.fmtDate(D.generated)}</p></div>`;
+})();
+
+(function () {
+  const A = window.A;
+  A.aboutHtml.after = ({ params }) => { const id = params.get('s'); if (id) document.getElementById(id)?.scrollIntoView(); };
 })();

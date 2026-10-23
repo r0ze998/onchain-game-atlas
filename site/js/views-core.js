@@ -24,22 +24,24 @@
       ['graph', '#/graph', '発明のつながり', '確認された影響と分析上の類似を、線の種類で分けて辿ります。'],
     ];
     const ins = D.insights.slice().sort((x, y) => ({ high: 0, medium: 1, low: 2 }[x.confidence] - { high: 0, medium: 1, low: 2 }[y.confidence]));
+    const root = D.integrity?.root || '';
     return `<section class="hero">
       <div class="hero-text">
-        <p class="eyebrow">オンチェーンゲームの設計史を、出典付きで</p>
-        <h1>オンチェーンゲーム<br>設計アトラス</h1>
-        <p class="lede">何が発明され、何が成立せず、どこにまだ可能性が残っているか。2012 年の賭けゲームから 2026 年の AI エージェントまで、成功例だけでなく終了・停滞・転換した事例も同じ重さで調べた研究ツールです。</p>
+        <p class="eyebrow">ONCHAIN GAME DESIGN ATLAS · 公開台帳のように、出典まで辿れる設計史</p>
+        <h1>オンチェーンゲーム設計アトラス</h1>
+        <p class="lede">何が発明され、何が成立せず、どこにまだ可能性が残っているか。2012 年の賭けゲームから 2026 年の AI エージェントまで、成功例だけでなく終了・停滞・転換した事例も同じ重さで記録した研究ツールです。すべての記述は出典に、すべての記録は内容ハッシュに結びついています。</p>
         <div class="btn-row"><a class="btn primary" href="#/questions">問いから始める</a><a class="btn" href="#/insights">主な知見を読む</a><a class="btn" href="#/entries">事例を一覧する</a></div>
       </div>
-      ${A.illu('hero', 'hero-illu')}
+      ${A.charts.eraChain()}
+      <p class="root-hash"><span>dataset root</span><code title="${esc(root)}">sha256:${esc(root.slice(0, 16))}…${esc(root.slice(-8))}</code><a href="#/about?s=integrity">この値の意味</a></p>
     </section>
     <dl class="stats">
-      <div><dt>事例</dt><dd>${D.games.length}<small>うち深掘り ${deep}</small></dd></div>
-      <div><dt>出来事</dt><dd>${D.events.length}</dd></div>
-      <div><dt>出典</dt><dd>${D.sources.length}<small>一次資料 ${D.sources.filter((x) => x.primary).length}</small></dd></div>
-      <div><dt>インサイト</dt><dd>${D.insights.length}</dd></div>
-      <div><dt>設計仮説</dt><dd>${D.hypotheses.length}</dd></div>
-      <div><dt>独立検証</dt><dd>${D.games.filter((g) => g.verification).length}<small>/ ${D.games.length} 事例</small></dd></div>
+      <div><dt>ENTRIES<span>事例</span></dt><dd>${D.games.length}<small>深掘り ${deep}</small></dd></div>
+      <div><dt>EVENTS<span>出来事</span></dt><dd>${D.events.length}</dd></div>
+      <div><dt>SOURCES<span>出典</span></dt><dd>${D.sources.length}<small>一次資料 ${D.sources.filter((x) => x.primary).length}</small></dd></div>
+      <div><dt>INSIGHTS<span>インサイト</span></dt><dd>${D.insights.length}</dd></div>
+      <div><dt>HYPOTHESES<span>設計仮説</span></dt><dd>${D.hypotheses.length}</dd></div>
+      <div><dt>VERIFIED<span>独立検証</span></dt><dd>${D.games.filter((g) => g.verification).length}<small>/ ${D.games.length} 事例</small></dd></div>
     </dl>
     <section class="home-sec">
       <h2>使い方: 問いから実験まで</h2>
@@ -168,6 +170,7 @@
       <p class="small muted"><a href="#/entries">索引</a> / ${esc(L.kind[g.kind])}</p>
       <h1>${esc(g.name)}${g.name_ja ? ` <span class="muted small">${esc(g.name_ja)}</span>` : ''}</h1>
       <div>${A.catTags(g)} <span class="tag">${esc(L.depth[g.depth])}</span> <span class="tag">状態: ${esc(L.status[g.status?.value] || '不明')}${g.status?.as_of ? '（' + A.fmtDate(g.status.as_of) + '時点）' : ''}</span></div>
+      <p class="rec-meta"><span class="vbadge ${g.verification ? 'ok' : 'no'}">${g.verification ? '✓ 独立検証済み' : '未検証'}</span><span class="mono">id: ${esc(g.id)}</span>${g.hash ? `<span class="mono" title="元データ ${esc(g.file)} の SHA-256">sha256:${esc(g.hash.slice(0, 12))}…</span>` : ''}<span class="mono">sources: ${(g.sources || []).length}</span><span class="mono">updated: ${esc(g.updated)}</span></p>
       <div class="btn-row">${entryActions(g.id)}<a class="btn" href="#/graph/${esc(g.id)}">つながりを見る</a></div>
       <section id="overview"><p class="lede">${esc(g.summary)}</p>
       <dl class="kv"><dt>選定理由</dt><dd>${esc(g.selection_reason)}</dd>
@@ -181,7 +184,7 @@
       <section id="arch"><h2>構造：何がオンチェーンで、誰が何を変えられるか</h2>
       ${A.charts.archDiagram(g)}
       ${g.concepts?.length ? `<p class="small">関連する概念: ${g.concepts.map((c) => `<a class="tag" href="#/concept/${esc(c)}">${esc(A.nodeName(c))}</a>`).join('')}</p>` : ''}</section>
-      ${secs.map((s) => `<section id="sec-${s}"><h2>${esc(L.section[s])}</h2>${A.stmts(g.article[s])}</section>`).join('')}
+      ${secs.map((s, i) => `<section id="sec-${s}"><h2><span class="secno">§${i + 1}</span>${esc(L.section[s])}</h2>${A.stmts(g.article[s])}</section>`).join('')}
       ${g.depth === 'index' ? '<p class="note-box">この項目は索引レベルです。深掘り記事はまだありません。</p>' : ''}
       <section id="axes"><h2>比較軸</h2><dl class="kv">${A.AXES.map((ax) => `<dt>${esc(L.axis[ax])}</dt><dd>${A.stmt(g.compare?.[ax])}</dd>`).join('')}</dl>
       <p><a class="btn" href="#/compare/${esc(g.id)}">この項目から比較を始める</a></p></section>

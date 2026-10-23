@@ -48,7 +48,7 @@
       A.$('#tl-count').textContent = `${evs.length} 件の出来事`;
       const eras = D.eras.length ? D.eras : [{ id: 'all', title: '全期間', from: '0000', to: null, changes: [] }];
       const inEra = (e, era) => e.date >= era.from && (!era.to || e.date.slice(0, era.to.length) <= era.to);
-      A.$('#tl-body').innerHTML = eras.map((era) => {
+      A.$('#tl-body').innerHTML = eras.map((era, ei) => {
         const list = evs.filter((e) => inEra(e, era));
         let lastYear = '';
         const items = list.map((e) => {
@@ -57,7 +57,7 @@
           lastYear = y;
           return head + A.eventLi(e);
         }).join('');
-        return `<section class="era" id="era-${esc(era.id)}"><div class="era-head">${A.illu(era.id, 'era-illu')}<div class="era-text"><h2>${esc(era.title)} <span class="muted small">${A.fmtDate(era.from)} – ${era.to ? A.fmtDate(era.to) : '現在'}</span></h2>
+        return `<section class="era" id="era-${esc(era.id)}"><div class="era-head">${A.illu(era.id, 'era-illu')}<div class="era-text"><p class="blk-label">BLOCK ${String(ei + 1).padStart(2, '0')} · ${ei ? `prev ← BLOCK ${String(ei).padStart(2, '0')}` : 'genesis'}</p><h2>${esc(era.title)} <span class="muted small">${A.fmtDate(era.from)} – ${era.to ? A.fmtDate(era.to) : '現在'}</span></h2>
           ${era.summary ? `<p>${esc(era.summary)}</p>` : ''}
           ${era.changes?.length ? `<details><summary>何が変化したか（${era.changes.length}）</summary>${A.stmts(era.changes)}</details>` : ''}
           ${era.unchanged ? `<p class="small"><b>変わらなかったこと：</b>${esc(era.unchanged)}</p>` : ''}
@@ -67,6 +67,8 @@
     };
     f.addEventListener('change', render);
     render();
+    const era = A.parseHash().params.get('era');
+    if (era) document.getElementById(`era-${era}`)?.scrollIntoView();
   };
 
   // ---------- 比較 ----------
@@ -136,7 +138,7 @@
         <span><svg width="40" height="10" aria-hidden="true"><line x1="0" y1="5" x2="40" y2="5" stroke="currentColor" stroke-width="2"/></svg> 確認された関係</span>
         <span><svg width="40" height="10" aria-hidden="true"><line x1="0" y1="5" x2="40" y2="5" stroke="currentColor" stroke-width="1.6" stroke-dasharray="6 4"/></svg> 分析上の類似</span>
         <span><svg width="40" height="10" aria-hidden="true"><line x1="0" y1="5" x2="40" y2="5" stroke="currentColor" stroke-width="1.2" stroke-dasharray="2 3"/></svg> 概念タグ</span>
-        <span>○ 事例　□ 概念</span></div>
+        <span><svg width="12" height="12" aria-hidden="true"><rect x="1" y="1" width="10" height="10" fill="var(--accent-soft)" stroke="var(--accent)"/></svg> 事例</span><span><svg width="12" height="12" aria-hidden="true"><polygon points="6,0.5 11,3.25 11,8.75 6,11.5 1,8.75 1,3.25" fill="var(--surface-2)" stroke="var(--muted)"/></svg> 概念</span></div>
       <div class="graph-wrap"><div id="g-svg"></div><div id="g-side"></div></div>
       <h2>関係の一覧</h2>
       <form class="toolbar" id="rel-filter" aria-label="関係の絞り込み"><label>キーワード<input type="search" name="q" placeholder="名前・説明"></label>
@@ -202,7 +204,9 @@
     const shape = (id, x, y, big) => {
       const name = A.nodeName(id);
       const short = name.length > 16 ? name.slice(0, 15) + '…' : name;
-      const s = isConcept(id) ? `<rect class="concept" x="${x - 9}" y="${y - 9}" width="18" height="18" rx="2"></rect>` : `<circle class="game" cx="${x}" cy="${y}" r="${big ? 13 : 9}"></circle>`;
+      const r = big ? 13 : 9;
+      const hex = (cx, cy, k) => [0, 1, 2, 3, 4, 5].map((i) => { const a = Math.PI / 6 + (i * Math.PI) / 3; return `${(cx + k * Math.cos(a)).toFixed(1)},${(cy + k * Math.sin(a)).toFixed(1)}`; }).join(' ');
+      const s = isConcept(id) ? `<polygon class="concept" points="${hex(x, y, 10)}"></polygon>` : `<rect class="game" x="${x - r}" y="${y - r}" width="${2 * r}" height="${2 * r}" rx="1.5"></rect>`;
       const anchor = big ? 'middle' : x < cx - 5 ? 'end' : x > cx + 5 ? 'start' : 'middle';
       const tx = big ? x : x + (anchor === 'end' ? -14 : anchor === 'start' ? 14 : 0);
       const ty = big ? y + 30 : y + 4 + (anchor === 'middle' ? (y < cy ? -16 : 20) : 0);

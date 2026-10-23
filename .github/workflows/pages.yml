@@ -19,6 +19,7 @@ jobs:
           PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: "1"
       - run: npm test
       - run: npm run build
+      - run: node scripts/verify-integrity.mjs
       - name: Publish site/ to gh-pages
         run: |
           cd site

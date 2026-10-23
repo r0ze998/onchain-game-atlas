@@ -9,6 +9,7 @@
   "scripts": {
     "validate": "node scripts/validate.mjs",
     "build": "node scripts/build.mjs",
+    "verify": "node scripts/verify-integrity.mjs",
     "linkcheck": "node scripts/linkcheck.mjs",
     "serve": "node scripts/serve.mjs",
     "test": "node --test tests/validate.test.mjs",

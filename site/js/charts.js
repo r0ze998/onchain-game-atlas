@@ -285,3 +285,25 @@
     return `<ol class="flow">${steps.map(([k, t, d, h], i) => `<li><a href="${h}">${A.illu(k, 'flow-img')}<span class="flow-step">${i + 1}</span><b>${t}</b><span>${d}</span></a></li>`).join('')}</ol>`;
   };
 })();
+
+/* 時代区分をブロックの連なりとして描く（ホームの冒頭）。数値は研究データから数える */
+(function () {
+  'use strict';
+  const A = window.A;
+  const { esc, D } = A;
+  A.charts.eraChain = () => {
+    const inEra = (date, era) => date >= era.from && (!era.to || date.slice(0, era.to.length) <= era.to);
+    const blocks = D.eras.map((era, i) => {
+      const evs = D.events.filter((e) => inEra(e.date, era));
+      const starts = D.games.filter((g) => { const d = g.dates?.launched?.date || g.dates?.announced?.date; return d && inEra(d, era); });
+      const ends = evs.filter((e) => e.type === 'end').length;
+      const [head, tail] = era.title.split(/\s*—\s*/);
+      return `<li class="blk"><a href="#/timeline?era=${esc(era.id)}" aria-label="時代 ${i + 1}: ${esc(era.title)}">
+        <span class="blk-h"><span>BLOCK ${String(i + 1).padStart(2, '0')}</span><span>${esc(era.from.slice(0, 4))}–${era.to ? esc(era.to.slice(0, 4)) : 'now'}</span></span>
+        <b class="blk-t">${esc(head)}</b>${tail ? `<span class="blk-s">${esc(tail)}</span>` : ''}
+        <span class="blk-k"><span><em>${starts.length}</em>事例が開始</span><span><em>${evs.length}</em>出来事</span><span><em>${ends}</em>終了</span></span>
+        <span class="blk-prev">${i ? `prev ← BLOCK ${String(i).padStart(2, '0')}` : 'genesis'}</span></a></li>`;
+    });
+    return `<ol class="chain" aria-label="時代区分（ブロックごとに 1 つの時代）">${blocks.join('')}</ol>`;
+  };
+})();
