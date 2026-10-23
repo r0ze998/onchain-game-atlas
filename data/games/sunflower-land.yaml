@@ -8,12 +8,12 @@ updated: "2026-10-23"
 chains: [Polygon（農場 NFT・収集品・旧 SFL）, Base（FLOWER）, Ronin（FLOWER の入出金）]
 team: "Thought Farm Pty Ltd（シドニー。CEO/創業者 Adam Hannigan）と外部の貢献者"
 summary: >-
-  ブラウザで遊ぶピクセルアートの農業ゲーム。前身の Sunflower Farmers（2021）はほぼ全ての行動がオンチェーン取引で、2022-01 にボットと報酬目当ての流入で Polygon を数日間混雑させ、
+  ブラウザで遊ぶピクセルアートの農業ゲーム。前身の Sunflower Farmers（2021）は多くの行動にオンチェーン取引を要する設計で（どこまでがオンチェーンだったかは資料で記述が異なる）、2022-01 にボットと報酬目当ての流入で Polygon を数日間混雑させ、
   一時停止ののち「サーバーで進行しチェーンへ同期する」設計で Sunflower Land として作り直された。
   以後はボット対策（キャプチャ、ブラックリスト、評判、顔認証による「Proof of Humanity」、序盤ほど高い市場手数料）とトークン経済の改定（SFL の半減期・出金税、2025 年に FLOWER へ移行し Base・Ronin で流通）を繰り返しながら、
   VC 資金なしで 2026 年まで 3 か月ごとの Chapter を出し続けている。クライアントは GitHub で公開され多数の外部貢献があるが、ライセンスは付いておらず、サーバーは非公開である。
 selection_reason: >-
-  「すべてをオンチェーンにした農業ゲームがボットに何をされたか」と、その後「どこまでをオフチェーンに戻せば続けられたか」を、
+  「多くの行動をオンチェーン取引にした農業ゲームがボットに何をされたか」と、その後「どこまでをオフチェーンに戻せば続けられたか」を、
   コミット履歴・公開ドキュメント・当時の報道で追える事例だから。利用者の文明シミュレーションと同じ農業・生産ループを持ち、
   公開クライアント＋公式 API＋UGC（Portals、Economy Editor）で他者の拡張を受け入れる一方、利用規約で AI エージェントによるプレイを明示的に禁止している点で、
   AI・他者の機能の再利用という構想への重要な反例・参照点になる。
@@ -92,7 +92,7 @@ article:
     - {t: "他プレイヤーとは市場（FLOWER 建て、出品数は評判段階で 1 日 2 件〜無制限）、友人の農場の訪問・清掃・Village Project への応援、勢力（Faction）の週次競争で関わる。", k: fact, s: [src-sunflower-land-docs-marketplace, src-sunflower-land-docs-farming]}
     - {t: "FLOWER を外に出すには、顔認証を済ませ、獲得分は Grand Harvester（1,000 点）に達し、最低 5 FLOWER・日次上限・10〜30% の手数料を払う。入金した未使用分は評判なしで引き出せる。", k: fact, s: [src-sunflower-land-docs-collectibles, src-sunflower-land-docs-marketplace]}
   before_after:
-    - {t: "前身 Sunflower Farmers（Polygon）は、セーブ・道具使用・収穫などほぼ全ての行動がブロックチェーン取引を要する設計で、2022-01 初めにボットの大量利用と重なって Polygon の手数料を約 30 gwei から 1,000 gwei 超へ押し上げたと報告された。", k: fact, s: [src-sunflower-land-w3igg]}
+    - {t: "前身 Sunflower Farmers（Polygon）は、セーブ・道具使用・収穫などほぼ全ての行動がブロックチェーン取引を要する設計で、2022-01 初めにボットの大量利用と重なって Polygon の手数料を約 30 gwei から 1,000 gwei 超へ押し上げたとされる。ただし Naavik は、旧作の進行はブラウザのローカル状態に保存され定期的にチェーンへ同期されたと書いており、設計の記述は資料間で一致しない（contradictions 参照）。", k: claim, who: "Web3 is Going Just Great（Molly White）", s: [src-sunflower-land-w3igg, src-sunflower-land-naavik]}
     - {t: "Decrypt は、2022-01-05 の Polygon の平均ガス価格が約 764 gwei、直前 3 日間のガス使用量の 3 分の 2 超が Sunflower Farmers だったと PolygonScan を引いて伝え、同ゲームの報酬トークン SFF は 1/4 の高値 5.75 ドルから 89% 下落した。", k: fact, s: [src-sunflower-land-decrypt-polygon]}
     - {t: "運営は 2022-01 の Polygon 助成申請で、2 週間で日次 100 人から 5 万人超・35 万のブロックチェーンアカウントに増えたが「ボットに悪用された」と述べ、新設計の第一段階を「オフチェーンデータ、検証、アンチボットのフィルタリング」とした。", k: claim, who: "Sunflower Land チーム", s: [src-sunflower-land-polygon-grant], q: "The game was not perfect, and unfortunately it was abused by bots."}
     - {t: "作り直し後（2022）は、進行をサーバーに保存し、定期的に Polygon へ「同期」（1 回約 0.10〜0.13 ドルのガス）する方式になった。Naavik は、運営が不正な同期データに対して取れる手段は NFT とウォレットの BAN だけだと指摘した。", k: claim, who: "Naavik", s: [src-sunflower-land-naavik]}
@@ -114,7 +114,7 @@ article:
     - {t: "2025-05 に SFL を FLOWER（Base。参照日時点のドキュメントでは総供給 2.56 億・流通 2,000 万）へ「アップグレード」し、以後 FLOWER は Base と Ronin で入出金できる。運営は直近 6 か月が創業以来最も財務的に成功したと述べ、2026 年に FLOWER を使う新作（Project II）を予告した。", k: claim, who: "運営 (Thought Farm)", s: [src-sunflower-land-docs-tokenomics, src-sunflower-land-docs-project-ii]}
     - {t: "コミット作者名の数は年ごとに 2022 年 76、2023 年 34、2024 年 39、2025 年 49、2026 年（10 月まで）32 で、開発は 2026 年も続いている（作者名の重複・別名を含む概数）。", k: fact, s: [src-sunflower-land-git-history]}
   retention_evidence:
-    - {t: "示されている指標: 累計作成農場数（60 万超、運営）、2022 年の DAU・MAU の減少（Naavik、出典の計測方法は不明）、BAN 数、リリース数、コミット数。示されていないもの: 現在の DAU・MAU、コホート継続率、ボット除外後の人数、報酬を出金しない層の割合。", k: analysis, s: [src-sunflower-land-docs-vision, src-sunflower-land-naavik]}
+    - {t: "示されている指標: 累計作成農場数（60 万超、運営）、2022 年の DAU・MAU の減少（Naavik が Dune のデータで、チェーンへの同期取引を代理指標として集計）、BAN 数、リリース数、コミット数。示されていないもの: 現在の DAU・MAU、コホート継続率、ボット除外後の人数、報酬を出金しない層の割合。", k: analysis, s: [src-sunflower-land-docs-vision, src-sunflower-land-naavik]}
     - {t: "継続の間接的な証拠として、開発チームとリリースが 2021 年から 2026 年まで途切れず、運営は 2025 年に「創業以来最も財務的に成功した 6 か月」と述べた。ただし財務の数字は公開されていない。", k: claim, who: "運営 (Thought Farm)", s: [src-sunflower-land-docs-project-ii, src-sunflower-land-git-history]}
     - {t: "報酬なしで残ったプレイヤーの直接の証拠は見つからなかった。トークン報酬は形を変えて続いており（SFL→FLOWER）、2022 年の急減後に残った層が報酬目的か娯楽目的かは公開資料から区別できない。", k: unknown}
     - {t: "2022-08 の DappRadar 日次アクティブウォレット（10,160）は Naavik の DAU（7,209）と別の数字で、ウォレット数とプレイヤー数が一致しない例になっている。", k: claim, who: "Naavik", s: [src-sunflower-land-naavik]}
@@ -123,6 +123,7 @@ article:
     - {t: "Portals（旧 Community Islands）は外部開発者がミニゲーム・ギルド島・ツールを作り、承認後にゲーム内から入れる仕組みで、2023-12 に賞金 42,000 SFL のハッカソンを行った。Crypto Unicorns の島などのリポジトリが公開されている。", k: fact, s: [src-sunflower-land-docs-portals, src-sunflower-land-docs-portal-competition, src-sunflower-land-gh-repo]}
     - {t: "Economy Editor（実験的機能）では、プレイヤーが資源・建物・スキルを「アイテム」として定義し、焼却・発行・時間付き生成器のルールを書くと保存時に公開され、他プレイヤーが市場から閲覧できる。サーバーは定義済みのアクションしか実行しない。", k: fact, s: [src-sunflower-land-docs-economies]}
     - {t: "読み取り専用の Community API（15 秒間隔推奨）で、第三者が農場状態を使ったツールを作れる。", k: fact, s: [src-sunflower-land-offchain-api]}
+    - {t: "運営自身は生成 AI を UGC 制作に試した。2026-03-24 のコミット「[FEAT] Portal AI」で、プロンプトから Phaser のミニゲームを生成する実験的な AI Builder（例文「Create a simple maze game where the farmer collects sunflowers」）を許可リスト制で追加し、2026-04-24 に「[CHORE] Remove AI builder」で削除した。2026-10 には PR プレビュー用の LLM テストシナリオもコミットされている。", k: fact, s: [src-sunflower-land-git-history]}
   constraints:
     - {t: "ボット対策は継続的な検出と BAN に依存し、運営は検出シグナルの全リストを意図的に公開しない。同じ世帯の別アカウントや譲渡された農場も審査対象になり、正規の利用者が巻き込まれる余地がある。", k: fact, s: [src-sunflower-land-docs-prohibited]}
     - {t: "クライアントは公開されているが「No Licence」で再利用できず、理由は以前の版の他チェーンでの無断利用だった。公開と模倣防止の両立ができず、フォークによる継続（運営停止後の存続）は法的に閉ざされている。", k: fact, s: [src-sunflower-land-github]}
@@ -137,14 +138,15 @@ article:
     - {t: "「オフチェーン化と対策で続いた」という読みに対し、2022 年の作り直し後も数か月で DAU は 83% 減っており（Naavik）、対策が利用者の維持に効いたとは言えない。続いた理由が対策なのか、小さなチーム・VC なしの低コスト運営なのかは区別できない。", k: analysis, s: [src-sunflower-land-naavik, src-sunflower-land-docs-vision]}
     - {t: "運営の「最も財務的に成功した 6 か月」（2025）は新チェーン対応と市場機能の追加と同時期で、ゲームの面白さより新規チェーンの流入・キャンペーンによる可能性がある。財務数値は非公開。", k: analysis, s: [src-sunflower-land-docs-project-ii]}
     - {t: "「オープンソースで共同開発」という自己説明に対し、ライセンスはなく、コミットの約 4 分の 3 は中心チームの名前によるもので、サーバーとコントラクトは公開リポジトリに含まれない。外部貢献は実在するが、ゲームの規則を決める部分は運営の手元にある。", k: fact, s: [src-sunflower-land-github, src-sunflower-land-git-history]}
+    - {t: "「AI を排除するゲーム」という読みへの留保: 規約が禁じるのはゲームプレイの自動化・実行・実質的補助であり、運営は同時期（2026-03〜04）に AI で Portal のミニゲームを生成する実験機能を出し、1 か月で削除している。AI は制作側では使われ、プレイヤー側の代理としてだけ禁止されている。", k: analysis, s: [src-sunflower-land-git-history, src-sunflower-land-docs-prohibited]}
     - {t: "ブロックチェーンが不要だった方向の証拠: 遊びの大半はウォレットなしで成立し、ボット対策・季節トークン・手数料設計はすべてサーバー側の仕組みである。チェーンは主に換金経路として機能しており、その換金経路こそがボットを呼ぶ原因だった。", k: analysis, s: [src-sunflower-land-docs-collectibles, src-sunflower-land-polygon-grant]}
 
 metrics:
   - {id: m-sunflower-land-users-2022-01, type: wallets, value: 434000, value_text: "43.4 万（7 日間、前期間比 3,704% 増）", unit: users, period: "2021-12-30〜2022-01-06 頃（7 日間）", definition: "DappRadar の 7 日間ユニークユーザー（Decrypt が引用）", nature: measured, s: [src-sunflower-land-decrypt-polygon]}
   - {id: m-sunflower-land-daily-2022-01, type: dau, value: 50000, value_text: "日次 100 人 → 5 万人超、ブロックチェーンアカウント 35 万", unit: players, period: "2021-12〜2022-01 の 2 週間", definition: "運営が助成申請で述べた日次プレイヤー数（定義なし）", nature: reported, s: [src-sunflower-land-polygon-grant]}
   - {id: m-sunflower-land-gas-2022-01-05, type: other, value: 764, value_text: "約 764 gwei（12 月末は 72〜115 gwei）", unit: gwei, period: "2022-01-05", definition: "PolygonScan の Polygon 平均ガス価格（Decrypt が引用）", nature: measured, s: [src-sunflower-land-decrypt-polygon]}
-  - {id: m-sunflower-land-dau-2022, type: dau, value: 7209, value_text: "ピーク 42,999 → 7,209（83% 減）", unit: players, period: "2022-04 頃〜2022-08（約 4 か月）", definition: "Naavik が示した DAU（計測元は記事内で明示されず）", nature: estimated, s: [src-sunflower-land-naavik]}
-  - {id: m-sunflower-land-mau-2022, type: mau, value: 49362, value_text: "ピーク 112,183 → 49,362（56% 減）", unit: players, period: "2022-05 頃〜2022-08（3 か月強）", definition: "Naavik が示した月間プレイヤー", nature: estimated, s: [src-sunflower-land-naavik]}
+  - {id: m-sunflower-land-dau-2022, type: dau, value: 7209, value_text: "ピーク 42,999 → 7,209（83% 減）", unit: players, period: "2022-04 頃〜2022-08（約 4 か月）", definition: "Naavik が Dune のデータで集計した DAU の代理指標（ブロックチェーンへの同期取引を行ったプレイヤー）", nature: measured, s: [src-sunflower-land-naavik], note: "Naavik 自身は MAU は同期で確定でき、DAU は「まずまずの代理指標」と書く。BAN 済み以外のボットも含み得る"}
+  - {id: m-sunflower-land-mau-2022, type: mau, value: 49362, value_text: "ピーク 112,183 → 49,362（56% 減）", unit: players, period: "2022-05 頃〜2022-08（3 か月強）", definition: "Naavik が Dune のデータで集計した月間の同期プレイヤー数", nature: measured, s: [src-sunflower-land-naavik]}
   - {id: m-sunflower-land-bans-2022, type: other, value: 15000, value_text: "1.5 万超（供給の 10% 超）", unit: farm NFTs, period: "2022-08 時点", definition: "恒久 BAN された農場 NFT 数（Naavik）", nature: estimated, s: [src-sunflower-land-naavik]}
   - {id: m-sunflower-land-farms-2026, type: players, value: 600000, value_text: "60 万超", unit: farms, period: "2026（ドキュメント参照時点）", definition: "累計作成農場数（運営）", nature: reported, s: [src-sunflower-land-docs-about]}
   - {id: m-sunflower-land-commits-2026, type: other, value: 11326, value_text: "11,326 コミット・作者名 148", unit: commits, period: "2021-02-01〜2026-10-23", definition: "GitHub main ブランチの全コミット数と一意な作者名の数（git log で集計。同一人物の別名を含む）", nature: measured, s: [src-sunflower-land-git-history]}
@@ -155,10 +157,11 @@ events:
   - {id: ev-sunflower-land-grant, date: "2022-01-12", type: other, title: "Polygon 助成申請で「オフチェーンデータ・検証・アンチボット」を第一段階とする再設計を提示", s: [src-sunflower-land-polygon-grant]}
   - {id: ev-sunflower-land-blacklist, date: "2022-03-14", type: spec-change, title: "ブラックリスト応答をクライアントに実装", s: [src-sunflower-land-git-history]}
   - {id: ev-sunflower-land-captcha, date: "2022-04-05", type: spec-change, title: "特定の行動にキャプチャを追加", s: [src-sunflower-land-git-history]}
+  - {id: ev-sunflower-land-relaunch, date: "2022-04-07", type: release, title: "Sunflower Land として段階的に再開（Naavik の記述）", detail: "Naavik は旧作が 2022-01 初めに停止し、4/7 から段階的に再開したと記す。一次資料では未確認", s: [src-sunflower-land-naavik]}
   - {id: ev-sunflower-land-sfl-launch, date: "2022-05-22", type: launch, title: "SFL トークン開始（約 0.30 ドル）", s: [src-sunflower-land-naavik]}
-  - {id: ev-sunflower-land-portal-hackathon, date: "2023-12-05", type: other, title: "Portal Builder Competition 開始（賞金 42,000 SFL）", s: [src-sunflower-land-docs-portal-competition]}
+  - {id: ev-sunflower-land-portal-hackathon, date: "2023-12-05", type: other, title: "Portal Builder Competition 開始（賞金 42,000 SFL）", detail: "ページは「12 月 5 日」とだけ書き年を記さない。賞金は表の合計 42,000 SFL で、本文は「2,000 ドル相当」とする。2023 年とする根拠は直前のコミット「[FEAT] Portal Adventure (#3211)」（2023-11-30）", s: [src-sunflower-land-docs-portal-competition, src-sunflower-land-git-history]}
   - {id: ev-sunflower-land-ronin, date: "2025-02-19", type: release, title: "Ronin 向け Welcome Pack を実装（Ronin 対応）", s: [src-sunflower-land-git-history]}
-  - {id: ev-sunflower-land-face, date: "2025-03-10", type: spec-change, title: "顔認証（Proof of Humanity）を実装", s: [src-sunflower-land-git-history]}
+  - {id: ev-sunflower-land-face, date: "2025-03-10", type: spec-change, title: "顔認証（Proof of Humanity）を実装", detail: "コミット「[FEAT] Face recognition (#5379)」。それ以前にも本人確認の試みがあり、2022-09-05「Enable play while humanity is being verified」、2022-09-30 CloudFlare Captcha、2023-07-27 Anima Proof of Personhood（同日に revert）がある。評判の ProofOfHumanity は顔認証または旧来の verified フラグで満たされる", s: [src-sunflower-land-git-history, src-sunflower-land-code-reputation]}
   - {id: ev-sunflower-land-flower, date: "2025-05", type: spec-change, title: "SFL を FLOWER（Base）へアップグレード、6 か月の 1:1 交換期間", s: [src-sunflower-land-docs-tokenomics]}
   - {id: ev-sunflower-land-fairplay-ai, date: "2026-08-21", type: spec-change, title: "Fair Play Policy 更新（AI エージェントによるプレイ自動化の禁止を明記）", detail: "AI 禁止条項がこの更新で初めて入ったかは未確認", s: [src-sunflower-land-docs-prohibited]}
 
@@ -171,7 +174,8 @@ relations:
 unknowns:
   - "現在（2025〜2026）の DAU・MAU と、その定義"
   - "Sunflower Farmers の正確な開始日と、混雑時のボット比率"
-  - "2022 年の作り直し（Sunflower Land のオープンベータ）の正確な日付"
+  - "2022 年の作り直し（Sunflower Land のオープンベータ）の正確な日付（Naavik は 2022-04-07 から段階的に再開とするが一次資料で未確認）"
+  - "2022-01 の Polygon 助成申請が承認・支払われたか（フォーラムのスレッドに結果の記載は見当たらない）"
   - "SFL の半減期（halvening）と出金税の正確な規則と変更履歴（Naavik の記述とコミットメッセージでしか確認していない）"
   - "farmHash による eval の目的（アンチボットの指紋取得か等）"
   - "AI 禁止条項が規約に入った時期"
@@ -180,6 +184,7 @@ unknowns:
 contradictions:
   - {t: "Chapter 1 の時期を、Chapters ページは 2023 年 2 月、ドキュメント索引は「March 8th -> April 30th 2023」とする", s: [src-sunflower-land-docs-chapters]}
   - {t: "2022-01 の混雑時のガス価格を、web3isgoinggreat は 30 gwei から 1,000 gwei 超、Decrypt は 1/5 平均約 764 gwei とする（時点・指標の違い）", s: [src-sunflower-land-w3igg, src-sunflower-land-decrypt-polygon]}
+  - {t: "旧作の設計を、web3isgoinggreat は「セーブ・道具使用・収穫などほぼ全ての行動がブロックチェーン取引を要した」とし、Naavik は「旧作は中央サーバーを使わず、進行をブラウザのローカル状態に保存して定期的にチェーンへ同期した」とする", s: [src-sunflower-land-w3igg, src-sunflower-land-naavik]}
   - {t: "Polygon 助成申請の要求額は改訂版で 8,000 ドルとされる一方、本文のマイルストーンは 10 万ドル・約 50 万ドルと書かれている", s: [src-sunflower-land-polygon-grant]}
 
 sources:

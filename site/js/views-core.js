@@ -145,7 +145,7 @@
     const qs = [...new Set(I.questionsByGame.get(g.id) || [])];
     const hs = [...new Set(I.hypothesesByGame.get(g.id) || [])];
     const srcs = (g.sources || []).map((s) => I.source.get(s.id)).filter(Boolean);
-    const toc = [['overview', '概要'], ['arch', '構造'], ...secs.map((s) => [`sec-${s}`, L.section[s]]), ['axes', '比較軸'], metrics.length && ['metrics', '数値'], events.length && ['events', '出来事'], rels.length && ['rels', 'つながり'], (g.unknowns?.length || g.contradictions?.length) && ['unknowns', '未確認・矛盾'], ['sources', '出典']].filter(Boolean);
+    const toc = [['overview', '概要'], ['arch', '構造'], ...secs.map((s) => [`sec-${s}`, L.section[s]]), ['axes', '比較軸'], metrics.length && ['metrics', '数値'], events.length && ['events', '出来事'], rels.length && ['rels', 'つながり'], (g.unknowns?.length || g.contradictions?.length) && ['unknowns', '未確認・矛盾'], ['verification', '検証'], ['sources', '出典']].filter(Boolean);
     return `<div class="detail"><article>
       <p class="small muted"><a href="#/entries">索引</a> / ${esc(L.kind[g.kind])}</p>
       <h1>${esc(g.name)}${g.name_ja ? ` <span class="muted small">${esc(g.name_ja)}</span>` : ''}</h1>
@@ -174,6 +174,7 @@
       ${g.unknowns?.length || g.contradictions?.length ? `<section id="unknowns"><h2>未確認・矛盾</h2>
         ${g.unknowns?.length ? `<h3>確認できなかったこと</h3><ul>${g.unknowns.map((u) => `<li>${esc(u)}</li>`).join('')}</ul>` : ''}
         ${g.contradictions?.length ? `<h3>資料間の矛盾</h3><ul>${g.contradictions.map((c) => `<li>${esc(c.t)}${A.cites(c.s)}</li>`).join('')}</ul>` : ''}</section>` : ''}
+      <section id="verification"><h2>検証</h2>${A.verifBox(g)}</section>
       <section id="sources"><h2>出典（${srcs.length}）</h2>${A.sourceTable(srcs)}</section>
     </article>
     <aside><div class="sticky">
@@ -206,10 +207,24 @@
     <td>${r.to === self ? `<b>${esc(A.nodeName(r.to))}</b>` : A.nodeLink(r.to)}</td>
     <td><span class="k ${r.basis === 'confirmed' ? 'k-fact' : 'k-analysis'}">${esc(L.basis[r.basis])}</span></td><td>${esc(r.note || '')}</td><td>${A.cites(r.s)}</td></tr>`).join('')}</tbody></table></div>`;
 
-  A.sourceTable = (srcs) => `<div class="table-wrap"><table><thead><tr><th>#</th><th>資料</th><th>種類</th><th>公開日</th><th>参照日</th><th>状態</th></tr></thead><tbody>
+  A.sourceTable = (srcs) => `<div class="table-wrap"><table><thead><tr><th>#</th><th>資料</th><th>種類</th><th>公開日</th><th>参照日</th><th>状態</th><th>リンク検査</th></tr></thead><tbody>
     ${srcs.map((s) => `<tr id="src-${esc(s.id)}"><td class="num">${A.srcNum(s) ? (s.ownerId === A.ctxEntry ? A.srcNum(s) : esc(A.nodeName(s.ownerId)) + ' ' + A.srcNum(s)) : ''}</td><td><a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.title)}</a><div class="small muted">${esc(s.publisher || '')}${s.author ? '・' + esc(s.author) : ''}${s.note ? '・' + esc(s.note) : ''} <a href="#/source/${esc(s.id)}">参照箇所</a></div></td>
     <td>${esc(L.source_type[s.type] || s.type)}<div class="small muted">${s.primary ? '一次資料' : '二次資料'}</div></td><td>${s.published ? A.fmtDate(s.published) : '<span class="muted">不明</span>'}</td><td>${A.fmtDate(s.accessed)}</td>
-    <td>${s.access === 'fetched' ? esc(L.access[s.access]) : `<span class="k k-claim">${esc(L.access[s.access])}</span>`}</td></tr>`).join('')}</tbody></table></div>`;
+    <td>${s.access === 'fetched' ? esc(L.access[s.access]) : `<span class="k k-claim">${esc(L.access[s.access])}</span>`}</td>
+    <td class="small">${A.linkLabel(s.link)}</td></tr>`).join('')}</tbody></table></div>`;
+
+  A.LINK = { ok: '到達', 'repo-ok': 'リポジトリ確認', 'missing-repo': 'リポジトリなし', 'env-blocked': '検査環境で遮断', refused: 'サイトが自動検査を拒否', missing: '404', 'network-error': '接続不可' };
+  A.linkLabel = (st) => {
+    if (!st) return '<span class="muted">未検査</span>';
+    const bad = ['missing', 'missing-repo', 'network-error'].includes(st) || st.startsWith('http-');
+    return bad ? `<span class="k k-claim">${esc(A.LINK[st] || st)}</span>` : esc(A.LINK[st] || st);
+  };
+  A.verifBox = (g) => {
+    if (!g.verification) return `<p class="note-box">この項目は独立した検証役による再確認をまだ受けていません。調査役の記述のみです。</p>`;
+    const verdict = (g.verification.match(/総合判定[^\n]*\n?[^\n]*/) || [''])[0].replace(/[#*]/g, '').trim();
+    return `<details class="card"><summary><b>検証記録</b>（独立した検証役による原資料との照合）${verdict ? '：' + esc(verdict.slice(0, 120)) : ''}</summary>
+      <div class="small" style="white-space:pre-wrap;margin-top:.5rem">${esc(g.verification)}</div></details>`;
+  };
 
   // ---------- 概念 ----------
   V.concept = ({ parts }) => {
@@ -324,7 +339,10 @@
       <h2>資料間の矛盾（${contra.length}）</h2><ul>${contra.map(({ g, x }) => `<li><a href="#/entry/${esc(g.id)}">${esc(g.name)}</a>：${esc(x.t)}${A.cites(x.s)}</li>`).join('') || '<li>なし</li>'}</ul>
       <h2>確認できなかった事項（${unknownCount}）</h2>
       ${D.games.filter((g) => g.unknowns?.length).map((g) => `<details><summary>${esc(g.name)}（${g.unknowns.length}）</summary><ul>${g.unknowns.map((u) => `<li>${esc(u)}</li>`).join('')}</ul></details>`).join('')}
-      ${D.linkcheck ? `<h2>リンク検査</h2><p>${esc(D.linkcheck.summary)}</p>` : ''}
+      <h2>独立検証の状況</h2><p>深掘り ${D.games.filter((g) => g.depth === 'deep').length} 件中 ${D.games.filter((g) => g.depth === 'deep' && g.verification).length} 件、索引 ${D.games.filter((g) => g.depth === 'index').length} 件中 ${D.games.filter((g) => g.depth === 'index' && g.verification).length} 件が検証役の再確認を受けています。</p>
+      <details><summary>未検証の項目</summary><ul class="small">${D.games.filter((g) => !g.verification).map((g) => `<li><a href="#/entry/${esc(g.id)}">${esc(g.name)}</a>（${esc(L.depth[g.depth])}）</li>`).join('') || '<li>なし</li>'}</ul></details>
+      ${D.linkcheck ? `<h2>リンク検査</h2><p>${esc(D.linkcheck.summary)}</p><p class="small muted">「サイトが自動検査を拒否」は自動の HTTP 検査が 403/429 で拒否されたもので、調査時は閲覧用の経路で参照しています。GitHub はこの環境では HTTP が遮断されるため、git でリポジトリの存在だけを確かめています（ファイル単位は未確認）。</p>
+        <h3>到達できなかった URL</h3><ul class="small">${D.sources.filter((s) => s.link && (['missing', 'missing-repo', 'network-error'].includes(s.link) || s.link.startsWith('http-'))).map((s) => `<li><a href="#/source/${esc(s.id)}">${esc(s.title)}</a> — ${A.linkLabel(s.link)}・資料の参照状態: ${esc(L.access[s.access])}</li>`).join('') || '<li>なし</li>'}</ul>` : ''}
     </div>`;
   };
 

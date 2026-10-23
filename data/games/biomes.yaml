@@ -23,10 +23,10 @@ status:
   value: pivoted
   as_of: "2026-10"
   note: >-
-    Biomes の名前での世界は 2024-04 から 2025-05 まで Redstone 上の同一ワールドアドレスで運用され、2025-04-01 にリポジトリが DUST へ改名、2025-05〜06 に新しいワールドが Redstone に展開された。
-    DUST は 2026-04 に DUST Chain へ移行（README は「DUST mainnet」で稼働中と記載）。一方 dustproject.org は参照日時点で「DUST Chain は 2026-12-31 に停止する」と告知している。
+    worlds.json の履歴では、Biomes 期の Redstone ワールド（0xf75b…）が 2024-04-28〜2025-02-18 に記録され、2025-02-18 の書き換え（DUST への作り直し）で記録から外れた。2025-04-01 にリポジトリが DUST へ改名、2025-05-29〜06-11 に新しいワールドが Redstone に展開された。
+    DUST は 2026-04 に DUST Chain へ移行（README は「DUST mainnet」で稼働中と記載）し、DUST Chain（chain id 55378）にも Redstone 最終ワールドと同じアドレス（0x253e…）が記録された。参照日に DUST Chain の公開 RPC は応答し、最新ブロックは 2026-10-23 だった。一方 dustproject.org は参照日時点で「DUST Chain は 2026-12-31 に停止する」と告知している。
     Redstone 自体は 2026-05-15 に停止した。Biomes 期のワールドがその後どう扱われたかの公式説明は見つからなかった。
-  s: [src-biomes-worlds-json, src-biomes-commits, src-biomes-migration-2026, src-biomes-dust-site, src-biomes-l2beat]
+  s: [src-biomes-worlds-json, src-biomes-commits, src-biomes-migration-2026, src-biomes-dust-rpc, src-biomes-dust-site, src-biomes-l2beat, src-biomes-lattice-x]
 dates:
   announced: {date: "2024-02", s: [src-biomes-commits, src-biomes-buidlguidl], note: "現リポジトリの初回コミットは 2024-02-25。2024-03 に biomes.everlon.xyz でプレイテスト"}
   launched: {date: "2024-05", s: [src-biomes-buidlguidl, src-biomes-decrypt-redstone, src-biomes-worlds-json], note: "Redstone メインネット（2024-05-01）の初期タイトル。開発者の記録では 4 つのエクスペリエンスとともに Biome-1 を公開。ワールドアドレスは 2024-04-28 に確定"}
@@ -66,7 +66,7 @@ compare:
   gameplay: {t: "一人称のボクセル世界で木や鉱石を採掘し、ブロックを置き、作業台でクラフトし、フォースフィールドで自分の区域を守る。体力（stamina）が行動を制限し、溶岩などで消耗する。チップを付けたチェストで売買・預金ができる。", k: fact, s: [src-biomes-bankless, src-biomes-commits, src-biomes-experience-prs]}
   necessity: {t: "第三者が書いたチェストのルール（価格・入場条件）を運営の許可なく共有世界に置き、他者がそれを信頼して取引できる点はオンチェーン実行の利点になり得る。ただし運営はシステム更新・フック一括削除・一時停止の権限を持ち、ワールド自体も作り直されたため、利用者が運営を信頼しなくてよい状況にはなっていなかった。", k: analysis, s: [src-biomes-adminhook, src-biomes-guardian, src-biomes-worlds-json]}
   information: {t: "全状態が公開。私有チェストや私的な看板はアクセス制御で操作を制限するもので、内容の秘匿ではない。", k: fact, s: [src-biomes-experience-prs]}
-  persistence: {t: "Biomes 期の Redstone ワールド（2024-04-28 確定のアドレス）は 2025-05 以降、新しい DUST ワールドに置き換えられ、2024-12 には運営がチェスト・店の状態を新規格へ移行するスクリプトを実行した。Redstone は 2026-05-15 に停止し、DUST Chain も 2026-12-31 の停止を告知している。", k: fact, s: [src-biomes-worlds-json, src-biomes-commits, src-biomes-l2beat, src-biomes-dust-site]}
+  persistence: {t: "Biomes 期の Redstone ワールド（2024-04-28 確定のアドレス）は 2025-02 に worlds.json から外れ、2025-05〜06 に新しい DUST ワールドへ置き換えられた。2024-12 には運営がチェスト・店の状態を新規格へ移行するスクリプトを実行した。2026-04 の DUST Chain 移行ではワールドのアドレスは維持された。Redstone は 2026-05-15 に停止し、DUST Chain も 2026-12-31 の停止を告知している。", k: fact, s: [src-biomes-worlds-json, src-biomes-commits, src-biomes-l2beat, src-biomes-lattice-x, src-biomes-dust-site]}
   extensibility: {t: "フック／委任（同意制）→ チップ（オブジェクト単位、電池で保護）→ Program（フォースフィールドが区域内の付け替えを検証）と仕組みが 3 回変わった。いずれも誰でもコントラクトを書いて付けられる。", k: fact, s: [src-biomes-experience-docs, src-biomes-chipsystem-2024, src-biomes-programs-doc]}
   money_flow: {t: "トークン報酬はなく、プレイヤーは Redstone のガスを払う（Bankless は約 0.01 ETH で数千トランザクション分と記載）。チップ付きチェストでは ETH や ERC-20 で取引でき、作者が売上を受け取る設計の作例があった。開発資金の一部は BuidlGuidl の助成（開発者 2 名で計 15 ETH の引き出し記録）。", k: fact, s: [src-biomes-bankless, src-biomes-experience-prs, src-biomes-buidlguidl]}
   entry_barrier: {t: "ブラウザで遊べるが、ウォレットと Redstone 上の ETH が必要。拡張にはチップ／プログラムのコントラクトを書いてデプロイし、MUD World Explorer 等から付け替える知識が要る。", k: fact, s: [src-biomes-program-registration, src-biomes-bankless]}
@@ -92,25 +92,26 @@ article:
   onchain_tradeoffs:
     - {t: "第三者チップの呼び出しは、利用者が止めたい動機を持つ行動（叩く・電池切れ後の取り外し）では固定ガス上限付きの safe call にし、悪意あるチップが行動を妨害できないようにした（DUST 版では SAFE_PROGRAM_GAS = 1,000,000）。", k: fact, s: [src-biomes-chipsystem-2024, src-biomes-programs-doc]}
     - {t: "電池の残る間はチップが取り外しを拒否でき、電池が 0 なら誰でも外せる。保護を続けるには電池を補給し続ける必要があり、拡張の維持にゲーム内コストがかかる。", k: fact, s: [src-biomes-chipsystem-2024, src-biomes-hitchip]}
-    - {t: "全行動がトランザクションのため、運営は採掘・建築・移動・攻撃の 1 ブロックあたりのレート制限（例: 採掘 20、プレイヤー攻撃 1）を 2025-09 に導入した。", k: fact, s: [src-biomes-changelog]}
+    - {t: "全行動がトランザクションのため、運営は 2025-09-01 に採掘・建築・攻撃の 1 ブロックあたりのレート制限（採掘 20、建築 20、プレイヤー攻撃 1、フォースフィールド攻撃 20）を導入し、2025-09-30 にブロック番号ではなくタイムスタンプ基準へ変更した。", k: fact, s: [src-biomes-changelog]}
     - {t: "2024-10 にアバター（rover）経由の移動を実時間移動へ置き換え、UX が桁違いに良くなったと開発者は記録している。", k: claim, who: "開発者 (dhvanipa.eth)", s: [src-biomes-buidlguidl], q: "Implemented real-time movement so no more rover/avatar, making the UX an order of magnitude better (live on testnet)"}
   roles:
-    - {t: "開発チーム: コア System、クライアント、テンプレートを作り、チップの作例も大半を書いた。エクスペリエンス用リポジトリで確認できた PR は 25 件すべて開発者 dhvanipa によるもの（表示された 1 ページ分）。", k: fact, s: [src-biomes-experience-prs]}
+    - {t: "開発チーム: コア System、クライアント、テンプレートを作り、チップの作例も大半を書いた。エクスペリエンス用リポジトリの PR は全 34 件（2 ページ）すべて開発者 dhvanipa によるもの。", k: fact, s: [src-biomes-experience-prs]}
     - {t: "作例 PR には「Settlers Union Bank」「Orden Downtown Chest」「WASD Member Chest」「Sakura Enjoyer Chest」など、プレイヤー集団名を冠したチェストが含まれ、開発者がプレイヤー組織向けのチップを書いていた可能性がある。", k: analysis, s: [src-biomes-experience-prs, src-biomes-experience-pr20]}
-    - {t: "第三者: scaffold リポジトリに外部の cupOJoseph らによる「Biocash contracts」PR（トークンとアイテム転送）が 2024-05 に出されたが、マージされていない。", k: fact, s: [src-biomes-biocash-pr]}
+    - {t: "第三者: scaffold リポジトリに外部の cupOJoseph らによる「Biocash contracts」PR（トークンとアイテム転送）が 2024-05 に出されたが、参照日時点でも未マージのまま open である。", k: fact, s: [src-biomes-biocash-pr]}
     - {t: "運営: ROOT 権限でシステム更新とフック一括削除を行い、データ移行（2024-12、2026-04）を実施した。", k: fact, s: [src-biomes-adminhook, src-biomes-commits, src-biomes-migration-2026]}
     - {t: "エージェント・ボット: DUST のドキュメントにはボットによる自動化の章（コンソール・スクリプト）があり、自動化を前提にしている。AI エージェントの参加実績は確認できなかった。", k: fact, s: [src-biomes-dust-repo]}
   trajectory:
     - {t: "2024-02 開発開始、2024-03 プレイテスト、2024-05 Redstone メインネットで Biome-1 と 4 つのエクスペリエンスを公開、2024-06 チップ導入、2024-07 フォースフィールド導入とユーザーフックの削除、2024-08-31 スマートアイテム版をメインネット公開、2024-10 アルファ開始。", k: fact, s: [src-biomes-buidlguidl, src-biomes-commits, src-biomes-bankless]}
     - {t: "2024-12 に Exchange 規格を導入し、既存のチェスト・アイテムショップ・交換所のデータを新規格へ移行するスクリプトを運営が実行した。", k: fact, s: [src-biomes-commits]}
     - {t: "2025-02 にフックと委任の利用を削除し、地形システムを作り直し、2025-03 にエクスペリエンスパッケージを削除、2025-04-01 に DUST へ改名した。", k: fact, s: [src-biomes-commits]}
-    - {t: "Redstone 上のワールドアドレスは 2024-04-28 から 2025-05 まで同一で、2025-05-29〜06-11 に新しいアドレスへ 4 回置き換わった（DUST ワールドの展開）。", k: fact, s: [src-biomes-worlds-json]}
-    - {t: "2025-02 以降は tenetxyz 以外の開発者（V、Kevin Ingersoll、vdrg、alvarius 等）のコミットが加わった。2026-04 の報道は DUST を Lattice の最後のプロジェクトとし、残余資金を充てると伝えた。2026-04-06 の移行で DUST は Redstone から DUST Chain へ移った。", k: fact, s: [src-biomes-commits, src-biomes-techflow, src-biomes-migration-2026]}
+    - {t: "worlds.json に記録された Redstone 上のワールドアドレスは 2024-04-28〜2025-02-18 は同一（0xf75b…）で、2025-02-18 に記録から外れ、2025-05-29〜06-11 に新しいアドレスへ 4 回置き換わった（DUST ワールドの展開）。2026-04-06 の移行では DUST Chain（55378）とそのテストネット（55377）に同じ最終アドレス（0x253e…）が追加された。", k: fact, s: [src-biomes-worlds-json, src-biomes-migration-2026]}
+    - {t: "2025-02 以降は tenetxyz 以外の開発者（V、Kevin Ingersoll、vdrg、alvarius 等）のコミットが加わった。2026-04 の報道は DUST を Lattice の最後のプロジェクトとし残余資金を充てる（ChainCatcher）、DUST は DUST Chain へ移り 0xPARC が支援を続ける（TechFlow）と伝えた。2026-04-06 の移行で DUST は Redstone から DUST Chain へ移った。", k: fact, s: [src-biomes-commits, src-biomes-chaincatcher, src-biomes-techflow, src-biomes-migration-2026]}
+    - {t: "main 以外の base-deploy ブランチに 2026-07-27 付けのコミット 2 件（Kevin Ingersoll）があり、Base Sepolia（chain id 84532）上のワールドを worlds.json に記録している。DUST Chain 停止後に Base 系チェーンへ移す計画があるかは公式に説明されていない。", k: fact, s: [src-biomes-commits]}
     - {t: "参照日（2026-10）時点で dustproject.org は DUST Chain を 2026-12-31 に停止すると告知している。", k: fact, s: [src-biomes-dust-site], q: "DUST CHAIN IS SHUTTING DOWN ON DECEMBER 31, 2026. FOLLOW THESE STEPS TO WITHDRAW YOUR ETH."}
   retention_evidence:
     - {t: "プレイヤー数、DAU、チップの取り付け数、チップ付きチェストの取引額のいずれも公表値を見つけられなかった。「最大の GDP」は数値の伴わない主張。", k: unknown}
     - {t: "GitHub 指標は dustproject/dust がスター 27・フォーク 4・979 コミット、エクスペリエンステンプレートがスター 2、scaffold がスター 5・フォーク 3（参照日時点）。外部開発者の参加が広がった形跡は薄い。", k: fact, s: [src-biomes-dust-repo, src-biomes-experience-prs, src-biomes-scaffold-prs]}
-    - {t: "コミット数は 2025-04〜05 に月約 100 件でピークとなり、2025-08 以降は月 14 件以下、2025-10〜2026-03 はほぼゼロで、2026-04 に移行のための 3 件がある。", k: fact, s: [src-biomes-commits]}
+    - {t: "main のコミット数は 2025-04〜05 に月約 100 件でピークとなり、2025-08 以降は月 14 件以下、2025-10〜2026-03 はほぼゼロで、2026-04 に移行のための 3 件がある（別ブランチに 2026-07 の 2 件）。", k: fact, s: [src-biomes-commits]}
   extensions:
     - {t: "開発者による作例チップ: 店（固定価格、トークン、ステーブルコイン、動的価格、VRGDA、Uniswap 風 AMM、NFT 販売）、銀行チェスト（アイテムごとに ERC-20 を発行）、私有チェスト、私有区域・NFT 所有者限定区域（フォースフィールド）、パルクール報酬チェスト、私的看板・画像表示。", k: fact, s: [src-biomes-experience-prs, src-biomes-buidlguidl]}
     - {t: "開発者の記録では、2024-06 に ETH 店・ボンディングカーブ店・トークン化商品店の「経済プリミティブ」を作り、2024-08 に ERC-721 を発行する売買チェストと、ゲーム内アイテムごとに ERC-20 を発行する銀行チェストをメインネットに公開した。", k: fact, s: [src-biomes-buidlguidl]}
@@ -118,7 +119,7 @@ article:
     - {t: "2024-07-25 に運営は AdminHookSystem（ROOT 専用の deleteAllUserHooks）を追加し、スクリプトで各プレイヤーの登録済みフックを走査して削除した。フック型の拡張はこの時点で強制的に外された。", k: fact, s: [src-biomes-adminhook]}
   constraints:
     - {t: "拡張の仕組みが 2 年で 3 回変わり、そのたびに既存の拡張はインターフェース変更・データ移行・削除の対象になった。拡張作者にとって「付けたコードが残る」前提は Biomes 期には成立していなかった。", k: analysis, s: [src-biomes-adminhook, src-biomes-commits, src-biomes-worlds-json]}
-    - {t: "DUST の README は「アルファ中もワールドのコントラクトアドレスは変えず、システムのインターフェースは後方互換に保つ」と約束したが、その後チェーン自体を移し、さらにチェーン停止を告知している。", k: fact, s: [src-biomes-dust-repo, src-biomes-migration-2026, src-biomes-dust-site]}
+    - {t: "DUST の README は「アルファ中もワールドのコントラクトアドレスは変えず、システムのインターフェースは後方互換に保つ」と約束した。2026-04 の移行ではアドレス自体は新チェーンでも維持されたが、チェーンが変わったため旧チェーン上の参照（RPC・資産・ブリッジ）は継続せず、さらに移行先チェーンの停止を告知している。アドレス不変の約束は、チェーン不変を含まない限り永続性の保証にならない。", k: fact, s: [src-biomes-dust-repo, src-biomes-worlds-json, src-biomes-migration-2026, src-biomes-dust-site]}
     - {t: "チップ／プログラムの内容を利用者が確かめる仕組みはコントラクトの公開以外になく、信頼はアクセス制御（区域のフォースフィールドが付け替えを検証）と電池による保護に委ねられていた。", k: analysis, s: [src-biomes-programs-doc, src-biomes-chipsystem-2024]}
   principles:
     - {t: "電池で裏付けた拡張の効力: 第三者コントラクトの「取り外し拒否」を、ゲーム内で補給が必要な電池が残る間だけ有効にし、他者が叩いて削れるようにすると、放棄された拡張は自然に排除され、守りたい拡張は維持費を払い続ける。適用条件は、電池の生産・補給が遊びの一部として意味を持つこと。破綻条件は、維持費が拡張の利益を上回る場合で、誰も拡張を置かなくなる。", k: analysis, s: [src-biomes-chipsystem-2024, src-biomes-hitchip]}
@@ -128,6 +129,7 @@ article:
     - {t: "確認できる拡張のほぼすべてが開発チーム自身の作例で、唯一見つかった第三者の PR（Biocash）はマージされていない。許可不要の仕組みが第三者による拡張とその利用を生んだという証拠は見つからなかった。", k: fact, s: [src-biomes-experience-prs, src-biomes-biocash-pr]}
     - {t: "運営は ROOT 権限でユーザーのフックを一括削除し、ワールドを作り直し、データを移行しており、「誰にも消せない拡張」とは逆の運用が行われた。アルファ段階の調整としては合理的だが、Autonomous World の主張とは緊張関係にある。", k: fact, s: [src-biomes-adminhook, src-biomes-worlds-json, src-biomes-commits]}
     - {t: "dustproject.org は「Can't be wiped」「one permanent network」と掲げながら、同じページで DUST Chain の 2026-12-31 停止を告知している。世界の永続性は運営資金とチェーン運営に依存していた。", k: fact, s: [src-biomes-dust-site]}
+    - {t: "dustproject.org/what は「No admins. Just physics.」と掲げるが、コード上は Guardian が世界を一時停止でき、ROOT 名前空間の所有者がシステム更新・Guardian の任免・再開を行える。「管理者なし」は運用実態ではなく目標の表現である。", k: fact, s: [src-biomes-dust-what, src-biomes-guardian, src-biomes-dust-repo], q: "No admins—the world's rules enforce themselves."}
     - {t: "運営が拡張機構を何度も作り直したのは、第三者の需要に応えた結果ではなく、運営自身の設計探索だった可能性がある（PR 作者がほぼ単独であることから）。拡張可能性は製品の差別化要素ではあっても、定着の原因だったかは評価できない。", k: analysis, s: [src-biomes-experience-prs, src-biomes-commits]}
 
 metrics:
@@ -146,7 +148,7 @@ events:
   - {id: ev-biomes-migrate-2024, date: "2024-12-26", type: spec-change, title: "チェスト・店のデータを Exchange 規格へ移行", s: [src-biomes-commits]}
   - {id: ev-biomes-rename-dust, date: "2025-04-01", type: pivot, title: "DUST へ改名", detail: "フック・委任の削除（2025-02）、エクスペリエンスパッケージ削除（2025-03）に続く", s: [src-biomes-commits]}
   - {id: ev-biomes-new-world, date: "2025-06-11", type: release, title: "DUST の新ワールドを Redstone に展開（最終アドレス）", detail: "2025-05-29 から 4 回の再展開", s: [src-biomes-worlds-json]}
-  - {id: ev-biomes-redstone-end, date: "2026-05-15", type: end, title: "Redstone 停止", s: [src-biomes-l2beat]}
+  - {id: ev-biomes-redstone-end, date: "2026-05-15", type: end, title: "Redstone 停止", detail: "Lattice が 2026-04-14（UTC）の X 投稿で告知", s: [src-biomes-lattice-x, src-biomes-l2beat]}
   - {id: ev-biomes-dust-chain, date: "2026-04-06", type: spec-change, title: "DUST を DUST Chain へ移行", detail: "README を「DUST mainnet で稼働」に変更", s: [src-biomes-migration-2026]}
 
 relations:
@@ -164,7 +166,9 @@ unknowns:
   - "DUST Chain 停止後に状態のアーカイブや移行が予定されているか。"
   - "docs.biomes.aw は参照日に名前解決できず、当時の公式ドキュメント全体は確認できなかった。"
 contradictions:
-  - {t: "DUST の README は「ワールドのコントラクトアドレスは変わらない」「マップは消えない」とするが、2026-04 にチェーン自体を移行し、公式サイトは DUST Chain の 2026-12-31 停止を告知している。", s: [src-biomes-dust-repo, src-biomes-migration-2026, src-biomes-dust-site]}
+  - {t: "DUST の README は「ワールドのコントラクトアドレスは変わらない」「マップは消えない」とする。2026-04 の移行でアドレスは維持されたが、チェーン自体は移行し、公式サイトは DUST Chain の 2026-12-31 停止を告知している。", s: [src-biomes-dust-repo, src-biomes-worlds-json, src-biomes-migration-2026, src-biomes-dust-site]}
+  - {t: "dustproject.org/what の「No admins」と、GuardianSystem（Guardian による一時停止、ROOT のみ再開）・README の「ガバナンスは将来分散化する」が食い違う。", s: [src-biomes-dust-what, src-biomes-guardian, src-biomes-dust-repo]}
+  - {t: "Redstone 停止の告知日: Lattice の X 投稿は 2026-04-14 17:20 UTC、TechFlow・ChainCatcher は 2026-04-15。", s: [src-biomes-lattice-x, src-biomes-techflow, src-biomes-chaincatcher]}
   - {t: "Redstone の停止日時: L2BEAT・TechFlow は 2026-05-15 23:59 UTC、ChainCatcher は 2026-05-16 07:59（UTC+8 表記とみられる）。", s: [src-biomes-l2beat, src-biomes-techflow, src-biomes-chaincatcher]}
 
 sources:
@@ -192,6 +196,8 @@ sources:
   - {id: src-biomes-dust-site, title: "DUST", url: "https://dustproject.org", publisher: "DUST", type: official-docs, primary: true, published: "2026-10", accessed: "2026-10-23", access: fetched, lang: en, note: "DUST Chain の 2026-12-31 停止告知、「Can't be wiped」等の標語"}
   - {id: src-biomes-dust-what, title: "DUST — What", url: "https://dustproject.org/what", publisher: "DUST", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "プレイヤーコードが世界のルールになる、管理者なし等の説明"}
   - {id: src-biomes-l2beat, title: "Redstone - L2BEAT", url: "https://l2beat.com/layer2s/projects/redstone", publisher: "L2BEAT", type: analysis, primary: false, accessed: "2026-10-23", access: fetched, lang: en, note: "2026-05-15 停止"}
-  - {id: src-biomes-techflow, title: "TechFlow newsletter (Lattice / Redstone shutdown)", url: "https://www.techflowpost.com/en-US/newsletter/119817", publisher: "TechFlow", type: news, primary: false, published: "2026-04-15", accessed: "2026-10-23", access: fetched, lang: en, note: "Lattice の段階的終了、DUST は DUST Chain へ、0xPARC が支援継続。title はニュースレター内の該当項目を示す仮題（原見出しは未取得）"}
+  - {id: src-biomes-techflow, title: "Lattice Announces Redstone Shutdown in May 2026; Users Must Withdraw Funds Promptly", url: "https://www.techflowpost.com/en-US/newsletter/119817", publisher: "TechFlow", type: news, primary: false, published: "2026-04-15", accessed: "2026-10-23", access: fetched, lang: en, note: "Lattice の段階的終了、DUST は DUST Chain へ、0xPARC が支援継続。title は検証時に取得したニュースレター内の該当項目見出し。DUST を「最後のプロジェクト」とはしていない"}
   - {id: src-biomes-chaincatcher, title: "The blockchain game infrastructure Lattice announced the gradual shutdown of its business, and the Redstone network will …", url: "https://www.chaincatcher.com/en/article/2258693", publisher: "ChainCatcher", type: news, primary: false, published: "2026-04-15", accessed: "2026-10-23", access: fetched, lang: en, note: "Lattice の段階的終了、Redstone 停止、残余資金を DUST へ"}
+  - {id: src-biomes-lattice-x, title: "After five years, Lattice is winding down. Redstone shuts down May 15, 2026 (23:59 UTC).", url: "https://x.com/latticexyz/status/2044103611072835744", publisher: "Lattice (X)", type: social, primary: true, published: "2026-04-14", accessed: "2026-10-23", access: fetched, lang: en, note: "Redstone 停止の一次告知。X の公開埋め込み API で本文冒頭と投稿日時 2026-04-14T17:20:53Z を取得。検証役が追加"}
+  - {id: src-biomes-dust-rpc, title: "DUST Chain public RPC (eth_chainId / eth_getBlockByNumber / eth_getCode)", url: "https://rpc.dustproject.org", publisher: "DUST", type: onchain-data, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "chain id 0xd852（55378）、genesis 2026-03-16、最新ブロック 2026-10-23、0x253e… にコードあり。テストネット RPC は 55377。検証役が追加"}
   - {id: src-biomes-docs-site, title: "Biomes docs", url: "https://docs.biomes.aw", publisher: "Biomes", type: official-docs, primary: true, accessed: "2026-10-23", access: unreachable, lang: en, note: "参照日に名前解決できず"}

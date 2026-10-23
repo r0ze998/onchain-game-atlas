@@ -23,6 +23,16 @@ const lc = path.join(ROOT, 'data', 'linkcheck.json');
 if (fs.existsSync(lc)) {
   const r = JSON.parse(fs.readFileSync(lc, 'utf8'));
   dataset.linkcheck = { summary: r.summary, checked: r.checked };
+  const byUrl = new Map(r.results.map((x) => [x.url, x.status]));
+  for (const s of dataset.sources) s.link = byUrl.get(s.url) || null;
+}
+// 検証役の記録（docs/verification/<id>.md）を項目に添付
+const vdir = path.join(ROOT, 'docs', 'verification');
+if (fs.existsSync(vdir)) {
+  for (const g of dataset.games) {
+    const f = path.join(vdir, `${g.id}.md`);
+    if (fs.existsSync(f)) g.verification = fs.readFileSync(f, 'utf8');
+  }
 }
 dataset.quality = { errors, warnings };
 

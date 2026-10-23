@@ -22,7 +22,7 @@ status:
   value: pivoted
   as_of: "2026-10"
   note: >-
-    ブログの最終投稿は 2023-11-10（Keystone 公開）。GitHub の keystone は 2024-01、treaty-contracts は 2023-05 が最終更新で、
+    ブログの最終投稿は 2023-11-10（Keystone 公開）。GitHub の keystone は 2024-01、treaty-contracts は main の最終コミットが 2023-02-06（別ブランチに 2023-05「improving for LLM codegen」）で、
     組織プロフィールは「Makers of Duper」と表示される。Duper の内容は確認できなかった。Treaty の運営終了の告知は見つからなかった。
   s: [src-curio-keystone, src-curio-github, src-curio-profile]
 dates:
@@ -75,6 +75,7 @@ article:
     - {t: "コア関数への承認フック: 移動・攻撃・転送などのコア関数に「署名した条約が許可するか」の確認を差し込むと、プレイヤーが書いた制度（同盟の不可侵、禁輸）を全員の同意なしに、参加者にだけ強制できる。適用条件は、どの関数にフックできるかが事前に列挙され、参加が任意であること。破綻条件は、フックがガスを浪費・失敗させる悪意ある条約や、脱退・委任の取り消しで約束が守られない場合（Treaty の条約例には最低在籍時間や脱退時のホワイトリスト解除などの個別対策が書かれている）。", k: analysis, s: [src-curio-treaty-intro, src-curio-treaty-repo]}
   counter_evidence:
     - {t: "Curio 自身が Keystone の告知で、単一 EVM チェーン上のゲームは多数の同時ユーザーを扱えず、ティック駆動のゲームループが作れず、ゲーム開発の既存ツールも使えないと総括し、ゲーム論理を Go に移した。完全にスマートコントラクトで書く設計への、当事者による反論である。", k: claim, who: "Curio", s: [src-curio-keystone], q: "Games built on a single EVM blockchain cannot handle many concurrent users let alone scale to millions."}
+    - {t: "Keystone の告知は Treaty を「プレイヤーが政治的・社会的な契約を表すスマートコントラクトを展開できた最初のゲーム」と書くが、2022-10 の OPCraft ではプレイヤーが独自のコンポーネントとシステム（ComradeComponent・GovernmentSystem）を展開して共和国の制度を作っており、「最初」は当事者の主張にとどまる。Treaty の新しさは、条約をコア関数の承認フックとして強制する点に限定して評価すべきである。", k: analysis, s: [src-curio-keystone, src-curio-opcraft-part3]}
     - {t: "Phase 1 の振り返りでは、RTS は多数の部隊の操作が「クリック競争」になり確定が即時でないチェーンに不向きで、殲滅型の勝利条件は長期のゲームに向かないとして、SLG（Rise of Kingdoms 型）へ方向転換した。", k: claim, who: "Curio", s: [src-curio-phase1]}
 
 events:
@@ -99,11 +100,12 @@ unknowns:
 sources:
   - {id: src-curio-phase1, title: "Announcing: Phase 1 Completion", url: "https://blog.curio.gg/phase-1/", publisher: "Curio blog", type: official-blog, primary: true, published: "2022-10-24", accessed: "2026-10-23", access: fetched, lang: en, note: "オンチェーン ECS エンジン、RTS の問題点と SLG への転換、Treaty 構想"}
   - {id: src-curio-treaty-intro, title: "Introducing Treaty", url: "https://blog.curio.gg/introducing-treaty/", publisher: "Curio blog", type: official-blog, primary: true, published: "2022-12-22", accessed: "2026-10-23", access: fetched, lang: en, note: "条約がコア関数にフック、スマートコントラクトウォレット、委任、2023-01 公開予定"}
-  - {id: src-curio-tech-overview, title: "How We Built This - Treaty Technical Overview", url: "https://blog.curio.gg/how-we-built-this-treaty-technical-overview/", publisher: "Curio blog", type: official-blog, primary: true, published: "2023-01-03", accessed: "2026-10-23", access: fetched, lang: en, note: "ECS、Diamond の各 Facet、CurioERC20、委任と条約承認の 2 種の権限"}
+  - {id: src-curio-tech-overview, title: "How We Built This - Treaty Technical Overview", url: "https://blog.curio.gg/how-we-built-this-treaty-technical-overview/", publisher: "Curio blog", type: official-blog, primary: true, published: "2023-01-02", accessed: "2026-10-23", access: fetched, lang: en, note: "ECS、Diamond の各 Facet、CurioERC20、委任と条約承認の 2 種の権限"}
   - {id: src-curio-ugl, title: "Next Gen Onchain Gaming with User-Generated Logic", url: "https://blog.curio.gg/next-gen-onchain-gaming-with-user-generated-logic/", publisher: "Curio blog", type: official-blog, primary: true, published: "2023-01-18", accessed: "2026-10-23", access: fetched, lang: en, note: "ユーザー生成ロジック（UGL）の設計論"}
   - {id: src-curio-diplomat, title: "Who’s the Best On-chain Diplomat?", url: "https://blog.curio.gg/whos-the-best-on-chain-diplomat/", publisher: "Curio blog", type: official-blog, primary: true, published: "2023-01-20", accessed: "2026-10-23", access: fetched, lang: en, note: "条約アイデアコンテスト、Embargo の例、承認関数、受賞者に 150 ドル"}
   - {id: src-curio-seed, title: "Our $2.9M Seed Round", url: "https://blog.curio.gg/our-2-9m-seed-round/", publisher: "Curio blog", type: official-blog, primary: true, published: "2023-02-26", accessed: "2026-10-23", access: fetched, lang: en, note: "シード 290 万ドル、ゲーム向けカスタムチェーン開発"}
   - {id: src-curio-keystone, title: "Introducing Keystone", url: "https://blog.curio.gg/introducing-keystone/", publisher: "Curio blog", type: official-blog, primary: true, published: "2023-11-10", accessed: "2026-10-23", access: fetched, lang: en, note: "海戦 RTS デモと Treaty の振り返り、EVM の限界、Go のゲームサーバーと EVM の一体化"}
   - {id: src-curio-treaty-repo, title: "curio-research/treaty-contracts", url: "https://github.com/curio-research/treaty-contracts", publisher: "GitHub", type: code, primary: true, published: "2023-02", accessed: "2026-10-23", access: fetched, lang: en, note: "git clone で確認。registerTreatyTemplate（制限なし）、AdminFacet の onlyAdmin/onlyTreaty、条約例、hardhat のネットワーク設定"}
+  - {id: src-curio-opcraft-part3, title: "Making of OPCraft (Part 3): What happened in two weeks of OPCraft", url: "https://lattice.xyz/blog/making-of-opcraft-part-3-what-happened-in-two-weeks-of-opcraft", publisher: "Lattice blog", author: "Lattice", type: retrospective, primary: true, published: "2022", accessed: "2026-10-23", access: fetched, lang: en, note: "2022-10-29 にプレイヤーが独自コントラクト（ComradeComponent・GovernmentSystem）で共和国を作った記録（反証用）"}
   - {id: src-curio-github, title: "Curio (curio-research) GitHub organization", url: "https://github.com/curio-research", publisher: "GitHub", type: code, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "7 リポジトリ、keystone 最終更新 2024-01、demo-contracts はアーカイブ"}
   - {id: src-curio-profile, title: "curio-research/.github (organization profile)", url: "https://github.com/curio-research/.github", publisher: "GitHub", type: code, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "プロフィール README は「Makers of Duper」"}

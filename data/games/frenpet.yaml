@@ -22,8 +22,9 @@ status:
   as_of: "2026-10"
   note: >-
     参照日時点で公式サイトとドキュメントが稼働し、ドキュメントは無料で始められる現行の仕組み（1 日 10 トランザクションまで運営負担）を説明している。
-    第三者の Super Fren Pet のページは FrenPet へのステーキングが参照の数週間前まで機能していたことを示す。プレイヤー数などの活動量は確認していない。
-  s: [src-frenpet-docs-overview, src-frenpet-superfrenpet]
+    検証役が Base の公開 RPC で V2 Diamond（0x0e22…443c）のイベントログを標本調査したところ、参照日の直近 300 ブロック（約 10 分）に 324 件のログがあり、コントラクトは稼働している。
+    ただしログ数はプレイヤー数ではなく、ボットの比率も不明。（調査役が根拠にした Super Fren Pet のページは、参照日には同ペットが DEAD・ステーク 0・キーパーがオフラインと表示しており、活動の根拠にならない。）
+  s: [src-frenpet-docs-overview, src-frenpet-onchain]
 dates:
   launched: {date: "2023-09", s: [src-frenpet-hello], note: "公式ブログ「Hello Frens」（2023-09-01）で公開を告知"}
 
@@ -52,7 +53,7 @@ architecture:
     level: official-api
     detail: >-
       公開 API と「審査付きの Facet 追加」。運営は Facet を作りたい開発者にまず相談するよう求めている。第三者のオンチェーン活用例として、取引手数料で 1 匹のペットを共同育成する
-      Super Fren Pet（$SFP）があり、キーパーボットがステーキングと餌やりを自動化する。
+      Super Fren Pet（$SFP）があり、キーパーボットがステーキングと餌やりを自動化する設計だが、参照日（2026-10-23）のページではペット（#84373、約 11 日前に誕生）は DEAD、ステーク 0、キーパーはオフラインと表示されていた。
     s: [src-frenpet-v2, src-frenpet-superfrenpet]
 
 compare:
@@ -70,6 +71,7 @@ article:
   principles:
     - {t: "取引税を報酬原資にする: ゲーム内報酬をトークンの売買税から払うと、運営が報酬を発行しなくて済む。適用条件は、トークンに継続的な取引量があること。破綻条件は取引量が落ちた場合で、報酬原資も比例して細り、得点を換金するとペットがリセットされる設計では、換金の時期をめぐる駆け引きが報酬プールの縮小時に一斉換金へ傾き得る。", k: analysis, s: [src-frenpet-docs-rewards, src-frenpet-v2]}
   counter_evidence:
+    - {t: "第三者拡張の唯一の確認例である Super Fren Pet は、参照日に誕生から約 11 日でペットが DEAD、ステーク 0、キーパーがオフラインと自ら表示している。公開 API と許可制 Facet という拡張方針の下で、持続的な第三者のオンチェーン拡張が育った証拠は見つからなかった。", k: fact, s: [src-frenpet-superfrenpet]}
     - {t: "運営は V2 告知時点で、取引量の 2% の収入は自分たちを支えるには安定していないと書いた。取引税モデルは開発者の持続性も取引量に依存させる。", k: claim, who: "Fren Pet 運営", s: [src-frenpet-v2], q: "so far it hasn't been consistent to sustain ourselves"}
 
 events:
@@ -103,4 +105,5 @@ sources:
   - {id: src-frenpet-v2, title: "Fren Pet V2", url: "https://docs.frenpet.xyz/blog/v2", publisher: "Fren Pet blog", type: official-blog, primary: true, published: "2023-11-09", accessed: "2026-10-23", access: fetched, lang: en, note: "Diamond による書き直し、第三者 Facet のホワイトリスト、招待制、収入が安定しないこと"}
   - {id: src-frenpet-next-steps, title: "Fren Pet Next Steps", url: "https://paragraph.com/@frenpet/i46u16XdtviEvGsJ0DYo", publisher: "frenpet.eth (Paragraph)", type: official-blog, primary: true, published: "2023-12-01", accessed: "2026-10-23", access: fetched, lang: en, note: "pGOLD、Season 1、2 人の自己資金チーム"}
   - {id: src-frenpet-bankless, title: "How to Adopt a Fren Pet", url: "https://www.bankless.com/read/how-to-adopt-a-fren-pet", publisher: "Bankless", author: "William M. Peaster", type: news, primary: false, published: "2023-12-12", accessed: "2026-10-23", access: fetched, lang: en, note: "Privy 埋め込みウォレット、鋳造 10 $FP、得点の ETH 交換"}
-  - {id: src-frenpet-superfrenpet, title: "Super Fren Pet", url: "https://www.super-fren-pet.xyz/", publisher: "Super Fren Pet", type: official-docs, primary: false, accessed: "2026-10-23", access: fetched, lang: en, note: "第三者による共同育成ペット。キーパーボットがステーキングを自動化、bonk は署名付きログインが必要で自動化しない"}
+  - {id: src-frenpet-superfrenpet, title: "Super Fren Pet", url: "https://www.super-fren-pet.xyz/", publisher: "Super Fren Pet", type: official-docs, primary: false, accessed: "2026-10-23", access: fetched, lang: en, note: "第三者による共同育成ペット（$SFP は Ethereum 上、手数料を Base へブリッジ）。キーパーボットがステーキングを自動化、bonk とルーレットは FrenPet の署名付きログインが必要で自動化しないと記載。参照日の表示はペット #84373 が DEAD、ステーク 0、キーパー最終確認 11 日前"}
+  - {id: src-frenpet-onchain, title: "Base RPC eth_getLogs sample (FrenPet V2 Diamond)", url: "https://base-mainnet.public.blastapi.io", publisher: "Base 公開 RPC（Blast API）", type: onchain-data, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "検証役が実測。ブロック 52976392〜52976691（2026-10-23 08:05 UTC 時点の直近 300 ブロック）で Diamond 0x0e22b5f3e11944578b37ed04f5312dfc246f443c のログ 324 件"}

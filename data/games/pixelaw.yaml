@@ -51,8 +51,10 @@ architecture:
     detail: >-
       PixeLAW 独自の停止・管理関数はコードに見当たらないが、Dojo のワールドでは名前空間・コントラクトの所有者が upgrade_contract などで実装を差し替えられ、
       モデルへの書き込み権限（writers）も所有者が付与する。mainnet 用設定では Pixel モデルの writer は core の actions と paint・snake に限られ、他アプリは core 経由で書く。
-      加えてコードを読む限り、remove_area に呼び出し元の所有権検査が見当たらず、update_pixel の for_player 検査（validate_callers）は core 自身のアドレス比較のため常に成立するように見える（実行して確認はしていない）。
-    s: [src-pixelaw-dojo-world, src-pixelaw-dojo-mainnet-toml, src-pixelaw-core-pixel, src-pixelaw-core-area]
+      加えて現行 main のコードを読む限り（実行・デプロイ済み版での確認はしていない）、core actions の add_area・remove_area は呼び出し元を検査せずに area モジュールへ渡しており、
+      update_pixel の validate_callers は core actions コントラクト内で get_contract_address() と core 自身のアドレスを比較するため、この比較は常に一致し assert は発火しないように見える。
+      for_player・for_system は呼び出し側が引数で渡す値で、フックに渡される呼び出し元アプリも for_system から読まれる。
+    s: [src-pixelaw-dojo-world, src-pixelaw-dojo-mainnet-toml, src-pixelaw-core-pixel, src-pixelaw-core-area, src-pixelaw-core-actions]
   open_source:
     level: full
     detail: "core（MIT）、examples、app_template、vanilla クライアント、pixelaw.js、server、p_war、book が pixelaw 組織で公開されている。"
@@ -72,7 +74,7 @@ compare:
   information: {t: "ピクセルの全状態は公開。秘匿情報を扱う仕組みはコアにはなく、Minesweeper 等の地雷配置はアプリ側で Poseidon ハッシュ等を使う。", k: fact, s: [src-pixelaw-core-repo, src-pixelaw-examples]}
   persistence: {t: "コード・Docker イメージは公開され誰でも自分の世界を立てられる。一方、参照日に公式のデモ・mainnet 世界には到達できず、キュー処理は外部スケジューラが止まれば進まない。", k: fact, s: [src-pixelaw-core-repo, src-pixelaw-demo, src-pixelaw-core-queue]}
   extensibility: {t: "誰でもアプリを登録でき、フック（on_pre_update / on_post_update）で他アプリからの書き込みを許可・拒否・改変できる。既定値は拒否で、公開例の多くは自アプリ以外の書き込みを拒否する。", k: fact, s: [src-pixelaw-core-app, src-pixelaw-core-pixel, src-pixelaw-examples]}
-  money_flow: {t: "コアにトークンや手数料の仕組みはない。初期の構想記事はチーム・投資家への割当はなく資金調達もしていないと述べ、助成金と寄付を募っていた。収益モデルは確認できなかった。", k: claim, who: "shora（PixeLAW）", s: [src-pixelaw-shora-vision]}
+  money_flow: {t: "コアにトークンや手数料の仕組みはない。初期の構想記事はチーム・投資家への土地の割当はなく、基盤の構築のために資金調達をしない方針だと述べ、助成金と寄付を募っていた。収益モデルは確認できなかった。", k: claim, who: "shora（PixeLAW）", s: [src-pixelaw-shora-vision], q: "We won’t raise funds to build the planet."}
   entry_barrier: {t: "プレイはブラウザのバーナーウォレット（ローカル設定）や Cartridge Controller で可能な設定がある。アプリ開発には Cairo・Dojo（sozo）・Scarb の知識が必要で、Dojo の破壊的変更（1.7 → 1.8 等）への追随も求められる。", k: fact, s: [src-pixelaw-vanilla-worlds, src-pixelaw-core-repo]}
 
 concepts: [c-autonomous-world, c-permissionless-extension, c-ecs-engine, c-onchain-state, c-onchain-rules, c-composable-primitive, m-land, c-own-chain]
@@ -105,7 +107,7 @@ article:
     - {t: "コア開発者: ピクセル・領域・キュー・アプリ登録と権限判定を提供し、既定アプリ（Paint・Snake・Player・House）と Docker 環境、SDK、クライアントを保守する。", k: fact, s: [src-pixelaw-core-repo]}
     - {t: "アプリ開発者: app_template から Cairo でアプリを作り、自分の名前空間にデプロイして new_app で登録する。他アプリとの相互作用はフックの中で相手アプリ名を見て許可する。", k: fact, s: [src-pixelaw-core-app, src-pixelaw-examples]}
     - {t: "スケジューラ（ボット）: QueueScheduled イベントを監視して process_queue を送る。公式の server リポジトリに QueueHandler と PixelBoardBot がある。", k: fact, s: [src-pixelaw-server]}
-    - {t: "エージェント: 2025-12 に「PixeLAW 上でオンチェーンのピクセルゲームを作るための MCP サーバー」リポジトリが作られており、AI はプレイヤーより開発補助として位置づけられている。AI がプレイヤーとして参加した例は確認できなかった。", k: fact, s: [src-pixelaw-github-org]}
+    - {t: "エージェント: 「PixeLAW 上でオンチェーンのピクセルゲームを作るための MCP サーバー」リポジトリ（pixelaw-docs-mcp、参照日の最終更新 2025-12-05、作成日は未確認）があり、AI はプレイヤーより開発補助として位置づけられている。AI がプレイヤーとして参加した例は確認できなかった。", k: fact, s: [src-pixelaw-github-org]}
   trajectory:
     - {t: "2023-07 の ETHGlobal Paris で Starknet Best Use 賞を受賞（Paint・Snake・Rock Paper Scissors）。2023-09 の構想記事で 2023-11 のテストネットと Devconnect Istanbul でのデモを予定と述べた。", k: fact, s: [src-pixelaw-ethglobal, src-pixelaw-shora-vision]}
     - {t: "2023-11 に現在の core リポジトリと examples リポジトリが作られた。2023-12 の記事は、非公開テストプレイの 1 週間で新作 3 本が作られ、うち 1 本が Starknet の 1 位を得たと述べ、Dojo のホリデー game jam（2023-12-15 開始）を案内した。", k: claim, who: "shora（PixeLAW）", s: [src-pixelaw-core-repo, src-pixelaw-examples, src-pixelaw-shora-easiest]}
@@ -119,11 +121,12 @@ article:
     - {t: "公式 examples の 7 アプリ（chest・hunter・maze・minesweeper・pix2048・rps・tictactoe）。ただしコミット作者は OwnerOfJK・Caspar Oostendorp・mariz など中核メンバーが大半で、独立した第三者の作品とは言い難い。", k: fact, s: [src-pixelaw-examples]}
     - {t: "ETHGlobal StarkHack の p/dash は Geometry Dash 風の強制スクロールゲームで、ステージ状態をオンチェーンに置き、ゲームプレイはオフチェーンで動かす PixeLAW 上のアプリと説明されている。", k: fact, s: [src-pixelaw-pdash]}
     - {t: "MetaCat（themetacat）が Dojo 版に着想を得た MUD 版 core（Paint・Snake）を公開した。他チームによる基盤移植の例である。", k: fact, s: [src-pixelaw-metacat-mud]}
-    - {t: "Dojo Holiday Game Jam（2023-12〜2024-01）に PixeLAW2048 が応募されていたことを検索結果で確認したが、ページ本体は読んでいない。", k: fact, s: [src-pixelaw-itch-jam]}
+    - {t: "Dojo Holiday Game Jam 3（2023-12-15〜2024-01-03）の応募一覧に「PixeLAW2048 — FOCG 2048 on PixeLAW」（作者 k1ic）がある。同ページは PixeLAW をスポンサーの一つとして載せ、PixeLAW 枠の賞金を 250 ドルと記す。", k: fact, s: [src-pixelaw-itch-jam]}
   constraints:
     - {t: "相互運用は既定で閉じている: Paint は呼び出し元アプリ名が snake の場合だけ、所有者・アプリを変えない更新を許可し、それ以外は拒否する。examples の rps・tictactoe は自アプリ名のみ許可、chest・hunter・minesweeper・pix2048 は常に拒否、maze は player アプリのみを扱う。", k: fact, s: [src-pixelaw-paint-app, src-pixelaw-examples]}
     - {t: "相互運用の判断材料は呼び出し元アプリの「名前」で、名前は先着登録。新しいアプリが既存アプリと相互作用するには、既存アプリ側のコードを書き換えて新アプリ名を許可リストに加える必要があり、既存アプリが不変なら後から来たアプリは拒否され続ける。", k: analysis, s: [src-pixelaw-core-app, src-pixelaw-paint-app]}
-    - {t: "コードを読む限り、update_pixel の呼び出し元検査（validate_callers）は core 自身のアドレスと比較するため常に成立するように見え、for_player・for_system を呼び出し側が任意に指定できる可能性がある。コード中にも「exploit があり得るか」という TODO がある。実際に悪用可能かは検証していない。", k: analysis, s: [src-pixelaw-core-pixel]}
+    - {t: "コード上の事実: core actions の update_pixel は呼び出し側が渡す for_player・for_system をそのまま pixel::update_pixel に渡す。validate_callers は「for_player が tx の送信アカウントと異なれば、get_contract_address() が core actions のアドレスであること」を assert するが、この関数は core actions コントラクト内で実行されるため get_contract_address() は core 自身になる。直前に「TODO is there an exploit by doing this through a hook then?」というコメントがある。add_area・remove_area も呼び出し元・所有者の検査を持たない（add_area は重複領域の検査のみ）。", k: fact, s: [src-pixelaw-core-pixel, src-pixelaw-core-area, src-pixelaw-core-actions]}
+    - {t: "上のコードからは、validate_callers は実質的に常に通り、任意の呼び出し元が他人を for_player に、任意の登録アプリを for_system に指定できる可能性、また他人の Area を削除・任意の所有者で Area を作れる可能性がある。ただしコード読解のみによる推定で、実行・テスト・デプロイ済みコントラクトとの照合はしておらず、Dojo 側の権限設定や想定外の前提で防がれている可能性は残る。core の ISSUES.md（自己レビュー）はこの点を挙げていない。", k: analysis, s: [src-pixelaw-core-pixel, src-pixelaw-core-area, src-pixelaw-core-actions, src-pixelaw-issues]}
     - {t: "core の ISSUES.md 自身が、キューの時刻検証の欠如、R-Tree の子が 4 を超えると黙って捨てられる問題、複数アプリによる同時更新のテスト不足を挙げている。", k: fact, s: [src-pixelaw-issues]}
     - {t: "時間で進むアプリはキュー実行者がいなければ止まる。公式サーバーが止まった後に誰が実行を引き受けるかの仕組み（報酬等）はコアにない。", k: analysis, s: [src-pixelaw-core-queue, src-pixelaw-server]}
   principles:
@@ -135,6 +138,8 @@ article:
     - {t: "第三者による拡張の厚みは乏しい: 公開例は主に中核メンバーの作で、確認できた外部作品は p/dash、MUD 移植、game jam 応募程度。アプリ間の相互作用の実例も Snake と Paint の組み合わせ以外はほぼ確認できなかった。", k: fact, s: [src-pixelaw-examples, src-pixelaw-pdash, src-pixelaw-metacat-mud]}
     - {t: "相互運用はチェーンがなくても実装できる構造である: 権限判定とフック呼び出しは単一サーバーのプラグイン API でも同じ形で書け、PixeLAW が示しているのは「フックによる調停」という設計であって、ブロックチェーンでなければならない理由ではない。", k: analysis}
     - {t: "参照日に公式のデモ・mainnet 世界に到達できず、利用者数の公表もないため、「多数の作者のルールが共存する世界」が実際に人を集めたという証拠はない。", k: analysis, s: [src-pixelaw-demo, src-pixelaw-site, src-pixelaw-github-org]}
+    - {t: "フックによる調停という中心的な主張そのものへの反証の可能性: 呼び出し元アプリ（app_caller）は呼び出し側が渡す for_system から読まれ、validate_callers も実質的に働いていないように見えるため、現行コードでは「相手アプリの名前を見て許可する」フックが、悪意ある呼び出しに対して境界として機能しない可能性がある（コード読解のみ・未実行）。", k: analysis, s: [src-pixelaw-core-pixel, src-pixelaw-core-actions]}
+    - {t: "Book は MUD / Redstone 版を「2 つの実装」の一つとして mud.pixelaw.xyz へリンクしており、MUD 版を単なる外部移植とみるか、PixeLAW 公認の第二実装とみるかで「第三者拡張」の評価が変わる。", k: fact, s: [src-pixelaw-book, src-pixelaw-metacat-mud]}
     - {t: "PixeLAW 自身の「mainnet」設定が Starknet 本体ではなく Katana の URL を指しているように見え、許可不要・運営不要という構想と、運営がシーケンサを持つ実運用との間に距離がある可能性がある。", k: analysis, s: [src-pixelaw-vanilla-worlds]}
 
 events:
@@ -163,6 +168,7 @@ unknowns:
   - "p/war の開催実績（日時・参加者）。"
 contradictions:
   - {t: "ETHGlobal Paris の時期: shora の記事は 2023-07 と記載、ChainCatcher は 2023-09 と記載。", s: [src-pixelaw-shora-vision, src-pixelaw-chaincatcher]}
+  - {t: "版表記: core の README は「PixeLAW Core 0.8.0-dev / Dojo 1.8.5」と書くが、contracts/Scarb.toml の package version は 0.7.9、依存は dojo = \"1.8.0\"。", s: [src-pixelaw-core-repo]}
   - {t: "Book の相互運用ページ（2024 年時点）のフックは戻り値なしの型だが、現行 core の on_pre_update は Option<PixelUpdate> を返し、None で拒否する。仕様が変わったと見られる。", s: [src-pixelaw-book-interop, src-pixelaw-core-pixel]}
 
 sources:
@@ -171,6 +177,7 @@ sources:
   - {id: src-pixelaw-core-app, title: "pixelaw/core contracts/src/core/actions/app.cairo", url: "https://github.com/pixelaw/core/blob/main/contracts/src/core/actions/app.cairo", publisher: "GitHub", type: code, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "new_app は名前・システムの未登録だけを検査"}
   - {id: src-pixelaw-core-queue, title: "pixelaw/core contracts/src/core/actions/queue.cairo", url: "https://github.com/pixelaw/core/blob/main/contracts/src/core/actions/queue.cairo", publisher: "GitHub", type: code, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "Poseidon ハッシュで予約を固定し、外部スケジューラが process_queue を呼ぶ"}
   - {id: src-pixelaw-core-area, title: "pixelaw/core contracts/src/core/actions/area.cairo", url: "https://github.com/pixelaw/core/blob/main/contracts/src/core/actions/area.cairo", publisher: "GitHub", type: code, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "R-Tree による Area 索引。remove_area に所有者検査が見当たらない"}
+  - {id: src-pixelaw-core-actions, title: "pixelaw/core contracts/src/core/actions.cairo", url: "https://github.com/pixelaw/core/blob/main/contracts/src/core/actions.cairo", publisher: "GitHub", type: code, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "検証役が git clone で確認。update_pixel・add_area・remove_area の外部エントリポイントは呼び出し元検査なしで内部関数へ委譲"}
   - {id: src-pixelaw-paint-app, title: "pixelaw/core contracts/src/apps/paint.cairo", url: "https://github.com/pixelaw/core/blob/main/contracts/src/apps/paint.cairo", publisher: "GitHub", type: code, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "Paint の on_pre_update は snake からの所有者・アプリを変えない更新のみ許可"}
   - {id: src-pixelaw-issues, title: "pixelaw/core ISSUES.md (Pixelaw Code Review Issues)", url: "https://github.com/pixelaw/core/blob/main/ISSUES.md", publisher: "GitHub", type: code, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "キュー時刻検証、R-Tree 子数、同時更新テスト不足などの自己レビュー"}
   - {id: src-pixelaw-dojo-mainnet-toml, title: "pixelaw/core contracts/dojo_mainnet.toml", url: "https://github.com/pixelaw/core/blob/main/contracts/dojo_mainnet.toml", publisher: "GitHub", type: code, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "mainnet 用設定。world_address はコメントアウト、Pixel の writer は actions・paint・snake"}
@@ -188,7 +195,7 @@ sources:
   - {id: src-pixelaw-pdash, title: "p/dash (ETHGlobal StarkHack showcase)", url: "https://ethglobal.com/showcase/p-dash-f20tg", publisher: "ETHGlobal", type: news, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "PixeLAW 上のアプリとして作られた強制スクロールゲーム"}
   - {id: src-pixelaw-metacat-mud, title: "themetacat/pixelaw_core", url: "https://github.com/themetacat/pixelaw_core", publisher: "GitHub", type: code, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "Dojo 版に着想を得た MUD 版 core（Paint・Snake）"}
   - {id: src-pixelaw-chaincatcher, title: "AW Frontier: The Ultimate Guide to Starknet's Full-Chain Games", url: "https://www.chaincatcher.com/en/article/2114963", publisher: "ChainCatcher", type: analysis, primary: false, published: "2024-02-23", accessed: "2026-10-23", access: fetched, lang: en, note: "PixeLAW・RYO・Influence・Dojo の紹介。ETHGlobal 受賞を 2023-09 と記載"}
-  - {id: src-pixelaw-itch-jam, title: "Dojo Holiday Game Jam 3 (itch.io)", url: "https://itch.io/jam/dojo-holiday-game-jam-3", publisher: "itch.io", type: news, primary: true, accessed: "2026-10-23", access: snippet, lang: en, note: "検索結果の要約のみ。2023-12-15〜2024-01-03、PixeLAW2048 の応募"}
+  - {id: src-pixelaw-itch-jam, title: "Dojo Holiday Game Jam 3 (itch.io)", url: "https://itch.io/jam/dojo-holiday-game-jam-3", publisher: "itch.io", type: news, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "検証時に本文を取得。2023-12-15〜2024-01-03、PixeLAW2048（k1ic）の応募、スポンサー PixeLAW の賞金 250 ドル"}
   - {id: src-pixelaw-site, title: "PixeLAW", url: "https://www.pixelaw.xyz/", publisher: "PixeLAW", type: official-docs, primary: true, accessed: "2026-10-23", access: unreachable, lang: en, note: "参照日に HTTP 503"}
   - {id: src-pixelaw-demo, title: "PixeLAW demo server", url: "https://demo.pixelaw.xyz/", publisher: "PixeLAW", type: official-docs, primary: true, accessed: "2026-10-23", access: unreachable, lang: en, note: "参照日に名前解決できず（mainnet.pixelaw.xyz も同様）"}
   - {id: src-pixelaw-ryo-cairo0, title: "dopedao/RYO (Roll Your Own, Cairo 0)", url: "https://github.com/dopedao/RYO", publisher: "GitHub", type: code, primary: true, published: "2022-04", accessed: "2026-10-23", access: fetched, lang: en, note: "git clone で README と system_architecture.md を確認。ModuleController・Arbiter によるモジュール間の読み書き許可"}
