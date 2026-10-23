@@ -1,0 +1,100 @@
+id: dope-wars-roll-your-own
+name: "Roll Your Own (Dope Wars)"
+aliases: [RYO, "Dope Wars", "Dope World"]
+kind: game
+depth: index
+updated: "2026-10-23"
+chains: [Ethereum mainnet（DOPE NFT、2021）, Optimism（Hustler・Gear）, Starknet Goerli（Cairo 0 版 RYO の展開記録）, Starknet（Dojo 版）]
+team: "Dope Wars DAO / Cartridge（Tarrence van As ほか）。Cairo 0 版は perama-v が主に執筆し Tarrence van As・guiltygyoza らが参加"
+summary: >-
+  Loot の翌日に公開された Loot 派生の DOPE NFT（8,000 個）から始まった Dope Wars 生態系の、Drug Wars（計算機時代の麻薬裁定取引ゲーム）を
+  オンチェーンで再実装したゲーム。2021–22 年の Cairo 0 版は「モジュールが互いの状態を読み書きする」開かれたゲームエンジン構想だった。
+  その後 Cartridge が Dojo の最初期の自社タイトルとして作り直し、Dojo とバーナーウォレット等のツールの実証の場になった。
+selection_reason: >-
+  Loot 派生の「最小資産 → 第三者がゲームを作る」系譜が、実際にどのようなゲームとエンジン（Dojo・Cartridge）に結びついたかを示す例。
+  Cairo 0 版の ModuleController / Arbiter による「モジュール間の読み書き許可」は、他者が作った機能を再利用する構造の初期設計として Wylls の関心に直結する。
+  一方、Dojo 版のリポジトリは参照日に公開されておらず、規模・継続の資料も乏しい。
+categories:
+  - {id: onchain-rules, role: primary, reason: "市場価格・移動・イベント（取り締まり等）を含む取引ゲームのルールをコントラクトで実行"}
+  - {id: assets, role: secondary, reason: "Loot 派生の DOPE NFT、Hustler・Gear・PAPER を基盤とする生態系"}
+  - {id: infra, role: secondary, reason: "Cairo 0 版は汎用のモジュール型エンジンを志向し、Dojo 版は Cartridge・Dojo のツールの実証に使われた"}
+status:
+  value: unknown
+  as_of: "2026-10"
+  note: "cartridge-gg/rollyourown は参照日に 404（clone も不可）。dopewars.gg は Roll Your Own を Dojo 製としてプレビュー URL で紹介。継続運営の有無は未確認。"
+  s: [src-dope-wars-roll-your-own-gh-404, src-dope-wars-roll-your-own-site]
+dates:
+  announced: {date: "2021-09-15", s: [src-dope-wars-roll-your-own-cairo0], note: "Cairo 0 版 RYO リポジトリの初回コミット"}
+  launched: {date: "2023", s: [src-dope-wars-roll-your-own-op-forum], note: "2023-10-03 の DopeLabs 関係者の投稿が、Starknet の更新を待って「最近」ローンチしたと記載。正確な日付は未確認"}
+
+architecture:
+  onchain:
+    level: core-rules
+    detail: >-
+      Cairo 0 版は ModuleController が各モジュールのアドレスと書き込み権限を管理し、01_DopeWars（取引）、02_LocationOwned 等のモジュールが状態を共有する。
+      Goerli への展開記録がある。Dojo 版の内部は、リポジトリが参照日に公開されていないため確認できなかった。
+    s: [src-dope-wars-roll-your-own-cairo0]
+  offchain:
+    - {item: "バーナーウォレットでプレイヤーが署名せずに遊べた（第三者記事）", s: [src-dope-wars-roll-your-own-chaincatcher]}
+  admin:
+    level: significant
+    detail: "Cairo 0 版では Arbiter が ModuleController を更新し、モジュールの差し替え・追加と書き込み権限の付与ができる（ガバナンスに委ねる構想）。Dojo 版は未確認。"
+    s: [src-dope-wars-roll-your-own-cairo0]
+  open_source:
+    level: partial
+    detail: "Cairo 0 版（dopedao/RYO）は公開。Dojo 版（cartridge-gg/rollyourown）は以前公開されていたと第三者索引が示すが、参照日に 404。"
+    url: "https://github.com/dopedao/RYO"
+    s: [src-dope-wars-roll-your-own-cairo0, src-dope-wars-roll-your-own-gh-404]
+  extensibility:
+    level: permissionless-onchain
+    detail: "Cairo 0 版は誰でも番号を取ってモジュールを書き、他モジュールの状態を読めるとし、書き込み権限はガバナンス経由で付与する設計だった（読みは許可不要、書きは許可制）。実際に第三者モジュールが稼働した例は確認できなかった。"
+    s: [src-dope-wars-roll-your-own-cairo0]
+
+compare:
+  gameplay: {t: "場所ごとに価格の違う市場で薬物を安く買い高く売る裁定取引ゲーム。取り締まりや盗難など市場全体のイベントが不安定さと機会を生む。PvP の取引が価格に影響したと第三者は述べる。", k: fact, s: [src-dope-wars-roll-your-own-perama, src-dope-wars-roll-your-own-chaincatcher]}
+  necessity: {t: "共有市場の価格を全プレイヤーの取引で動かす設計はオンチェーンの共有状態と整合する。一方、Tarrence は裁定取引ゲームはフルオンチェーン版に向くと述べつつ、ゲーム性自体は単一サーバーでも成立する。", k: analysis, s: [src-dope-wars-roll-your-own-bgb]}
+  information: {t: "未確認（Dojo 版のコードを読めていない）。", k: unknown}
+  persistence: {t: "Cairo 0 版のコードは残るが、Dojo 版のリポジトリは参照日に非公開・削除状態で、運営停止後に遊べるかは確認できない。", k: fact, s: [src-dope-wars-roll-your-own-cairo0, src-dope-wars-roll-your-own-gh-404]}
+  extensibility: {t: "Cairo 0 版はモジュール追加と状態共有を前提とする開かれたエンジン構想。収益が出たら 5% を DOPE DAO に向ける文化的規範も README に書かれていた。", k: fact, s: [src-dope-wars-roll-your-own-cairo0]}
+  money_flow: {t: "DopeDAO と StarkWare が 2021-09 に部分的に資金提供したと DopeLabs 関係者は述べる。PAPER は生態系の通貨。Dojo 版の課金・報酬は未確認。", k: claim, who: "Butterbum（DopeLabs、Optimism フォーラムへの代理投稿）", s: [src-dope-wars-roll-your-own-op-forum]}
+  entry_barrier: {t: "第三者記事によれば、バーナーウォレットのためウォレット接続や署名なしで遊べた。", k: fact, s: [src-dope-wars-roll-your-own-chaincatcher]}
+
+concepts: [c-onchain-rules, c-composable-primitive, c-permissionless-extension, c-gas-abstraction, c-nft-asset, c-cc0]
+
+article:
+  principles:
+    - {t: "中央の ModuleController による読み書き許可: モジュールのアドレスと書き込み権限を 1 つの台帳に置き、読みは自由・書きは許可制にすると、他者が作ったモジュールが同じ状態（位置・所持品）を共有できる。適用条件は許可を出す主体（Arbiter / DAO）が機能すること。破綻条件はその主体が止まるか中央集権的になる場合で、拡張の可否が一者に握られる。PixeLAW は同じ問題を書き込まれる側のフックに分散して解こうとした。", k: analysis, s: [src-dope-wars-roll-your-own-cairo0]}
+  counter_evidence:
+    - {t: "Dope Wars の NFT は当初「ゲームが存在しない段階のアート」として 4 日で約 900 万ドル売れたと報じられ、開発者自身もゲームの実現は保証されないと述べた。Loot 派生の資産が先行し、ゲーム（RYO）の稼働は約 2 年後だった。", k: fact, s: [src-dope-wars-roll-your-own-vice, src-dope-wars-roll-your-own-op-forum], q: "The Dope Wars NFT is artwork."}
+
+events:
+  - {id: ev-ryo-dope-nft, date: "2021-09", type: launch, title: "DOPE NFT 公開（Loot の翌日、8,000 個）", detail: "4 日で約 900 万ドルの取引と報道", s: [src-dope-wars-roll-your-own-vice, src-dope-wars-roll-your-own-bgb, src-dope-wars-roll-your-own-site]}
+  - {id: ev-ryo-cairo0, date: "2021-09-15", type: other, title: "Cairo 0 版 RYO リポジトリ開始（perama-v）", s: [src-dope-wars-roll-your-own-cairo0]}
+  - {id: ev-ryo-cartridge-dev, date: "2023-04-06", type: announce, title: "Cartridge が Dojo・Controller と並行して RYO の開発開始を表明", s: [src-dope-wars-roll-your-own-cartridge-interview]}
+
+relations:
+  - {to: loot, type: forked-from, basis: confirmed, note: "Dope Wars DAO 自身が「Loot プロトコルのフォーク」と記述", s: [src-dope-wars-roll-your-own-op-proposal]}
+  - {to: dojo, type: built-with, basis: confirmed, note: "dopewars.gg が Dojo Engine 製と記載", s: [src-dope-wars-roll-your-own-site]}
+  - {to: dojo, type: same-team, basis: confirmed, note: "Cartridge が Dojo と RYO を並行開発", s: [src-dope-wars-roll-your-own-cartridge-interview]}
+  - {to: pixelaw, type: similar-to, basis: analytic, note: "他者のモジュール／アプリが共有状態を書き換える許可の設計（中央台帳 vs フック）"}
+  - {to: loot-survivor, type: similar-to, basis: analytic, note: "Loot 派生のフルオンチェーン・ゲーム"}
+
+unknowns:
+  - "Dojo 版 RYO の Starknet mainnet ローンチ日、シーズン制の有無、プレイヤー数、継続状況。"
+  - "cartridge-gg/rollyourown が非公開化・削除された時期と理由。"
+  - "Cairo 0 版のモジュールで第三者が書いたものが実際に動いたか。"
+  - "DOPE NFT の正確な公開日（2021-08-31 とする検索要約あり、本文未確認）。"
+contradictions:
+  - {t: "Optimism フォーラムの提案（2022-06）は Optimism を生態系の本拠とし、2023-10 の投稿は Starknet の RYO を語る。本拠のチェーンが時期により変わった。", s: [src-dope-wars-roll-your-own-op-proposal, src-dope-wars-roll-your-own-op-forum]}
+
+sources:
+  - {id: src-dope-wars-roll-your-own-cairo0, title: "dopedao/RYO (Roll Your Own)", url: "https://github.com/dopedao/RYO", publisher: "GitHub", type: code, primary: true, published: "2022-04-08", accessed: "2026-10-23", access: fetched, lang: en, note: "git clone で README・system_architecture・Goerli 展開記録・作者（perama-v、Tarrence van As、guiltygyoza）を確認"}
+  - {id: src-dope-wars-roll-your-own-perama, title: "World building (Perama's notes)", url: "https://perama-v.github.io/cairo/game/world", publisher: "perama-v.github.io", type: official-blog, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "Dope Wars を StarkNet で作る設計検討。The game is arbitrage."}
+  - {id: src-dope-wars-roll-your-own-gh-404, title: "cartridge-gg/rollyourown", url: "https://github.com/cartridge-gg/rollyourown", publisher: "GitHub", type: code, primary: true, accessed: "2026-10-23", access: unreachable, lang: en, note: "参照日に 404。git clone も認証要求で失敗"}
+  - {id: src-dope-wars-roll-your-own-site, title: "Dope Wars", url: "https://www.dopewars.gg/", publisher: "Dope Wars", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "8,000 の DOPE（2021-09）、Roll Your Own は Cartridge が Starknet・Dojo で作った Drug Wars の翻案"}
+  - {id: src-dope-wars-roll-your-own-op-forum, title: "Dope Wars - Accountability + Feedback Thread (post 6)", url: "https://gov.optimism.io/t/dope-wars-accountability-feedback-thread/5390/6", publisher: "Optimism Collective forum", author: "Luckyhooman.eth（Butterbum の代理投稿）", type: forum, primary: true, published: "2023-10-03", accessed: "2026-10-23", access: fetched, lang: en, note: "RYO は 2021-09 に DopeDAO と StarkWare が部分出資、最近ローンチ"}
+  - {id: src-dope-wars-roll-your-own-op-proposal, title: "[READY] GF Phase 1 Proposal: Dope Wars", url: "https://gov.optimism.io/t/ready-gf-phase-1-proposal-dope-wars/2722", publisher: "Optimism Collective forum", type: forum, primary: true, published: "2022-06-19", accessed: "2026-10-23", access: fetched, lang: en, note: "Dope Wars is a fork of the Loot protocol with a GTA spin."}
+  - {id: src-dope-wars-roll-your-own-vice, title: "People Are Spending Millions of Dollars on 'Loot' for Games That Don't Exist", url: "https://www.vice.com/en/article/people-are-spending-millions-of-dollars-on-loot-for-games-that-dont-exist/", publisher: "Vice (Motherboard)", author: "Mathew Di Salvo", type: news, primary: false, published: "2021-09-09", accessed: "2026-10-23", access: fetched, lang: en, note: "Dope Wars は Loot の派生、4 日で約 900 万ドル、開発者 Tarrence の発言"}
+  - {id: src-dope-wars-roll-your-own-bgb, title: "Building fully onchain games with Cartridge's Starknet-based dev tools", url: "https://www.blockchaingamer.biz/features/interviews/34142/fully-onchain-games-cartridge-starknet-dev-tools-tarrence-van-as/", publisher: "BlockchainGamerBiz", type: interview, primary: true, published: "2024-09", accessed: "2026-10-23", access: fetched, lang: en, note: "Loot の翌日に公開、裁定取引はフルオンチェーン向き、最新 Dojo で新版を作成（最終更新 2024-09-11）"}
+  - {id: src-dope-wars-roll-your-own-cartridge-interview, title: "Interview with Tarrence from Cartridge, a Starknet Gaming Console", url: "https://nurstardeepdive.substack.com/p/interview-with-tarrence-from-cartridge", publisher: "Nurstar (Starknet Chinese Community)", type: interview, primary: true, published: "2023-04-06", accessed: "2026-10-23", access: fetched, lang: en, note: "Controller・Dojo・RYO を並行開発"}
+  - {id: src-dope-wars-roll-your-own-chaincatcher, title: "AW Frontier: The Ultimate Guide to Starknet's Full-Chain Games", url: "https://www.chaincatcher.com/en/article/2114963", publisher: "ChainCatcher", type: analysis, primary: false, published: "2024-02-23", accessed: "2026-10-23", access: fetched, lang: en, note: "RYO は Cartridge と Dope DAO の協業、バーナーウォレット、PvP 取引が価格に影響"}

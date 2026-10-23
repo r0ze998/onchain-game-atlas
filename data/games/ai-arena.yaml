@@ -1,0 +1,181 @@
+id: ai-arena
+name: AI Arena
+aliases: ["AI Arena - Gaming Competition"]
+kind: game
+depth: deep
+updated: "2026-10-23"
+chains: [Arbitrum（NRN トークン・Web3 版）]
+team: "ArenaX Labs（CEO Brandon Da Silva、共同創業者 Wei Xie）。2025-01 にプロジェクト名を NRN Agents（旧 ARC Agents）に変更"
+summary: >-
+  プレイヤーが自分で操作して見本を示し、模倣学習で AI ファイターを訓練し、その AI 同士を自動で戦わせる大乱闘型の対戦ゲーム。
+  Web3 版ではファイターが ERC-721 の NFT（モデルのハッシュと種類を保持）になり、報酬トークン NRN を賭けて Ranked Battle に参加する。
+  ただし試合そのもの・Elo 計算・マッチングは運営サーバーで行われ、サーバーが「オラクル」として結果をコントラクトに書き込む。
+  人間の役割は「操作」から「コーチ（データ作成と学習設定）」へ移っており、人間とエージェントの分業をトークン経済付きの商用ゲームとして実装した例である（プレイヤーが訓練した AI を戦わせる遊び自体は 2005 年の研究ゲーム NERO などに先例がある）。
+selection_reason: >-
+  「人間が AI を育て、AI が代わりに戦う」構造で、人間の意思決定がどこに残るか（データ収集・学習設定・ステーク量・どの試合に出すか）を具体的に追える。
+  同時に、オンチェーンなのは資産・ステーク・報酬配分だけで、ゲームの核心はサーバーにあること、監査（Code4rena）で報酬経済の脆弱性が多数見つかったこと、
+  運営会社がその後ロボティクス評価基盤へ軸足を移したことから、チェーンの役割の限界を示す例としても重要。
+categories:
+  - {id: ai, role: primary, reason: "ファイターはプレイヤーのデモから模倣学習したニューラルネットワーク等のモデルで、試合は AI 同士が自律的に行う"}
+  - {id: p2e, role: secondary, reason: "NRN をステークして勝つと報酬、負け続けるとステークの一部を失う"}
+  - {id: assets, role: secondary, reason: "ファイター NFT、ゲームアイテム（ERC-1155）、NRN（ERC-20）がチェーン上にあり、試合はサーバー"}
+status:
+  value: unknown
+  as_of: "2026-10"
+  note: >-
+    ゲームの終了告知は見つからなかったが、継続の証拠も確認できなかった。公式ドキュメント（docs.aiarena.io）は参照日時点でページが 404 を返す。aiarena.io 自体は HTTP 200 を返しウォレット接続付きのアプリの外枠を配信しているが、本文はクライアント描画で、稼働状況は確認できなかった。
+    2025-04 編集の公式資料では AI Arena は NRN エコシステムの一製品とされ、ArenaX Labs の現在のサイトと GitHub はロボティクス・強化学習の評価基盤を掲げる。
+  s: [src-aiarena-docs-sitemap, src-aiarena-notion-nrn-primer, src-aiarena-arenax-site, src-aiarena-arenax-github]
+dates:
+  launched: {date: "2024-06", s: [src-aiarena-decrypt-tge], note: "NRN トークンの請求開始（2024-06-24）。ゲームのプレリリース（Gateway to the Arena）は 2024-03 に終了しており、Arbitrum 版の正式開始日は未確認"}
+
+architecture:
+  onchain:
+    level: assets-only
+    detail: >-
+      監査対象のコントラクト（Arbitrum 想定の L2）は、ファイター NFT の発行・再抽選・モデルハッシュ更新（FighterFarm）、NRN（ERC-20、最大 10 億）、ステークと報酬ポイント（RankedBattle）、
+      負けによる「リスク下のステーク」（StakeAtRisk）、1 日の試合回数を制限するボルテージ（VoltageManager）、アイテム（GameItems）、新 NFT の抽選（MergingPool）。
+      試合の結果と Elo 係数は gameServerAddress だけが updateBattleRecord で書き込める。運営自身が「コアのゲームロジックはサーバーで動く」と明記している。
+    s: [src-aiarena-c4-repo]
+  offchain:
+    - {item: "試合のシミュレーション、Elo の計算（計算方法は運営がオフチェーンで調整できると明記）、マッチング", s: [src-aiarena-c4-repo, src-aiarena-notion-ranking]}
+    - {item: "模倣学習のデータ収集・学習・AI Inspector（モデル本体はチェーン外。チェーンにはハッシュと種類の文字列のみ）", s: [src-aiarena-notion-training, src-aiarena-c4-repo]}
+    - {item: "Merging Pool の勝者選定（乱数は Chainlink VRF、選定はオフチェーンで検証用フロントエンドを提供する計画）と遺伝的アルゴリズムによる新ファイター生成", s: [src-aiarena-notion-merging]}
+  admin:
+    level: significant
+    detail: >-
+      各コントラクトに isAdmin 権限があり、ゲームサーバーのアドレス設定、報酬ラウンドの進行、NRN のミンター等の役割付与を運営が行う。
+      試合結果は運営サーバーの署名なしには記録されず、プレイヤーは結果の正しさをチェーン上で検証できない。監査版の NRN は展開時に財務 2 億・貢献者 5 億を発行する設定。
+    s: [src-aiarena-c4-repo]
+  open_source:
+    level: partial
+    detail: "監査対象の Solidity コントラクトは Code4rena のリポジトリで公開。ゲームクライアント、学習基盤、サーバーは公開されていない（確認した範囲）。"
+    url: "https://github.com/code-423n4/2024-02-ai-arena"
+    s: [src-aiarena-c4-repo, src-aiarena-arenax-github]
+  extensibility:
+    level: official-api
+    detail: "Research Competition として、研究者が自作の機械学習モデルを公式プラットフォームにアップロードして競う枠組みを掲げた。第三者がゲームルールやコントラクトを拡張した例は確認できなかった。"
+    s: [src-aiarena-notion-overview, src-aiarena-docs-sitemap]
+
+compare:
+  gameplay: {t: "プレイヤーは自分で操作してデモを作り、学習の強度や重視する特徴を設定してファイターを訓練する。試合は AI 同士が自動で戦い、プレイヤーは結果と Inspector を見て再訓練する。", k: fact, s: [src-aiarena-notion-training, src-aiarena-notion-intro]}
+  necessity: {t: "チェーンはファイターの所有と売買、NRN のステーク・報酬配分を担うが、勝敗はサーバーが決めて書き込む。対戦と学習の体験そのものはチェーンなしで成立し、NFT 不要の無料版も並行して提供された（2024-03 の報道）。", k: analysis, s: [src-aiarena-c4-repo, src-aiarena-decrypt-airdrop-team]}
+  information: {t: "ファイターの属性とモデルハッシュはチェーン上で公開。モデル本体、学習データ、試合の内部処理はサーバー側で、AI Inspector で自分のモデルの方策を可視化できる。", k: fact, s: [src-aiarena-c4-repo, src-aiarena-notion-training]}
+  persistence: {t: "NFT と NRN は運営停止後もチェーン上に残るが、試合と学習はサーバー依存で、運営が止まればゲームとしては遊べない。参照日時点で公式ドキュメントは閲覧できない。", k: analysis, s: [src-aiarena-c4-repo, src-aiarena-docs-sitemap]}
+  extensibility: {t: "研究者がモデルを持ち込む Research Competition を公式に用意した。コントラクトやルールの許可不要の拡張は確認できない。", k: fact, s: [src-aiarena-notion-overview]}
+  money_flow: {t: "プレイヤーは NFT・バッテリー等を購入し、NRN をステークする。各ラウンドの固定量の NRN をポイント比で分配し、負けたプレイヤーのステークの一部は没収される。原資は NRN の発行（RankedBattle がミンター）。", k: fact, s: [src-aiarena-c4-repo, src-aiarena-notion-nrn-rewards]}
+  entry_barrier: {t: "Web3 版はファイター NFT（またはミントパス）、Arbitrum のウォレット、ステーク用 NRN が必要。模倣学習の設定（学習強度、記憶の保持、注目する特徴）を理解する知識も求められる。", k: fact, s: [src-aiarena-c4-repo, src-aiarena-decrypt-airdrop-team, src-aiarena-notion-training]}
+
+concepts: [c-ai-agent-player, c-nft-asset, c-fungible-ingame-token, e-p2e, m-seasons, m-breeding, e-points-airdrop, c-onchain-randomness]
+proposed_concepts:
+  - {id: m-human-coached-agent, name: 人間がコーチする代理エージェント, desc: "プレイヤーは直接操作せず、デモや設定でエージェントを訓練し、試合はエージェントが自律的に行う。人間の意思決定は試合前の準備に移る。"}
+  - {id: c-server-oracle-results, name: ゲームサーバーをオラクルとする結果記録, desc: "試合はサーバーで計算し、結果だけを特権アドレスがコントラクトに書き込む。資産と報酬はオンチェーンだが勝敗の正しさは運営への信頼に依存する。"}
+
+article:
+  what:
+    - {t: "AI Arena は相手を足場から落とすプラットフォーム型の格闘ゲームで、プレイヤーは自分のファイターを直接は操作しない。ファイターはプレイヤーの操作を真似る模倣学習で訓練され、Ranked Battle では自律的に戦う。", k: fact, s: [src-aiarena-notion-intro], q: "First, you train your NFT character through Imitation Learning, where the AI learns to play the game by copying your actions."}
+    - {t: "購入直後のファイターのニューラルネットワークはパラメータがランダムで、何も学んでいない。訓練とは、状態に応じた行動（方策）を学ばせることだと公式は説明する。", k: fact, s: [src-aiarena-notion-training]}
+    - {t: "Web3 版のファイター NFT は外見、世代、体重（戦闘属性）、属性（特殊能力）、種別（Champion / Dendroid）、モデルデータ（種類とハッシュ）を持つ。", k: fact, s: [src-aiarena-c4-repo]}
+    - {t: "目標は最強の AI を育ててグローバルランキングを上り、報酬トークン NRN を得ること。研究者が自作モデルで競う Research Competition と合わせて「Meta Competition」と呼ばれた。", k: fact, s: [src-aiarena-notion-intro, src-aiarena-notion-overview]}
+  loop:
+    - {t: "以下は公式資料（Notion 版ドキュメント）と監査対象コードからの再構成（筆者は実プレイしていない）。データ収集: プレイヤー自身がゲームを操作し、状態と行動の組を記録する。この時点で動かしているのは NFT ではなく自分。", k: fact, s: [src-aiarena-notion-training]}
+    - {t: "設定と学習: 新しいデータをどれだけ取り込むか、過去の学習をどれだけ保持するか、どの特徴（例: 相対位置）に注目させるかを決めて学習させる。", k: fact, s: [src-aiarena-notion-training]}
+    - {t: "検査: AI Inspector で各状態での行動選択を見て弱点を探し、Simulation Mode で事前学習済み AI と試合して準備度を確かめる。", k: fact, s: [src-aiarena-notion-training]}
+    - {t: "Ranked Battle: NRN をステークしたファイターを、Elo が近い相手のプールから無作為に選ばれた相手と戦わせる。1 試合 10 ボルテージを消費し、1 日 100 まで（バッテリー購入で回復）。結果はサーバーがコントラクトに記録する。", k: fact, s: [src-aiarena-notion-ranking, src-aiarena-c4-repo]}
+    - {t: "ラウンド終了時、勝利で得たポイント（勝敗×ステーク係数×Elo）に比例して NRN が配られる。ポイントが 0 のまま負けるとステークの一部が「リスク下」に移り、取り戻せなければ失う。結果を見て再訓練に戻る。", k: fact, s: [src-aiarena-notion-nrn-rewards, src-aiarena-c4-repo]}
+  before_after:
+    - {t: "従来の対戦ゲームでは操作の上手さが勝敗を決め、AI は運営が用意する敵だった。AI Arena は操作技能を「良い教師データを作る技能」と「学習設定の技能」に置き換え、AI をプレイヤーの所有物にした。", k: analysis, s: [src-aiarena-notion-training]}
+    - {t: "公式は、人間が「in-the-loop」で AI を改善する初の消費者向けゲームだと主張した（この主張への反例は counter_evidence 参照）。", k: claim, who: "AI Arena（公式ドキュメント、2022-09 最終編集）", s: [src-aiarena-notion-intro], q: "AI Arena is the first game where the human is “in-the-loop” 🔁 of the process to improve AI."}
+    - {t: "モデルを NFT に紐付け、訓練済みファイターを売買可能にしたことで、「育成の成果」を資産として移転できるようにした。ただしチェーンに載るのはモデルのハッシュで、モデル本体の保管と実行は運営側にある。", k: fact, s: [src-aiarena-c4-repo]}
+  onchain_tradeoffs:
+    - {t: "ステーク・報酬・没収をコントラクトで行うことで、報酬経済の規則はコードとして公開され、監査を受けられた。一方で勝敗とElo係数はサーバーが書き込むため、経済の入力そのものは運営への信頼に依存する。", k: fact, s: [src-aiarena-c4-repo]}
+    - {t: "Code4rena の監査では High 8 件・Medium 9 件が報告され、ロックされたファイターの転送でサーバーが結果を書き込めなくなる問題や、ステーク量の工夫で負けのペナルティを回避できる問題などが含まれた。オンチェーン化した報酬経済は攻撃面にもなる。", k: fact, s: [src-aiarena-c4-report]}
+    - {t: "Merging Pool の当選者選定はチェーン上で行うと高価になるため、乱数だけを Chainlink VRF で得て選定はオフチェーンで行い、選定コードのハッシュをコントラクトに記録する計画だった。", k: claim, who: "AI Arena（公式ドキュメント）", s: [src-aiarena-notion-merging]}
+    - {t: "参加にはウォレット、NFT、ステーク用 NRN が必要になり、運営は誰でも遊べる無料版と NFT が必要な Arbitrum 版の 2 本立てにした（2024-03 の報道。無料版がチェーンを使うかは記事に書かれていない）。", k: fact, s: [src-aiarena-decrypt-airdrop-team, src-aiarena-decrypt-tge]}
+  roles:
+    - {t: "プレイヤーは「コーチ」。試合中の操作はなく、意思決定はデータ作成・学習設定・ステーク量・試合に出すタイミングとボルテージ配分・Merging Pool にポイントを回す割合に移る。", k: analysis, s: [src-aiarena-notion-training, src-aiarena-notion-nrn-rewards, src-aiarena-c4-repo]}
+    - {t: "AI ファイターは試合の実行者で、自律的に戦う。プレイヤーの AI 同士が対戦する点で、エージェントが参加者として振る舞う。", k: fact, s: [src-aiarena-notion-intro]}
+    - {t: "研究者は自作の機械学習モデルを公式プラットフォームに載せて競い、将来はモデルを市場で売れるようにすると公式は述べた（売買が実現したかは未確認）。", k: claim, who: "AI Arena（公式ドキュメント）", s: [src-aiarena-notion-overview]}
+    - {t: "運営は試合サーバー（結果のオラクル）、Elo 方式、報酬プール量、NFT 発行量（Merging Pool）を管理する。", k: fact, s: [src-aiarena-c4-repo, src-aiarena-notion-merging]}
+  trajectory:
+    - {t: "ArenaX Labs は 2021 年創業で、Paradigm 主導の 500 万ドルのシードの後、2024-01 に Framework Ventures 主導で 600 万ドルを調達したと報じられた。", k: fact, s: [src-aiarena-betakit-2024]}
+    - {t: "2024 年初めのプレイ・トゥ・エアドロップ「Gateway to the Arena」は約 8000 人が 8 チーム（インフルエンサーが隊長）に分かれて参加し、2024-03 に最終ラウンドを終えた。", k: fact, s: [src-aiarena-decrypt-airdrop-team, src-aiarena-decrypt-tge]}
+    - {t: "2024-02 に Code4rena で監査を実施（賞金プール 60,500 ドル）、報告書は 2024-05 に公開された。", k: fact, s: [src-aiarena-c4-repo, src-aiarena-c4-report]}
+    - {t: "NRN は 2024-06-24 に請求開始、エアドロップは 8000 万 NRN。", k: fact, s: [src-aiarena-decrypt-tge]}
+    - {t: "2024-04 には模倣学習基盤 ARC をホワイトラベル SDK として、研究競技プラットフォーム SAI とともに発表していた。2025-01 にプロジェクト名を NRN Agents（旧 ARC Agents）に変更し、ゲーム用エージェント SDK とロボティクスを掲げた。公式資料は AI Arena を「技能ベースの賭けシステムを持つ熱心なファン向けの作品」と位置付ける。参照日時点で ArenaX Labs のサイトはロボティクス・強化学習の評価基盤を掲げる。", k: fact, s: [src-aiarena-gamesbeat-arc, src-aiarena-notion-nrn-primer, src-aiarena-arenax-site]}
+  retention_evidence:
+    - {t: "確認できた参加規模はエアドロップ施策の約 8000 人だけで、これは報酬目当ての参加を含む期間限定の数字である。", k: fact, s: [src-aiarena-decrypt-airdrop-team]}
+    - {t: "トークン配布後のアクティブ数、Ranked Battle の試合数、継続率、NFT の二次流通量は公表資料で確認できなかった（dappradar・dune は遮断）。", k: unknown}
+    - {t: "運営の関心が 2025 年に SDK・研究プラットフォーム・ロボティクス評価へ移ったことは、ゲーム単体の定着が事業の中心にならなかった可能性を示唆するが、直接の証拠ではない。", k: analysis, s: [src-aiarena-notion-nrn-primer, src-aiarena-arenax-site]}
+  extensions:
+    - {t: "第三者がコントラクトを拡張した例は確認できなかった。公式の拡張枠は Research Competition（研究者のモデル持ち込み）で、参加規模は未確認。", k: fact, s: [src-aiarena-notion-overview, src-aiarena-docs-sitemap]}
+    - {t: "エアドロップ施策ではインフルエンサーを隊長とするチーム制が作られ、チームの成績が個人の配分倍率に効いた。運営は多数ウォレットによるボット農場を不利にする狙いを語った。", k: claim, who: "Wei Xie（AI Arena 共同創業者）", s: [src-aiarena-decrypt-airdrop-team], q: "You're basically penalizing bot farms from investing a lot of time and not extracting a lot of yield from it"}
+  constraints:
+    - {t: "勝敗の正しさはサーバーの申告に依存し、プレイヤーは試合を再実行して検証する手段を持たない（公開された検証手段は確認できなかった）。", k: fact, s: [src-aiarena-c4-repo]}
+    - {t: "ステーク係数（ステーク量の平方根）が報酬に効くため、資金量が勝敗以外の報酬差を生む。公式は平方根により大口の独占を抑えると説明したが、資金が多いほど有利な構造は残る。", k: fact, s: [src-aiarena-notion-nrn-rewards, src-aiarena-c4-repo]}
+    - {t: "ステーク量の端数を調整すると負けでほとんど失わず勝ちで同じポイントを得られる、という脆弱性が監査で指摘された（H-05）。報酬計算の非対称性を設計で意図すると、その境界が攻撃対象になる。", k: fact, s: [src-aiarena-c4-report]}
+    - {t: "模倣学習の質はデモの質に依存し、偏ったデータでは偏った方策になると公式自身が注意している（パンチだけ教えると常にパンチする）。", k: fact, s: [src-aiarena-notion-training]}
+  principles:
+    - {t: "操作を準備に置き換える代理エージェント設計: 試合中の操作を取り除き、デモ作成・学習設定・試合の選択にプレイヤーの意思決定を集中させると、試合が無人で回り、非同期・大量の対戦が可能になる。適用条件は学習結果が目に見えて変わる（Inspector 等で方策を確認できる）こと。破綻条件は学習の効果が見えにくく、ステークやアイテムなど資金の差が勝敗より報酬を左右する場合で、育成の意味が薄れる。", k: analysis, s: [src-aiarena-notion-training, src-aiarena-notion-nrn-rewards]}
+    - {t: "ポイントがゼロになってから資本を削る段階的ペナルティ: ラウンド内の勝ちポイントを先に削り、尽きたらステークの一部を「リスク下」に置き、勝てば取り戻せるようにすると、負けの即時損失を抑えつつ放置を罰せる。適用条件は試合結果が信頼できること。破綻条件は端数処理や転送で状態が壊れる場合で、監査で複数の脆弱性が見つかった。", k: analysis, s: [src-aiarena-notion-nrn-rewards, src-aiarena-c4-report]}
+    - {t: "モデルのハッシュを NFT に記録して育成成果を資産化する: 所有と売買はチェーンで保証できるが、モデル本体の保存と実行を運営が握る限り、資産の価値は運営の継続に依存する。適用条件はモデルの保存場所と実行環境が独立に用意されること。破綻条件は運営停止で、ハッシュだけが残る。", k: analysis, s: [src-aiarena-c4-repo]}
+  counter_evidence:
+    - {t: "ゲームの核心（試合と学習）はすべてオフチェーンで、運営自身もサーバーをオラクルと呼んでいる。人間が AI を育てて戦わせる体験はチェーンなしで成立し、NFT 不要の無料版も提供されていた。チェーンは報酬経済とトークン配布のための層だった可能性が高い。", k: analysis, s: [src-aiarena-c4-repo, src-aiarena-decrypt-airdrop-team]}
+    - {t: "確認できる大きな参加はトークンのエアドロップ施策（約 8000 人）で、ゲームそのものへの継続的な関与の証拠ではない。", k: fact, s: [src-aiarena-decrypt-airdrop-team]}
+    - {t: "運営は 2025 年に事業の説明を SDK・研究・ロボティクスへと移しており、AI Arena は「人間が AI を育てるゲーム」の成功例ではなく、技術の実証の場だった可能性がある。ただし SDK（ARC）の外販はトークン配布前の 2024-04 に既に発表されており、軸足の移動を「ゲームの不振の結果」と読むのは時系列上も断定できない。", k: analysis, s: [src-aiarena-notion-nrn-primer, src-aiarena-arenax-site, src-aiarena-gamesbeat-arc]}
+    - {t: "公式の「人間が in-the-loop で AI を改善する初のゲーム」という主張には先例がある。テキサス大学の研究ゲーム NERO（2005-06 公開）は、プレイヤーが訓練役となってロボット部隊をリアルタイムに学習させ、他のプレイヤーのチームと戦わせる設計で、5 万回以上ダウンロードされた。AI Arena の新しさは模倣学習の採用と、訓練済みモデルを NFT・トークン経済に結び付けた点に限られる。", k: analysis, s: [src-aiarena-nero-aiide, src-aiarena-notion-intro]}
+    - {t: "loop・training・ranking の記述の根拠とした Notion 文書は 2022-08〜09 に最終編集されたもので、2024 年の Arbitrum 版の実際の仕様（対戦相手プールの大きさ等。文書自体が「ローンチ前に確定」と書く）と一致するかは確認できない。", k: fact, s: [src-aiarena-notion-intro, src-aiarena-notion-training, src-aiarena-notion-ranking]}
+    - {t: "報酬経済をオンチェーンにしたことで透明性は増したが、監査では High 8 件が見つかった。複雑な報酬規則をコントラクトに載せることは、検証可能性と同時に新しい失敗点を作った。", k: fact, s: [src-aiarena-c4-report]}
+
+metrics:
+  - {id: m-aiarena-seed, type: funding, value: 5000000, unit: USD, period: "2024-01 以前（時期未確認）", definition: "Paradigm 主導のシードラウンド（報道による）", nature: reported, s: [src-aiarena-betakit-2024]}
+  - {id: m-aiarena-round-2024, type: funding, value: 6000000, unit: USD, period: "2024-01", definition: "Framework Ventures 主導の資金調達（報道による）", nature: reported, s: [src-aiarena-betakit-2024]}
+  - {id: m-aiarena-gateway-players, type: players, value: 8000, value_text: "約 8000", unit: players, period: "2024 年初〜2024-03（Gateway to the Arena）", definition: "プレイ・トゥ・エアドロップ施策の参加者数（8 チーム×約 1000 人、報道による）", nature: reported, s: [src-aiarena-decrypt-airdrop-team, src-aiarena-decrypt-tge]}
+  - {id: m-aiarena-airdrop, type: other, value: 80000000, unit: NRN, period: "2024-06", definition: "エアドロップ総量（半分がプレイ施策、半分が NRN Boxes）", nature: reported, s: [src-aiarena-decrypt-tge]}
+  - {id: m-aiarena-nrn-max-supply, type: other, value: 1000000000, unit: NRN, period: "2024-02（監査版コード）", definition: "Neuron.sol の MAX_SUPPLY。展開時に財務 2 億・貢献者 5 億を発行する設定", nature: measured, s: [src-aiarena-c4-repo], note: "実際に展開されたコントラクトと同一かは未確認"}
+  - {id: m-aiarena-c4-findings, type: other, value_text: "High 8 件・Medium 9 件", unit: findings, period: "2024-02-09〜02-21（監査）", definition: "Code4rena 監査報告書の有効な指摘数", nature: measured, s: [src-aiarena-c4-report]}
+  - {id: m-aiarena-c4-pool, type: other, value: 60500, unit: USD, period: "2024-02", definition: "Code4rena 監査の賞金プール（USDC）", nature: reported, s: [src-aiarena-c4-repo]}
+
+events:
+  - {id: ev-aiarena-funding-2024, date: "2024-01-12", type: funding, title: "600 万ドルの資金調達を発表", detail: "Framework Ventures 主導。記事中の 2 ラウンド（シード 500 万ドル＋今回 600 万ドル）の合計は 1100 万ドル（合計額は記事に明記なし、検証役の計算）", s: [src-aiarena-betakit-2024]}
+  - {id: ev-aiarena-c4, date: "2024-02-09", type: other, title: "Code4rena 監査開始（02-21 まで）", s: [src-aiarena-c4-repo]}
+  - {id: ev-aiarena-gateway-end, date: "2024-03", type: round, title: "Gateway to the Arena 最終ラウンド終了", detail: "約 8000 人、インフルエンサー隊長のチーム制", s: [src-aiarena-decrypt-airdrop-team]}
+  - {id: ev-aiarena-c4-report, date: "2024-05-14", type: other, title: "Code4rena 監査報告書公開", detail: "High 8・Medium 9", s: [src-aiarena-c4-report]}
+  - {id: ev-aiarena-tge, date: "2024-06-24", type: launch, title: "NRN トークン請求開始", detail: "7:00 UTC 請求開始、約 1 時間後に CEX 上場予定", s: [src-aiarena-decrypt-tge]}
+  - {id: ev-aiarena-rebrand, date: "2025-01", type: pivot, title: "NRN Agents へ改名（旧 ARC Agents）", detail: "ゲーム用エージェント SDK とロボティクスを掲げる", s: [src-aiarena-notion-nrn-primer]}
+
+relations:
+  - {to: c-ai-agent-player, type: built-with, basis: confirmed, note: "訓練された AI ファイターが自律的に試合を行う", s: [src-aiarena-notion-intro]}
+  - {to: freysa, type: contrasts-with, basis: analytic, note: "AI Arena は人間が AI を育てる側、Freysa は人間が AI を攻略する側"}
+  - {to: axie-infinity, type: similar-to, basis: analytic, note: "NFT キャラクター＋報酬トークン＋ランク戦。AI Arena は報酬をステーク量と Elo に結び付け、無制限の発行を避けようとした"}
+  - {to: daydreams, type: contrasts-with, basis: analytic, note: "汎用 LLM エージェントがゲームを遊ぶ枠組みに対し、AI Arena は 1 つのゲームに特化した小型の行動学習モデル"}
+  - {to: project-sid, type: contrasts-with, basis: analytic, note: "Project Sid は人間の介入なしに多数の LLM エージェントが社会を作る研究、AI Arena は 1 対 1 の対戦で人間がエージェントを訓練する"}
+
+unknowns:
+  - "Arbitrum 上の Web3 版の正式開始日、展開済みコントラクトのアドレスと監査版との差分、監査指摘の修正状況。"
+  - "トークン配布後のアクティブプレイヤー数、Ranked Battle の試合数、継続率、NFT の総数と二次流通量。"
+  - "参照日時点でゲームが稼働しているか（公式ドキュメントは 404、公式サイトは本文を確認できず）。"
+  - "Research Competition の参加規模と、研究者モデルの売買が実現したか。"
+  - "Merging Pool の検証用フロントエンドと選定コードの IPFS 公開が実装されたか。"
+  - "学習が実行される場所（ブラウザかサーバーか）と、モデル本体の保管場所。"
+contradictions:
+  - {t: "チェーン: 2024-01 の報道は「Ethereum-native」とし、2024-03 以降の報道と監査資料は Arbitrum（L2）を前提にしている（L2 移行または表現の違いの可能性）。", s: [src-aiarena-betakit-2024, src-aiarena-decrypt-airdrop-team]}
+
+sources:
+  - {id: src-aiarena-c4-repo, title: "code-423n4/2024-02-ai-arena", url: "https://github.com/code-423n4/2024-02-ai-arena", publisher: "GitHub (Code4rena)", type: code, primary: true, published: "2024-02", accessed: "2026-10-23", access: fetched, lang: en, note: "git clone で確認。運営による概要（サーバーがオラクル）、FighterFarm、RankedBattle、Neuron 等のソース"}
+  - {id: src-aiarena-c4-report, title: "AI Arena — Code4rena audit report", url: "https://code4rena.com/reports/2024-02-ai-arena", publisher: "Code4rena", type: analysis, primary: true, published: "2024-05-14", accessed: "2026-10-23", access: fetched, lang: en, note: "High 8・Medium 9。冒頭 10 万字のみ読了"}
+  - {id: src-aiarena-notion-intro, title: "What is AI Arena? (Introduction)", url: "https://aiarena.notion.site/Introduction-f6cdc2ab2feb4b06ae5ff7440c55a020", publisher: "AI Arena (Notion)", type: official-docs, primary: true, published: "2022-09", accessed: "2026-10-23", access: fetched, lang: en, note: "Notion の公開 API で本文取得。模倣学習、Ranked Battle、human-in-the-loop の主張。最終編集 2022-09-07（検証役が再取得して確認）"}
+  - {id: src-aiarena-notion-training, title: "Training (Why Train?)", url: "https://aiarena.notion.site/Training-ef956f92f6a54b42ab30fced8715669f", publisher: "AI Arena (Notion)", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, published: "2022-08", note: "模倣学習の 4 段階、設定項目、Simulation Mode、AI Inspector。最終編集 2022-08-08（検証役が再取得して確認）"}
+  - {id: src-aiarena-notion-ranking, title: "Ranking System", url: "https://aiarena.notion.site/61ddadfe309443c38a584bca455dc930", publisher: "AI Arena (Notion)", type: official-docs, primary: true, published: "2022-08", accessed: "2026-10-23", access: fetched, lang: en, note: "Elo 方式（FIDE の K 係数）、対戦相手プールの選び方。最終編集 2022-08"}
+  - {id: src-aiarena-notion-nrn-rewards, title: "NRN Rewards", url: "https://aiarena.notion.site/66ced71e6d6a41bdb6d41c4f8057c86d", publisher: "AI Arena (Notion)", type: official-docs, primary: true, published: "2023-11", accessed: "2026-10-23", access: fetched, lang: en, note: "ポイント＝勝敗×ステーク係数×Elo、リスク下のステーク、平方根ステーク。最終編集 2023-11。検証役は 2026-10-23 に Notion API が 400 を返し再取得できず（平方根ステークとリスク下のステークは監査リポジトリで別途確認）"}
+  - {id: src-aiarena-notion-merging, title: "Merging", url: "https://aiarena.notion.site/cc656ae4bb6d44f6b74b49ec966c0c57", publisher: "AI Arena (Notion)", type: official-docs, primary: true, published: "2023-11", accessed: "2026-10-23", access: fetched, lang: en, note: "遺伝的アルゴリズムによる新 NFT、Chainlink VRF とオフチェーン選定の計画。最終編集 2023-11。検証役は 2026-10-23 に Notion API が 400 を返し再取得できず、この資料のみに依る記述は未再検証"}
+  - {id: src-aiarena-notion-overview, title: "Project Overview", url: "https://aiarena.notion.site/0ef9f38668dc48b5a8579fb7ebb67bca", publisher: "AI Arena (Notion)", type: official-docs, primary: true, published: "2025-01", accessed: "2026-10-23", access: fetched, lang: en, note: "Research Competition と Gaming Competition の Meta Competition。最終編集 2025-01"}
+  - {id: src-aiarena-notion-nrn-primer, title: "NRN ▸NEURON | Project Primer", url: "https://aiarena.notion.site/18419d397bb5808bb113cff0d251e9b4", publisher: "AI Arena / NRN Agents (Notion)", type: official-docs, primary: true, published: "2025-04", accessed: "2026-10-23", access: fetched, lang: en, note: "2025-01 に NRN Agents へ改名（旧 ARC Agents）、エージェント SDK・ロボティクス・AI Arena の位置付け。最終編集 2025-04"}
+  - {id: src-aiarena-docs-sitemap, title: "docs.aiarena.io sitemap", url: "https://docs.aiarena.io/sitemap.xml", publisher: "AI Arena", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "ページ一覧（gaming-competition、research-competition 等、lastmod 2025-06-26）。各ページ本体は参照日に 404"}
+  - {id: src-aiarena-arenax-site, title: "ArenaX Labs — Evaluation infrastructure for robotics & RL", url: "https://www.arenaxlabs.com/", publisher: "ArenaX Labs", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "参照日時点の会社サイト。ロボティクス・強化学習の評価基盤"}
+  - {id: src-aiarena-arenax-github, title: "ArenaX-Labs (GitHub organization)", url: "https://github.com/ArenaX-Labs", publisher: "GitHub", type: code, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "公開リポジトリは rlmesh 等の RL 評価関連 5 件。ゲームのコードは公開されていない"}
+  - {id: src-aiarena-betakit-2024, title: "ArenaX Labs closes $6 million to develop AI-powered battle game", url: "https://betakit.com/arenax-labs-closes-6-million-to-develop-ai-powered-battle-game/", publisher: "BetaKit", type: news, primary: false, published: "2024-01-12", accessed: "2026-10-23", access: fetched, lang: en, note: "600 万ドル（Framework 主導）、以前の Paradigm 主導 500 万ドル、2021 年創業"}
+  - {id: src-aiarena-decrypt-airdrop-team, title: "How Fighting Game 'AI Arena' Turned Its Airdrop Into a Team Sport", url: "https://decrypt.co/222438/how-fighting-game-ai-arena-turned-airdrop-team-sport", publisher: "Decrypt", type: news, primary: false, published: "2024-03-19", accessed: "2026-10-23", access: fetched, lang: en, author: "Andrew Hayward", note: "Gateway to the Arena、約 8000 人、チーム制、ボット対策（共同創業者 Wei Xie の発言）、無料版と Arbitrum NFT 版"}
+  - {id: src-aiarena-nero-aiide, title: "The NERO Video Game", url: "https://ojs.aaai.org/index.php/AIIDE/article/view/18771", publisher: "AAAI (AIIDE 2006 Demonstration)", author: "Kenneth O. Stanley, Igor Karpov, Risto Miikkulainen, Aliza Gold", type: paper, primary: true, published: "2006", accessed: "2026-10-23", access: fetched, lang: en, note: "検証役が追加。プレイヤーがロボット部隊を訓練し他プレイヤーのチームと戦わせる研究ゲーム、2005-06 公開、5 万ダウンロード超"}
+  - {id: src-aiarena-decrypt-tge, title: "Ethereum Fighting Game 'AI Arena' Sets NRN Token Launch", url: "https://decrypt.co/236491/ethereum-fighting-game-ai-arena-token-launch", publisher: "Decrypt", type: news, primary: false, published: "2024-06-21", accessed: "2026-10-23", access: fetched, lang: en, note: "2024-06-24 請求開始、8000 万 NRN エアドロップ、Arbitrum"}
+  - {id: src-aiarena-gamesbeat-arc, title: "ArenaX Labs launches ARC AI game infrastructure and SAI research platform", url: "https://gamesbeat.com/arenax-labs-launches-arc-ai-game-infrastructure-and-sai-research-platform/", publisher: "GamesBeat", type: news, primary: false, published: "2024-04-15", accessed: "2026-10-23", access: fetched, lang: en, note: "ARC（模倣学習のホワイトラベル SDK）と SAI（研究競技プラットフォーム）。2025-06-17 更新。NRN Agents への改名やロボティクスには触れていない"}

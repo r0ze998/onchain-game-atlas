@@ -1,0 +1,105 @@
+id: rare-pepe
+name: Rare Pepe
+name_ja: レア・ペペ
+aliases: [Rare Pepe Directory, Rare Pepe Wallet, PEPECASH, RAREPEPE]
+kind: platform
+depth: index
+updated: "2026-10-23"
+chains: [Bitcoin（Counterparty）]
+team: "運営会社なし。Rare Pepe Directory（「Rare Pepe Scientists」による審査）、Rare Pepe Wallet（Joe Looney とされる）、世界中の投稿作家"
+summary: >-
+  2016 年 9 月から Bitcoin 上の Counterparty 資産として発行された、インターネットミーム「Pepe」のカード群。
+  作家が自分で Counterparty 資産を作り、発行ロック・分割不可・100〜10 万枚といった規則を満たして Rare Pepe Directory に申請し、
+  審査を通ると Rare Pepe Wallet などに表示される。36 シリーズ・1700 枚超が認定された後、投稿は締め切られた。
+  ゲームではなく、運営会社なしに「誰でも発行し、共同体が認定する」収集文化の初期例。
+selection_reason: >-
+  特定の運営やゲームなしに、発行規則（ロック・分割不可）と第三者の認定ディレクトリと共通通貨（PEPECASH）だけで資産流通が成立した例として、
+  「最小プリミティブを公開して意味付けを第三者に委ねる」設計の前史にあたるから。同時に、認定という中央の関門が残っていた点で反例にもなる。
+categories:
+  - {id: assets, role: primary, reason: "作家が自分でロックされた Counterparty 資産を発行し、カードとして売買された"}
+  - {id: aw, role: secondary, reason: "運営会社なしで、発行は許可不要、認定はディレクトリ、取引は DEX とウォレットという分業で流通した"}
+status:
+  value: archived
+  as_of: "2026-10"
+  note: >-
+    Rare Pepe Directory は投稿締め切り（「SUBMISSIONS ARE CLOSED FOR THE FORSEEABLE FUTURE」）を掲示し、シリーズ 1〜36 を掲載したまま残る。
+    rarepepewallet.com は「Down for maintenance」で別ドメインへの移動を案内している。資産自体は Counterparty 上に残る。
+  s: [src-rarepepe-directory-submit, src-rarepepe-wallet-site]
+dates:
+  launched: {date: "2016-09-09", s: [src-rarepepe-tokenscan-issuances], note: "最初のカード RAREPEPE が Bitcoin ブロック 428919 で 300 枚発行された日（UTC）"}
+
+architecture:
+  onchain:
+    level: assets-only
+    detail: >-
+      各カードは Counterparty 資産（Bitcoin 上）で、発行数・ロック・分割可否・保有と移転がチェーン上にある。
+      どの資産が「本物の Rare Pepe」かという認定、画像、シリーズ分けはチェーン外の Directory が管理する。
+    s: [src-rarepepe-directory-submit, src-rarepepe-tokenscan-asset]
+  offchain:
+    - {item: "認定（Rare Pepe Directory の審査、Telegram の投稿ボット）", s: [src-rarepepe-directory-submit]}
+    - {item: "画像と説明（資産の description は外部 URL / JSON を指す）", s: [src-rarepepe-tokenscan-asset]}
+    - {item: "ウォレット兼マーケット（Rare Pepe Wallet、Book of Orbs）", s: [src-rarepepe-directory-submit, src-rarepepe-dailydot-2017]}
+  admin:
+    level: limited
+    detail: "資産の発行は誰でも可能で、運営がカードを凍結・変更する権限はない（ロック済み資産の場合）。ただし「認定カード」の範囲は Directory の審査が決めた。"
+    s: [src-rarepepe-directory-submit, src-rarepepe-directory-about]
+  open_source:
+    level: unknown
+    detail: "Counterparty 自体はオープンソースだが、Directory / Wallet のソース公開は確認していない。"
+    s: []
+  extensibility:
+    level: permissionless-onchain
+    detail: "誰でも Counterparty 資産を作れる（発行に 0.5 XCP）。カードとしての認定には審査が必要。PEPECASH を使うゲームを作っている人がいると Directory は記す。"
+    s: [src-rarepepe-directory-submit, src-rarepepe-directory-pepecash]
+
+compare:
+  gameplay: {t: "ゲームではなく収集と売買。作家がカードを発行して申請し、収集者がウォレットや DEX で売買する。", k: fact, s: [src-rarepepe-directory-submit, src-rarepepe-dailydot-2017]}
+  necessity: {t: "運営会社なしに発行数の固定（ロック）と所有の移転を保証する部分にチェーンを使った。認定は依然として中央の Directory に依存しており、チェーンは「本物」の判定までは担っていない。", k: analysis, s: [src-rarepepe-directory-about, src-rarepepe-directory-submit]}
+  information: {t: "発行数・保有・取引は公開。審査の基準と判断は Directory の人間が行う。", k: fact, s: [src-rarepepe-directory-submit]}
+  persistence: {t: "Directory の投稿は締め切られ、公式ウォレットは保守中表示だが、資産は Counterparty 上に残り DEX 等で移転できる。", k: fact, s: [src-rarepepe-directory-submit, src-rarepepe-wallet-site, src-rarepepe-tokenscan-asset]}
+  extensibility: {t: "資産の発行は許可不要。認定と表示は Directory とウォレットが決める。", k: fact, s: [src-rarepepe-directory-submit]}
+  money_flow: {t: "作家は 0.5 XCP（と BTC 手数料）で資産を作り、Directory に PEPECASH で申請料を払う（掲示上は 200 PEPECASH、週ごとに調整）。申請料の半分は焼却。収集者は PEPECASH 等で作家・他の保有者から買う。", k: fact, s: [src-rarepepe-directory-submit, src-rarepepe-directory-pepecash]}
+  entry_barrier: {t: "Counterparty 対応ウォレット、XCP・BTC・PEPECASH の入手、Telegram での申請手続きが必要で、Directory 自身も暗号資産に不慣れな人には難しいと書いている。", k: fact, s: [src-rarepepe-directory-submit]}
+
+concepts: [c-nft-asset, m-collectible-cards, c-composable-primitive]
+
+article:
+  principles:
+    - {t: "許可不要の発行と許可制の認定の分離: 発行規則（ロック・分割不可・枚数範囲）をチェーンの機能で強制し、「正典」への収録だけを審査にすることで、運営会社なしに供給の信頼と質の管理を両立させた。破綻条件は認定者が不在になること（投稿締め切り後は新規の正典が増えない）と、認定外の資産との区別がチェーン外の一覧に依存すること。", k: analysis, s: [src-rarepepe-directory-submit, src-rarepepe-directory-about]}
+  counter_evidence:
+    - {t: "流通の中心はウォレット・ディレクトリという特定サイトであり、それが保守中になると一般の利用者は別ドメインに頼るしかない。「運営不在」は資産層についてのみ言える。", k: analysis, s: [src-rarepepe-wallet-site]}
+
+metrics:
+  - {id: m-rarepepe-first-issuance, type: other, value: 300, unit: tokens, period: "2016-09-09（ブロック 428919）", definition: "最初のカード RAREPEPE の初回発行数。現在の供給は 298（ロック済み）", nature: measured, s: [src-rarepepe-tokenscan-issuances, src-rarepepe-tokenscan-asset]}
+  - {id: m-rarepepe-certified, type: other, value_text: "1700 超（over 1700 rares）", unit: cards, period: "投稿締め切り時点（時期未確認）", definition: "Directory が認定したカード数（Directory の掲示）。Wikipedia は 36 シリーズ 1,774 枚と記載", nature: reported, s: [src-rarepepe-directory-submit]}
+  - {id: m-rarepepe-pepecash-supply, type: other, value: 700000000, value_text: "約 7 億", unit: PEPECASH, period: "Directory 記載時点（日付不明）", definition: "流通している PEPECASH の数（Directory 掲示）。約 3 億は焼却", nature: reported, s: [src-rarepepe-directory-pepecash]}
+  - {id: m-rarepepe-cards-2017-02, type: other, value: 500, value_text: "500 超", unit: cards, period: "2017-02", definition: "Rare Pepe Wallet 上の個別カード数（Daily Dot）", nature: reported, s: [src-rarepepe-dailydot-2017]}
+
+events:
+  - {id: ev-rarepepe-first, date: "2016-09-09", type: launch, title: "最初のカード RAREPEPE を 300 枚発行", s: [src-rarepepe-tokenscan-issuances]}
+  - {id: ev-rarepepe-dailydot, date: "2017-02-21", type: other, title: "Daily Dot が Rare Pepe 経済を報道（500 枚超、申請料 4,000 PEPECASH）", s: [src-rarepepe-dailydot-2017]}
+  - {id: ev-rarepepe-auction-2018, date: "2018-01-13", type: other, title: "ニューヨークでのライブオークションで Homer Simpson 風の Rare Pepe が 38,500 ドル", s: [src-rarepepe-wikipedia]}
+
+relations:
+  - {to: spells-of-genesis, type: similar-to, basis: analytic, note: "同じ Counterparty 上のカード。SoG は運営発行、Rare Pepe は作家発行と共同体の認定"}
+  - {to: loot, type: similar-to, basis: analytic, note: "運営が意味付けを決めず、最小の規則と資産から共同体が文化を作った点で類似。影響関係の一次証拠は未確認"}
+  - {to: c-cc0, type: contrasts-with, basis: analytic, note: "Pepe は既存キャラクターに基づく二次創作で、権利の放棄ではなく権利関係が曖昧なまま流通した"}
+
+unknowns:
+  - "投稿締め切りの正確な日付（2018 年とする二次資料があるが一次資料は未確認）。"
+  - "収集者数・取引額の時系列（一次集計なし）。"
+  - "Rare Pepe Wallet と Directory の運営者の正確な体制。Joe Looney の役割の一次資料。"
+  - "Wikipedia が記す 2021 年の高額落札など後年の取引の一次資料。"
+contradictions:
+  - {t: "申請料: Daily Dot（2017-02）は 4,000 PEPECASH（約 13 ドル）、現在の Directory の掲示は 200 PEPECASH。掲示は週ごとに調整するとしており、時期の差と見られる。", s: [src-rarepepe-dailydot-2017, src-rarepepe-directory-submit]}
+  - {t: "認定数: Directory は「1700 超」、Wikipedia は 36 シリーズ 1,774 枚。", s: [src-rarepepe-directory-submit, src-rarepepe-wikipedia]}
+
+sources:
+  - {id: src-rarepepe-directory-submit, title: "Submit Your Rare Pepe", url: "https://rarepepedirectory.com/?page_id=25", publisher: "Rare Pepe Directory", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "投稿締め切りの告知、1700 超の認定、発行規則（ロック・分割不可・100〜10 万枚）、申請料と焼却、審査"}
+  - {id: src-rarepepe-directory-about, title: "About US", url: "https://rarepepedirectory.com/?page_id=122", publisher: "Rare Pepe Directory", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "Directory が認定し、ウォレットに情報を渡すという役割分担"}
+  - {id: src-rarepepe-directory-pepecash, title: "What is PepeCash", url: "https://rarepepedirectory.com/?page_id=1405", publisher: "Rare Pepe Directory", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "約 7 億 PEPECASH、初期配布（RAREPEPE 等の保有者）、申請料の半分を焼却"}
+  - {id: src-rarepepe-tokenscan-asset, title: "RAREPEPE asset (Counterparty)", url: "https://tokenscan.io/api/asset/RAREPEPE", publisher: "TokenScan (旧 XChain)", type: onchain-data, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "供給 298、ロック済み、分割不可、発行者アドレス"}
+  - {id: src-rarepepe-tokenscan-issuances, title: "RAREPEPE issuances (Counterparty)", url: "https://tokenscan.io/api/issuances/RAREPEPE", publisher: "TokenScan (旧 XChain)", type: onchain-data, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "ブロック 428919（2016-09-09 01:46 UTC）に 300 枚発行、428997 でロック"}
+  - {id: src-rarepepe-wallet-site, title: "Rare Pepe Wallet", url: "https://rarepepewallet.com", publisher: "Rare Pepe Wallet", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "Down for maintenance、別ドメインへの案内"}
+  - {id: src-rarepepe-dailydot-2017, title: "The Rare Pepe economy is real, and there's serious money behind it", url: "https://dailydot.com/rare-pepe-frog-meme-economy", publisher: "The Daily Dot", author: "Jay Hathaway", type: news, primary: false, published: "2017-02-21", accessed: "2026-10-23", access: fetched, lang: en, note: "500 超のカード、4,000 PEPECASH の申請料、価格例"}
+  - {id: src-rarepepe-wikipedia, title: "Rare Pepe", url: "https://en.wikipedia.org/wiki/Rare_Pepe", publisher: "Wikipedia", type: wiki, primary: false, accessed: "2026-10-23", access: fetched, lang: en, note: "36 シリーズ 1,774 枚、2018-01-13 のオークション（38,500 ドル）"}

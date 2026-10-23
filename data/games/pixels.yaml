@@ -1,0 +1,231 @@
+id: pixels
+name: Pixels
+name_ja: ピクセルズ
+aliases: ["Pixels Online", "Core Pixels"]
+kind: game
+depth: deep
+updated: "2026-10-23"
+chains: [Polygon（〜2023-10）, Ronin（2023-10〜）, "Ethereum（Farm Land NFT と PIXEL の ERC-20）"]
+team: "Pixels（創業者・CEO Luke Barwikowski）"
+summary: >-
+  ブラウザで遊ぶピクセルアートの農業・生活 MMO。ゲームの進行はサーバー側で処理され、オンチェーンにあるのは土地・ペット等の NFT と換金可能なトークン（BERRY、のち PIXEL）である。
+  2023-10 に Polygon から Ronin へ移り、運営・Ronin は数週間で日次アクティブが数千から 10 万超へ増えたと発表し、2024-05 には 100 万 DAU を主張した。
+  一方で報酬を受け取るウォレットの多くがボット・多重アカウントだったことを運営自身が認め、報酬の再設計（Chapter 2）直後に日次ウォレット数が数日で約 7 割減った。
+  その後は「報酬＝広告費」とみなす RORS 指標、評判スコアによる出金制限、出金手数料と spend-only トークン、さらに報酬基盤を中央集権型の外部向け製品 Stacked として切り出す方向へ転換した。
+selection_reason: >-
+  農業・放置型生産に換金可能な報酬を付けたとき何が起きるかを、運営発表・第三者計測・運営自身の反省文（whitepaper v3 の Lessons Learned）で同時に追える最大規模の事例だから。
+  オンチェーンのウォレット数と運営が言う DAU が乖離し、報酬改定のたびに活動が急変した記録があり、「報酬目的の参加者が去ったあとに何が残るか」の数少ない手がかりを含む。
+  また、運営がブロックチェーン要素を減らし（ソフト通貨のオフチェーン化、報酬の USDC・ギフトカード化の方針）、中央集権的なデータ基盤に価値を移していく過程は、オンチェーン化への反証としても重要。
+categories:
+  - {id: p2e, role: primary, reason: "タスクボード等の報酬として換金可能なトークン（BERRY→PIXEL）を配り、報酬設計の変更が活動量を直接左右した"}
+  - {id: assets, role: secondary, reason: "Farm Land（5000 区画）・ペット等の NFT と PIXEL がゲーム外で売買される。ゲーム規則はサーバー側"}
+  - {id: infra, role: secondary, reason: "Polygon から Ronin への移転で利用者数が急増したとされ、Ronin 全体の活動指標を押し上げた"}
+status:
+  value: active
+  as_of: "2026-10"
+  note: >-
+    2026-03 時点で Stacked（報酬基盤）が本体 Pixels・Pixel Dungeons・Chubkins に組み込まれたと報じられ、ヘルプセンターの VIP 記事は 2026-06 の更新を示す。
+    PIXEL の Ronin 上の移転は参照日直前（2026-10-15）にも観測された（本エントリの計測）。ただし現在の DAU を独立に確認できる資料はない。
+  s: [src-pixels-bitpinas-stacked, src-pixels-help-vip-tier, src-pixels-ronin-rpc]
+dates:
+  launched: {date: "2021", s: [src-pixels-decrypt-airdrop], note: "Decrypt は 2021 年に Polygon 上で始まったと記す。ヘルプセンターの更新履歴は Chapter 1 を 2022-11-16 としている"}
+
+architecture:
+  onchain:
+    level: assets-only
+    detail: >-
+      チェーン上にあるのは Farm Land NFT（1〜5000 番）、ペット等の NFT、PIXEL トークン（2024-02 以前はソフト通貨 BERRY も）で、
+      農作業・加工・タスクボード・エネルギー・市場・評判はゲームサーバー内の状態である。PIXEL はダッシュボードから Ronin ウォレットとの間で入出金し、
+      入金はゲーム内メールボックスへ届き、出金は「審査」を経て完了する。CEO は 2026 年に「一時期はゲーム内のすべてをオンチェーンにしていた」と述べたが、何を指すかは確認できない。
+    s: [src-pixels-help-nft-farms, src-pixels-help-withdraw, src-pixels-bg-berry-phaseout, src-pixels-bg-stacked]
+  offchain:
+    - {item: "Coins（2024-02 以降のソフト通貨）と全ての生産・加工・タスクの状態", s: [src-pixels-bg-berry-phaseout, src-pixels-help-updates]}
+    - {item: "評判スコア（オンチェーンとゲーム内の行動を運営が重み付けして算出。値は運営が随時調整）", s: [src-pixels-help-reputation, src-pixels-help-updates]}
+    - {item: "出金の審査・新規ウォレットへの 7 日間出金禁止", s: [src-pixels-help-withdraw]}
+    - {item: "報酬の対象選定（機械学習・セグメンテーション）と Events API・ID グラフ", s: [src-pixels-wp-smart-reward, src-pixels-bg-one-year]}
+  admin:
+    level: significant
+    detail: >-
+      評判スコアの算出式は非公開で「ad-hoc に調整する権利を留保」すると明記され、スコアが低いと取引・出金・市場利用ができない。
+      アカウントの一斉 BAN（1 週間で 75 万件と報道）、タスク数の上限、出金の審査など、報酬の流量は運営の裁量で制御される。
+    s: [src-pixels-help-reputation, src-pixels-help-rep-limits, src-pixels-ct-bots, src-pixels-help-updates]
+  open_source:
+    level: unknown
+    detail: "ゲームクライアント・サーバーの公開リポジトリは確認できなかった（未調査に近い。検索で見つからなかった）。"
+  extensibility:
+    level: official-api
+    detail: >-
+      第三者が拡張できるのは主に運営経由の統合である。外部 NFT コレクション（Mocaverse 等）をアバターとして使える提携、
+      ステーキングプールに入る提携ゲーム（Pixel Dungeons、Forgotten Runiverse）、他スタジオ向けの Events API / Stacked SDK。プレイヤーが規則を追加する仕組みはない。
+    s: [src-pixels-help-updates, src-pixels-wp-keychanges, src-pixels-wp-smart-reward, src-pixels-bg-stacked]
+
+compare:
+  gameplay: {t: "作物・資源を生産し加工してタスクボードに納品する農業・生活 MMO。エネルギーと待ち時間が行動量を制限し、土地・VIP・ペットが生産性を上げる。", k: fact, s: [src-pixels-help-updates, src-pixels-wp-core]}
+  necessity: {t: "ゲーム規則はサーバー側で、チェーンは換金可能な報酬と土地の売買に使われる。運営自身が報酬を USDC・ギフトカード・PayPal に移す方針を示しており、遊びそのものにチェーンが必要だったという根拠は乏しい。", k: analysis, s: [src-pixels-bg-stacked]}
+  information: {t: "土地・トークンの保有はチェーン上で公開。生産・報酬・評判スコアの内訳は非公開で、評判の算出要素も一覧のみ。", k: fact, s: [src-pixels-help-rep-increase, src-pixels-help-reputation]}
+  persistence: {t: "NFT と PIXEL は運営停止後もチェーン上に残るが、それを使う遊び（農場・タスク）はサーバーに依存する。2024-02 には BERRY が DEX から外されオフチェーン通貨に置き換えられた。", k: fact, s: [src-pixels-bg-berry-phaseout, src-pixels-help-nft-farms]}
+  extensibility: {t: "運営と提携した NFT 連携・提携ゲーム・SDK 統合に限られる。", k: fact, s: [src-pixels-help-updates, src-pixels-wp-keychanges]}
+  money_flow: {t: "プレイヤーは VIP（当初月約 10 ドル）、PIXEL での Coins 購入・加速等で支払い、ゲーム内で使われた PIXEL の 80% はコミュニティ金庫、20% は報酬プールへ戻る設計だった。報酬プールは月 2000 万 PIXEL（本体）等を配る。土地所有者は他人の生産から手数料を得る。", k: fact, s: [src-pixels-bg-100k, src-pixels-wp-keychanges, src-pixels-help-updates]}
+  entry_barrier: {t: "無料で始められ（Speck 区画）、ウォレットは出金・入金時に必要。出金には評判 1500〜2000 が必要で、土地・VIP・ペット保有で上がるため、換金には実質的に時間か支出が要る。", k: fact, s: [src-pixels-help-speck, src-pixels-help-rep-limits, src-pixels-help-rep-increase, src-pixels-help-updates]}
+
+concepts: [m-farming-idle, e-p2e, c-fungible-ingame-token, e-dual-token, c-nft-asset, m-land, e-sink-faucet, e-points-airdrop, c-own-chain, e-scholarship]
+
+proposed_concepts:
+  - {id: c-sybil-gating, name: "評判・本人性による換金ゲート", note: "評判スコア、顔認証、アカウント年齢などで出金・取引を制限し、多重アカウントの採算を下げる。Pixels と Sunflower Land が独立に採用"}
+  - {id: e-targeted-rewards, name: "報酬の選別配布（報酬＝広告費）", note: "報酬を一律に配らず、残存・課金しそうな利用者に配る。RORS のような指標で評価"}
+  - {id: e-spend-only-token, name: "消費専用トークン（売却不可の報酬）", note: "vPIXEL のように出金・売却できず、ゲーム内消費・ステークのみ可能な報酬トークン"}
+
+article:
+  what:
+    - {t: "見下ろし型のピクセルアートで、作物を植えて収穫し、木工・石工・料理・ワイン等で加工し、町のタスクボード（Infiniportal）の注文に納品して通貨・経験値・PIXEL を得る農業・生活 MMO。他プレイヤーと同じ町を歩き、ギルドに参加し、季節イベントに参加する。", k: fact, s: [src-pixels-help-updates, src-pixels-wp-core]}
+    - {t: "土地は二層構造で、Rainbow Road 沿いの NFT 農場（1〜5000 番）と、無料プレイヤー向けの小区画 Speck がある。Speck は拡張・家の改装ができ、NFT 農場は生産設備の上限やブックマーク等の特典が大きい。", k: fact, s: [src-pixels-help-nft-farms, src-pixels-help-speck, src-pixels-help-updates]}
+    - {t: "通貨は 2024-02 を境に変わった。それ以前は上限のないソフト通貨 BERRY がオンチェーン（Polygon、のち Ronin）で DEX 取引でき、以後は日常通貨がオフチェーンの Coins、オンチェーンのプレミアム通貨が PIXEL になった。", k: fact, s: [src-pixels-ronin-live, src-pixels-bg-berry-phaseout]}
+    - {t: "月額の VIP、ペット NFT、Moca 等の外部 NFT をアバターとして使う連携があり、2024 年以降は評判スコアが取引・出金・ギルド作成の可否を決める。", k: fact, s: [src-pixels-bg-100k, src-pixels-help-updates, src-pixels-help-rep-limits]}
+  loop:
+    - {t: "以下は公式ヘルプとパッチノートからの再構成（実プレイではない）。ログインすると自分の Speck か他人の NFT 農場に行き、種を植え、木・石を集め、エネルギーを消費しながら作業する。作物は時間経過で育ち、加工設備にも待ち時間がある。", k: fact, s: [src-pixels-help-updates, src-pixels-help-speck]}
+    - {t: "完成品をタスクボードに納品すると Coins・経験値、一部タスクでは PIXEL が出る。2024-10 以降タスクは技能ごとに 1 日の件数上限（技能あたり最大 40 件）があり、土地所有者・VIP 向けのタスクは色分けされる。", k: fact, s: [src-pixels-help-updates]}
+    - {t: "Coins は種・道具・Speck 拡張・エネルギードリンク（Berry Blast 5000 Coins）に使い、PIXEL は VIP、Coins 購入（2024-10 以降は USDC 価格に連動）、加速等に使う。PIXEL を外に出すにはダッシュボードで出金を申請し、評判 1500 以上（記事により 2000）と審査が必要。", k: fact, s: [src-pixels-help-updates, src-pixels-help-withdraw, src-pixels-help-rep-limits]}
+    - {t: "土地を持たないプレイヤーは他人の NFT 農場で生産でき、土地所有者は Land Surplus（2024-10 に 4〜6% へ引き上げ）を得る。土地所有者の一人は「時間がないので、コミュニティに自分の土地で grind してもらい手数料を得る」と述べている。", k: fact, s: [src-pixels-help-updates, src-pixels-ct-bots], q: "I don’t have much time to grind, so I let the community grind on my land and I get commission there."}
+  before_after:
+    - {t: "Polygon 時代の BERRY は「上限のない」ゲーム内ユーティリティトークンで、作物を売ると得られ、Katana DEX で RON と交換できる予定だった。日常の生産がそのまま市場で売れる通貨になっていた。", k: fact, s: [src-pixels-ronin-live]}
+    - {t: "Pixels は 2024-02 に BERRY を廃止しオフチェーンの Coins に置き換えた。報道によれば BERRY の日次インフレ率は 2% で、運営は「多くの MMO はインフレ経済の調整に苦しみ、web3 はそれを悪化させる」と説明した。", k: claim, who: "運営 (Pixels)", s: [src-pixels-bg-berry-phaseout], q: "Most MMOs struggle with balancing an inflationary economy, and web3 technology exacerbates the issue"}
+    - {t: "Ronin 移転の理由として CEO はガス代の安さと Sky Mavis の知見を挙げ、Sky Mavis は Axie Infinity の利用者層との相乗効果を期待した。", k: claim, who: "Luke Barwikowski / Sky Mavis", s: [src-pixels-bg-move-ronin]}
+    - {t: "2025 年の whitepaper v3 は、報酬を一律に配る従来の P2E から、データで「長期的価値を生む行動」を選んで報酬を配る方式（Smart Reward Targeting）へ転換したと述べる。報酬を「完全な帰属つきのマイクロ広告」と定義し、報酬 1 単位あたりの収益 RORS を北極星指標に置いた。", k: claim, who: "運営 (Pixels)", s: [src-pixels-wp, src-pixels-wp-rors, src-pixels-wp-smart-reward]}
+  onchain_tradeoffs:
+    - {t: "オンチェーン化で得たもの: 土地・ペット・PIXEL をゲーム外で売買でき、PIXEL（供給上限 50 億、60 か月でアンロック）は Binance Launchpool（3.5 億枚＝供給の 7%）を経て 2024-02-19 に上場した。Ronin は移転直後に VIP パスへ約 19 万 RON、ペット NFT に 31.5 万 RON 超の取引があったと述べる。", k: fact, s: [src-pixels-decrypt-airdrop, src-pixels-wp-pixel, src-pixels-dawn-of-ronin]}
+    - {t: "失ったもの・増えたコスト: CEO は報酬を配り始めたときの最大の問題を「ボットと sybil 攻撃」だったと述べた。換金可能な報酬が、人間以外の参加者を呼び込む誘因になった。", k: claim, who: "Luke Barwikowski (CEO)", s: [src-pixels-bg-stacked], q: "The biggest problem we ran into was bots and sybil attacks."}
+    - {t: "対策はすべてオフチェーンの運営裁量として実装された: 評判スコアによる取引・出金ゲート、出金審査、新規ウォレットへの 7 日出金禁止、市場の購入クールダウン 3 秒と出品数上限（2024-04）、土地取得 24 時間後までタスク特典なし（2024-07）。", k: fact, s: [src-pixels-help-rep-limits, src-pixels-help-withdraw, src-pixels-help-updates]}
+    - {t: "CEO は「ゲームにオンチェーン要素を加えると、結果としてゲーム経済がオンチェーンになる」と述べ、望むと望まざるとにかかわらず P2E になると説明した。", k: claim, who: "Luke Barwikowski (CEO)", s: [src-pixels-bg-stacked], q: "When you start to add onchain elements into a game, the end result is that your game economy becomes onchain"}
+    - {t: "チェーン上の指標（日次アクティブウォレット）が、報酬受取ウォレットの数を数える指標になり、運営発表・Ronin の宣伝・第三者の批判がすべて同じ数字の解釈をめぐって割れた。オンチェーンの透明性は、人間の参加者数の透明性を意味しなかった。", k: analysis, s: [src-pixels-ct-bots, src-pixels-gamestx-2m]}
+  roles:
+    - {t: "運営は報酬予算の配分者であり審判でもある。タスクの件数・報酬、評判の重み、BAN、出金審査を決め、2025 年以降は報酬を「再投資しそうな利用者」へ寄せると明言した。", k: claim, who: "運営 (Pixels)", s: [src-pixels-wp-lessons, src-pixels-bg-one-year]}
+    - {t: "土地所有者（NFT 5000 区画）は、他プレイヤーの生産から手数料を得る地主として機能し、2025 年の方針では土地保有が自動ステーキングのブーストにもなる。土地のレンタル（LootRush）も公式に案内されている。", k: fact, s: [src-pixels-help-updates, src-pixels-wp-lessons, src-pixels-help-renting]}
+    - {t: "Ronin / Sky Mavis は移転を支援し、Pixels の DAU を Ronin の成長の象徴として発信した。ChainArgos 共同創業者は、Ronin の活動の大部分は Pixels ではなく SOUL（Carv）だと反論した。", k: claim, who: "Sky Mavis / ChainArgos (Jonathan Reiter)", s: [src-pixels-dawn-of-ronin, src-pixels-ct-bots]}
+    - {t: "ボット・多重アカウント運用者は、報酬受取ウォレットとして大量に参加した。Pixels は 1 週間で 75 万アカウントを BAN したと報じられ、他社 CEO は約 70% がボットと推定した（いずれも独立検証なし）。", k: claim, who: "Cointelegraph 記事内の報道・推定", s: [src-pixels-ct-bots]}
+    - {t: "AI エージェントの参加について、Pixels の公式な位置づけ（許可・禁止）は確認できなかった。自動化は評判スコアと BAN で抑止される対象として扱われている。", k: unknown}
+  trajectory:
+    - {t: "2023-09-12 に Ronin 移転を発表した時点で、運営は月間アクティブウォレット 10 万超・DAU 5,000 を主張し、DappRadar では 9 月の DAU が 2,000〜3,000 だった。", k: fact, s: [src-pixels-bg-move-ronin]}
+    - {t: "2023-10-31 に Ronin で稼働し、DappRadar では 11/15 からの数日で日次アクティブが 4,000 から 111,000 に増えた。VIP 会員は 11,247 人（CEO の 11/19 投稿）。", k: fact, s: [src-pixels-ronin-live, src-pixels-bg-100k]}
+    - {t: "2024-02 に BERRY を廃止して PIXEL を上場。2024-05-13 に運営は 100 万 DAU 超を発表した（定義は示されていない）。", k: fact, s: [src-pixels-bg-berry-phaseout, src-pixels-decrypt-airdrop, src-pixels-theblock-1m]}
+    - {t: "2024-06-18 の Chapter 2（報酬を活動的で成績の良いプレイヤーへ集中させる改定）の直後、日次アクティブウォレットは 90 万超から 25.2 万へ数日で減り、のち 42.8 万に戻った。2024-08 には 712,672 日次アクティブアカウントと報じられた。", k: fact, s: [src-pixels-help-updates, src-pixels-bg-ch2-drop, src-pixels-bg-okx]}
+    - {t: "2024-10 に評判システムを「アンチボット強化とコインのインフレ対策」として作り直し、2024-11 には Chapter 2.5 でゲーム内コインの日次インフレを約 84% 下げたと CEO が述べた（自己申告）。2025-01 には土地ごとの生産設備数上限と待ち時間延長を導入した。", k: fact, s: [src-pixels-help-updates, src-pixels-bg-one-year]}
+    - {t: "2025 年の whitepaper v3 は 2024 年の収益を 2000 万ドルとし、トークンのインフレ、売り圧、的外れな報酬を反省点に挙げ、出金手数料（Farmer Fee 20〜50%）、spend-only の vPIXEL、ゲーム別ステーキング（月 2800 万 PIXEL 上限）を導入する計画を示した。2025-06 には日次アクティブウォレットが 4 万超で「安定した」と自社ブログが伝えた。", k: fact, s: [src-pixels-wp-lessons, src-pixels-wp-vpixel, src-pixels-wp-keychanges, src-pixels-post-stabilized]}
+    - {t: "2026-03 に報酬基盤を Stacked として外部スタジオ向けに公開し、CEO は PIXEL を段階的にステーク専用にし、報酬は USDC やギフトカード・PayPal で換金できるポイントに移すと述べた。", k: claim, who: "Luke Barwikowski (CEO)", s: [src-pixels-bg-stacked, src-pixels-bitpinas-stacked], q: "We’re slowly going to transition the PIXEL token to become stake-only."}
+  retention_evidence:
+    - {t: "示されている指標は、運営発表の DAU（定義非公開）、DappRadar / Nansen の日次アクティブウォレット、運営発表の収益・PIXEL 支出量・VIP 会員数である。示されていないのは、コホート継続率（D7/D30 等）、人間とボットの区別後の人数、報酬を受け取らない利用者の割合である。", k: analysis, s: [src-pixels-theblock-1m, src-pixels-bg-ch2-drop, src-pixels-bg-one-year]}
+    - {t: "報酬改定の自然実験: Chapter 2 で報酬の対象を絞った直後に日次ウォレットが約 69% 減った。運営 CMO はボット除去によるものと認めたと報じられた。GamesTX はこの 25 万前後を主に人間のベースラインと仮定したが、その後 75 万前後へ戻り、ボットが新しい報酬規則に適応したためと推測した。", k: claim, who: "BlockchainGamer.biz / GamesTX (Jon Jordan)", s: [src-pixels-bg-ch2-drop, src-pixels-gamestx-2m]}
+    - {t: "2025-06 の「4 万超の日次アクティブウォレット」は、ピーク時（約 100 万）の数 % に当たる。これは報酬が縮小・選別された後も残った層の上限的な目安だが、報酬はゼロになっておらず、「報酬なしで残った人」の証拠ではない。", k: analysis, s: [src-pixels-post-stabilized, src-pixels-gamestx-2m]}
+    - {t: "本エントリの独自計測: Ronin 公開 RPC で PIXEL（0x7eae…8ad7）の Transfer イベントを集計すると、2026-05-20（UTC）は 2,716 件・717 アドレス、2026-10-15 は 3,677 件・606 アドレスだった。取引所ウォレット等を含むトークン移転の数であり、ゲームの DAU ではない（ゲーム内の行動はオフチェーン）。手順: eth_getLogs（address=PIXEL、topic0=Transfer）を UTC 1 日分のブロック範囲で 200 ブロックずつ取得し、アドレス数は from/to の和集合（送信元は from のみ）。公開 RPC は約 5 か月分しか保持しておらず、2024 年の値は同じ方法で取れなかった。", k: fact, s: [src-pixels-ronin-rpc]}
+    - {t: "2025-07 に CEO は「DAU は二次的な指標」と述べ、質の高い DAU と純収益を重視すると説明した。運営自身が DAU を主要指標から外したため、以後の DAU 発表は継続の証拠として扱いにくい。", k: claim, who: "Luke Barwikowski (CEO)", s: [src-pixels-bg-apptokens], q: "DAU is a secondary metric that can help but it’s not the primary metric."}
+    - {t: "有料行動の証拠はある: 2023-11 に VIP 会員 11,247 人、2024 年の収益 2000 万ドル（自己申告）。ただし VIP は報酬獲得の効率を上げる手段でもあり、純粋な娯楽消費と投資を区別できない。", k: claim, who: "運営 (Pixels)", s: [src-pixels-bg-100k, src-pixels-wp-lessons]}
+  extensions:
+    - {t: "外部 NFT コレクションの取り込み: Mocaverse の MocaID 連携でクラブハウスに入れ、Mocaverse NFT をアバターとして使える（2023-11）。", k: fact, s: [src-pixels-help-updates]}
+    - {t: "提携ゲームがステーキングプールに入り、Pixel Dungeons（月 200 万 PIXEL）と Forgotten Runiverse（月 500 万 PIXEL）に報酬予算が割り当てられた（Phase 1）。ステーカーがどのゲームに報酬を回すかを投票する「分散型パブリッシング」として設計された。", k: fact, s: [src-pixels-wp-keychanges, src-pixels-wp-staking]}
+    - {t: "Stacked SDK により、他スタジオがイベントを送り、報酬対象（D7 継続、共有、購入等）を選び、RORS をダッシュボードで見られるとする。2026-03 時点の導入先は自社系タイトル中心。", k: claim, who: "運営 (Pixels)", s: [src-pixels-wp-smart-reward, src-pixels-bitpinas-stacked]}
+    - {t: "土地レンタル（LootRush 経由）とギルド（誓約・役職・土地の権限設定）が、プレイヤー間の分業と手数料の仕組みとして公式に用意された。", k: fact, s: [src-pixels-help-renting, src-pixels-help-updates]}
+  constraints:
+    - {t: "報酬で集めた活動は、報酬規則の変更で数日のうちに大半が消える。BlockchainGamer.biz は Splinterlands（約 68% 減）や Alien Worlds（43% 減）でも、ボット対策の報酬変更後に同様の急落と、その後の長期減少が起きたと指摘した。", k: fact, s: [src-pixels-bg-ch2-drop]}
+    - {t: "whitepaper v3 時点の RORS は約 0.8 で、配った報酬の価値より戻ってくる手数料収入が少なかった。", k: claim, who: "運営 (Pixels)", s: [src-pixels-wp-rors], q: "Currently around ~0.8, our clear and ambitious goal is surpassing a RORS of 1.0"}
+    - {t: "Core Pixels の問題として、運営は「シンクが不足したままコインを循環させる不完全なコアループ」と「エンドゲームの不足による再投資でなく引き出し」を挙げた。", k: claim, who: "運営 (Pixels)", s: [src-pixels-wp-core], q: "an incomplete core loop that recycled coins without sufficient sinks"}
+    - {t: "抽出を抑える手段（最大 50% の出金手数料、売却不可の vPIXEL、VIP による日次タスク・出金の制限）は、「資産を自由に持ち出せる」というオンチェーン化の約束と緊張関係にある。", k: analysis, s: [src-pixels-wp-vpixel, src-pixels-wp-core]}
+    - {t: "報酬の選別には ウォレット・端末・SNS を統合した ID グラフとゲーム横断データが必要で、精度は運営のデータ収集に依存する。外部から配分の妥当性を検証する手段は示されていない。", k: analysis, s: [src-pixels-wp-smart-reward]}
+  principles:
+    - {t: "ソフト通貨はオフチェーン、希少通貨だけオンチェーン: 日々の生産で大量に出る通貨を DB に置き、市場で売れるのは発行量を運営が絞れる通貨だけにすると、インフレの調整余地が生まれる。適用条件はゲーム内のシンクで価格を管理したいこと。破綻条件は両通貨の交換経路（PIXEL→Coins の購入）が残る場合で、Coins 自体の取引にも評判閾値が必要になったように、抽出圧力は交換点に移るだけである。", k: analysis, s: [src-pixels-bg-berry-phaseout, src-pixels-help-updates]}
+    - {t: "報酬を「広告費」として測る（RORS）: 報酬 1 単位あたりの収益を測り、継続・課金・紹介などの行動にだけ報酬を出すと、報酬は獲得コストとして比較できる。適用条件は報酬と収益を同じ単位で追える計測基盤があること。破綻条件は指標が運営の自己申告に留まる場合で、Pixels では 0.8（2025）、3 対 1（2026 の CEO 発言）、131%（特定施策）と値が文脈ごとに違い、外部から確かめられない。", k: analysis, s: [src-pixels-wp-rors, src-pixels-bg-stacked, src-pixels-bitpinas-stacked]}
+    - {t: "評判スコアによる換金ゲート: 出金・取引を、作りにくい信号（アカウント年齢、クエスト進行、土地・ペット保有、VIP）で重み付けしたスコアの閾値の後ろに置くと、多重アカウントの単価が上がる。適用条件は換金がゲームの主要な誘因であること。破綻条件はスコアが支払いで買える場合で、Pixels では PIXEL でコイン券を買うと評判が上がるクエストがあり、資金のある運用者には障壁にならない。", k: analysis, s: [src-pixels-help-rep-increase, src-pixels-help-updates]}
+    - {t: "報酬改定を人間・ボット比の推定に使う: 報酬の対象を変えた直後の急落幅は、報酬目的の参加の大きさの上限的な推定になる。適用条件は変更前後で同じ定義の計測があること。破綻条件はボットが新規則へ適応する場合で、急落後の底は人間のベースラインではなく、適応までの一時的な値かもしれない（Pixels は 25 万から 75 万へ戻った）。", k: analysis, s: [src-pixels-bg-ch2-drop, src-pixels-gamestx-2m]}
+  counter_evidence:
+    - {t: "「Pixels が Ronin の成長を牽引した」という見方自体に異論がある。ChainArgos は 2024-05-21 の Ronin 上で SOUL の取引が PIXEL の約 8 倍だったとし、活動の主因は別プロジェクトだと述べた。", k: claim, who: "ChainArgos (Jonathan Reiter)", s: [src-pixels-ct-bots]}
+    - {t: "「報酬改定で人が去った」解釈にも別の説明がある。Chapter 2 後の急落を運営はボット除去と説明したが、報酬が減って去った人間のプレイヤーと区別できるデータは公開されていない。", k: analysis, s: [src-pixels-bg-ch2-drop]}
+    - {t: "活動が「4 万に落ちた」（2025-06、ウォレット基準）と、2026-03 の報道にある「100 万 DAU」（運営発表、定義不明）は同時に成り立ちうる。オフチェーンの利用者とオンチェーンのウォレットを数えている可能性があり、どちらの数字も単独では衰退・成長の証拠にならない。", k: analysis, s: [src-pixels-post-stabilized, src-pixels-bitpinas-stacked]}
+    - {t: "ブロックチェーンが不要だった方向の証拠: 運営は 2026 年に報酬を中央集権的な Stacked に移し、USDC・ギフトカード・PayPal での換金を予定し、新作 Chubkins は当初 web3 資産なしで出すと報じられた。Pixels が成果として掲げるのは報酬の選別・不正検知というデータ基盤であり、チェーン上の仕組みではない。", k: claim, who: "Luke Barwikowski (CEO) / BlockchainGamer.biz", s: [src-pixels-bg-stacked]}
+    - {t: "BAN や報酬改定の効果自体が一時的だった可能性: Cointelegraph は DappRadar のアクティブアドレスで、BAN による急減がすぐに戻る様子を指摘した。一方で同記事は、人間のプレイヤーが全体の 3 分の 1 程度いるという支持者の見方や、土地所有者が日給程度を稼ぐ実例も伝えており、「ほぼボット」とする見方への反証にもなる。", k: claim, who: "Cointelegraph Magazine（DappRadar・関係者の見方の要約）", s: [src-pixels-ct-bots]}
+    - {t: "逆に、2024 年に 2000 万ドルの収益（自己申告）と 1 万人超の VIP があったことは、換金目的だけではない支出があった可能性を示す。ただし VIP は稼ぐ効率を上げる投資でもあり、決め手にはならない。", k: analysis, s: [src-pixels-wp-lessons, src-pixels-bg-100k]}
+
+metrics:
+  - {id: m-pixels-dau-polygon-2023, type: dau, value: 5000, value_text: "5,000（運営主張）/ DappRadar では 2,000〜3,000", unit: players, period: "2023（Polygon 時代、移転発表時点）", definition: "運営が主張する DAU。DappRadar の 2023-09 の日次値は 2,000〜3,000", nature: reported, s: [src-pixels-bg-move-ronin], note: "BlockchainGamer.biz は運営の数値が「数か月前のものに見える」と注記。DappRadar 値（measured）と運営値（reported）は別系列"}
+  - {id: m-pixels-dauw-2023-11, type: wallets, value: 111000, value_text: "4,000 → 111,000", unit: wallets, period: "2023-11-15〜2023-11-20", definition: "DappRadar の日次アクティブユニークウォレット", nature: measured, s: [src-pixels-bg-100k], note: "第三者集計。ボット除外なし"}
+  - {id: m-pixels-vip-2023-11, type: players, value: 11247, unit: players, period: "2023-11-19", definition: "有効な VIP 会員数（CEO の X 投稿）", nature: reported, s: [src-pixels-bg-100k]}
+  - {id: m-pixels-dau-2024-05, type: dau, value: 1000000, value_text: "100 万超", unit: players, period: "2024-05", definition: "運営発表の DAU（定義非公開）", nature: reported, s: [src-pixels-theblock-1m]}
+  - {id: m-pixels-dauw-2024-05-20, type: wallets, value: 779000, value_text: "約 77.9 万", unit: wallets, period: "2024-05-20", definition: "DappRadar のユニークアクティブウォレット（Cointelegraph が引用）", nature: measured, s: [src-pixels-ct-bots]}
+  - {id: m-pixels-bans-2024, type: other, value: 750000, unit: accounts, period: "2024（ある 1 週間）", definition: "BAN されたアカウント数（報道。期間の特定なし）", nature: reported, s: [src-pixels-ct-bots]}
+  - {id: m-pixels-dauw-ch2-drop, type: wallets, value: 252000, value_text: "90 万超 → 25.2 万（約 69% 減）→ 42.8 万", unit: wallets, period: "2024-06 中旬〜2024-07 初め", definition: "各種オープンデータの日次アクティブユニークウォレット", nature: measured, s: [src-pixels-bg-ch2-drop], note: "GamesTX は同じ急落を「5 月」「100 万から」と記述（contradictions 参照）"}
+  - {id: m-pixels-daa-2024-08, type: wallets, value: 712672, unit: accounts, period: "2024-08", definition: "日次アクティブアカウント（記事は出典を明示せず）", nature: reported, s: [src-pixels-bg-okx]}
+  - {id: m-pixels-revenue-2024, type: revenue, value: 20000000, value_text: "2000 万ドル", unit: USD, period: "2024", definition: "運営が whitepaper v3 で示した 2024 年の収益", nature: reported, s: [src-pixels-wp-lessons]}
+  - {id: m-pixels-rors-2025, type: other, value: 0.8, value_text: "約 0.8", unit: ratio, period: "2025（whitepaper v3 時点）", definition: "Return on Reward Spend: 配布報酬に対するプロトコル手数料収入", nature: reported, s: [src-pixels-wp-rors], note: "2026-03 の CEO 発言では 3 対 1"}
+  - {id: m-pixels-dauw-2025-06, type: wallets, value: 40000, value_text: "4 万超", unit: wallets, period: "2025-06 初め", definition: "日次アクティブユニークウォレット（自社ブログが BlockchainGamer.biz を引用）", nature: reported, s: [src-pixels-post-stabilized], note: "元の計測は BlockchainGamer.biz 側（データ源の記載なし）。原記事は未読で、運営ブログ経由の二次引用"}
+  - {id: m-pixels-pixel-onchain-2026-05-20, type: transactions, value: 2716, value_text: "Transfer 2,716 件・717 アドレス（送信元 427）", unit: tx, period: "2026-05-20（UTC 1 日）", definition: "Ronin 上の PIXEL（0x7eae20d11ef8c779433eb24503def900b9d28ad7）の ERC-20 Transfer イベント数と関与アドレス数（from と to の和集合）", nature: measured, s: [src-pixels-ronin-rpc], note: "トークン移転であってゲーム DAU ではない。ブロック 55883207〜55926406（UTC 当日 00:00 以降の最初のブロック〜翌日 00:00 直前）。検証役が 2026-10-23 に同手順で再計測し同値を確認"}
+  - {id: m-pixels-pixel-onchain-2026-10-15, type: transactions, value: 3677, value_text: "Transfer 3,677 件・606 アドレス（送信元 244）", unit: tx, period: "2026-10-15（UTC 1 日）", definition: "同上", nature: measured, s: [src-pixels-ronin-rpc], note: "トークン移転であってゲーム DAU ではない。ブロック 62276807〜62320006。検証役が 2026-10-23 に同手順で再計測し同値を確認"}
+
+events:
+  - {id: ev-pixels-chapter1, date: "2022-11-16", type: release, title: "Chapter 1（NFT 土地、鶏小屋、風車、家、林業など）", detail: "ヘルプセンターの更新履歴の最古の項目", s: [src-pixels-help-updates]}
+  - {id: ev-pixels-berry-withdraw, date: "2023-04-18", type: release, title: "BERRY の出金・入金を開始（Polygon 時代）", detail: "同時に市場（出品は VIP と土地所有者のみ）を公開", s: [src-pixels-help-updates]}
+  - {id: ev-pixels-ronin-announce, date: "2023-09-12", type: announce, title: "Polygon から Ronin への移転を発表", s: [src-pixels-bg-move-ronin, src-pixels-dawn-of-ronin]}
+  - {id: ev-pixels-ronin-live, date: "2023-10-31", type: launch, title: "Ronin で稼働、BERRY が Ronin 上に", detail: "パッチノートは 10/30 付", s: [src-pixels-ronin-live, src-pixels-help-updates]}
+  - {id: ev-pixels-berry-sunset, date: "2024-02", type: spec-change, title: "BERRY を廃止しオフチェーンの Coins に置換（1,000 BERRY = 7.6175 PIXEL）", s: [src-pixels-bg-berry-phaseout]}
+  - {id: ev-pixels-pixel-tge, date: "2024-02-19", type: launch, title: "PIXEL が Binance に上場（Launchpool 3.5 億枚）", s: [src-pixels-decrypt-airdrop]}
+  - {id: ev-pixels-mp-limits, date: "2024-04-11", type: spec-change, title: "市場に購入クールダウン・出品数上限・購入時エネルギー消費を導入", s: [src-pixels-help-updates]}
+  - {id: ev-pixels-chapter2, date: "2024-06-18", type: spec-change, title: "Chapter 2: 技能・Speck・報酬対象の再設計。直後に日次ウォレットが約 69% 減", s: [src-pixels-help-updates, src-pixels-bg-ch2-drop]}
+  - {id: ev-pixels-rep-rework, date: "2024-10-22", type: spec-change, title: "評判システム刷新（アンチボット・コインインフレ対策）とタスク数上限", detail: "同時期に新評判システムは不具合で一度ロールバックされた", s: [src-pixels-help-updates]}
+  - {id: ev-pixels-industry-limits, date: "2025-01-28", type: spec-change, title: "土地ごとの生産設備上限、生産・レシピ時間の延長", s: [src-pixels-help-updates]}
+  - {id: ev-pixels-stacked, date: "2026-03", type: pivot, title: "報酬基盤を Stacked として外部公開、PIXEL のステーク専用化方針", s: [src-pixels-bg-stacked, src-pixels-bitpinas-stacked]}
+
+relations:
+  - {to: axie-infinity, type: similar-to, basis: analytic, note: "同じ Ronin 上の P2E。Sky Mavis は Axie の利用者層との相乗効果を移転理由に挙げた", s: [src-pixels-bg-move-ronin]}
+  - {to: sunflower-land, type: similar-to, basis: analytic, note: "同時期の Polygon 発のピクセル農業ゲーム。どちらも換金報酬でボットを招き、評判・本人確認ゲートとソフト通貨のオフチェーン化で対応した"}
+  - {to: hamster-kombat, type: similar-to, basis: analytic, note: "報酬期待で巨大な利用者数を集め、配布前後に大量 BAN と利用者急減が起きた点が共通"}
+  - {to: m-bot-automation, type: contrasts-with, basis: analytic, note: "ボット・自動化を公認する設計とは逆に、評判スコア・BAN・出金審査で排除する"}
+
+unknowns:
+  - "運営の DAU の定義（アカウント単位か、ログインか、報酬受取か）"
+  - "人間とボットを区別した継続率・人数"
+  - "報酬を受け取らない（または受け取れない）プレイヤーの割合とその継続"
+  - "CEO が言う「一時期ゲーム内のすべてをオンチェーンにしていた」の具体的範囲と時期"
+  - "Ronin 移転直後の DAU 急増のうち、Ronin 側の誘因（エアドロップ・クエスト）や SOUL 等の他プロジェクトの寄与"
+  - "BERRY 廃止告知の Ronin 公式ブログ（URL 404 で未読）"
+  - "2024 年の PIXEL のオンチェーン移転数（公開 RPC は約 5 か月分しか保持しておらず、同じ方法で取得できなかった）"
+contradictions:
+  - {t: "報酬改定による約 69% の急落を、BlockchainGamer.biz は 6 月中旬の Chapter 2（90 万超→25.2 万）とし、GamesTX は「5 月の報酬システム変更」で「100 万 DAUW の 69%」と記す", s: [src-pixels-bg-ch2-drop, src-pixels-gamestx-2m]}
+  - {t: "RORS は whitepaper v3 で約 0.8、2026-03 の CEO インタビューで 3 対 1、同月の Stacked 発表報道では特定施策で 131% と、値が文脈で異なる", s: [src-pixels-wp-rors, src-pixels-bg-stacked, src-pixels-bitpinas-stacked]}
+  - {t: "Ronin 稼働日はパッチノートでは 10/30、Ronin ブログでは 10/31", s: [src-pixels-help-updates, src-pixels-ronin-live]}
+  - {t: "出金に必要な評判は、記事「Reputation Limits」では 2,000、2024-10 のパッチノートの新閾値では 1,500", s: [src-pixels-help-rep-limits, src-pixels-help-updates]}
+  - {t: "2025-06 に日次アクティブウォレット 4 万超（自社ブログ）、2026-03 の報道では 100 万 DAU（運営発表）", s: [src-pixels-post-stabilized, src-pixels-bitpinas-stacked]}
+  - {t: "BlockchainGamer.biz の Chapter 2 記事は見出しで「69% 減」とするが、本文の「90 万超→25.2 万」から計算すると約 72% 以上の減少になる。69% は 100 万前後を起点にした GamesTX の記述と整合し、起点の値が資料間で一致しない", s: [src-pixels-bg-ch2-drop, src-pixels-gamestx-2m]}
+  - {t: "開始年を Decrypt は 2021 年、BlockchainGamer.biz の CEO インタビュー導入文は「2022 年リリース」とし、Ronin 移転も同記事は 2023-11 と書く（Ronin ブログは 10/31）", s: [src-pixels-decrypt-airdrop, src-pixels-bg-one-year, src-pixels-ronin-live]}
+
+sources:
+  - {id: src-pixels-ronin-live, title: "Pixels is LIVE on Ronin", url: "https://blog.roninchain.com/p/pixels-is-live-on-ronin", publisher: "Ronin Newsletter (Sky Mavis)", type: official-blog, primary: true, published: "2023-10-31", accessed: "2026-10-23", access: fetched, lang: en, note: "Ronin での稼働、BERRY の説明（上限なし）、90 万超の総プレイヤー"}
+  - {id: src-pixels-dawn-of-ronin, title: "The Dawn of Ronin", url: "https://blog.roninchain.com/p/the-dawn-of-ronin", publisher: "Ronin Newsletter (Sky Mavis)", type: official-blog, primary: true, published: "2023-12-30", accessed: "2026-10-23", access: fetched, lang: en, note: "移転後 DAU 10 万超、VIP に約 19 万 RON、ペット 31.5 万 RON"}
+  - {id: src-pixels-bg-move-ronin, title: "Pixels moving from Polygon to Ronin", url: "https://www.blockchaingamer.biz/?p=27010", publisher: "BlockchainGamer.biz", author: "Jon Jordan", type: news, primary: false, published: "2023-09-12", accessed: "2026-10-23", access: fetched, lang: en, note: "移転理由、Polygon 時代の主張値と DappRadar 値"}
+  - {id: src-pixels-bg-100k, title: "Ronin activity soars as Pixels breaks 100,000 DAUs", url: "https://www.blockchaingamer.biz/news/28754/ronin-up-pixels-breaks-100000-daus", publisher: "BlockchainGamer.biz", type: news, primary: false, published: "2023-11-20", accessed: "2026-10-23", access: fetched, lang: en, note: "4,000→111,000 DAUW、VIP 11,247 人"}
+  - {id: src-pixels-bg-berry-phaseout, title: "Pixels phasing out BERRY token as PIXEL launches via Binance", url: "https://www.blockchaingamer.biz/?p=30297", publisher: "BlockchainGamer.biz", type: news, primary: false, published: "2024-02-08", accessed: "2026-10-23", access: fetched, lang: en, note: "BERRY のオフチェーン Coins への置換、日次 2% インフレ、交換比率"}
+  - {id: src-pixels-decrypt-airdrop, title: "What Is Pixels? Inside the Ronin Farming Game and Ethereum Token Airdrop", url: "https://decrypt.co/217486/pixels-ronin-farming-game-airdrop-ethereum", publisher: "Decrypt", type: news, primary: false, published: "2024-02-14", accessed: "2026-10-23", access: fetched, lang: en, note: "2021 年 Polygon で開始、PIXEL 供給 50 億、Launchpool 3.5 億、2/19 上場"}
+  - {id: src-pixels-theblock-1m, title: "Crypto video game 'Pixels' says it hit 1 million daily active users", url: "https://www.theblock.co/post/294058/crypto-video-game-pixels-says-it-hit-1-million-daily-active-users", publisher: "The Block", author: "RT Watson", type: news, primary: false, published: "2024-05-13", accessed: "2026-10-23", access: fetched, lang: en, note: "運営の 100 万 DAU 発表、定義なし、30 日で 440 万 PIXEL 支出。curl は 403、WebFetch で本文を確認"}
+  - {id: src-pixels-ct-bots, title: "Bots, airdrops push Ronin to No.2 blockchain for daily users — Not Pixels fans", url: "https://cointelegraph.com/magazine/bots-airdrops-push-ronin-to-no-2-blockchain-for-daily-users-not-pixels-fans/", publisher: "Cointelegraph Magazine", author: "Yohan Yun", type: news, primary: false, published: "2024-05-27", accessed: "2026-10-23", access: fetched, lang: en, note: "ChainArgos の分析、75 万 BAN、ボット比率の推定、地主の発言"}
+  - {id: src-pixels-bg-ch2-drop, title: "Pixels’ chapter 2 release sees DAUWs drop 69% as bots get broken", url: "https://www.blockchaingamer.biz/news/33087/pixels-chapter-2-release-see-dauws-drop-69-as-bots-get-broken/", publisher: "BlockchainGamer.biz", author: "Jon Jordan", type: news, primary: false, published: "2024-07-03", accessed: "2026-10-23", access: fetched, lang: en, note: "90 万超→25.2 万→42.8 万、Splinterlands・Alien Worlds の比較"}
+  - {id: src-pixels-gamestx-2m, title: "Ronin's problematic +2 million DAUWs", url: "https://gamestx.substack.com/p/ronins-problematic-2-million-dauws", publisher: "GamesTX", author: "Jon Jordan", type: analysis, primary: false, published: "2024-08-02", accessed: "2026-10-23", access: fetched, lang: en, note: "Ronin 200 万 DAUW の解釈、Pixels の急落と 75 万への回復"}
+  - {id: src-pixels-bg-okx, title: "As PIXEL is listed on OKX, Pixels continues to highlight anti-bot future", url: "https://www.blockchaingamer.biz/?p=33779", publisher: "BlockchainGamer.biz", type: news, primary: false, published: "2024-08-15", accessed: "2026-10-23", access: fetched, lang: en, note: "712,672 DAA、タスクボードのセグメント化、ウォレット履歴の分析"}
+  - {id: src-pixels-bg-one-year, title: "Pixels’ CEO on what he’s learnt from a year on Ronin and what’s coming next", url: "https://blockchaingamer.biz/features/interviews/35334/luke-barwikowski-pixels-one-year-on", publisher: "BlockchainGamer.biz", type: interview, primary: true, published: "2024-11-11", accessed: "2026-10-23", access: fetched, lang: en, note: "機械学習・ボット検出・報酬ターゲティング、コインのインフレ約 84% 減"}
+  - {id: src-pixels-post-stabilized, title: "As Featured on Blockchain Gamer: $PIXEL Token Surges and Player Activity Stabilizes in Pixels", url: "https://pixelspost.substack.com/p/as-featured-on-blockchain-gamer-pixel", publisher: "The Pixels Post", type: official-blog, primary: true, published: "2025-06-12", accessed: "2026-10-23", access: fetched, lang: en, note: "4 万超 DAUW、ステーキング 9000 万 PIXEL 超"}
+  - {id: src-pixels-bg-apptokens, title: "How Apptokens enables Pixels’ new multichain game publishing model", url: "https://www.blockchaingamer.biz/news/38470/luke-barwikowski-pixels-apptokens-staking/", publisher: "BlockchainGamer.biz", author: "Jon Jordan", type: interview, primary: true, published: "2025-07-11", accessed: "2026-10-23", access: fetched, lang: en, note: "DAU は二次的指標、RORS、vPIXEL"}
+  - {id: src-pixels-bg-stacked, title: "How Pixels’ Stacked app reinvents play-to-earn rewards", url: "https://www.blockchaingamer.biz/amp/features/41983/stacked-rewards-app-launched-pixels-play-to-earn-luke-barwikowski/", publisher: "BlockchainGamer.biz", author: "Jon Jordan", type: interview, primary: true, published: "2026-03-30", accessed: "2026-10-23", access: fetched, lang: en, note: "ボットと sybil、RORS 3:1、PIXEL のステーク専用化、報酬の USDC・ギフトカード化"}
+  - {id: src-pixels-bitpinas-stacked, title: "Pixels Launches AI-Powered Game Economy Platform ‘Stacked’", url: "https://bitpinas.com/business/pixels-stacked/", publisher: "BitPinas", type: news, primary: false, published: "2026-03-29", accessed: "2026-10-23", access: fetched, lang: en, note: "Stacked の説明、178%・131% の自己申告値、100 万 DAU・2500 万ドル収益の主張"}
+  - {id: src-pixels-wp, title: "$PIXEL Whitepaper", url: "https://litepaper.pixels.xyz/", publisher: "Pixels", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "v3: Fun First / Smart Reward Targeting / Publishing Flywheel"}
+  - {id: src-pixels-wp-rors, title: "RORS", url: "https://litepaper.pixels.xyz/usdpixel-whitepaper/rors", publisher: "Pixels", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "RORS の定義と約 0.8"}
+  - {id: src-pixels-wp-lessons, title: "Lessons Learned & Revised Vision", url: "https://litepaper.pixels.xyz/usdpixel-whitepaper/lessons-learned-and-revised-vision", publisher: "Pixels", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "2024 年収益 2000 万ドル、インフレ・売り圧・的外れな報酬の反省"}
+  - {id: src-pixels-wp-pixel, title: "$PIXEL", url: "https://litepaper.pixels.xyz/staking-ecosystem-and-token-mechanics/usdpixel", publisher: "Pixels", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "供給 50 億、60 か月のベスティング"}
+  - {id: src-pixels-wp-keychanges, title: "Key Changes", url: "https://litepaper.pixels.xyz/staking-ecosystem-and-token-mechanics/usdpixel/key-changes", publisher: "Pixels", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "ゲーム別報酬プール（月 2000 万等）、月 2800 万上限、支出の 80/20 配分"}
+  - {id: src-pixels-wp-vpixel, title: "$vPIXEL (ERC20c)", url: "https://litepaper.pixels.xyz/staking-ecosystem-and-token-mechanics/usdvpixel-erc20c", publisher: "Pixels", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "spend-only トークン、Farmer Fee 20〜50%"}
+  - {id: src-pixels-wp-smart-reward, title: "Smart-Reward Plaform", url: "https://litepaper.pixels.xyz/ecosystem-flywheel-and-data-loop/smart-reward-plaform", publisher: "Pixels", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "報酬＝マイクロ広告、Events API、ID グラフ"}
+  - {id: src-pixels-wp-core, title: "Core Pixels & Gameplay", url: "https://litepaper.pixels.xyz/core-pixels-and-gameplay", publisher: "Pixels", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "コアループの不完全さ、シンク不足、VIP ゲート"}
+  - {id: src-pixels-wp-staking, title: "Decentralized Publishing", url: "https://litepaper.pixels.xyz/staking-ecosystem-and-token-mechanics/staking/decentralized-publishing", publisher: "Pixels", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "ゲーム別ステーキングによる報酬配分の投票"}
+  - {id: src-pixels-help-updates, title: "Game Updates (ARCHIVED)", url: "https://help.pixels.xyz/en/articles/6763579-game-updates-archived", publisher: "Pixels Help Desk", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "2022-11〜2025-02 のパッチノート"}
+  - {id: src-pixels-help-reputation, title: "What is Pixels Reputation?", url: "https://help.pixels.xyz/en/articles/8602409-what-is-pixels-reputation", publisher: "Pixels Help Desk", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "評判の目的、ad-hoc 調整、低スコア時の制限"}
+  - {id: src-pixels-help-rep-increase, title: "How do I increase my Reputation Score?", url: "https://help.pixels.xyz/en/articles/8602681-how-do-i-increase-my-reputation-score", publisher: "Pixels Help Desk", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "算出要素の種類と上げ方（土地・VIP・ペット等）"}
+  - {id: src-pixels-help-rep-limits, title: "Reputation Limits", url: "https://help.pixels.xyz/en/articles/8058321-reputation-limits", publisher: "Pixels Help Desk", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "出金 2,000、市場購入 600 等の閾値"}
+  - {id: src-pixels-help-withdraw, title: "Withdraw & Deposit", url: "https://help.pixels.xyz/en/articles/8053383-withdraw-deposit", publisher: "Pixels Help Desk", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "入金はメールボックス経由、出金は審査、新規ウォレット 7 日制限"}
+  - {id: src-pixels-help-nft-farms, title: "NFT Farms", url: "https://help.pixels.xyz/en/articles/6685259-nft-farms", publisher: "Pixels Help Desk", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "NFT 農場 1〜5000"}
+  - {id: src-pixels-help-speck, title: "Speck Farms", url: "https://help.pixels.xyz/en/articles/8049141-speck-farms", publisher: "Pixels Help Desk", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "無料プレイヤー向け小区画"}
+  - {id: src-pixels-help-vip-tier, title: "VIP Tiering System", url: "https://help.pixels.xyz/en/articles/11782159-vip-tiering-system", publisher: "Pixels Help Desk", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "PIXEL 支出による VIP スコア、「Updated June 2026」の表記（ページの dateModified は 2026-10-05）"}
+  - {id: src-pixels-help-renting, title: "Renting Farms", url: "https://help.pixels.xyz/en/articles/10721385-renting-farms", publisher: "Pixels Help Desk", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "LootRush 経由の土地レンタル"}
+  - {id: src-pixels-ronin-rpc, title: "Ronin public RPC: eth_getLogs for PIXEL Transfer events (own measurement)", url: "https://api.roninchain.com/rpc", publisher: "Ronin (Sky Mavis) public RPC", type: onchain-data, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "自前計測。PIXEL 0x7eae20d11ef8c779433eb24503def900b9d28ad7 の Transfer（topic0 0xddf252ad…b3ef）を eth_getLogs で 200 ブロック刻みに UTC 1 日分集計。日境界は eth_getBlockByNumber の timestamp の二分探索。公開 RPC の最古ブロックは 2026-05-13 頃。2026-10-23 に検証役が再実行し両日とも同値"}

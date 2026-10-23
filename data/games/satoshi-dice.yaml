@@ -1,0 +1,106 @@
+id: satoshi-dice
+name: SatoshiDice
+name_ja: サトシダイス
+aliases: [Satoshi Dice, SatoshiDICE, S.DICE]
+kind: game
+depth: index
+updated: "2026-10-23"
+chains: [Bitcoin]
+team: "Erik Voorhees ら共同所有者（2012-04〜2013-07）。2013-07 に匿名の買い手へ売却。開発は bitcointalk の FireDuck とする記述もある"
+summary: >-
+  2012 年 4 月に始まった Bitcoin 上のサイコロ賭博。プレイヤーは倍率ごとに決まった固定アドレスへ BTC を送るだけで賭けが成立し、
+  運営のサーバーが「賭けの取引ハッシュ＋運営の秘密値」のハッシュで勝敗を決め、当たれば配当、外れでもごく少額を返す取引を送り返した。
+  1 回の賭けが最低 2 件のオンチェーン取引になる設計で、一時は Bitcoin の取引の過半を占めたと主張され、少額出力（dust）とブロック容量をめぐる議論の当事者になった。
+selection_reason: >-
+  チェーンを「判定の場」ではなく「賭けの送受信路」として使った最初期の大規模なオンチェーン・ゲームであり、ゲームが基盤の取引量・手数料設計に与える負荷という問題の起点だから。
+  判定は運営サーバーにあり、後の「ルールのオンチェーン実行」とは対照的な例でもある。
+categories:
+  - {id: infra, role: primary, reason: "1 回の賭けが複数の取引になり、Bitcoin の取引量・少額出力・ブロック容量の議論を引き起こした"}
+  - {id: assets, role: secondary, reason: "賭け金と配当は BTC そのもの。運営会社の株式も MPEx で取引された（ゲーム資産ではなく事業持分）"}
+status:
+  value: unknown
+  as_of: "2026-10"
+  note: "2013-07 に売却。2014 年にはオフチェーンのセッション型の賭けが追加されたと Bitcoin Wiki は記す。現在の運営状況は本調査で確認していない。"
+  s: [src-satoshidice-sec-order, src-satoshidice-bitcoinwiki]
+dates:
+  launched: {date: "2012-04", s: [src-satoshidice-sec-order, src-satoshidice-bitcoinwiki], note: "SEC の命令は 2012-04 にサイトを立ち上げたと記載。Bitcoin Wiki は bitcointalk での告知を 2012-04-24 とする"}
+
+architecture:
+  onchain:
+    level: assets-only
+    detail: >-
+      チェーン上にあるのは賭け（固定アドレスへの送金）と配当・返金の取引だけ。勝敗の判定は運営のサーバーが、賭け取引のハッシュと運営の秘密値から計算し、
+      秘密値を後から公開することで検証可能にした（「Provably Fair」の先駆とされる）。判定ロジックの実行はチェーン外。
+    s: [src-satoshidice-bitcoinwiki]
+  offchain:
+    - {item: "勝敗判定、配当取引の作成と送信は運営サーバー", s: [src-satoshidice-bitcoinwiki]}
+    - {item: "2014 年以降のセッション型の賭けはオフチェーン（ゼロ承認取引の二重支払いリスク等への対応とされる）", s: [src-satoshidice-bitcoinwiki, src-satoshidice-uibk-thesis]}
+  admin:
+    level: significant
+    detail: "運営が秘密値・資金・判定を持つ中央集権型。米国からの利用は 2013-05 に遮断された。"
+    s: [src-satoshidice-bitcoinwiki]
+  open_source:
+    level: unknown
+    detail: "サーバーのソース公開は確認できなかった。"
+    s: []
+  extensibility:
+    level: none
+    detail: "固定アドレスに送金するだけなので、どのウォレットからでも参加できたが、ルールの拡張はできない。"
+    s: [src-satoshidice-bitcoinwiki]
+
+compare:
+  gameplay: {t: "倍率（当たり確率）ごとに異なる固定アドレスへ BTC を送ると、運営が 0〜65535 の数を決め、選んだ閾値より小さければ倍率に応じた配当が送り返される。", k: fact, s: [src-satoshidice-bitcoinwiki]}
+  necessity: {t: "Bitcoin は支払い手段と、賭けと結果の記録としてのみ使われ、判定はサーバー。チェーンなしでも同じ賭博は成立し、チェーンの寄与は「入出金の手軽さ」と事後検証の公開性にとどまる。", k: analysis, s: [src-satoshidice-bitcoinwiki]}
+  information: {t: "賭けと配当の取引は公開。判定に使う秘密値は事前には非公開で、後から公開して検証可能にした。", k: fact, s: [src-satoshidice-bitcoinwiki]}
+  persistence: {t: "運営が止まれば賭けは成立しない（送った BTC が返ってこない）。", k: analysis, s: [src-satoshidice-bitcoinwiki]}
+  extensibility: {t: "第三者による拡張の手段はない。", k: fact, s: [src-satoshidice-bitcoinwiki]}
+  money_flow: {t: "プレイヤーの賭け金が原資で、ハウスエッジは 1.9%。各賭けの手数料は採掘者へ。運営会社は株式を MPEx で売り出して 50,600 BTC を調達し、2013-07 に 1 株 0.0035 BTC、計 45,500 BTC で買い戻した。", k: fact, s: [src-satoshidice-bitcoinwiki, src-satoshidice-sec-order]}
+  entry_barrier: {t: "任意の Bitcoin ウォレットから送金するだけで、サイトへの登録もクライアントも不要。各賭けに取引手数料がかかる。", k: fact, s: [src-satoshidice-bitcoinwiki]}
+
+concepts: [c-onchain-randomness, c-commit-reveal, e-entry-fee-prize]
+
+article:
+  constraints:
+    - {t: "1 回の賭けが賭けと結果の 2 取引以上になり、外れでもごく少額を返すため、少額出力が大量に生まれた。Bitcoin Wiki は、これを手数料による DoS 対策を迂回する攻撃とみなす立場と、手数料モデルが想定通りに働かなかった証拠とみなす立場の両方を記す。", k: fact, s: [src-satoshidice-bitcoinwiki], q: "spams the p2p network and blockchain with useless data"}
+    - {t: "Bitcoin 0.8.2（2013-05-29）は最低中継手数料の 0.543 倍（0.00005430 BTC）未満の出力を非標準とした。リリースノートは SatoshiDice に言及していないが、外れ時の極小返金のような出力は中継されにくくなった。", k: fact, s: [src-satoshidice-btc082]}
+  principles:
+    - {t: "ゲーム行為を基盤の取引に 1 対 1 で載せると、ゲームの人気がそのまま基盤の負荷になり、基盤側の規則変更（少額出力の非標準化など）でゲーム設計が制約される。チェーンを共有する限り、他の利用者との外部性の調整が避けられない。", k: analysis, s: [src-satoshidice-bitcoinwiki, src-satoshidice-btc082]}
+  counter_evidence:
+    - {t: "「全取引の過半」という数字は Voorhees 自身の主張や二次資料で、定義（件数か金額か、累計か期間か）がまちまち。連邦準備制度の論文は、データのある期間について小額取引の大半が同サービス関連だったと述べるにとどまる。", k: analysis, s: [src-satoshidice-fed-2014, src-satoshidice-survey-2019]}
+
+metrics:
+  - {id: m-satoshidice-ipo-raise, type: funding, value: 50600, value_text: "50,600 BTC（当時約 72 万ドル）", unit: BTC, period: "2012-08〜2013-02", definition: "MPEx での 2 回の株式売り出しで調達した BTC（SEC 命令の認定事実）", nature: reported, s: [src-satoshidice-sec-order]}
+  - {id: m-satoshidice-buyback, type: other, value: 45500, value_text: "45,500 BTC（約 380 万ドル）", unit: BTC, period: "2013-07", definition: "全株式の買い戻し総額（1 株 0.0035 BTC。SEC 命令）", nature: reported, s: [src-satoshidice-sec-order]}
+  - {id: m-satoshidice-sale, type: other, value: 126315, value_text: "126,315 BTC（約 1150 万ドル）", unit: BTC, period: "2013-07", definition: "匿名の買い手への売却額として報じられた額", nature: reported, s: [src-satoshidice-habr-2013]}
+  - {id: m-satoshidice-bets, type: transactions, value: 5300000, value_text: "530 万件の賭け（うち 390 万件超が当たり）", unit: bets, period: "2013-07 時点の累計", definition: "記事が伝えたサイト上の累計の賭け数", nature: reported, s: [src-satoshidice-habr-2013]}
+  - {id: m-satoshidice-house-edge, type: other, value: 1.9, unit: "%", period: "Bitcoin Wiki 記載時点", definition: "各アドレスのハウスエッジ", nature: reported, s: [src-satoshidice-bitcoinwiki]}
+
+events:
+  - {id: ev-satoshidice-launch, date: "2012-04", type: launch, title: "SatoshiDice 開始", s: [src-satoshidice-sec-order, src-satoshidice-bitcoinwiki]}
+  - {id: ev-satoshidice-ipo, date: "2012-08", type: funding, title: "MPEx で株式 S.DICE の売り出し開始（〜2013-02）", s: [src-satoshidice-sec-order, src-satoshidice-bitcoinwiki]}
+  - {id: ev-satoshidice-us-block, date: "2013-05", type: spec-change, title: "米国からの利用を遮断", s: [src-satoshidice-bitcoinwiki]}
+  - {id: ev-satoshidice-btc082, date: "2013-05-29", type: other, title: "Bitcoin 0.8.2 が極小出力を非標準化", s: [src-satoshidice-btc082]}
+  - {id: ev-satoshidice-sale, date: "2013-07", type: other, title: "126,315 BTC で売却、株式を買い戻し", s: [src-satoshidice-sec-order, src-satoshidice-habr-2013]}
+  - {id: ev-satoshidice-sec, date: "2014-06-03", type: incident, title: "SEC が Voorhees の無登録株式売り出しについて命令", detail: "SatoshiDICE と FeedZeBirds の株式を BTC で売った件", s: [src-satoshidice-sec-order]}
+
+relations:
+  - {to: huntercoin, type: contrasts-with, basis: analytic, note: "SatoshiDice は判定をサーバーで行いチェーンを送金路として使った。Huntercoin は判定をコンセンサスに入れた"}
+  - {to: fomo3d, type: similar-to, basis: analytic, note: "オンチェーンの賭博が取引量の大きな部分を占め、基盤側の議論を呼んだ系譜"}
+  - {to: c-commit-reveal, type: similar-to, basis: analytic, note: "運営の秘密値を後から公開して判定を検証可能にする仕組みは、一方向のコミット・リビールに近い（事前にハッシュを公開していたかは未確認）"}
+
+unknowns:
+  - "Bitcoin 全取引に占める割合の、定義と期間を明示した独立計測（Voorhees の「50% 超」の一次投稿は取得できず）。"
+  - "運営の秘密値のハッシュを事前に公開していたか（コミット・リビールとして成立していたか）。"
+  - "2013-07 の売却後の運営主体と現在の状態。"
+  - "サーバーのソースコードの公開有無。"
+contradictions:
+  - {t: "創設者: SEC 命令は Voorhees がサイトを立ち上げたとし、Bitcoin Wiki は bitcointalk ユーザー FireDuck が作り Voorhees が告知したと記す。", s: [src-satoshidice-sec-order, src-satoshidice-bitcoinwiki]}
+
+sources:
+  - {id: src-satoshidice-bitcoinwiki, title: "SatoshiDice", url: "https://en.bitcoin.it/wiki/SatoshiDice", publisher: "Bitcoin Wiki", type: wiki, primary: false, accessed: "2026-10-23", access: fetched, lang: en, note: "仕組み（固定アドレス、秘密値とハッシュ）、1.9% のエッジ、批判、米国遮断、MPEx、2014 年のオフチェーン化"}
+  - {id: src-satoshidice-sec-order, title: "In the Matter of Erik T. Voorhees (Securities Act Release No. 9592)", url: "https://www.sec.gov/files/litigation/admin/2014/33-9592.pdf", publisher: "U.S. Securities and Exchange Commission", type: official-docs, primary: true, published: "2014-06-03", accessed: "2026-10-23", access: fetched, lang: en, note: "2012-04 の立ち上げ、2012-08〜2013-02 の株式売り出し 50,600 BTC、2013-07 の買い戻し 45,500 BTC"}
+  - {id: src-satoshidice-btc082, title: "Bitcoin Core version 0.8.2 released", url: "https://bitcoin.org/en/release/v0.8.2", publisher: "bitcoin.org", type: official-docs, primary: true, published: "2013-05-29", accessed: "2026-10-23", access: fetched, lang: en, note: "0.00005430 BTC 未満の出力を非標準化（SatoshiDice への言及はない）"}
+  - {id: src-satoshidice-fed-2014, title: "Bitcoin: Technical Background and Data Analysis", url: "https://www.federalreserve.gov/econres/feds/bitcoin-technical-background-and-data-analysis.htm", publisher: "Federal Reserve Board (FEDS 2014-104)", author: "Anton Badev, Matthew Chen", type: paper, primary: true, published: "2014-12", accessed: "2026-10-23", access: fetched, lang: en, note: "要旨で Satoshi Dice を最大の Bitcoin 賭博サービスとし、データ期間の小額取引の大半が関連と記述"}
+  - {id: src-satoshidice-habr-2013, title: "Крупнейшая Bitcoin-сделка: онлайн-казино SatoshiDice продали за эквивалент 11,5 млн долларов", url: "https://habr.com/en/articles/187196", publisher: "Habr", author: "aleksandrit", type: news, primary: false, published: "2013-07-19", accessed: "2026-10-23", access: fetched, lang: ru, note: "126,315 BTC での売却、530 万件の賭け、株主への支払い"}
+  - {id: src-satoshidice-uibk-thesis, title: "Satoshi Dice: history, principles, and effects on the Bitcoin network", url: "https://informationsecurity.uibk.ac.at/theses/satoshi-dice/", publisher: "University of Innsbruck, Security and Privacy Lab", type: paper, primary: false, accessed: "2026-10-23", access: fetched, lang: en, note: "学士論文のテーマ紹介。オフチェーン移行の理由（負荷、ゼロ承認の二重支払いリスク）。結果は未掲載"}
+  - {id: src-satoshidice-survey-2019, title: "Blockchain Games: A Survey", url: "https://arxiv.org/abs/1906.05558", publisher: "arXiv", author: "Tian Min, Hanyi Wang, Yaoze Guo, Wei Cai", type: paper, primary: false, published: "2019-06-13", accessed: "2026-10-23", access: fetched, lang: en, note: "Satoshi Dice（4/2012）を「全 Bitcoin 取引の半分超に寄与」と要約"}

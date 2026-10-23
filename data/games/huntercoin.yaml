@@ -1,0 +1,202 @@
+id: huntercoin
+name: Huntercoin
+name_ja: ハンターコイン
+aliases: [HUC, "HunterCoin", "Huntercore（後継実装）"]
+kind: game
+depth: deep
+updated: "2026-10-23"
+chains: [Huntercoin（Namecoin 由来の独自チェーン。SHA-256 / Scrypt の二重アルゴリズム、マージマイニング）]
+team: "Chronokings（snailbrain = Andrew Colosimo ほか。初期開発者 thecoder / Mikhail Sindeyev、2014 年以降は Daniel Kraft（domob）がコア保守）。後に同じ創業者が Chimaera → Xaya を始めた"
+summary: >-
+  2014 年 2 月に公開された、ゲームのルール自体をブロックチェーンのコンセンサスに組み込んだマルチプレイヤーゲーム兼暗号通貨。
+  Namecoin のフォークで、プレイヤーの「名前」の更新が移動命令になり、各ノードがブロックを接続するたびに盤面（ハンターの位置・死亡・コインの拾得）を決定的に計算し、
+  その結果としてのコイン移転（ゲームトランザクション）までがブロックの正当性判定に含まれる。ブロック報酬の約 9 割を地図上にばらまいて「人が掘る（human mining）」設計は、
+  後の Play-to-Earn の原型として語られる一方、創業者自身がボット軍団による搾取を認めている（投機化は記者の地の文の評価）。同じ創業者・開発者が後に始めた Chimaera / Xaya は Huntercoin の教訓を基礎にしたと自ら述べ、状態計算をゲーム固有のプロセッサに分離し、Game Channels でチェーン外の対戦を提案した。
+selection_reason: >-
+  「ルールのオンチェーン実行」をスマートコントラクト以前に、専用チェーンのコンセンサスそのものとして実装した最初期の例であり、
+  コード（chronokings/huntercoin）・フォーク履歴（GameLogicChanges.txt）・開発者の振り返り（Chimaera/Xaya）が揃っているため。
+  同時に、換金可能な報酬を盤上に置くとボットが支配するという、P2E・AI エージェント参加型ゲームへの最も古い反証の一つでもある。
+categories:
+  - {id: onchain-rules, role: primary, reason: "移動・戦闘・死亡・コイン拾得と銀行への持ち帰りの判定がノードのブロック接続処理（ConnectBlock）の中で決定的に計算され、合意の一部になる"}
+  - {id: infra, role: secondary, reason: "ゲーム専用チェーン（Namecoin フォーク）、マージマイニング、1 分ブロック。後の Xaya（ゲーム用 Namecoin 派生チェーンと Game State Processor）の原点"}
+  - {id: p2e, role: secondary, reason: "ブロック報酬の 9 割を地図上に出現させ、拾って持ち帰ると取引所で換金可能な HUC になる「human mining」"}
+  - {id: aw, role: secondary, reason: "運営サーバーなしに全ノードが盤面を検証する世界。ただしルール変更はハードフォークで行われた"}
+status:
+  value: dormant
+  as_of: "2026-10"
+  note: >-
+    Xaya の公式ページは Huntercoin を「limited support」とし、チェーンは動いているが採掘者が少なく、開発は Xaya に移ったと記す。
+    後継実装 Huntercore の最終コミットは 2018-11（clone で確認）。その Xaya 自身も Xaya Core を非推奨とし Polygon PoS に移行中と表示している。
+    稼働停止を明言する一次資料は見つからないため dormant とした。
+  s: [src-huntercoin-xaya-legacy, src-huntercoin-huntercore, src-huntercoin-xaya-site]
+dates:
+  announced: {date: "2013-09-24", s: [src-huntercoin-ann-2013], note: "snailbrain が bitcointalk に [ANN][HUC] スレッドを立てる（構想段階。ルールの多くはスレッド上で議論中）"}
+  launched: {date: "2014-02", s: [src-huntercoin-xaya-legacy, src-huntercoin-bgamer-2018, src-huntercoin-theblock-2019], note: "公開日は「2014 年 2 月」とする資料が複数。1 月 27 日の公開スレッドでは「約 7 日後」に公開予定と書かれていた"}
+
+architecture:
+  onchain:
+    level: all
+    detail: >-
+      Namecoin の名前（プレイヤー名）の登録・更新がゲームの手（移動先のウェイポイント、自爆、チャット等）を運ぶ。各ノードは ConnectBlock の中でゲーム状態を 1 ステップ進め、
+      殺害・拾得コインの銀行入金・毒による死亡などの結果を「ゲームトランザクション」（vgametx）として決定的に生成し、課税分（miner tax）を手数料に加えてから
+      コインベースの上限を検査する。つまり盤面の計算結果がブロックの正当性に直結する。ブロック報酬は 1 HUC が採掘者、9 HUC がゲームの財宝（うち 0.25 HUC は王冠保持者）で、
+      地図上の各エリアに配分される（gamemap.h の TOTAL_HARVEST = 900 セント、CROWN_BONUS = 25）。乱数（災害・銀行の再配置等）もチェーン上の値から決定的に導かれる。
+    s: [src-huntercoin-code, src-huntercoin-ann-2014]
+  offchain:
+    - {item: "描画と操作の UI（初期は Qt クライアントの「game」タブ、後に Unity 製 UI）。Huntercore は「ウォレットのみでゲームのタブを含まない」と明記", s: [src-huntercoin-huntercore, src-huntercoin-guide-2014]}
+    - {item: "移動経路の計算（クライアントの gamemovecreator が経路を作り、ウェイポイントとして名前更新に載せる）", s: [src-huntercoin-code]}
+    - {item: "取引所（Poloniex 等）での HUC の売買・換金", s: [src-huntercoin-pr-2014, src-huntercoin-theblock-2019]}
+    - {item: "ボット・自動化スクリプトはプレイヤー側で自由に動かせた（禁止する仕組みはない）", s: [src-huntercoin-guide-2014, src-huntercoin-bgamer-2018]}
+  admin:
+    level: limited
+    detail: >-
+      コントラクトの管理者鍵のようなものはなく、ゲームパラメータ（キャラクター作成費、運搬上限、銀行滞在可能ブロック数、ハートの出現、自爆の扱い、銀行の配置）は
+      ブロック高を条件とするハードフォーク（FORK_POISON 255000、FORK_CARRYINGCAP 500000、FORK_LESSHEARTS 590000、FORK_LIFESTEAL 795000、FORK_TIMESAVE 1521500）で変更された。
+      実質的な変更権はクライアント実装を配布する開発者と、それを採用するノード・採掘者にある。
+    s: [src-huntercoin-code, src-huntercoin-gamelogic]
+  open_source:
+    level: full
+    detail: "ノード兼ゲームロジック（C++）は chronokings/huntercoin（MIT）で公開。後継の Huntercore（最新 Bitcoin Core ベースの再実装、MIT）も公開。Unity 製 UI のソースは本調査では確認できなかった。"
+    url: "https://github.com/chronokings/huntercoin"
+    s: [src-huntercoin-code, src-huntercoin-huntercore]
+  extensibility:
+    level: client-mods
+    detail: >-
+      ゲーム状態は全ノードが計算し RPC で読めるため、第三者が統計サイト（huntercoin.info）やボット・自動操縦を作ることは可能で、実際にボットが広く使われた。
+      一方、ルール自体の拡張は許可不要ではなく、ハードフォークを要した。
+    s: [src-huntercoin-btcmag-2014, src-huntercoin-guide-2014, src-huntercoin-code]
+
+compare:
+  gameplay: {t: "4 色のチームに分かれ、1 ブロック（約 1 分）に 1 マス進むハンターを操作して地図上のコインを拾い、自陣（後に移動する銀行）に持ち帰って換金可能な HUC にする。敵の近くで自爆（destruct）すると周囲の敵を倒し、落ちたコインを奪い合う。", k: fact, s: [src-huntercoin-btcmag-2014, src-huntercoin-guide-2014, src-huntercoin-gamelogic]}
+  necessity: {t: "報酬が通貨そのものであり、運営サーバーなしで盤面の結果をすべてのノードが検証することが設計の中心なので、チェーンは必然だった。ただし Kraft の論文要旨はこの方式がチェーンの大きな増加と重い資源要求を招くと述べ（要旨のみ確認）、Colosimo は 1 年の拡張性実験だったと述べる。Xaya では状態計算をゲーム固有のプロセッサに出した。「全状態のチェーン計算がボット支配を招いた」と当事者が述べた資料は確認できなかった。", k: analysis, s: [src-huntercoin-bgamer-2018, src-huntercoin-ledger-2016, src-huntercoin-xaya-games-doc]}
+  information: {t: "全ての手と盤面が公開。戦場の霧はなく、運搬中のコインもすべて見えるため、運搬者を狙うボットが出現した。", k: fact, s: [src-huntercoin-guide-2014, src-huntercoin-code]}
+  persistence: {t: "チェーンが動き続ける限り盤面は継続し、運営の関与なしにノードだけで状態を再計算できる。Xaya は「limited support」と表示し、採掘者不足を認めている。", k: fact, s: [src-huntercoin-xaya-legacy, src-huntercoin-code]}
+  extensibility: {t: "状態の読み取りと自動操作は誰でもできるが、ルールの追加・変更はハードフォークでしか行えない。", k: fact, s: [src-huntercoin-code, src-huntercoin-gamelogic]}
+  money_flow: {t: "新規発行（1 ブロック 10 HUC）が原資。1 HUC は採掘者、9 HUC は地図上の財宝（0.25 は王冠）。ハンター作成時に HUC をロックし、死亡時のコインには採掘者課税（4%・銀行入金時 10% と告知）がかかる。外部からの資金はキャラクター作成費と取引所での購入。", k: fact, s: [src-huntercoin-code, src-huntercoin-ann-2014]}
+  entry_barrier: {t: "フルノード兼ウォレット（huntercoin-qt）の導入と同期、チームを作るための少額の HUC（2014-03 の案内では 1.005 HUC 以上）が必要。チェーンの肥大で同期が追いつかず遊べない状況があったと 2016 年の記事は報じ、Kraft の論文要旨も資源要求の重さを問題とした。", k: fact, s: [src-huntercoin-guide-2014, src-huntercoin-newsbtc, src-huntercoin-ledger-2016]}
+
+concepts: [c-onchain-rules, c-onchain-state, c-own-chain, e-p2e, m-bot-automation, m-pvp-territory, c-onchain-randomness, c-autonomous-world]
+proposed_concepts:
+  - {id: e-human-mining, name: ヒューマンマイニング（発行の地図上配布）, desc: "ブロック報酬の大部分を計算ではなくゲーム内の行為（拾得・運搬）で獲得させる発行設計。"}
+  - {id: c-consensus-embedded-rules, name: コンセンサス組み込み型ゲームルール, desc: "スマートコントラクトではなく、ノード実装のブロック検証処理にゲームの状態遷移を組み込む。ルール変更はハードフォークになる。"}
+
+article:
+  what:
+    - {t: "プレイヤーは名前を登録すると、ジェネラル（.1）を含む 3 体のキャラクターを持つチームが生まれ、赤・青・緑・黄の 4 色のいずれかに属する。キャラクター作成には HUC が必要。", k: fact, s: [src-huntercoin-btcmag-2014]}
+    - {t: "地図は数百マス四方（案内では 502 × 502）で、各ブロックごとに新しいコインが地図上の各エリアに出現する。ハンターはそれを拾い、自陣（当初は四隅のスポーン地点）に持ち帰ると初めて手元のウォレットの HUC になる。", k: fact, s: [src-huntercoin-guide-2014, src-huntercoin-ann-2014, src-huntercoin-code]}
+    - {t: "攻撃手段は自爆（destruct）で、周囲の敵ハンターを倒し、その運搬中のコインを地面に落とす。同じ色は攻撃できない。ジェネラルが死ぬとチーム全体が死ぬ。", k: fact, s: [src-huntercoin-btcmag-2014, src-huntercoin-guide-2014], q: "The catch is every player has the ability to turn themselves into a walking nuke."}
+    - {t: "地図上の王冠（Crown of Fortune）を持っている間、保持者は 1 ブロックあたり 0.25 HUC を得る。", k: fact, s: [src-huntercoin-ann-2014, src-huntercoin-code]}
+    - {t: "開発者は「人間による採掘」を前面に出し、計算資源ではなく人の手間で通貨を得る点を売りにした。", k: claim, who: "開発者（snailbrain）", s: [src-huntercoin-ann-2013], q: "Man Hours (work) will be required to efficiently mine (collect) coins."}
+  loop:
+    - {t: "以下は 2014 年の初心者向け案内とコードからの再構成（筆者は実プレイしていない）。huntercoin-qt をインストールし、チェーンを同期し、保管用と操作用のウォレットを分けて作る。", k: fact, s: [src-huntercoin-guide-2014]}
+    - {t: "少額の HUC を払って名前を登録しチームを生む。生まれたキャラクターはスポーン地点にいて、30 ブロック以上留まると死ぬ（後のフォークで変更）。", k: fact, s: [src-huntercoin-guide-2014, src-huntercoin-code]}
+    - {t: "地図上でコインの多いエリアを選んでクリックすると、クライアントが経路を計算し、ウェイポイントを名前更新トランザクションとして送る。各ブロックで 1 マスずつ進み、操作から反映までブロック待ちの遅延がある。", k: fact, s: [src-huntercoin-guide-2014, src-huntercoin-code]}
+    - {t: "拾ったコインを抱えて銀行に戻る途中、他チームのハンターに近寄られて自爆されると、運搬中のコインを失う。そのため護衛を付けたり、捨て駒で運搬者を狙ったりする戦術が生まれた。", k: fact, s: [src-huntercoin-guide-2014]}
+    - {t: "銀行に戻るとコインがウォレットに入金されるが、採掘報酬と同様に 120 承認後でないと使えない。", k: fact, s: [src-huntercoin-guide-2014]}
+  before_after:
+    - {t: "それ以前の暗号通貨上の「ゲーム」は SatoshiDice のような賭けで、ゲームの判定は運営サーバーが行い、チェーンは送金にだけ使われた。Huntercoin は盤面の状態遷移そのものを全ノードが検証する対象にした。", k: analysis, s: [src-huntercoin-code]}
+    - {t: "Namecoin の「名前に値を書き込む」仕組みを、プレイヤーの手の送信路として流用した。この「名前更新で手を送り、ノードが状態を計算する」構造は Namecoin ベースの Xaya Core にそのまま引き継がれた。", k: fact, s: [src-huntercoin-code, src-huntercoin-xaya-games-doc, src-huntercoin-xaya-core]}
+    - {t: "発行の配分を変え、ブロック報酬の 9 割を採掘者ではなく盤上に出すことで、通貨の獲得を計算競争からゲーム内の行為に移した。", k: fact, s: [src-huntercoin-code, src-huntercoin-xaya-legacy]}
+    - {t: "当事者は「世界初の分散型ゲーム世界」「世界初の人間が採掘できる暗号通貨」と称したが、これは運営の主張であり、独立した検証は見つからなかった。", k: claim, who: "Chronokings / Xaya", s: [src-huntercoin-pr-2014, src-huntercoin-xaya-legacy]}
+  onchain_tradeoffs:
+    - {t: "ルールが合意の一部なので、運営が停止しても盤面は誰でも再計算でき、運営がこっそり結果を変えることはできない。", k: analysis, s: [src-huntercoin-code]}
+    - {t: "反面、1 手の解像度がブロック時間（約 1 分）に縛られ、操作から反映まで待たされる。", k: fact, s: [src-huntercoin-guide-2014, src-huntercoin-bgamer-2018]}
+    - {t: "プレイヤーが増えると遅延が増え、Bitcoin Magazine は数か月前から反応が悪くなったと報じた。", k: fact, s: [src-huntercoin-btcmag-2014]}
+    - {t: "Daniel Kraft の論文は、この方式がチェーンの大きな増加と重い資源要求を招くと述べ、対戦の大半をチェーン外で行う Game Channels を提案した（論文本文は取得できず、検索結果の要約のみ確認）。", k: claim, who: "Daniel Kraft（Huntercoin 開発者）", s: [src-huntercoin-ledger-2016]}
+    - {t: "ルール変更のたびにハードフォークが必要で、少なくとも 5 回のゲームロジックのフォークがコードに残っている。", k: fact, s: [src-huntercoin-code]}
+  roles:
+    - {t: "採掘者は SHA-256 または Scrypt で（マージマイニングを含め）ブロックを作り、1 HUC と、殺害・入金時の課税分を得る。", k: fact, s: [src-huntercoin-ann-2014, src-huntercoin-code]}
+    - {t: "プレイヤーはキャラクター作成費を払って盤上でコインを集め、銀行に持ち帰る。多数のキャラクターを自動操縦するボット運用者が実質的な主役になった。", k: claim, who: "Andrew Colosimo（Chimaera CEO）", s: [src-huntercoin-bgamer-2018]}
+    - {t: "開発者はクライアント実装と、ゲームバランスを変えるハードフォークを提供した。2014 年以降は Daniel Kraft がコアを保守したと Xaya は記す。", k: claim, who: "Xaya", s: [src-huntercoin-xaya-legacy]}
+    - {t: "AI・エージェントの観点では、手番が遅くルールが完全に公開された盤面は自動化に有利で、実際にボットが人間を圧倒した。人間とエージェントを区別する仕組みはなかった。", k: analysis, s: [src-huntercoin-bgamer-2018, src-huntercoin-guide-2014]}
+  trajectory:
+    - {t: "2013-09 に構想スレッド、2014-01-27 に公開スレッドが立ち、2014-02 に公開された。", k: fact, s: [src-huntercoin-ann-2013, src-huntercoin-ann-2014, src-huntercoin-xaya-legacy]}
+    - {t: "Bitcoin Magazine は 2014-08 時点で、プレイヤーの増加による遅延を報じている。", k: fact, s: [src-huntercoin-btcmag-2014]}
+    - {t: "その後、毒の災害（ランダムに全員を毒殺）、運搬上限、ハートの削減、Life-Steal（キャラクター作成費 200 HUC のロック、運搬上限 100 HUC、75 個の移動する銀行）、Timesave とハードフォークでルールが改められた。", k: fact, s: [src-huntercoin-code, src-huntercoin-gamelogic]}
+    - {t: "当初は 1 年の実験として計画されたが、コミュニティが期限を外すフォークを行ったと The Block の寄稿は記す（該当フォークのコードは本調査では特定できなかった）。Colosimo も「拡張性を試す 1 年の実験」だったと述べている。", k: claim, who: "The Block 寄稿（Zane Huffman）／Andrew Colosimo", s: [src-huntercoin-theblock-2019, src-huntercoin-bgamer-2018]}
+    - {t: "2014-02 に主要開発者 Mikhail Sindeyev が急死して開発が停滞し、HUC 価格は 2014-03 に暴落、2015 年までに当初の 1% 未満で取引されたと NewsBTC は記す。", k: claim, who: "NewsBTC（2016）", s: [src-huntercoin-newsbtc]}
+    - {t: "創業者は 2016-10 に Chimaera を始め、2018 年に Xaya と改名した。Huntercoin のチェーンは「limited support」として残り、2019 年には取引所から上場廃止された。", k: fact, s: [src-huntercoin-xaya-legacy, src-huntercoin-theblock-2019]}
+  retention_evidence:
+    - {t: "運営は 2014-02 のプレスリリースで「約 5000 人のプレイヤー」を主張したが、定義（名前登録数か、一意のアドレスか）は示されていない。", k: claim, who: "Chronokings", s: [src-huntercoin-pr-2014], q: "It also has a rapidly-growing community, having accumulated around 5,000 players so far."}
+    - {t: "The Block の寄稿は最初の 50 万ブロックで「数万人のプレイヤー」が競ったと書くが、根拠と定義は示されていない。", k: claim, who: "The Block 寄稿", s: [src-huntercoin-theblock-2019]}
+    - {t: "Colosimo は 2 人のプレイヤーがそれぞれ 5000 体規模のボット軍団を戦わせていたと述べており、キャラクター数や名前数は人間のプレイヤー数を示さない。", k: claim, who: "Andrew Colosimo", s: [src-huntercoin-bgamer-2018]}
+    - {t: "継続率、同時接続数、一意の人間プレイヤー数を示すデータは見つからなかった。", k: unknown}
+  extensions:
+    - {t: "第三者の統計サイト（huntercoin.info）が盤面の状況を公開していた。", k: fact, s: [src-huntercoin-btcmag-2014]}
+    - {t: "運搬者を狙う専用ボットなど、プレイヤーによる自動化が広く出現した。", k: fact, s: [src-huntercoin-guide-2014], q: "some of which are specifically designed to target players who are carrying coins"}
+    - {t: "ゲームロジックを最新の Bitcoin Core 上に再実装した Huntercore が開発チーム側で作られた。", k: fact, s: [src-huntercoin-huntercore]}
+    - {t: "第三者クライアントが複数作られた。2015 年の wiggi による BetterQT（グラフィック改良）、Unity3D 製クライアント（記事は第三者製と記述）、他プレイヤーの手を事前に表示し、AFK 時に銀行へ自動帰還させる MithrilMan のクライアント。後者は人間にボットと同じ情報と自動化を与えるものだった。", k: claim, who: "NewsBTC（2016）", s: [src-huntercoin-newsbtc]}
+    - {t: "クライアント・統計サイト・ボット以外に、ルールを拡張した第三者の例は見つからなかった。", k: unknown}
+  constraints:
+    - {t: "ゲームロジックがノードに組み込まれているため、ルールの変更は全ノードのアップグレードを伴うハードフォークになる。", k: fact, s: [src-huntercoin-code]}
+    - {t: "全ノードが全キャラクターの移動・戦闘を毎ブロック計算するため、プレイヤー数（特にボット数）がノードの負荷とチェーンの大きさに直結する。開発者は 1 プレイヤーあたりの同時キャラクター数を 20、生涯 1000 に制限した。", k: fact, s: [src-huntercoin-code]}
+    - {t: "換金可能な報酬が公開盤面に置かれるため、反応速度・同時操作数で勝るボットが有利になる。FORK_POISON 以降、ランダムな間隔で全キャラクターに毒をかけ 1〜50 ブロック後に死亡させる「災害」がコードに入っており、NewsBTC はこれを大量のキャラクターで地図を支配した「dominators」への対策と記す。", k: fact, s: [src-huntercoin-newsbtc, src-huntercoin-code]}
+    - {t: "記事の地の文は、単純なゲーム設計と Bitcoin 価格の上昇が重なって「ゲームより投機の場」になったと評する。Colosimo 本人の発言は換金可能性が搾取を生むという趣旨で、一部プレイヤーがボット軍団で 1 日 1 万ドルを得ていたと述べた。", k: claim, who: "BlockchainGamer.biz（Jon Jordan）／Andrew Colosimo", s: [src-huntercoin-bgamer-2018], q: "If players can make money from your game, there will be exploitation."}
+  principles:
+    - {t: "コンセンサス組み込み型ルール: ゲームの状態遷移をブロック検証に組み込むと、運営不在でも結果の正しさを全員が保証できる。適用条件は状態とプレイヤー数が小さく、ルール変更が稀なこと。破綻条件はプレイヤー（ボット）数の増加でノード負荷が増え、ルール変更がハードフォークを要すること。", k: analysis, s: [src-huntercoin-code, src-huntercoin-gamelogic]}
+    - {t: "発行の地図上配布（human mining）: 新規発行を盤上の拾得物にすると、通貨の分配がゲーム行為になる。ただし報酬が換金可能で盤面が公開なら、最適化はボットに有利になり「人間による採掘」は名目化する。人間性の証明か、自動化しても面白い設計が必要。", k: analysis, s: [src-huntercoin-bgamer-2018, src-huntercoin-guide-2014]}
+    - {t: "状態計算の分離: Xaya は「手（名前更新）だけをチェーンに載せ、状態はゲーム固有のプロセッサが計算する」構造に移った。これは、検証可能性を保ちつつノード全体に全ゲームの計算を強いないための分離であり、全員が同じ処理系を走らせる限りで成立する。", k: analysis, s: [src-huntercoin-xaya-games-doc, src-huntercoin-bgamer-2018]}
+  counter_evidence:
+    - {t: "「世界初」「数万人」といった評価の多くは Xaya / Chronokings 自身または二次資料の主張で、独立した計測が見当たらない。2014 年の主張「約 5000 人」も定義不明。", k: analysis, s: [src-huntercoin-pr-2014, src-huntercoin-theblock-2019]}
+    - {t: "ボット支配と投機化の原因をオンチェーン化に帰すのは早計で、同じ設計でも換金性がなければボットの誘因は小さかった可能性がある。記事の地の文も原因を「単純な設計」と価格上昇の組み合わせとしている。", k: analysis, s: [src-huntercoin-bgamer-2018]}
+    - {t: "ボット支配は想定外の帰結ではなかった。2013 年の構想スレッド冒頭で snailbrain 自身が「人の手間が必要になる（あるいはボットが支配するかも）」と書いている（ただし同投稿は 2014-06 に最終編集されており、当初からの文言かは不明）。", k: fact, s: [src-huntercoin-ann-2013], q: "Man Hours (work) will be required to efficiently mine (collect) coins in this \"reality\" (or maybe bots will take over..)"}
+    - {t: "衰退の説明はボットや設計だけではない。主要開発者の急死（2014-02）、公開 1 か月後の価格暴落、チェーン肥大による同期困難が NewsBTC で並べて報じられており、どれが主因かは資料から切り分けられない。", k: analysis, s: [src-huntercoin-newsbtc]}
+    - {t: "人間とボットの差の一部は情報・ツールの非対称だった可能性がある。第三者クライアント（MithrilMan）は他プレイヤーの手を事前に表示し「ボットの主要な優位」を除いたと NewsBTC は書く。", k: claim, who: "NewsBTC（2016）", s: [src-huntercoin-newsbtc]}
+    - {t: "The Block の寄稿は「現在もアクティブなプレイヤーがいる」と書き、Xaya は「採掘者が不足」と書く。どちらも数値がなく、継続の実態は確認できない。", k: analysis, s: [src-huntercoin-theblock-2019, src-huntercoin-xaya-legacy]}
+
+metrics:
+  - {id: m-huntercoin-players-2014-02, type: players, value: 5000, value_text: "約 5000", unit: players, period: "2014-02（公開直後）", definition: "運営のプレスリリースによる「players」（定義なし）", nature: reported, s: [src-huntercoin-pr-2014]}
+  - {id: m-huntercoin-players-500k, type: players, value_text: "数万人（tens of thousands）", unit: players, period: "最初の 50 万ブロック", definition: "The Block 寄稿の記述。根拠・定義なし", nature: estimated, s: [src-huntercoin-theblock-2019]}
+  - {id: m-huntercoin-bot-army, type: other, value: 5000, value_text: "5000 体規模のボット軍団 ×2", unit: characters, period: "2014〜2018 のいずれか（時期不明）", definition: "Colosimo が述べた、2 人のプレイヤーがそれぞれ運用したボットキャラクター数", nature: reported, s: [src-huntercoin-bgamer-2018]}
+  - {id: m-huntercoin-bot-earnings, type: revenue, value: 10000, value_text: "1 日約 1 万ドル", unit: USD/day, period: "時期不明", definition: "Colosimo が述べた、ボット軍団を運用した一部プレイヤーの 1 日の収入", nature: reported, s: [src-huntercoin-bgamer-2018]}
+  - {id: m-huntercoin-player-earnings, type: other, value_text: "100 万ドル超（over $1 million worth of HUC）", unit: USD, period: "2014〜2019", definition: "プレイヤーが集めた HUC の合計価値（The Block 寄稿。算定方法不明）。Xaya は 2019-03-05 までに 1,282,417 ドルと主張（検索要約のみ）", nature: estimated, s: [src-huntercoin-theblock-2019]}
+  - {id: m-huntercoin-supply, type: other, value: 42000000, unit: HUC, period: "設計値", definition: "総発行上限。1 ブロック 10 HUC、2,100,000 ブロックごとに半減", nature: measured, s: [src-huntercoin-code, src-huntercoin-ann-2014]}
+  - {id: m-huntercoin-launch-trading, type: other, value: 1000000, value_text: "取引開始 3 日で 100 万ドル", unit: USD, period: "2014-02", definition: "プレスリリースの「reaching $1m within the first three days of trading」。時価総額か取引高かは不明", nature: reported, s: [src-huntercoin-pr-2014]}
+
+events:
+  - {id: ev-huntercoin-concept, date: "2013-09-24", type: announce, title: "構想スレッド「HunterCoin - Human Mine-able Crypto Currency GameWorld」", detail: "snailbrain が bitcointalk に投稿。報酬配分や銀行の数は議論中", s: [src-huntercoin-ann-2013]}
+  - {id: ev-huntercoin-ann, date: "2014-01-27", type: announce, title: "公開スレッド「Huntercoin Release - Approx 7 days - Human Mine-able Dual Algo」", detail: "当時の返信の引用に残る元の題名。現在の題名「Worlds First Decentralized Game/World on the Blockchain」と本文は 2018-10-15 の編集後のもの", s: [src-huntercoin-ann-2014]}
+  - {id: ev-huntercoin-launch, date: "2014-02", type: launch, title: "メインネットとゲーム世界を公開", s: [src-huntercoin-xaya-legacy, src-huntercoin-theblock-2019]}
+  - {id: ev-huntercoin-pr, date: "2014-02-19", type: other, title: "プレスリリース「Huntercoin: The Online Game That Earns You Money」", detail: "約 5000 人、取引開始 3 日で 100 万ドルと主張", s: [src-huntercoin-pr-2014]}
+  - {id: ev-huntercoin-chimaera, date: "2018-09-05", type: other, title: "Chimaera CEO が Huntercoin の教訓を語る", detail: "ボット軍団と投機化、状態計算の分離へ", s: [src-huntercoin-bgamer-2018]}
+
+relations:
+  - {to: satoshi-dice, type: contrasts-with, basis: analytic, note: "SatoshiDice はチェーンを賭けの送金路として使い判定は運営サーバー、Huntercoin は判定そのものをコンセンサスに入れた"}
+  - {to: dark-forest, type: similar-to, basis: analytic, note: "ルールの判定をチェーン上で行う戦略ゲーム。Dark Forest はコントラクト、Huntercoin はノード実装という違いがあり、どちらもボット・自動化が主役になった"}
+  - {to: c-own-chain, type: built-with, basis: confirmed, note: "Namecoin をフォークしたゲーム専用チェーン", s: [src-huntercoin-ann-2014, src-huntercoin-code]}
+  - {to: m-bot-automation, type: similar-to, basis: analytic, note: "ボットを禁止する手段がなく、結果的にボットが支配した。公認ではなく黙認・放置に近い"}
+  - {to: sunflower-land, type: similar-to, basis: analytic, note: "換金可能な報酬とボット対策の緊張という同じ問題を後年に抱えた例"}
+  - {to: pixels, type: similar-to, basis: analytic, note: "報酬目的の自動化と経済調整の繰り返しという同型の問題"}
+
+unknowns:
+  - "一意の人間プレイヤー数、名前登録数、キャラクター数の時系列。運営の「players」の定義。"
+  - "各ハードフォークの実施日（ブロック高 255000 / 500000 / 590000 / 795000 / 1521500 は分かるが、日付に換算できる一次資料を取得していない）。"
+  - "「1 年の実験」の期限がコード上にあったか、それを外すフォークがいつ行われたか。"
+  - "Huntercoin の保有者が Chimaera / Xaya の CHI に移行・配布を受けたか（確認できる資料なし）。"
+  - "Kraft の Game Channels 論文（Ledger, 2016）の本文（サーバー不調で取得できず）。"
+  - "現在のハッシュレート、ノード数、実際に稼働しているプレイヤー数。"
+contradictions:
+  - {t: "創始者・開発者の記述が資料で異なる: Bitcoin Magazine は SnailBrain と故 thecoder、Xaya は Andrew Colosimo と Mikhail Syndeev（2014 年以降 Daniel Kraft が保守）、BlockchainGamer は Colosimo と Kraft が公開したと記す。", s: [src-huntercoin-btcmag-2014, src-huntercoin-xaya-legacy, src-huntercoin-bgamer-2018]}
+  - {t: "盤上に出る割合: コードと公開スレッドは 10 HUC 中 9 HUC（90%）、Xaya の現行ページは「約 80% のコインが仮想世界で得られる」と記す。公開スレッド自身が「採掘者は長期的にブロック報酬の 20%（2 コイン）＋全課税を受け取るはず」と書いており、盤上に出た分の一部が死亡・入金時の課税で採掘者に戻ることを考えると 80% は実効値の可能性がある。", s: [src-huntercoin-code, src-huntercoin-xaya-legacy, src-huntercoin-ann-2014]}
+  - {t: "ジェネラルの表記: Bitcoin Magazine は名前に .1 が付くのがジェネラルと書くが、2014-03 の案内は「bob General」と兵士「bob.1」を区別している。", s: [src-huntercoin-btcmag-2014, src-huntercoin-guide-2014]}
+  - {t: "基盤チェーン: BlockchainGamer は「Bitcoin ブロックチェーン上に構築」と書くが、公開スレッドとコードでは Namecoin のフォーク（Bitcoin とはマージマイニング）。", s: [src-huntercoin-bgamer-2018, src-huntercoin-ann-2014]}
+  - {t: "キャラクター作成費: 公開スレッド（後に編集）は 1 体 101 HUC（100 は返還可能）と書き、コードの GetNameCoinAmount は 1 → 10 → 200 → 100 HUC とフォークごとに変化し、2014-03 の案内は 1.005 HUC 以上と記す。時期の差と見られる。", s: [src-huntercoin-ann-2014, src-huntercoin-code, src-huntercoin-guide-2014]}
+  - {t: "発行配分: 構想段階（2013-10 の返信）は 1 ブロック 50 コイン（採掘者 5・ゲーム 45、課税は未定）案、公開時のコードは 1 ブロック 10 HUC（採掘者 1・盤上 9）。", s: [src-huntercoin-ann-2013, src-huntercoin-code]}
+
+sources:
+  - {id: src-huntercoin-ann-2013, title: "[ANN][HUC] HunterCoin - Human Mine-able Crypto Currency GameWorld", url: "https://bitcointalk.org/index.php?topic=300538.0", publisher: "Bitcoin Forum", author: "snailbrain", type: forum, primary: true, published: "2013-09-24", accessed: "2026-10-23", access: fetched, lang: en, note: "構想スレッド。地図・銀行・配分案、開発中の議論"}
+  - {id: src-huntercoin-ann-2014, title: "[ANN][HUC] Huntercoin - Worlds First Decentralized Game/World on the Blockchain", url: "https://bitcointalk.org/index.php?topic=435170.0", publisher: "Bitcoin Forum", author: "snailbrain", type: forum, primary: true, published: "2014-01-27", accessed: "2026-10-23", access: fetched, lang: en, note: "公開スレッド。1 分ブロック、10 HUC の配分、王冠、課税、Namecoin フォーク。冒頭投稿は 2018-10-15 に最終編集され、題名も当初の「Huntercoin Release - Approx 7 days - Human Mine-able Dual Algo」から変更されている"}
+  - {id: src-huntercoin-guide-2014, title: "Huntercoin - Main Website and Setup Info", url: "https://bitcointalk.org/index.php?topic=548421.0", publisher: "Bitcoin Forum", author: "tuto", type: forum, primary: true, published: "2014-03-29", accessed: "2026-10-23", access: fetched, lang: en, note: "当時の初心者向け案内。操作手順、30 ブロック規則、ボットへの注意、502 × 502 の地図"}
+  - {id: src-huntercoin-pr-2014, title: "Huntercoin: The Online Game That Earns You Money", url: "https://prnewswire.co.uk/news-releases/huntercoin-the-online-game-that-earns-you-money-246237241.html", publisher: "PR Newswire", author: "Chronokings", type: official-blog, primary: true, published: "2014-02-19", accessed: "2026-10-23", access: fetched, lang: en, note: "運営のプレスリリース。約 5000 人、3 日で 100 万ドル、human-minable の主張"}
+  - {id: src-huntercoin-btcmag-2014, title: "HunterCoin: The Massive Multiplayer Online Cryptocoin Game (MMOCG)", url: "https://bitcoinmagazine.com/articles/huntercoin-the-massive-multiplayer-online-cryptocoin-game-mmocg-1409336751", publisher: "Bitcoin Magazine", author: "Ruben Alexander", type: news, primary: false, published: "2014-08-29", accessed: "2026-10-23", access: fetched, lang: en, note: "ゲーム内容、自爆、王冠、遅延の報告、統計サイト"}
+  - {id: src-huntercoin-code, title: "chronokings/huntercoin", url: "https://github.com/chronokings/huntercoin", publisher: "GitHub", type: code, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "clone して main.cpp（GetBlockValue, ForkInEffect, ConnectBlock）、gamestate.cpp、gamemap.h、gametx.cpp を確認。最終コミット 2018-10-15"}
+  - {id: src-huntercoin-gamelogic, title: "GameLogicChanges.txt", url: "https://github.com/chronokings/huntercoin/blob/master/GameLogicChanges.txt", publisher: "GitHub (chronokings/huntercoin)", type: code, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "Life-Steal フォークのルール変更一覧"}
+  - {id: src-huntercoin-huntercore, title: "chronokings/huntercore", url: "https://github.com/chronokings/huntercore", publisher: "GitHub", type: code, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "Bitcoin Core ベースの再実装。ウォレットのみでゲームタブなし、UI は Unity。最終コミット 2018-11-27"}
+  - {id: src-huntercoin-xaya-legacy, title: "Huntercoin Legacy - World's First Human Mineable Cryptocurrency", url: "https://xaya.io/huntercoin-legacy", publisher: "Xaya", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "2014-02 公開、limited support、採掘者不足、Xaya の基礎になったとの記述。huntercoin.org からリダイレクト"}
+  - {id: src-huntercoin-xaya-site, title: "Xaya", url: "https://xaya.io", publisher: "Xaya", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "Xaya Core は非推奨、新規開発は Polygon PoS との表示"}
+  - {id: src-huntercoin-xaya-games-doc, title: "xaya/doc/xaya/games.md", url: "https://github.com/xaya/xaya/blob/master/doc/xaya/games.md", publisher: "GitHub (xaya/xaya)", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "名前更新による手の送信、ブロックハッシュごとのゲーム状態、リオーグ処理。Huntercoin への言及はない（検証時確認）"}
+  - {id: src-huntercoin-xaya-core, title: "xaya/xaya", url: "https://github.com/xaya/xaya", publisher: "GitHub", type: code, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "Xaya Core は Namecoin ベース、旧称 Chimaera、CHI"}
+  - {id: src-huntercoin-bgamer-2018, title: "Chimaera CEO Andrew Colosimo on its radically different approach to blockchain gaming", url: "https://www.blockchaingamer.biz/?p=2406", publisher: "BlockchainGamer.biz", author: "Jon Jordan", type: interview, primary: true, published: "2018-09-05", accessed: "2026-10-23", access: fetched, lang: en, note: "1 年の実験、投機化（記者の地の文）、ボット軍団、Chimaera の Game Channels"}
+  - {id: src-huntercoin-theblock-2019, title: "Blockchain Gaming Part II: Successes and Failures of First-Generation Games", url: "https://www.theblock.co/news/business/2019-08-08-blockchain-gaming-part-ii-successes-and-failures-of-first-generation-games-35251", publisher: "The Block", author: "Zane Huffman", type: analysis, primary: false, published: "2019-08-08", accessed: "2026-10-23", access: fetched, lang: en, note: "数万人、100 万ドル超、1 年実験とフォーク、2019 年の上場廃止"}
+  - {id: src-huntercoin-newsbtc, title: "Blockchain Gaming: the Huntercoin Saga", url: "https://www.newsbtc.com/news/blockchain-gaming-huntercoin/", publisher: "NewsBTC", type: news, primary: false, published: "2016-02-02", accessed: "2026-10-23", access: fetched, lang: en, note: "2016-02-02 公開（更新 2024-06）。開発者の死去、価格暴落、AI ボットと dominators、災害機能、第三者クライアント（BetterQT・Unity・MithrilMan）、チェーン肥大"}
+  - {id: src-huntercoin-ledger-2016, title: "Game Channels for Trustless Off-Chain Interactions in Decentralized Virtual Worlds", url: "https://ledger.pitt.edu/ojs/ledger/article/view/15", publisher: "Ledger", author: "Daniel Kraft", type: paper, primary: true, published: "2016-12", accessed: "2026-10-23", access: snippet, lang: en, note: "本文・要旨ページとも 503 で取得できず。検索結果の要約で、Huntercoin 方式がチェーンの大きな増加を招くとの記述を確認"}

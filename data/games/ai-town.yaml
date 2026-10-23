@@ -1,0 +1,74 @@
+id: ai-town
+name: AI Town
+aliases: ["a16z-infra/ai-town"]
+kind: engine
+depth: index
+updated: "2026-10-23"
+chains: []
+team: "a16z-infra（Andreessen Horowitz のインフラ系オープンソース）と Convex"
+summary: >-
+  Generative Agents に着想を得て 2023 年に公開された、AI キャラクターが住み会話する町のオープンソース「スターターキット」。
+  バックエンドの Convex がゲーム状態・トランザクション・シミュレーションエンジンを担い、人間のユーザーもプレイヤーとして町に参加してエージェントと同じ入力経路で行動できる。
+  共有状態・決定的なステップ実行・誰でも改変できるコードというオンチェーンゲームが強調する性質の多くを、通常のデータベース上で実現している。
+selection_reason: >-
+  「人間と AI が同じ世界で遊ぶ」基盤を、チェーンなしでフォーク可能なコードとして提供した例であり、オンチェーン ECS エンジンや Autonomous Worlds と比較する対照群として重要。
+  第三者が自分の町を作る拡張は「コードのフォーク」で行われ、許可不要のオンチェーン拡張とは性質が異なることも示す。
+categories:
+  - {id: ai, role: primary, reason: "LLM で動くエージェントの会話・記憶・移動を備えた町のシミュレーション"}
+  - {id: infra, role: secondary, reason: "Convex 上のゲームエンジン（入力処理・ティック・ステップ・状態保存）を分離し、他のゲームの土台として提供"}
+status:
+  value: active
+  as_of: "2026-10"
+  note: "GitHub リポジトリの最新コミットは 2026-08-25（clone で確認）。"
+  s: [src-aitown-repo]
+dates:
+  launched: {date: "2023-08", s: [src-aitown-repo], note: "README の画面写真の日付（2023-08-14）と LICENSE の年（2023）から月精度で推定した。正確な公開日は未確認"}
+
+architecture:
+  onchain:
+    level: none
+    detail: "ブロックチェーンは使わない。ゲーム状態・ベクトル検索・スケジューラは Convex（サーバーレスのデータベース）にあり、エンジンだけが状態を変更する。"
+    s: [src-aitown-repo]
+  offchain:
+    - {item: "Convex 上のゲームエンジン（60 ティック/秒の論理を 1 秒ごとのステップにまとめて実行し、差分を保存）", s: [src-aitown-repo]}
+    - {item: "LLM 推論（既定は Ollama の llama3、Together.ai や OpenAI 互換 API も可）", s: [src-aitown-repo]}
+    - {item: "ブラウザが 5 分放置されるとシミュレーションを停止する cron（費用抑制）", s: [src-aitown-repo]}
+  admin:
+    level: significant
+    detail: "デプロイした者が世界の状態・エージェント・LLM・停止を完全に制御する（testing:stop 等）。参加者の権利を保証する仕組みはない。"
+    s: [src-aitown-repo]
+  open_source:
+    level: full
+    detail: "MIT ライセンスで全コード公開。"
+    url: "https://github.com/a16z-infra/ai-town"
+    s: [src-aitown-repo]
+  extensibility:
+    level: client-mods
+    detail: "コードのフォークで自分の町・キャラクター・ゲーム要素を作る。README はキャラクターや地図の差し替え手順を示し、Pinokio 用のコミュニティフォークにも言及する。稼働中の他人の町にルールを追加する仕組みはない。"
+    s: [src-aitown-repo]
+
+compare:
+  gameplay: {t: "AI キャラクターが町を歩き、近づくと会話し、記憶を持つ。人間はプレイヤーとして参加し、エージェントと同じ入力経路で移動・会話できる。", k: fact, s: [src-aitown-repo]}
+  necessity: {t: "共有のグローバル状態、トランザクション、決定的なステップ実行を通常のデータベースで実現しており、チェーンは不要。所有権や運営からの独立性は扱わない。", k: analysis, s: [src-aitown-repo]}
+  information: {t: "全状態はデプロイした者のデータベースにあり、参加者に見せる範囲は実装次第。", k: fact, s: [src-aitown-repo]}
+  persistence: {t: "デプロイした者が止めれば止まる。誰でも自分で再デプロイできるが、それは別の町になる。", k: analysis, s: [src-aitown-repo]}
+  extensibility: {t: "MIT ライセンスのコードをフォークして改変する形の拡張。", k: fact, s: [src-aitown-repo]}
+  money_flow: {t: "ゲーム内の資金循環はない。費用（ホスティング、LLM）はデプロイした者が負担する。", k: analysis, s: [src-aitown-repo]}
+  entry_barrier: {t: "遊ぶだけならブラウザのデモ。自分の町を作るには Node.js、Convex（または Docker）、LLM の準備が必要。", k: fact, s: [src-aitown-repo]}
+
+concepts: [c-ai-agent-player, c-client-plugins]
+
+events:
+  - {id: ev-aitown-release, date: "2023-08", type: release, title: "AI Town を公開", detail: "公開月は README の画面写真の日付による推定", s: [src-aitown-repo]}
+
+relations:
+  - {to: generative-agents, type: influenced-by, basis: confirmed, note: "README が「Inspired by the research paper Generative Agents」と明記", s: [src-aitown-repo]}
+  - {to: mud, type: contrasts-with, basis: analytic, note: "MUD はチェーン上の状態を ECS で構造化する。AI Town は同じ「共有状態＋エンジン」をオフチェーンの Convex で実現した"}
+  - {to: project-sid, type: similar-to, basis: analytic, note: "オフチェーンのエージェント社会。AI Town は小規模・公開コード、Sid は大規模・非公開"}
+
+unknowns:
+  - "公開日の正確な日付、フォーク数や派生プロジェクトの実数（GitHub API に到達できず未確認）。"
+  - "人間とエージェントが混在する町で、実際にどのような遊びや長期利用が生まれたか。"
+
+sources:
+  - {id: src-aitown-repo, title: "a16z-infra/ai-town", url: "https://github.com/a16z-infra/ai-town", publisher: "GitHub (a16z-infra)", type: code, primary: true, published: "2023-08", accessed: "2026-10-23", access: fetched, lang: en, note: "git clone で README・ARCHITECTURE.md・LICENSE を確認。最新コミット 2026-08-25"}

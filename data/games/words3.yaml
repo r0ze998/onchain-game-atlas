@@ -1,0 +1,101 @@
+id: words3
+name: Words3
+aliases: [words3]
+kind: game
+depth: index
+updated: "2026-10-23"
+chains: [Optimism（OP Mainnet、初期版）, Base mainnet（v2）, Redstone mainnet（v2）, 各種テストネット]
+team: "Small Brain Games"
+summary: >-
+  Small Brain Games が MUD で作ったオンチェーンの対戦型単語ゲーム（Scrabble 風）。無限の盤面の既存の単語に文字をつなげて単語を作り、
+  文字の価格は VRGDA（需要に応じて変わるダッチオークション）で決まり、支払いの一部は自分の単語を土台にされたプレイヤーへ、残りは得点比例で分配される賞金庫に入る。
+  初期版（2022-11 展開。現リポジトリの MUD 版より前のコントラクトで、MUD 使用の有無は未確認）は Optimism、MUD で作り直した版は 2023-08 から Base mainnet、2024-05 から Redstone mainnet に展開された。
+selection_reason: >-
+  「他人が作ったもの（単語）の上に作ると、元の作者に報酬が流れる」という、既存の成果の再利用に対価を払う仕組みをゲームの中心に置いた小規模な実例であり、
+  辞書の正しさを Merkle 証明でオンチェーン検証するなど、最小限の規則でフルオンチェーンの経済ゲームを作った例として比較に有用。
+categories:
+  - {id: onchain-rules, role: primary, reason: "単語の正当性（辞書の Merkle 証明）、配置、得点、文字価格、報酬分配がコントラクトで判定される"}
+  - {id: p2e, role: secondary, reason: "ETH を支払って文字を買い、得点比例で賞金庫から ETH を受け取る"}
+status:
+  value: unknown
+  as_of: "2026-10"
+  note: >-
+    MUD 版の World は Base mainnet（2023-08-06 初回展開、2024-02-01 に再展開した現行アドレス）と Redstone mainnet（2024-05）にある（worlds.json）。Redstone は 2026-05-15 停止と告知済み。
+    参照日（2026-10-23）に Base の現行 World アドレスにはコントラクトコードが存在し、words3.xyz のクライアントは Base（8453）と Redstone（690）の両 World を参照している（検証役が RPC とバンドルで確認）。実際に遊ばれているかは確認できなかった。
+  s: [src-words3-contracts, src-words3-lattice-winding-down, src-words3-onchain]
+dates:
+  launched: {date: "2022-11-23", s: [src-words3-onchain, src-words3-wiki], note: "wiki がリンクする Optimism 上のコントラクト 0x1b16…f9f が最初に存在するブロック（41072050）の日付。wiki の最終編集も 2022-11-23。プレイ開始が同日かは未確認"}
+
+architecture:
+  onchain:
+    level: core-rules
+    detail: >-
+      MUD World 上で、単語の配置（PlaySystem）は辞書の Merkle 証明と盤面上の接続・交差語の正当性を検証し、得点・報酬・賞金庫を更新する。
+      v2 では文字を ETH で「引く」DrawSystem（block.prevrandao を使う疑似乱数）、得点を賞金庫の比例分と交換する ClaimSystem、文字の譲渡がある。
+    s: [src-words3-contracts, src-words3-wiki]
+  offchain:
+    - {item: "辞書の Merkle 木の構築と証明生成はクライアント側。盤面表示のクライアント、活動フィードの Twitter ボット（公式）", s: [src-words3-contracts, src-words3-wiki]}
+  admin:
+    level: limited
+    detail: >-
+      v2 ではゲーム開始（StartSystem）は 1 回だけ実行でき、文字の抽選確率も 1 回だけ設定できる。手数料（feeBps）と受取人は、現受取人だけが変更できる。
+      MUD の名前空間所有者によるシステム差し替えの可否・所有権の扱いは確認していない。初期版の wiki は「未監査・2 週間で作った実験的ゲーム」と明記していた。
+    s: [src-words3-contracts, src-words3-wiki]
+  open_source:
+    level: full
+    detail: "smallbraingames/words3-contracts（MIT 表記のソース）で v2 コントラクトを公開。初期版のコントラクトも wiki から GitHub にリンクされている。"
+    url: "https://github.com/smallbraingames/words3-contracts"
+    s: [src-words3-contracts, src-words3-wiki]
+  extensibility:
+    level: unknown
+    detail: >-
+      MUD World のため技術的には他者が名前空間を追加でき、play は player 引数で他アドレスのために打てる（送り主と得点者を分けられる）。
+      ただし第三者による拡張の実例は確認できなかった。CANDIDATES の「拡張可能」という評価の一次的な裏付けは見つかっていない。
+    s: [src-words3-contracts]
+
+compare:
+  gameplay: {t: "無限の盤面で、既存の単語に接続する形で文字を置き英単語を作る。文字ごとに価格が変動し、安く高得点を取ること、自分の単語を他人に使ってもらうことで利益を狙う。", k: fact, s: [src-words3-wiki]}
+  necessity: {t: "賞金庫・報酬の自動分配と、辞書検証を含むルールを第三者の運営なしに実行できる点にオンチェーン化の意味がある。一方、ゲームの楽しさそのものは通常の単語ゲームと同じで、金銭的な賭けの要素がチェーンを必要とした主因と見られる。", k: analysis, s: [src-words3-wiki]}
+  information: {t: "盤面・価格・得点はすべて公開。v2 の文字の抽選は block.prevrandao 由来の疑似乱数。", k: fact, s: [src-words3-contracts]}
+  persistence: {t: "コントラクトは公開チェーン上にあるが、Redstone 版は Redstone 停止告知の影響を受ける。Base 版の World は参照日にもコードが存在した（利用状況は未確認）。", k: fact, s: [src-words3-contracts, src-words3-lattice-winding-down, src-words3-onchain]}
+  extensibility: {t: "MUD による技術的な拡張可能性はあるが、第三者拡張の実例は未確認。", k: unknown}
+  money_flow: {t: "初期版: 1 手の価格の 1/4 が土台にされた単語の作者へ、3/4 が賞金庫へ入り、終了時に得点比例で分配。運営手数料なし（ガス除く）。v2: 支払いは賞金庫へ入り、得点を賞金庫の比例分と交換でき、交換時に設定された手数料（feeBps）が受取人に払われる。", k: fact, s: [src-words3-wiki, src-words3-contracts]}
+  entry_barrier: {t: "ウォレットと L2 上の ETH が必要（初期版は Optimism へのブリッジを案内）。文字の価格は 1 点の文字で目標 0.0005 ETH（初期版）。", k: fact, s: [src-words3-wiki]}
+
+concepts: [c-onchain-rules, c-onchain-state, c-ecs-engine, c-composable-primitive, e-royalty-creator, e-entry-fee-prize, c-onchain-randomness]
+
+article:
+  principles:
+    - {t: "土台への報酬（ビルドオン・ロイヤリティ）: 他人の成果物（単語）を使って得点するたびに、元の作者へ支払いの一部が自動で流れると、早く大きな土台を作る誘因が生まれる。適用条件は「使った」ことがコントラクト上で判定でき、支払いが行動と同時に起きること。破綻条件は、報酬目当ての土台が乱立し得点効率の悪い手が増える場合や、参加者が少なく土台が使われない場合。", k: analysis, s: [src-words3-wiki]}
+  counter_evidence:
+    - {t: "Base 版は 2023-08 から 2024-02 にかけて少なくとも 3 つの World アドレスで展開し直されており、ゲームの状態（盤面・賞金庫）が版ごとに分断されていた可能性がある。「他人の単語の上に積み上げる」長期的な累積は、再展開のたびに途切れ得る。", k: analysis, s: [src-words3-contracts]}
+    - {t: "参加規模・継続を示す一次資料は見つからなかった（検索結果の断片に「100 人超・2 万ドル超」という記述があるが出典ページを取得できていない）。", k: unknown}
+
+events:
+  - {id: ev-words3-optimism, date: "2022-11-23", type: launch, title: "初期版コントラクトを Optimism に展開", detail: "wiki は「2 週間で作った未監査の実験的ゲーム」と明記", s: [src-words3-onchain, src-words3-wiki]}
+  - {id: ev-words3-v0, date: "2023-03-20", type: other, title: "MUD 版コントラクトの開発開始（リポジトリ最初のコミット）", s: [src-words3-contracts]}
+  - {id: ev-words3-redstone-testnet, date: "2023", type: other, title: "Lattice が Redstone テストネットの MUD 作品として紹介", s: [src-words3-intro-redstone]}
+  - {id: ev-words3-base, date: "2023-08-06", type: launch, title: "MUD 版を Base mainnet に展開", detail: "worlds.json の 8453（block 2283039）。2024-02-01（block 10010490）に再展開した現行アドレスへ更新", s: [src-words3-contracts, src-words3-onchain]}
+  - {id: ev-words3-v2-mainnet, date: "2024-05-15", type: launch, title: "Redstone mainnet に展開（worlds.json に 690）", detail: "コミット「mainnet deploy in worlds.json」。Redstone の公開期間（Worlds Expo）に合わせた展開", s: [src-words3-contracts, src-words3-redstone-live]}
+  - {id: ev-words3-airdrop, date: "2024-05-21", type: other, title: "文字のエアドロップ（転送）スクリプトを追加", s: [src-words3-contracts]}
+
+relations:
+  - {to: mud, type: built-with, basis: confirmed, note: "MUD で構築", s: [src-words3-contracts]}
+  - {to: loot, type: similar-to, basis: analytic, note: "他者が作った最小単位の上に積み上げることを促す点で発想が近い（Words3 は報酬を自動で流す）"}
+  - {to: c-composable-primitive, type: similar-to, basis: analytic, note: "既存の単語を土台にした積み上げと報酬"}
+
+unknowns:
+  - "Optimism 版の正確な公開日・終了日・参加者数・賞金庫の総額。"
+  - "Base 版・Redstone 版の利用状況と、Redstone 停止前後の扱い。"
+  - "第三者による拡張・ボットの実例。"
+  - "MUD 名前空間の所有権の扱い（管理者がシステムを差し替えられるか）。"
+contradictions:
+  - {t: "手数料: 初期版 wiki は「手数料を取らない」と明記するが、v2 コントラクトには賞金交換時の手数料（feeBps と受取人）がある（版の違い）。また wiki 内で土台への報酬を 1/4 と書く箇所と、複数作者への分割について 1/3 と書く箇所がある。", s: [src-words3-wiki, src-words3-contracts]}
+
+sources:
+  - {id: src-words3-wiki, title: "Words3 Wiki", url: "https://smallbrain.notion.site/Words3-Wiki-792bd1f257fe4ef9acf81ef1e140cc4d", publisher: "Small Brain Games (Notion)", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "Notion 公開 API で本文取得。Optimism 版の規則、VRGDA、報酬 1/4 と賞金庫 3/4、未監査・2 週間で作成"}
+  - {id: src-words3-contracts, title: "smallbraingames/words3-contracts", url: "https://github.com/smallbraingames/words3-contracts", publisher: "GitHub", type: code, primary: true, published: "2024-05", accessed: "2026-10-23", access: fetched, lang: en, note: "git clone で確認。Play/Draw/Claim/Start/SetFeeConfig システム、worlds.json（8453・690 等）、141 コミット"}
+  - {id: src-words3-intro-redstone, title: "Introducing: Redstone", url: "https://lattice.xyz/blog/introducing-redstone", publisher: "Lattice blog", author: "Lattice", type: official-blog, primary: true, published: "2023", accessed: "2026-10-23", access: fetched, lang: en, note: "MUD で作られたアプリとして Words3 を列挙、Small Brain Games が Redstone テストネットに参加予定"}
+  - {id: src-words3-redstone-live, title: "Start Your Engines: Redstone is Live", url: "https://lattice.xyz/blog/start-your-engines-redstone-live", publisher: "Lattice blog", author: "Lattice", type: official-blog, primary: true, published: "2024-05", accessed: "2026-10-23", access: fetched, lang: en, note: "5 月に Redstone で words3 を公開予定と記述"}
+  - {id: src-words3-lattice-winding-down, title: "Winding Down Lattice", url: "https://lattice.xyz/winding-down", publisher: "Lattice", author: "Ludens & Alvarius", type: retrospective, primary: true, published: "2026-04", accessed: "2026-10-23", access: fetched, lang: en, note: "Redstone 2026-05-15 停止の告知（words3 への言及はない。words3.xyz へのリンクは lattice.xyz トップの作品一覧に残ることを検証役が別途確認）"}
+  - {id: src-words3-onchain, title: "Optimism / Base RPC (eth_getCode, eth_getBlockByNumber)", url: "https://mainnet.optimism.io", publisher: "Optimism / Base 公式 RPC", type: onchain-data, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "検証役が実測。Optimism の 0x1b16b25dbdc8ae5775290101332a5e7379eecf9f はブロック 41072050（2022-11-23）で初めてコードが存在。Base の block 2283039 は 2023-08-06、10010490 は 2024-02-01、現行 World 0x227a…49bf に参照日もコードあり（mainnet.base.org）"}

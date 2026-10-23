@@ -1,0 +1,198 @@
+id: primodium
+name: Primodium
+name_ja: プリモディウム
+aliases: ["Primodium: Empires（後継の別作品）"]
+kind: game
+depth: deep
+updated: "2026-10-23"
+chains: [Primodium 専用テストネット（Caldera、chain 12523）, Primodium testnet（Caldera Sepolia 系、chain 10017）, Base Sepolia（2025 年の再展開）, "Base mainnet（後継の Primodium: Empires のみ）"]
+team: "Primodium Inc.（primodiumxyz）"
+summary: >-
+  MUD と Phaser で作られた（v0.7 系は MUD v1、2023-11 の v0.8.1 から MUD v2）、宇宙の小惑星帯を舞台にするフルオンチェーンの工場建設・征服ゲーム。
+  資源を採掘し、加工工場で上位資源に変え、艦隊を作って他プレイヤーの小惑星を襲撃・植民し、同盟を組んで得点を競う。
+  バージョン（v0.7〜v0.11）ごとに新しい World の名前空間で「試合」を回し、最終版 v0.11.1（2024-06）は専用テストネットで運用された。
+  第三者が別名前空間にシステムを登録し、MUD の委任でプレイヤーの操作を代行させる「World Extension」を公式に文書化した点で、MUD の拡張モデルを最も具体的に示した作品の一つ。
+selection_reason: >-
+  生産チェーン（Factorio 型）・襲撃・同盟という「文明」系の要素をコントラクト上の規則として実装し、しかも第三者がオンチェーンで拡張する手順（名前空間・アクセス制御・委任）を公開した事例であり、
+  その上で公式運営の停止、ソース公開、Base 上の別作品への移行、Solana の取引アプリ開発への転進までが一次資料で追える。
+  生産・戦闘・他者の機能の再利用という構想に対する、最も近い先行例であり反例でもある。
+categories:
+  - {id: onchain-rules, role: primary, reason: "建設・生産・艦隊移動・戦闘・植民・得点・試合終了判定がすべて MUD のシステムで実行される"}
+  - {id: aw, role: secondary, reason: "World Extension（第三者の名前空間・委任）を公式に案内し、プレイヤーが規則の上に協調の仕組みを作ることを狙った"}
+  - {id: infra, role: secondary, reason: "Caldera による専用ロールアップ（テストネット）で運用し、Reactive Tables・ガスレス取引・インデクサ等の周辺ライブラリを公開した"}
+status:
+  value: ended
+  as_of: "2026-10"
+  note: >-
+    開発者ドキュメントは「Primodium は公式デプロイとしてはもう利用できない」とし、自分で展開する手順だけを残している。
+    最終公式版は 2024-06-27 公開の v0.11.1（Primodium testnet）。2025-02 にソースとドキュメントを整理して公開し、同月 Base Sepolia への展開設定を追加した。
+    チームは後継の「Primodium: Empires」（Base mainnet、2025-01 に展開、ドキュメントでは「以前は Base で展開」と過去形）と、Solana の DEX インデクサ・取引アプリ Tub を開発しており、
+    会社としては転進（pivoted）だが、本作は終了と判断した。
+  s: [src-primodium-latest, src-primodium-dev-intro, src-primodium-repo, src-primodium-empires-docs, src-primodium-tub]
+dates:
+  launched: {date: "2023-09", s: [src-primodium-repo, src-primodium-wasd], note: "公開プレイが確認できる最初の版として v0.7（2023-09-01 マージ）と v0.7.1（2023-09-29 マージ、4 週間予定）。それ以前の公開状況は未確認"}
+  ended: {date: "2024-06-27", s: [src-primodium-latest], note: "最終公式リリース v0.11.1 の公開日。公式運営の終了日そのものは未確認"}
+
+architecture:
+  onchain:
+    level: core-rules
+    detail: >-
+      MUD World の Pri_11 名前空間に、建物の建設・移動・強化・破壊、資源の生産率と保管、ユニット訓練、艦隊の作成・移動・合流・着陸、
+      戦闘（ダメージ・襲撃・暗号化＝支配耐性の低下）、植民、同盟、市場、目標達成、得点（Primodium の獲得・ワームホールへの資源の捧げ）の各システムが登録されている。
+      資源とユニット数は毎ブロック更新されず、操作時に claimResources / claimUnits で経過時間分をまとめて計算する遅延評価。
+      試合はユニットの累計死亡数が上限（設定値 500 万）に達するとコントラクト上で終了する。
+    s: [src-primodium-repo, src-primodium-latest, src-primodium-footguns]
+  offchain:
+    - {item: "React＋Phaser のクライアント、Postgres インデクサ（ローカルまたはクラウド）、GraphQL ダッシュボード", s: [src-primodium-readme, src-primodium-dev-intro]}
+    - {item: "セッション鍵: 外部ウォレットから「ブラウザ内ウォレット」へ操作を委任し、毎回の署名なしで遊べる。ゲストプレイも可能（進行が失われ得る、賞品対象外）", s: [src-primodium-game-guide, src-primodium-repo]}
+    - {item: "乱数はブロックハッシュとタイムスタンプ由来（シャードの出現位置、ワームホールの要求資源など）", s: [src-primodium-repo]}
+    - {item: "チェーン自体: Caldera 上の Primodium 専用テストネット（faucet・indexer は primodium.ai のサーバー）", s: [src-primodium-repo, src-primodium-latest]}
+  admin:
+    level: significant
+    detail: >-
+      onlyAdmin は Pri_11 名前空間の所有者に限定され、市場（資源 AMM）のロック切替と流動性の追加・削除を管理者だけが行う。
+      MUD の仕様上、名前空間所有者はシステムの差し替え・テーブルへの直接書き込み権の付与ができる。開発用の DevSystem（任意のテーブルに任意の値を書き込める）は
+      環境変数 PRI_DEV が true のときだけ登録される設計で、本番で除外されたかはオンチェーンでは確認していない。
+      各版で新しい World/名前空間を作り直しており、前の版の状態は引き継がれない。
+    s: [src-primodium-repo, src-primodium-access-control, src-primodium-readme]
+  open_source:
+    level: full
+    detail: >-
+      primodiumxyz/primodium にコントラクト・クライアント・エンジン・アセット・拡張例を MIT で公開（スプライトとアートワークは Primodium Inc. の知的財産で商用利用禁止・機械学習への利用禁止）。
+      公開リポジトリは 2022-11-27 からの全履歴（約 7700 コミット）を含むが、少なくとも一部期間は社内リポジトリ（primodium-internal）で開発されていた。
+    url: "https://github.com/primodiumxyz/primodium"
+    s: [src-primodium-readme, src-primodium-repo]
+  extensibility:
+    level: permissionless-onchain
+    detail: >-
+      公式ドキュメント「World Extensions」は、第三者が別の名前空間にテーブルと（公開または非公開の）システムを登録し、プレイヤーが MUD の委任で
+      特定のシステム（例: UpgradeBuildingSystem）の実行権をそのシステムに渡すことで、コアの規則（「オンチェーン物理」）を変えずに新しい命令・論理・データを足せると説明する。
+      公式例は BuildingUpgradeBounty（AFK 中の建物強化を ETH の報酬で他プレイヤーに依頼）と Read/Write デモ。アイデア集には同盟の入会金・税、傭兵契約、賞金稼ぎ、エスクロー、貸し借り、カジノなどが並ぶ。
+      一方、第三者が本番の World に拡張を登録した具体例は、この調査では確認できなかった（公式例は Primodium チームの開発者が作成）。
+    s: [src-primodium-world-ext, src-primodium-bounty-example, src-primodium-ideas, src-primodium-repo]
+
+compare:
+  gameplay: {t: "小惑星上で鉱山と加工工場を建てて資源の生産チェーンを伸ばし、造船所・スターマッパーで艦隊を増やし、他者の小惑星を襲撃・植民し、同盟で協力する。v0.11 では Primodium の獲得（征服）とワームホールへの資源の献上（建設）の二系統の得点で順位を競い、ユニットの累計死亡数が上限に達すると試合が終わる。", k: fact, s: [src-primodium-readme, src-primodium-latest, src-primodium-game-guide]}
+  necessity: {t: "運営は第三者がコアの規則を変えずに協調の仕組み（契約・税・傭兵）を追加できることを主な利点とした。ただし公式運営はテストネットのみで資産価値を持たず、拡張の実例も公式デモに留まったため、オンチェーンでなければ成立しなかった遊びの証拠は乏しい。", k: analysis, s: [src-primodium-world-ext, src-primodium-latest]}
+  information: {t: "全状態が公開で、相手の資源・艦隊・移動も読める（秘匿情報なし）。乱数はブロックハッシュ等から作られ、オンチェーンで計算される。", k: fact, s: [src-primodium-repo]}
+  persistence: {t: "各版は新しい World/名前空間で作り直され、版をまたいだ持ち越しはない。最終版のテストネットは「もう存在しない」と公式ドキュメントは書き、残るのはコードと自分で展開する手順のみ。", k: fact, s: [src-primodium-latest, src-primodium-repo]}
+  extensibility: {t: "MUD の名前空間・アクセス制御・委任による World Extension を公式に文書化し、テンプレートと例を公開。クライアントプラグインではなくコントラクト側の拡張を主眼とした。", k: fact, s: [src-primodium-world-ext, src-primodium-access-control, src-primodium-bounty-example]}
+  money_flow: {t: "テストネットのため参加費・トークン販売は確認できない。ゲーム内資源の市場は管理者が流動性を出す AMM。ゲストは「賞品を得られない」とクライアントに表示されるが、賞品の内容と原資は確認できなかった。後継の Empires は ETH で特別行動を買い勝利帝国の持ち分を得る予測市場型。", k: fact, s: [src-primodium-repo, src-primodium-empires-docs]}
+  entry_barrier: {t: "外部ウォレットなしのゲストでも始められ、ウォレット接続時はブラウザ内ウォレットへの委任で署名なしに遊べた。テストネットなので実費は不要。拡張を作るには Solidity と MUD の知識、namespace 登録が必要。", k: fact, s: [src-primodium-game-guide, src-primodium-footguns]}
+
+concepts: [c-onchain-rules, c-onchain-state, c-ecs-engine, c-own-chain, c-gas-abstraction, c-permissionless-extension, c-autonomous-world, m-production-chain, m-pvp-territory, m-seasons, c-onchain-randomness, m-bot-automation]
+proposed_concepts:
+  - {id: c-delegated-extension, name: 委任による第三者拡張（World Extension）, desc: "プレイヤーが特定のゲーム操作の実行権を第三者のコントラクトに委任し、コア規則を変えずに契約・代行・報酬などの仕組みを追加する。"}
+
+article:
+  what:
+    - {t: "プレイヤーは小惑星帯のホーム小惑星から始め、鉄・銅・リチウムなどの鉱山を建て、加工工場でアロイ・PV セルなどの上位資源に変え、建物を強化して生産を伸ばす。README は「宇宙を舞台にした工場建設ゲーム（factory-building game）」と説明する。", k: fact, s: [src-primodium-readme, src-primodium-wasd]}
+    - {t: "ユニットを訓練して艦隊にまとめ、他の小惑星へ移動させて艦隊戦・地上攻撃・資源輸送・封鎖を行う。襲撃では他者の備蓄資源を奪え、コロニーシップを含む艦隊で攻撃を重ねて「暗号化」値を 0 未満にすると小惑星を奪える。", k: fact, s: [src-primodium-game-guide]}
+    - {t: "同盟を組んで協力でき、v0.11 ではシャード小惑星（一定時間で爆発する）の争奪と、ワームホールが周期的に要求する資源の献上による得点が加わった。", k: fact, s: [src-primodium-latest, src-primodium-readme]}
+    - {t: "市場の建物を建てると、手数料付き・価格変動ありで資源を交換できる。", k: fact, s: [src-primodium-game-guide]}
+  loop:
+    - {t: "以下は公式ガイド・リリースノート・コードと、プレイヤー記事（WASD）からの再構成（筆者は実プレイしていない）。ウォレット接続またはゲストで開始し、ホーム小惑星に鉱山と工場を置いて生産を始める。", k: fact, s: [src-primodium-game-guide, src-primodium-wasd]}
+    - {t: "資源が溜まるのを待って建物を強化・拡張し、生産量と保管上限を上げる。資源量は操作時に経過時間から計算されるため、ログインして操作するたびに生産分が確定する。", k: fact, s: [src-primodium-footguns, src-primodium-repo]}
+    - {t: "ユニットを訓練して艦隊を作り、スターマッパーで移動回数を増やし、他者の小惑星やシャードへ送り襲撃・植民する。防衛ユニットと防衛建物で自分の小惑星を守る。", k: fact, s: [src-primodium-game-guide, src-primodium-latest]}
+    - {t: "WASD の記録では、v0.7.1 で数日のうちに首位に立った直後、公然と宣戦され、一晩で 18 回の襲撃を受けて 50 位前後に落ち、防衛重視の再建で上位 10 位に戻るまでが 1 週間足らずで起きた。", k: claim, who: "FaultProofBen（WASD）", s: [src-primodium-wasd]}
+  before_after:
+    - {t: "Lattice は MUD v2 告知で「第三者が実行中のアプリにコードを安全に追加できる」能力の実例として、Primodium の開発者ドキュメントに従ってコードを「アップロード」できることを挙げた。", k: claim, who: "Lattice", s: [src-primodium-mud-v2-ready]}
+    - {t: "Dark Forest の拡張がクライアントプラグインと独立コントラクト中心だったのに対し、Primodium は同じ World の中に第三者の名前空間を置き、委任でプレイヤーの操作をコントラクトに代行させる形で、拡張をコアの規則と同じ権限モデルに入れた。", k: analysis, s: [src-primodium-world-ext, src-primodium-access-control]}
+    - {t: "Primodium は「オンチェーン物理を変えずに足す拡張（World Extension）」と「規則を変える改造（mod）」を区別し、後者はソースの完全公開後の課題として扱った。", k: claim, who: "Primodium", s: [src-primodium-world-ext, src-primodium-ideas]}
+  onchain_tradeoffs:
+    - {t: "生まれた遊び: 全状態が公開で操作がトランザクションなので、他者の不在中の襲撃や、一定間隔での自動襲撃（プレイヤーはスクリプトを疑った）が起き得た。", k: claim, who: "FaultProofBen（WASD）", s: [src-primodium-wasd], q: "I was attacked so many times by Gink.eth that I even thought he may have written a script"}
+    - {t: "増えた不便: 資源とユニットは毎ブロック更新できないため遅延評価され、拡張開発者は残高を使う前に claimResources / claimUnits を呼ばないと古い値を読む、と公式は注意している。", k: fact, s: [src-primodium-footguns]}
+    - {t: "増えた不便: MUD の名前空間名は 14 バイト、システム名は 16 バイトに切り詰められ、同名衝突や再登録不可が拡張開発の落とし穴になると公式は列挙している。", k: fact, s: [src-primodium-footguns]}
+    - {t: "増えた不便: 委任は現状いつでも委任者が取り消せるため、契約（傭兵・賞金）の相手方は約束の履行を信頼できない。公式は条件付きでしか取り消せない「committed delegation」を将来の課題とした。", k: claim, who: "Primodium", s: [src-primodium-footguns, src-primodium-ideas]}
+    - {t: "コード読解による注意: ワームホールの次の要求資源を決めるハッシュは blockhash(block.number) で保存されており、EVM では現在ブロックのハッシュは 0 を返すため、要求資源の系列はターン番号と直前の資源だけから予測可能だった可能性がある（オンチェーンでの検証はしていない）。", k: analysis, s: [src-primodium-repo]}
+  roles:
+    - {t: "運営（Primodium チーム）: 版ごとに World を展開し、得点規則・終了条件・建物コストを調整し、市場の流動性を管理者として供給した。拡張のテンプレートと例、GraphQL ダッシュボード、ガスレス取引のライブラリを公開した。", k: fact, s: [src-primodium-repo, src-primodium-dev-intro]}
+    - {t: "プレイヤー: 生産の最適化、襲撃と防衛、同盟、ソーシャルメディアでの挑発と報復。WASD の記事では Fun Blocks・Gink.eth などの名前が挙がる。", k: claim, who: "FaultProofBen（WASD）", s: [src-primodium-wasd]}
+    - {t: "拡張開発者: 別名前空間に非公開システムを置き、プレイヤーから委任を受けて操作を代行し、ETH などの報酬を受け渡す役割が想定された（BuildingUpgradeBounty）。", k: fact, s: [src-primodium-bounty-example]}
+    - {t: "ボット・エージェント: プレイヤー自身が「生産命令を自動化したいが Solidity の技能がまだない」と書いており、自動化は可能だが技術的障壁があった。AI エージェントの参加実績は確認できなかった。", k: claim, who: "FaultProofBen（WASD）", s: [src-primodium-wasd]}
+  trajectory:
+    - {t: "リポジトリの最初のコミットは 2022-11-27（MUD v1 時代）。v0.7.0 は 2023-09-01、v0.7.1 は 2023-09-29 にマージされ、v0.7.1 は 4 週間の予定で公開された。", k: fact, s: [src-primodium-repo, src-primodium-wasd]}
+    - {t: "v0.7.1 時点の main のコントラクトは MUD v1（@latticexyz/solecs ^1.43）で、本番の既定チェーンは Caldera の専用テストネット（chain 12523）だった。MUD v2 への移植ブランチ（release/v0.7.1-mudv2）が main に入ったのは 2023-11-06 で、v0.8.1（2023-11-10）以降が MUD v2 版。2023-05 には Lattice の skystrife テストネット（chain 4242）へ切り替えるコミットもある。", k: fact, s: [src-primodium-repo]}
+    - {t: "2023 年に Lattice は Primodium を Redstone テストネットに来る MUD 作品の一つとして紹介し、Primodium のリポジトリにも 2023-12-13 に Redstone Holesky の設定が追加された。ただし最終版の展開先は Caldera 上の Primodium 専用テストネットで、Redstone 上の World は確認できなかった。", k: fact, s: [src-primodium-intro-redstone, src-primodium-repo]}
+    - {t: "v0.8.1（2023-11-10）、v0.9.0（2023-12-14）、v0.10.0（2024-03-01）、v0.11.0（2024-05-20）とリリースし、v0.11.1 を 2024-06-27 に Primodium testnet で公開。v0.11 では艦隊・植民・シャード・ワームホール・ユニット死亡数による終了条件を導入した。", k: fact, s: [src-primodium-repo, src-primodium-latest]}
+    - {t: "2024-06 からは別リポジトリで Primodium: Empires（ターン制の予測市場型ゲーム、Pashov Audit Group の監査済み）を開発し、2025-01-10 に Base mainnet へ展開した。", k: fact, s: [src-primodium-empires-repo, src-primodium-empires-docs]}
+    - {t: "2025-02 に README・ドキュメントの整理とアセット利用条件の追加、Base Sepolia への展開設定を行い公開。開発者サイトは Solana の DEX インデクサと iOS 取引アプリ Tub を並べ、「Primodium は公式デプロイとしてはもう利用できない」と記す。", k: fact, s: [src-primodium-repo, src-primodium-latest, src-primodium-tub]}
+  retention_evidence:
+    - {t: "示されている指標: v0.7.1 が最初の 6 日間で 300 人超を集めたとプレイヤー記事（WASD）が書く。運営の公表値ではない。", k: claim, who: "FaultProofBen（WASD）", s: [src-primodium-wasd], q: "It’s already attracted 300+ players over the past six days!"}
+    - {t: "示されていない指標: 各版の参加者数、版をまたいだ継続率、DAU、同盟の数、拡張の登録数は公式に見つからなかった。リポジトリには分析用のシステム群のコミット（v0.11.0 の分析）があるが結果は公開されていない。", k: unknown}
+    - {t: "版ごとに状態をリセットするため、長期の定着（同じ世界に残り続ける人数）は構造的に測れない。", k: analysis, s: [src-primodium-latest]}
+  extensions:
+    - {t: "公式の拡張例: BuildingUpgradeBounty（委任と ETH エスクローによる建物強化の代行依頼）、ReadDemo / WriteDemo、拡張テンプレート。いずれも Primodium リポジトリ内でチームの開発者が作成した。", k: fact, s: [src-primodium-bounty-example, src-primodium-repo]}
+    - {t: "公式アイデア集は、同盟の入会金・税と徴税人、傭兵契約と傭兵 AMM、賞金稼ぎ、エスクロー、Ajna 型の貸し借り、採掘権、国境、ポーカーやカジノ、「宇宙天気」などを挙げる。いずれも構想で、実装例は示されていない。", k: fact, s: [src-primodium-ideas]}
+    - {t: "v0.11 のゲームガイドは、プレイヤーが様々な協調の仕組みを作るための「コントラクトプラグイン」ガイドを追加したと書く。第三者の実例は確認できなかった。", k: claim, who: "Primodium", s: [src-primodium-game-guide]}
+    - {t: "第三者による本番 World への拡張登録、ダッシュボード、ボットの公開例は、この調査では見つからなかった（Dune・Mirror 等が遮断されていたため未確認の可能性あり）。", k: unknown}
+  constraints:
+    - {t: "管理者権限: 市場の流動性とロック、名前空間所有者によるシステム差し替えが可能で、「オンチェーン物理」は運営が版ごとに書き換える前提だった。拡張開発者は版が変わるたびに Pri_11 などの名前空間名と ABI を追い直す必要があった。", k: fact, s: [src-primodium-repo, src-primodium-footguns]}
+    - {t: "委任の取り消し可能性: 拡張が依存する委任は委任者がいつでも取り消せ、名前空間アクセスを与えると非公開システムの呼び出しや ETH の引き出しまで許してしまうと公式は警告する。拡張の安全性と信頼性が衝突する。", k: fact, s: [src-primodium-access-control, src-primodium-footguns]}
+    - {t: "テストネット運用: 最終版まで専用テストネットで、資産に経済的価値を持たせなかった。実資産が絡む環境で同じ拡張モデルが機能するかは検証されていない。", k: fact, s: [src-primodium-latest]}
+    - {t: "拡張は Solidity・MUD・フォークテストの知識を要し、プレイヤーの多くには障壁が高い（プレイヤー記事も技能不足を述べる）。", k: analysis, s: [src-primodium-footguns, src-primodium-wasd]}
+  principles:
+    - {t: "委任で操作権を貸す拡張: プレイヤーが特定システム（建物強化など）の実行権だけを第三者コントラクトに委任し、報酬をエスクローで支払う形にすると、代行・傭兵・保険のような「他者の機能の再利用」をコア改修なしに作れる。適用条件は、委任の範囲がシステム単位で細かく切れ、拡張が状態を自分の名前空間のテーブルに置くこと。破綻条件は委任がいつでも取り消せる場合（相手方が履行を信頼できない）と、名前空間アクセスのような広い権限を渡す場合（資金の引き出しまで許す）。", k: analysis, s: [src-primodium-bounty-example, src-primodium-access-control, src-primodium-footguns]}
+    - {t: "遅延評価の生産: 資源・ユニットを時間差分で計算し操作時に確定させれば、毎ブロックの更新なしに工場ゲームをオンチェーンで動かせる。適用条件は生産が決定的な関数で表せること。破綻条件は、第三者拡張が確定前の古い値を読むことで、拡張側に確定関数の呼び出し義務が生じ、合成可能性に暗黙の手順が加わる。", k: analysis, s: [src-primodium-footguns]}
+    - {t: "版ごとの名前空間で試合をリセット: 新しい名前空間で世界を作り直すと、バランス調整や得点規則の変更を前の状態に縛られず行える。適用条件は世界の価値が「その回の競争」にあること。破綻条件は拡張・資産・人間関係を版をまたいで積み上げたい場合で、第三者拡張は毎回追従を強いられ、累積的な生態系が育ちにくい。", k: analysis, s: [src-primodium-latest, src-primodium-footguns]}
+    - {t: "全公開状態での襲撃: 相手の備蓄・艦隊が常に見える世界では、不在のプレイヤーが一方的に狙われ、首位を公言すると集中攻撃を受ける。適用条件は防衛の自動化手段（防衛建物・猶予期間）があること。破綻条件は防衛・生産の自動化がスクリプトを書ける人に偏る場合で、時間と技能を持つ者が有利になる。", k: analysis, s: [src-primodium-wasd, src-primodium-repo]}
+  counter_evidence:
+    - {t: "拡張モデルの文書化は詳しいが、第三者が本番の World に登録した拡張の実例を確認できなかった。「許可不要の拡張」は可能性として示されたにとどまり、需要の証拠ではない。", k: analysis, s: [src-primodium-world-ext, src-primodium-bounty-example]}
+    - {t: "チームは最終的に、より単純なターン制・予測市場型の Empires（Base mainnet、ETH で参加）と、Solana の取引アプリへ移った。工場・征服型の持続世界をオンチェーンで続けることより、短いラウンドと明確な賞金の形式や、オンチェーンゲーム以外の製品が選ばれた。", k: fact, s: [src-primodium-empires-docs, src-primodium-tub, src-primodium-dev-intro]}
+    - {t: "唯一の参加者数（v0.7.1 の 300 人超）は MUD v1 時代の版のもので、World Extension（MUD v2 の名前空間・委任）が使えるようになる前の数字である。拡張モデルを備えた v0.10〜v0.11 の参加規模を示す資料はなく、「拡張可能性が参加を集めた」という読みはこの数字からは支えられない。", k: analysis, s: [src-primodium-wasd, src-primodium-repo]}
+    - {t: "Primodium の工場・襲撃・同盟は、オンチェーンでない既存のブラウザ戦略ゲームでも成立するジャンルであり、公開されたプレイ記録（WASD）が描く面白さ（襲撃と報復、ソーシャルな挑発）もチェーン固有ではない。", k: analysis, s: [src-primodium-wasd]}
+    - {t: "終了・転進の理由について、チーム自身の説明を一次資料で確認できなかった（2025-02 のソーシャル投稿の断片的な要約のみ）。資金・人員・需要のどれが決定的だったかは不明。", k: unknown}
+
+metrics:
+  - {id: m-primodium-v071-players, type: players, value: 300, value_text: "300 人超（300+）", unit: players, period: "2023-09-29〜約 6 日間（v0.7.1）", definition: "プレイヤーによる記事での記述。定義・計測方法不明", nature: estimated, s: [src-primodium-wasd]}
+  - {id: m-primodium-unit-death-limit, type: other, value: 5000000, value_text: "500 万", unit: units, period: "v0.11 系の設定（コード参照日 2026-10-23）", definition: "試合を終了させるユニット累計死亡数の上限（prototypeConfig の unitDeathLimit）", nature: reported, s: [src-primodium-repo]}
+  - {id: m-primodium-commits, type: other, value: 7681, unit: commits, period: "2022-11-27〜2025-02-06", definition: "公開リポジトリの main 履歴のコミット数（筆者が clone して数えた）", nature: measured, s: [src-primodium-repo]}
+
+events:
+  - {id: ev-primodium-first-commit, date: "2022-11-27", type: other, title: "リポジトリ最初のコミット", detail: "MUD v1 時代の初期コントラクト", s: [src-primodium-repo]}
+  - {id: ev-primodium-v07, date: "2023-09-01", type: release, title: "v0.7.0 をマージ", s: [src-primodium-repo]}
+  - {id: ev-primodium-v071, date: "2023-09-29", type: round, title: "v0.7.1 公開（4 週間予定）", detail: "6 日間で 300 人超とプレイヤー記事。襲撃と目標（Objectives）を含む", s: [src-primodium-repo, src-primodium-wasd]}
+  - {id: ev-primodium-redstone-mention, date: "2023", type: other, title: "Lattice が Redstone テストネットに来る作品として紹介", s: [src-primodium-intro-redstone]}
+  - {id: ev-primodium-mudv2, date: "2023-11-06", type: spec-change, title: "MUD v2 への移植を main にマージ", detail: "release/v0.7.1-mudv2 のマージ。v0.7 系は MUD v1（solecs）で動いていた", s: [src-primodium-repo]}
+  - {id: ev-primodium-v09, date: "2023-12-14", type: release, title: "v0.9.0 をマージ", s: [src-primodium-repo]}
+  - {id: ev-primodium-v010, date: "2024-03-01", type: release, title: "v0.10.0 をマージ", detail: "この頃から World Extension の例（ReadDemo、BuildingUpgradeBounty）を開発", s: [src-primodium-repo]}
+  - {id: ev-primodium-v011, date: "2024-05-20", type: release, title: "v0.11.0 をマージ（名前空間 Pri_11）", detail: "艦隊・植民・シャード・ワームホール・死亡数による終了", s: [src-primodium-repo, src-primodium-latest]}
+  - {id: ev-primodium-v0111, date: "2024-06-27", type: round, title: "v0.11.1 を Primodium testnet で公開（最終公式版）", s: [src-primodium-latest, src-primodium-repo]}
+  - {id: ev-primodium-empires-base, date: "2025-01-10", type: pivot, title: "後継 Primodium: Empires を Base mainnet に展開", detail: "ターン制の予測市場型ゲーム。後にドキュメントでは「以前は Base で展開」と過去形", s: [src-primodium-empires-repo, src-primodium-empires-docs]}
+  - {id: ev-primodium-open-source, date: "2025-02", type: release, title: "ソースとドキュメントを整理して公開、Base Sepolia の設定を追加", s: [src-primodium-repo]}
+
+relations:
+  - {to: mud, type: built-with, basis: confirmed, note: "MUD と Phaser で構築。v0.7 系は MUD v1、v0.8.1 以降 MUD v2（v0.11 は 2.0.9 を推奨）", s: [src-primodium-readme, src-primodium-footguns, src-primodium-repo]}
+  - {to: c-permissionless-extension, type: built-with, basis: confirmed, note: "World Extension として第三者の名前空間・委任による拡張を公式に文書化", s: [src-primodium-world-ext]}
+  - {to: sky-strife, type: similar-to, basis: analytic, note: "同時期の MUD 製フルオンチェーン戦略ゲーム。Sky Strife は短時間の試合、Primodium は版ごとに数週間続く持続世界"}
+  - {to: dark-forest, type: similar-to, basis: analytic, note: "宇宙を舞台にした版（ラウンド）制のオンチェーン戦略ゲーム。拡張がクライアント中心（DF）かコントラクト中心（Primodium）かで対照的。影響関係の一次証拠は未確認"}
+  - {to: downstream, type: similar-to, basis: analytic, note: "生産と第三者のコントラクト拡張を中心にしたオンチェーン世界という共通点"}
+  - {to: realms-eternum, type: similar-to, basis: analytic, note: "生産・戦争・同盟をシーズン制で回すオンチェーン戦略ゲーム（Starknet/Dojo）"}
+
+unknowns:
+  - "各版の参加者数・継続率・同盟数・賞品の内容と原資。"
+  - "第三者が本番 World に登録した拡張の有無と数（オンチェーンの名前空間一覧での確認ができていない）。"
+  - "本番環境で DevSystem が除外されていたか、名前空間所有権がどう管理されたか。"
+  - "公式運営を終えた理由についてのチームの説明（一次資料）。資金調達額（PitchBook 等は未取得）。"
+  - "Redstone テストネットで実際に遊ばれた版があったか。"
+  - "Primodium: Empires の運営期間・参加者数・賞金総額と、終了時期。"
+contradictions:
+  - {t: "展開先: Lattice は 2023 年に Primodium を Redstone テストネットに来る作品として紹介したが、最終版のリリース情報と worlds.json は Caldera 系の Primodium testnet（chain 10017）を示し、Redstone 上の World は記録にない。", s: [src-primodium-intro-redstone, src-primodium-latest, src-primodium-repo]}
+
+sources:
+  - {id: src-primodium-repo, title: "primodiumxyz/primodium", url: "https://github.com/primodiumxyz/primodium", publisher: "GitHub", type: code, primary: true, published: "2025-02", accessed: "2026-10-23", access: fetched, lang: en, note: "git clone（全履歴）で確認。mud.config（Pri_11、DevSystem 除外条件）、onlyAdmin、MarketplaceSystem、LibPoints（死亡数による終了）、LibWormhole、worlds.json（10017/84532）、chainConfigs（Caldera）、リリースのマージ日"}
+  - {id: src-primodium-readme, title: "Primodium v0.11.1 (README)", url: "https://github.com/primodiumxyz/primodium/blob/main/README.md", publisher: "GitHub", type: code, primary: true, published: "2025-02", accessed: "2026-10-23", access: fetched, lang: en, note: "ゲーム内容の概要、構成、MIT とアセットの権利"}
+  - {id: src-primodium-dev-intro, title: "Primodium Developer (Introduction)", url: "https://developer.primodium.com/", publisher: "Primodium", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "2 つのフルオンチェーンゲームと Solana DEX 基盤・Tub を作ったと記述"}
+  - {id: src-primodium-latest, title: "Primodium v0.11.1 (Latest Release)", url: "https://developer.primodium.com/latest", publisher: "Primodium", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "公式デプロイ終了、2024-06-27 公開、World アドレス、Pri_11 名前空間、v0.11 の変更点"}
+  - {id: src-primodium-game-guide, title: "Game Guide (Primodium Developer)", url: "https://developer.primodium.com/game-guide", publisher: "Primodium", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "ウォレット委任・ゲスト、艦隊、植民と暗号化、市場、コントラクトプラグインのガイド追加"}
+  - {id: src-primodium-world-ext, title: "Primodium World Extensions", url: "https://developer.primodium.com/world-extension", publisher: "Primodium", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "World Extension の定義（オンチェーン物理に従う追加）と mod との区別"}
+  - {id: src-primodium-access-control, title: "Namespace Access Control (Primodium Developer)", url: "https://developer.primodium.com/world-extension/structure/access-control", publisher: "Primodium", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "名前空間アクセスとシステムアクセスの違い、名前空間アクセスの危険"}
+  - {id: src-primodium-footguns, title: "World Extension Footguns & FAQ", url: "https://developer.primodium.com/world-extension/footguns", publisher: "Primodium", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "名前長の制限、委任の取り消し可能性、claimResources/claimUnits、MUD 2.0.9"}
+  - {id: src-primodium-ideas, title: "World Extension Ideas", url: "https://developer.primodium.com/world-extension/ideas", publisher: "Primodium", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "同盟税・傭兵・賞金・貸し借り・カジノ等の拡張アイデアと CommittedDelegationModule"}
+  - {id: src-primodium-bounty-example, title: "BuildingUpgradeBounty (Primodium Developer)", url: "https://developer.primodium.com/examples/buildingupgradebounty", publisher: "Primodium", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "委任と ETH エスクローによる建物強化の代行依頼の例"}
+  - {id: src-primodium-empires-docs, title: "Primodium: Empires (Primodium Developer)", url: "https://developer.primodium.com/empires", publisher: "Primodium", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "ターン制の予測市場型ゲーム、以前は Base に展開、Pashov Audit Group の監査"}
+  - {id: src-primodium-empires-repo, title: "primodiumxyz/empires", url: "https://github.com/primodiumxyz/empires", publisher: "GitHub", type: code, primary: true, published: "2025-02", accessed: "2026-10-23", access: fetched, lang: en, note: "git clone で確認。2024-06-14 開始、2025-01-10「deployed to base mainnet」、worlds.json に 8453"}
+  - {id: src-primodium-tub, title: "Tub (Primodium Developer)", url: "https://developer.primodium.com/tub", publisher: "Primodium", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "Solana のミームコイン取引 iOS アプリと DEX インデクサ"}
+  - {id: src-primodium-wasd, title: "Onchain Lore V: The Primodium Wars", url: "https://paragraph.com/@wasdmedia/onchain-lore-v-the-primodium-wars", publisher: "WASD (Paragraph)", author: "FaultProofBen", type: retrospective, primary: false, published: "2023-10-05", accessed: "2026-10-23", access: fetched, lang: en, note: "v0.7.1 のプレイ記録。300 人超、襲撃の連続、スクリプトの疑い"}
+  - {id: src-primodium-intro-redstone, title: "Introducing: Redstone", url: "https://lattice.xyz/blog/introducing-redstone", publisher: "Lattice blog", author: "Lattice", type: official-blog, primary: true, published: "2023", accessed: "2026-10-23", access: fetched, lang: en, note: "Redstone テストネット公開、Primodium らが近く参加と記述"}
+  - {id: src-primodium-mud-v2-ready, title: "MUD v2 is ready", url: "https://lattice.xyz/blog/mud-2-is-ready", publisher: "Lattice blog", author: "Lattice", type: official-blog, primary: true, published: "2024-03", accessed: "2026-10-23", access: fetched, lang: en, note: "Primodium にコードを「アップロード」できる例として紹介"}

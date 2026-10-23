@@ -1,0 +1,109 @@
+id: decentraland
+name: Decentraland
+name_ja: ディセントラランド
+aliases: [DCL, Genesis City]
+kind: platform
+depth: index
+updated: "2026-10-23"
+chains: [Ethereum mainnet, Polygon（ウェアラブル等。本調査では一次資料未確認）]
+team: "Decentraland Foundation（創業者 Ari Meilich / Esteban Ordano）と Decentraland DAO"
+summary: >-
+  Ethereum 上の土地（LAND）所有を中心にした 3D 仮想世界。座標 (x, y) ごとの区画を ERC-721 として所有し、区画に置くシーンの内容はハッシュで参照されて分散ストレージから配信される。
+  2017 年の ICO と土地販売、2020-02 の一般公開を経て、DAO が LAND コントラクトや Catalyst サーバーの一覧を管理する体制になった。
+  2022-10 の「1 日 38 人」報道と運営の反論は、オンチェーン指標と実際の利用者の定義の違いを示す代表例である。
+selection_reason: >-
+  「土地を NFT として所有させれば仮想世界が成立するか」を検証できる最大規模の事例であり、DAO による統治の範囲、
+  オンチェーンの活動指標（ウォレットの取引）と運営発表の利用者数がどれほど乖離するかを、報道と第三者分析で比較できるため。
+categories:
+  - {id: assets, role: primary, reason: "LAND（区画）・ESTATE・NAME・ウェアラブルを NFT とし、MANA（ERC-20）で取引する"}
+  - {id: aw, role: secondary, reason: "区画の所有者が自分のシーンを公開でき、DAO が中核コントラクトとサーバー一覧を管理する"}
+  - {id: infra, role: secondary, reason: "内容配信（IPFS 等）とリアルタイム通信（P2P / Catalyst）をチェーン外に分けた三層構成"}
+status:
+  value: active
+  as_of: "2026-10"
+  note: "公式サイトはデスクトップ・モバイルのクライアント配布を掲げる（参照日）。2024-10 に Decentraland 2.0 のベータ版デスクトップクライアントを公開（Wikipedia）。"
+  s: [src-dcl-site, src-dcl-wikipedia]
+dates:
+  launched: {date: "2020-02", s: [src-dcl-wikipedia], note: "一般公開（ブラウザ版）。開発は 2015 年から、ICO は 2017 年"}
+
+architecture:
+  onchain:
+    level: assets-only
+    detail: >-
+      ホワイトペーパーの構成では、コンセンサス層（Ethereum のスマートコントラクト）が区画の所有と内容記述ファイルへの参照（ハッシュ）を保持し、LAND は MANA を焼却して得る。
+      シーンの内容（3D オブジェクト・スクリプト）とその実行、利用者同士の通信はチェーン外。第三者分析は MANA・LAND・ESTATE・POI 一覧・NAME・マーケットの収集品・DAO の投票と助成をオンチェーン要素として挙げる。
+    s: [src-dcl-whitepaper, src-dcl-naavik]
+  offchain:
+    - {item: "シーン内容の配信（ホワイトペーパーでは BitTorrent / IPFS、その後は Catalyst サーバー）", s: [src-dcl-whitepaper, src-dcl-naavik]}
+    - {item: "利用者同士のリアルタイム通信（P2P とランデブーサーバー）", s: [src-dcl-whitepaper]}
+    - {item: "利用者数の集計（DCL Metrics 等のダッシュボード）", s: [src-dcl-coindesk-2022, src-dcl-naavik]}
+  admin:
+    level: significant
+    detail: "DAO が LAND・ESTATE など主要コントラクトを管理し、重要コントラクトの変更には DAO と Security Advisory Board の双方のオンチェーン投票が必要とされる。MANA コントラクトは管理権限が焼却され変更不能（第三者分析の記述）。"
+    s: [src-dcl-naavik]
+  open_source:
+    level: full
+    detail: "第三者分析はクライアント・サーバーを含むオープンソースの世界と位置づける（本調査ではリポジトリを個別に確認していない）。"
+    s: [src-dcl-naavik]
+  extensibility:
+    level: official-api
+    detail: "区画の所有者は SDK で作ったシーン（ゲーム・展示等）を自分の区画に公開できる。他人の区画や世界のルールを許可なく変えることはできない。"
+    s: [src-dcl-whitepaper]
+
+compare:
+  gameplay: {t: "アバターで区画の集まる世界を歩き、所有者が公開したシーン（イベント・ギャラリー・ミニゲーム）を訪れる。ゲームのルールは各シーン次第。", k: fact, s: [src-dcl-whitepaper, src-dcl-wikipedia]}
+  necessity: {t: "区画の所有と内容の参照をチェーンに置くことで、運営が区画を没収できない点にはオンチェーンの意味がある。ただし体験の大半（描画・通信・配信）はチェーン外で、利用者の多くはチェーンに触れずに訪問している（2022-10 の論争が示す）。", k: analysis, s: [src-dcl-whitepaper, src-dcl-coindesk-2022]}
+  information: {t: "所有と取引は公開。シーンの中身は配信ファイルとして誰でも取得できる構成。", k: fact, s: [src-dcl-whitepaper]}
+  persistence: {t: "所有記録はチェーン上に残るが、世界の表示は Catalyst サーバーとクライアントの継続に依存する。", k: analysis, s: [src-dcl-naavik]}
+  extensibility: {t: "区画所有者によるシーン公開。DAO の投票で Catalyst ノードや POI を追加できる。", k: fact, s: [src-dcl-naavik]}
+  money_flow: {t: "2017 年の ICO で 2600 万ドルを調達。LAND は MANA の焼却で発行され、以後は MANA で LAND・NAME・ウェアラブルを売買する。DAO は財務から助成金を出す。", k: fact, s: [src-dcl-wikipedia, src-dcl-whitepaper, src-dcl-naavik]}
+  entry_barrier: {t: "ゲストとしての訪問はウォレット取引を伴わずに可能（運営は「受動的に関わる」利用者も数えると説明）。土地所有や取引にはウォレットと MANA が要る。", k: fact, s: [src-dcl-coindesk-2022]}
+
+concepts: [m-land, c-nft-asset, c-fungible-ingame-token, c-autonomous-world]
+
+article:
+  retention_evidence:
+    - {t: "示されている指標（測定）: 2022-10 時点で DappRadar が数えた「過去 24 時間にコントラクトと取引した一意ウォレット」は 38、過去最高でも 1 日 675。Dapp.com は 2022-10-05 に 312（7 月以降の中央値約 600）。", k: fact, s: [src-dcl-coindesk-2022, src-dcl-cryptoslate-2022]}
+    - {t: "示されている指標（運営発表）: 1 日平均 8000 人（クリエイティブディレクター Sam Hamilton）、コミュニティのダッシュボードで 2022-10-03〜09 の 1 日あたり一意訪問者 6999、9 月の月間アクティブ 56,697、同時期にコントラクトと取引した利用者 1074。", k: claim, who: "Decentraland（Sam Hamilton / 公式ツイート、CoinDesk の記事内）", s: [src-dcl-coindesk-2022], q: "DappRadar doesn't track our users, only people interacting with our contracts"}
+    - {t: "第三者分析は DCL Metrics の DAU が直近 90 日で 12,304 から 7,800 に 37% 減り、2021-12 の共同創業者の発言（DAU 18,000、MAU 30 万）と比べて 56% 超減少したと計算した。", k: claim, who: "Naavik（Lars Doucet, Devin Becker）", s: [src-dcl-naavik]}
+    - {t: "示されていない指標: 運営発表の DAU の厳密な定義（ゲスト・ボットの扱い）、滞在時間、継続率。", k: unknown}
+  counter_evidence:
+    - {t: "「38 人」は取引したウォレット数で、訪問者数ではない。一方、運営の 8000 人はチェーンと無関係な訪問を数えた運営側の数字である。どちらを採るかで「土地 NFT の世界は空っぽか」の結論が反転するため、オンチェーン指標だけで仮想世界の利用を評価するのは誤りで、運営発表だけを信じるのも検証不能である。", k: analysis, s: [src-dcl-coindesk-2022, src-dcl-cryptoslate-2022]}
+    - {t: "LAND の平均売価はピーク付近の約 9845 ドルから 2418 ドルへ 75% 下落し、マーケットの月間取引高は 2200 万ドルから約 88 万ドルへ 96% 超減少したと第三者分析は述べた。土地の希少性が利用を生むという想定には反証になる。", k: claim, who: "Naavik（Dune の @metaland クエリ等を引用）", s: [src-dcl-naavik]}
+
+metrics:
+  - {id: m-dcl-dappradar-2022-10, type: wallets, value: 38, unit: wallets, period: "2022-10 初旬の 24 時間", definition: "DappRadar: プラットフォームのコントラクトと取引した一意ウォレット数（訪問者数ではない）", nature: measured, s: [src-dcl-coindesk-2022]}
+  - {id: m-dcl-dappradar-peak, type: wallets, value: 675, unit: wallets, period: "2022-10 時点の過去最高（日次）", definition: "DappRadar の日次一意ウォレットの過去最高", nature: measured, s: [src-dcl-coindesk-2022]}
+  - {id: m-dcl-dappcom-2022-10-05, type: wallets, value: 312, unit: wallets, period: "2022-10-05", definition: "Dapp.com: コントラクトと取引したウォレット数", nature: measured, s: [src-dcl-cryptoslate-2022]}
+  - {id: m-dcl-dau-claim-2022, type: dau, value: 8000, unit: players, period: "2022（発言時点）", definition: "運営発表の 1 日平均利用者（受動的な訪問者を含む、定義の詳細は非公開）", nature: reported, s: [src-dcl-coindesk-2022]}
+  - {id: m-dcl-visitors-2022-10, type: dau, value: 6999, unit: visitors, period: "2022-10-03〜10-09", definition: "コミュニティのダッシュボードによる 1 日あたり一意訪問者（運営が提示）", nature: reported, s: [src-dcl-coindesk-2022]}
+  - {id: m-dcl-mau-2022-09, type: mau, value: 56697, unit: players, period: "2022-09", definition: "運営が公式ツイートで示した月間アクティブ（DCL Metrics と定義が異なる可能性を運営自身が注記）", nature: reported, s: [src-dcl-coindesk-2022]}
+  - {id: m-dcl-contract-users-2022-09, type: wallets, value: 1074, unit: users, period: "2022-09（運営ツイート時点）", definition: "運営発表のスマートコントラクトと取引した利用者数", nature: reported, s: [src-dcl-coindesk-2022]}
+  - {id: m-dcl-dau-dclmetrics-2022, type: dau, value_text: "12,304 → 7,800", unit: players, period: "2022-07〜09 頃（直近 90 日）", definition: "DCL Metrics の DAU（Naavik の引用）", nature: reported, s: [src-dcl-naavik]}
+  - {id: m-dcl-ico-2017, type: funding, value: 26000000, unit: USD, period: "2017", definition: "ICO による調達額（Wikipedia）", nature: reported, s: [src-dcl-wikipedia]}
+
+events:
+  - {id: ev-dcl-ico, date: "2017", type: funding, title: "ICO で 2600 万ドルを調達", s: [src-dcl-wikipedia]}
+  - {id: ev-dcl-public, date: "2020-02", type: launch, title: "一般公開（ブラウザ版）", s: [src-dcl-wikipedia]}
+  - {id: ev-dcl-dau-dispute, date: "2022-10-07", type: other, title: "「1 日 38 人」報道と運営の反論", detail: "DappRadar の取引ウォレット数 38 に対し、運営は 1 日平均 8000 人と反論", s: [src-dcl-coindesk-2022]}
+  - {id: ev-dcl-2-beta, date: "2024-10", type: release, title: "Decentraland 2.0 のベータ版デスクトップクライアント", s: [src-dcl-wikipedia]}
+
+relations:
+  - {to: the-sandbox, type: similar-to, basis: analytic, note: "土地 NFT 型の仮想世界。2022-10 には同じ DappRadar 指標で比較された"}
+  - {to: m-land, type: built-with, basis: confirmed, note: "LAND（座標区画）を NFT として所有", s: [src-dcl-whitepaper]}
+
+unknowns:
+  - "ホワイトペーパーの公開日（PDF に日付表記を確認できなかった）。LAND 初回オークション（Terraform Event）の日付と焼却された MANA の量。"
+  - "DAO の発足日と、現在の DAO 権限の一次資料（公式ドキュメント）での確認。"
+  - "2023 年以降の DAU/MAU。"
+contradictions:
+  - {t: "利用者数: DappRadar 38（取引ウォレット/24 時間）、Dapp.com 312、運営 8000（1 日平均）、ダッシュボード 6999（一意訪問者）、Naavik の DCL Metrics 7800。定義が全て異なる。", s: [src-dcl-coindesk-2022, src-dcl-cryptoslate-2022, src-dcl-naavik]}
+  - {t: "公開時期: Wikipedia は 2020-02 に一般公開、Naavik は 2017 年に最初に公開と記載（2017 年は土地販売・初期版を指す可能性）。", s: [src-dcl-wikipedia, src-dcl-naavik]}
+
+sources:
+  - {id: src-dcl-whitepaper, title: "Decentraland White paper: A blockchain-based virtual world", url: "https://decentraland.org/whitepaper.pdf", publisher: "Decentraland", author: "Esteban Ordano, Ariel Meilich, Yemel Jardi, Manuel Araoz", type: paper, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "PDF を pdftotext で読んだ。三層構成、LAND は MANA の焼却で取得、隣接区画の制約"}
+  - {id: src-dcl-coindesk-2022, title: "It's Lonely in the Metaverse: Decentraland's 38 Daily Active Users in a $1.3B Ecosystem", url: "https://www.coindesk.com/web3/2022/10/07/its-lonely-in-the-metaverse-decentralands-38-daily-active-users-in-a-13b-ecosystem/", publisher: "CoinDesk", author: "Cam Thompson", type: news, primary: false, published: "2022-10-07", accessed: "2026-10-23", access: fetched, lang: en, note: "DappRadar の定義と数値、Decentraland・Sandbox の反論（10-10 更新）"}
+  - {id: src-dcl-cryptoslate-2022, title: "Decentraland has just 30 daily active users despite billion dollar plus market cap – DappRadar data", url: "https://cryptoslate.com/decentraland-has-just-30-daily-active-users-despite-billion-dollar-plus-market-cap/", publisher: "CryptoSlate", type: news, primary: false, published: "2022-10-06", accessed: "2026-10-23", access: fetched, lang: en, note: "30 DAU のツイート、Dapp.com の 312"}
+  - {id: src-dcl-naavik, title: "Decentraland: The Open-Source & Decentralized Ghost Town", url: "https://naavik.co/deep-dives/decentraland-ghost-town/", publisher: "Naavik", author: "Lars Doucet, Devin Becker", type: analysis, primary: false, published: "2022-10-03", accessed: "2026-10-23", access: fetched, lang: en, note: "オンチェーン要素、DAO と SAB、DCL Metrics の DAU 推移、LAND 価格・取引高の下落"}
+  - {id: src-dcl-wikipedia, title: "Decentraland", url: "https://en.wikipedia.org/wiki/Decentraland", publisher: "Wikipedia", type: wiki, primary: false, accessed: "2026-10-23", access: fetched, lang: en, note: "ICO 2600 万ドル、2020-02 公開、2022 年の利用者論争、2024-10 の 2.0 ベータ"}
+  - {id: src-dcl-site, title: "Decentraland", url: "https://decentraland.org/", publisher: "Decentraland", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "モバイル版の告知、ダウンロード案内（日付なし）"}

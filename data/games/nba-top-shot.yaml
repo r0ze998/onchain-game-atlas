@@ -1,0 +1,106 @@
+id: nba-top-shot
+name: NBA Top Shot
+name_ja: NBA トップショット
+aliases: [Top Shot, NBATS]
+kind: game
+depth: index
+updated: "2026-10-23"
+chains: [Flow]
+team: "Dapper Labs（NBA・NBPA のライセンス）"
+summary: >-
+  NBA の試合映像の一場面（Moment）をパックで販売し、Dapper Labs が作ったブロックチェーン Flow 上の NFT として売買させる収集プラットフォーム。
+  2020-10 の公開ベータから一般層に広がり、2021-02 には月間取引高が 2 億ドルを超えたが、2022 年後半には月 270 万ドル程度まで落ちた。
+  運営発表の「登録者 100 万人」と、オンチェーンで測った購入者数（ピーク月 18 万程度、2022-10 は 1.35 万未満）の差が大きい。
+  Moment が証券に当たるとする集団訴訟は 2024 年に 400 万ドルで和解した。
+selection_reason: >-
+  CryptoKitties の開発元が専用チェーンを作り、一般層向けにクレジットカード決済で NFT を売った最大級の事例。
+  ゲーム性の薄い収集・投機がどう伸び縮みするか、運営発表の利用者数と第三者計測の差、法的リスク（証券該当性）を確認できる。
+  指標の定義の違いを扱う比較対象として重要。
+categories:
+  - {id: assets, role: primary, reason: "Moment を Flow 上の NFT として発行・二次流通させる"}
+  - {id: infra, role: secondary, reason: "Dapper Labs が自ら作ったチェーン Flow 上で運営"}
+status:
+  value: active
+  as_of: "2026-10"
+  note: "参照日の公式サイトに 2025-26 シーズンのパック販売・ドロップ予定・マーケットが表示され、「Built on Flow」と記載されている。"
+  s: [src-nbats-site]
+dates:
+  launched: {date: "2020-10", s: [src-nbats-ap-2021], note: "公開ベータ開始（AP は「10 月」と記載）"}
+
+architecture:
+  onchain:
+    level: assets-only
+    detail: "Moment は Dapper Labs が作った Flow ブロックチェーン上で発行される NFT。パックの販売、表示、マーケットの運営は Dapper が行う。"
+    s: [src-nbats-theblock-2024, src-nbats-site]
+  offchain:
+    - {item: "パック販売・抽選・ドロップの運営と、クレジットカード決済（運営 CEO は日次のカード決済額は小さいと述べた）", s: [src-nbats-ledger-2021, src-nbats-site]}
+    - {item: "映像コンテンツとライセンス管理", s: [src-nbats-site]}
+  admin:
+    level: significant
+    detail: "Moment の発行、マーケット、チェーン（Flow）自体が Dapper Labs の管理下で始まった。2024 年の和解条件には、Flow が十分に分散化されるための事業上の変更が含まれた（検索要約）。原告は数か月にわたり出金を妨げたと主張した。"
+    s: [src-nbats-theblock-2024]
+  open_source:
+    level: unknown
+    detail: "未確認。"
+  extensibility:
+    level: unknown
+    detail: "未確認。"
+
+compare:
+  gameplay: {t: "パックを買って Moment を集め、セットを揃える・売買する。試合をプレイする要素は中心ではない。", k: fact, s: [src-nbats-site, src-nbats-ledger-2021]}
+  necessity: {t: "運営がチェーン・マーケット・発行を全て管理する構成で、チェーンの役割は所有記録と二次流通の台帳に近い。裁判所は 2023 年に、価値が Flow の成否と結びついている点を証券性の主張を退けない理由の一つにした（検索要約）。", k: analysis, s: [src-nbats-theblock-2024]}
+  information: {t: "未確認", k: unknown}
+  persistence: {t: "Moment は Flow 上に残るが、映像・ライセンス・マーケットは Dapper とリーグの契約に依存する。", k: analysis, s: [src-nbats-site]}
+  extensibility: {t: "未確認", k: unknown}
+  money_flow: {t: "Dapper はパック販売（一次）とマーケット手数料から収入を得る。2021-03 時点の売上は 5 億ドル、取引の 3 分の 2 は 50 ドル未満と運営は述べた。", k: fact, s: [src-nbats-ap-2021, src-nbats-ledger-2021]}
+  entry_barrier: {t: "一般向けの決済で購入でき、暗号資産の知識を前提にしない設計が意図された。実際にはクレジットカードの日次決済額は小さく、購入の多くは暗号資産によると推測された。", k: claim, who: "Ledger Insights（Roham Gharegozlou の発言の要約）", s: [src-nbats-ledger-2021]}
+
+concepts: [c-nft-asset, m-collectible-cards, c-own-chain]
+
+article:
+  retention_evidence:
+    - {t: "運営発表: 2021-03 に 80 万超のアカウント、2021-05 に登録 100 万人超（うち購入経験は約半数）。", k: claim, who: "Dapper Labs（AP / Ledger Insights の記事内）", s: [src-nbats-ap-2021, src-nbats-ledger-2021]}
+    - {t: "オンチェーン計測: CryptoSlam によれば 2022-10 の二次市場の一意購入者は 13,500 未満、取引高は約 270 万ドルで、ピークの 2021-02（2.24 億ドル）から大きく減った。", k: fact, s: [src-nbats-decrypt-2022]}
+    - {t: "The First Mint は購入者のピークを 2021-03 の 18.4 万（複数アカウントを含む可能性）とし、2023-01 時点で 94% 減、2022-01→2023-01 で月間一意購入者が 83% 減と書く（購入者数の出典は明示なし）。", k: claim, who: "The First Mint", s: [src-nbats-firstmint-2023]}
+    - {t: "示されていない指標: 登録者のうち継続して購入・閲覧する人数、カストディ口座内の取引とオンチェーン取引の区別、複数アカウントの規模。", k: unknown}
+  counter_evidence:
+    - {t: "「100 万人の登録」と「1.35 万人の月間購入者」は定義が違う数字であり、前者を利用者の規模とする報道も、後者を「誰も使っていない」とする報道も、どちらも片面的である。収集プラットフォームでは閲覧・保有だけの利用者がオンチェーン指標に現れない。", k: analysis, s: [src-nbats-ledger-2021, src-nbats-decrypt-2022]}
+    - {t: "2024 年の和解で Dapper は Moment が証券でないとの立場を維持しつつ 400 万ドルを支払った。運営がチェーンと市場を管理する設計は、所有の「分散性」を主張しにくくし、法的リスクを生む。", k: fact, s: [src-nbats-theblock-2024]}
+
+metrics:
+  - {id: m-nbats-accounts-2021-03, type: players, value: 800000, value_text: "80 万超", unit: accounts, period: "2020-10〜2021-03", definition: "公開ベータ以降に登録されたアカウント数（Dapper Labs 発表、AP）", nature: reported, s: [src-nbats-ap-2021]}
+  - {id: m-nbats-registered-2021-05, type: players, value: 1000000, value_text: "100 万超（購入経験は約半数）", unit: users, period: "2021-05", definition: "登録ユーザー数（CEO の Consensus 2021 での発言、Ledger Insights）", nature: reported, s: [src-nbats-ledger-2021]}
+  - {id: m-nbats-sales-2021-03, type: revenue, value: 500000000, unit: USD, period: "2020-10〜2021-03", definition: "売上（Dapper Labs 発表、AP。一次・二次の内訳不明）", nature: reported, s: [src-nbats-ap-2021]}
+  - {id: m-nbats-volume-2021-02, type: nft_sales, value: 224000000, unit: USD, period: "2021-02", definition: "月間の NFT 取引額（CryptoSlam、Decrypt の引用）", nature: measured, s: [src-nbats-decrypt-2022]}
+  - {id: m-nbats-volume-2022-10, type: nft_sales, value: 2700000, value_text: "約 270 万ドル", unit: USD, period: "2022-10", definition: "二次市場の月間取引額（CryptoSlam）", nature: measured, s: [src-nbats-decrypt-2022]}
+  - {id: m-nbats-buyers-2022-10, type: wallets, value: 13500, value_text: "13,500 未満", unit: buyers, period: "2022-10", definition: "二次市場の一意購入者（CryptoSlam）", nature: measured, s: [src-nbats-decrypt-2022]}
+  - {id: m-nbats-buyers-peak, type: wallets, value: 184000, value_text: "18.4 万", unit: buyers, period: "2021-03", definition: "購入者数のピーク（The First Mint、出典不明・複数アカウント含む可能性）", nature: estimated, s: [src-nbats-firstmint-2023]}
+  - {id: m-nbats-funding-2021-03, type: funding, value: 305000000, unit: USD, period: "2021-03", definition: "Dapper Labs の私募調達（Coatue 主導、AP）", nature: reported, s: [src-nbats-ap-2021]}
+  - {id: m-nbats-settlement-2024, type: other, value: 4000000, unit: USD, period: "2024-06", definition: "集団訴訟の和解金（The Block）", nature: reported, s: [src-nbats-theblock-2024]}
+
+events:
+  - {id: ev-nbats-beta, date: "2020-10", type: launch, title: "公開ベータ開始", s: [src-nbats-ap-2021]}
+  - {id: ev-nbats-peak, date: "2021-02", type: other, title: "月間取引額 2.24 億ドルのピーク", s: [src-nbats-decrypt-2022]}
+  - {id: ev-nbats-funding, date: "2021-03-30", type: funding, title: "Dapper Labs が 3.05 億ドル調達", s: [src-nbats-ap-2021]}
+  - {id: ev-nbats-ruling, date: "2023", type: other, title: "裁判所が証券性の主張を退けず訴訟継続", s: [src-nbats-theblock-2024]}
+  - {id: ev-nbats-settlement, date: "2024-06-03", type: other, title: "集団訴訟が 400 万ドルで和解（承認前）", s: [src-nbats-theblock-2024]}
+
+relations:
+  - {to: cryptokitties, type: same-team, basis: confirmed, note: "Dapper Labs の製品", s: [src-nbats-theblock-2024]}
+  - {to: sorare, type: similar-to, basis: analytic, note: "ライセンスを受けたスポーツ NFT"}
+  - {to: c-own-chain, type: built-with, basis: confirmed, note: "Dapper Labs が作った Flow 上で発行", s: [src-nbats-theblock-2024]}
+
+unknowns:
+  - "和解の最終承認の有無。Friel v. Dapper Labs の判決文（2023-02）は取得できなかった（Seyfarth の PDF は 403）。"
+  - "カストディ型ウォレットと出金制限の具体的な仕組み（一次資料未確認）。"
+  - "2023 年以降の購入者数・取引額（2024-05 に月 190 万ドルという報道は検索要約のみ）。"
+contradictions:
+  - {t: "利用者規模: 運営は 2021-05 に登録 100 万超（購入は約半数）、The First Mint は購入者のピークを 2021-03 の 18.4 万、CryptoSlam の 2021-02 一意購入者は 8 万超（検索要約）。登録・購入経験・月間購入の定義が異なる。", s: [src-nbats-ledger-2021, src-nbats-firstmint-2023]}
+
+sources:
+  - {id: src-nbats-ap-2021, title: "Dapper Labs, creators of NBA Top Shot, get $305M in funding", url: "https://www.news4jax.com/business/2021/03/30/dapper-labs-creators-of-nba-top-shot-get-305m-in-funding/", publisher: "Associated Press (via News4JAX)", author: "Matt Ott", type: news, primary: false, published: "2021-03-30", accessed: "2026-10-23", access: fetched, lang: en, note: "3.05 億ドル、売上 5 億ドル、80 万超のアカウント、公開ベータは 10 月開始"}
+  - {id: src-nbats-ledger-2021, title: "Dapper Labs shares NBA Top Shot details, future plans", url: "https://www.ledgerinsights.com/dapper-labs-shares-nba-top-shot-details-future-plans/", publisher: "Ledger Insights", type: news, primary: false, published: "2021-05-26", accessed: "2026-10-23", access: fetched, lang: en, note: "登録 100 万超・購入は約半数、取引 450 万件の 3 分の 2 は 50 ドル未満、カード決済は小さい（一部有料）"}
+  - {id: src-nbats-decrypt-2022, title: "NBA Top Shot Just Had Its Worst Month Since 2020", url: "https://decrypt.co/113409/nba-top-shot-nfts-worst-month-since-2020", publisher: "Decrypt", author: "Andrew Hayward", type: news, primary: false, published: "2022-11-02", accessed: "2026-10-23", access: fetched, lang: en, note: "2022-10 の二次取引約 270 万ドル、一意購入者 13,500 未満、ピーク 2.24 億ドル（CryptoSlam）"}
+  - {id: src-nbats-firstmint-2023, title: "The State of NFT Sports", url: "https://thefirstmint.substack.com/p/the-state-of-nft-sports", publisher: "The First Mint (Substack)", type: analysis, primary: false, published: "2023-02-07", accessed: "2026-10-23", access: fetched, lang: en, note: "購入者ピーク 18.4 万（2021-03）、94% 減、83% 減"}
+  - {id: src-nbats-theblock-2024, title: "Dapper Labs settles NBA Top Shot Moments lawsuit for $4 million", url: "https://www.theblock.co/post/298286/dapper-labs-settles-nba-top-shot-moments-lawsuit-for-4-million", publisher: "The Block", author: "RT Watson", type: news, primary: false, published: "2024-06-03", accessed: "2026-10-23", access: fetched, lang: en, note: "400 万ドルの和解、Dapper の声明、Flow は Dapper が作った、出金妨害の主張"}
+  - {id: src-nbats-site, title: "NBA Top Shot", url: "https://nbatopshot.com/", publisher: "Dapper Labs", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "2025-26 シーズンのパック・ドロップ・マーケット、Built on Flow"}

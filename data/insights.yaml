@@ -1,0 +1,371 @@
+# インサイト: 主張・支持事例・反例・成立条件・確信度・次の小さな実験
+# evidence[].stance: support | counter | context。support/counter は出典必須（出典はエントリ側の source id）
+# gap_type: unsolved-gap（未解決の空白）| no-demand（需要が確認されていない）| chain-unnecessary（チェーン不要の可能性）| now-feasible（今なら成立し得る）| established（確立した知見）
+
+- id: ins-permissionless-ext-unused
+  title: 許可不要の拡張機構は、他人に使われる拡張を自動的には生まない
+  gap_type: no-demand
+  claim: >-
+    コントラクトを誰でも追加できる世界（Biomes、Downstream、Primodium、PixeLAW、Sky Strife）では、拡張の「仕組み」は詳細に作られたが、
+    第三者が作り、さらに別のプレイヤーが使った拡張の実例はほとんど確認できなかった。確認できた拡張の多くは運営チームや出資・提携先の作だった。
+    一方で、第三者の拡張が実際に広く使われたのは、拡張が「作った本人の勝利や効率」に直結する場合（Dark Forest のプラグイン・ボット）と、
+    資産の参照が無料で配布が広い場合（Loot の派生）だった。
+  conditions: >-
+    他人の拡張が使われる条件として事例から読めるのは、(1) 拡張がプレイヤー自身の競争力を上げる道具である、(2) 使う側が鍵や資産を預けずに済む、
+    (3) 拡張の作者に作る動機（勝利・報酬・名声）がある、(4) 使う側が十分な人数いる、の重なり。(4) を欠く小規模な世界では (1)〜(3) があっても使われない可能性がある。
+  evidence:
+    - {game: biomes, stance: support, note: "確認できた拡張（チップ等）の PR はほぼ同一開発者によるもので、第三者の PR（Biocash）はマージされなかった。", s: [src-biomes-experience-prs, src-biomes-biocash-pr]}
+    - {game: downstream, stance: support, note: "外部作例 3 件は投資家・提携先の作で、Playmint が公式リポジトリに取り込み修正していた。", s: [src-downstream-advanced-tutorials, src-downstream-commits]}
+    - {game: primodium, stance: support, note: "World Extension の文書は詳しいが、第三者が本番 World に登録した拡張の実例は確認できず、作例は自チームのもの。", s: [src-primodium-world-ext, src-primodium-bounty-example]}
+    - {game: pixelaw, stance: support, note: "公開アプリは主に中核メンバーの作で、アプリ間の相互作用の実例も少ない。", s: [src-pixelaw-examples]}
+    - {game: sky-strife, stance: support, note: "第三者拡張として挙がる大会・ダッシュボード・賭け市場の多くはオフチェーンのツールや人手の運営で、許可不要のオンチェーン拡張でしか成立しない例は特定できなかった。", s: [src-sky-strife-mainnet-blog]}
+    - {game: dark-forest, stance: counter, note: "プラグインはコンテスト等を通じて多数作られ共有され、Lobbies で第三者が独自の宇宙を展開した。ただし主用途は自分の自動化・UI 改善で、他人のプラグインは鍵リスクのため公式が使用を戒めた。", s: [src-df-plugins-repo, src-df-plugins-contest, src-df-lobbies]}
+    - {game: loot, stance: counter, note: "許可不要・無料参照の最小資産から約 1 か月で 100 を超える派生が生まれた。ただし派生は相互に接続せず、多くは告知やミントで止まった。", s: [src-loot-resources, src-loot-decrypt-2022]}
+    - {game: cryptokitties, stance: context, note: "KittyVerse の第三者拡張は、運営が規約変更と資金提供で促す必要があった。", s: [src-ck-betakit-kittyverse]}
+  confidence: medium
+  confidence_reason: >-
+    「使われなかった」ことの証拠は主に GitHub の作者構成と公開事例の欠如で、利用回数の計測値はどの事例にもない（Redstone 停止でチェーンデータも参照困難）。
+    観測できないだけの可能性があるため「高」にはしない。一方、5 つの独立した世界で同じ傾向が出ているため「低」でもない。
+  alternative: >-
+    拡張が使われなかったのは拡張機構のせいではなく、そもそも各世界のプレイヤー数が小さかった（あるいは運営母体の資金が尽きた）ためかもしれない。
+    その場合、十分な人数がいる世界では同じ機構でも使われる可能性がある。
+  experiment:
+    design: >-
+      既存のプロトタイプ（オフチェーンで可）に「他人が作った施設を使う」導線を 1 つだけ作る（例: 他プレイヤーの工場に原料を送って加工してもらう、手数料は作者へ）。
+      作者側 3〜5 人・利用側 20〜30 人で 1〜2 週間回す。
+    signal: 利用側プレイヤーのうち、自分で作れる状況でも他人の施設を 1 回以上使った割合と、その再利用率。作者が価格や仕様を変えた回数。
+    kill: 他人の施設の再利用率が 10% 未満、または利用が作者の知人間に閉じる場合、「他人の機能の再利用」を中核に置く設計を見直す。
+    cost: 小（オフチェーンの試作で可能。チェーンは不要）
+  hypotheses: [hyp-owner-scoped-facilities, hyp-automation-league]
+
+- id: ins-trust-boundary
+  title: 他人のコードを使う障害は「信頼の境界」で、所有範囲・サンドボックス・ゲーム内コストで律する設計が試された
+  gap_type: unsolved-gap
+  claim: >-
+    他者の拡張を使うとき問題になったのは、鍵や資産への権限、後からの仕様差し替え、悪意ある実装による妨害だった。
+    これに対して、拡張の効力を作者の所有範囲に閉じる（Downstream）、UI 拡張をサンドボックス化する（Downstream）、拡張の防御をゲーム内の電池で維持させ他者が削れるようにする（Biomes）、
+    相互作用を既定拒否のフックで調停する（PixeLAW）、操作権を取り消し可能な委任で貸す（Primodium）、という異なる解が並行して試された。どれが利用を増やしたかを示すデータはない。
+  conditions: >-
+    所有範囲に閉じる方式は他者への害を防ぐ代わりに「区画が孤立した部屋の集まり」になりやすい。既定拒否は安全だが後発の拡張が既存拡張の改修なしに参加できない。
+    委任は柔軟だが取り消し可能性のため相手方が履行を信頼できない。信頼の問題と相互運用の広さはトレードオフになっている。
+  evidence:
+    - {game: dark-forest, stance: support, note: "プラグインが秘密鍵へアクセスできる設計で、公式リポジトリは自分か完全に信頼できる人のもの以外使うなと警告した。", s: [src-df-plugins-repo]}
+    - {game: downstream, stance: support, note: "建物種別の所有者だけが実装を変えられ、UI プラグインは WebAssembly の JS エンジン内で動かす設計。", s: [src-downstream-plugin-rule, src-downstream-sandbox]}
+    - {game: biomes, stance: support, note: "チップの取り外し拒否は電池が残る間だけ有効で、他者が叩いて電池を削れる。妨害されたくない行動では第三者コードを固定ガスで呼ぶ。", s: [src-biomes-chipsystem-2024, src-biomes-hitchip]}
+    - {game: pixelaw, stance: support, note: "他アプリからの書き込みは既定で拒否し、名前で許可する。後発アプリは既存アプリの改修なしに相互作用できない。", s: [src-pixelaw-paint-app, src-pixelaw-core-pixel]}
+    - {game: primodium, stance: support, note: "システム単位の委任で操作権を第三者コントラクトに貸せるが、委任はいつでも取り消せ、名前空間アクセスを渡すと資金引き出しの危険がある。", s: [src-primodium-access-control, src-primodium-footguns]}
+    - {game: biomes, stance: counter, note: "運営は ROOT 権限でユーザーのフックを一括削除しワールドを作り直しており、最終的な信頼の置き場は運営だった。", s: [src-biomes-adminhook]}
+    - {game: downstream, stance: counter, note: "CEO は god mode がないと述べたが、owner は Rule の追加と状態書き込み権の付与を保持していた。", s: [src-downstream-game-contract]}
+  confidence: medium
+  confidence_reason: 設計上の解が複数存在することはコードで確認できる（事実）。どれが有効かは利用データがなく判定できないため、ここでの主張は「空白がある」ことに留める。
+  experiment:
+    design: >-
+      同じ「他人の施設を使う」導線を 2 方式で作り比べる。A: 作者がいつでも仕様を変えられる（変更は通知のみ）。B: 仕様はバージョン固定で、利用者が明示的に新版へ移る。
+      プレイヤーを 2 群に分けて 1 週間。
+    signal: 他人の施設の利用率、利用継続率、作者による仕様変更の頻度、不満の報告数。
+    kill: A と B で利用率に差がなければ、信頼の境界は当面の律速段階ではない（需要側の問題）と判断する。
+    cost: 小〜中
+  hypotheses: [hyp-owner-scoped-facilities]
+
+- id: ins-host-dependency
+  title: 「オンチェーンだから永続する」は、ホストチェーン・運営資金・外部依存の範囲でしか成り立たなかった
+  gap_type: established
+  claim: >-
+    Redstone（Lattice が運営する L2）上の Sky Strife と Downstream は、ゲームの設計とは別に、Lattice の事業縮小とチェーン停止で世界ごと失われた。
+    Biomes の後継 DUST は「消せない」と掲げつつ自前チェーンの停止を告知した。逆に CryptoKitties の交配コントラクトは Ethereum 上で 2026 年も動いているが、
+    外見の解釈・画像・UI はサーバー依存で、遺伝子計算は非公開の別コントラクトに差し替えられている。永続するのは「チェーンが残り、外部依存が要らない部分」に限られる。
+  conditions: >-
+    永続性を設計目標にするなら、(1) 運営と独立に存続する汎用チェーンを選ぶ、(2) 遊ぶのに必要なクライアント・インデクサ・乱数・アセットを誰でも再構築できる形で公開する、
+    (3) 管理者の差し替え権限を放棄または限定する、の 3 つが揃う必要がある。専用 L2/L3 は手数料と性能の利点と引き換えにこの条件を弱める。
+  evidence:
+    - {game: sky-strife, stance: support, note: "Lattice の事業縮小の告知で Redstone の停止とともに終了。終了の直接要因はゲーム単体の不人気ではなく運営母体の資金とチェーン停止（Lattice の説明）。", s: [src-sky-strife-winding-down]}
+    - {game: downstream, stance: support, note: "ホストチェーン Redstone の停止で世界と拡張が失われた。", s: [src-downstream-l2beat-redstone, src-downstream-chaincatcher-lattice]}
+    - {game: biomes, stance: support, note: "「Can't be wiped」と掲げる同じページで DUST Chain の停止を告知。", s: [src-biomes-dust-site]}
+    - {game: pirate-nation, stance: support, note: "専用チェーンの運営費を理由にチェーンを停止したと報じられた（金額は報道で食い違う）。", s: [src-pn-bcg-kill, src-pn-bcg-shutdown-date]}
+    - {game: loot-survivor, stance: support, note: "ルールが完全にオンチェーンでも、価格オラクル・VRF・インデクサ・ウォレットの外部依存が残り、価格が取れなければゲーム開始が失敗する。", s: [src-ls-code-lib15]}
+    - {game: cryptokitties, stance: counter, note: "交配を含むトランザクションが 2026-10 にも確認でき、汎用チェーン上のコントラクトは運営の関心が薄れても動き続けている。", s: [src-ck-etherscan-txs]}
+    - {game: conquest-eth, stance: counter, note: "Gnosis Chain 上で 2022 年から版を重ねて続いている。ただし版ごとに別コントラクトで、初期の第三者ツールは更新が止まった。", s: [src-conquest-repo, src-conquest-third-party]}
+    - {game: dark-forest, stance: context, note: "公式開発が休止しても、コードと Lobbies により第三者が遊び場を作れる状態が残った。", s: [src-df-lobbies, src-df-summer-break]}
+  confidence: high
+  confidence_reason: チェーン停止・事業終了の告知という一次資料が複数の独立事例で揃っており、反例も「汎用チェーン＋外部依存の少ない部分」という条件で説明できる。
+  experiment:
+    design: >-
+      自分の設計について「運営が明日いなくなったら何が残るか」の依存表を作る（チェーン、シーケンサ、インデクサ、乱数、クライアント、アセット、管理鍵、AI 推論）。
+      各項目に「第三者が再構築できるか」「必要な費用」を書き、1 つの項目を実際に第三者（または別マシン）で再構築してみる。
+    signal: 再構築できた項目の割合と所要時間。
+    kill: 永続性を売りにする場合、再構築できない必須項目が 1 つでも残るなら、その主張を外すか設計を変える。
+    cost: 小
+  hypotheses: [hyp-offchain-first]
+
+- id: ins-public-state-automation
+  title: 公開状態＋換金可能な報酬の組み合わせは、自動化・計算資源・熟練集団の競争に収束する
+  gap_type: established
+  claim: >-
+    状態が公開され、報酬が換金できるとき、最適化は人間の判断よりボットと計算資源に有利になった。Huntercoin では数千体規模のボット軍団の衝突が証言され、
+    Dark Forest では GPU による地図探索と自動化を持つ集団が上位を占め続け、Fomo3D はブロック詰めで決着し、Sunflower Land と Pixels はボット対策を経済設計の中心に置いた。
+  conditions: >-
+    成り立つ条件は「状態の公開」「換金可能性」「自動化の費用 < 報酬」の 3 つ。どれか 1 つを外すと弱まる: 秘匿（ZK）は計算力の競争に置き換わるだけだった一方、
+    換金不能化や換金直前の本人性ゲートはボットの採算を下げた。逆に Dark Forest のように自動化を公認して「ツール作り」を遊びにする道もある。
+  evidence:
+    - {game: huntercoin, stance: support, note: "開発者は 2 人のプレイヤーがそれぞれ数千体規模のボット軍団を戦わせていたと述べた。", s: [src-huntercoin-bgamer-2018]}
+    - {game: dark-forest, stance: support, note: "GPU 探索・地図データの売買が現れ、同一集団（orden_gg 系）が複数ラウンドで上位を占めた。", s: [src-df-r3-wrapup, src-df-r5-wrapup]}
+    - {game: fomo3d, stance: support, note: "第 1 ラウンドは時間切れ直前のブロック空間の占有で決着したと複数の独立分析が解釈した。", s: [src-fomo3d-solmaz, src-fomo3d-sok-frontrunning]}
+    - {game: sunflower-land, stance: support, note: "全行動をオンチェーンにした初期版は、ボットの大量取引で Polygon の混雑を招いた。", s: [src-sunflower-land-w3igg, src-sunflower-land-decrypt-polygon]}
+    - {game: pixels, stance: support, note: "報酬対象を絞った直後に日次ウォレットが約 7 割減り、運営はボット除去と説明した。その後の回復はボットの適応と推測されている。", s: [src-pixels-bg-ch2-drop, src-pixels-gamestx-2m]}
+    - {game: dark-forest, stance: counter, note: "自動化を禁止せず、得点規則をラウンドごとに変えることで、ツール作りそのものを競技として受け入れた。", s: [src-df-gameplay-policy]}
+    - {game: loot-survivor, stance: counter, note: "乱数の予測可能性を隠さず、先読みをパズルとして公認した（ただし入力を操作できると破綻し修正された）。", s: [src-ls-commit-prescience]}
+  confidence: high
+  confidence_reason: 時代・チェーン・ジャンルの異なる 5 事例で一次資料（開発者証言、公式報告、コード、運営の対策）が揃っている。反例は条件の外し方として説明できる。
+  experiment:
+    design: >-
+      試作の 1 シーズンで、公式のボット API を公開し「ボット部門」と「人間部門」を分ける。報酬は換金不能のランキングのみ。
+    signal: ボット部門の参加者数、人間部門の離脱率、両部門をまたぐプレイヤーの割合。
+    kill: 人間部門の離脱が初週で過半なら、公開状態で人間とボットを同じ盤面に置く設計は再考。
+    cost: 小
+  hypotheses: [hyp-automation-league]
+
+- id: ins-reward-metrics-misread
+  title: 換金可能な報酬がある期間の DAU・ウォレット数は、遊びの需要を測っていない
+  gap_type: established
+  claim: >-
+    Axie Infinity では運営自身がアカウント分割が効率的だったと書き、Pixels では報酬改定の直後に日次ウォレットが約 7 割減った。STEPN でも運営発表と第三者推定の利用者数が大きく動いた。
+    報酬がある期間の利用指標は、遊びの需要と報酬目的の参加・多重アカウント・ボットの和であり、改定前後の差でしか上限が推定できない。
+  conditions: 報酬の換金価値が参加者の機会費用（地域の賃金・ボットの運用費）を上回る期間に特に強く成り立つ。報酬が換金不能か十分小さい場合は弱まる。
+  evidence:
+    - {game: axie-infinity, stance: support, note: "運営自身が、エネルギー制度上 Axie を 3 アカウントに分けてスカラーに渡す方が効率的だったと書いている。", s: [src-axie-blog-season20]}
+    - {game: pixels, stance: support, note: "Chapter 2 の報酬改定直後に日次ウォレットが約 69% 減少。運営はボット除去と説明。", s: [src-pixels-bg-ch2-drop]}
+    - {game: sunflower-land, stance: support, note: "日次アクティブウォレット（DappRadar）と DAU（Naavik）が別の数字で、ウォレット数とプレイヤー数が一致しない。", s: [src-sunflower-land-naavik]}
+    - {game: stepn, stance: support, note: "運営発表の利用者数と、第三者の推定（Dune）が別系列で大きく変動し、報酬トークン価格と連動して見える。", s: [src-stepn-decrypt-2023, src-stepn-coingecko-gst]}
+    - {game: ai-arena, stance: support, note: "確認できる最大の参加はトークン配布施策の約 8000 人で、継続的な関与の証拠ではない。", s: [src-aiarena-decrypt-airdrop-team]}
+    - {game: axie-infinity, stance: counter, note: "報酬の価値が下がった後も Origins と Classic のシーズンは 2026 年まで続いており、報酬と無関係に残る層の存在は示される（人数は不明）。", s: [src-axie-blog-origins-s19]}
+    - {game: pixels, stance: counter, note: "VIP 会員や収益（自己申告）など支出側の証拠もある。ただし VIP は稼ぐ効率を上げる投資でもある。", s: [src-pixels-bg-100k, src-pixels-wp-lessons]}
+  confidence: high
+  confidence_reason: 運営自身の記述と、報酬改定という自然実験の前後比較がある。ただし人間とボットを区別した一次データはどの事例にもない。
+  experiment:
+    design: 自分の試作で、報酬なし・換金不能報酬・換金可能報酬（少額）の 3 条件を別のサーバー／シーズンに割り当てる。
+    signal: D1/D7 継続率、1 人あたりアカウント数の推定、行動のばらつき（ボット的な等間隔行動の割合）。
+    kill: 換金可能条件だけ継続率が高く、報酬を外すと他条件と同等以下に落ちるなら、その継続は遊びの需要ではないと判断する。
+    cost: 中（法務・不正対策を含めると換金条件はコストが高い。最初は換金不能で比較）
+  hypotheses: [hyp-offchain-first]
+
+- id: ins-sink-new-asset
+  title: 報酬の発行がプレイ量に比例し、消費が「新しい資産の生成」に偏る経済は、新規流入が止まると崩れる
+  gap_type: established
+  claim: >-
+    Axie Infinity では SLP の主な消費先が繁殖（新しい Axie の生成）で、2022-02 時点で発行は消費の約 4 倍だった。CryptoKitties でも猫の供給過剰が衰退要因として分析された。
+    新しい資産を作ることが主な消費先だと、その資産を買う新規参加者が増え続ける間しか釣り合わない。
+  conditions: 資産に新規参加以外の需要（消費・破壊・維持費・アップグレード）がない場合に成り立つ。資産が消耗するか、季節ごとに失効する設計なら弱まる。
+  evidence:
+    - {game: axie-infinity, stance: support, note: "SLP の発行がプレイ量に比例し、消費は主に繁殖。2022-02 時点で発行は消費の約 4 倍。", s: [src-axie-blog-season20, src-axie-blog-breedingadjustment]}
+    - {game: cryptokitties, stance: support, note: "Frontiers 論文は衰退要因として猫の供給過剰とプレイヤー収入の減少を挙げた（因果は論文の解釈）。", s: [src-ck-frontiers-2021]}
+    - {game: axie-infinity, stance: counter, note: "2023 年には運営によれば消費が発行の 3 倍超だったが SLP 価格は回復しなかった。発行と消費の均衡だけでは価値は戻らない。", s: [src-axie-blog-slpcap, src-coingecko-api-2026-10]}
+    - {game: sunflower-land, stance: context, note: "シーズンごとに 3 か月で失効する資源トークンで、インフレを持ち越さない設計を試している。", s: [src-sunflower-land-docs-tokenomics]}
+  confidence: high
+  confidence_reason: 発行・消費の数値は運営の一次資料、反例も同じ運営資料で、解釈の幅がはっきりしている。
+  experiment:
+    design: 自分の経済設計について、資源ごとに「発行源」「消費先」「消費先が新規参加者に依存するか」の表を作り、新規参加ゼロのシミュレーション（スプレッドシートで可）を回す。
+    signal: 新規ゼロで 4 週間回したときの在庫の増加率。
+    kill: 新規ゼロで在庫が単調増加する資源があれば、維持費・消耗・失効のいずれかを追加する。
+    cost: 小
+  hypotheses: [hyp-short-season-civ]
+
+- id: ins-ordering-fairness
+  title: 改ざんできないルールでも、取引の順序を誰が決めるかで勝敗が決まる
+  gap_type: established
+  claim: >-
+    Fomo3D の「最後の購入から一定時間で決着」という規則は、賞金がブロック数個分のガス代を上回った時点で、ゲーム内の選択ではなくブロック空間の争いに変わった。
+    運営の不正を不可能にすることと、ゲームの公平性は別の性質である。同時手番・秘匿行動にはコミット・リビールや外部の乱数・時刻源が使われてきた。
+  conditions: 時間制限・先着・同時手番があり、勝者の利得が取引の優先コストを上回るときに成り立つ。ターンを固定区間で一括解決し、行動を事前にコミットさせると弱まる。
+  evidence:
+    - {game: fomo3d, stance: support, note: "第 1 ラウンドの決着をブロック詰めとする独立分析が複数ある。", s: [src-fomo3d-solmaz, src-fomo3d-sok-frontrunning]}
+    - {game: fomo3d, stance: support, note: "完全公開の状態と決定的乱数は、攻撃コントラクトが有利なときだけ実行する条件付き実行を許した。", s: [src-fomo3d-secbit-solution]}
+    - {game: loot-survivor, stance: support, note: "エントロピー更新を誰でも呼べる関数にしたが、呼び出しのタイミングで結果を選べる問題が論点になった。", s: [src-ls-commit-entropy-rotation]}
+    - {game: fomo3d, stance: counter, note: "攻撃以前から購入意欲が落ちていたとする資料があり、決着の形式より構造の天井が先にあった可能性。", s: [src-fomo3d-inside]}
+    - {game: conquest-eth, stance: context, note: "艦隊の移動をコミット・リビールで秘匿する無期限戦略ゲーム。", s: [src-conquest-handbook]}
+  confidence: medium
+  confidence_reason: 現象自体は複数分析で支持されるが、勝者本人の説明はなく、Fomo3D 以外のゲームで同規模の事例は確認していない。
+  experiment:
+    design: 自分のゲームの行動のうち「早い者勝ち」「締め切り直前」に有利が生じるものを列挙し、固定区間の一括解決とコミットに置き換えた版で、ボット 2 体に先着競争をさせる。
+    signal: 一括解決版で、行動の送信時刻と結果の相関が消えるか。
+    kill: 相関が残るなら、締め切りの扱い（区間の境界）を見直す。
+    cost: 小
+  hypotheses: [hyp-short-season-civ]
+
+- id: ins-zk-fog-compute
+  title: ZK による戦場の霧は技術的に成立したが、遊びの中心は「霧の駆け引き」より計算とツールの競争に移った
+  gap_type: unsolved-gap
+  claim: >-
+    Dark Forest はハッシュ化座標と移動証明で、検証可能なまま位置を隠すことに成功した。しかし霧を晴らす手段が座標空間の総当たりだったため、
+    霧は計算資源の差に置き換わり、上位争いは探索 GPU・自動化・集団協調で決まった。情報そのものを ZK で証明して売る市場（Nightmarket）のような創発もあった。
+    「公開台帳上で人間同士の心理的な駆け引きを成立させる」設計は、まだ十分に示されていない。
+  conditions: 総当たりで晴れる霧は計算格差に弱い。霧を晴らす手段を行動（偵察ユニット・時間）に結びつける、または秘匿情報を少数の選択（手札・目的地）に限るほうが駆け引きに近づく可能性がある。
+  evidence:
+    - {game: dark-forest, stance: support, note: "位置は MiMC ハッシュとしてのみ公開され、移動の正当性は ZK 証明で検証された。", s: [src-df-announce, src-df-code-circuits]}
+    - {game: dark-forest, stance: support, note: "上位争いが探索 GPU・自動化・集団協調で決まった記述が多い。", s: [src-df-r1-wrapup, src-df-r3-wrapup]}
+    - {game: zkhunt, stance: support, note: "秘匿移動の小型実験で、応答の義務と時間切れによる清算というルールで秘匿を担保した。", s: [src-zkhunt-repo, src-zkhunt-liquidation]}
+    - {game: dark-forest, stance: counter, note: "秘匿情報を ZK で証明しつつ売る市場が現れ、情報そのものが取引財になった。霧が新しい遊びを生んだ例。", s: [src-df-nightmarket]}
+    - {game: mental-poker, stance: context, note: "信頼できる第三者なしに秘匿情報のゲームを成立させる問題は 1979 年に定式化されている。", s: [src-mp-tm125]}
+  confidence: medium
+  confidence_reason: Dark Forest の公式報告は豊富だが、プレイヤーの体験の中心が何だったかは主に報告文の記述からの推論。ZK ゲームの事例数も少ない。
+  experiment:
+    design: 霧を「計算」ではなく「行動」で晴らす版を紙またはオフチェーンで試す（偵察に部隊と時間を払う、目的地だけを秘匿する）。同じ 6〜8 人で、全公開版と秘匿版を 1 回ずつ。
+    signal: 欺瞞・陽動の発生回数、事後インタビューで「読み合い」を挙げた人数。
+    kill: 秘匿版で読み合いが増えなければ、秘匿の暗号化にかける実装コストを正当化できない。
+    cost: 小（暗号実装の前に検証できる）
+  hypotheses: [hyp-short-season-civ]
+
+- id: ins-llm-judge-trust
+  title: AI が判定・運営するゲームでは、チェーンは資金の流れを示すが判定の公正さは示さない
+  gap_type: chain-unnecessary
+  claim: >-
+    Freysa では支払いと賞金の払い出しはチェーン上だったが、支払い確認・LLM の判断・払い出しは運営のサーバーで行われ、運営自身が期間中の執行を検証する仕組みがなかったと認めた。
+    AI Arena も試合結果はゲームサーバーがオラクルとして書き込んでいた。それでも Freysa の参加と賞金は伸びており、検証可能性は参加の決め手ではなかった可能性がある。
+  conditions: AI の判断を検証するには、プロンプトとモデルの固定、署名付き応答、TEE のアテステーション等の別の仕組みが要る。それらを参加者が実際に確認しない場合は形式だけの保証になる。
+  evidence:
+    - {game: freysa, stance: support, note: "運営自身が Act 期間中ルールの執行を検証する仕組みがなかったと認めた。", s: [src-freysa-blog-verifiable-games]}
+    - {game: ai-arena, stance: support, note: "試合結果はゲームサーバーのみが書き込み、運営はそれをオラクルと呼ぶ。", s: [src-aiarena-c4-repo]}
+    - {game: freysa, stance: counter, note: "TEE による検証可能な実行を後の Act で主張しているが、資料間で実装（Intel TDX / AWS Nitro）が食い違い、第三者の検証記録は見つからない。", s: [src-freysa-blog-verifiable-autonomy, src-freysa-saf-repo]}
+    - {game: realms-eternum, stance: context, note: "AI 軍は管理者が設定した単一の controller が動かす NPC として実装された。", s: [src-realms-eternum-s1-config]}
+  confidence: high
+  confidence_reason: 運営自身の認めた記述とコードによる確認がある。
+  experiment:
+    design: AI 市民の行動ログ（入力候補・選択・理由・検証結果）を公開し、参加者に「このログで何を確かめたいか」を聞く小規模テスト。チェーンに載せる前にオフチェーンで。
+    signal: ログを実際に開いた参加者の割合、疑義の報告数。
+    kill: ログを開く人がほとんどいなければ、AI 判断の検証可能性はプレイヤー向けの価値ではなく運営・監査向けと位置づけ直す。
+    cost: 小
+  hypotheses: [hyp-ai-lieutenants]
+
+- id: ins-human-decision-preparation
+  title: AI と遊ぶゲームで人間の意思決定は「準備・方針・指示」に移った。完全自律は後退した
+  gap_type: unsolved-gap
+  claim: >-
+    AI Arena は試合中の操作を取り除き、デモ作成・学習設定・試合選択に人間の判断を集めた。Parallel Colony は完全自律のアバターという訴求から人間が指示する遊びへ移った。
+    Freysa では全員の過去メッセージがエージェントの文脈に入り、人間同士が意図せず協力・妨害した。一方 Eternum の「エージェント・プレイヤー」は運営が制御する NPC だった。
+    人間と AI が対等な参加者として同じ世界で長期に遊んだ事例は確認できなかった。
+  conditions: 準備型の意思決定が意味を持つのは、準備の差が結果として目に見えて返ってくる場合。資金（ステーク）の差が結果を左右すると、育成の意味が薄れる（AI Arena）。
+  evidence:
+    - {game: ai-arena, stance: support, note: "試合は無人で回り、人間はデモ・学習設定・試合選択で関与する。", s: [src-aiarena-notion-training]}
+    - {game: parallel-colony, stance: support, note: "2026 年の公開版は人間の指示を中心にした遊びとして出ており、当初の完全自律の訴求は前面にない。", s: [src-colony-official, src-colony-mobilegamer]}
+    - {game: freysa, stance: support, note: "公開メッセージが共有文脈になり、他人の失敗が情報になった。", s: [src-freysa-site-act1]}
+    - {game: ai-arena, stance: counter, note: "報酬はステーク量にも比例し、資金の差が育成の差と競合する。", s: [src-aiarena-notion-nrn-rewards]}
+    - {game: realms-eternum, stance: counter, note: "1,000 のエージェント・プレイヤー構想に対し、実装は運営 controller の NPC 軍で、上限 1,000 は同時出現数の設定値だった。", s: [src-realms-eternum-s1-config, src-realms-eternum-bankless-eliza]}
+    - {game: project-sid, stance: context, note: "多数のエージェントによる文明シミュレーションはオフチェーンで試され、規模の上限はサーバー資源だった。", s: [src-sid-arxiv]}
+  confidence: low
+  confidence_reason: 事例が新しく少数で、Colony の転換理由は一次資料で確認していない。「後退した」は観察された方向であって因果ではない。
+  experiment:
+    design: AI 市民に「方針だけ与える」群と「個別に命令できる」群と「AI なし」群で、同じ 30 分のシナリオを遊んでもらう。
+    signal: プレイヤーが自分の判断と感じた決定の数（事後の振り返りで列挙）、結果への満足度、AI への介入回数。
+    kill: 方針群で「自分が決めた」と感じる決定が AI なし群の半分未満なら、AI 主体の設計は人間の意思決定を奪っている。
+    cost: 小
+  hypotheses: [hyp-ai-lieutenants]
+
+- id: ins-agent-society-offchain
+  title: AI エージェント社会の創発はチェーンなしで示されてきた。チェーンが足すのは所有・支払い・第三者参加の部分
+  gap_type: chain-unnecessary
+  claim: >-
+    Generative Agents（Smallville）、Project Sid、AI Town はいずれもオフチェーンで、記憶・計画・社会的行動・役割分化を示した。
+    AI 社会のシミュレーション自体にブロックチェーンは必要ない。チェーンが意味を持ち得るのは、匿名の第三者が支払って参加する（Freysa）、資産を持ち出す、
+    外部のエージェントが同じルールで参加する、といった開放性の部分に限られる。
+  conditions: AI 社会の面白さが内部の創発にあるならオフチェーンで足りる。外部のエージェントや資本の参加を許すことが価値の中心なら、チェーン（または同等の公開 API と決済）が候補になる。
+  evidence:
+    - {game: generative-agents, stance: support, note: "言語モデルのエージェント 25 体が記憶・反省・計画で社会的行動を示した研究（オフチェーン）。", s: [src-ga-arxiv]}
+    - {game: project-sid, stance: support, note: "多数のエージェントによる文明的な役割分化を Minecraft で示した研究（オフチェーン）。宗教の広がりは配置した司祭役から始まりキーワードで測定。", s: [src-sid-arxiv]}
+    - {game: ai-town, stance: support, note: "Generative Agents を参照したオープンソース実装で、チェーンを使わない。", s: [src-aitown-repo]}
+    - {game: freysa, stance: counter, note: "匿名の参加者が少額から支払い、賞金が即時に積み上がる開放性はチェーン決済で実現された。", s: [src-freysa-theblock-win]}
+  confidence: medium
+  confidence_reason: "オフチェーンで創発が示されたことは論文・コードで確認できる。ただし研究の創発の評価方法（例: Project Sid の宗教の計測）には限界がある。"
+  experiment:
+    design: AI 市民の社会的挙動（同盟・裏切り・交易）を、まずチェーンなしのローカル実行で 1 シーズン分シミュレーションし、チェーン版と同じ指標で比較する。
+    signal: チェーン版でしか起きない挙動があるか。
+    kill: 差がなければ、AI 社会の検証はオフチェーンで進め、チェーン統合は開放性（外部参加・持ち出し）の実験に限定する。
+    cost: 小
+  hypotheses: [hyp-ai-lieutenants, hyp-offchain-first]
+
+- id: ins-long-season-shrinks
+  title: 長期の永続世界・文明 MMO は、短いラウンドや試合形式に縮んでいった
+  gap_type: unsolved-gap
+  claim: >-
+    Realms: Eternum は数週間のシーズンを掲げたが S0 は約 2 週間、S1 は約 3 週間で決着し、その後 60 分の Blitz と日替わり形式へ移った。
+    Primodium のチームは予測市場型の短いラウンド（Empires）へ、Sky Strife は試合型だが試合の供給が課題だった。長期の世界で新規参入者が遊び続けられる設計は、オンチェーンでは未解決のままである。
+  conditions: 到達型の勝利条件と集団間格差がある世界では、決着が早まり後発・少数の遊ぶ期間が短くなる。逆に勝利条件を持たないサンドボックス（Sunflower Land、DUST）では長期継続の例がある。
+  evidence:
+    - {game: realms-eternum, stance: support, note: "S0 は約 2 週間、S1 は約 3 週間で終了条件に達し、運営は 60 分の Blitz と日替わり Frontier に移った。", s: [src-realms-eternum-git-history, src-realms-eternum-readme]}
+    - {game: primodium, stance: support, note: "チームはより単純なターン制・予測市場型の Empires と、オンチェーンゲーム以外の製品へ移った。", s: [src-primodium-empires-docs]}
+    - {game: sky-strife, stance: support, note: "無料試合が出るまで何時間も待つという不満に告知自体が触れており、試合の供給が課題だった可能性。", s: [src-sky-strife-autonomous]}
+    - {game: sunflower-land, stance: counter, note: "勝利条件のない農業サンドボックスとして 2021 年から 2026 年までリリースが続いている。", s: [src-sunflower-land-git-history]}
+    - {game: axie-infinity, stance: counter, note: "Classic・Origins の競技シーズンが長期に続いている（世界の永続ではなくシーズン制の継続）。", s: [src-axie-blog-origins-s19]}
+    - {game: dark-forest, stance: context, note: "1〜2 週間のラウンド制で運営し、ラウンドごとに得点規則を変えた。", s: [src-df-gameplay-policy]}
+  confidence: medium
+  confidence_reason: 形式の縮小は一次資料で確認できるが、その理由（需要・費用・運営判断）は事例ごとに十分に説明されていない。
+  alternative: 縮小は需要ではなく、チェーンの費用・負荷や運営の資金事情による可能性がある。
+  experiment:
+    design: 同じルールで「2 時間」「3 日」「2 週間」の 3 つの長さのシーズンを試作し、後発参加者（開始から 30% 経過後に参加）の体験を比べる。
+    signal: 後発参加者の完走率、上位との差の推移、再参加意向。
+    kill: 2 週間形式で後発参加者の完走率が 2 時間形式の半分未満なら、長期形式には追い上げ機構が必須。
+    cost: 中
+  hypotheses: [hyp-short-season-civ]
+
+- id: ins-minimal-primitive
+  title: 最小限の資産を公開すると派生は速く集まるが、つながらず、価値は「語彙」に残った
+  gap_type: unsolved-gap
+  claim: >-
+    Loot は統計値も絵もルールもない 8 語の袋を無料請求で配り、約 1 か月で 100 を超える派生を集めた。しかし派生は相互に接続せず、取引高は 1 か月で 95% 減った。
+    最も遊ばれた派生の Loot Survivor は Ethereum 上の袋を前提にせず、装備体系を Starknet で再実装した。再利用されたのはコントラクトよりも世界観の語彙だった可能性がある。
+  conditions: 派生がつながるには意味の合意（ステータスの解釈、共通の進行）を調停する仕組みが要る。無料の参照と広い初期配布は派生の数を増やすが、深さは保証しない。
+  evidence:
+    - {game: loot, stance: support, note: "許可不要の最小資産から 100 超の派生（一覧 95 件）。", s: [src-loot-resources]}
+    - {game: loot, stance: support, note: "1 年後の振り返りでも主要な派生ゲームは開発段階で、多くは告知・ミントで止まった。", s: [src-loot-decrypt-2022]}
+    - {game: loot-survivor, stance: support, note: "Loot の装備語彙を Starknet で再実装し、独自のトークンで運営。", s: [src-ls-code-lib15]}
+    - {game: loot, stance: counter, note: "保有ウォレット数は 2022 年から 2026 年まで大きく減っておらず、収集・記念として残る層がいる。", s: [src-loot-etherscan-token]}
+  confidence: medium
+  confidence_reason: 派生の数と取引の減少は資料で確認できるが、派生が「つながらなかった」原因の切り分けは分析。
+  experiment:
+    design: "自分のゲームの 1 つの要素（例: 資源の種類と名前だけ）を公開仕様として出し、外部の 2〜3 人に別の小さな遊びを作ってもらう（チェーン不要）。"
+    signal: 作られた派生が元のゲームの状態を読むか、名前を借りるだけか。
+    kill: 名前を借りるだけなら、状態の共有ではなく世界観の公開で十分。
+    cost: 小
+  hypotheses: [hyp-owner-scoped-facilities]
+
+- id: ins-ownership-layer-only
+  title: 多くの事例でチェーンが必要だったのは「所有・換金」の層だけで、遊びはサーバー側に戻った
+  gap_type: chain-unnecessary
+  claim: >-
+    Pixels はソフト通貨をオフチェーンに置き、2026 年には報酬を中央集権的な仕組みに移して法定通貨やギフトカードでの換金を予定した。Sunflower Land の遊びの大半はウォレットなしで成立し、
+    ボット対策・季節トークン・手数料設計はすべてサーバー側にある。CryptoKitties の運営は Ethereum の制約から別チェーン（Flow）を作り、次の主力製品はカストディ型だった。
+    これらでは、チェーンは主に換金経路として働き、その換金経路がボットを呼ぶ原因にもなっていた。
+  conditions: ルールの検証可能性・運営不在での継続・第三者の許可不要の参加が価値の中心でないなら、チェーンは所有・決済の層に限るか、不要と判断できる。
+  evidence:
+    - {game: pixels, stance: support, note: "報酬を中央集権的な Stacked に移し、USDC・ギフトカード・PayPal での換金を予定。新作は当初 web3 資産なしと報じられた。", s: [src-pixels-bg-stacked]}
+    - {game: sunflower-land, stance: support, note: "遊びの大半はウォレット不要で、出金にだけ顔認証と評判段階を課す。", s: [src-sunflower-land-docs-collectibles]}
+    - {game: cryptokitties, stance: support, note: "運営は Ethereum では規模に耐えないとして Flow を作った。", s: [src-ck-cointelegraph-flow-2020]}
+    - {game: gods-unchained, stance: support, note: "カードの所有はチェーン上だが、対戦のルールはサーバーで処理される。", s: [src-gu-mittr-2019]}
+    - {game: dark-forest, stance: counter, note: "ルールがコントラクトにあったことで、誰でも Lobbies で自分の宇宙を展開できた。", s: [src-df-lobbies]}
+    - {game: loot-survivor, stance: counter, note: "参加料の分配・大会の精算・保守処理を誰でも呼べる関数にし、運営サーバーなしでゲームが進む構造を作った。", s: [src-ls-code-lib15]}
+  confidence: high
+  confidence_reason: 運営自身の方針転換と、ゲームの仕組みがサーバー側にあることが一次資料・コードで確認できる。
+  experiment:
+    design: 自分の設計の機能一覧に「チェーンでなければ成立しない理由」を 1 行ずつ書き、理由が書けない機能をすべてオフチェーンに移した版を作る。
+    signal: 移した後に失われた遊びがあるか（プレイテストで確認）。
+    kill: 失われるものがなければ、チェーンは所有・決済・公開ログの層に限定する。
+    cost: 小
+  hypotheses: [hyp-offchain-first]
+
+- id: ins-veteran-concentration
+  title: 公開された競争世界では、同じ熟練集団が回をまたいで勝ち続けやすい
+  gap_type: unsolved-gap
+  claim: >-
+    Dark Forest では同一集団（orden_gg 系）が v0.6 の R2〜R5 で上位を占め続けた。Realms: Eternum S0 の優勝部族も「orden」だったと検索結果の要約にある（同一集団かは未検証）。
+    状態とコードが公開され、ツールと知識が蓄積する世界では、規則変更やリセットだけでは新規参加者の勝ち目を保ちにくい。
+  conditions: ツール・データ・協調の蓄積が回をまたいで持ち越せるとき成り立つ。勝利の報酬が小さいか、新規参加者向けの別部門・ハンデがある場合は弱まる。
+  evidence:
+    - {game: dark-forest, stance: support, note: "R2〜R5 で同一集団が上位を繰り返し占めた。", s: [src-df-r3-wrapup, src-df-r5-wrapup]}
+    - {game: realms-eternum, stance: support, note: "S0 の優勝部族は orden と要約で確認（本文未読・同一集団か未検証）。", s: [src-realms-eternum-x-s0-champions]}
+    - {game: dark-forest, stance: counter, note: "運営はラウンドごとに得点規則を変え、既存の最適化を陳腐化させようとした。", s: [src-df-gameplay-policy]}
+  confidence: low
+  confidence_reason: 主に 1 事例（Dark Forest）の公式報告に基づく。Eternum の証拠は検索要約のみ。
+  experiment:
+    design: 試作の 2 シーズン目に、1 シーズン目の上位者と新規参加者の成績差を測る。新規向けの別ランキングを入れた版と入れない版を比べる。
+    signal: 新規参加者の上位 10% 入り率、2 シーズン目の新規の離脱率。
+    kill: 別ランキングを入れても新規の離脱率が変わらなければ、問題は順位ではなく序盤の体験にある。
+    cost: 小
+  hypotheses: [hyp-short-season-civ, hyp-automation-league]

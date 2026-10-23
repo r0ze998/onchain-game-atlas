@@ -1,0 +1,233 @@
+id: sky-strife
+name: Sky Strife
+name_ja: スカイ・ストライフ
+aliases: [MUDWar]
+kind: game
+depth: deep
+updated: "2026-10-23"
+chains: [Redstone Holesky testnet, Redstone Garnet testnet, Redstone mainnet (chain 690)]
+team: "Lattice の社内ゲームスタジオ（中心開発者 kooshaba）。2024 年の autonomous mode 移行時に kooshaba 率いる独立スタジオとして分離すると告知"
+summary: >-
+  Lattice が自社フレームワーク MUD と自社 L2 の Redstone 上で作った、2〜4 人対戦のフルオンチェーン RTS。
+  15 秒ごとに全ユニットが行動権を得る「半リアルタイム」の試合を、移動・攻撃・購入・占領のすべてをトランザクションとして処理し、
+  固定供給 1 億枚の ERC-20「🔮（Orb）」で試合の作成と報酬を回す経済を載せた。
+  テストネットのシーズン、2024-05 の Redstone mainnet 公開、3 シーズン後の「autonomous mode」（シーズン廃止・管理鍵 Sky Key の移譲）を経て、
+  2026-04 に Lattice の解散と Redstone の停止が告知された。
+selection_reason: >-
+  「フルオンチェーン＋短時間対戦」を実運用まで持ち込んだ数少ない例であり、試合の作成をプレイヤーに委ねるトークン経済、
+  MUD World の名前空間・アクセス制御を使った拡張点（試合ごとの参加資格システム、プラグイン、ヘッドレスクライアント）、
+  管理鍵（Sky Key）の範囲を明文化して移譲するという「自律化」の手順が、一次資料とコードで追える。
+  同時に、ゲームが乗るチェーン自体の停止で世界が失われ得ることを示す反例でもある。
+categories:
+  - {id: onchain-rules, role: primary, reason: "ユニットの移動・攻撃・購入・建物の占領・試合の勝敗と報酬分配がすべて MUD のシステム（コントラクト）で判定される"}
+  - {id: aw, role: secondary, reason: "README が「最終的に Autonomous World になること」を目標に掲げ、Sky Key の移譲と autonomous mode を実施した"}
+  - {id: infra, role: secondary, reason: "MUD v2 と Redstone の実地試験台として開発され、ガス問題・インデクサ・状態の分割など MUD 側の改良を引き出した"}
+  - {id: p2e, role: secondary, reason: "勝者が ERC-20 の 🔮 を得て、それで次の試合を作る報酬経済を持つ（換金を主目的とした設計ではない）"}
+status:
+  value: ended
+  as_of: "2026-10"
+  note: >-
+    2024 年に autonomous mode へ移行し、Lattice によるシーズン運営は終了（kooshaba が Sky Key を引き継ぎ保守すると告知）。
+    2026-04 に Lattice は解散と Redstone の 2026-05-15 停止を告知し、参照日時点の redstone.xyz は残高請求ページのみを表示している。
+    Sky Strife の World は Redstone mainnet（chain 690）上にあったため、チェーン停止で状態は失われたと判断した（判断であり、Sky Strife の終了を明言した一次資料はない。
+    Winding Down 告知は Sky Strife の今後に触れず、kooshaba への謝辞と「遊んだゲーム」の列挙にのみ名前が出る）。別チェーンへの移行の有無は確認できなかった（unknowns 参照）。
+    play.skystrife.xyz と skystrife.xyz は参照日時点でも応答したが、配信中のクライアントは既定で chain 690 と rpc.redstonechain.com を参照しており、
+    参照日（2026-10-23）に rpc.redstonechain.com は名前解決できず、indexer.mud.redstonechain.com は HTTP 530 を返した（検証役が実測）。
+  s: [src-sky-strife-autonomous, src-sky-strife-winding-down, src-sky-strife-redstone-claim, src-sky-strife-repo, src-sky-strife-play-client]
+dates:
+  announced: {date: "2023-11", s: [src-sky-strife-season0], note: "Redstone テストネットでの Season 0 を告知。それ以前にも 2022-08 から MUDWar として社内外プレイテストがあった"}
+  launched: {date: "2024-05-01", s: [src-sky-strife-mainnet-blog, src-sky-strife-redstone-live], note: "Redstone mainnet 公開日に合わせて mainnet シーズンを開始"}
+  ended: {date: "2026-05-15", s: [src-sky-strife-winding-down], note: "ゲームの終了告知ではなく、載っていた Redstone の停止日（告知上の予定日時 23:59 UTC）"}
+
+architecture:
+  onchain:
+    level: core-rules
+    detail: >-
+      MUD World（Redstone 上の 1 つの World コントラクト）に、試合の進行（LobbySystem・MoveSystem・BuildSystem）、
+      試合作成と報酬（MatchSystem・LibSkyPool）、シーズンパス、マップ・ヒーローの設定などのシステムが登録されている。
+      ターン（15 秒）・金の収入・戦闘結果・勝者の順位と 🔮 の分配はコントラクト内で計算され、2024-01 には戦闘履歴もオンチェーンに保存するよう変更した。
+      🔮 は固定供給 1 億の ERC-20 で、Sky Pool（World のアドレス）に保持され、試合の作成と報酬支払い以外では引き出せないと公式 Wiki は説明する。
+    s: [src-sky-strife-repo, src-sky-strife-contracts-readme, src-sky-strife-wiki-orbs, src-sky-strife-wiki-skypool, src-sky-strife-wiki-rules]
+  offchain:
+    - {item: "描画・入力・状態の同期を行うブラウザクライアント（Phaser）と MUD インデクサ。2023 年の障害時は「クライアントへのアクセスを止めただけで、コントラクトはずっと動いていた」と運営は書いている", s: [src-sky-strife-repo, src-sky-strife-patching]}
+    - {item: "公式の試合スケジューラ・マッチメイキングサーバー・Discord ボット・分析ワーカー・ボット用ヘッドレスクライアント（いずれもリポジトリに同梱）", s: [src-sky-strife-repo]}
+    - {item: "乱数は使わず（コード上で確認した範囲）、試合の公平性は同時進行の 15 秒ターンと順序に依存する。トランザクション順序は Redstone のシーケンサが決める", s: [src-sky-strife-repo, src-sky-strife-season0]}
+    - {item: "マップ（レベル）は Tiled で作り、スクリプトでチェーン上にアップロードする。アップロードとローテーション採用は Sky Key 保持者のみ", s: [src-sky-strife-repo]}
+  admin:
+    level: significant
+    detail: >-
+      Sky Key（ERC-721 の 1 トークン）の保持者が「事実上 World の所有者」と公式 Wiki は書き、マップ・ヒーロー・建物・ユニット・地形・報酬曲線・シーズン・シーズンパスを変更でき、
+      コアの戦闘ロジックと経済ロジックは変更できないとしている。コード上も skyKeyHolderOnly で守られた関数（マップのアップロードとローテーション、ヒーロー設定、シーズンパス作成、
+      Sky Pool からの無料試合作成、World の ETH 残高の引き出し）がある。
+      ただし MUD の仕様では、システムは名前空間の所有者が差し替えられ、Sky Strife のシステムはルート名前空間に登録されているため、
+      「コアロジックは変えられない」という説明はルート名前空間の所有権の扱いに依存する（2023 年のプレイテストでは実際に MatchSystem をホットスワップした）。
+      ルート名前空間の所有権が放棄されたかは確認できなかった。
+    s: [src-sky-strife-wiki-skykey, src-sky-strife-repo, src-sky-strife-patching, src-sky-strife-mud-access]
+  open_source:
+    level: full
+    detail: >-
+      latticexyz/skystrife-public にクライアント・コントラクト・アート・マップ・ヘッドレスクライアント・マッチメイキングサーバー・SQL クエリを MIT ライセンスで公開。
+      社内リポジトリから定期的に移す方式（release_open_source.sh）で、公開履歴は 2024-01-08〜2024-07-23 の 26 コミット。
+    url: "https://github.com/latticexyz/skystrife-public"
+    s: [src-sky-strife-repo, src-sky-strife-wiki-contribute]
+  extensibility:
+    level: permissionless-onchain
+    detail: >-
+      MUD World なので誰でも空いている名前空間にテーブルとシステムを登録し、公開システムを呼べる。Sky Strife 固有の拡張点として、試合作成者が
+      参加資格判定用のシステム（IAllowSystem.isAllowed を実装した任意の MUD システム）を指定でき、参加時に World がそれを呼ぶ。
+      クライアント側にはプラグイン機構（Preact で UI、内部 API に全アクセス）があり、ヘッドレスクライアントでボットも書ける。
+      実例として公式ブログは、コミュニティによるダッシュボード（1kx、Yeomen.ai）・カスタムプラグイン（Yeomen.ai）・リーグとトーナメント（World Sky League など）・
+      マップ制作コンテスト（上位 2 作が公式ローテーション入り）・Night Market 上の賭け市場を挙げる。
+      ただしこれらの多くはオフチェーンのツールやイベントで、第三者がオンチェーンの参加資格システムを実際に登録した例は確認できなかった。
+    s: [src-sky-strife-repo, src-sky-strife-mainnet-blog, src-sky-strife-autonomous, src-sky-strife-mud-v2-ready]
+
+compare:
+  gameplay: {t: "浮島のマップで 2〜4 人が城から兵を買い、金鉱などの建物を占領して金を稼ぎ、相手の城をすべて落とせば勝ち。15 秒ごとに全ユニットが移動・攻撃の行動権を得る、ターン制とリアルタイムの中間の形式。", k: fact, s: [src-sky-strife-season0, src-sky-strife-wiki-rules, src-sky-strife-site]}
+  necessity: {t: "運営は「楽しい・安い・オンチェーン」の三つを同時に満たす実験と位置づけ、試合作成を 🔮 でプレイヤーに委ねる経済と、第三者が試合ルールの外側（参加資格・賭け・リーグ）を作れることにオンチェーン化の意味を求めた。対戦そのものは 15 秒ターンでサーバー型 RTS より制約が大きく、オンチェーンでなければ遊べない遊びかは示されていない。", k: analysis, s: [src-sky-strife-mainnet-blog, src-sky-strife-orbs-blog]}
+  information: {t: "全状態が公開で、相手の兵・金・行動はすべて見える（秘匿情報はない）。クライアントのプラグインは相手の金額など UI に出ない情報も読み出せる（公式例 opponentGold / playerDetails）。", k: fact, s: [src-sky-strife-repo, src-sky-strife-plugins-readme]}
+  persistence: {t: "コードは公開で、誰でも自前のチェーンに World を再展開できる。一方、実際の World・🔮・試合履歴は Redstone mainnet にあり、2026-05-15 の Redstone 停止告知で、チェーン上の世界の永続性は L2 運営者の存続に依存することが示された。", k: fact, s: [src-sky-strife-repo, src-sky-strife-winding-down]}
+  extensibility: {t: "MUD の名前空間による許可不要の拡張、試合ごとの参加資格システム指定、クライアントプラグイン、ヘッドレスクライアントによるボットが可能。コミュニティの実例はダッシュボード・プラグイン・大会・賭け市場など。", k: fact, s: [src-sky-strife-repo, src-sky-strife-mainnet-blog, src-sky-strife-autonomous]}
+  money_flow: {t: "試合作成に 100 🔮 を Sky Pool に払い、勝者側は順位に応じて直近の試合数で変わる 50〜150 🔮 を Sky Pool から受け取る。作成者が入場料を設定すれば入場料の総額が順位と作成者に配分される。シーズンパス（ETH、ダッチオークション）の売上は World の ETH 残高に入り、Sky Key 保持者が引き出せる。", k: fact, s: [src-sky-strife-wiki-orbs, src-sky-strife-wiki-rewards, src-sky-strife-repo, src-sky-strife-mainnet-blog]}
+  entry_barrier: {t: "テストネット期はブリッジした Holesky ETH が必要で、mainnet では Redstone 上の ETH が必要。ブラウザ内のバーナーウォレットでも遊べた。無料の公式試合は時間帯限定で、autonomous mode 移行後は廃止され、試合作成には 🔮 が必要になった。", k: fact, s: [src-sky-strife-mainnet-blog, src-sky-strife-patching, src-sky-strife-autonomous, src-sky-strife-playtest]}
+
+concepts: [c-onchain-rules, c-onchain-state, c-ecs-engine, c-own-chain, c-permissionless-extension, c-client-plugins, c-autonomous-world, c-fungible-ingame-token, c-gas-abstraction, m-seasons, m-bot-automation, e-entry-fee-prize, e-sink-faucet]
+proposed_concepts:
+  - {id: c-admin-key-handover, name: 管理鍵の範囲明文化と移譲（autonomous mode）, desc: "運営が持つ管理権限を 1 つの鍵（トークン）に集約し、変更できる範囲・できない範囲を公開した上で、別主体やコミュニティへ移す。"}
+  - {id: c-player-created-matches, name: トークンを払ってプレイヤーが試合を作る経済, desc: "運営が試合を配る代わりに、固定供給トークンで誰でも試合（インスタンス）を作れ、報酬はプールから払われる。"}
+
+article:
+  what:
+    - {t: "プレイヤーは 2〜4 人用の小さな浮島マップに城を持って現れ、最初の金（Wiki 記載時点で 1000 ゴールド）で城からユニットを買い、金鉱や建物を占領して毎ターンの収入を増やし、相手の城をすべて破壊すれば勝つ。", k: fact, s: [src-sky-strife-wiki-rules, src-sky-strife-site]}
+    - {t: "時間は 15 秒ごとの「ターン」で刻まれ、ターンが始まるたびに全ユニットが移動・攻撃の行動権を得て、全プレイヤーが支配する鉱山の数に応じて金を得る。ターン内では各自が好きな順で即時に操作でき、運営はこれを「リアルタイムとターン制の中間」と説明した。", k: fact, s: [src-sky-strife-wiki-rules, src-sky-strife-season0]}
+    - {t: "試合の外側には 🔮（Orb）という ERC-20 の経済がある。試合を作るには 100 🔮 が必要で、勝つと順位に応じて 🔮 を得て次の試合を作れる。供給は開始時に 1 億枚を Sky Pool に鋳造したきりで、追加発行はない。", k: fact, s: [src-sky-strife-wiki-orbs, src-sky-strife-season0], q: "No more orbs will ever be minted. There is a 100M fixed supply."}
+    - {t: "シーズン制の期間は、ダッチオークションで売るシーズンパスがプライベート試合・限定マップとヒーロー・入場料付き試合の設定権を与えた。autonomous mode 以後はこれらが全員に開放された。", k: fact, s: [src-sky-strife-mainnet-blog, src-sky-strife-autonomous]}
+  loop:
+    - {t: "以下は公式 Wiki・ブログ・コントラクトからの再構成（筆者は実プレイしていない）。プレイヤーはロビーで公開試合に参加するか、100 🔮 を払って（Sky Key 保持者は無料）マップを選び試合を作る。作成時に入場料・順位別の配分率・参加資格システムを指定できる（シーズンパス保持者向け機能）。", k: fact, s: [src-sky-strife-repo, src-sky-strife-wiki-orbs]}
+    - {t: "参加者がヒーローを選んで登録し、全員が準備完了になると試合が始まる。PlayerRegisterSystem は参加資格システムが指定されていればそれを呼び出して許可を確かめる。", k: fact, s: [src-sky-strife-repo]}
+    - {t: "試合中は 15 秒ごとに行動権と金が配られ、ユニットの購入（BuildSystem）、移動と攻撃（MoveSystem）、建物の占領を繰り返す。ユニットを倒すと相手の価値の一部が金として入る。試合は運営の説明で約 15 分程度。", k: fact, s: [src-sky-strife-contracts-readme, src-sky-strife-wiki-rules, src-sky-strife-mud-zero-to-v2]}
+    - {t: "最後の城が残った時点で順位が確定し、エスクローから順位別の 🔮 報酬と入場料の配分が支払われる。得た 🔮 で次の試合を作るか、他人の作った試合に参加する、という循環が想定されていた。", k: fact, s: [src-sky-strife-repo, src-sky-strife-orbs-blog]}
+  before_after:
+    - {t: "Lattice は、Dark Forest 以降のオンチェーンゲームが構造体・マッピング・個別イベントと専用インデクサを手作りしていたことを開発の障害と見て MUD を作り、Sky Strife をその実証として開発した（前身の MUDWar は MUD v1 時代の 2022-08 に最初のプレイテスト）。", k: claim, who: "Lattice", s: [src-sky-strife-mud-zero-to-v2, src-sky-strife-playtest]}
+    - {t: "開発当初は「安い・楽しく速い・フルオンチェーン」の三つから二つしか選べないと感じ、安さは後回しにしたが、Redstone（Plasma 型の代替 DA を使う OP Stack チェーン）で三つ目を満たせたと運営は述べる。", k: claim, who: "Lattice", s: [src-sky-strife-mainnet-blog], q: "At the time, it felt like we had to choose two and forget the third."}
+    - {t: "短時間の試合が多数並行する Sky Strife の必要から、MUD は複合キーで状態を区切り、クライアントとインデクサが関係する試合だけを読み込めるようにした（状態の分割）。", k: claim, who: "Lattice", s: [src-sky-strife-mud-zero-to-v2]}
+    - {t: "運営が試合を配る経済から、プレイヤーが 🔮 で試合を組む「自己調整的な経済」への移行を狙った点が、ラウンド制で運営が宇宙を展開した Dark Forest との違いである。", k: analysis, s: [src-sky-strife-orbs-blog]}
+  onchain_tradeoffs:
+    - {t: "生まれた遊び: 試合の作成・入場料・参加資格がコントラクト上の機能なので、ギルドやコミュニティが運営の許可なく大会やリーグを開催し、Night Market 上では試合への賭け市場が作られたと運営は書く。", k: claim, who: "Lattice", s: [src-sky-strife-autonomous, src-sky-strife-mainnet-blog]}
+    - {t: "増えた不便: 2023 年のプレイテストでは、MUD の KeysInTable モジュールの配列肥大で 1 トランザクションが最大 4500 万ガスに達し、MetaMask の 3000 万ガス上限を超えて試合の参加・開始・終了ができなくなり、2 日強の停止に至った。", k: fact, s: [src-sky-strife-patching]}
+    - {t: "増えた不便: 実時間性は 15 秒ターンという粒度に制限され、各行動は 2 秒以内に確定するトランザクションとして扱われる。運営自身が「ブロックチェーン上でゲームを作る制約のため」と説明している。", k: claim, who: "Lattice", s: [src-sky-strife-season0]}
+    - {t: "増えた不便: 永続的な World の修正は「状態を消さずにシステムを差し替える」作業になり、当時の MUD には公式ツールがなかったため臨時スクリプトで MatchSystem をホットスワップし、壊れた試合を管理者関数で破棄して 🔮 を返還した。", k: fact, s: [src-sky-strife-patching]}
+    - {t: "運営は「ガス最適化には寛容で、開発速度と読みやすいコードを優先した」と書いており、オンチェーン化のコストを安いチェーン（Redstone）で吸収する前提で設計されていた。", k: claim, who: "Lattice (Vera)", s: [src-sky-strife-patching], q: "In general, our attitude towards gas optimization on Sky Strife has been lax."}
+  roles:
+    - {t: "運営（Lattice）: 開発、World の展開と修正、シーズン運営、無料試合の定期作成（初回プレイテストでは 1 日 3 回）、シーズンパス販売、マップの選定を担った。Sky Key を保持し、autonomous mode で kooshaba に移譲した。", k: fact, s: [src-sky-strife-playtest, src-sky-strife-orbs-blog, src-sky-strife-wiki-skykey, src-sky-strife-autonomous]}
+    - {t: "プレイヤー: 試合への参加に加え、🔮 を使った試合の作成者（マッチプロモーター）としての役割が期待された。初回の 2 週間プレイテストでは 307 試合のうち 178 試合がユーザー作成だったと運営は報告した。", k: claim, who: "Lattice", s: [src-sky-strife-orbs-blog], q: "over half the matches (178 out of 307) were user-created and coordinated"}
+    - {t: "コミュニティ組織: [WE]・GGQuest・WASD・1kx・Yeomen.ai・Paladins DAO・AW Research などがリーグ、大会、マップ制作コンテスト、ダッシュボード、プラグインを作った。", k: claim, who: "Lattice", s: [src-sky-strife-mainnet-blog]}
+    - {t: "エージェント・ボット: 公式リポジトリにヘッドレスクライアントとボット生成スクリプト（createBotPlayer、findAndFillMatches 等）があり、プログラムからの参加は技術的に想定されていた。ボットの規模や AI エージェントの参加実績は確認できなかった。", k: fact, s: [src-sky-strife-repo]}
+  trajectory:
+    - {t: "2022-08 に前身 MUDWar の最初のプレイテスト（最大 64 人・中央の王冠争奪）。その後 4 人の殲滅戦・小さなマップへ縮小し、MUD v2 に移植。2023 年初めから毎週金曜のプレイテストを行い、2023 年に 2 週間の公開プレイテストを実施した。", k: fact, s: [src-sky-strife-playtest]}
+    - {t: "2023-11-27〜12-15 に Redstone Holesky テストネットで Season 0（初の永続的プレイテスト、最初の 3 日間はシーズンパス無料）。テストネットのシーズンは Season 0・0.1・0.2・0.3 の 4 回。", k: fact, s: [src-sky-strife-season0, src-sky-strife-mainnet-blog, src-sky-strife-bcg-news]}
+    - {t: "Season 0 告知は Season 1（mainnet）を「2024 年初め」と予告していたが、実際の mainnet 開始は 2024-05-01 だった。Season 0.1 は 2024-01-08〜01-30 に Redstone Holesky で行う予定と、コミュニティ（WASD）の記事の転載が伝える（二次資料・予定日）。公開リポジトリには Season 0.2（2024-02-06）・0.3（2024-03-19）のコミットがある。", k: fact, s: [src-sky-strife-season0, src-sky-strife-grenade-jan2024, src-sky-strife-repo]}
+    - {t: "2024-05-01、Redstone mainnet の一般公開と同日に mainnet でのシーズンを開始。公開リポジトリには 2024-06-10 に Season 2、2024-07-10 に Season 3 のコミットがある。", k: fact, s: [src-sky-strife-redstone-live, src-sky-strife-repo]}
+    - {t: "Redstone で 3 シーズンを経た後、運営は autonomous mode への移行を告知: 全機能の全員開放、1 時間開始されない試合は誰でも取り消し可能、無料の日次試合とシーズン・シーズンパスの廃止、Sky Key の kooshaba への移譲、独立スタジオとしての分離。告知ページに日付表記はなく、Season 3 のコミット（2024-07-10）より後で、Wayback Machine の最古の保存（2024-09-07）より前、としか特定できなかった。", k: fact, s: [src-sky-strife-autonomous, src-sky-strife-repo, src-sky-strife-wayback-autonomous]}
+    - {t: "2026-04、Lattice は「持続可能な事業にできなかった」として解散と Redstone の 2026-05-15 停止を告知。停止後は EOA の ETH/WETH のみ L1 の引き出しコントラクトで回収でき、コントラクト内の資金は回収できないとした。", k: claim, who: "Lattice (ludens, alvarius)", s: [src-sky-strife-winding-down], q: "Ultimately, we never managed to turn any of it into a sustainable business."}
+  retention_evidence:
+    - {t: "示されている指標: 初回の 2 週間プレイテストで 355 人のユニークプレイヤー、307 試合、そのうち 178 試合がユーザー作成。大半が 2 試合以上遊んだとし、目標の 100 人を 2 日目に達成したと運営は述べた。", k: claim, who: "Lattice", s: [src-sky-strife-orbs-blog]}
+    - {t: "障害（2 日強の停止）の後、試合作成が停止前の水準に戻るまで時間がかかったと運営は書いており、継続性がインフラの安定に敏感だったことを示す。", k: claim, who: "Lattice (Vera)", s: [src-sky-strife-patching]}
+    - {t: "示されていない指標: mainnet シーズンの参加者数・試合数・継続率・シーズンパス販売数は、公式ブログでは画像のグラフ以外に数値として確認できなかった。リポジトリには継続率を集計する SQL（RetentionOverview.sql）があるが結果は公開されていない。", k: unknown}
+    - {t: "autonomous mode 以後（無料試合の廃止後）にどれだけ試合が作られ続けたかを示す資料は見つからなかった。", k: unknown}
+  extensions:
+    - {t: "コミュニティ主導の大会: FaultProofBen が NFT 賞品の大会、ggQuest が賞金 1000 ドルの大会を初回プレイテストで開催。後に GGQuest・WASD・[WE] が World Sky League を運営し、GGQuest・Paladins DAO・AW Research も大会を開いた。", k: claim, who: "Lattice", s: [src-sky-strife-orbs-blog, src-sky-strife-mainnet-blog]}
+    - {t: "コンテンツ: [WE] のマップ制作コンテストの上位 2 作が公式マップローテーションに採用された。マップのオンチェーン登録自体は Sky Key 保持者が行う。", k: fact, s: [src-sky-strife-mainnet-blog, src-sky-strife-repo]}
+    - {t: "ツール: 1kx と Yeomen.ai がダッシュボード、Yeomen.ai がカスタムプラグインを作成。Night Market 上で試合の賭け市場が形成されたと運営は述べる。", k: claim, who: "Lattice", s: [src-sky-strife-mainnet-blog, src-sky-strife-autonomous]}
+    - {t: "コードの派生: evmts/skystrife-tevm は skystrife-public のフォークで、Tevm による楽観的更新の概念実証（1 コミット）。", k: fact, s: [src-sky-strife-tevm]}
+    - {t: "MUD v2 告知は「Sky Strife と Biomes では、特定のプレイヤーを倒す・ユニットを破壊するなどの独自のインセンティブシステムを世界の中に作れる」と書くが、Sky Strife で第三者が実際にオンチェーンの報酬・参加資格システムを登録した具体例は確認できなかった。", k: claim, who: "Lattice", s: [src-sky-strife-mud-v2-ready]}
+  constraints:
+    - {t: "管理鍵: Sky Key は報酬曲線・マップ・ユニット性能・シーズン設定を変えられ、World の ETH を引き出せる。Wiki は鍵の最終形を「作業中」とし、将来確定させるとしていた。", k: fact, s: [src-sky-strife-wiki-skykey, src-sky-strife-repo], q: "For all intents and purposes, whomever holds the Sky Key is the “owner” of the Sky Strife world."}
+    - {t: "チェーン依存: World・🔮・試合履歴は Redstone 上にあり、L2 の停止とともに失われる。コードが公開でも、状態（誰がいくら 🔮 を持つか）を別チェーンに移す手段は MUD の移行ツールが後から作られたが、Sky Strife に使われたかは不明。", k: fact, s: [src-sky-strife-winding-down]}
+    - {t: "1 日あたりの試合作成数に 2000 の上限（MATCHES_PER_DAY_HARD_CAP）があり、報酬は直近の試合数が増えるほど 150 から 50 🔮 へ下がる。Wiki はこれを「投機的な行動を防ぐため」と説明する。", k: fact, s: [src-sky-strife-repo, src-sky-strife-wiki-rewards]}
+    - {t: "報酬曲線が作成コスト 100 🔮 を上回る区間（150 🔮）では、試合を作って自分（や仲間の複数アカウント）で勝てば 🔮 が増える。1 回の試合で配られる報酬の配分は順位別比率に依存し、多重アカウントへの対策はコード上確認できなかった。", k: analysis, s: [src-sky-strife-repo]}
+    - {t: "15 秒ターンと 2〜4 人の小規模試合という形式は、チェーンの確定時間に合わせた妥協であり、より大規模・高頻度の対戦に拡大できるかは示されていない。", k: analysis, s: [src-sky-strife-season0]}
+  principles:
+    - {t: "固定供給トークンで「試合を作る権利」を配る: 試合（インスタンス）の生成コストをトークンで払い、報酬をプールから払うと、運営の試合配布を減らしつつ、勝者が次の試合の主催者になる循環を作れる。適用条件は報酬が直近の試合数で減衰し、作成コストと報酬の差で無限増殖しないこと。破綻条件は、報酬がコストを上回る区間で多重アカウントの自作自演が採算に乗る場合や、プレイヤー数が少なく試合が埋まらない場合（autonomous mode で無料試合を止めると新規参加者の入口が細る）。", k: analysis, s: [src-sky-strife-orbs-blog, src-sky-strife-repo, src-sky-strife-wiki-rewards]}
+    - {t: "インスタンスごとの参加資格フック: 試合作成者が任意のオンチェーンシステム（isAllowed）を参加条件として指定できるようにすると、トークン保有・ギルド所属・大会の予選通過などの規則を運営の改修なしに第三者が作れる。適用条件は MUD のように別名前空間のシステムを安全に呼び出せる基盤があること。破綻条件は、フックが常に失敗する・ガスを浪費する悪意ある実装で試合が詰まる場合で、Sky Strife では 1 時間開始しない試合を誰でも取り消せる規則で後始末した。", k: analysis, s: [src-sky-strife-repo, src-sky-strife-autonomous]}
+    - {t: "管理権限を 1 つの鍵に集約し範囲を公開する: 運営権限をトークン化した鍵にまとめ、変えられる項目（バランス・マップ・報酬曲線）と変えられない項目（コアロジック）を明文化すると、運営交代（Lattice→kooshaba）を鍵の移転で行える。適用条件は、鍵以外の上位権限（ルート名前空間の所有権・アップグレード権）も同時に整理されていること。破綻条件は、明文化された範囲の外にチェーン運営者や名前空間所有者の権限が残る場合で、Sky Strife ではチェーン停止という鍵の外のリスクで世界が終わった。", k: analysis, s: [src-sky-strife-wiki-skykey, src-sky-strife-autonomous, src-sky-strife-winding-down]}
+    - {t: "ゲームを基盤の負荷試験にする: フレームワークとチェーンの開発元が自社ゲームを本番で運用すると、ガス上限・インデクサ・状態分割などの欠陥が早く見つかり基盤側が改善される（KeysInTable 問題、状態分割、トランザクション遅延）。適用条件は基盤とゲームが同じ組織にあること。破綻条件は、ゲームが基盤の宣伝・検証手段と位置づけられる結果、基盤側の事業判断（資金・方針）でゲームの継続が決まること。", k: analysis, s: [src-sky-strife-patching, src-sky-strife-autonomous, src-sky-strife-winding-down]}
+  counter_evidence:
+    - {t: "「プレイヤーが試合を作る自己調整経済」の成功を示す数字は初回 2 週間のプレイテスト（355 人）のものに限られ、mainnet 期の定着を示す公開データは見つからない。autonomous mode の告知自体が「無料試合が出るまで何時間も待った」不満に触れており、試合の供給は最後まで課題だった可能性がある。", k: claim, who: "Lattice", s: [src-sky-strife-orbs-blog, src-sky-strife-autonomous]}
+    - {t: "第三者拡張の実例として挙がるもの（大会、ダッシュボード、プラグイン、賭け市場）は、多くがオフチェーンのツールや人手の運営で、従来のゲームでも外部ツールや大会として実現できる種類のものである。オンチェーンの許可不要拡張でなければ成立しなかった例は、この調査では特定できなかった。", k: analysis, s: [src-sky-strife-mainnet-blog]}
+    - {t: "Sky Key の説明（コアロジックは変えられない）と、2023 年に運営がシステムをホットスワップした事実・MUD の名前空間所有者がシステムを差し替えられる仕様は緊張関係にある。「自律」の実態は運営主体の自制と権限設定に依存していた。", k: analysis, s: [src-sky-strife-wiki-skykey, src-sky-strife-patching, src-sky-strife-mud-access]}
+    - {t: "終了の直接要因は、ゲーム単体の不人気ではなく、運営母体 Lattice の資金枯渇と Redstone の停止である（Lattice の説明）。ゲームの設計を評価する材料と、基盤事業の失敗を区別する必要がある。", k: claim, who: "Lattice (ludens, alvarius)", s: [src-sky-strife-winding-down]}
+    - {t: "公開リポジトリの最終コミットは 2024-07-23 で autonomous mode 告知より前にあたり、autonomous mode 以後に稼働していた設定・コードが公開されたかは確認できない。open_source を full とする評価は 2024-07 時点のスナップショットに対するもので、Sky Key 移譲後の World の実態を外部から再現できる保証にはならない。", k: analysis, s: [src-sky-strife-repo, src-sky-strife-wayback-autonomous]}
+    - {t: "Lattice の Winding Down 告知は、MUD 用の移行ツールで DUST の World を状態ごと別チェーンへ移したと書く。技術的には Sky Strife も移行し得たため、「チェーン停止で世界が失われた」は基盤の宿命ではなく、移行を行う主体（kooshaba / Lattice）がいなかった、あるいは選ばなかった結果である可能性がある（移行の有無自体は未確認）。", k: analysis, s: [src-sky-strife-winding-down]}
+    - {t: "Lattice は DUST での経験を「プレイヤーが通貨・市場・都市・新聞を作った」と述べており、自律世界の創発は Sky Strife のような試合型 RTS よりも、持続するサンドボックス型の世界で強く現れたと運営自身が見ている可能性がある。", k: claim, who: "Lattice (ludens, alvarius)", s: [src-sky-strife-winding-down]}
+
+metrics:
+  - {id: m-sky-strife-playtest-players, type: players, value: 355, unit: players, period: "2023（2 週間プレイテスト）", definition: "運営発表のユニークプレイヤー数（定義はウォレット単位か不明）", nature: reported, s: [src-sky-strife-orbs-blog]}
+  - {id: m-sky-strife-playtest-matches, type: other, value: 307, value_text: "307 試合（うちユーザー作成 178、管理者作成 129）", unit: matches, period: "2023（2 週間プレイテスト）", definition: "プレイテスト期間中の試合数（運営発表）", nature: reported, s: [src-sky-strife-orbs-blog]}
+  - {id: m-sky-strife-orb-supply, type: other, value: 100000000, value_text: "1 億 🔮（固定供給）", unit: Orb, period: "World 開始時", definition: "Sky Pool に鋳造された 🔮 の総量。追加発行なし（公式 Wiki。コード上の SKYPOOL_SUPPLY 定数とも一致）", nature: reported, s: [src-sky-strife-wiki-orbs, src-sky-strife-repo]}
+  - {id: m-sky-strife-match-cost, type: other, value: 100, unit: Orb, period: "mainnet 期〜autonomous mode", definition: "試合作成の費用（COST_CREATE_MATCH）。autonomous mode でも据え置き", nature: reported, s: [src-sky-strife-wiki-orbs, src-sky-strife-autonomous, src-sky-strife-repo]}
+  - {id: m-sky-strife-reward-range, type: other, value_text: "50〜150 🔮", unit: Orb, period: "コード参照日 2026-10-23（リポジトリ最終版 2024-07）", definition: "1 試合の報酬プール。直近ウィンドウ内の試合数が 1000 未満で作成費の 150%、4000 以上で 50%（コード）。Wiki は直近 2 日の試合数と記載", nature: reported, s: [src-sky-strife-repo, src-sky-strife-wiki-rewards]}
+  - {id: m-sky-strife-downtime, type: other, value_text: "2 日強", unit: days, period: "2023（2 週間プレイテスト 1 週目）", definition: "ガス問題によるクライアント停止（メンテナンスモード）の期間（運営発表）", nature: reported, s: [src-sky-strife-patching]}
+
+events:
+  - {id: ev-sky-strife-mudwar, date: "2022-08", type: testnet, title: "前身 MUDWar の最初のプレイテスト", detail: "中央の島の Ember Crown を奪い合う最大 64 人の形式", s: [src-sky-strife-playtest]}
+  - {id: ev-sky-strife-playtest, date: "2023", type: testnet, title: "2 週間の公開プレイテスト", detail: "🔮 で試合作成、1 日 3 回の無料試合。355 人・307 試合。期間中にガス問題で 2 日強停止。告知ページに日付はないが、2022-08 の MUDWar を「1 年以上前」とする記述から 2023 年", s: [src-sky-strife-playtest, src-sky-strife-orbs-blog, src-sky-strife-patching]}
+  - {id: ev-sky-strife-season0, date: "2023-11-27", type: testnet, title: "Season 0 を Redstone Holesky テストネットで開始", detail: "12-15 まで。最初の 3 日間はシーズンパスを無料で鋳造", s: [src-sky-strife-season0, src-sky-strife-bcg-news]}
+  - {id: ev-sky-strife-public-repo, date: "2024-01-08", type: release, title: "skystrife-public に最初の公開コミット", detail: "以後、プラグイン機構（2024-03）、ヘッドレスクライアント、Discord ボット等を公開", s: [src-sky-strife-repo]}
+  - {id: ev-sky-strife-mainnet, date: "2024-05-01", type: launch, title: "Redstone mainnet でシーズン開始", detail: "Redstone の一般公開日。Redstone Worlds Expo の初日として公開", s: [src-sky-strife-redstone-live, src-sky-strife-mainnet-blog]}
+  - {id: ev-sky-strife-season3, date: "2024-07-10", type: round, title: "Season 3 のコード公開", detail: "公開リポジトリのコミット「Season 3」の日付。シーズンの正式な開始日は未確認", s: [src-sky-strife-repo]}
+  - {id: ev-sky-strife-autonomous, date: "2024", type: spec-change, title: "autonomous mode へ移行、Sky Key を kooshaba へ", detail: "シーズン・シーズンパス・無料試合の廃止、全機能開放、独立スタジオとして分離。正確な日付は未確認（Season 3 コミット 2024-07-10 以後、Wayback 最古保存 2024-09-07 以前）", s: [src-sky-strife-autonomous, src-sky-strife-wayback-autonomous]}
+  - {id: ev-sky-strife-lattice-wind-down, date: "2026-04", type: end, title: "Lattice が解散と Redstone 停止を告知", detail: "Redstone は 2026-05-15 23:59 UTC に停止予定。MUD は機能完成として公開継続", s: [src-sky-strife-winding-down]}
+  - {id: ev-sky-strife-redstone-shutdown, date: "2026-05-15", type: end, title: "Redstone 停止（予定日）", detail: "参照日時点の redstone.xyz は L1 での残高請求ページのみ", s: [src-sky-strife-winding-down, src-sky-strife-redstone-claim]}
+
+relations:
+  - {to: mud, type: built-with, basis: confirmed, note: "MUD v2 で構築され、MUD の改良（状態分割、インデクサ等）を牽引した", s: [src-sky-strife-repo, src-sky-strife-mud-zero-to-v2]}
+  - {to: opcraft, type: same-team, basis: confirmed, note: "どちらも Lattice の社内開発。OPCraft の状態肥大の教訓が MUD v2 のデータモデルを経て Sky Strife に引き継がれた", s: [src-sky-strife-mud-zero-to-v2]}
+  - {to: autonomous-worlds-essay, type: influenced-by, basis: confirmed, note: "README の Mission が 0xPARC の Autonomous Worlds 記事にリンクし、最終目標を Autonomous World とする", s: [src-sky-strife-repo]}
+  - {to: dark-forest, type: similar-to, basis: analytic, note: "フルオンチェーン RTS、クライアントプラグイン、コミュニティ大会という共通点。Lattice は Dark Forest のコミュニティから生まれたと述べるが、Sky Strife の設計が直接影響を受けたことを示す記述は確認していない"}
+  - {to: primodium, type: similar-to, basis: analytic, note: "同時期の MUD 製フルオンチェーン戦略ゲーム。Primodium は持続世界での生産と襲撃、Sky Strife は短時間の試合という対照"}
+  - {to: biomes, type: similar-to, basis: analytic, note: "同じ MUD/Redstone 圏の作品。MUD v2 告知は両者を世界内に独自のインセンティブを作れる例として並べた"}
+  - {to: c-permissionless-extension, type: built-with, basis: confirmed, note: "試合ごとの参加資格システム（IAllowSystem）を任意の MUD システムで指定できる", s: [src-sky-strife-repo]}
+
+unknowns:
+  - "autonomous mode 告知の正確な日付（告知ページに日付表記がない）。"
+  - "mainnet シーズン（Season 1〜3）の参加者数、試合数、継続率、シーズンパス販売数と売上。"
+  - "Sky Strife のルート名前空間の所有権が放棄・移譲されたか（Sky Key とは別の上位権限）。"
+  - "Redstone 停止前に Sky Strife の World が他チェーンへ移行されたか。停止後に kooshaba が運営を続けたか。"
+  - "第三者がオンチェーンの参加資格システムや報酬システムを実際に登録した例。Night Market の賭け市場の規模。"
+  - "ボット・多重アカウントの規模と、報酬が作成費を上回る区間での自作自演の有無。"
+  - "Season 0.1〜0.3 および mainnet Season 1〜3 の正確な期間（Season 0.1 の予定日のみ二次資料で確認）。"
+  - "Redstone 停止日（2026-05-15）が予定どおり実行されたかの一次記録（参照日に redstone.xyz が残高請求ページのみで、RPC が名前解決できないことから停止済みと推定）。"
+contradictions:
+  - {t: "報酬曲線の算定期間: 公式 Wiki は「直近 2 日の試合数」で報酬が変わると書くが、公開コードの WINDOW 定数は 604800 秒（1 週間）。ただし LibSkyPool は実行時に SkyPoolConfig テーブルの window 値を読むため、定数は初期値にすぎず、本番 World の値は設定で変わり得た（本番値は未確認）。", s: [src-sky-strife-wiki-rewards, src-sky-strife-repo]}
+  - {t: "コアロジックの変更可能性: Wiki は Sky Key 保持者はコアの戦闘・経済ロジックを変えられないとするが、MUD の仕様では名前空間所有者がシステムを差し替えられ、運営は 2023 年に MatchSystem を差し替えた（Sky Key とルート名前空間所有権が別物である可能性）。", s: [src-sky-strife-wiki-skykey, src-sky-strife-mud-access, src-sky-strife-patching]}
+
+sources:
+  - {id: src-sky-strife-playtest, title: "Launching the Sky Strife Two Week Playtest", url: "https://lattice.xyz/blog/launching-the-sky-strife-two-week-playtest", publisher: "Lattice blog", author: "Vera", type: official-blog, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "MUDWar の経緯、プラグイン、1 日 3 回の無料試合。ページに日付表記なし"}
+  - {id: src-sky-strife-orbs-blog, title: "Brother, Can You Spare a 🔮", url: "https://lattice.xyz/blog/brother-can-you-spare-a", publisher: "Lattice blog", author: "Vera, Kooshaza", type: retrospective, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "2 週間プレイテストの振り返り。355 人、307 試合中 178 がユーザー作成、コミュニティ大会"}
+  - {id: src-sky-strife-patching, title: "Patching a World", url: "https://lattice.xyz/blog/patching-a-world-sky-strife-playtest-engineering-retrospective", publisher: "Lattice blog", author: "Vera", type: retrospective, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "KeysInTable によるガス爆発、MetaMask 上限、システムのホットスワップ、2 日強の停止"}
+  - {id: src-sky-strife-season0, title: "Unveiling Season 0: Sky Strife’s Redstone Testnet Release", url: "https://lattice.xyz/blog/unveiling-season-0-sky-strife-redstone-testnet-release", publisher: "Lattice blog", author: "Lattice", type: official-blog, primary: true, published: "2023-11", accessed: "2026-10-23", access: fetched, lang: en, note: "Season 0 は 11/27〜12/15、15 秒ターン、🔮 の役割、シーズンパス"}
+  - {id: src-sky-strife-mainnet-blog, title: "Sky Strife is Coming to Mainnet", url: "https://lattice.xyz/blog/sky-strife-mainnet", publisher: "Lattice blog", author: "Lattice", type: official-blog, primary: true, published: "2024", accessed: "2026-10-23", access: fetched, lang: en, note: "テストネット 4 シーズン、ダッチオークションのシーズンパス、コミュニティの活動一覧"}
+  - {id: src-sky-strife-race-to-mainnet, title: "The Race to Mainnet", url: "https://lattice.xyz/blog/race-to-mainnet", publisher: "Lattice blog", author: "Lattice", type: official-blog, primary: true, published: "2024", accessed: "2026-10-23", access: fetched, lang: en, note: "Redstone mainnet の開発者プレビュー開始と 5/1 公開予定の作品一覧"}
+  - {id: src-sky-strife-redstone-live, title: "Start Your Engines: Redstone is Live", url: "https://lattice.xyz/blog/start-your-engines-redstone-live", publisher: "Lattice blog", author: "Lattice", type: official-blog, primary: true, published: "2024-05", accessed: "2026-10-23", access: fetched, lang: en, note: "Redstone mainnet 公開、Sky Strife は Worlds Expo 初日に公開、Plasma Mode"}
+  - {id: src-sky-strife-autonomous, title: "Sky Strife Enters Autonomous Mode", url: "https://lattice.xyz/blog/sky-strife-autonomous-mode", publisher: "Lattice blog", author: "Lattice", type: official-blog, primary: true, published: "2024", accessed: "2026-10-23", access: fetched, lang: en, note: "3 シーズン後の autonomous mode、無料試合とシーズンの廃止、Sky Key を kooshaba へ。日付表記なし"}
+  - {id: src-sky-strife-winding-down, title: "Winding Down Lattice", url: "https://lattice.xyz/winding-down", publisher: "Lattice", author: "Ludens & Alvarius", type: retrospective, primary: true, published: "2026-04", accessed: "2026-10-23", access: fetched, lang: en, note: "Lattice 解散の理由、DUST、MUD 機能完成、Redstone 2026-05-15 23:59 UTC 停止、引き出し方法。Sky Strife の扱いには触れず、kooshaba への謝辞（Sky Strife と最初の社内スタジオを作った）と遊んだゲームの列挙のみ"}
+  - {id: src-sky-strife-redstone-claim, title: "Redstone — Balance Claim", url: "https://redstone.xyz/", publisher: "Redstone", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "参照日時点でトップページが L1 での残高請求アプリのみになっていることを確認"}
+  - {id: src-sky-strife-repo, title: "latticexyz/skystrife-public", url: "https://github.com/latticexyz/skystrife-public", publisher: "GitHub", type: code, primary: true, published: "2024-07", accessed: "2026-10-23", access: fetched, lang: en, note: "git clone で確認。MatchSystem・LibSkyPool（報酬曲線・エスクロー）・PlayerRegisterSystem（参加資格フック）・WithdrawSystem・constants.sol・worlds.json（chain 690 等）・ヘッドレスクライアント。26 コミット、最終 2024-07-23"}
+  - {id: src-sky-strife-contracts-readme, title: "Sky Strife Contracts (packages/contracts/README)", url: "https://github.com/latticexyz/skystrife-public/tree/main/packages/contracts", publisher: "GitHub", type: code, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "試合中のゲームプレイは Move/Build/Lobby の 3 システムのみ、マイグレーションスクリプト"}
+  - {id: src-sky-strife-plugins-readme, title: "Sky Strife Plugins (packages/plugins/README)", url: "https://github.com/latticexyz/skystrife-public/tree/main/packages/plugins", publisher: "GitHub", type: code, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "クライアントプラグインは内部 API に全アクセス、例として Frenzy（自動攻撃）など"}
+  - {id: src-sky-strife-wiki-home, title: "Sky Strife Wiki", url: "https://latticexyz.notion.site/1054c36f2805407cbd9d738427f49d13", publisher: "Lattice (Notion)", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "Notion の公開 API 経由で本文を取得。Redstone 上の無料フルオンチェーン RTS、小規模チームで約 2 年"}
+  - {id: src-sky-strife-wiki-orbs, title: "Orbs (Sky Strife Wiki)", url: "https://latticexyz.notion.site/Orbs-b0a9a03747f543a4be6d49aa58538c69", publisher: "Lattice (Notion)", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "1 億の固定供給、試合作成 100 🔮、トークンアドレス"}
+  - {id: src-sky-strife-wiki-skykey, title: "Sky Key (Sky Strife Wiki)", url: "https://latticexyz.notion.site/949481051730439cabf3db5b451c5475", publisher: "Lattice (Notion)", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "Sky Key の権限一覧と変更できない範囲。保持者は（記載時点で）Lattice"}
+  - {id: src-sky-strife-wiki-skypool, title: "Sky Pool (Sky Strife Wiki)", url: "https://latticexyz.notion.site/2cc7cc6c5fee4532adcb74e152b780c2", publisher: "Lattice (Notion)", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "Sky Pool は試合作成と報酬支払いしかできず、直接引き出せない"}
+  - {id: src-sky-strife-wiki-rewards, title: "Match Rewards (Sky Strife Wiki)", url: "https://latticexyz.notion.site/934f394947614b34960fef942f413f9a", publisher: "Lattice (Notion)", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "報酬は作成費の 1.5 倍〜0.5 倍、直近 2 日の試合数で変動"}
+  - {id: src-sky-strife-wiki-rules, title: "Rules & Mechanics (Sky Strife Wiki)", url: "https://latticexyz.notion.site/8a7d88fb1bf648d780b7a1df713ae5fb", publisher: "Lattice (Notion)", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "15 秒ターン、初期 1000 ゴールド、鉱山収入"}
+  - {id: src-sky-strife-wiki-contribute, title: "Contribute (Sky Strife Wiki)", url: "https://latticexyz.notion.site/3e562afda00748eeadf0ab1167e8513e", publisher: "Lattice (Notion)", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "MIT ライセンスでオープンソース"}
+  - {id: src-sky-strife-site, title: "Sky Strife | Fully Onchain RTS", url: "https://skystrife.xyz/", publisher: "Sky Strife", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "無料のフルオンチェーン RTS、🔮 の説明、Lattice 制作・MUD・Redstone"}
+  - {id: src-sky-strife-mud-zero-to-v2, title: "MUD from zero to v2", url: "https://lattice.xyz/blog/mud-zero-to-v2", publisher: "Lattice blog", author: "Lattice", type: retrospective, primary: true, published: "2023", accessed: "2026-10-23", access: fetched, lang: en, note: "Dark Forest 型の構造の問題、OPCraft の状態肥大、Sky Strife のための状態分割"}
+  - {id: src-sky-strife-mud-v2-ready, title: "MUD v2 is ready", url: "https://lattice.xyz/blog/mud-2-is-ready", publisher: "Lattice blog", author: "Lattice", type: official-blog, primary: true, published: "2024-03", accessed: "2026-10-23", access: fetched, lang: en, note: "Store と World、第三者がコードを追加できる World、Sky Strife と Biomes の独自インセンティブ"}
+  - {id: src-sky-strife-mud-access, title: "Namespaces and Access Control (MUD docs)", url: "https://mud.dev/world/namespaces-access-control", publisher: "MUD docs", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "latticexyz/mud の docs を clone して確認。名前空間所有者はシステムの登録・差し替えができ、所有権を address(0) に移すと凍結"}
+  - {id: src-sky-strife-bcg-news, title: "Lattice prepares to launch Sky Strife season 0", url: "https://www.blockchaingamer.biz/news/28858/lattice-launch-sky-strife-season-0/", publisher: "BlockchainGamer.biz", author: "Jenny Jordan", type: news, primary: false, published: "2023-11-23", accessed: "2026-10-23", access: fetched, lang: en, note: "Season 0 の期間と内容（公式発表の要約）"}
+  - {id: src-sky-strife-play-client, title: "Sky Strife client bundle (play.skystrife.xyz)", url: "https://play.skystrife.xyz/", publisher: "Sky Strife", type: code, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "検証役が配信中の JS バンドルを取得。chainId の既定値 690、rpc.redstonechain.com / indexer.mud.redstonechain.com / Garnet の各エンドポイントを参照。参照日に Redstone 側 RPC は名前解決不可、インデクサは HTTP 530"}
+  - {id: src-sky-strife-wayback-autonomous, title: "Wayback Machine availability: lattice.xyz/blog/sky-strife-autonomous-mode", url: "http://archive.org/wayback/available?url=lattice.xyz/blog/sky-strife-autonomous-mode&timestamp=20240101", publisher: "Internet Archive", type: archive, primary: false, accessed: "2026-10-23", access: snippet, lang: en, note: "API 応答で最も近い（最古の）保存が 2024-09-07 と返った。スナップショット本文はプロキシで取得不可"}
+  - {id: src-sky-strife-grenade-jan2024, title: "全鏈遊戲新動向:盤點 1 月值得關注的 5 款遊戲", url: "https://grenade.tw/blog/2024-jan-gamefi/", publisher: "Grenade (深潮 TechFlow 転載)", author: "WASD", type: news, primary: false, published: "2024-01", accessed: "2026-10-23", access: fetched, lang: zh, note: "Season 0.1 を 1/8〜1/30 に Redstone Holesky で行う予定と記載（翻訳転載）"}
+  - {id: src-sky-strife-tevm, title: "evmts/skystrife-tevm", url: "https://github.com/evmts/skystrife-tevm", publisher: "GitHub", type: code, primary: false, accessed: "2026-10-23", access: fetched, lang: en, note: "skystrife-public のフォーク。Tevm 楽観的更新の概念実証、1 コミット"}

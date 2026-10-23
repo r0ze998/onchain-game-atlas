@@ -1,0 +1,258 @@
+id: dark-forest
+name: Dark Forest
+name_ja: ダーク・フォレスト
+aliases: [DF, "Dark Forest v0.6"]
+kind: game
+depth: deep
+updated: "2026-10-23"
+chains: [Ethereum Ropsten (testnet), xDai / Gnosis Chain, Ethereum mainnet（賞品 NFT のみ）]
+team: "Dark Forest team（Brian Gu / gubsheep ほか。後に 0xPARC が主な資金源）"
+summary: >-
+  zkSNARK を使い、公開台帳の上で「計算によってしか晴れない戦場の霧」を実現した宇宙征服型 RTS / MMO。
+  惑星の座標はハッシュとしてのみチェーンに載り、移動の正当性はブラウザで生成した ZK 証明で示す。
+  2020 年の Ropsten テストネットから xDai（Gnosis Chain）へ移り、期間限定のラウンド制で運営され、
+  プラグイン・第三者クライアント・プレイヤー DAO・独自コントラクトを公認したことで、オンチェーンゲームの拡張文化の原型の一つになった。
+selection_reason: >-
+  ZK による秘匿情報をゲームの中心メカニクスとして実戦投入した代表例であり、同時に「ボット・自動化を公認したときに何が起きるか」
+  「ラウンド制と管理者権限（アップグレード・停止・スコア操作）が残るオンチェーンゲームは何を約束できるか」を、
+  公式ブログの各ラウンド報告とコードで追える数少ない事例だから。拡張が盛んだった一方で公式開発は 2022 年夏に休止しており、反例としても重要。
+categories:
+  - {id: onchain-rules, role: primary, reason: "移動・資源成長・戦闘・アーティファクトの判定がコントラクト（v0.6 では Diamond の各 facet）内で行われる"}
+  - {id: zk, role: secondary, reason: "init / move / reveal などの zkSNARK 回路で座標を秘匿したまま行動の正当性を検証する"}
+  - {id: aw, role: secondary, reason: "Lobbies により誰でもオンチェーンで自分の宇宙を展開でき、プレイヤー DAO や第三者コントラクトが周辺に生まれた"}
+  - {id: infra, role: secondary, reason: "Ropsten の負荷問題から xDai へ移行し、RPC 負荷・ガス・コントラクトサイズ上限が設計を規定した"}
+status:
+  value: dormant
+  as_of: "2026-10"
+  note: >-
+    公式の最後のラウンドは v0.6 Round 5（2022-02-18〜02-28）。2022-07 に公式チームが「ラウンド駆動の開発」を休止すると告知し、
+    以後の公式ラウンドは確認できなかった。コミュニティラウンドや dfdao の派生モードは 2022 年に行われた。
+    GitHub リポジトリは公開のまま残り、zkga.me はタイトルのみ表示（参照日時点）。「終了」と明言する一次資料は見つからないため dormant とした。
+  s: [src-df-summer-break, src-df-r5-wrapup, src-df-github-org, src-df-zkgame-site]
+dates:
+  announced: {date: "2020-08-02", s: [src-df-announce], note: "公式ブログで v0.3 ベータを告知"}
+  launched: {date: "2020-08", s: [src-df-announce, src-df-v3-rules], note: "v0.3 を Ropsten テストネットで開始。開始日は告知では 8/7、ルール記事では 8/8 と記載（contradictions 参照）"}
+
+architecture:
+  onchain:
+    level: core-rules
+    detail: >-
+      プレイヤー初期化・移動・惑星のアップグレード・シルバー引き出し・アーティファクトの発見と移動・捕獲ゾーンなどのルール判定はコントラクトで行われ、
+      惑星のエネルギーやシルバーは時刻差分から遅延評価（LibLazyUpdate）される。座標そのものはチェーンに載らず MiMC ハッシュ（location ID）だけが保存され、
+      移動時は zkSNARK 証明（移動距離・世界半径・ハッシュの一致・Perlin 値）がコントラクト上の Verifier で検証される。
+      一方、地図の探索（座標のハッシュ総当たり）とその結果の地図データ、証明生成、描画はすべてオフチェーン（プレイヤーの端末）にある。
+    s: [src-df-code-eth, src-df-code-circuits, src-df-init-circuit, src-df-announce]
+  offchain:
+    - {item: "地図の探索（座標空間のハッシュ総当たり）はブラウザまたはプレイヤーのサーバー・GPU マイナーで行う", s: [src-df-announce, src-df-r3-wrapup]}
+    - {item: "zkSNARK 証明の生成はクライアント側（snarkjs / circom）", s: [src-df-init-circuit, src-df-naavik]}
+    - {item: "公式クライアント（zkga.me）、プラグイン配信（plugins.zkga.me）、サブグラフ（The Graph）による読み取り", s: [src-df-plugins-repo, src-df-r3-announce]}
+    - {item: "ホワイトリスト鍵の配布とメール・Discord での運営、賞品 NFT の請求手続き", s: [src-df-announce-v6, src-df-r5-wrapup]}
+    - {item: "RPC エンドポイント（v0.4 で公開 RPC が過負荷になり、独自ノード指定を可能にした）", s: [src-df-v4-recap]}
+  admin:
+    level: significant
+    detail: >-
+      v0.6 のコントラクトは EIP-2535 Diamond で、所有者は diamondCut により機能を差し替えられる（Round 5 中に実際に修正に使ったと公式が記述）。
+      DFAdminFacet には pause/unpause、任意惑星の所有者変更 (setOwner)、スコアの加減 (addScore / deductScore)、惑星の作成、世界半径の変更、資金引き出し (withdraw) があり、
+      DFWhitelistFacet で参加者の鍵・アドレスを管理する。onlyWhitelisted が付くのは initializePlayer・revealLocation・捕獲ゾーン操作・giveSpaceShips で、
+      move・withdrawSilver・アーティファクト操作などには付かない（ただし初期化に whitelist が必要なため、参加自体は実質 whitelist 制）。
+      ゲームプレイ方針でも、重大なバグ修正のためのアップグレードとラウンドの早期終了の権利を運営が留保している。
+    s: [src-df-code-eth, src-df-diamond, src-df-gameplay-policy]
+  open_source:
+    level: full
+    detail: >-
+      コントラクト（eth）、回路（circuits）、クライアント（client）、npm パッケージ、v0.3 / v0.6 一式が darkforest-eth 組織で公開されている。
+      現在の主要リポジトリのライセンス表示は GPL-3.0。v0.5 告知時には MIT と記載されていた（contradictions 参照）。
+    url: "https://github.com/darkforest-eth"
+    s: [src-df-github-org, src-df-v05, src-df-code-eth]
+  extensibility:
+    level: client-mods
+    detail: >-
+      v0.5 でクライアント内プラグイン機構を導入し、df / ui オブジェクト経由でゲーム操作と描画を拡張できた（例: Repeat Attack、Wage War、Heatmap、Distribute Silver）。
+      コントラクトは誰でも呼べるため、第三者コントラクト（アーティファクト市場 darkforest.market・DarkSea・dropswap.gg、dfdao の Astral Colossus、Nightmarket の座標売買）も作られた。
+      Lobbies により誰でも xDai を払って自分の宇宙（Diamond のコピー）を所有者として展開できた。ただし公式宇宙のルール自体を第三者が書き換えることはできない。
+    s: [src-df-plugins-contest, src-df-r3-wrapup, src-df-r4-wrapup, src-df-lobbies, src-df-nightmarket, src-df-code-eth]
+
+compare:
+  gameplay: {t: "手続き生成された 2 次元宇宙で、惑星間にエネルギーを送って占領・強化し、ラウンドごとに定められた得点（シルバー引き出し、中心への接近、捕獲ゾーンなど）を競う実時間戦略ゲーム。", k: fact, s: [src-df-announce, src-df-announce-v6, src-df-r3-wrapup, src-df-r5-announce]}
+  necessity: {t: "秘匿座標を公開台帳上で検証可能にするという中心の主張は、第三者（他プレイヤー・ボット・コントラクト）が運営なしで同じルールを検証・利用できる点にオンチェーン化の意味がある。ただし運営は停止・アップグレード・スコア操作の権限を保持しており、運営を信頼しなくてよいゲームにはなっていない。", k: analysis, s: [src-df-announce, src-df-code-eth]}
+  information: {t: "惑星座標は MiMC ハッシュとしてのみ公開され、他者の位置は座標空間をハッシュ総当たりすることでしか分からない。行動そのもの（どのハッシュからどのハッシュへの移動か）は公開される。座標を公開する revealLocation もある。", k: fact, s: [src-df-announce, src-df-init-circuit, src-df-code-eth]}
+  persistence: {t: "コントラクトとコードは公開されており、Lobbies やコミュニティラウンドで第三者が宇宙を再展開できた。一方、各ラウンドの宇宙は期間限定で、アーティファクトはラウンド・インスタンス間で使えなかったと第三者分析は指摘する。", k: fact, s: [src-df-lobbies, src-df-community-round, src-df-naavik]}
+  extensibility: {t: "クライアントプラグイン（公式ショーケースに 57 件のディレクトリ）、第三者クライアント・マイナー、公開コントラクトを呼ぶ第三者コントラクト、Lobbies による宇宙の展開が可能だった。", k: fact, s: [src-df-plugins-repo, src-df-r3-wrapup, src-df-lobbies]}
+  money_flow: {t: "代替可能トークンはなく、賞金は運営・寄付者負担（v0.3/v0.5 は 1024 DAI、v0.6 は上位 63 名へ mainnet の惑星 NFT）。プレイヤーは xDai で HAT（見た目）を購入でき、開発資金は Gitcoin Grants と 0xPARC が主（プラグイン機構には Ethereum Foundation の助成もあったと開発者が記す）。", k: fact, s: [src-df-v3-rules, src-df-v05, src-df-announce-v6, src-df-df05-faq, src-df-holiday, src-df-lobbies]}
+  entry_barrier: {t: "ホワイトリスト鍵が必要（前ラウンドで得点した者・待機リストの抽選等）。ブラウザ内のバーナーウォレットと少額の xDai 配布で最初の数十手は拡張機能なしで遊べたが、上位争いは探索用の計算資源とスクリプト作成能力に強く依存した。", k: fact, s: [src-df-df04-faq, src-df-announce-v6, src-df-r1-wrapup]}
+
+concepts: [c-zk-hidden-info, m-fog-of-war, c-onchain-rules, c-onchain-state, c-client-plugins, m-bot-automation, m-seasons, c-own-chain, c-onchain-randomness, c-nft-asset, m-pvp-territory, e-grants-subsidy, c-autonomous-world]
+proposed_concepts:
+  - {id: m-computational-exploration, name: 計算による探索（ハッシュ総当たりの地図）, desc: "秘匿座標のハッシュを総当たりすることで地図を開く。探索速度がプレイヤーの計算資源に比例する。"}
+  - {id: c-forkable-instance, name: 誰でも展開できるゲームインスタンス（Lobbies）, desc: "公式と同じルールのコピーを誰でもオンチェーンに展開し、設定を変えて運営できる。"}
+
+article:
+  what:
+    - {t: "プレイヤーは手続き生成された宇宙のどこかにある自分の母星から始め、惑星から惑星へエネルギーを送って未占領・他者の惑星を奪い、惑星をアップグレードして版図を広げる。", k: fact, s: [src-df-announce, src-df-df04-faq]}
+    - {t: "他者の惑星の位置は最初は見えない。座標はハッシュとしてしかチェーンに載らず、プレイヤーは自分の端末で座標空間を総当たりしてハッシュを照合し、地図を少しずつ「掘り」出す。", k: fact, s: [src-df-announce], q: "This construction introduces a fog of war that can only be uncovered by computation."}
+    - {t: "宇宙は Perlin ノイズで配置された種類の異なる領域（NEBULA・SPACE・DEEP SPACE・DEAD SPACE）に分かれ、v0.4 ではプレイヤーは最も安全な NEBULA に出現し、暗い領域ほど希少で強い惑星がある。小惑星帯でシルバーが採れ、アップグレードや得点に使う。", k: fact, s: [src-df-df04-faq, src-df-naavik]}
+    - {t: "勝敗は期間限定ラウンドの得点で決まり、得点規則はラウンドごとに変わった（v0.3 は上位 10 惑星の人口容量＋シルバーの 10%、v0.6 R1 は引き出したシルバー量、R3 は中心への接近、R5 は捕獲ゾーン等）。", k: fact, s: [src-df-v3-rules, src-df-announce-v6, src-df-r3-wrapup, src-df-r5-announce]}
+    - {t: "v0.5 以降、惑星で見つかるアーティファクト（NFT）が加わり、v0.6 ではワームホールや Photoid Cannon などの効果を持つものが追加された。", k: fact, s: [src-df-v05, src-df-announce-v6]}
+  loop:
+    - {t: "以下は公式ブログ・FAQ・コードからの再構成（筆者は実プレイしていない）。ホワイトリスト鍵を入力するとブラウザ内にバーナーウォレットが作られ、少額の xDai が配られる。", k: fact, s: [src-df-df04-faq, src-df-df05-faq]}
+    - {t: "クライアントが母星候補の座標を探し、init 回路で「座標のハッシュが h であり、世界半径内にある」ことを証明して initializePlayer を送る。", k: fact, s: [src-df-init-circuit, src-df-code-eth]}
+    - {t: "探索（マイナー）を走らせて周囲の座標をハッシュし、既存惑星のハッシュと照合して地図を広げる。見つけた惑星にエネルギーを送る move では、移動元・移動先のハッシュ、移動距離が上限以下であること、移動先の Perlin 値を証明する。", k: fact, s: [src-df-code-circuits, src-df-announce]}
+    - {t: "到着したエネルギーが守備を上回れば惑星を奪う。資源はブロック時刻から遅延評価で増え、シルバーでアップグレードし、ラウンドの得点条件（例: スペースタイム・リップでのシルバー引き出し）を満たす行動を数日〜2 週間繰り返す。", k: fact, s: [src-df-code-eth, src-df-announce-v6]}
+    - {t: "上位プレイヤーの多くはこの一巡をプラグイン・スクリプト・専用サーバーで自動化していた（v0.6 R1 の 1 位は独自プラグイン・スクリプト・サーバーを使用）。ただし同じ R1 の 2 位 Ner0nzz は「ほぼ完全に手動」で、Twitter 外交で地図データと同盟を得たと公式は記す。", k: fact, s: [src-df-r1-wrapup]}
+  before_after:
+    - {t: "公開台帳では全状態が誰にでも読めるため、戦場の霧のような不完全情報ゲームはオンチェーンでは作りにくかった。Dark Forest は「座標を秘匿したまま行動が正しいことだけを証明する」構成でこれを可能にしたと主張した。", k: claim, who: "Dark Forest team", s: [src-df-announce], q: "With zkSNARKs, players can keep private state while publicly submitting verifiably-valid actions."}
+    - {t: "それ以前の Ethereum ゲームの多くが資産（NFT）だけをチェーンに置いたのに対し、移動・戦闘の判定そのものをコントラクトに置いた点で異なる。ただし「世界初」と言える直接の根拠はこの調査では確認していない。", k: analysis}
+    - {t: "当時、Perlin ノイズの SNARK 証明生成は 1 年前には数分かかっていたが数秒になったと運営は述べており、ブラウザで遊べる速度の ZK 証明が成立したことが前提条件だった。", k: claim, who: "Dark Forest team", s: [src-df-v4-recap]}
+    - {t: "運営は ZK 回路の解説記事を公開し、circom / snarkjs（iden3）を使った実装をエンジニア向けに説明した。", k: fact, s: [src-df-init-circuit]}
+  onchain_tradeoffs:
+    - {t: "生まれた遊び: 地図を開く速度が計算資源に比例するため、GPU マイナーの開発、地図データやハッシュ計算力の売買といったメタ経済が生まれた。", k: fact, s: [src-df-r2-wrapup, src-df-r3-wrapup]}
+    - {t: "生まれた遊び: 秘匿座標を ZK で証明しつつ売る Nightmarket のように、秘匿情報そのものを取引対象にする第三者プロトコルが作られた。", k: fact, s: [src-df-nightmarket]}
+    - {t: "増えた不便: v0.3 は約 300 人で Ropsten テストネットをほぼ破綻させ、v0.4 は xDai の公開 RPC を過負荷にして招待を一時停止した。運営は Ethereum mainnet では現状のガス使用量では運用不能と述べた。", k: fact, s: [src-df-v4-recap, src-df-df05-faq], q: "Dark Forest v0.3 nearly broke the Ropsten test network, with only ~300 players."}
+    - {t: "増えた不便: 各手は数秒の確定待ちがあり、反射神経を要する設計は避けるべきだと第三者分析は指摘した。また証明生成コストのため、コントラクトが自律的に最も基本の行動（エネルギー送出）を行えないと述べている。", k: claim, who: "Naavik (Anthony Pecorella)", s: [src-df-naavik], q: "smart contracts cannot do the most fundamental action in the game — sending energy"}
+    - {t: "増えた不便: コントラクトサイズ上限のため機能追加のたびに分割・ライブラリ化が必要になり、v0.6 R5 前に Diamond 標準へ移行した。", k: claim, who: "Blaine Bublitz (Dark Forest team)", s: [src-df-diamond], q: "In previous rounds, adding new features was quite complex due to hitting contract size limits."}
+    - {t: "オンチェーンの擬似乱数に依存したアーティファクトのレア度決定は、v0.5 で入力が予測・操作可能だった（ブロック時刻を使うはずが惑星 ID を二重に使うバグもあった）ため、事前計算と手数の調整で伝説級を狙って出す攻略がゲストポスト（Blaine Bublitz、後の公式チームメンバー）で公開された。", k: fact, s: [src-df-minting-exploit]}
+  roles:
+    - {t: "運営: ラウンドの設計・展開、ホワイトリスト管理、賞品授与、バグ時のアップグレードや早期終了の判断を担った。自動化・欺瞞・買収は公認する一方、明らかに非紳士的な悪用は避けるよう求めた。", k: fact, s: [src-df-gameplay-policy], q: "As always, automation, deception, bribery, and other legal out-of-band behavior is fair game."}
+    - {t: "プレイヤー: 個人に加え、dfdao・orden_gg・MarrowDAO・P_DAO などの集団が登場し、帝国や鋳造所の寄付（R2）、DAO 契約への資源集約（R4 の Astral Colossus）、ボイスチャットでの常時協調（R5 の P_DAO）で上位を争った。", k: fact, s: [src-df-r2-wrapup, src-df-r4-wrapup, src-df-r5-wrapup]}
+    - {t: "開発者（第三者）: プラグイン作者、アーティファクト市場、サブグラフ、DFWiki、リモートマイナー等の作者が「特別賞」の NFT で報いられた。運営はプレイヤーのツール作りを、プレイヤーが所有するゲームの中心と位置づけた。", k: fact, s: [src-df-r1-wrapup, src-df-r3-wrapup, src-df-v4-recap]}
+    - {t: "エージェント: v0.6 では高レアのアーティファクトが GPT-3 で動く AI だと告知され、R3 では AI ボットのプラグインが公開された。ただしそれらがどの程度プレイに使われたかは確認できなかった。", k: fact, s: [src-df-announce-v6, src-df-r3-wrapup]}
+    - {t: "資金提供者: Gitcoin Grants の寄付と 0xPARC。運営は利益ではなく学びが動機だと述べた（第三者記事内の発言引用）。", k: claim, who: "Ivan Chub（Hard Mode First の記事内引用）", s: [src-df-holiday, src-df-hardmode]}
+  trajectory:
+    - {t: "2020-08 に v0.3（Ropsten、1 週間、賞金 1024 DAI）。2020-10 に v0.4 で xDai へ移行。2020-12-25 に v0.5（プラグイン機構と NFT アーティファクト）。", k: fact, s: [src-df-announce, src-df-v3-rules, src-df-v4-recap, src-df-v05]}
+    - {t: "v0.6 は 2〜3 か月にわたる複数ラウンド制として 2021-05 に開始し、R1（05-22〜06-06）から R5（2022-02-18〜02-28）まで 5 ラウンドを実施した。", k: fact, s: [src-df-announce-v6, src-df-r3-announce, src-df-r4-announce, src-df-r5-announce]}
+    - {t: "2022-02 に Diamond 標準へ移行、2022-03 に Lobbies を公開し、誰でも自分の宇宙を展開できるようにした。2022-04 にはコミュニティラウンドの開催指針を公開した。", k: fact, s: [src-df-diamond, src-df-lobbies, src-df-community-round]}
+    - {t: "2022-07、運営はラウンド駆動の開発を夏の間休止し、コア開発者は 0xPARC の他プロジェクトに参加すると告知した。年内に次の段階を発表するとしたが、その後の公式ラウンドは確認できなかった。", k: fact, s: [src-df-summer-break], q: "taking a break from round-driven development this summer."}
+    - {t: "コミュニティ側では dfdao が 2022-01 の新年コミュニティラウンド、2022-06〜07 の Arena: Grand Prix、Galactic League を運営した。", k: fact, s: [src-df-community-round, src-df-fgw-dfdao]}
+  retention_evidence:
+    - {t: "示されている指標: 運営発表の参加者数は v0.3 約 300、v0.4 約 600、v0.6 R1 で 1700 強（ホワイトリスト数）、R2 約 1900、R3 2500 超、R4 1700 超、R5 約 2000（定義は回ごとに異なる）。", k: fact, s: [src-df-v4-recap, src-df-r1-wrapup, src-df-r2-wrapup, src-df-r3-wrapup, src-df-r4-wrapup, src-df-r5-wrapup]}
+    - {t: "ラウンド間の再参加の手がかりとして、次ラウンドの招待鍵を得た人数（R1 700、R2 800、R3 約 1000、R4 750 超）が公表されている。ただしこれは「資格を得た人数」であり、実際に次ラウンドへ参加した人数ではない。", k: fact, s: [src-df-r1-wrapup, src-df-r2-wrapup, src-df-r3-wrapup, src-df-r4-wrapup]}
+    - {t: "同一集団（orden_gg 系）が R2〜R5 で上位を繰り返し占め、ベテラン集団の継続参加を示す。Discord は 2021-12 時点で 8000 人超と運営は述べた。", k: fact, s: [src-df-r3-wrapup, src-df-r4-wrapup, src-df-r5-wrapup, src-df-holiday]}
+    - {t: "示されていない指標: 一意ウォレット単位の継続率、ラウンド内の DAU、ボット口座と人間の比率、複数アカウント保有の程度、取引のうち自動化によるものの割合は公表されていない。", k: unknown}
+    - {t: "参加者数はホワイトリストによる供給制限下の数字であり、需要（待機リストの人数）は数千の招待鍵を配ったこと以外分からない。", k: analysis, s: [src-df-announce-v6]}
+  extensions:
+    - {t: "v0.5 プラグインコンテストの受賞作: 定期移動を設定する Repeat Attack、指定プレイヤーへの自動戦争を行う Wage War、領土のヒートマップ、テーマ変更、シルバー自動分配。", k: fact, s: [src-df-plugins-contest]}
+    - {t: "公式プラグイン・ショーケース（GitHub）には artifacts / casual / diplomacy / productivity / strategic / utilities の 6 分類で計 57 のプラグインディレクトリがある（clone 時点の数え上げ）。", k: fact, s: [src-df-plugins-repo]}
+    - {t: "第三者コントラクト: 初の第三者コントラクト（jacobrosenthal・phated、R1）、owocki のメタゲーム懸賞（R1）、darkforest.market・DarkSea・dropswap.gg のアーティファクト市場（R3）、dfdao の Astral Colossus（R4、38 位）。", k: fact, s: [src-df-r1-wrapup, src-df-r3-wrapup, src-df-r4-wrapup]}
+    - {t: "第三者による周辺基盤: サブグラフ、GPU 宇宙マイナー（MarrowDAO、ceccon_me）、MEV を使うプラグインの検討、Project Sophon のエクスプローラ、DFWiki、開発ガイド。", k: fact, s: [src-df-r2-wrapup, src-df-r3-wrapup, src-df-r4-wrapup]}
+    - {t: "Lobbies とコミュニティラウンド: 約 0.06 xDai で 30 超の設定項目を持つ自分の宇宙を展開でき、277DAO・MarrowDAO・dfdao・Ner0nzz らが運営した。dfdao は Arena: Grand Prix など短時間モードを作った。", k: fact, s: [src-df-lobbies, src-df-community-round, src-df-summer-break, src-df-fgw-dfdao]}
+  constraints:
+    - {t: "管理者権限が大きい: Diamond の差し替え、停止、任意惑星の所有者変更、スコアの加減がコントラクト上で可能。プレイヤーが得る保証は運営の自制と DiamondCut イベントによる監視可能性に依存する。", k: fact, s: [src-df-code-eth, src-df-diamond]}
+    - {t: "プラグインはゲーム内で評価され、秘密鍵を含む全情報にアクセスできると公式リポジトリ自体が警告しており、拡張性とウォレット安全性が衝突していた。", k: fact, s: [src-df-plugins-repo], q: "Plugins are evaluated in the context of your game and can access all of your private information (including private key!)."}
+    - {t: "探索が計算資源の競争になるため、GPU やサーバーを持つプレイヤーと自動化に長けた集団が有利になる。v0.6 R1 の 1 位は独自プラグイン・スクリプト・サーバーを使った。", k: fact, s: [src-df-r1-wrapup, src-df-r3-wrapup]}
+    - {t: "オンチェーン乱数の設計ミスが攻略可能だった（v0.5 の artifact minting）。筆者は、時刻を使う修正で JS プラグインからの攻略はほぼ不可能になるが、コントラクトから遊ぶ「contract player」なら結果が悪いとき revert できるはずだと推測している（本人は未実装と明記）。", k: claim, who: "Blaine Bublitz（ゲストポスト筆者）", s: [src-df-minting-exploit]}
+    - {t: "アーティファクトや惑星 NFT はラウンド・インスタンスをまたいで使えず、トロフィー NFT は 2022-03 以降取引がないと第三者分析は述べた。", k: claim, who: "Naavik (Anthony Pecorella)", s: [src-df-naavik]}
+    - {t: "未解決: 期間限定ラウンドの外で、公式の継続運営なしに「永続する」宇宙が成立するかは、Lobbies 以後の利用状況が不明なため検証できない。", k: unknown}
+  principles:
+    - {t: "ハッシュ化座標＋移動証明による霧: 位置を MiMC 等のハッシュで公開し、移動距離・範囲を ZK で証明すれば、検証可能なまま位置を隠せる。適用条件は座標空間が総当たりに対して十分広く、証明生成がクライアントで数秒以内に済むこと。破綻条件は空間が狭い・計算資源の格差が大きい場合で、霧は「計算力の差」に置き換わり、GPU を持つ側だけが晴らせる。", k: analysis, s: [src-df-announce, src-df-code-circuits, src-df-r3-wrapup]}
+    - {t: "自動化の公認＋ラウンドごとの得点規則変更: ボットやスクリプトを禁止せず、ラウンドごとに得点規則を変えて既存の最適化を陳腐化させると、ツール作りそのものが競技になる。適用条件は第三者がツールを作れる公開 API・コードがあること。破綻条件は同一集団が知識とインフラを蓄積して勝ち続ける場合（R2〜R5 で orden_gg 系が上位を独占）で、新規参加者の勝ち目が消える。", k: analysis, s: [src-df-gameplay-policy, src-df-r3-wrapup, src-df-r5-wrapup]}
+    - {t: "クライアント内プラグインによる拡張: ゲームの状態と操作を JS オブジェクトとして公開し、プラグインを共有させると、UI 改善・自動化・可視化が短期間で集まる。適用条件は審査済みショーケースなど信頼の経路があること。破綻条件はプラグインが秘密鍵へアクセスできるサンドボックス不在の設計で、悪意あるプラグインが資産を奪い得る。", k: analysis, s: [src-df-plugins-repo, src-df-plugins-contest]}
+    - {t: "誰でも展開できるインスタンス（Lobbies）: ルール実装をコントラクトとして公開し、設定だけを変えたコピーを誰でも所有者として展開できるようにすると、運営が休止してもコミュニティが遊び場を作れる。適用条件は展開コストが低い（約 0.06 xDai）チェーン。破綻条件は資産や得点がインスタンス間で通用しない場合で、各インスタンスは孤立し、累積的な価値が生まれにくい。", k: analysis, s: [src-df-lobbies, src-df-naavik]}
+    - {t: "秘匿情報の二次市場: ZK で「知っていること」を証明しながら売れるなら、情報そのものが取引財になる（Nightmarket）。適用条件は秘匿情報がゲーム上の価値を持つこと。破綻条件は回路・コントラクトが未監査で、買い手が詐欺リスクを負う場合。", k: analysis, s: [src-df-nightmarket]}
+  counter_evidence:
+    - {t: "拡張文化が盛んだったにもかかわらず、公式開発は 2022 年夏に休止し、その後の公式ラウンドは確認できなかった。プラグインや第三者コントラクトの豊富さは、ゲームの継続を保証しなかった。", k: fact, s: [src-df-summer-break]}
+    - {t: "参加者数（最大 2500 超）は招待制で上限があり、第三者分析は 14 日間のラウンドの総アクティブ数が Axie Infinity の同時接続より少ないと述べた。ZK・オンチェーンという設計の意義は、大衆的な定着の証拠とは別物である。", k: claim, who: "Naavik (Anthony Pecorella)", s: [src-df-naavik]}
+    - {t: "「他者が作った機能の再利用」の観点では、プラグインは主に個々のプレイヤーの自動化・UI 改善であり、他者のプラグインは秘密鍵リスクから「自分か完全に信頼できる人のもの以外使うな」と公式が警告した。再利用は信頼の問題で制限されていた。", k: fact, s: [src-df-plugins-repo]}
+    - {t: "第三者コントラクトが世界のルールに参加する例（Astral Colossus）も、証明生成ができないため自ら移動できなかったと第三者分析は推測しており、オンチェーン合成可能性は ZK 部分で途切れていた。一方で公式報告では Astral Colossus は 38 位に入っており、効果の評価は分かれる。", k: claim, who: "Naavik (Anthony Pecorella)", s: [src-df-naavik, src-df-r4-wrapup]}
+    - {t: "R5 では dfdao が母船 10 隻を 1 惑星に集めるエネルギー農場を作り、公平性をめぐる論争が起きた。自動化・創発を公認する方針は、プレイヤーが「意図に反する」と感じる戦略も生む。", k: fact, s: [src-df-r5-wrapup]}
+    - {t: "上位が自動化だけで決まったわけではない。v0.6 R1 の 2 位 Ner0nzz はほぼ手動で、外交により地図データと同盟を集めたと公式は記す。「自動化を公認すると計算資源の競争になる」という一般化には例外がある。", k: fact, s: [src-df-r1-wrapup]}
+    - {t: "「アーティファクトはラウンド間で使えず孤立する」という第三者分析に対し、R4 では orden_gg の dropswap.gg が任意のラウンドのアーティファクトを閲覧・送付できるよう更新されたと公式は記す（ゲーム内で使えたかは未確認）。", k: fact, s: [src-df-r4-wrapup, src-df-naavik]}
+    - {t: "拡張文化は当初からの設計方針ではなかった可能性がある。コア貢献者 Ivan Chub は、ゲームがフォークされたとき当初は腹を立てたが、それを強みとして受け入れることにしたと講演で述べた（第三者記事内の引用）。", k: claim, who: "Ivan Chub（Hard Mode First の記事内引用）", s: [src-df-hardmode]}
+    - {t: "ZK による霧が遊びの中心だったかどうかについては、上位争いが探索 GPU・自動化・集団協調で決まっていた記述が多く、プレイヤー体験の中心が「霧の駆け引き」より「計算とツールの競争」だった可能性がある。", k: analysis, s: [src-df-r1-wrapup, src-df-r3-wrapup]}
+
+metrics:
+  - {id: m-df-v03-players, type: players, value: 300, value_text: "約 300", unit: players, period: "2020-08（v0.3）", definition: "運営が v0.4 振り返りで述べた v0.3 の参加者数（定義不明）", nature: reported, s: [src-df-v4-recap]}
+  - {id: m-df-v04-players, type: players, value: 600, value_text: "約 600（Nearly 600）", unit: players, period: "2020-10（v0.4）", definition: "運営発表の参加者数（定義不明）", nature: reported, s: [src-df-v4-recap]}
+  - {id: m-df-v04-tx, type: transactions, value: 250000, value_text: "25 万件超", unit: tx, period: "2020-10（v0.4）", definition: "ラウンド中のトランザクション数（運営発表）。ガスは約 1000 億", nature: reported, s: [src-df-v4-recap]}
+  - {id: m-df-v05-invites, type: other, value: 1000, value_text: "約 1000 の招待鍵", unit: keys, period: "2020-12（v0.5）", definition: "待機リストへ送った招待鍵の数（参加者数ではない）", nature: reported, s: [src-df-v05]}
+  - {id: m-df-v06r1-whitelisted, type: players, value: 1700, value_text: "1700 強", unit: players, period: "2021-05〜06（v0.6 R1）", definition: "ホワイトリスト登録数（slightly over 1700 players whitelisted）", nature: reported, s: [src-df-r1-wrapup]}
+  - {id: m-df-v06r1-tx, type: transactions, value: 2000000, value_text: "200 万件超", unit: tx, period: "2021-05〜06（v0.6 R1）", definition: "コアコントラクトへのトランザクション数。ガス約 1.5 兆", nature: reported, s: [src-df-r1-wrapup]}
+  - {id: m-df-v06r2-players, type: players, value: 1900, value_text: "約 1900", unit: players, period: "2021-06〜07（v0.6 R2、9 日間）", definition: "運営発表の参加者数（定義不明）。トランザクション 200 万件超、ガス 1.7 兆超", nature: reported, s: [src-df-r2-wrapup]}
+  - {id: m-df-v06r3-players, type: players, value: 2500, value_text: "2500 超", unit: players, period: "2021-08（v0.6 R3）", definition: "運営発表の参加者数（定義不明）。トランザクション約 200 万件", nature: reported, s: [src-df-r3-wrapup]}
+  - {id: m-df-v06r4-players, type: players, value: 1700, value_text: "1700 超", unit: players, period: "2021-10-01〜10-04（v0.6 R4、84 時間）", definition: "運営発表の参加者数（定義不明）", nature: reported, s: [src-df-r4-wrapup]}
+  - {id: m-df-v06r5-players, type: players, value: 2000, value_text: "約 2000（Nearly 2,000）", unit: players, period: "2022-02-18〜02-28（v0.6 R5）", definition: "運営発表の参加者数（定義不明）", nature: reported, s: [src-df-r5-wrapup]}
+  - {id: m-df-invite-keys-earned, type: retention, value_text: "R1 700 / R2 800 / R3 約 1000 / R4 750 超", unit: players, period: "2021-05〜10", definition: "次ラウンドの招待鍵を得点等により獲得した人数（実際の再参加数ではない）", nature: reported, s: [src-df-r1-wrapup, src-df-r2-wrapup, src-df-r3-wrapup, src-df-r4-wrapup]}
+  - {id: m-df-gitcoin-2021, type: grants, value: 175000, value_text: "約 17.5 万ドル", unit: USD, period: "2021 年末時点の直近 Gitcoin Grants ラウンド", definition: "1 万人超の寄付者からの Gitcoin Grants 調達額（運営発表）", nature: reported, s: [src-df-holiday]}
+  - {id: m-df-discord-2021-12, type: other, value: 8000, value_text: "8000 人超", unit: members, period: "2021-12", definition: "Discord メンバー数（運営発表）", nature: reported, s: [src-df-holiday]}
+  - {id: m-df-prize-v03, type: other, value: 1024, unit: DAI, period: "2020-08（v0.3）", definition: "賞金プール（上位 15 名に分配）", nature: reported, s: [src-df-v3-rules, src-df-announce]}
+  - {id: m-df-lobby-cost, type: other, value: 0.06, value_text: "約 0.06 xDai", unit: xDai, period: "2022-03", definition: "Lobbies で新しい宇宙コントラクトを作る費用（運営記載）", nature: reported, s: [src-df-lobbies]}
+  - {id: m-df-plugins-showcase, type: other, value: 57, unit: plugins, period: "参照日 2026-10-23", definition: "darkforest-eth/plugins の content/ 配下のプラグインディレクトリ数（筆者が clone して数えた）", nature: measured, s: [src-df-plugins-repo], note: "Hard Mode First は 55 の査読済みプラグインと記載"}
+
+events:
+  - {id: ev-df-announce, date: "2020-08-02", type: announce, title: "Dark Forest を告知", detail: "v0.3 ベータを Ropsten で 1 週間実施すると告知、賞金 1024 DAI", s: [src-df-announce]}
+  - {id: ev-df-v03, date: "2020-08", type: testnet, title: "v0.3 を Ropsten テストネットで実施", detail: "ルール記事では 8/8〜8/15。約 300 人で Ropsten をほぼ破綻させた", s: [src-df-v3-rules, src-df-v4-recap]}
+  - {id: ev-df-v04, date: "2020-10-02", type: round, title: "v0.4 を xDai で開始", detail: "xDai STAKE に移行。約 600 人、公開 RPC 過負荷で招待を一時停止", s: [src-df-v4-recap, src-df-df04-faq]}
+  - {id: ev-df-v05, date: "2020-12-25", type: release, title: "v0.5 公開（プラグイン機構・NFT アーティファクト）", detail: "実験的プラグイン機構、探索で見つかる NFT、約 1000 の招待鍵", s: [src-df-v05, src-df-df05-faq]}
+  - {id: ev-df-plugin-contest, date: "2021-02", type: other, title: "v0.5 プラグインコンテスト結果発表", detail: "Repeat Attack、Wage War 等が受賞。再入可能性バグの発見にも特別賞", s: [src-df-plugins-contest]}
+  - {id: ev-df-v06, date: "2021-05-21", type: announce, title: "v0.6 を複数ラウンド制として告知", detail: "R1 は 5/22〜6/6。上位 63 名に mainnet の惑星 NFT", s: [src-df-announce-v6]}
+  - {id: ev-df-v06r3, date: "2021-08-12", type: round, title: "v0.6 Round 3（中心への競争）開始", detail: "8/22 終了予定。2500 人超、第三者アーティファクト市場が 3 つ登場", s: [src-df-r3-announce, src-df-r3-wrapup]}
+  - {id: ev-df-gameplay-policy, date: "2021-08-11", type: spec-change, title: "ゲームプレイ方針の更新", detail: "自動化・欺瞞・買収は公認、重大バグ時のアップグレードと早期終了の権利を留保", s: [src-df-gameplay-policy]}
+  - {id: ev-df-v06r4, date: "2021-10-01", type: round, title: "v0.6 Round 4（84 時間）", detail: "10/4 終了。dfdao の Astral Colossus が 38 位", s: [src-df-r4-announce, src-df-r4-wrapup]}
+  - {id: ev-df-diamond, date: "2022-02-23", type: spec-change, title: "Diamond 標準（EIP-2535）へ移行", detail: "コントラクトサイズ上限への対処。R5 中の修正にアップグレード機能を使用", s: [src-df-diamond]}
+  - {id: ev-df-v06r5, date: "2022-02-18", type: round, title: "v0.6 Round 5「Junk Wars」", detail: "2/28 まで 10 日間。宇宙船・スペースジャンク・捕獲ゾーン。約 2000 人、初の公式引き分け", s: [src-df-r5-announce, src-df-r5-wrapup]}
+  - {id: ev-df-lobbies, date: "2022-03-01", type: release, title: "Dark Forest Lobbies 公開", detail: "誰でも自分の宇宙をオンチェーンで展開できる", s: [src-df-lobbies]}
+  - {id: ev-df-community-guide, date: "2022-04-07", type: other, title: "コミュニティラウンド開催指針を公開", s: [src-df-community-round]}
+  - {id: ev-df-summer-break, date: "2022-07-07", type: other, title: "ラウンド駆動開発の夏季休止を告知", detail: "コアメンバーは 0xPARC の他プロジェクトに参加。その後の公式ラウンドは未確認", s: [src-df-summer-break]}
+
+relations:
+  - {to: conquest-eth, type: similar-to, basis: analytic, note: "秘匿情報を持つオンチェーン宇宙戦略ゲーム。Conquest.eth は ZK ではなくコミット・リビールを使う点で対照的"}
+  - {to: zkhunt, type: similar-to, basis: analytic, note: "ZK による秘匿移動という同じ発想の小型実験"}
+  - {to: mental-poker, type: similar-to, basis: analytic, note: "信頼できる第三者なしに秘匿情報ゲームを行う問題設定の系譜"}
+  - {to: sky-strife, type: similar-to, basis: analytic, note: "フルオンチェーン RTS。Dark Forest 系コミュニティとの人的関係は本エントリでは未確認"}
+  - {to: mud, type: similar-to, basis: analytic, note: "第三者分析（Naavik）は関係者が MUD エンジンを開発中と記すが、一次資料での確認はしていない。Diamond によるサイズ上限回避と、ECS による状態構造化はいずれも同じ問題への応答と見られる"}
+  - {to: autonomous-worlds-essay, type: similar-to, basis: analytic, note: "Lobbies やプレイヤー DAO・第三者コントラクトは Autonomous Worlds 論が挙げる性質と重なる。影響関係の一次証拠は本調査では未確認"}
+  - {to: c-client-plugins, type: built-with, basis: confirmed, note: "v0.5 でプラグイン機構を公式に導入", s: [src-df-v05, src-df-plugins-repo]}
+  - {to: c-zk-hidden-info, type: built-with, basis: confirmed, note: "init / move 回路で座標を秘匿", s: [src-df-announce, src-df-code-circuits]}
+
+unknowns:
+  - "一意ウォレット単位の参加者数・継続率（ラウンド間の実再参加数）。運営発表の「players」の定義。"
+  - "ボット口座・複数アカウントの規模、自動化による取引の割合。"
+  - "Lobbies で作られた宇宙の数、コミュニティラウンドの総数と参加者数。"
+  - "2022-07 の休止告知後、公式が次の段階を発表したか（この調査では見つからなかった）。DF ARES 等 2023 年以降のコミュニティラウンドが実施されたか。"
+  - "GPT-3 で動くアーティファクトが実際にどう使われたか。"
+  - "v0.4 以前のコントラクトの管理者権限の範囲（v0.6 のコードのみ確認）。"
+  - "賞品 NFT（Valhalla）の二次流通の規模（dune / opensea 等にアクセスできず未確認）。"
+contradictions:
+  - {t: "v0.3 の開始日: 告知記事は 2020-08-07（金）開始とし、ルール記事は 8/8/20〜8/15/20 と記載。", s: [src-df-announce, src-df-v3-rules]}
+  - {t: "v0.6 R3 の期間: 告知は 8/12（木）開始・8/22（日）終了（約 10 日）とし、振り返りは「nine-day round」と記載。", s: [src-df-r3-announce, src-df-r3-wrapup]}
+  - {t: "v0.6 R5 の参加者数: 公式振り返りは約 2000 人、Hard Mode First の記事は 2022-02 のラウンドを約 1800 人と記載。", s: [src-df-r5-wrapup, src-df-hardmode]}
+  - {t: "ライセンス: v0.5 告知は MIT ライセンスで公開と記載、現在の darkforest-eth リポジトリは GPL-3.0 表示（時期による変更の可能性）。", s: [src-df-v05, src-df-github-org]}
+  - {t: "Astral Colossus の順位: 公式 R4 振り返りは 38 位、Naavik は 34 位と記載。", s: [src-df-r4-wrapup, src-df-naavik]}
+  - {t: "v0.3 の賞金対象: ルール記事は上位 15 アドレスへの配分を示すが、受賞者記事は 16 名に授与したと記載（同点の扱いと見られるが未確認）。", s: [src-df-v3-rules, src-df-v3-winners]}
+  - {t: "プラグイン数: 公式ショーケースの clone では 57 ディレクトリ、Hard Mode First は 55 の査読済みプラグインと記載（時点差の可能性）。", s: [src-df-plugins-repo, src-df-hardmode]}
+
+sources:
+  - {id: src-df-announce, title: "Announcing Dark Forest", url: "https://blog.zkga.me/announcing-darkforest", publisher: "Dark Forest blog", author: "Dark Forest Team", type: official-blog, primary: true, published: "2020-08-02", accessed: "2026-10-23", access: fetched, lang: en, note: "コンセプト、ZK による霧、Ropsten での v0.3、賞金 1024 DAI"}
+  - {id: src-df-v3-rules, title: "Dark Forest v0.3: Rules", url: "https://blog.zkga.me/v3-rules", publisher: "Dark Forest blog", type: official-blog, primary: true, published: "2020-08-03", accessed: "2026-10-23", access: fetched, lang: en, note: "期間 8/8〜8/15、得点規則、賞金配分、プログラム的ツールの許可"}
+  - {id: src-df-v3-winners, title: "Dark Forest v0.3: Winners", url: "https://blog.zkga.me/v3-winners", publisher: "Dark Forest blog", type: official-blog, primary: true, published: "2020-08-20", accessed: "2026-10-23", access: fetched, lang: en, note: "受賞者 16 名とスコア"}
+  - {id: src-df-init-circuit, title: "ZKPs for Engineers: A look at the Dark Forest ZKPs", url: "https://blog.zkga.me/df-init-circuit", publisher: "Dark Forest blog", author: "Dark Forest Team", type: official-blog, primary: true, published: "2020-09-29", accessed: "2026-10-23", access: fetched, lang: en, note: "init 回路、MiMC ハッシュ、範囲証明、Perlin"}
+  - {id: src-df-df04-faq, title: "Dark Forest v0.4 FAQ", url: "https://blog.zkga.me/df-04-faq", publisher: "Dark Forest blog", type: official-blog, primary: true, published: "2020-10-01", accessed: "2026-10-23", access: fetched, lang: en, note: "バーナーウォレット、xDai でのガス、得点、領域"}
+  - {id: src-df-v4-recap, title: "Dark Forest v0.4: Recap", url: "https://blog.zkga.me/v4-recap", publisher: "Dark Forest blog", type: official-blog, primary: true, published: "2020-10-21", accessed: "2026-10-23", access: fetched, lang: en, note: "約 600 人、25 万件超の取引、Ropsten 負荷、xDai 移行と RPC 過負荷"}
+  - {id: src-df-v4-winners, title: "Dark Forest v0.4: Winners", url: "https://blog.zkga.me/v4-winners", publisher: "Dark Forest blog", type: official-blog, primary: true, published: "2020-10-21", accessed: "2026-10-23", access: fetched, lang: en, note: "上位 50 名"}
+  - {id: src-df-v05, title: "Dark Forest v0.5", url: "https://blog.zkga.me/dark-forest-v05", publisher: "Dark Forest blog", type: official-blog, primary: true, published: "2020-12-25", accessed: "2026-10-23", access: fetched, lang: en, note: "実験的プラグイン機構、NFT、約 1000 招待鍵、MIT ライセンス記載"}
+  - {id: src-df-df05-faq, title: "Dark Forest v0.5 FAQ", url: "https://blog.zkga.me/df-05-faq", publisher: "Dark Forest blog", type: official-blog, primary: true, published: "2020-12-25", accessed: "2026-10-23", access: fetched, lang: en, note: "xDAI STAKE、mainnet では運用不能、HAT"}
+  - {id: src-df-minting-exploit, title: "[Guest Post] Exploiting DF v0.5 Artifact Minting", url: "https://blog.zkga.me/artifact-minting-exploit", publisher: "Dark Forest blog", author: "Blaine Bublitz", type: official-blog, primary: true, published: "2021-02-03", accessed: "2026-10-23", access: fetched, lang: en, note: "擬似乱数の入力ミスと再抽選による伝説級アーティファクトの狙い撃ち"}
+  - {id: src-df-plugins-contest, title: "v0.5 Plugins Contest Winners", url: "https://blog.zkga.me/v5-plugins-contest-winners", publisher: "Dark Forest blog", type: official-blog, primary: true, published: "2021-02-06", accessed: "2026-10-23", access: fetched, lang: en, note: "受賞プラグインと再入可能性バグの特別賞"}
+  - {id: src-df-announce-v6, title: "Announcing Dark Forest v0.6", url: "https://blog.zkga.me/announcing-v6", publisher: "Dark Forest blog", type: official-blog, primary: true, published: "2021-05-21", accessed: "2026-10-23", access: fetched, lang: en, note: "ラウンド制、xDAI、mainnet の賞品 NFT、招待鍵、GPT-3 アーティファクト"}
+  - {id: src-df-r1-wrapup, title: "Dark Forest v0.6 Round 1 Wrapup", url: "https://blog.zkga.me/v6-r1-wrapup", publisher: "Dark Forest blog", type: official-blog, primary: true, published: "2021-06-24", accessed: "2026-10-23", access: fetched, lang: en, note: "1700 強の登録、200 万件超の取引、第三者コントラクト・懸賞"}
+  - {id: src-df-r2-wrapup, title: "Dark Forest v0.6 Round 2 Wrapup", url: "https://blog.zkga.me/v6-r2-wrapup", publisher: "Dark Forest blog", type: official-blog, primary: true, published: "2021-07-16", accessed: "2026-10-23", access: fetched, lang: en, note: "約 1900 人、dfdao、地図データ・計算力の売買"}
+  - {id: src-df-gameplay-policy, title: "Updated Gameplay Policy", url: "https://blog.zkga.me/gameplay-policy", publisher: "Dark Forest blog", type: official-blog, primary: true, published: "2021-08-11", accessed: "2026-10-23", access: fetched, lang: en, note: "自動化・欺瞞・買収の公認、アップグレードと早期終了の権利"}
+  - {id: src-df-r3-announce, title: "Dark Forest v0.6 Round 3: Grape Extra-Small", url: "https://blog.zkga.me/v6-r3-announce", publisher: "Dark Forest blog", type: official-blog, primary: true, published: "2021-08-09", accessed: "2026-10-23", access: fetched, lang: en, note: "R3 は 8/12〜8/22、サブグラフ、コミュニティツール"}
+  - {id: src-df-r3-wrapup, title: "Dark Forest v0.6 Round 3 Wrapup", url: "https://blog.zkga.me/v6-r3-wrapup", publisher: "Dark Forest blog", type: official-blog, primary: true, published: "2021-09-03", accessed: "2026-10-23", access: fetched, lang: en, note: "2500 人超、アーティファクト市場 3 つ、GPU マイナー、AI ボットプラグイン"}
+  - {id: src-df-r4-announce, title: "Dark Forest v0.6 Round 4: Society Eggnog", url: "https://blog.zkga.me/v6-r4-announce", publisher: "Dark Forest blog", type: official-blog, primary: true, published: "2021-09-27", accessed: "2026-10-23", access: fetched, lang: en, note: "R4 は 10/1〜10/4"}
+  - {id: src-df-r4-wrapup, title: "Dark Forest v0.6 Round 4 Wrapup", url: "https://blog.zkga.me/v6-r4-wrapup", publisher: "Dark Forest blog", type: official-blog, primary: true, published: "2021-10-15", accessed: "2026-10-23", access: fetched, lang: en, note: "1700 人超、84 時間、Astral Colossus、MarrowDAO"}
+  - {id: src-df-holiday, title: "Dark Forest Holiday Development Update", url: "https://blog.zkga.me/holiday-development-update", publisher: "Dark Forest blog", type: official-blog, primary: true, published: "2021-12-17", accessed: "2026-10-23", access: fetched, lang: en, note: "Gitcoin 約 17.5 万ドル、Discord 8000 人超、0xPARC が主な資金源"}
+  - {id: src-df-r5-announce, title: "Dark Forest v0.6 Round 5: The Junk Wars", url: "https://blog.zkga.me/v6-r5-announce", publisher: "Dark Forest blog", type: official-blog, primary: true, published: "2022-02-13", accessed: "2026-10-23", access: fetched, lang: en, note: "2/18〜2/28、捕獲ゾーン・宇宙船・ジャンク"}
+  - {id: src-df-diamond, title: "Dark Forest & the Diamond Standard", url: "https://blog.zkga.me/dark-forest-and-the-diamond-standard", publisher: "Dark Forest blog", author: "Blaine Bublitz", type: official-blog, primary: true, published: "2022-02-23", accessed: "2026-10-23", access: fetched, lang: en, note: "EIP-2535 移行の理由、サイズ上限、アップグレード利用"}
+  - {id: src-df-lobbies, title: "Introducing Dark Forest Lobbies", url: "https://blog.zkga.me/introducing-dark-forest-lobbies", publisher: "Dark Forest blog", type: official-blog, primary: true, published: "2022-03-01", accessed: "2026-10-23", access: fetched, lang: en, note: "誰でも約 0.06 xDai で宇宙を展開"}
+  - {id: src-df-r5-wrapup, title: "Dark Forest v0.6 Round 5 Wrapup", url: "https://blog.zkga.me/v6-r5-wrapup", publisher: "Dark Forest blog", type: official-blog, primary: true, published: "2022-04-01", accessed: "2026-10-23", access: fetched, lang: en, note: "約 2000 人、10 日間、引き分け、エネルギー農場論争"}
+  - {id: src-df-community-round, title: "How to Host a Dark Forest Community Round", url: "https://blog.zkga.me/hosting-a-dark-forest-community-round", publisher: "Dark Forest blog", type: official-blog, primary: true, published: "2022-04-07", accessed: "2026-10-23", access: fetched, lang: en, note: "コミュニティラウンドの指針、dfdao・277DAO・MarrowDAO"}
+  - {id: src-df-summer-break, title: "Dark Forest Dev Update - Summer Break", url: "https://blog.zkga.me/df-22-summer-break", publisher: "Dark Forest blog", type: official-blog, primary: true, published: "2022-07-07", accessed: "2026-10-23", access: fetched, lang: en, note: "ラウンド駆動開発の休止、0xPARC 他プロジェクトへの参加"}
+  - {id: src-df-nightmarket, title: "[Guest Post] Nightmarket", url: "https://blog.zkga.me/nightmarket", publisher: "Dark Forest blog", author: "_0xSage, xyz_pierre", type: official-blog, primary: true, published: "2022-07-25", accessed: "2026-10-23", access: fetched, lang: en, note: "ZK で座標を秘匿したまま売買するプラグイン"}
+  - {id: src-df-code-eth, title: "darkforest-eth/eth (Dark Forest contracts)", url: "https://github.com/darkforest-eth/eth", publisher: "GitHub", type: code, primary: true, published: "2022-04", accessed: "2026-10-23", access: fetched, lang: en, note: "git clone で確認。Diamond、DFAdminFacet（pause / setOwner / addScore 等）、DFLobbyFacet、whitelist。last_updated 2022-04-11"}
+  - {id: src-df-code-circuits, title: "darkforest-eth/circuits (Dark Forest zkSNARK circuits)", url: "https://github.com/darkforest-eth/circuits", publisher: "GitHub", type: code, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "git clone で move 回路を確認（距離・半径・MiMC・Perlin）"}
+  - {id: src-df-plugins-repo, title: "darkforest-eth/plugins (Dark Forest Plugins)", url: "https://github.com/darkforest-eth/plugins", publisher: "GitHub", type: code, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "git clone で README の警告と 57 のプラグインディレクトリを確認"}
+  - {id: src-df-github-org, title: "darkforest-eth (GitHub organization)", url: "https://github.com/darkforest-eth", publisher: "GitHub", type: code, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "8 リポジトリ（developer-guides はアーカイブ）。plugins・circuits・eth・darkforest-v0.6・client は GPL-3.0 表示、他 3 件はページ上でライセンス表示なし。ページ上の最終更新 2021〜2024（検証時 WebFetch で再確認）"}
+  - {id: src-df-zkgame-site, title: "Dark Forest (zkga.me)", url: "https://zkga.me/", publisher: "Dark Forest", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "参照日時点でタイトルのみ取得でき、ラウンド情報は確認できず（JS 描画の可能性）"}
+  - {id: src-df-naavik, title: "Dark Forest: A Beacon of Light for Blockchain Games", url: "https://naavik.co/deep-dives/dark-forest-beacon-of-light/", publisher: "Naavik", author: "Anthony Pecorella", type: analysis, primary: false, published: "2022-06-20", accessed: "2026-10-23", access: fetched, lang: en, note: "起源、0xPARC、遅延・証明コスト・アーティファクト非互換などの批判"}
+  - {id: src-df-hardmode, title: "Dark Forest Community Synopsis", url: "https://hardmodefirst.xyz/dark-forest-community-synopsis.md", publisher: "Hard Mode First", type: analysis, primary: false, published: "2022-08-16", accessed: "2026-10-23", access: fetched, lang: en, note: "dfdao の形成、2022-02 ラウンド約 1800 人、55 プラグイン、関係者の発言"}
+  - {id: src-df-fgw-dfdao, title: "Dark Forest DAO: Games as mediums of technological experimentation and exploration", url: "https://frontiergamingwatch.substack.com/p/dark-forest-dao-games-as-mediums", publisher: "Frontier Gaming Watch", type: interview, primary: false, published: "2022-07-26", accessed: "2026-10-23", access: fetched, lang: en, note: "dfdao の Arena / Grand Prix（5 週間）/ Galactic League"}

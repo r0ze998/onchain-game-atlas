@@ -1,0 +1,25 @@
+{
+  "name": "onchain-game-atlas",
+  "version": "1.0.0",
+  "description": "オンチェーンゲーム設計アトラス（研究データと静的サイト）",
+  "directories": {
+    "doc": "docs",
+    "test": "tests"
+  },
+  "scripts": {
+    "validate": "node scripts/validate.mjs",
+    "build": "node scripts/build.mjs",
+    "linkcheck": "node scripts/linkcheck.mjs",
+    "serve": "node scripts/serve.mjs",
+    "test": "node --test tests/validate.test.mjs",
+    "test:e2e": "node scripts/build.mjs && node tests/e2e.mjs"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "js-yaml": "^4.1.0",
+    "playwright": "^1.56.1"
+  },
+  "private": true,
+  "type": "module"
+}

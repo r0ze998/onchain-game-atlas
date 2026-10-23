@@ -1,0 +1,210 @@
+id: sunflower-land
+name: Sunflower Land
+name_ja: サンフラワー・ランド
+aliases: ["Sunflower Farmers", "SFF", "Bumpkins"]
+kind: game
+depth: deep
+updated: "2026-10-23"
+chains: [Polygon（農場 NFT・収集品・旧 SFL）, Base（FLOWER）, Ronin（FLOWER の入出金）]
+team: "Thought Farm Pty Ltd（シドニー。CEO/創業者 Adam Hannigan）と外部の貢献者"
+summary: >-
+  ブラウザで遊ぶピクセルアートの農業ゲーム。前身の Sunflower Farmers（2021）はほぼ全ての行動がオンチェーン取引で、2022-01 にボットと報酬目当ての流入で Polygon を数日間混雑させ、
+  一時停止ののち「サーバーで進行しチェーンへ同期する」設計で Sunflower Land として作り直された。
+  以後はボット対策（キャプチャ、ブラックリスト、評判、顔認証による「Proof of Humanity」、序盤ほど高い市場手数料）とトークン経済の改定（SFL の半減期・出金税、2025 年に FLOWER へ移行し Base・Ronin で流通）を繰り返しながら、
+  VC 資金なしで 2026 年まで 3 か月ごとの Chapter を出し続けている。クライアントは GitHub で公開され多数の外部貢献があるが、ライセンスは付いておらず、サーバーは非公開である。
+selection_reason: >-
+  「すべてをオンチェーンにした農業ゲームがボットに何をされたか」と、その後「どこまでをオフチェーンに戻せば続けられたか」を、
+  コミット履歴・公開ドキュメント・当時の報道で追える事例だから。利用者の文明シミュレーションと同じ農業・生産ループを持ち、
+  公開クライアント＋公式 API＋UGC（Portals、Economy Editor）で他者の拡張を受け入れる一方、利用規約で AI エージェントによるプレイを明示的に禁止している点で、
+  AI・他者の機能の再利用という構想への重要な反例・参照点になる。
+categories:
+  - {id: p2e, role: primary, reason: "作物・資源の生産から換金可能なトークン（SFF→SFL→FLOWER）が得られ、その設計変更とボット対策が歴史の中心"}
+  - {id: assets, role: secondary, reason: "農場は Polygon の NFT、収集品・ウェアラブルは ERC-1155 で外部市場でも売買される"}
+  - {id: infra, role: secondary, reason: "前身がオンチェーン取引の多さで Polygon を混雑させ、その教訓でオフチェーン化・同期方式に移った"}
+status:
+  value: active
+  as_of: "2026-10"
+  note: "ドキュメントは Chapter 15（2026-08）を最新とし、利用規約の Fair Play Policy は 2026-08-21 更新、GitHub の main ブランチには参照日にコミットがある。"
+  s: [src-sunflower-land-docs-chapters, src-sunflower-land-docs-prohibited, src-sunflower-land-git-history]
+dates:
+  launched: {date: "2021-08", s: [src-sunflower-land-docs-vision, src-sunflower-land-docs-project-ii], note: "公式は「2021 年 8 月」に Sunflower Farmers のプロトタイプとして開始と記す。リポジトリ最古のコミットは 2021-02-01"}
+
+architecture:
+  onchain:
+    level: assets-only
+    detail: >-
+      農場（NFT）、収集品・ウェアラブル・Bud・ペット（Polygon 上の SFT/NFT）、FLOWER（Base・Ronin の ERC-20）がチェーン上にあり、
+      作物・資源・残高・クエストなどの農場状態はサーバーのオフチェーンデータとして保持される（公式の Community API が「current offchain state」を返す）。
+      出金はサーバーが署名した内容をコントラクトに送る方式で、1 回の出金で供給を超える分はコントラクトがその場で mint する（上限 10 個/品目/回）。
+      固定供給のオークション品はオンチェーンで決済され、それ以外の市場取引はゲーム内で即時に決済される。
+    s: [src-sunflower-land-offchain-api, src-sunflower-land-code-withdrawals, src-sunflower-land-docs-collectibles, src-sunflower-land-docs-marketplace]
+  offchain:
+    - {item: "農場状態・ゲーム進行・市場の大部分（サーバー）", s: [src-sunflower-land-offchain-api, src-sunflower-land-docs-marketplace]}
+    - {item: "ボット・多重アカウント検出（シグナルの全体は非公開）と BAN、顔認証による本人確認", s: [src-sunflower-land-docs-prohibited, src-sunflower-land-code-reputation]}
+    - {item: "サーバー応答に含まれる base64 のコード（farmHash）をクライアントが eval で実行する仕組み（目的は文書化されていない）", s: [src-sunflower-land-code-network]}
+    - {item: "Portals / Economy Editor の UGC は運営の Minigames API（JWT 認証）上で動く", s: [src-sunflower-land-docs-economies]}
+  admin:
+    level: significant
+    detail: >-
+      運営は調査中のアカウント停止、資産・報酬・トークンの没収、関連アカウント・ウォレットへの恒久 BAN を「単独の裁量」で行えると規約に定め、
+      譲渡された農場も過去の違反で BAN され得る。評判・出金条件・手数料は運営が設定し、FLOWER の未流通分 2.36 億枚は運営が「将来のプロジェクト・提携」に留保している。
+    s: [src-sunflower-land-docs-prohibited, src-sunflower-land-docs-tokenomics]
+  open_source:
+    level: partial
+    detail: >-
+      ゲームクライアント（React/Phaser）は GitHub で公開され、2026-10 時点で 11,326 コミット・1.6k スター・665 フォーク。ただし README は「No Licence」で再利用不可と明記し、
+      理由として以前の版が他チェーンで「非倫理的に」使われたことを挙げる。貢献者は IP を運営に譲渡する。サーバー・コントラクトのソースは本リポジトリにない。
+    url: "https://github.com/sunflower-land/sunflower-land"
+    s: [src-sunflower-land-github, src-sunflower-land-contributing, src-sunflower-land-gh-repo]
+  extensibility:
+    level: official-api
+    detail: >-
+      (1) 公開クライアントへの PR（機能・翻訳・アート）、(2) Portals（旧 Community Islands）: 外部開発者がミニゲームを作り、承認後にゲーム内から入れる、
+      (3) Economy Editor: プレイヤーが資源・ショップ・生成器のルールを設定し、ミニゲームから運営 API を通じて呼ぶ、(4) 読み取り用 Community API。
+      いずれも運営のサーバーと承認を経由し、チェーン上で許可なく規則を追加できるわけではない。
+    s: [src-sunflower-land-docs-portals, src-sunflower-land-docs-economies, src-sunflower-land-offchain-api]
+
+compare:
+  gameplay: {t: "種を買って植え、収穫し、道具で資源を集め、料理で Bumpkin を育てて島を拡張する。中盤以降は釣り・動物・工作・花の交配・配達ボード、終盤は石油・黒曜石・ペット・Ascension。毎週の季節と 3 か月ごとの Chapter で内容が変わる。", k: fact, s: [src-sunflower-land-docs-farming]}
+  necessity: {t: "前身の「ほぼ全行動がオンチェーン」設計はボットとガス高騰で破綻し、作り直し後はゲーム状態をサーバーに戻した。チェーンが担うのは資産の持ち出しとトークン市場で、遊びの成立にチェーンが要るとは言いにくい。", k: analysis, s: [src-sunflower-land-w3igg, src-sunflower-land-polygon-grant, src-sunflower-land-offchain-api]}
+  information: {t: "農場状態は公式 API で第三者が読める（レート制限付き）。BAN の検出シグナルは「意図的に全リストを公開しない」。", k: fact, s: [src-sunflower-land-offchain-api, src-sunflower-land-docs-prohibited]}
+  persistence: {t: "NFT・SFT・FLOWER はチェーン上に残るが、農場の中身はサーバーの状態であり、運営停止後に遊べる仕組みは確認できない。旧 SFL は 6 か月の交換期間後にゲームで使えなくなった。", k: fact, s: [src-sunflower-land-offchain-api, src-sunflower-land-docs-tokenomics]}
+  extensibility: {t: "公開クライアントへの貢献、Portals、Economy Editor、読み取り API。すべて運営の承認・API 経由。", k: fact, s: [src-sunflower-land-docs-portals, src-sunflower-land-docs-economies]}
+  money_flow: {t: "プレイヤーは Gem 購入・市場手数料・オークション・ショップで FLOWER を支払う。運営の収入は Gem 購入手数料の 50% と市場取引の 5%。使われた FLOWER は報酬プールに戻り、平均 75% がプレイヤーに還流する。チーム・VC への割当はないとする。", k: claim, who: "運営 (Thought Farm)", s: [src-sunflower-land-docs-tokenomics]}
+  entry_barrier: {t: "大半はウォレットなしで遊べる。出金には顔認証、獲得 FLOWER の出金には最上位評判（Grand Harvester）が必要で、出金手数料は 10〜30%。資源の市場手数料は Basic Island で 100%、Volcano Island 以降 15%。", k: fact, s: [src-sunflower-land-docs-collectibles, src-sunflower-land-docs-marketplace]}
+
+concepts: [m-farming-idle, e-p2e, c-fungible-ingame-token, c-nft-asset, e-sink-faucet, m-seasons, c-client-plugins, e-grants-subsidy]
+
+proposed_concepts:
+  - {id: c-sybil-gating, name: "評判・本人性による換金ゲート", note: "顔認証（Proof of Humanity）・評判段階・進行度依存の手数料で多重アカウントの採算を下げる"}
+  - {id: e-progression-gated-fees, name: "進行度で下がる換金手数料", note: "新規アカウントほど売却・出金の手数料を高くし（資源 100%→15%）、使い捨てアカウントの収益を消す"}
+  - {id: e-expiring-season-token, name: "期限付きの季節トークン", note: "Chapter ごとに 3 か月で失効する資源トークンを出し、長期インフレを防ぐ"}
+
+article:
+  what:
+    - {t: "見下ろし型のピクセルアートで、自分の島（農場）に種を植えて収穫し、木・石・鉄を道具で集め、料理で Bumpkin（アバター）を育てて島を広げる。中盤は釣り・動物・工作・花の交配・蜂蜜・配達ボード、終盤は石油・黒曜石・ペット・Level 150 からの Ascension がある。", k: fact, s: [src-sunflower-land-docs-farming]}
+    - {t: "季節は 7 日ごとに変わり作物や天候が変化し、3 か月ごとの Chapter で新しい仕組みと期間限定の SFT/NFT が追加される。Chapter 1（2023）から Chapter 15（2026-08）まで続いている。", k: fact, s: [src-sunflower-land-docs-farming, src-sunflower-land-docs-chapters]}
+    - {t: "農場・収集品・ウェアラブル・Bud・ペットは Polygon 上の NFT/SFT で、外部の NFT 市場でも取引される。プレミアム通貨 FLOWER は Base と Ronin で入出金できる。", k: fact, s: [src-sunflower-land-docs-collectibles]}
+    - {t: "公式は累計 60 万超の農場作成、1,800 超のリリース、70 超のコミュニティ提案の実装を掲げる（日次の利用者数は示していない）。", k: claim, who: "運営 (Thought Farm)", s: [src-sunflower-land-docs-vision]}
+  loop:
+    - {t: "以下は公式ガイドとコードからの再構成（実プレイではない）。市場で種を買い、植え、時間経過で収穫して Coins にする。使い捨ての道具を作って木や石を採り、料理を Bumpkin に食べさせて経験値を得る。", k: fact, s: [src-sunflower-land-docs-farming]}
+    - {t: "レベルと資源で島を拡張し、新しい資源・設備を解放する。上位の島（Desert、Volcano）に進むほど市場の資源手数料が下がり（100%→15%）、評判点（各 50〜100 点）が付く。", k: fact, s: [src-sunflower-land-docs-marketplace, src-sunflower-land-code-reputation]}
+    - {t: "他プレイヤーとは市場（FLOWER 建て、出品数は評判段階で 1 日 2 件〜無制限）、友人の農場の訪問・清掃・Village Project への応援、勢力（Faction）の週次競争で関わる。", k: fact, s: [src-sunflower-land-docs-marketplace, src-sunflower-land-docs-farming]}
+    - {t: "FLOWER を外に出すには、顔認証を済ませ、獲得分は Grand Harvester（1,000 点）に達し、最低 5 FLOWER・日次上限・10〜30% の手数料を払う。入金した未使用分は評判なしで引き出せる。", k: fact, s: [src-sunflower-land-docs-collectibles, src-sunflower-land-docs-marketplace]}
+  before_after:
+    - {t: "前身 Sunflower Farmers（Polygon）は、セーブ・道具使用・収穫などほぼ全ての行動がブロックチェーン取引を要する設計で、2022-01 初めにボットの大量利用と重なって Polygon の手数料を約 30 gwei から 1,000 gwei 超へ押し上げたと報告された。", k: fact, s: [src-sunflower-land-w3igg]}
+    - {t: "Decrypt は、2022-01-05 の Polygon の平均ガス価格が約 764 gwei、直前 3 日間のガス使用量の 3 分の 2 超が Sunflower Farmers だったと PolygonScan を引いて伝え、同ゲームの報酬トークン SFF は 1/4 の高値 5.75 ドルから 89% 下落した。", k: fact, s: [src-sunflower-land-decrypt-polygon]}
+    - {t: "運営は 2022-01 の Polygon 助成申請で、2 週間で日次 100 人から 5 万人超・35 万のブロックチェーンアカウントに増えたが「ボットに悪用された」と述べ、新設計の第一段階を「オフチェーンデータ、検証、アンチボットのフィルタリング」とした。", k: claim, who: "Sunflower Land チーム", s: [src-sunflower-land-polygon-grant], q: "The game was not perfect, and unfortunately it was abused by bots."}
+    - {t: "作り直し後（2022）は、進行をサーバーに保存し、定期的に Polygon へ「同期」（1 回約 0.10〜0.13 ドルのガス）する方式になった。Naavik は、運営が不正な同期データに対して取れる手段は NFT とウォレットの BAN だけだと指摘した。", k: claim, who: "Naavik", s: [src-sunflower-land-naavik]}
+  onchain_tradeoffs:
+    - {t: "全行動オンチェーンの代償: 自動化された取引が共有チェーン全体の手数料を押し上げ、ゲーム外の利用者にまで費用を負わせた。ボット対策をゲーム側で行う余地もなかった（取引そのものが行動だったため）。", k: analysis, s: [src-sunflower-land-w3igg, src-sunflower-land-decrypt-polygon]}
+    - {t: "オフチェーン化で得たもの: キャプチャ（2022-04 のコミット）、ブラックリスト（2022-03）、評判段階、顔認証（2025-03）といった検査を、行動のたびに挟めるようになった。", k: fact, s: [src-sunflower-land-git-history, src-sunflower-land-code-reputation]}
+    - {t: "オフチェーン化で失ったもの: 農場の中身はサーバーの状態になり、運営が BAN・没収・譲渡農場の遡及処分を一方的に行える。オンチェーンの「所有」は持ち出し可能な一部の資産に縮小した。", k: fact, s: [src-sunflower-land-docs-prohibited, src-sunflower-land-offchain-api]}
+    - {t: "トークンの流通は複数チェーン（Base、Ronin、旧 SFL は Polygon）に分かれ、SFL→FLOWER の移行ではゲーム内残高は自動変換、ゲーム外の SFL は 6 か月の 1:1 交換期間後にゲームで使えなくなった。チェーン上の資産であっても、ゲーム内の有用性は運営の決定で失われる。", k: fact, s: [src-sunflower-land-docs-tokenomics]}
+  roles:
+    - {t: "運営 Thought Farm は VC 資金を受けず、Gem 購入手数料の 50% と市場取引の 5% を収入とすると説明する。トークンの価格ではなく利用で稼ぐ構造にしたと主張している。", k: claim, who: "運営 (Thought Farm)", s: [src-sunflower-land-docs-tokenomics], q: "Team revenue = `50%` of fees from GEM purchases & `5%` from in-game marketplace trades"}
+    - {t: "外部の開発者・アーティストは公開リポジトリへの PR、Portals のミニゲーム、Economy Editor の経済設計で参加する。貢献物の IP は運営に帰属し、NFT やエアドロップでの報酬は「保証されない」。", k: fact, s: [src-sunflower-land-contributing, src-sunflower-land-docs-portals]}
+    - {t: "コミュニティのモデレーター・サポート・コンテンツ制作者がチーム紹介に名を連ね、ロードマップの議論は GitHub Discussions で公開される。", k: fact, s: [src-sunflower-land-docs-team, src-sunflower-land-docs-chapters]}
+    - {t: "AI エージェントは参加者として想定されていない。利用規約は「AI ツール・エージェント・モデル・アシスタントでゲームプレイを自動化・実行・実質的に補助すること」を禁止し、内部 API への直接アクセスやヘッドレスクライアントも禁じる。", k: fact, s: [src-sunflower-land-docs-prohibited], q: "use any artificial intelligence tool, agent, model or assistant to automate, execute or materially assist any part of gameplay"}
+    - {t: "ボット・多重アカウント運用者は、資源を一つのアカウントやウォレットへ集める「funnelling」で価値を抜き出してきたと運営は述べ、FLOWER を他人のアカウントや共有ウォレットへ送ること自体を funnelling とみなす。", k: claim, who: "運営 (Thought Farm)", s: [src-sunflower-land-docs-prohibited], q: "Funnelling to a single wallet address has been a method used by multi-accounts and bots to extract value and profit from the game."}
+  trajectory:
+    - {t: "2021-08 にプロトタイプとして始まり（公式）、2022-01 に急拡大して Polygon を混雑させ、1/6 時点で DappRadar の 7 日間ユニークユーザーは 43.4 万（前期間比 3,704% 増）だった。", k: fact, s: [src-sunflower-land-docs-vision, src-sunflower-land-decrypt-polygon]}
+    - {t: "2022 年に Sunflower Land として作り直され、SFL は 2022-05-22 に約 0.30 ドルで始まり 3 か月で 73% 超下落した。2022-08 の Naavik は、ピーク比で月間プレイヤーが 56%（112,183→49,362）、日次が 83%（42,999→7,209）減ったとし、1.5 万超の農場 NFT（供給の 10% 超）が恒久 BAN されていたと記した。", k: claim, who: "Naavik", s: [src-sunflower-land-naavik]}
+    - {t: "2023 年から 3 か月ごとの Chapter を続け、2025-02 に Ronin 向け機能（Welcome Pack）、2025-03 に顔認証と FLOWER 入金・FLOWER ダッシュボードのコードが入った。", k: fact, s: [src-sunflower-land-docs-chapters, src-sunflower-land-git-history]}
+    - {t: "2025-05 に SFL を FLOWER（Base。参照日時点のドキュメントでは総供給 2.56 億・流通 2,000 万）へ「アップグレード」し、以後 FLOWER は Base と Ronin で入出金できる。運営は直近 6 か月が創業以来最も財務的に成功したと述べ、2026 年に FLOWER を使う新作（Project II）を予告した。", k: claim, who: "運営 (Thought Farm)", s: [src-sunflower-land-docs-tokenomics, src-sunflower-land-docs-project-ii]}
+    - {t: "コミット作者名の数は年ごとに 2022 年 76、2023 年 34、2024 年 39、2025 年 49、2026 年（10 月まで）32 で、開発は 2026 年も続いている（作者名の重複・別名を含む概数）。", k: fact, s: [src-sunflower-land-git-history]}
+  retention_evidence:
+    - {t: "示されている指標: 累計作成農場数（60 万超、運営）、2022 年の DAU・MAU の減少（Naavik、出典の計測方法は不明）、BAN 数、リリース数、コミット数。示されていないもの: 現在の DAU・MAU、コホート継続率、ボット除外後の人数、報酬を出金しない層の割合。", k: analysis, s: [src-sunflower-land-docs-vision, src-sunflower-land-naavik]}
+    - {t: "継続の間接的な証拠として、開発チームとリリースが 2021 年から 2026 年まで途切れず、運営は 2025 年に「創業以来最も財務的に成功した 6 か月」と述べた。ただし財務の数字は公開されていない。", k: claim, who: "運営 (Thought Farm)", s: [src-sunflower-land-docs-project-ii, src-sunflower-land-git-history]}
+    - {t: "報酬なしで残ったプレイヤーの直接の証拠は見つからなかった。トークン報酬は形を変えて続いており（SFL→FLOWER）、2022 年の急減後に残った層が報酬目的か娯楽目的かは公開資料から区別できない。", k: unknown}
+    - {t: "2022-08 の DappRadar 日次アクティブウォレット（10,160）は Naavik の DAU（7,209）と別の数字で、ウォレット数とプレイヤー数が一致しない例になっている。", k: claim, who: "Naavik", s: [src-sunflower-land-naavik]}
+  extensions:
+    - {t: "公開リポジトリには 2026-10 時点で 11,326 コミットがあり、作者名は延べ 148。チームページに載る中心メンバーと見られる作者名とその別名（Adam Hannigan / adamhannigan、Elias / eliasSFL、Craig、Spencer 系の計 8 表記）でコミットの約 74% を占め、残りに外部貢献者が含まれる（名前の対応付けは本エントリの推定）。運営は「112 人超のオープンソース開発者」と述べる。", k: fact, s: [src-sunflower-land-git-history, src-sunflower-land-docs-vision]}
+    - {t: "Portals（旧 Community Islands）は外部開発者がミニゲーム・ギルド島・ツールを作り、承認後にゲーム内から入れる仕組みで、2023-12 に賞金 42,000 SFL のハッカソンを行った。Crypto Unicorns の島などのリポジトリが公開されている。", k: fact, s: [src-sunflower-land-docs-portals, src-sunflower-land-docs-portal-competition, src-sunflower-land-gh-repo]}
+    - {t: "Economy Editor（実験的機能）では、プレイヤーが資源・建物・スキルを「アイテム」として定義し、焼却・発行・時間付き生成器のルールを書くと保存時に公開され、他プレイヤーが市場から閲覧できる。サーバーは定義済みのアクションしか実行しない。", k: fact, s: [src-sunflower-land-docs-economies]}
+    - {t: "読み取り専用の Community API（15 秒間隔推奨）で、第三者が農場状態を使ったツールを作れる。", k: fact, s: [src-sunflower-land-offchain-api]}
+  constraints:
+    - {t: "ボット対策は継続的な検出と BAN に依存し、運営は検出シグナルの全リストを意図的に公開しない。同じ世帯の別アカウントや譲渡された農場も審査対象になり、正規の利用者が巻き込まれる余地がある。", k: fact, s: [src-sunflower-land-docs-prohibited]}
+    - {t: "クライアントは公開されているが「No Licence」で再利用できず、理由は以前の版の他チェーンでの無断利用だった。公開と模倣防止の両立ができず、フォークによる継続（運営停止後の存続）は法的に閉ざされている。", k: fact, s: [src-sunflower-land-github]}
+    - {t: "クライアントはサーバー応答の farmHash を base64 復号して eval する。目的は文書化されていないが、サーバーが任意コードを配信できる構造であり、クライアントの公開性と検証可能性を部分的に打ち消す。", k: fact, s: [src-sunflower-land-code-network]}
+    - {t: "FLOWER の総供給 2.56 億のうち流通は 2,000 万で、残り 2.36 億は「将来のプロジェクト・提携」用に運営が留保している（運営は表に出る可能性は低いとする）。「チーム割当なし」と並べると、供給の大部分の扱いが運営の裁量に残る。", k: fact, s: [src-sunflower-land-docs-tokenomics]}
+  principles:
+    - {t: "全行動オンチェーンの農業ループは、共有チェーンの上では自動化の費用を他者に転嫁する: 収穫・セーブを毎回取引にすると、報酬がガス代を上回る限りボットは無制限に増え、チェーン全体の混雑として現れる。適用条件は低ガスの共有チェーン＋換金可能な報酬。回避条件は、行動をオフチェーンで受けて要約だけをチェーンに載せるか、報酬を換金不能にすること。", k: analysis, s: [src-sunflower-land-w3igg, src-sunflower-land-decrypt-polygon, src-sunflower-land-polygon-grant]}
+    - {t: "進行度で下がる換金手数料: 新規アカウントの資源売却手数料を 100% にし、島の進行で 15% まで下げると、使い捨てアカウントで生産して売る採算が消える。適用条件は進行に時間か支出が必要なこと。破綻条件は進行済みアカウント自体が売買される場合で、Sunflower Land は購入農場に 90 日の取引・出金ロックを掛けて対処している。", k: analysis, s: [src-sunflower-land-docs-marketplace, src-sunflower-land-docs-collectibles]}
+    - {t: "期限付きの季節トークン: Chapter ごとに 3 か月で失効する資源トークンを出すと、長期のインフレを持ち越さずに周期的な需要を作れる。適用条件は内容更新が定期的に続くこと。破綻条件は開発が止まることで、更新が途切れると需要の源も消える。", k: analysis, s: [src-sunflower-land-docs-tokenomics, src-sunflower-land-docs-chapters]}
+    - {t: "換金の直前に本人性を置く: 遊ぶこと自体は無料・ウォレット不要にし、出金・獲得トークンの持ち出しだけに顔認証と評判段階を課すと、入口の摩擦を増やさずに sybil の収益化を絞れる。破綻条件は認証の回避・売買で、規約は顔認証の失敗・重複を回数制限で扱う。AI エージェントを参加者とするゲームでは、この方式は人間以外の参加そのものを排除する。", k: analysis, s: [src-sunflower-land-docs-collectibles, src-sunflower-land-code-reputation, src-sunflower-land-docs-prohibited]}
+  counter_evidence:
+    - {t: "「オフチェーン化と対策で続いた」という読みに対し、2022 年の作り直し後も数か月で DAU は 83% 減っており（Naavik）、対策が利用者の維持に効いたとは言えない。続いた理由が対策なのか、小さなチーム・VC なしの低コスト運営なのかは区別できない。", k: analysis, s: [src-sunflower-land-naavik, src-sunflower-land-docs-vision]}
+    - {t: "運営の「最も財務的に成功した 6 か月」（2025）は新チェーン対応と市場機能の追加と同時期で、ゲームの面白さより新規チェーンの流入・キャンペーンによる可能性がある。財務数値は非公開。", k: analysis, s: [src-sunflower-land-docs-project-ii]}
+    - {t: "「オープンソースで共同開発」という自己説明に対し、ライセンスはなく、コミットの約 4 分の 3 は中心チームの名前によるもので、サーバーとコントラクトは公開リポジトリに含まれない。外部貢献は実在するが、ゲームの規則を決める部分は運営の手元にある。", k: fact, s: [src-sunflower-land-github, src-sunflower-land-git-history]}
+    - {t: "ブロックチェーンが不要だった方向の証拠: 遊びの大半はウォレットなしで成立し、ボット対策・季節トークン・手数料設計はすべてサーバー側の仕組みである。チェーンは主に換金経路として機能しており、その換金経路こそがボットを呼ぶ原因だった。", k: analysis, s: [src-sunflower-land-docs-collectibles, src-sunflower-land-polygon-grant]}
+
+metrics:
+  - {id: m-sunflower-land-users-2022-01, type: wallets, value: 434000, value_text: "43.4 万（7 日間、前期間比 3,704% 増）", unit: users, period: "2021-12-30〜2022-01-06 頃（7 日間）", definition: "DappRadar の 7 日間ユニークユーザー（Decrypt が引用）", nature: measured, s: [src-sunflower-land-decrypt-polygon]}
+  - {id: m-sunflower-land-daily-2022-01, type: dau, value: 50000, value_text: "日次 100 人 → 5 万人超、ブロックチェーンアカウント 35 万", unit: players, period: "2021-12〜2022-01 の 2 週間", definition: "運営が助成申請で述べた日次プレイヤー数（定義なし）", nature: reported, s: [src-sunflower-land-polygon-grant]}
+  - {id: m-sunflower-land-gas-2022-01-05, type: other, value: 764, value_text: "約 764 gwei（12 月末は 72〜115 gwei）", unit: gwei, period: "2022-01-05", definition: "PolygonScan の Polygon 平均ガス価格（Decrypt が引用）", nature: measured, s: [src-sunflower-land-decrypt-polygon]}
+  - {id: m-sunflower-land-dau-2022, type: dau, value: 7209, value_text: "ピーク 42,999 → 7,209（83% 減）", unit: players, period: "2022-04 頃〜2022-08（約 4 か月）", definition: "Naavik が示した DAU（計測元は記事内で明示されず）", nature: estimated, s: [src-sunflower-land-naavik]}
+  - {id: m-sunflower-land-mau-2022, type: mau, value: 49362, value_text: "ピーク 112,183 → 49,362（56% 減）", unit: players, period: "2022-05 頃〜2022-08（3 か月強）", definition: "Naavik が示した月間プレイヤー", nature: estimated, s: [src-sunflower-land-naavik]}
+  - {id: m-sunflower-land-bans-2022, type: other, value: 15000, value_text: "1.5 万超（供給の 10% 超）", unit: farm NFTs, period: "2022-08 時点", definition: "恒久 BAN された農場 NFT 数（Naavik）", nature: estimated, s: [src-sunflower-land-naavik]}
+  - {id: m-sunflower-land-farms-2026, type: players, value: 600000, value_text: "60 万超", unit: farms, period: "2026（ドキュメント参照時点）", definition: "累計作成農場数（運営）", nature: reported, s: [src-sunflower-land-docs-about]}
+  - {id: m-sunflower-land-commits-2026, type: other, value: 11326, value_text: "11,326 コミット・作者名 148", unit: commits, period: "2021-02-01〜2026-10-23", definition: "GitHub main ブランチの全コミット数と一意な作者名の数（git log で集計。同一人物の別名を含む）", nature: measured, s: [src-sunflower-land-git-history]}
+  - {id: m-sunflower-land-flower-supply, type: other, value: 20000000, value_text: "流通 2,000 万 / 総供給 2.56 億", unit: FLOWER, period: "2026（ドキュメント参照時点）", definition: "運営が示す FLOWER の流通量と総供給", nature: reported, s: [src-sunflower-land-docs-tokenomics]}
+
+events:
+  - {id: ev-sunflower-land-polygon-congestion, date: "2022-01", type: incident, title: "Sunflower Farmers のボット・取引急増で Polygon が混雑", detail: "1/3〜1/6 頃。ガス価格が数十 gwei から数百〜1,000 gwei 超へ", s: [src-sunflower-land-w3igg, src-sunflower-land-decrypt-polygon]}
+  - {id: ev-sunflower-land-grant, date: "2022-01-12", type: other, title: "Polygon 助成申請で「オフチェーンデータ・検証・アンチボット」を第一段階とする再設計を提示", s: [src-sunflower-land-polygon-grant]}
+  - {id: ev-sunflower-land-blacklist, date: "2022-03-14", type: spec-change, title: "ブラックリスト応答をクライアントに実装", s: [src-sunflower-land-git-history]}
+  - {id: ev-sunflower-land-captcha, date: "2022-04-05", type: spec-change, title: "特定の行動にキャプチャを追加", s: [src-sunflower-land-git-history]}
+  - {id: ev-sunflower-land-sfl-launch, date: "2022-05-22", type: launch, title: "SFL トークン開始（約 0.30 ドル）", s: [src-sunflower-land-naavik]}
+  - {id: ev-sunflower-land-portal-hackathon, date: "2023-12-05", type: other, title: "Portal Builder Competition 開始（賞金 42,000 SFL）", s: [src-sunflower-land-docs-portal-competition]}
+  - {id: ev-sunflower-land-ronin, date: "2025-02-19", type: release, title: "Ronin 向け Welcome Pack を実装（Ronin 対応）", s: [src-sunflower-land-git-history]}
+  - {id: ev-sunflower-land-face, date: "2025-03-10", type: spec-change, title: "顔認証（Proof of Humanity）を実装", s: [src-sunflower-land-git-history]}
+  - {id: ev-sunflower-land-flower, date: "2025-05", type: spec-change, title: "SFL を FLOWER（Base）へアップグレード、6 か月の 1:1 交換期間", s: [src-sunflower-land-docs-tokenomics]}
+  - {id: ev-sunflower-land-fairplay-ai, date: "2026-08-21", type: spec-change, title: "Fair Play Policy 更新（AI エージェントによるプレイ自動化の禁止を明記）", detail: "AI 禁止条項がこの更新で初めて入ったかは未確認", s: [src-sunflower-land-docs-prohibited]}
+
+relations:
+  - {to: pixels, type: similar-to, basis: analytic, note: "同じ Polygon 発のピクセル農業 P2E。両者ともソフト通貨・状態をオフチェーンに置き、評判ゲートで換金を絞った"}
+  - {to: axie-infinity, type: contrasts-with, basis: analytic, note: "VC 資金とスカラーシップで拡大した Axie に対し、VC なし・チーム割当なしを掲げる小規模運営"}
+  - {to: c-ai-agent-player, type: contrasts-with, basis: confirmed, note: "利用規約で AI エージェントによるプレイの自動化を明示的に禁止", s: [src-sunflower-land-docs-prohibited]}
+  - {to: m-bot-automation, type: contrasts-with, basis: confirmed, note: "ボット・スクリプト・オートクリッカーを禁止し、検出・BAN する", s: [src-sunflower-land-docs-prohibited]}
+
+unknowns:
+  - "現在（2025〜2026）の DAU・MAU と、その定義"
+  - "Sunflower Farmers の正確な開始日と、混雑時のボット比率"
+  - "2022 年の作り直し（Sunflower Land のオープンベータ）の正確な日付"
+  - "SFL の半減期（halvening）と出金税の正確な規則と変更履歴（Naavik の記述とコミットメッセージでしか確認していない）"
+  - "farmHash による eval の目的（アンチボットの指紋取得か等）"
+  - "AI 禁止条項が規約に入った時期"
+  - "SFL のゲーム内利用終了日（ドキュメントは「10 月 28 日」とのみ記し、年を書いていない）"
+  - "サーバー・コントラクトのソースの公開有無"
+contradictions:
+  - {t: "Chapter 1 の時期を、Chapters ページは 2023 年 2 月、ドキュメント索引は「March 8th -> April 30th 2023」とする", s: [src-sunflower-land-docs-chapters]}
+  - {t: "2022-01 の混雑時のガス価格を、web3isgoinggreat は 30 gwei から 1,000 gwei 超、Decrypt は 1/5 平均約 764 gwei とする（時点・指標の違い）", s: [src-sunflower-land-w3igg, src-sunflower-land-decrypt-polygon]}
+  - {t: "Polygon 助成申請の要求額は改訂版で 8,000 ドルとされる一方、本文のマイルストーンは 10 万ドル・約 50 万ドルと書かれている", s: [src-sunflower-land-polygon-grant]}
+
+sources:
+  - {id: src-sunflower-land-github, title: "sunflower-land/sunflower-land README", url: "https://github.com/sunflower-land/sunflower-land", publisher: "GitHub (sunflower-land)", type: code, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "git clone で取得。Polygon とオフチェーンデータ、No Licence の理由"}
+  - {id: src-sunflower-land-gh-repo, title: "sunflower-land repositories", url: "https://github.com/orgs/sunflower-land/repositories", publisher: "GitHub", type: code, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "組織のリポジトリ一覧（1.6k スター、Portal 関連リポジトリ）"}
+  - {id: src-sunflower-land-contributing, title: "Sunflower Land — code contributing guide", url: "https://github.com/sunflower-land/sunflower-land/blob/main/docs/CODE_CONTRIBUTING.md", publisher: "GitHub (sunflower-land)", type: code, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "IP 譲渡、報酬は保証なし"}
+  - {id: src-sunflower-land-offchain-api, title: "SunflowerLand Offchain Open API", url: "https://github.com/sunflower-land/sunflower-land/blob/main/docs/OFFCHAIN_API.md", publisher: "GitHub (sunflower-land)", type: code, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "農場のオフチェーン状態を返す公開 API、レート制限"}
+  - {id: src-sunflower-land-code-reputation, title: "src/features/game/lib/reputation.ts", url: "https://github.com/sunflower-land/sunflower-land/blob/main/src/features/game/lib/reputation.ts", publisher: "GitHub (sunflower-land)", type: code, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "評判段階と点数（ProofOfHumanity 100、VIP 600 等）"}
+  - {id: src-sunflower-land-code-withdrawals, title: "src/lib/blockchain/Withdrawals.ts", url: "https://github.com/sunflower-land/sunflower-land/blob/main/src/lib/blockchain/Withdrawals.ts", publisher: "GitHub (sunflower-land)", type: code, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "署名付き出金、出金時 mint（上限 10）、Base/Ronin の FLOWER 出金先"}
+  - {id: src-sunflower-land-code-network, title: "src/lib/network.ts", url: "https://github.com/sunflower-land/sunflower-land/blob/main/src/lib/network.ts", publisher: "GitHub (sunflower-land)", type: code, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "サーバー応答の farmHash を base64 復号して eval"}
+  - {id: src-sunflower-land-git-history, title: "sunflower-land commit history (main)", url: "https://github.com/sunflower-land/sunflower-land/commits/main", publisher: "GitHub (sunflower-land)", type: code, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "blobless clone で git log を集計（総コミット、年別作者数、機能導入日）"}
+  - {id: src-sunflower-land-docs-about, title: "About Sunflower Land", url: "https://docs.sunflower-land.com/getting-started/readme", publisher: "Sunflower Land Docs", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "60 万超の農場"}
+  - {id: src-sunflower-land-docs-collectibles, title: "Crypto & Digital Collectibles", url: "https://docs.sunflower-land.com/getting-started/crypto-and-digital-collectibles", publisher: "Sunflower Land Docs", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "Polygon の SFT/NFT、FLOWER は Base/Ronin、出金規則（顔認証・手数料・90 日ロック）"}
+  - {id: src-sunflower-land-docs-tokenomics, title: "Economy / Tokenomics", url: "https://docs.sunflower-land.com/project/economy-tokenomics", publisher: "Sunflower Land Docs", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "割当なし、燃焼ベースの報酬、季節トークン、SFL→FLOWER"}
+  - {id: src-sunflower-land-docs-vision, title: "Vision", url: "https://docs.sunflower-land.com/roadmap/vision", publisher: "Sunflower Land Docs", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "2021-08 開始、VC なし、112 人超の OSS 開発者"}
+  - {id: src-sunflower-land-docs-project-ii, title: "Project II", url: "https://docs.sunflower-land.com/roadmap/project-ii", publisher: "Sunflower Land Docs", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "直近 6 か月が最も財務的に成功、新作計画"}
+  - {id: src-sunflower-land-docs-team, title: "Team", url: "https://docs.sunflower-land.com/project/team", publisher: "Sunflower Land Docs", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "Thought Farm、2022-01 に Polygon を 1 週間止めたとの自己記述"}
+  - {id: src-sunflower-land-docs-prohibited, title: "Prohibited Conduct & Bans", url: "https://docs.sunflower-land.com/support/terms-of-service/prohibited-conduct", publisher: "Sunflower Land Docs", type: official-docs, primary: true, published: "2026-08-21", accessed: "2026-10-23", access: fetched, lang: en, note: "AI エージェント・ボット禁止、多重アカウント、funnelling、検出シグナル"}
+  - {id: src-sunflower-land-docs-economies, title: "Economies - UGC", url: "https://docs.sunflower-land.com/contributing/economies-ugc", publisher: "Sunflower Land Docs", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "Economy Editor、Minigames API"}
+  - {id: src-sunflower-land-docs-portals, title: "Portals - UGC", url: "https://docs.sunflower-land.com/contributing/portals-ugc", publisher: "Sunflower Land Docs", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "外部開発者のミニゲーム、承認制、Arcade Tokens"}
+  - {id: src-sunflower-land-docs-portal-competition, title: "Portal Builder Competition", url: "https://docs.sunflower-land.com/contributing/portals-ugc/portal-builder-competition", publisher: "Sunflower Land Docs", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "12/5 開始のハッカソン、賞金 42,000 SFL、75+ OSS 開発者・200+ アーティスト"}
+  - {id: src-sunflower-land-docs-farming, title: "Farming Guide", url: "https://docs.sunflower-land.com/player-guides/farming-guide", publisher: "Sunflower Land Docs", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "序盤〜終盤の遊び、7 日の季節、勢力"}
+  - {id: src-sunflower-land-docs-marketplace, title: "Marketplace & Trading", url: "https://docs.sunflower-land.com/player-guides/marketplace-and-trading", publisher: "Sunflower Land Docs", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "資源手数料 100%→15%、評判段階、オンチェーン決済の範囲"}
+  - {id: src-sunflower-land-docs-chapters, title: "Chapters", url: "https://docs.sunflower-land.com/roadmap/chapters", publisher: "Sunflower Land Docs", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "Chapter 1〜15 の一覧"}
+  - {id: src-sunflower-land-polygon-grant, title: "Grant Request by Sunflower Land (Sunflower Farmers) - Revised", url: "https://forum.polygon.technology/t/grant-request-by-sunflower-land-sunflower-farmers-revised/576", publisher: "Polygon Community Forum", type: forum, primary: true, published: "2022-01-12", accessed: "2026-10-23", access: fetched, lang: en, note: "急拡大とボット、オフチェーン化・アンチボットのマイルストーン"}
+  - {id: src-sunflower-land-decrypt-polygon, title: "This NFT Farming Game Is Clogging Up Ethereum Scaling Solution Polygon", url: "https://decrypt.co/89913/nft-farming-game-clogging-up-ethereum-scaling-solution-polygon", publisher: "Decrypt", author: "Andrew Hayward", type: news, primary: false, published: "2022-01-06", accessed: "2026-10-23", access: fetched, lang: en, note: "43.4 万ユーザー、764 gwei、ガス使用の 3 分の 2、SFF 下落"}
+  - {id: src-sunflower-land-w3igg, title: "The Sunflower Farmers blockchain game DDoSes the Polygon blockchain for several days", url: "https://web3isgoinggreat.com/single/2022-01-03-3", publisher: "Web3 is Going Just Great", type: analysis, primary: false, published: "2022-01-03", accessed: "2026-10-23", access: fetched, lang: en, note: "ほぼ全行動がオンチェーン取引、ボット、ガス 30→1,000 gwei 超"}
+  - {id: src-sunflower-land-naavik, title: "Sunflower Land and its Rise on Polygon", url: "https://naavik.co/digest/sunflower-land/", publisher: "Naavik", type: analysis, primary: false, published: "2022-08-22", accessed: "2026-10-23", access: fetched, lang: en, note: "同期方式、BAN 数、DAU・MAU 減少、SFL の半減期・出金税"}

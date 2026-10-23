@@ -1,0 +1,122 @@
+id: mud
+name: MUD
+aliases: [MUD v1, MUD v2, "MUD: An engine for Autonomous Worlds"]
+kind: engine
+depth: index
+updated: "2026-10-23"
+chains: [EVM 互換チェーン全般（Redstone、OP Mainnet、Base、Optimism Bedrock テストネット等で利用例）]
+team: "Lattice（alvarius、ludens ほか）。オープンソース（MIT）"
+summary: >-
+  Lattice が開発した EVM 向けのオンチェーンアプリ／ゲーム用フレームワーク。v1（2022-09 公開）はコンポーネントごとのコントラクトによる ECS、
+  v2（2024-03-21 に 2.0.0 安定版）は実行時に定義できるテーブル型ストレージ「Store」と、名前空間とアクセス制御で第三者のコード追加を受け付ける「World」を中心に再設計された。
+  状態変化を標準イベントで流すことでクライアント同期とインデクサを汎用化し、Sky Strife・OPCraft・Primodium・Biomes・EVE Frontier などが採用した。
+  2026-04 の Lattice 解散告知で「機能完成」とされ、公開が続いている。
+selection_reason: >-
+  「誰でも世界にテーブルとシステムを足せる」という許可不要の拡張を、名前空間・所有者・委任という具体的な権限モデルとして実装し、
+  それが実際にどこまで使われたか（あるいは使われなかったか）を複数の作品で追える基盤だから。管理者権限の置き場所（名前空間所有者）と
+  「所有権を放棄すれば規則が凍結される」という設計は、自律世界の主張を検証する上で中心的な論点になる。
+categories:
+  - {id: infra, role: primary, reason: "オンチェーンのストレージ・権限・同期・インデクサを提供する開発フレームワーク"}
+  - {id: aw, role: secondary, reason: "Autonomous Worlds のための基盤として設計され、許可不要の拡張を中核機能に掲げた"}
+status:
+  value: archived
+  as_of: "2026-10"
+  note: >-
+    2026-04 に Lattice は解散を告知し、MUD を「機能完成」「OpenZeppelin 監査済み・完全オープンソース」とした。公開リポジトリの main の最終コミットは 2025-09-30、npm の latest は 2.2.23（2025-08-25 リリース）。ただし main 以外のブランチでは 2026-04-10 まで DUST 向けの周辺パッケージ（entrykit・store-sync・cli の mirror＝チェーン間移行ツール）の更新が続き、npm にもブランチ名タグで 2.2.24 系スナップショットが 2026-04-10 まで公開された。コアの world/store コントラクトは 2025-10 以降変更なし（検証役が clone で確認）。
+    開発元の継続的な開発は終わったが、コードは利用可能であるため archived とした。
+  s: [src-mud-winding-down, src-mud-repo]
+dates:
+  announced: {date: "2022", s: [src-mud-engine-blog], note: "「MUD: An engine for Autonomous Worlds」で公開。ページに日付表記はない"}
+  launched: {date: "2022-09-27", s: [src-mud-npm], note: "npm の @latticexyz/solecs・recs の 1.0.0 公開日（パッケージ自体は 2022-09-13 作成）"}
+
+architecture:
+  onchain:
+    level: unknown
+    detail: >-
+      フレームワークなので、どこまでをチェーンに置くかは採用作品次第。v2 の World は単一のエントリポイントで、呼び出しのアクセス制御を行い、
+      状態を持たないシステム（コントラクト）に処理を渡す。データはすべて World が管理する Store のテーブルに置かれ、変更ごとに標準イベントが出る。
+      ルート名前空間のシステムは delegatecall で World の文脈で動き、他の名前空間のシステムは call で呼ばれる。
+    s: [src-mud-docs-world, src-mud-v2-ready]
+  offchain:
+    - {item: "汎用インデクサ（v1 では Go 製のインデクサとストリーミングサービス、v2 では store-indexer と Postgres 同期）とクライアント側の状態ライブラリ（recs 等）", s: [src-mud-engine-blog, src-mud-zero-to-v2]}
+    - {item: "低遅延の事前確定（Quarry/Wiresaw）や ERC-4337 バンドラなど周辺サービスは別途で、標準化を進めると表明していた", s: [src-mud-standardizing, src-mud-winding-down]}
+  admin:
+    level: significant
+    detail: >-
+      名前空間ごとに 1 アカウントの所有者がいて、アクセスの付与・剥奪、テーブル・システムの登録、システムの差し替え（アップグレード）、フックの登録、委任の登録ができる。
+      ルート名前空間の所有者（既定では World の展開者）は World の文脈で動くシステムを登録でき、アクセス制御を迂回し得る。
+      所有権を address(0) に移すと、その名前空間ではシステムの追加・差し替え・権限変更ができなくなる（プロキシを使っている場合を除く）。実際に放棄した作品があるかはこの調査では確認していない。
+    s: [src-mud-docs-access, src-mud-docs-world]
+  open_source:
+    level: full
+    detail: "MIT ライセンス。latticexyz/mud にコントラクト・コード生成・クライアント・インデクサ・ドキュメントを公開。v2 のコントラクトとコード生成は OpenZeppelin が監査（2024-02-11 付）。"
+    url: "https://github.com/latticexyz/mud"
+    s: [src-mud-repo, src-mud-standardizing]
+  extensibility:
+    level: permissionless-onchain
+    detail: >-
+      誰でも未使用の名前空間を取得してテーブルとシステムを登録でき、公開システムは誰でも呼べる。他の名前空間のテーブルは読めるが、書き込みはその名前空間のシステム経由に限られる。
+      委任（ERC-20 の approve を一般化したもの）で、プレイヤーは自分の代わりに他者やコントラクトに操作させられる。モジュールで機能の束を既存 World に導入できる。
+      実例: OPCraft（v1）のプレイヤーが独自のコンポーネントとシステムで「人民共和国」を作った、Primodium が第三者の拡張手順と委任による代行依頼の例を公開した、
+      Lattice の DUST ではプレイヤーが通貨・市場・都市・新聞を作ったと Lattice は述べる。
+    s: [src-mud-docs-world, src-mud-v2-ready, src-mud-zero-to-v2, src-mud-winding-down]
+
+compare:
+  gameplay: {t: "ゲームではなくフレームワーク。採用作品は RTS（Sky Strife）、ボクセル世界（OPCraft・Biomes・DUST）、工場・征服（Primodium）、単語ゲーム（Words3）、宇宙サバイバル（EVE Frontier）など幅広い。", k: fact, s: [src-mud-v2-ready, src-mud-winding-down]}
+  necessity: {t: "状態同期とインデクサを汎用化して開発費を下げる部分はチェーン以外でも価値があるが、「第三者が稼働中の世界にコードを足せる」部分は、規則を共有台帳に置いた場合に初めて意味を持つ。ただし、それが実需を生んだかは採用作品ごとに検証が必要。", k: analysis, s: [src-mud-v2-ready]}
+  information: {t: "テーブルとイベントは公開で、秘匿情報の仕組みは提供しない（秘匿は採用作品が別途 ZK 等で実装する必要がある）。", k: fact, s: [src-mud-docs-world, src-mud-engine-blog]}
+  persistence: {t: "World の状態は載っているチェーンに依存する。Lattice は解散時に、MUD の World を状態とプログラムごと別チェーンへ移す移行ツールを作り、DUST を DUST Chain に移したと述べた。", k: fact, s: [src-mud-winding-down]}
+  extensibility: {t: "名前空間・アクセス制御・委任・フック・モジュールによる許可不要のオンチェーン拡張が中核機能。", k: fact, s: [src-mud-docs-world, src-mud-docs-access, src-mud-v2-ready]}
+  money_flow: {t: "フレームワーク自体に手数料はない。Lattice は 0xPARC・Optimism Foundation・Ethereum Foundation などの助成で開発し、ベンチャー資金を受けなかったと述べ、事業として持続させられなかったとした。", k: claim, who: "Lattice (ludens, alvarius)", s: [src-mud-winding-down]}
+  entry_barrier: {t: "開発者向け。Solidity、Foundry、TypeScript の知識が必要。テンプレートと CLI で初期構築は自動化されている。拡張開発者は名前空間・権限・委任の理解が必要。", k: fact, s: [src-mud-repo, src-mud-docs-access]}
+
+concepts: [c-ecs-engine, c-permissionless-extension, c-autonomous-world, c-onchain-state, c-own-chain, c-composable-primitive]
+proposed_concepts:
+  - {id: c-namespace-permissions, name: 名前空間単位の所有・権限（MUD World）, desc: "共有コントラクトの中で名前空間ごとに所有者とアクセス権を持たせ、第三者が自分の名前空間を追加できる一方、他者のデータへの書き込みはその名前空間の規則を通す。所有権の放棄で規則を凍結できる。"}
+
+article:
+  principles:
+    - {t: "名前空間による許可不要の拡張: 第三者が自分の名前空間に状態と論理を置き、他者の状態は読むだけ・書き込みは相手の公開システム経由に限ると、「規則を壊さずに足す」拡張ができる。適用条件はコアの規則が公開システムとして呼べ、状態変化がそれを通ってしか起きないこと。破綻条件は、コア側の名前空間所有者がシステムを差し替えられる（アップグレード可能な）場合で、拡張は所有者の変更に依存し続ける。", k: analysis, s: [src-mud-docs-world, src-mud-docs-access]}
+    - {t: "所有権の放棄による規則の凍結: 名前空間所有権を address(0) に移すと、その名前空間のシステムは追加・差し替えできなくなる。適用条件は凍結前にバグが十分潰れていること。破綻条件はバグ修正ができなくなることで、Lattice 自身も 2023 年の重大脆弱性（World を System として登録してルート権限を得られる）で、展開済みチームへ個別に連絡して修正させた。", k: analysis, s: [src-mud-docs-access, src-mud-vuln-retro]}
+  counter_evidence:
+    - {t: "MUD の許可不要拡張は「誰でも足せる」ことを保証するが、需要を保証しない。Sky Strife・Primodium でコミュニティの実例として挙がるものの多くはオフチェーンのツールや公式チーム作成の例で、オンチェーン拡張の自発的な広がりは DUST（Lattice の記述）や OPCraft の短期間の例に限られる。", k: analysis, s: [src-mud-winding-down, src-mud-zero-to-v2]}
+    - {t: "「機能完成」「DUST の開発中に MUD を変更する必要がなかった」という Lattice の説明はコアの World/Store には当てはまる（2025-10 以降変更なし）が、DUST の運用のために entrykit（ガス見積もり）・store-sync（Flashblocks 同期）・cli（mirror 移行ツール）は main 外のブランチで 2026-04 まで改修されていた。「完成」は周辺ツール込みの保守不要を意味しない。", k: analysis, s: [src-mud-winding-down, src-mud-repo, src-mud-npm]}
+    - {t: "Lattice 自身が MUD・Redstone・Quarry を事業として持続させられず解散しており、基盤の技術的完成と、採用作品や基盤事業の経済的持続は別問題であることを示す。", k: claim, who: "Lattice (ludens, alvarius)", s: [src-mud-winding-down]}
+
+events:
+  - {id: ev-mud-v1, date: "2022-09-27", type: release, title: "MUD v1（solecs / recs 1.0.0）を npm で公開", s: [src-mud-npm]}
+  - {id: ev-mud-opcraft, date: "2022-10", type: other, title: "MUD v1 で OPCraft の 2 週間公開テスト", detail: "状態肥大（クライアント読み込み約 20 分）が v2 再設計の動機に", s: [src-mud-zero-to-v2]}
+  - {id: ev-mud-world-package, date: "2023-03-03", type: release, title: "@latticexyz/world パッケージを npm に作成（v2 開発）", s: [src-mud-npm]}
+  - {id: ev-mud-vuln, date: "2023-09-12", type: incident, title: "registerSystem の重大脆弱性を発見・修正", detail: "World 自身を System として登録しルート権限を得られた。2.0.0-next.8 で修正、既知の展開チームへ非公開で連絡", s: [src-mud-vuln-retro]}
+  - {id: ev-mud-audit, date: "2024-02-11", type: other, title: "OpenZeppelin による v2 監査報告", s: [src-mud-repo]}
+  - {id: ev-mud-v2, date: "2024-03-21", type: release, title: "MUD 2.0.0 安定版", detail: "以後 semver で後方互換を維持すると宣言", s: [src-mud-repo, src-mud-v2-ready, src-mud-npm]}
+  - {id: ev-mud-complete, date: "2026-04", type: end, title: "Lattice 解散告知、MUD は機能完成", detail: "World の他チェーン移行ツールを公開", s: [src-mud-winding-down]}
+
+relations:
+  - {to: dark-forest, type: responds-to, basis: confirmed, note: "Lattice は Dark Forest の構造（構造体・マッピング・個別イベント・getter、高額な RPC 負荷）を問題とし、それを解決するために ECS と MUD を作ったと述べる", s: [src-mud-zero-to-v2, src-mud-engine-blog]}
+  - {to: autonomous-worlds-essay, type: same-team, basis: confirmed, note: "Autonomous Worlds の論考を書いた ludens は Lattice の共同創業者", s: [src-mud-redstone-live, src-mud-winding-down]}
+  - {to: opcraft, type: built-with, basis: confirmed, note: "MUD v1 の最初の大規模検証作品（OPCraft が MUD で作られた）", s: [src-mud-zero-to-v2]}
+  - {to: sky-strife, type: built-with, basis: confirmed, note: "Sky Strife が MUD v2 で作られ、MUD の改良を牽引した", s: [src-mud-zero-to-v2]}
+  - {to: dojo, type: similar-to, basis: analytic, note: "Starknet 上のオンチェーン ECS エンジン。同じ問題（状態同期と拡張）への別実装"}
+  - {to: argus-world-engine, type: contrasts-with, basis: analytic, note: "World Engine はシャード型ロールアップでゲーム処理をオフチェーン寄りにする。MUD は EVM コントラクト上での状態管理を基本とする"}
+
+contradictions:
+  - {t: "Winding Down 告知は「DUST の開発中に MUD を変更する必要がなかった」と書くが、リポジトリの非 main ブランチには 2026-01〜04 に DUST 向けの entrykit・store-sync・cli の修正がある（コアの world/store は変更なし）。", s: [src-mud-winding-down, src-mud-repo]}
+
+unknowns:
+  - "MUD で作られた World の総数、名前空間を第三者が登録した World の数（チェーン横断の集計が見つからない）。"
+  - "ルート名前空間の所有権を実際に放棄（address(0) へ移転）した本番 World の例。"
+  - "Lattice 解散後の保守体制（コミュニティによるメンテナンスの有無）。"
+
+sources:
+  - {id: src-mud-engine-blog, title: "MUD: An engine for Autonomous Worlds", url: "https://lattice.xyz/blog/mud-an-engine-for-autonomous-worlds", publisher: "Lattice blog", author: "Lattice", type: official-blog, primary: true, published: "2022", accessed: "2026-10-23", access: fetched, lang: en, note: "v1 の設計意図、World・Component・System、誰でもコンポーネントとシステムを登録できる、汎用インデクサ"}
+  - {id: src-mud-zero-to-v2, title: "MUD from zero to v2", url: "https://lattice.xyz/blog/mud-zero-to-v2", publisher: "Lattice blog", author: "Lattice", type: retrospective, primary: true, published: "2023", accessed: "2026-10-23", access: fetched, lang: en, note: "Dark Forest の構造の問題、zkDungeon、OPCraft の状態肥大と APRO、v2 の再設計、モジュール構想"}
+  - {id: src-mud-v2-ready, title: "MUD v2 is ready", url: "https://lattice.xyz/blog/mud-2-is-ready", publisher: "Lattice blog", author: "Lattice", type: official-blog, primary: true, published: "2024-03", accessed: "2026-10-23", access: fetched, lang: en, note: "Store と World、委任、第三者がコードを追加できる World、採用チームの一覧"}
+  - {id: src-mud-docs-world, title: "World Introduction / Systems (MUD docs)", url: "https://mud.dev/world/introduction", publisher: "MUD docs", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "latticexyz/mud の docs/pages を clone して確認。Diamond との違いは許可不要の拡張、ルート名前空間の危険"}
+  - {id: src-mud-docs-access, title: "Namespaces and Access Control (MUD docs)", url: "https://mud.dev/world/namespaces-access-control", publisher: "MUD docs", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "アクセスレベル、所有者の権限、所有権の放棄による凍結"}
+  - {id: src-mud-vuln-retro, title: "2023-09-12 registerSystem vulnerability (MUD retrospectives)", url: "https://mud.dev/retrospectives/2023-09-12-register-system-vulnerability", publisher: "MUD docs", type: retrospective, primary: true, published: "2023-09", accessed: "2026-10-23", access: fetched, lang: en, note: "clone した docs で確認。World のルート権限を奪える脆弱性と非公開での修正手順"}
+  - {id: src-mud-repo, title: "latticexyz/mud", url: "https://github.com/latticexyz/mud", publisher: "GitHub", type: code, primary: true, published: "2025-09", accessed: "2026-10-23", access: fetched, lang: en, note: "git clone で確認。CHANGELOG（2.0.0 は 2024-03-21、2.2.23 は 2025-08-25）、監査ページ（2024-02-11 OpenZeppelin）、main の最終コミット 2025-09-30、全ブランチの最終コミット 2026-04-10（DUST 向け周辺パッケージ）"}
+  - {id: src-mud-npm, title: "npm registry: @latticexyz/solecs, @latticexyz/recs, @latticexyz/world", url: "https://registry.npmjs.org/@latticexyz/world", publisher: "npm", type: code, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "パッケージ作成日と 1.0.0 / 2.0.0 の公開時刻（registry の time フィールド）。dist-tags の latest は 2.2.23、ブランチ名タグの 2.2.24 系スナップショットは 2026-04-10 まで"}
+  - {id: src-mud-standardizing, title: "Standardizing the MUD world interfaces", url: "https://lattice.xyz/blog/standardizing-mud-world-interface", publisher: "Lattice blog", author: "Lattice", type: official-blog, primary: true, published: "2025", accessed: "2026-10-23", access: fetched, lang: en, note: "MIT ライセンス、Store の ERC 草案、コミュニティによる MUD 拡張（エクスプローラ・分析・インデクサ）"}
+  - {id: src-mud-winding-down, title: "Winding Down Lattice", url: "https://lattice.xyz/winding-down", publisher: "Lattice", author: "Ludens & Alvarius", type: retrospective, primary: true, published: "2026-04", accessed: "2026-10-23", access: fetched, lang: en, note: "MUD は機能完成・監査済み、移行ツール、助成金による資金、事業化できず解散、DUST での創発"}
+  - {id: src-mud-redstone-live, title: "Start Your Engines: Redstone is Live", url: "https://lattice.xyz/blog/start-your-engines-redstone-live", publisher: "Lattice blog", author: "Lattice", type: official-blog, primary: true, published: "2024-05", accessed: "2026-10-23", access: fetched, lang: en, note: "共同創業者 ludens が Autonomous Worlds の論考を書いたと記述、Redstone 上の MUD 作品"}

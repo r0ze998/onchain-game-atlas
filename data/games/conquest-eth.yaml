@@ -1,0 +1,94 @@
+id: conquest-eth
+name: Conquest.eth
+name_ja: コンクエスト・イーエス
+aliases: ["conquest", "Conquest DEFCON edition", "Conquest 2025-1"]
+kind: game
+depth: index
+updated: "2026-10-23"
+chains: [Gnosis Chain (xDai), "テスト・別版の展開: Sepolia, Celo, Monad testnet 等"]
+team: "Etherplay（Ronan Sandford / wighawag の個人スタジオ）"
+summary: >-
+  Ronan Sandford（wighawag）による、期間・ホワイトリストのない「無限ゲーム」を掲げたオンチェーン宇宙戦略・外交ゲーム。
+  プレイヤーはトークンを惑星にステークして宇宙船を生産させ、艦隊の行き先をハッシュでコミットして送り出し、到着後 12 時間以内にリビールして解決する。
+  ZK を使わずコミット・リビールで行き先を秘匿し、フロントランニング（攻撃を見てから逃げる）を防ぐ時間規則を組み込んだ。
+  第三者が同盟コントラクト・マーケット・統計サイト・ボットを作れ、2026 年には AI エージェント向けの CLI／MCP ツールも公開された。
+selection_reason: >-
+  Dark Forest と同じ宇宙戦略・秘匿情報の問題を、ZK ではなくコミット・リビールで解き、さらに「期間制のラウンド」ではなく「終わらない一つの世界」と「実資産のステーク」を選んだ対照例。
+  作者自身が「拡張はゲームと同じだけ生き続ける」と主張しており、その主張と実際の第三者ツールの寿命を比較できる。
+categories:
+  - {id: onchain-rules, role: primary, reason: "ステーク・艦隊送出・戦闘・退出の判定がコントラクト（OuterSpace の各 facet）で行われる"}
+  - {id: aw, role: secondary, reason: "許可不要・永続・合成可能な「無限ゲーム」を掲げ、第三者の同盟・市場コントラクトを公認"}
+  - {id: ai, role: secondary, reason: "2026 年に AI エージェント向け CLI・MCP サーバー・スキル定義を公開"}
+status:
+  value: unknown
+  as_of: "2026-10"
+  note: "リポジトリは 2026-02 まで更新され、2025-1 版の展開記録（Gnosis Chain）がある。conquest.game は参照日時点で「ローンチを待つ」告知ページで、現在稼働中の版の状態は確認できなかった。"
+  s: [src-conquest-repo, src-conquest-site]
+dates:
+  launched: {date: "2022-04", s: [src-conquest-infinite-games], note: "作者のブログが「4 月に Defcon で開始」と記載（DEFCON 版）。それ以前の alpha 版の時期は未確認"}
+
+architecture:
+  onchain:
+    level: core-rules
+    detail: "OuterSpace（facet 構成）が惑星のステーク・生産、艦隊のコミット（FleetsCommit）とリビール（FleetsReveal）、戦闘、退出、報酬を処理する。惑星の性質は genesis 値から決定的に導かれる。"
+    s: [src-conquest-repo]
+  offchain:
+    - {item: "リビールを代行する Agent Service（2025.1 版から行き先を運営にも知らせない方式。手数料は送出時に支払う）", s: [src-conquest-handbook]}
+    - {item: "サブグラフ（インデクサ）と Web クライアント", s: [src-conquest-repo]}
+  admin:
+    level: limited
+    detail: "プロキシ経由の展開（アップグレード可能）、OuterSpaceAdminFacet による報酬生成器の設定と管理者による報酬追加がある。ルール変更権限の全範囲は未確認。"
+    s: [src-conquest-repo]
+  open_source:
+    level: full
+    detail: "AGPL-3.0 で全ソースを公開（一部のグラフィック資産を除く）。"
+    url: "https://github.com/etherplay/conquest-eth"
+    s: [src-conquest-repo]
+  extensibility:
+    level: permissionless-onchain
+    detail: "同盟レジストリと、フォークして独自の加盟条件・統治を作れる basic alliance、フロントエンドのプラグイン機構と既定の宇宙船マーケット（xDai で売買）。第三者による bugout-dev のデータ分析・ボット、統計サイト、地図ツールが公開されている。"
+    s: [src-conquest-handbook, src-conquest-third-party]
+
+compare:
+  gameplay: {t: "トークンを惑星にステークして宇宙船を生産し、艦隊を送って他者の惑星を攻撃・味方を支援し、退出してステークを回収する。行動は stake / send / exit の 3 つが核。", k: fact, s: [src-conquest-handbook]}
+  necessity: {t: "実資産を賭ける以上、運営を介さずにルールと結果が検証できることに意味がある、というのが作者の立場。終わりのない世界にした結果、先行者の蓄積と新規参入の釣り合いが課題になり得る。", k: analysis, s: [src-conquest-infinite-games, src-conquest-handbook]}
+  information: {t: "艦隊の行き先はコミット（ハッシュ）で隠され、到着後のリビールで明かされる。出発直前に到着した攻撃は出発艦隊を攻撃でき、取引キューを見て逃げるフロントランニングを抑える。", k: fact, s: [src-conquest-handbook]}
+  persistence: {t: "作者は期限のない永続ゲームを掲げたが、実際には alpha・beta・DEFCON・2025-1 など複数の展開（別コントラクト）が存在する。各展開間で惑星やステークが引き継がれたかは未確認。", k: fact, s: [src-conquest-repo, src-conquest-infinite-games]}
+  extensibility: {t: "同盟コントラクトのフォーク、フロントエンドのプラグイン、第三者の分析・ボット・地図ツール、2026 年の AI エージェント向け CLI／MCP。", k: fact, s: [src-conquest-handbook, src-conquest-third-party, src-conquest-mcp]}
+  money_flow: {t: "プレイヤーが惑星にステークした資産がゲームの賭け金で、作者は「勝つこともあるが失うこともある」と警告している。代行リビールは利用者が手数料を払う。", k: fact, s: [src-conquest-repo, src-conquest-handbook]}
+  entry_barrier: {t: "ウォレット、Gnosis Chain のガス、ステーク用トークンが必要。艦隊 1 回に 2 トランザクションが要り、12 時間以内にリビールしないと艦隊を失う。", k: fact, s: [src-conquest-handbook]}
+
+concepts: [c-commit-reveal, m-fog-of-war, c-onchain-rules, c-permissionless-extension, c-client-plugins, m-pvp-territory, c-ai-agent-player, m-bot-automation, c-autonomous-world]
+
+article:
+  principles:
+    - {t: "コミット・リビールによる艦隊の秘匿: 行き先のハッシュだけを先に出し到着後に明かすと、ZK 回路なしで「どこへ向かっているか分からない」状態を作れる。適用条件は、移動に時間がかかり、到着時刻の後に明かす猶予（12 時間）を設けられること。破綻条件は、プレイヤーがリビールを忘れる・オフラインになる場合で、代行サービスへの信頼が必要になる（Conquest は行き先を運営にも隠す代行で対処）。", k: analysis, s: [src-conquest-handbook]}
+    - {t: "読み取り専用の拡張は寿命をゲームに預けられる: 作者は、ゲームのコントラクトへ書き戻さない拡張でも、ゲームが続く限り生き続けると主張する。破綻条件は、ゲーム自体が版の作り直しやチェーン移行で別コントラクトになる場合で、拡張も追従が必要になる。", k: analysis, s: [src-conquest-infinite-games, src-conquest-repo]}
+  counter_evidence:
+    - {t: "第三者ツール（bugout-dev のボット・分析、地図、統計）の多くは 2022 年に作られ、その後更新が止まっている（地図 2022-05、bugout-dev 2022-09）。「拡張はゲームと同じだけ生きる」という主張に対し、実際の第三者拡張は短命だった。", k: fact, s: [src-conquest-third-party]}
+
+events:
+  - {id: ev-conquest-defcon, date: "2022-04", type: launch, title: "DEFCON 版を Gnosis Chain で開始", s: [src-conquest-infinite-games]}
+  - {id: ev-conquest-infinite-games, date: "2022-08-19", type: other, title: "作者が「Infinite Games」を公開", detail: "許可不要・永続・不変・プログラム可能・相互運用可能なゲームの定義", s: [src-conquest-infinite-games]}
+  - {id: ev-conquest-mcp, date: "2026-02", type: release, title: "AI エージェント向け CLI／MCP ツールとスキル定義を公開", detail: "@conquest-eth/tools。2025-1 版のコントラクトを対象", s: [src-conquest-mcp, src-conquest-repo]}
+
+relations:
+  - {to: dark-forest, type: contrasts-with, basis: analytic, note: "同じ宇宙戦略・秘匿情報を、ZK ではなくコミット・リビールで、ラウンド制ではなく無期限で実装"}
+  - {to: c-commit-reveal, type: built-with, basis: confirmed, note: "FleetsCommit / FleetsReveal facet", s: [src-conquest-repo, src-conquest-handbook]}
+  - {to: c-ai-agent-player, type: built-with, basis: confirmed, note: "MCP サーバーとエージェント用スキル", s: [src-conquest-mcp]}
+  - {to: autonomous-worlds-essay, type: similar-to, basis: analytic, note: "README は「infinite games と autonomous worlds」を並べて言及。直接の影響関係は未確認"}
+
+unknowns:
+  - "プレイヤー数・ステーク総額・継続率（公表値を見つけられなかった）。"
+  - "alpha〜2025-1 の各版の期間と、版をまたいだ資産の扱い。"
+  - "MCP／CLI を使った AI エージェントが実際に参加したか。"
+  - "conquest.game が予告する新版（Avatar Commanders 等）の内容と時期。"
+contradictions: []
+
+sources:
+  - {id: src-conquest-repo, title: "etherplay/conquest-eth", url: "https://github.com/etherplay/conquest-eth", publisher: "GitHub", type: code, primary: true, published: "2026-02-12", accessed: "2026-10-23", access: fetched, lang: en, note: "git clone。README（無限ゲーム、AGPL-3.0、実資産の警告）、OuterSpace facets、deployments（alpha1〜2025_1）、lobsters/tools、skills"}
+  - {id: src-conquest-handbook, title: "conquest-eth-player-handbook", url: "https://github.com/wighawag/conquest-eth-player-handbook", publisher: "GitHub (Etherplay)", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "git clone。艦隊の 2 トランザクション、12 時間の猶予、Agent Service、同盟、マーケットプラグイン"}
+  - {id: src-conquest-infinite-games, title: "Infinite Games", url: "https://ronan.eth.limo/blog/infinite-games/", publisher: "ronan.eth", author: "Ronan Sandford", type: official-blog, primary: true, published: "2022-08-19", accessed: "2026-10-23", access: fetched, lang: en, note: "無限ゲームの定義、4 月の Defcon 開始、読み取り専用の拡張"}
+  - {id: src-conquest-mcp, title: "wighawag/mcp-conquest-eth", url: "https://github.com/wighawag/mcp-conquest-eth", publisher: "GitHub", type: code, primary: true, published: "2026-02", accessed: "2026-10-23", access: fetched, lang: en, note: "git clone。2025-1 版向け MCP。本体リポジトリの lobsters/tools へ移動"}
+  - {id: src-conquest-third-party, title: "GitHub repository search: conquest-eth", url: "https://github.com/search?q=conquest-eth&type=repositories", publisher: "GitHub", type: code, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "GitHub API 検索で確認。bugout-dev/conquest-eth（分析・ボット、更新 2022-09）、yonadaa/conquest.eth-stats、kompotkot/conquest-eth-map（2022-05）"}
+  - {id: src-conquest-site, title: "CONQUEST", url: "https://conquest.game", publisher: "Etherplay", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "ローンチ待ちの告知ページ"}

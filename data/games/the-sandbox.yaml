@@ -1,0 +1,95 @@
+id: the-sandbox
+name: The Sandbox
+name_ja: ザ・サンドボックス
+aliases: [Sandbox, TSB]
+kind: platform
+depth: index
+updated: "2026-10-23"
+chains: [Ethereum mainnet]
+team: "The Sandbox（旧 Pixowl。2018-08 に Animoca Brands が買収。共同創業者 Arthur Madrid / Sébastien Borget）"
+summary: >-
+  2012 年のモバイル用ボクセル制作ゲームを、Animoca Brands による買収後にブロックチェーン付きの 3D 版として作り直した仮想世界プラットフォーム。
+  166,464 区画の LAND（ERC-721）、制作物 ASSETS（ERC-1155）、通貨 SAND（ERC-20）を発行し、VoxEdit と Game Maker で作った体験を LAND 上に置く。
+  既存のゲーム IP をトークン経済に転換した代表例で、2021 年に大型調達と土地販売を行い、2025 年には人員削減と経営体制の変更が報じられた。
+selection_reason: >-
+  既存のゲーム会社・IP が Web3 へ転換した例であり、土地販売を中心とした資金調達、ゲームロジックはサーバー側に置いたまま資産だけをトークン化する構成、
+  そして 2022 年の利用者数論争で Decentraland と同じ指標の問題に直面した点を比較できるため。
+categories:
+  - {id: assets, role: primary, reason: "LAND（ERC-721）、ASSETS（ERC-1155）、SAND（ERC-20）。ゲーム体験はサーバー側"}
+  - {id: p2e, role: secondary, reason: "Alpha Season 等で報酬を配り、制作者が SAND で収益化する設計を掲げた"}
+status:
+  value: active
+  as_of: "2025-08"
+  note: "2025-08 の再編報道で、Borget は SAND・LAND・NFT コレクションは「変わらない」と述べた。以後の運営状況は本調査で確認していない。"
+  s: [src-tsb-cointelegraph-2025]
+dates:
+  launched: {date: "2021-11-29", s: [src-tsb-wikipedia], note: "Alpha 段階の公開テスト（〜2021-12-20）。正式版の公開日は未確認"}
+
+architecture:
+  onchain:
+    level: assets-only
+    detail: "2020 年ホワイトペーパーでは、ASSETS を ERC-1155 / ERC-721、LAND を 408×408 の区画として発行し、売買を SAND で行う。資産作成はブラウザから AWS 上のサーバーを経由して S3 と IPFS に保存し、ハッシュをコントラクトに渡す構成。ゲーム体験の実行はチェーン外。"
+    s: [src-tsb-whitepaper]
+  offchain:
+    - {item: "自社サーバー（AWS、Node.js）、S3 と IPFS への資産保存", s: [src-tsb-whitepaper]}
+    - {item: "Game Maker で作った体験の実行とプレイヤー接続（ログイン基準の利用者集計）", s: [src-tsb-coindesk-2022]}
+  admin:
+    level: unknown
+    detail: "ホワイトペーパーは DAO による統治へ段階的に移行すると述べるが、コントラクトの管理権限の現状は本調査で確認していない。"
+    s: [src-tsb-whitepaper]
+  open_source:
+    level: unknown
+    detail: "未確認。"
+  extensibility:
+    level: official-api
+    detail: "利用者は VoxEdit で ASSETS を作りマーケットで売り、Game Maker で LAND 上に体験を作れる。ルール拡張は運営のツールの範囲内。"
+    s: [src-tsb-whitepaper]
+
+compare:
+  gameplay: {t: "LAND 上に置かれた体験（ミニゲーム、IP コラボの展示等）をアバターで遊ぶ。制作者は VoxEdit と Game Maker で資産と体験を作る。", k: fact, s: [src-tsb-whitepaper]}
+  necessity: {t: "資産の所有と二次流通、土地の希少性による資金調達にはトークンが使われたが、ゲームの実行はサーバー側で、同じ体験は従来型のサーバーでも作れる。", k: analysis, s: [src-tsb-whitepaper]}
+  information: {t: "未確認", k: unknown}
+  persistence: {t: "資産のトークンは残るが、体験の実行は運営サーバーに依存する構成（2020 年ホワイトペーパー時点）。", k: analysis, s: [src-tsb-whitepaper]}
+  extensibility: {t: "公式ツールによる UGC（VoxEdit / Game Maker）。", k: fact, s: [src-tsb-whitepaper]}
+  money_flow: {t: "ホワイトペーパーは SAND 建て取引の 5% を手数料とし、ステーキングプールと財団に配分すると記載。LAND 販売が初期収入で、2021-11 に 9300 万ドルの Series B を調達した。", k: fact, s: [src-tsb-whitepaper, src-tsb-wikipedia]}
+  entry_barrier: {t: "未確認（ログインのみで遊べるか、ウォレットが必須かは時期により異なる可能性）。", k: unknown}
+
+concepts: [m-land, c-nft-asset, c-fungible-ingame-token, e-p2e, e-royalty-creator]
+
+article:
+  counter_evidence:
+    - {t: "2022-10 に DappRadar の「24 時間にコントラクトと取引したウォレット」は 522（過去最高は約 4,503）。CEO の Arthur Madrid は、この指標はユーザー間取引と一次販売しか反映しないとし、1 日に 1 回以上接続した人を DAU と定義すると反論した。同社は当時約 20 万の月間アクティブを主張した。オンチェーン指標と運営指標の乖離は Decentraland と同じ構造である。", k: fact, s: [src-tsb-coindesk-2022, src-tsb-wikipedia]}
+    - {t: "2025-08 の再編では、共同創業者 2 名が執行職から退き、約 250 人のうち半数超の削減が報じられた（人数は The Big Whale の報道で会社は未確認）。会社は理由として AI による効率化を挙げた。", k: claim, who: "Sébastien Borget（Cointelegraph の記事内）", s: [src-tsb-cointelegraph-2025], q: "allows us to accelerate our deployment of content, features, and LiveOps while maintaining a leaner, more agile team"}
+
+metrics:
+  - {id: m-tsb-dappradar-2022-10, type: wallets, value: 522, unit: wallets, period: "2022-10 初旬の 24 時間", definition: "DappRadar: コントラクトと取引した一意ウォレット数", nature: measured, s: [src-tsb-coindesk-2022]}
+  - {id: m-tsb-dappradar-peak, type: wallets, value: 4503, value_text: "約 4,503", unit: wallets, period: "2022-10 時点の過去最高（日次）", definition: "DappRadar の日次一意ウォレットの過去最高", nature: measured, s: [src-tsb-coindesk-2022]}
+  - {id: m-tsb-mau-claim-2022, type: mau, value: 200000, value_text: "約 20 万", unit: players, period: "2022-10 頃", definition: "会社が主張した月間アクティブ（定義は 1 日 1 回以上の接続に基づくと CEO が説明）", nature: reported, s: [src-tsb-wikipedia, src-tsb-coindesk-2022]}
+  - {id: m-tsb-alpha-users, type: players, value: 200000, value_text: "20 万超", unit: players, period: "2021-11-29〜12-20（Alpha）", definition: "Alpha 期間の利用者数（Wikipedia、定義不明）", nature: reported, s: [src-tsb-wikipedia]}
+  - {id: m-tsb-land-count, type: other, value: 166464, unit: parcels, period: "2020 年ホワイトペーパー", definition: "LAND の総区画数（408×408）", nature: reported, s: [src-tsb-whitepaper]}
+  - {id: m-tsb-seriesb-2021, type: funding, value: 93000000, unit: USD, period: "2021-11", definition: "Series B 調達額（Wikipedia）", nature: reported, s: [src-tsb-wikipedia]}
+  - {id: m-tsb-pixowl-acq, type: other, value: 4875000, unit: USD, period: "2018-08", definition: "Animoca Brands による Pixowl 買収額（現金と株式、Wikipedia）", nature: reported, s: [src-tsb-wikipedia]}
+
+events:
+  - {id: ev-tsb-acq, date: "2018-08", type: other, title: "Animoca Brands が Pixowl を買収", s: [src-tsb-wikipedia]}
+  - {id: ev-tsb-alpha, date: "2021-11-29", type: launch, title: "Alpha 公開テスト開始（〜12-20）", s: [src-tsb-wikipedia]}
+  - {id: ev-tsb-seriesb, date: "2021-11", type: funding, title: "Series B で 9300 万ドル調達", s: [src-tsb-wikipedia]}
+  - {id: ev-tsb-dau-dispute, date: "2022-10-07", type: other, title: "DappRadar 指標をめぐる反論", detail: "522 ウォレットに対し CEO がログイン基準の DAU を主張", s: [src-tsb-coindesk-2022]}
+  - {id: ev-tsb-restructure, date: "2025-08-28", type: other, title: "再編と人員削減の報道", detail: "Madrid は会長、Borget はグローバルアンバサダーへ", s: [src-tsb-cointelegraph-2025]}
+
+relations:
+  - {to: decentraland, type: similar-to, basis: analytic, note: "土地 NFT 型の仮想世界。2022-10 に同じ指標の論争"}
+  - {to: m-land, type: built-with, basis: confirmed, note: "166,464 区画の LAND", s: [src-tsb-whitepaper]}
+
+unknowns:
+  - "現在のチェーン構成（Polygon への LAND・資産の移行の有無）とコントラクトの管理権限。"
+  - "正式版の公開日、2023 年以降の利用者数、DAO の実際の権限。"
+  - "2025-08 以降の運営方針（報道されたミームコイン・Base 関連の計画の実施状況）。"
+contradictions:
+  - {t: "利用者数: DappRadar 522（取引ウォレット/24h）、会社主張の約 20 万 MAU（ログイン基準）。", s: [src-tsb-coindesk-2022, src-tsb-wikipedia]}
+
+sources:
+  - {id: src-tsb-whitepaper, title: "The Sandbox White Paper — 2020", url: "https://installers.sandbox.game/The_Sandbox_Whitepaper_2020.pdf", publisher: "The Sandbox", type: paper, primary: true, published: "2020", accessed: "2026-10-23", access: fetched, lang: en, note: "curl＋pdftotext で読んだ。166,464 LAND、ERC-1155 ASSETS、5% 手数料、AWS / S3 / IPFS。2026-07-31 付で「歴史的文書・現状を表さない」注記が追加"}
+  - {id: src-tsb-coindesk-2022, title: "It's Lonely in the Metaverse: Decentraland's 38 Daily Active Users in a $1.3B Ecosystem", url: "https://www.coindesk.com/web3/2022/10/07/its-lonely-in-the-metaverse-decentralands-38-daily-active-users-in-a-13b-ecosystem/", publisher: "CoinDesk", author: "Cam Thompson", type: news, primary: false, published: "2022-10-07", accessed: "2026-10-23", access: fetched, lang: en, note: "The Sandbox 522、過去最高約 4,503、Arthur Madrid の反論"}
+  - {id: src-tsb-wikipedia, title: "The Sandbox (company)", url: "https://en.wikipedia.org/wiki/The_Sandbox_(company)", publisher: "Wikipedia", type: wiki, primary: false, accessed: "2026-10-23", access: fetched, lang: en, note: "Pixowl 買収、Alpha、Series B、2022 年の利用者数"}
+  - {id: src-tsb-cointelegraph-2025, title: "Animoca's Sandbox overhauls as co-founders confirm new strategic roles", url: "https://cointelegraph.com/news/the-sandbox-restructuring-ai-layoffs-cofounders-role-shift", publisher: "Cointelegraph", author: "Helen Partz", type: news, primary: false, published: "2025-08-28", accessed: "2026-10-23", access: fetched, lang: en, note: "経営体制変更、人員削減（規模は The Big Whale）、Borget の発言"}

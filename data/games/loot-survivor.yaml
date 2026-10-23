@@ -1,0 +1,232 @@
+id: loot-survivor
+name: Loot Survivor
+name_ja: ルート・サバイバー
+aliases: [LS, LS1, "Loot Survivor 1.5", "Loot Survivor 2", LS2, "Death Mountain"]
+kind: game
+depth: deep
+updated: "2026-10-23"
+chains: [Starknet mainnet, Starknet testnet（Goerli / Sepolia）]
+team: "当初は BibliothecaDAO（Realms）の GitHub 組織で開発（コミュニティ記事は Loothero の作と記す）。現在は Provable Games, Inc.。Bibliotheca DAO は「最初のインキュベーター」と公式文書が記載"
+summary: >-
+  Starknet 上の「オンチェーンのアーケード機」を掲げるローグライク型ダンジョンクローラー。1 回の参加料（当初 25 LORDS）で 1 体の冒険者を作り、
+  探索・戦闘・装備購入・能力値振りを繰り返して、死ぬまでにどこまで経験値を積めるかを競う（パーマデス）。
+  参加料の一部が上位 3 名とクライアント運営者に自動で分配され、乱数の扱い（ブロックハッシュのコミット・リビール → Pragma VRF → Cartridge VRF）と
+  ボット・放置対策が版ごとに作り直された。2025 年には Dojo ベースの「Death Mountain」上の LS2 と SURVIVOR トークン、ダンジョンチケット制へ移行した。
+selection_reason: >-
+  Loot の装備体系を引き継いだ派生ゲームで、ルール判定と冒険者の状態をすべてコントラクトに置いた「フルオンチェーン」の実例として、
+  コード（3 世代分）とコミット履歴から乱数・ボット対策・報酬分配の設計変更を追える。参加料を上位者に配る閉じた賭けの構造から、
+  トークン・チケット・NFT 獲物・姉妹ゲーム連携を持つ経済へ変わった経緯は、「オンチェーンゲームは何で持続するか」を考える比較材料になる。
+categories:
+  - {id: onchain-rules, role: primary, reason: "探索・戦闘・逃走・市場・レベルアップの判定と冒険者の状態がコントラクト内で計算・保存される"}
+  - {id: p2e, role: secondary, reason: "参加料の一部が上位 3 名に自動分配される（LS1/1.5）。LS2 では到達レベルに応じて SURVIVOR トークンと Beast NFT が得られる"}
+  - {id: infra, role: secondary, reason: "Starknet の手数料構造に合わせた 1 スロットへの状態詰め込み、使い捨てアカウント、VRF の組み込みなど、基盤側の制約が設計を規定した"}
+  - {id: assets, role: secondary, reason: "冒険者・Golden Token・Beast が NFT 化され、Beast は姉妹ゲーム Summit で再利用される"}
+status:
+  value: active
+  as_of: "2026-10"
+  note: >-
+    公式ドキュメント（GitHub、参照日の前日に更新）は LS2 を Starknet mainnet で遊べるものとして案内しており、growthepie は参照日直近 7 日間で 411 アドレス・4.08 万件の取引を計測している。
+    旧版（LS1 / LS1.5）のコントラクトがいまも遊べるかは確認していない。
+  s: [src-ls-docs-index, src-ls-docs-faq, src-ls-growthepie]
+dates:
+  launched: {date: "2023-10-31", s: [src-ls-docs-golden-token, src-ls-hist-commits], note: "Golden Token の文書が「Loot Survivor の最初のリリースと同時」に 2023-10-31 発売と記載。同日に mainnet 用設定のマージがある。一方 Starknet 公式ブログ（2023-11-07）は「テストネットで遊べる」と書く（contradictions 参照）"}
+
+architecture:
+  onchain:
+    level: all
+    detail: >-
+      LS1/1.5 では冒険者の状態（体力・経験値・装備・能力値など）を主に 1 つの felt252 に詰めて保存し、探索・戦闘・逃走・装備・市場・能力値振り・死亡処理・リーダーボード・参加料分配がすべて Cairo コントラクト内で行われる。
+      乱数もコントラクトが得る（LS1: ブロックハッシュによるコミット・リビールとグローバル・エントロピー、LS1.5: Pragma VRF、LS2: Cartridge VRF）。
+      LS2 は Dojo 上の「Death Mountain」で、冒険者・ビースト・市場・設定が Dojo のモデル／システムとして実装されている。
+      描画用の画像は LS1.5 ではカスタムレンダラーを指定でき、Beast NFT のメタデータと画像はコントラクトが生成すると公式は述べる。
+    s: [src-ls-repo-pg, src-ls-code-lib15, src-ls-hist-v1-lib, src-ls-dm-repo, src-ls-dm-game, src-ls-docs-beasts]
+  offchain:
+    - {item: "インデクサ（LS1/1.5: Apibara + GraphQL、LS2: Dojo の Torii）とクライアント（Next.js / React）。表示の多くはインデクサ経由", s: [src-ls-repo-pg, src-ls-docs-architecture]}
+    - {item: "楽観的描画（取引をローカルでシミュレーションして確定を待たずに進める）と、セッションごとの使い捨てアカウント（LS1）", s: [src-ls-starknet-blog-2023]}
+    - {item: "VRF の提供者（Pragma、Cartridge）と価格オラクル（Pragma の LORDS/USD・ETH/USD）。オラクルとコールバックの可用性に依存する", s: [src-ls-code-lib15, src-ls-dm-game]}
+    - {item: "LS2 のウォレットは Cartridge Controller（セッションキー）。メインネットの利用規約への署名記録は Provable Games がオフチェーンで保存する", s: [src-ls-docs-architecture, src-ls-docs-faq]}
+  admin:
+    level: significant
+    detail: >-
+      LS1（2023-11 版）と LS1.5（2025-05 時点の main）のゲームコントラクトには replace_class（アップグレード）や所有者専用関数が見当たらず、
+      改修は「新しいコントラクトを展開して移る」形で行われた（2023-11 に mainnet で新規ゲームを止めて新コントラクトへ切替えたコミットがある）。
+      一方 LS2 の技術文書は Dojo のアップグレード機構（管理者のみが class hash を差し替え可能）を使うと記し、FAQ は「アップグレードを含め」展開コントラクトを確認するよう求める。
+      SURVIVOR のオンチェーン・ガバナンスが Beast の所在ダンジョン、ロイヤルティ、受け入れトークン等を変更できる。
+    s: [src-ls-code-lib15, src-ls-hist-v1-lib, src-ls-hist-commits, src-ls-docs-contracts, src-ls-docs-faq, src-ls-docs-token]
+  open_source:
+    level: partial
+    detail: >-
+      LS1/1.5 のコントラクト・クライアント・インデクサは MIT ライセンスで公開。LS2 の基盤 Death Mountain は公開されているが、
+      コア部分は Business Source License 1.1（2028-01-01 か指定日の早い方に MIT へ移行）で、本番利用は追加許諾の範囲に限られる。
+    url: "https://github.com/Provable-Games/death-mountain"
+    s: [src-ls-repo-pg, src-ls-dm-license, src-ls-dm-repo]
+  extensibility:
+    level: permissionless-onchain
+    detail: >-
+      LS1.5 は参加料の 27% を「クライアント提供者」アドレスへ送る仕組みを持ち、第三者が自前のクライアントを作る経済的動機をコントラクトに組み込んだ（実際の第三者クライアントの例は確認できなかった）。
+      LS2 の Death Mountain では add_settings を誰でも呼べ、初期ステータス・持ち物・固定シード・VRF アドレス・市場の大きさ等を指定した独自ダンジョン設定を登録できる。
+      Beast NFT は同社の Summit（King of the Hill）で使われ、Budokan（汎用トーナメント基盤）が LS2 の大会を開く。第三者による独自ダンジョンの実例は確認できなかった。
+    s: [src-ls-code-lib15, src-ls-code-constants15, src-ls-dm-settings, src-ls-docs-summit, src-ls-bankless-ls2]
+
+compare:
+  gameplay: {t: "1 回ごとに 1 体の冒険者で、探索・ビースト戦・罠回避・市場での装備購入・能力値振りを繰り返し、死ぬまでの経験値（スコア）を競う 1 人用ローグライク。レベル上限はなく、進むほど難しくなる。", k: fact, s: [src-ls-repo-pg, src-ls-docs-faq, src-ls-starknet-blog-2023]}
+  necessity: {t: "乱数・戦闘判定・賞金分配を誰も改ざんできない形で公開し、運営なしに上位者へ支払うという点にオンチェーン化の意味がある。一方で遊びそのもの（1 人用ダンジョン）は他者の状態とほとんど相互作用せず、オフチェーンでも成立する。", k: analysis, s: [src-ls-code-lib15]}
+  information: {t: "冒険者の状態は公開。乱数の種が一定期間固定されるため、クライアントは今後の結果を予測表示できる（「Prescience」）。種がいつ確定するかが、予知と操作の範囲を決める設計変数になった。", k: fact, s: [src-ls-commit-pragma-vrf, src-ls-commit-prescience, src-ls-ui-prescience]}
+  persistence: {t: "LS1/1.5 のコントラクトは管理者関数を持たず、冒険者 NFT と死亡記録はチェーン上に残る。ただし新版は新しいコントラクト・新しい経済として展開され、旧版の資産は Beast 保有者・上位者への SURVIVOR 配布という形で一部引き継がれた。", k: fact, s: [src-ls-code-lib15, src-ls-docs-tokenomics]}
+  extensibility: {t: "クライアント提供者への報酬（LS1.5）、誰でも登録できるダンジョン設定（LS2）、Beast の姉妹ゲームでの再利用、Budokan による大会。いずれも第三者による実例は限定的で、同社製品間の連携が中心。", k: fact, s: [src-ls-code-constants15, src-ls-dm-settings, src-ls-docs-summit]}
+  money_flow: {t: "LS1: 参加料 25 LORDS を上位 3 名・クライアント・DAO で分配（期間で比率が変化）。LS1.5: 目標 3 ドル相当の LORDS と VRF 代 0.5 ドル相当の ETH。LS2: ダンジョンチケット代の 80% が SURVIVOR の自動買付→財団庫、20% が veLORDS 保有者へ。プレイヤーは SURVIVOR と Beast NFT を得る。チケットは約 132 年で 1 億ゲーム分を連続発行し、価格が 1 ドル未満の日が 3 日続くと発行量が半減する。", k: fact, s: [src-ls-hist-v1-lib, src-ls-code-lib15, src-ls-code-constants15, src-ls-docs-token, src-ls-docs-tickets]}
+  entry_barrier: {t: "Starknet のウォレット（LS2 は Cartridge Controller）、参加料またはチケット、ガス代が必要。2023 年のコミュニティ記事は 1 ゲームのガス代を 5〜10 ドルと記した。無料のテストネット版と、無料ゲームの配布（Golden Token、約 50 万ゲームのエアドロップ）がある。mainnet は 18 歳以上に限定。", k: fact, s: [src-ls-lootherald-2023, src-ls-docs-faq, src-ls-docs-token, src-ls-docs-golden-token]}
+
+concepts: [c-onchain-rules, c-onchain-state, c-onchain-randomness, c-commit-reveal, m-permadeath, e-entry-fee-prize, c-nft-asset, c-fungible-ingame-token, c-gas-abstraction, c-ecs-engine, c-composable-primitive, m-bot-automation, e-sink-faucet, e-points-airdrop]
+proposed_concepts:
+  - {id: m-prescience, name: 予知可能な乱数窓（Prescience）, desc: "乱数の種を一定期間固定し、その範囲の結果をプレイヤーが事前に計算できることを遊びとして公認する。種の更新頻度が予知の深さと VRF コストを決める。"}
+  - {id: e-client-provider-fee, name: クライアント提供者への手数料分配, desc: "取引を送ったクライアント（フロントエンド）の運営者に参加料の一部をコントラクトが自動で支払い、第三者クライアントを経済的に誘導する。"}
+  - {id: m-idle-death, name: 放置死（idle penalty）, desc: "一定ブロック以上行動しない冒険者を誰でも殺せるようにし、良い乱数を待つ・行動を保留するボット戦略を封じる。"}
+
+article:
+  what:
+    - {t: "プレイヤーは参加料を払って冒険者を 1 体作り、開始武器（剣・棍棒・魔法系など）を選ぶ。冒険者は体力 100 から始まり、探索で遭遇するビースト（75 種）と罠（75 種）、金貨・回復薬・装備に出会う。", k: fact, s: [src-ls-docs-index, src-ls-repo-pg]}
+    - {t: "武器と防具には 3 系統の相性（Blade/Bludgeon/Magic と Metal/Hide/Cloth、LS2 の文書では Magical/Brute/Hunter）があり、相性でダメージが ±50% 変わる。装備は使うほど「greatness」が上がり、接尾辞・接頭辞の特殊効果が開く。", k: fact, s: [src-ls-repo-pg, src-ls-docs-faq]}
+    - {t: "アイテム名と装備枠は Ethereum 上の Loot（for Adventurers）の元コントラクトに基づくと README は述べ、公式文書も Loot プロジェクト由来と記す。", k: fact, s: [src-ls-repo-pg, src-ls-docs-index], q: "The items are based off the OG loot contract"}
+    - {t: "死は永久で、冒険者はそこで終わる。スコアは経験値で、上位はリーダーボードに残り、LS1/1.5 では上位 3 名が以後の参加料の一部を受け取る。", k: fact, s: [src-ls-docs-faq, src-ls-code-lib15]}
+    - {t: "LS2 の「Beast Mode」では、レベル 19 以上の名前付きビーストを初めて倒すとそのビーストが NFT として発行される（総数 93,225 体、75 種 × 1,243 体）。", k: fact, s: [src-ls-docs-beasts]}
+  loop:
+    - {t: "以下は README・公式ドキュメント・コントラクトからの再構成（筆者は実プレイしていない）。new_game で参加料を払うと冒険者 NFT が発行され、最初のスターター・ビーストとの戦闘から始まる。", k: fact, s: [src-ls-code-lib15]}
+    - {t: "LS1 では開始後 mainnet で 11 ブロック待たないと最初のビーストを倒せず、その「公開ブロック」のハッシュと冒険者 ID から冒険者固有のエントロピーと初期能力値が決まった（コミット・リビール）。", k: fact, s: [src-ls-commit-commitreveal]}
+    - {t: "explore で探索し、ビースト・罠・発見物のいずれかに当たる。ビーストには attack か flee（逃走、DEX 依存）を選ぶ。to_the_death 指定で決着まで連続攻撃できる。", k: fact, s: [src-ls-code-lib15, src-ls-repo-pg]}
+    - {t: "レベルが上がると能力値ポイントが与えられ、upgrade で能力値振り・回復薬購入・市場での装備購入をまとめて 1 取引で行う。市場の品揃えはレベルごとに乱数で入れ替わり、価格は CHA で下がる。", k: fact, s: [src-ls-code-lib15, src-ls-docs-faq]}
+    - {t: "LS1.5 以降、クライアントは今の乱数の種から先の展開（どの行動でどの結果になるか）を表示でき、プレイヤーは逃走で 1 経験値を得るなどして結果を「選ぶ」ように進む。チュートリアルは表の行を辿って最適経路を考えるよう促す。", k: fact, s: [src-ls-ui-prescience, src-ls-commit-pragma-vrf]}
+  before_after:
+    - {t: "Loot（2021）は装備名の一覧だけを公開し意味付けを第三者に委ねた。Loot Survivor はその装備体系に数値・相性・成長を与え、コントラクト上で動く戦闘ルールに組み込んだ派生の一つ。", k: analysis, s: [src-ls-repo-pg, src-ls-docs-index]}
+    - {t: "Starknet では手数料が更新するストレージスロット数に依存するため、プレイヤーの全状態を 252 ビットの felt 1 つに詰め、各行動で 1 スロットだけ更新する設計にしたと運営は説明した。", k: claim, who: "Starknet 公式ブログ / Loot Survivor README", s: [src-ls-starknet-blog-2023, src-ls-repo-pg], q: "A player's gamestate exists primarily in a single felt252, every action the player takes only updates a single storage slot."}
+    - {t: "毎回の署名を避けるセッション用の使い捨てアカウントと、確定を待たない楽観的描画で、ブロック時間のある環境でもアーケードの操作感に近づけることを狙った。", k: claim, who: "Starknet 公式ブログ", s: [src-ls-starknet-blog-2023]}
+    - {t: "Starknet 公式ブログは Loot Survivor を「最初の真に自律的なオンチェーンゲーム」と呼んだが、これは当事者側の表現であり、比較の根拠は示されていない。", k: claim, who: "Starknet 公式ブログ", s: [src-ls-starknet-blog-2023], q: "this first truly autonomous onchain game"}
+  onchain_tradeoffs:
+    - {t: "生まれた遊び: 乱数の種が一定範囲で固定されることを隠さず、先の結果を計算して経路を選ぶ「Prescience」を遊びに変えた。VRF 導入時の設計メモは、種の更新間隔を長くすると予知できる範囲が広がり認知的な複雑さが増す一方、VRF 呼び出しのコストは下がると説明している。", k: claim, who: "開発者（コミットメッセージ）", s: [src-ls-commit-pragma-vrf]}
+    - {t: "増えた不便: 乱数が公開情報から決まる限り、結果を見てから行動を選ぶ「操縦」が可能になる。2024-07 には、戦闘の乱数が冒険者の体力に依存していたため複雑な予知による操縦（prescience steering）が可能だったとして、行動回数カウンタを使う形に改めた。", k: fact, s: [src-ls-commit-prescience]}
+    - {t: "増えた不便: LS1 ではブロックハッシュ由来のグローバル・エントロピーを誰でも回せる関数（rotate_game_entropy）で更新し、プレイヤーの行動でも回るようにした。良い乱数を待つ放置を防ぐため、一定ブロック行動しない冒険者は死亡扱いにでき（idle penalty）、誰でも slay_idle_adventurers を呼べた。", k: fact, s: [src-ls-commit-entropy-rotation, src-ls-hist-v1-lib, src-ls-starknet-blog-2023]}
+    - {t: "増えた不便: 2023 年時点で 1 ゲームあたり 5〜10 ドルのガス代がかかり、EIP-4844 で下がることが期待されていた（コミュニティ記事の推定）。", k: claim, who: "The Loot Herald（O_Excess）", s: [src-ls-lootherald-2023]}
+    - {t: "増えた不便: LS1.5 は VRF 代として毎ゲーム 0.5 ドル相当の ETH を別途徴収し（無料プロモーション期間を除く）、VRF のコールバックが来るまで次のレベルの種が決まらない。外部オラクルの価格と可用性がゲーム開始の前提になった。", k: fact, s: [src-ls-code-lib15, src-ls-code-constants15]}
+  roles:
+    - {t: "プレイヤー: 参加料を払って高スコアを狙う。LS1.5 では上位 3 名が以後のゲームの参加料から 27%・16%・10% を受け取るため、上位に長く残ること自体が収入になる。", k: fact, s: [src-ls-code-lib15, src-ls-code-constants15]}
+    - {t: "クライアント運営者: LS1.5 では参加料の 27% が new_game を中継したクライアントのアドレスへ送られる。LS1 の 2023-11 版も「INTERFACE」への分配を第 2 期以降に設けていた。", k: fact, s: [src-ls-code-constants15, src-ls-hist-v1-lib]}
+    - {t: "運営・DAO: LS1.5 では参加料の 20% がゲームごとに Bibliotheca DAO と Provable Games へ交互に送られる。LS2 ではチケット収入の 80% が SURVIVOR の買付を経て SURVIVOR 保有者が統治する財庫へ、20% が veLORDS 保有者へ渡る。", k: fact, s: [src-ls-code-lib15, src-ls-docs-token]}
+    - {t: "管理用ボット・第三者: エントロピーの更新、放置冒険者・期限切れ冒険者の処分、参加料の再計算（update_cost_to_play）、トーナメントの精算はいずれも誰でも呼べる関数として実装され、運営以外が維持作業を担えるようにしていた。", k: fact, s: [src-ls-code-lib15, src-ls-hist-v1-lib, src-ls-starknet-blog-2023]}
+    - {t: "エージェント: ボットは放置ペナルティ等の対策対象として扱われた。AI エージェント枠組み Daydreams の紹介記事（2025-05）は Loot Survivor 対応を「近日」と記したが、実際にエージェントが遊んだ記録は確認できなかった。", k: claim, who: "Bankless（William M. Peaster）", s: [src-ls-bankless-daydreams, src-ls-hist-v1-lib]}
+  trajectory:
+    - {t: "2023-03 に BibliothecaDAO の GitHub で開発開始、2023-10 にコミット・リビールやエントロピー更新の仕組みを追加し、2023-10-31 に mainnet 用構成をマージ。同日に Golden Token（1 日 1 回無料、160 枚）を 3 週間のオープンエディションで販売した。", k: fact, s: [src-ls-hist-commits, src-ls-commit-commitreveal, src-ls-docs-golden-token]}
+    - {t: "2023-11-08 に mainnet で新規ゲームを止め、翌日に新コントラクトへ切り替えた。切替の理由を説明する一次資料は見つからなかった。", k: fact, s: [src-ls-hist-commits]}
+    - {t: "2024-05 にグローバル・エントロピーを Pragma VRF に置き換え、2024-06〜08 に「1.5」として予知（Prescience）UI、VRF 支払い、NFT コレクション保有者向けの無料ゲームとローンチ・トーナメントを加えた。", k: fact, s: [src-ls-commit-pragma-vrf, src-ls-hist-commits, src-ls-code-lib15]}
+    - {t: "2025 年に Dojo ベースの Death Mountain 上で LS2 を公開し、SURVIVOR（総量 1000 万）、動的価格のダンジョンチケット、Beast NFT の収集、7 チェーンの NFT 保有者への約 50 万ゲームの無料配布（2025-08-18 スナップショット）を始めた。Bankless は 2025-10-14 時点で「最近公開」と記す。", k: fact, s: [src-ls-docs-token, src-ls-docs-airdrop, src-ls-bankless-ls2, src-ls-dm-repo]}
+    - {t: "2025-09-05 に Golden Token V2（1,120 枚、週 1 回無料）を旧保有者へエアドロップした。Beast を使う Summit、死んだ冒険者から得る $CORPSE、Beast が冒険者を倒すと得る $SKULL が追加され、同社タイトル間で結果が持ち越される構成になった。", k: fact, s: [src-ls-docs-golden-token, src-ls-docs-summit, src-ls-docs-corpse]}
+  retention_evidence:
+    - {t: "示されている指標: growthepie の計測で、参照日直近 7 日間に 411 アドレス・約 4.08 万件の取引（前週比 +37.6%）。これは 1 週間の窓であり、継続率や人数の推移ではない。", k: fact, s: [src-ls-growthepie]}
+    - {t: "示されている指標: SURVIVOR の配分表には LS1 の Beast が 2,306 体と記載され、LS1.5 の上位 1,000 人に配分がある。過去版に一定の参加者層があったことは示すが、総プレイ数・一意プレイヤー数は公表資料で確認できなかった。", k: fact, s: [src-ls-docs-tokenomics]}
+    - {t: "示されている指標: Bankless は LS2 の今シーズンの SURVIVOR 報酬約 226 万のうち半分強がすでに獲得されたと書く（2025-10）。報酬はレベル 3 以降 1 レベル 1 トークンで、第 2〜4 週は 4 倍のため、獲得量はプレイ量の目安にはなるが人数・継続の指標ではない。", k: claim, who: "Bankless", s: [src-ls-bankless-ls2, src-ls-docs-tokenomics]}
+    - {t: "示されていない指標: DAU / MAU、一意ウォレット数の推移、ボット口座の比率、版をまたいだ再参加率、参加料収入の総額は公式に公表されていない（dune 等は参照不可）。", k: unknown}
+  extensions:
+    - {t: "同社による拡張: Beast NFT を使う Summit（保持時間に応じ毎秒 0.007 SURVIVOR）、カードバトラー Dark Shuffle、トーナメント基盤 Budokan。itch.io の紹介は、敗北を含む結果が連結したゲーム間で持ち越されることを目指すと述べる。", k: fact, s: [src-ls-docs-summit, src-ls-itch, src-ls-pg-github-org]}
+    - {t: "敗北の再利用: 死んだ冒険者からレベル分の $CORPSE を抽出でき、Summit で Beast の体力強化に使う。過去に死んだ冒険者にも遡って適用される。", k: fact, s: [src-ls-docs-corpse]}
+    - {t: "他プレイヤーの資産が敵になる構造: Beast NFT の保有者は、自分の Beast が他人の冒険者を倒すたびに $SKULL を 1 つ請求できる。", k: fact, s: [src-ls-docs-corpse]}
+    - {t: "外部の大口懸賞: Starkware と Cartridge が 3 体の「Wanted Beast」に計 10 万 STRK の懸賞をかけ、最初に倒した冒険者のウォレットへ自動で送られる。", k: fact, s: [src-ls-docs-wanted]}
+    - {t: "第三者が Death Mountain の add_settings で独自ダンジョンを作った例、第三者クライアントが LS1.5 のクライアント報酬を受けた例は、今回の調査では確認できなかった。", k: unknown}
+  constraints:
+    - {t: "公開ブロック情報・公開状態に依存する乱数は、結果を見て行動を選ぶ・待つ戦略を許す。LS はコミット・リビール、エントロピー更新、放置死、VRF、戦闘乱数の入力変更と 1 年近く対策を重ねた。", k: fact, s: [src-ls-commit-commitreveal, src-ls-commit-entropy-rotation, src-ls-commit-pragma-vrf, src-ls-commit-prescience]}
+    - {t: "上位者への賞金分配は「すぐ死んで回数を稼ぐ」動機を生み得る。LS1.5 は 3 位のスコアが 64 未満の間は参加料をすべて Provable Games へ送る分岐を設け、その目的を「早く遊んで早く死ぬ動機を取り除く」とコメントしている。", k: fact, s: [src-ls-code-lib15], q: "this is expected to be a trivial amount and exists to remove incentive to play"}
+    - {t: "LS1.5 は 10 日を過ぎた冒険者を誰でも処分でき（GAME_EXPIRY_DAYS）、リーダーボードを長期保持する戦略に期限を設けた。", k: fact, s: [src-ls-code-lib15, src-ls-code-constants15]}
+    - {t: "公式はプラットフォームとコントラクトが正式な監査を受けていないと明記し、資金の永久的な損失の可能性を警告している。", k: fact, s: [src-ls-docs-faq, src-ls-docs-index]}
+    - {t: "LS2 の基盤は BUSL で、第三者が Death Mountain を本番利用するには追加許諾が必要になる。「誰でも作れるダンジョン」とライセンス上の制約が並存している。", k: fact, s: [src-ls-dm-license]}
+  principles:
+    - {t: "予知を遊びに変える乱数窓: 乱数の種を一定期間（例: N レベル）固定し、その範囲の結果をプレイヤーが計算できることを公認すると、乱数の操作可能性という弱点がパズル的な計画性に変わる。適用条件は 1 人用で他者に損害を与えないこと、種の更新が外部 VRF で行われること。破綻条件は乱数の入力にプレイヤーが操作できる値（体力など）が含まれる場合で、予知が「操縦」になり期待値が壊れる（LS は 2024-07 に入力を行動回数へ変えた）。", k: analysis, s: [src-ls-commit-pragma-vrf, src-ls-commit-prescience]}
+    - {t: "保守作業の公開関数化: エントロピー更新・放置冒険者の処分・参加料の再計算・大会の精算を誰でも呼べる関数にし、呼び出しの費用は通常のプレイ取引にも分散させると、運営サーバーなしでもゲームが進む。適用条件は呼び出しの結果が誰にとっても同じで、呼び出し者が利益を操作できないこと。破綻条件は呼び出しのタイミングで結果を選べる場合（例: エントロピー更新を有利な時だけ呼ぶ）。", k: analysis, s: [src-ls-commit-entropy-rotation, src-ls-code-lib15]}
+    - {t: "クライアント提供者への自動分配: 参加料の一部を取引を中継したクライアントへ払うと、フロントエンドの多様化を経済的に促せる。適用条件はクライアントのアドレスを取引に含められ、ルールがコントラクト側で完結していること。破綻条件は自作クライアント経由で自分に払い戻す自己取引で、実質的な割引にしかならない可能性（LS1.5 でこの対策は確認できなかった）。", k: analysis, s: [src-ls-code-lib15, src-ls-code-constants15]}
+    - {t: "敗北・獲物を別ゲームの資源にする: 死んだ冒険者（$CORPSE）や倒した Beast（NFT）を姉妹ゲームの入力にすると、パーマデスの損失感を和らげつつ資産の用途を増やせる。適用条件は資産がチェーン上の記録として第三者コントラクトから読めること。破綻条件は利用先が同一運営に限られる場合で、運営が止まれば用途も消える。", k: analysis, s: [src-ls-docs-corpse, src-ls-docs-summit, src-ls-itch]}
+  counter_evidence:
+    - {t: "ルールを完全にオンチェーンにしても、乱数・オラクル・VRF のコールバック・インデクサ・ウォレット（Cartridge）などの外部依存は残り、LS1.5 は Pragma の価格が取れなければ VRF 代の計算でゲーム開始が失敗する。「フルオンチェーン＝運営不要」ではない。", k: fact, s: [src-ls-code-lib15, src-ls-docs-architecture]}
+    - {t: "LS1/1.5 は管理者権限を持たない一方、仕様変更は新コントラクトへの移行で行われ、LS2 は Dojo のアップグレード機構と SURVIVOR ガバナンスを持つ。不変性は「同じ遊びが残る」ことを保証しても、「運営が別の経済へ移らない」ことは保証しなかった。", k: fact, s: [src-ls-hist-commits, src-ls-docs-contracts, src-ls-docs-token]}
+    - {t: "持続性の手段は、参加料を上位者に配る閉じた構造から、トークン配布・無料ゲーム 50 万回分の配布・10 万 STRK の外部懸賞・最大 4 倍の報酬キャンペーンへと移った。定着がゲーム性によるのか、補助金とトークン配布によるのかは公表データでは切り分けられない。", k: analysis, s: [src-ls-docs-token, src-ls-docs-wanted, src-ls-docs-tokenomics]}
+    - {t: "1 人用ローグライクとしての遊びは他者の状態とほぼ独立しており、ブロックチェーンが必要なのは賞金分配・資産の持ち越し・検証可能性の部分に限られる。従来のローグライクと比べて遊び自体の新しさを示す証拠は、今回の資料では見つからなかった。", k: analysis}
+    - {t: "Starknet 公式ブログは 2023-11-07 時点でも「テストネットで遊べる」と書いており、mainnet 版の初期の利用規模・公開時期の扱いは資料によって揺れている。", k: fact, s: [src-ls-starknet-blog-2023, src-ls-docs-golden-token]}
+
+metrics:
+  - {id: m-ls-cost-v1, type: other, value: 25, unit: LORDS, period: "2023-11（LS1 mainnet コントラクト）", definition: "1 ゲームの参加料（COST_TO_PLAY 定数）。コミュニティ記事は約 2.5 ドルと換算", nature: measured, s: [src-ls-hist-v1-lib, src-ls-lootherald-2023], note: "コードの定数を筆者が確認"}
+  - {id: m-ls-gas-2023, type: other, value_text: "5〜10 ドル", unit: USD, period: "2023-10", definition: "1 ゲームあたりのガス代（コミュニティ記事の推定）", nature: estimated, s: [src-ls-lootherald-2023]}
+  - {id: m-ls-target-price-15, type: other, value: 3, value_text: "3 ドル相当の LORDS ＋ VRF 代 0.5 ドル相当の ETH", unit: USD, period: "LS1.5（2025-05 時点の main）", definition: "TARGET_PRICE_USD_CENTS=300 と VRF_COST_PER_GAME。初期値は 50 LORDS で、update_cost_to_play が Pragma の LORDS/USD で再計算", nature: measured, s: [src-ls-code-constants15, src-ls-code-lib15]}
+  - {id: m-ls-golden-token-v1, type: other, value: 160, unit: NFTs, period: "2023-10-31〜3 週間", definition: "Golden Token V1 の供給数（1 日 1 回無料、価格は 75 ゲーム分）", nature: reported, s: [src-ls-docs-golden-token]}
+  - {id: m-ls-ls1-beasts, type: other, value: 2306, unit: NFTs, period: "LS1 全期間", definition: "SURVIVOR 配分表に記載された LS1 の Beast 数", nature: reported, s: [src-ls-docs-tokenomics]}
+  - {id: m-ls-beast-supply, type: other, value: 93225, unit: NFTs, period: "LS2", definition: "Beast Mode で発行され得る Beast の固定供給（75 種 × 1,243）", nature: reported, s: [src-ls-docs-beasts]}
+  - {id: m-ls-survivor-supply, type: other, value: 10000000, unit: SURVIVOR, period: "2025", definition: "SURVIVOR 総供給。75% コミュニティ、25% チーム（ロックなし）", nature: reported, s: [src-ls-docs-token, src-ls-docs-tokenomics]}
+  - {id: m-ls-free-games-airdrop, type: other, value_text: "約 50 万ゲームを約 8 万アドレスへ", unit: games, period: "2025（2025-08-18 スナップショット、2 週間の請求期間）", definition: "7 チェーンの指定 NFT 保有者への無料ゲーム（ガス込み）配布", nature: reported, s: [src-ls-docs-token, src-ls-docs-airdrop]}
+  - {id: m-ls-ls2-season-rewards, type: other, value_text: "約 226 万 SURVIVOR のうち半分強が獲得済み", unit: SURVIVOR, period: "2025-10（LS2 の今シーズン）", definition: "Bankless の記述（出典は明示なし）", nature: reported, s: [src-ls-bankless-ls2]}
+  - {id: m-ls-treasury-seed, type: other, value_text: "SURVIVOR 100 万と約 300 万 LORDS", unit: tokens, period: "2025（genesis 時点）", definition: "Survivor Treasury の初期資金（公式記載）", nature: reported, s: [src-ls-docs-token]}
+  - {id: m-ls-wanted-bounty, type: grants, value: 100000, unit: STRK, period: "2025〜（全 3 体が倒されるまで）", definition: "Starkware と Cartridge による Wanted Beast 3 体への懸賞総額", nature: reported, s: [src-ls-docs-wanted, src-ls-bankless-ls2]}
+  - {id: m-ls-growthepie-7d-addr, type: wallets, value: 411, unit: wallets, period: "2026-10-23 時点の直近 7 日", definition: "growthepie が Loot Survivor（Provable Games）に帰属させたアクティブアドレス数", nature: measured, s: [src-ls-growthepie], note: "同期間の取引数 4.08 万件、ガス代 32.1 ドル"}
+
+events:
+  - {id: ev-ls-dev-start, date: "2023-03-29", type: other, title: "BibliothecaDAO/loot-survivor リポジトリで開発開始", s: [src-ls-hist-commits]}
+  - {id: ev-ls-commit-reveal, date: "2023-10-11", type: spec-change, title: "コミット・リビールによる冒険者エントロピーを導入", detail: "mainnet では開始から 11 ブロック後の公開ブロックハッシュで初期能力値とエントロピーを決定", s: [src-ls-commit-commitreveal]}
+  - {id: ev-ls-mainnet, date: "2023-10-31", type: launch, title: "mainnet 用構成をマージ、Golden Token 発売", detail: "Golden Token 文書は同日を Loot Survivor の最初のリリースとする", s: [src-ls-hist-commits, src-ls-docs-golden-token]}
+  - {id: ev-ls-contract-switch-2023, date: "2023-11-09", type: spec-change, title: "mainnet のゲームコントラクトを切替", detail: "前日に新規ゲームを停止。理由の説明は未確認", s: [src-ls-hist-commits]}
+  - {id: ev-ls-pragma-vrf, date: "2024-05-19", type: spec-change, title: "グローバル・エントロピーを Pragma VRF に置換", s: [src-ls-commit-pragma-vrf]}
+  - {id: ev-ls-prescience-fix, date: "2024-07-24", type: spec-change, title: "予知による戦闘乱数の操縦を防ぐ変更", s: [src-ls-commit-prescience]}
+  - {id: ev-ls-15-promo, date: "2024-08", type: release, title: "LS1.5 のローンチ・プロモーション（無料ゲーム）", detail: "コミット 40836fd（2024-08-07）。公開日そのものは未確認", s: [src-ls-hist-commits]}
+  - {id: ev-ls-golden-v2, date: "2025-09-05", type: release, title: "Golden Token V2 を旧保有者へエアドロップ", s: [src-ls-docs-golden-token]}
+  - {id: ev-ls-ls2, date: "2025-10", type: launch, title: "LS2（Death Mountain）と SURVIVOR、ダンジョンチケット", detail: "Bankless（2025-10-14）が「最近公開」と報道。正確な公開日は未確認", s: [src-ls-bankless-ls2, src-ls-docs-token]}
+
+relations:
+  - {to: loot, type: influenced-by, basis: confirmed, note: "装備体系は Loot の元コントラクトに基づくと README と公式文書が明記", s: [src-ls-repo-pg, src-ls-docs-index]}
+  - {to: dojo, type: built-with, basis: confirmed, note: "LS2 / Death Mountain は Dojo 上に構築（LS1/1.5 は素の Cairo）", s: [src-ls-dm-repo, src-ls-docs-architecture]}
+  - {to: realms-eternum, type: same-team, basis: confirmed, note: "LS1 は BibliothecaDAO の組織で開発され、公式文書は Bibliotheca DAO を最初のインキュベーターと記す。Eternum の開発陣との人的重なりの範囲は未確認", s: [src-ls-repo-pg, src-ls-docs-token]}
+  - {to: dope-wars-roll-your-own, type: similar-to, basis: analytic, note: "Loot 派生の系譜にある Starknet 上の 1 人用オンチェーンゲーム"}
+  - {to: daydreams, type: similar-to, basis: analytic, note: "Daydreams の紹介記事が Loot Survivor 対応を予定として挙げた（実装は未確認）"}
+  - {to: c-onchain-randomness, type: built-with, basis: confirmed, note: "ブロックハッシュのコミット・リビール → Pragma VRF → Cartridge VRF", s: [src-ls-commit-commitreveal, src-ls-commit-pragma-vrf, src-ls-dm-game]}
+  - {to: m-permadeath, type: built-with, basis: confirmed, note: "死は永久", s: [src-ls-docs-faq]}
+
+unknowns:
+  - "LS1 / LS1.5 / LS2 それぞれの総プレイ数・一意プレイヤー数・継続率。参加料・チケット収入の総額。"
+  - "2023-11-08〜09 の mainnet コントラクト切替の理由（不具合か仕様変更か）。"
+  - "LS1.5 の mainnet 公開日と終了（新規ゲーム停止）の有無。旧コントラクトが現在も遊べるか。"
+  - "LS2 の正確な公開日、SURVIVOR の TWAMM 販売（Oct 15 – Jan 15）の年。"
+  - "第三者クライアントがクライアント報酬を受けた実例、Death Mountain で第三者が作ったダンジョンの実例。"
+  - "ボット・自動化プレイの規模、AI エージェントが実際に遊んだ記録。"
+  - "開発者 Loothero の役割と、BibliothecaDAO から Provable Games への移行の経緯（一次資料未確認）。"
+contradictions:
+  - {t: "公開時期: Golden Token 文書は 2023-10-31 を最初のリリースとし、コミット履歴も同日に mainnet 構成をマージしているが、Starknet 公式ブログ（2023-11-07）は「テストネットで遊べる」と書く。", s: [src-ls-docs-golden-token, src-ls-hist-commits, src-ls-starknet-blog-2023]}
+  - {t: "賞金の比率: コミュニティ記事（2023-10-20）は参加料の半分が上位者へ、残りを DAO とクライアント提供者で分けると書くが、2023-11 版のコードは最初の 12 週間は上位 3 名に 100%（48/32/20%）、以後の期間で比率が変わる段階制（3 位スコアが 200 未満の間は全額 DAO）になっている。", s: [src-ls-lootherald-2023, src-ls-hist-v1-lib]}
+  - {t: "相性の名称: LS1 の README は Blade/Bludgeon/Magic、LS2 の文書は Magical/Brute/Hunter の 3 すくみと書く（版による変更の可能性）。", s: [src-ls-repo-pg, src-ls-docs-index]}
+
+sources:
+  - {id: src-ls-repo-pg, title: "Provable-Games/loot-survivor (README)", url: "https://github.com/Provable-Games/loot-survivor", publisher: "GitHub", author: "Provable Games / BibliothecaDAO", type: code, primary: true, published: "2025-05-06", accessed: "2026-10-23", access: fetched, lang: en, note: "git clone で取得（最終コミット 2025-05-06）。ゲーム設計、1 felt への状態格納、Loot 由来の装備、MIT"}
+  - {id: src-ls-code-lib15, title: "loot-survivor contracts/game/src/lib.cairo", url: "https://github.com/Provable-Games/loot-survivor/blob/main/contracts/game/src/lib.cairo", publisher: "GitHub", author: "Provable Games", type: code, primary: true, published: "2025-05-06", accessed: "2026-10-23", access: fetched, lang: en, note: "LS1.5 のゲーム本体。参加料分配、VRF 支払い、期限切れ処分、ローンチ・トーナメント、update_cost_to_play"}
+  - {id: src-ls-code-constants15, title: "loot-survivor contracts/game/src/game/constants.cairo", url: "https://github.com/Provable-Games/loot-survivor/blob/main/contracts/game/src/game/constants.cairo", publisher: "GitHub", author: "Provable Games", type: code, primary: true, published: "2025-05-06", accessed: "2026-10-23", access: fetched, lang: en, note: "COST_TO_PLAY、REWARD_DISTRIBUTIONS_BP、GAME_EXPIRY_DAYS=10、TARGET_PRICE_USD_CENTS=300 等"}
+  - {id: src-ls-hist-v1-lib, title: "BibliothecaDAO/loot-survivor @5daaebbe (update mainnet contracts) contracts/game/src/lib.cairo", url: "https://github.com/BibliothecaDAO/loot-survivor/blob/5daaebbe4e812dc222341c5f9bd1843891e43a05/contracts/game/src/lib.cairo", publisher: "GitHub", author: "BibliothecaDAO", type: code, primary: true, published: "2023-11-09", accessed: "2026-10-23", access: fetched, lang: en, note: "2023-11 の mainnet 版。参加料 25 LORDS、3 段階の分配、idle penalty（死亡）、rotate_game_entropy、slay_idle_adventurers"}
+  - {id: src-ls-hist-commits, title: "BibliothecaDAO/loot-survivor commit history", url: "https://github.com/BibliothecaDAO/loot-survivor/commits/main", publisher: "GitHub", author: "BibliothecaDAO", type: code, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "clone して履歴を確認。2023-03-29 開始、2023-10-31 mainnet 構成マージ、2023-11-08/09 コントラクト切替、2024-08 ローンチ・プロモーション"}
+  - {id: src-ls-commit-commitreveal, title: "adds commit and reveal system for stronger entropy (#398)", url: "https://github.com/BibliothecaDAO/loot-survivor/commit/e748c012ff6d1963a78502014feb06dcd4d21bfe", publisher: "GitHub", type: code, primary: true, published: "2023-10-11", accessed: "2026-10-23", access: fetched, lang: en, note: "開始と最初のビースト撃破の間に mainnet 11 ブロックの待機、公開ブロックハッシュ由来のエントロピー"}
+  - {id: src-ls-commit-entropy-rotation, title: "rotate game entropy as part of core gameplay (#379)", url: "https://github.com/BibliothecaDAO/loot-survivor/commit/397b4263787907d5f6e3a750d1b4b9fff7344ee2", publisher: "GitHub", type: code, primary: true, published: "2023-10-03", accessed: "2026-10-23", access: fetched, lang: en, note: "explore/flee/attack/upgrade がエントロピーを回し、維持費をプレイヤー全体に分散"}
+  - {id: src-ls-commit-pragma-vrf, title: "replaces global game entropy with pragma vrf", url: "https://github.com/BibliothecaDAO/loot-survivor/commit/8c381a3e30e3f8a43cef50d2ae3df7256281a234", publisher: "GitHub", type: code, primary: true, published: "2024-05-19", accessed: "2026-10-23", access: fetched, lang: en, note: "VRF 取得間隔（レベル単位）と予知の深さ・コストのトレードオフを説明"}
+  - {id: src-ls-commit-prescience, title: "hardens battle entropy against prescience steering (#96)", url: "https://github.com/BibliothecaDAO/loot-survivor/commit/091cdbe015bfbb4fb05c4a2a4eb6266c47826514", publisher: "GitHub", type: code, primary: true, published: "2024-07-24", accessed: "2026-10-23", access: fetched, lang: en, note: "体力依存の戦闘乱数が予知による操縦を許していたため行動回数に変更"}
+  - {id: src-ls-ui-prescience, title: "loot-survivor ui/src/app/components/tutorial/Prescience2Tutorial.tsx", url: "https://github.com/Provable-Games/loot-survivor/blob/main/ui/src/app/components/tutorial/Prescience2Tutorial.tsx", publisher: "GitHub", type: code, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "チュートリアル文言: 表の行を辿って xp に基づく将来の結果を見る、逃走で 1xp"}
+  - {id: src-ls-starknet-blog-2023, title: "Loot Survivor and Influence: Fully Onchain Games on Starknet", url: "https://www.starknet.io/blog/onchain-gaming/loot-survivor-and-influence-fully-onchain-games-on-starknet/", publisher: "Starknet (starknet.io)", type: official-blog, primary: true, published: "2023-11-07", accessed: "2026-10-23", access: fetched, lang: en, note: "アーケード・アカウント、楽観的描画、1 felt の状態、rotate_game_entropy、テストネットで遊べると記載"}
+  - {id: src-ls-lootherald-2023, title: "Loot Survivor and the Emergence of Onchain Arcades", url: "https://thelootherald.substack.com/p/loot-survivor-and-the-emergence-of", publisher: "The Loot Herald", author: "O_Excess", type: news, primary: false, published: "2023-10-20", accessed: "2026-10-23", access: fetched, lang: en, note: "Loothero 作、参加料 25 LORDS（約 2.5 ドル）、ガス 5〜10 ドル、半分が上位者"}
+  - {id: src-ls-bankless-ls2, title: "Starknet's Newest Onchain RPG: LS2", url: "https://www.bankless.com/read/starknets-newest-onchain-rpg-ls2", publisher: "Bankless", author: "William Peaster", type: news, primary: false, published: "2025-10-14", accessed: "2026-10-23", access: fetched, lang: en, note: "LS2 を最近公開、Death Mountain、Embeddable Game Standard、チケット収入の 80% で SURVIVOR 買付、約 226 万 SURVIVOR"}
+  - {id: src-ls-docs-index, title: "Loot Survivor (Provable Games docs)", url: "https://github.com/Provable-Games/docs/blob/main/src/pages/lootsurvivor/index.mdx", publisher: "Provable Games docs (GitHub)", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "Dojo 上、Death Mountain が LS を動かす、75 ビースト・75 罠・101 アイテム、Loot 由来、未監査の警告"}
+  - {id: src-ls-docs-golden-token, title: "Golden Token V2", url: "https://github.com/Provable-Games/docs/blob/main/src/pages/lootsurvivor/golden-token.mdx", publisher: "Provable Games docs (GitHub)", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "V1 は 2023-10-31 に最初のリリースと同時発売・160 枚、V2 は 2025-09-05・1,120 枚"}
+  - {id: src-ls-docs-tokenomics, title: "Tokenomics (SURVIVOR)", url: "https://github.com/Provable-Games/docs/blob/main/src/pages/lootsurvivor/token/tokenomics.mdx", publisher: "Provable Games docs (GitHub)", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "配分表、LS1 Beast 2,306 体、LS1.5 上位 1,000 人、4 倍・2 倍キャンペーン"}
+  - {id: src-ls-docs-token, title: "SURVIVOR Token", url: "https://github.com/Provable-Games/docs/blob/main/src/pages/lootsurvivor/token/index.mdx", publisher: "Provable Games docs (GitHub)", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "ガバナンス対象、チケット収入の 80% 自動買付・20% veLORDS、約 50 万無料ゲーム、財庫の初期資金"}
+  - {id: src-ls-docs-airdrop, title: "Airdrop (Loot Survivor free games)", url: "https://github.com/Provable-Games/docs/blob/main/src/pages/lootsurvivor/token/airdrop.mdx", publisher: "Provable Games docs (GitHub)", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "資格スナップショットは 2025-08-18 00:00 UTC"}
+  - {id: src-ls-docs-tickets, title: "Dungeon Tickets", url: "https://github.com/Provable-Games/docs/blob/main/src/pages/lootsurvivor/dungeon-tickets.mdx", publisher: "Provable Games docs (GitHub)", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "132 年で 1 億ゲーム、1 日約 2,000、1 ドル未満が 3 日続くと発行半減"}
+  - {id: src-ls-docs-faq, title: "Frequently Asked Questions (Loot Survivor)", url: "https://github.com/Provable-Games/docs/blob/main/src/pages/lootsurvivor/faq.mdx", publisher: "Provable Games docs (GitHub)", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "パーマデス、VRF かブロックハッシュのコミット・リビール、未監査、18 歳以上"}
+  - {id: src-ls-docs-architecture, title: "Technical Architecture (Loot Survivor)", url: "https://github.com/Provable-Games/docs/blob/main/src/pages/lootsurvivor/technical/architecture.mdx", publisher: "Provable Games docs (GitHub)", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "Cairo 2.10.1、Dojo 1.6.2、Torii、Cartridge Controller"}
+  - {id: src-ls-docs-contracts, title: "Smart Contracts (technical)", url: "https://github.com/Provable-Games/docs/blob/main/src/pages/lootsurvivor/technical/contracts.mdx", publisher: "Provable Games docs (GitHub)", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "Dojo のアップグレード機構（管理者による replace_class）の説明"}
+  - {id: src-ls-docs-beasts, title: "Beast Collectibles", url: "https://github.com/Provable-Games/docs/blob/main/src/pages/lootsurvivor/beasts/collectibles.mdx", publisher: "Provable Games docs (GitHub)", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "93,225 体、75 種、レベル 19 以上の名前付きビーストの初撃破で発行、オンチェーン画像"}
+  - {id: src-ls-docs-corpse, title: "Corpse Token ($CORPSE) / Skull Token ($SKULL)", url: "https://github.com/Provable-Games/docs/blob/main/src/pages/lootsurvivor/corpse-token.mdx", publisher: "Provable Games docs (GitHub)", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "死んだ冒険者からレベル分の CORPSE、Beast が冒険者を倒すと SKULL（skull-token.mdx も参照）"}
+  - {id: src-ls-docs-wanted, title: "Wanted Beasts", url: "https://github.com/Provable-Games/docs/blob/main/src/pages/lootsurvivor/beasts/wanted-beasts.mdx", publisher: "Provable Games docs (GitHub)", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "Starkware・Cartridge による 10 万 STRK の懸賞"}
+  - {id: src-ls-docs-summit, title: "Savage Summit Overview", url: "https://github.com/Provable-Games/docs/blob/main/src/pages/summit/index.mdx", publisher: "Provable Games docs (GitHub)", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "Beast を使う King of the Hill、毎秒 0.007 SURVIVOR"}
+  - {id: src-ls-dm-repo, title: "Provable-Games/death-mountain (README)", url: "https://github.com/Provable-Games/death-mountain", publisher: "GitHub", author: "Provable Games", type: code, primary: true, published: "2026-09-23", accessed: "2026-10-23", access: fetched, lang: en, note: "トークン非依存のノーコード・ダンジョン作成器、Dojo 1.5.1、経済は内蔵しない"}
+  - {id: src-ls-dm-settings, title: "death-mountain contracts/src/systems/settings/contracts.cairo", url: "https://github.com/Provable-Games/death-mountain/blob/main/contracts/src/systems/settings/contracts.cairo", publisher: "GitHub", type: code, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "add_settings は呼び出し者制限なし。VRF アドレス・固定シード・初期状態を指定"}
+  - {id: src-ls-dm-game, title: "death-mountain contracts/src/systems/game/contracts.cairo and utils/vrf.cairo", url: "https://github.com/Provable-Games/death-mountain/blob/main/contracts/src/systems/game/contracts.cairo", publisher: "GitHub", type: code, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "_get_random_seed: 固定シード、または mainnet/sepolia で Cartridge VRF（consume_random）"}
+  - {id: src-ls-dm-license, title: "death-mountain licenses/BUSL_LICENSE", url: "https://github.com/Provable-Games/death-mountain/blob/main/licenses/BUSL_LICENSE", publisher: "GitHub", type: code, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "Death Mountain V1 Core は BUSL 1.1、変更日は 2028-01-01 か指定日の早い方、変更後 MIT"}
+  - {id: src-ls-itch, title: "Loot Survivor by provablegames (itch.io)", url: "https://provablegames.itch.io/loot-survivor", publisher: "itch.io", author: "provablegames", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "Beast を Dark Shuffle・Summit で使う、死んだ冒険者を Summit で Beast に与える、結果の持ち越し"}
+  - {id: src-ls-growthepie, title: "Loot Survivor (Provable Games) - growthepie applications", url: "https://www.growthepie.com/applications/lootsurvivor-provable-games", publisher: "growthepie", type: onchain-data, primary: false, accessed: "2026-10-23", access: fetched, lang: en, note: "直近 7 日 4.08 万取引、411 アクティブアドレス、ガス代 32.1 ドル（2026-10-23T05:35Z 時点）"}
+  - {id: src-ls-pg-github-org, title: "Provable-Games (GitHub organization)", url: "https://github.com/Provable-Games", publisher: "GitHub", type: code, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "death-mountain、dark-shuffle、summit、budokan-sdk 等。loot-survivor は BibliothecaDAO からのフォーク"}
+  - {id: src-ls-bankless-daydreams, title: "Daydreams: AI Agents for Gaming", url: "https://www.bankless.com/read/daydreams-ai-agents-gaming", publisher: "Bankless", author: "William M. Peaster", type: news, primary: false, published: "2025-05-09", accessed: "2026-10-23", access: fetched, lang: en, note: "最初の対応は Gigaverse、Loot Survivor 等は近日対応と記載"}

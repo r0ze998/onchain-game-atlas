@@ -1,0 +1,98 @@
+id: topology-isaac
+name: Isaac (Topology)
+name_ja: アイザック（Topology）
+aliases: [Isaac, "Isaac Alpha"]
+kind: game
+depth: index
+updated: "2026-10-23"
+chains: [StarkNet testnet]
+team: "Topology（GuiltyGyoza ほか。2022-12 時点でエンジニア 3 人以下）"
+summary: >-
+  三つの太陽を持つ星系で、全プレイヤーが同じ惑星に住む一つの文明として協力し、資源採取 → 精製 → 発電 → 推進機関（NDPE）の生産網を組み、
+  惑星を太陽への衝突から救う、または星系から脱出させることを目指した大規模協力型ゲーム。三体問題の軌道計算（4 次ルンゲ＝クッタ）と
+  資源輸送・電力分配の法則を Cairo コントラクトに置き、StarkNet 上で「物理演算を持つオンチェーン世界」を試みた。
+  テストネットで 2 ラウンドのアルファ（約 13 人）を行ったのち、運営は中断し、その理由を詳しく公開した。
+selection_reason: >-
+  「生産チェーン＋協力＋オンチェーン物理」という、文明・工場型オンチェーンゲームの初期の試みであり、
+  開発者自身が「なぜうまくいかなかったか」（ブロック時間、協調ツールの欠如、複雑さによる反復の遅さ、直線的な進行）を書いた一次資料がある。
+  生産・協力型のオンチェーンゲームを構想する際の、最も直接的な反証資料の一つ。
+categories:
+  - {id: onchain-rules, role: primary, reason: "軌道積分・資源輸送・電力分配の法則をスマートコントラクトに置き、ロールアップが強制すると説明"}
+  - {id: aw, role: secondary, reason: "クライアント非依存と、最小限の自律的ガバナンス（Isaac Protocol）による正規インスタンスの開発を構想"}
+status:
+  value: ended
+  as_of: "2026-10"
+  note: "2022-12 の公式ニュースレターが、2 回のアルファの後に Isaac を棚上げ（shelved）したと説明。チームは Shoshin、続いて MuMu（MovyMovy）へ移った。参照日時点で topology-gg の GitHub 組織の isaac リポジトリはゲームと無関係な内容を表示していた。"
+  s: [src-isaac-what-happened, src-isaac-after, src-isaac-github-org]
+dates:
+  announced: {date: "2022-05-01", s: [src-isaac-presents], note: "DEFCON '22 での発表をまとめた記事"}
+  launched: {date: "2022", s: [src-isaac-what-happened], note: "Solve2Mint 2.0 の後に StarkNet テストネットで Isaac Alpha を 2 ラウンド実施。正確な日付は記載なし"}
+  ended: {date: "2022-12", s: [src-isaac-what-happened], note: "2022-12-13 の記事で棚上げを説明（棚上げ自体の日付は不明）"}
+
+architecture:
+  onchain:
+    level: core-rules
+    detail: >-
+      物理法則（三体の軌道積分、RK4）と「形而上の法則」（資源輸送・電力分配）を Cairo コントラクトに置き、StarkNet が強制すると説明。
+      ゲーム内の乱数はプレイヤーの行動から Fiat–Shamir ヒューリスティクスで導き、物理シミュレーションに注入する計画だった（アルファでは非決定性を無効化）。
+    s: [src-isaac-presents, src-isaac-what-happened]
+  offchain:
+    - {item: "バックエンド（同期）とフロントエンド（3 種のビュー）。保留中の建設がプレイヤー間で同期されない、建設した設備が地図に出ない等の不具合を、StarkNet フルノードの不安定さとバックエンド同期の問題に帰している", s: [src-isaac-what-happened, src-isaac-after]}
+  admin:
+    level: unknown
+    detail: "Isaac Protocol（最小限の自律的ガバナンス）を予定していたと説明。実際の管理権限は確認できなかった。"
+    s: [src-isaac-presents]
+  open_source:
+    level: unknown
+    detail: "発表記事は公開時にコントラクトを完全公開すると述べたが、参照日時点で topology-gg/isaac リポジトリにゲームのコードは見当たらなかった。"
+    s: [src-isaac-presents, src-isaac-github-org]
+  extensibility:
+    level: unknown
+    detail: "クライアント非依存（プレイヤーが独自のビューを作れる）を設計価値に掲げたが、第三者クライアントの例は確認できなかった。"
+    s: [src-isaac-presents]
+
+compare:
+  gameplay: {t: "全員が 1 つの惑星の文明として、採取機・精製所・発電機・推進機関を建て、推進機関（NDPE）の噴射時刻を合わせて軌道を変え、太陽への衝突を避けるか脱出速度に達する協力ゲーム。", k: fact, s: [src-isaac-presents, src-isaac-what-happened]}
+  necessity: {t: "運営は物理・経済法則をロールアップが強制する「オンチェーンの現実」を掲げたが、アルファの失敗要因（協調ツール・ブロック時間・同期）はオンチェーン化そのものの利点を検証する前に表面化した。", k: analysis, s: [src-isaac-presents, src-isaac-what-happened]}
+  information: {t: "秘匿情報は使わず、不確実性は三体系のカオスから得ると説明（「隠し情報なしの情報非対称」）。", k: claim, who: "Topology", s: [src-isaac-presents]}
+  persistence: {t: "テストネットの 2 ラウンドのみで、どのラウンドの文明も同じブロック高（574）で惑星 Ev が太陽 Boyuk に衝突して終わった。", k: fact, s: [src-isaac-what-happened]}
+  extensibility: {t: "クライアント非依存を掲げたが、実例は確認できない。", k: unknown}
+  money_flow: {t: "参加資格は Solve2Mint 2.0（50 問のオンチェーンパズル）で配布。トークン経済の記述は確認できなかった。", k: fact, s: [src-isaac-what-happened]}
+  entry_barrier: {t: "パズルを解いて参加資格を得る必要があった。テストネットのブロック時間（最良で約 2 分、当時は 1 時間超もしばしば）で操作の応答性が極めて低かったと運営は書いた。", k: claim, who: "Topology", s: [src-isaac-what-happened]}
+
+concepts: [c-onchain-rules, c-onchain-state, m-production-chain, c-onchain-randomness]
+
+article:
+  principles:
+    - {t: "協力型の生産網には協調ツールが前提: 全員が 1 つの文明を動かす設計では、意思決定の委任・ゲーム内連絡・複数行動の一括送信がないと、匿名で時間帯の違うプレイヤーは進捗を出せない（Isaac のアルファではどのラウンドも有意な進捗なし）。適用条件はプレイヤー間の役割分担が必要な協力ゲーム。破綻条件はブロック時間が長く、1 手ごとの待ち時間が協調の遅延をさらに増幅する場合。", k: analysis, s: [src-isaac-what-happened]}
+    - {t: "複雑さは最初の実プレイまでの時間を延ばす: 三体シミュレーション・ティック・建設・在庫・3 種のビュー・協調を最初から揃えようとすると、コアループの欠陥が実プレイヤーの前で露呈するまでに時間がかかる。運営は「効果的な反復＝反復回数×反復間の進歩」を指標とし、コア・メカニクスから始めるべきだったと総括した。", k: claim, who: "Topology", s: [src-isaac-what-happened, src-isaac-after], q: "Complexity at the birth of a project lengthens the time to iteration #0 with real players"}
+  counter_evidence:
+    - {t: "失敗の主因として運営が挙げたのは、協調ツール不足、インフラの不安定さ、ブロック時間、抽象的な見た目、直線的な進行で、いずれも「オンチェーンだから成立しない」ことの直接証拠ではない。より速い基盤と小さな設計なら成立した可能性は検証されていない。", k: analysis, s: [src-isaac-what-happened]}
+    - {t: "参加者は約 13 人・2 ラウンドのみで、文明・工場型の協力ゲームの成否を一般化するにはサンプルが小さすぎる。", k: fact, s: [src-isaac-what-happened]}
+
+metrics:
+  - {id: m-isaac-s2m2-solvers, type: players, value: 50, unit: players, period: "2022（Solve2Mint 2.0）", definition: "50 問のオンチェーンパズルで資格を得た一意プレイヤー（シビルがないと仮定、告知から 48 時間以内に全問解決）", nature: reported, s: [src-isaac-what-happened]}
+  - {id: m-isaac-alpha-players, type: players, value: 13, value_text: "約 13", unit: players, period: "2022（Isaac Alpha 2 ラウンド）", definition: "2 ラウンドの一意プレイヤー数（プレイテスター一覧は 13 名）", nature: reported, s: [src-isaac-what-happened]}
+
+events:
+  - {id: ev-isaac-s2m-call, date: "2022-03-29", type: other, title: "StarkNet コミュニティコールで GuiltyGyoza が Solve to Mint を発表", s: [src-isaac-community-call]}
+  - {id: ev-isaac-presents, date: "2022-05-01", type: announce, title: "「Topology presents Isaac」公開（DEFCON '22 の発表）", s: [src-isaac-presents]}
+  - {id: ev-isaac-shelved, date: "2022-12-13", type: end, title: "「What happened to Isaac?」で棚上げを説明", detail: "テストネットのアルファ 2 ラウンド（約 13 人）の後に中断", s: [src-isaac-what-happened]}
+
+relations:
+  - {to: primodium, type: similar-to, basis: analytic, note: "生産チェーンをオンチェーンで扱う。Isaac は全員協力・単一文明である点が異なる"}
+  - {to: realms-eternum, type: similar-to, basis: analytic, note: "Starknet 上の生産・文明型ゲーム"}
+  - {to: m-production-chain, type: built-with, basis: confirmed, note: "採取機→精製所→発電機→推進機関の生産網", s: [src-isaac-presents, src-isaac-what-happened]}
+
+unknowns:
+  - "アルファ各ラウンドの正確な日付と期間、コントラクトアドレス。"
+  - "コントラクトのソースが公開されたか（現在の topology-gg/isaac は無関係な内容）。"
+  - "Isaac Protocol（ガバナンス）が実装されたか。"
+contradictions: []
+
+sources:
+  - {id: src-isaac-presents, title: "Topology presents Isaac", url: "https://topology.substack.com/p/topology-presents-isaac", publisher: "Topology's Newsletter", author: "Topology", type: official-blog, primary: true, published: "2022-05-01", accessed: "2026-10-23", access: fetched, lang: en, note: "三体問題＋工場、NDPE、オンチェーンの物理・形而上法則、RK4、Fiat–Shamir の乱数、クライアント非依存、Isaac Protocol"}
+  - {id: src-isaac-what-happened, title: "What happened to Isaac?", url: "https://topology.substack.com/p/what-happened-to-isaac", publisher: "Topology's Newsletter", author: "Topology", type: retrospective, primary: true, published: "2022-12-13", accessed: "2026-10-23", access: fetched, lang: en, note: "S2M2 で 50 人、アルファ 2 ラウンドで約 13 人、ブロック 574 で衝突、ブロック時間、協調ツールの欠如、棚上げ"}
+  - {id: src-isaac-after, title: "What happened after Isaac?", url: "https://topology.substack.com/p/what-happened-after-isaac", publisher: "Topology's Newsletter", author: "Topology", type: retrospective, primary: true, published: "2022-12-14", accessed: "2026-10-23", access: fetched, lang: en, note: "Shoshin（エージェントが戦う格闘ゲーム）、MuMu への移行、「設計は引き算」"}
+  - {id: src-isaac-community-call, title: "Community Call #11 | Presenting MatchboxDAO, OGame, Guiltygyoza presenting Solve 2 Mint", url: "https://www.starknet.io/blog/community-call-11-presenting-matchboxdao-ogame-guiltygyoza-presenting-solve-2-mint-video/", publisher: "Starknet (starknet.io)", type: talk, primary: true, published: "2022-03-29", accessed: "2026-10-23", access: fetched, lang: en, note: "Solve to Mint: オンチェーン検証のパズルで NFT を配布"}
+  - {id: src-isaac-github-org, title: "topology-gg (GitHub organization)", url: "https://github.com/topology-gg", publisher: "GitHub", type: code, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "固定表示の isaac リポジトリは説明にトークンのアドレスを含み、clone した中身は 2014 年起点の無関係な技術面接質問集だった"}

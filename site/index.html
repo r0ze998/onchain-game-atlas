@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>オンチェーンゲーム設計アトラス</title>
+<meta name="description" content="オンチェーンゲームの歴史を横断し、何が発明され、何が成立せず、どこに可能性が残るかを出典付きで調べる研究ツール">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 16%22%3E%3Crect width=%2216%22 height=%2216%22 rx=%223%22 fill=%22%231f5f8b%22/%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#main">本文へ移動</a>
+<header class="top">
+  <div class="top-inner">
+    <a class="brand" href="#/">オンチェーンゲーム設計アトラス</a>
+    <button class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="nav">メニュー</button>
+    <nav id="nav" aria-label="主要">
+      <a href="#/timeline" data-nav="timeline">年表</a>
+      <a href="#/entries" data-nav="entries">索引</a>
+      <a href="#/compare" data-nav="compare">比較<span class="tray-count" id="tray-count" hidden></span></a>
+      <a href="#/graph" data-nav="graph">つながり</a>
+      <a href="#/questions" data-nav="questions">問い</a>
+      <a href="#/insights" data-nav="insights">インサイト</a>
+      <a href="#/hypotheses" data-nav="hypotheses">設計仮説</a>
+      <a href="#/notebook" data-nav="notebook">研究ノート</a>
+    </nav>
+    <form class="search" id="search-form" role="search">
+      <label for="search-input" class="vh">全体検索</label>
+      <input id="search-input" type="search" placeholder="検索（例: ZK, 農業, 終了）" autocomplete="off">
+    </form>
+  </div>
+</header>
+<main id="main" tabindex="-1"></main>
+<footer class="foot">
+  <div class="foot-inner">
+    <span id="foot-updated"></span>
+    <a href="#/sources">出典一覧</a>
+    <a href="#/quality">データ品質</a>
+    <a href="#/about">方法と定義</a>
+  </div>
+</footer>
+<div id="toast" role="status" aria-live="polite"></div>
+<script src="data.generated.js"></script>
+<script src="js/util.js"></script>
+<script src="js/store.js"></script>
+<script src="js/views-core.js"></script>
+<script src="js/views-explore.js"></script>
+<script src="js/views-research.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

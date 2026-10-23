@@ -1,0 +1,79 @@
+id: ubisoft-quartz
+name: Ubisoft Quartz
+name_ja: ユービーアイソフト・クォーツ
+aliases: [Quartz, Digits]
+kind: platform
+depth: index
+updated: "2026-10-23"
+chains: [Tezos]
+team: "Ubisoft（Strategic Innovation Lab、ブロックチェーン技術ディレクター Didier Genevois ほか）"
+summary: >-
+  Ubisoft が 2021-12 に発表した、AAA ゲームの装飾品を限定数の NFT「Digits」として配布・取引させるプラットフォーム（ベータ）。Tezos 上で、各 Digit は通し番号を持ち、ゲーム内で他プレイヤーに見える。
+  最初の対象は Ghost Recon Breakpoint の PC 版で、無料配布から始めたが、2022-03-17 の Digit を最後に同作での Quartz 展開は終わり、同作の開発自体も終了した。
+selection_reason: >-
+  大手パブリッシャーが既存の人気シリーズに NFT を入れ、短期間で撤退した代表例であり、「オンチェーン資産を後付けしても遊びや経済は生まれない」という反証側の証拠になるから。
+  通し番号付きの装飾品や転売は従来のアカウント制でも実装できるという批判も含め、ブロックチェーン不要論の具体例として扱う。
+categories:
+  - {id: assets, role: primary, reason: "既存ゲームの装飾品を NFT 化し、外部市場での転売を可能にした"}
+status:
+  value: ended
+  as_of: "2026-10"
+  note: "Ghost Recon Breakpoint での Digits は 2022-03-17 が最後。Ubisoft は Quartz を他作で続けると述べたが、2026-08 の報道は Quartz が「重要な利用者基盤を得られなかった」とする。Quartz サイト自体の閉鎖日は未確認。"
+  s: [src-ubisoft-quartz-gamesbeat-end, src-ubisoft-quartz-kitguru-2026]
+dates:
+  announced: {date: "2021-12-07", s: [src-ubisoft-quartz-sixthaxis], note: "PC 向けベータとして発表"}
+  ended: {date: "2022-03-17", s: [src-ubisoft-quartz-gamesbeat-end, src-ubisoft-quartz-decrypt-end], note: "Ghost Recon Breakpoint の最後の Digit。プラットフォーム全体の終了日ではない"}
+
+architecture:
+  onchain:
+    level: assets-only
+    detail: "Digit の所有証明（certificate of ownership）だけが Tezos 上にあり、ゲームの規則・進行は Ubisoft のサーバー。"
+    s: [src-ubisoft-quartz-sixthaxis]
+  offchain:
+    - {item: "ゲーム本体と、Digit をゲーム内で表示・使用する処理", s: [src-ubisoft-quartz-sixthaxis]}
+  admin:
+    level: significant
+    detail: "Digit が使えるかどうかは Ubisoft のゲームに依存し、Breakpoint の Digits を他作（Rainbow Six Siege 等）へ持ち込む予定はないとされた。"
+    s: [src-ubisoft-quartz-destructoid-end]
+  open_source:
+    level: unknown
+    detail: "公開ソースは確認できなかった（商用タイトルで、公開されている形跡は見つからない）。"
+  extensibility:
+    level: unknown
+    detail: "第三者が Digit を使った拡張を行える仕組みは確認できなかった。"
+
+compare:
+  gameplay: {t: "既存の TPS（Ghost Recon Breakpoint）に、通し番号付きの装飾品（武器・装備の見た目）を加えるだけで、遊び自体は変わらない。", k: fact, s: [src-ubisoft-quartz-sixthaxis]}
+  necessity: {t: "通し番号と転売は従来のアカウント制でも実装できるとの批判があり、Ubisoft の FAQ 自身が Quartz の消費電力を「標準的なデータベースと同等」と説明していた。オンチェーンの必然性は弱い。", k: analysis, s: [src-ubisoft-quartz-sixthaxis]}
+  information: {t: "所有と通し番号はチェーン上で公開される。", k: fact, s: [src-ubisoft-quartz-sixthaxis]}
+  persistence: {t: "NFT は残るが、ゲーム内の価値は Breakpoint に限られ、同作の開発終了後は追加されず、他作へも移せない。", k: fact, s: [src-ubisoft-quartz-destructoid-end]}
+  extensibility: {t: "なし（確認できず）。", k: unknown}
+  money_flow: {t: "最初は無料配布、のち販売と二次流通。販売実績は乏しいと報じられたが、本エントリで本文を読めた資料はない。", k: unknown}
+  entry_barrier: {t: "対象国（米・加・西・仏・独・伊・白・豪・伯）の PC 版プレイヤー向けのベータ。", k: fact, s: [src-ubisoft-quartz-sixthaxis]}
+
+concepts: [c-nft-asset]
+
+article:
+  counter_evidence:
+    - {t: "Quartz の失敗はブロックチェーンの限界ではなく、評価の低い既存作（Breakpoint）を選んだこと、装飾品だけで遊びに影響しないこと、利用者の反発による、という別の説明もありうる。撤退が「オンチェーン資産一般の不要」を証明するわけではない。", k: analysis, s: [src-ubisoft-quartz-destructoid-end]}
+
+events:
+  - {id: ev-ubisoft-quartz-announce, date: "2021-12-07", type: announce, title: "Ubisoft Quartz（Tezos、Ghost Recon Breakpoint の PC ベータ）を発表", s: [src-ubisoft-quartz-sixthaxis]}
+  - {id: ev-ubisoft-quartz-last-digit, date: "2022-03-17", type: end, title: "Ghost Recon Breakpoint の最後の Digit", s: [src-ubisoft-quartz-gamesbeat-end, src-ubisoft-quartz-decrypt-end]}
+  - {id: ev-ubisoft-quartz-breakpoint-end, date: "2022-04", type: end, title: "Ubisoft が Breakpoint の追加コンテンツ終了を告知（サーバーは維持）", s: [src-ubisoft-quartz-destructoid-end, src-ubisoft-quartz-gamesbeat-end]}
+
+relations:
+  - {to: gods-unchained, type: similar-to, basis: analytic, note: "資産所有だけをチェーンに載せ、ルールはサーバー側に置く構成"}
+  - {to: dark-forest, type: contrasts-with, basis: analytic, note: "ルール自体をオンチェーンにした例との対照"}
+
+unknowns:
+  - "Digits の発行数・販売数・売上（Tom's Hardware の「約 400 ドル」は本文を読めず未確認）"
+  - "Quartz プラットフォーム自体の終了日と、Digit 保有者への扱い"
+  - "Breakpoint 以外の Ubisoft 作品で Digit が配布されたか"
+
+sources:
+  - {id: src-ubisoft-quartz-sixthaxis, title: "Ubisoft launches Quartz to try and sell NFTs in Ghost Recon Breakpoint", url: "https://www.thesixthaxis.com/2021/12/07/ubisoft-launches-quartz-to-try-and-sell-nfts-in-ghost-recon-breakpoint/", publisher: "TheSixthAxis", author: "Stefan L", type: news, primary: false, published: "2021-12-07", accessed: "2026-10-23", access: fetched, lang: en, note: "Tezos、Digits、通し番号、対象国、Ubisoft の説明"}
+  - {id: src-ubisoft-quartz-destructoid-end, title: "Bad game, made worse, now done", url: "https://www.destructoid.com/ghost-recon-breakpoint-nft-final-update-ubisoft-quartz-digits/", publisher: "Destructoid", author: "Chris Moyse", type: news, primary: false, published: "2022-04-06", accessed: "2026-10-23", access: fetched, lang: en, note: "Breakpoint の最終コンテンツ、サーバー維持、他作へ移せない"}
+  - {id: src-ubisoft-quartz-gamesbeat-end, title: "Ubisoft ends making NFTs and other updates for Ghost Recon: Breakpoint", url: "https://gamesbeat.com/?p=209522", publisher: "GamesBeat", type: news, primary: false, published: "2022-04-07", accessed: "2026-10-23", access: fetched, lang: en, note: "3/17 が最後の Digit、Quartz は他で継続との説明"}
+  - {id: src-ubisoft-quartz-decrypt-end, title: "Ubisoft Will Bring Tezos NFTs to Other Games as Ghost Recon Support Ends", url: "https://decrypt.co/97090/ubisoft-tezos-nfts-other-games-ghost-recon-support-ends", publisher: "Decrypt", type: news, primary: false, accessed: "2026-10-23", access: fetched, lang: en, note: "Quartz サイトによれば 3/17 が最後、他作で継続予定"}
+  - {id: src-ubisoft-quartz-kitguru-2026, title: "Ubisoft is shutting down another NFT-based game project", url: "https://www.kitguru.net/?p=743254", publisher: "KitGuru", type: news, primary: false, published: "2026-08-03", accessed: "2026-10-23", access: fetched, lang: en, note: "Quartz は重要な利用者基盤を得られなかった、Champions Tactics のブロックチェーン要素終了"}

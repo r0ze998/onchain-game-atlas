@@ -1,0 +1,88 @@
+id: autonomous-worlds-essay
+name: "Autonomous Worlds (Part 1)"
+name_ja: 自律世界（Autonomous Worlds）
+aliases: ["Autonomous Worlds essay", "ludens, Autonomous Worlds", "Autonomous Worlds N1", "AW Network"]
+kind: essay
+depth: index
+updated: "2026-10-23"
+chains: []
+team: "ludens（0xPARC ブログ掲載）。関連: Autonomous Worlds Network（arb, caroline, ludens）、0xPARC"
+summary: >-
+  2022-08-03 に 0xPARC ブログで公開された ludens の論考。「世界」を実体の容れ物と導入規則（introduction rule）の組として定義し、
+  ブロックチェーンを導入規則を形式化し誰もが検証できる「正典（canon）の技術」と位置付け、その上の世界を Autonomous Worlds と呼んだ。
+  「誰も Autonomous Worlds を止められない」という主張は、その後の MUD・Redstone・Biomes/DUST・Downstream など多くのプロジェクトが掲げる理念の参照点になった。
+  2023 年には 0xPARC と Autonomous Worlds Network が論集『Autonomous Worlds N1』を刊行した。
+selection_reason: >-
+  オンチェーンゲームの一系統（AW）の語彙と目標を定めた原典で、後続プロジェクトが自らの設計を説明する際に直接リンクしている。
+  一方で、論考自体が「自律性は事後的にしか測れず、それまでは演技的（performative）になりがち」と認めており、ホストチェーン停止で世界が失われた後続例と突き合わせて検証すべき主張を含むため。
+categories:
+  - {id: aw, role: primary, reason: "Autonomous Worlds という概念を定義した論考"}
+status:
+  value: archived
+  as_of: "2026-10"
+  note: "論考は 0xPARC ブログに掲載されたまま（参照日時点、SPA の埋め込みデータで本文を確認）。予告された Part 2（デジタル物理）の公開は確認できなかった。"
+  s: [src-awe-0xparc-part1]
+dates:
+  launched: {date: "2022-08-03", s: [src-awe-0xparc-part1], note: "0xPARC ブログ掲載日"}
+
+architecture:
+  onchain:
+    level: none
+    detail: "論考であり、ソフトウェアではない。"
+    s: [src-awe-0xparc-part1]
+  offchain: []
+  admin:
+    level: unknown
+    detail: "該当しない。"
+    s: []
+  open_source:
+    level: unknown
+    detail: "該当しない（論集 N1 は印刷版 1000 部とデジタル版で頒布）。"
+    s: [src-awe-n1-metalabel]
+  extensibility:
+    level: unknown
+    detail: "論考は導入規則を形式化した世界を論じるが、第三者拡張の仕組み自体は扱わない。Part 2 で「デジタル物理」と合約による規則を論じると予告していた。"
+    s: [src-awe-0xparc-part1]
+
+compare:
+  gameplay: {t: "ゲームではない。世界を「実体と、何が世界内（diegetic）かを決める導入規則」の組として定義する概念枠組み。", k: fact, s: [src-awe-0xparc-part1]}
+  necessity: {t: "ブロックチェーンは導入規則をコードで形式化し、誰でも状態根を検証できるため、特権的な個人や機器なしに世界の境界を保てる、というのが中心の主張。", k: claim, who: "ludens", s: [src-awe-0xparc-part1], q: "Autonomous Worlds have hard diegetic boundaries, formalised introduction rules, and no need for privileged individuals to keep the World alive."}
+  information: {t: "論考は状態がすべて公開・検証可能であることを前提にしており、秘匿情報は扱っていない。", k: analysis, s: [src-awe-0xparc-part1]}
+  persistence: {t: "「少なくとも一人がコンセンサスに参加する限り実体は世界内にとどまる」とし、「誰も止められない」と述べる。同時に、自律性は存亡の危機を経て事後的にしか測れないとも書いている。", k: claim, who: "ludens", s: [src-awe-0xparc-part1], q: "Of course, autonomy is something you can only measure in retrospect."}
+  extensibility: {t: "未確認（Part 1 は拡張の仕組みを論じていない）。", k: unknown}
+  money_flow: {t: "該当しない。AW Network は出版・公開資源・集会に資金を出し調整する 0xPARC 加盟組織と自己紹介している。", k: fact, s: [src-awe-aw-network]}
+  entry_barrier: {t: "該当しない。", k: unknown}
+
+concepts: [c-autonomous-world, c-onchain-state, c-onchain-rules]
+
+article:
+  principles:
+    - {t: "導入規則としてのチェーン: 「何が世界に存在するか」を決める規則（導入規則）をコードで形式化し、誰でも検証できるようにすれば、運営者が去っても世界の境界は保たれる。適用条件は、状態とルールの両方がチェーン上にあり、第三者がノードやクライアントを独立に動かせること。破綻条件は、世界がゲーム専用チェーンなど少数の運営者が維持する基盤に載る場合で、「止められない」は基盤運営者の継続に依存する。", k: analysis, s: [src-awe-0xparc-part1]}
+  counter_evidence:
+    - {t: "論考自身が「存亡の危機が来るまで自律性はしばしば演技的」と認めている。Redstone（2026-05 停止）上の Downstream・Biomes や、2026-12 停止予定の DUST Chain のように、AW を掲げた世界がホストチェーン停止に直面した例があり、「誰も止められない」は少なくともゲーム専用チェーンでは成り立たなかった。", k: analysis, s: [src-awe-0xparc-part1, src-awe-l2beat-redstone]}
+    - {t: "論考は、ハードな境界は商取引に、ソフトな境界はファンフィクションに向くと述べ、ハードな境界が常に望ましいとは主張していない。ゲームにとってどちらが良いかは論考の範囲外。", k: fact, s: [src-awe-0xparc-part1]}
+
+events:
+  - {id: ev-awe-part1, date: "2022-08-03", type: paper, title: "「Autonomous Worlds (Part 1)」公開", detail: "0xPARC ブログ", s: [src-awe-0xparc-part1]}
+  - {id: ev-awe-residency, date: "2022-10", type: other, title: "Autonomous Worlds Residency（0xPARC）", detail: "AW Network の紹介記事が言及", s: [src-awe-aw-network]}
+  - {id: ev-awe-network, date: "2023-08-09", type: other, title: "Autonomous Worlds Network の設立を告知", detail: "arb, caroline, ludens 名義。Devconnect 2023 で AW Assembly を主催し N1 を再版配布と予告", s: [src-awe-aw-network]}
+  - {id: ev-awe-n1, date: "2023", type: paper, title: "論集『Autonomous Worlds N1』刊行", detail: "0xPARC と AW Network。2022 年の AW Symposium 参加者への公募から編集。ludens「The Case for Autonomous Worlds」、gubsheep「The Strongest Crypto Gaming Thesis」等", s: [src-awe-n1-metalabel]}
+
+relations:
+  - {to: dark-forest, type: similar-to, basis: analytic, note: "謝辞に gubsheep の名があり、論集 N1 にも gubsheep の論考が収録されるが、Dark Forest から論考への影響を直接述べる記述は本調査では確認していない"}
+  - {to: mud, type: similar-to, basis: analytic, note: "MUD は AW 向けエンジンを掲げる。ludens と Lattice の関係は一次資料で未確認"}
+  - {to: biomes, type: contrasts-with, basis: analytic, note: "DUST は README で本論考にリンクし AW を目標とするが、チェーン移行と停止告知に直面"}
+  - {to: downstream, type: contrasts-with, basis: analytic, note: "AW を自称したがホストチェーン停止で世界が失われた"}
+  - {to: c-autonomous-world, type: built-with, basis: confirmed, note: "概念の命名元", s: [src-awe-0xparc-part1]}
+
+unknowns:
+  - "Part 2（Ethereum とスマートコントラクトを基盤としたデジタル物理）が公開されたか。"
+  - "ludens の実名・所属（Lattice との関係）を示す一次資料。"
+  - "論集 N1 の初版刊行月（Metalabel のリリース日は 2024-05-15 で、これは第 2 版の販売開始とみられる）。"
+contradictions: []
+
+sources:
+  - {id: src-awe-0xparc-part1, title: "Autonomous Worlds (Part 1)", url: "https://0xparc.org/blog/autonomous-worlds", publisher: "0xPARC blog", author: "ludens", type: paper, primary: true, published: "2022-08-03", accessed: "2026-10-23", access: fetched, lang: en, note: "SPA のため WebFetch では本文が出ず、サイトの JS バンドルに埋め込まれた記事本文（base64）を curl で取得して読んだ"}
+  - {id: src-awe-aw-network, title: "Introducing the Autonomous Worlds Network", url: "https://0xparc.org/blog/autonomous-worlds-network", publisher: "0xPARC blog", author: "arb, caroline, ludens", type: official-blog, primary: true, published: "2023-08-09", accessed: "2026-10-23", access: fetched, lang: en, note: "同上の方法で本文を確認（記事は hidden 扱い）。AW Network の役割、Residency、N1、Devconnect 2023"}
+  - {id: src-awe-n1-metalabel, title: "Autonomous Worlds N1", url: "https://autonomousworlds.metalabel.com/aw01", publisher: "Metalabel (0xPARC / Autonomous Worlds Network)", type: paper, primary: true, published: "2024-05-15", accessed: "2026-10-23", access: fetched, lang: en, note: "目次（10 論考）、印刷 1000 部、第 2 版 333 部"}
+  - {id: src-awe-l2beat-redstone, title: "Redstone - L2BEAT", url: "https://l2beat.com/layer2s/projects/redstone", publisher: "L2BEAT", type: analysis, primary: false, accessed: "2026-10-23", access: fetched, lang: en, note: "Redstone の 2026-05-15 停止"}

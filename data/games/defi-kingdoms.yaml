@@ -1,0 +1,90 @@
+id: defi-kingdoms
+name: DeFi Kingdoms
+name_ja: デファイ・キングダムズ
+aliases: [DFK, Serendale, Crystalvale, "DFK Chain"]
+kind: game
+depth: index
+updated: "2026-10-23"
+chains: [Harmony（2021-08〜2022-10）, "DFK Chain（Avalanche Subnet、2022-03〜）", "Klaytn / Kaia（2022-12〜）", Metis（DFK Colosseum、2024-10〜）]
+team: "Kingdom Studios"
+summary: >-
+  DEX と流動性マイニングをファンタジー王国の建物（Marketplace、Gardens、Jeweler など）として見せることから始まり、ヒーロー NFT とクエストを加えた DeFi 一体型のゲーム。
+  2021-08 に Harmony で開始し、2022-03 に自前の Avalanche Subnet「DFK Chain」で第 2 王国 Crystalvale を開いた。
+  2022-06 の Harmony の Horizon ブリッジ攻撃（約 1 億ドル）の約 2 か月後、Harmony の Serendale を Klaytn へ移すと発表し、2022-10 に Harmony 版を閉じた。王国ごとに別チェーン・別トークン（JEWEL、CRYSTAL、JADE）を持つ構成になった。
+selection_reason: >-
+  「DeFi をゲームの皮で包む」型の代表であり、ゲーム専用チェーン（Subnet）を持ち、ホストチェーンの事故（ブリッジ攻撃）とチェーン側の誘因（Klaytn の資金提供）によって王国ごと移転した記録が公式ドキュメントで追えるから。
+  チェーン選択がゲームの存続を左右する、という利用者の設計上の論点に直接関係する。
+categories:
+  - {id: p2e, role: primary, reason: "流動性提供とヒーローのクエストで Power Token（JEWEL・CRYSTAL・JADE）を得る"}
+  - {id: infra, role: secondary, reason: "自前の Avalanche Subnet（DFK Chain、ガスは JEWEL）と、Harmony→Klaytn/Kaia、Metis への展開"}
+  - {id: assets, role: secondary, reason: "ヒーロー・ペット・アイテムの NFT と、王国間のブリッジ"}
+status:
+  value: active
+  as_of: "2026-10"
+  note: "公式ドキュメント（2025-08-08 更新）は DFK Chain・Kaia・Metis の 3 チェーンでゲームが稼働中とする。2026 年の利用者数は未確認。"
+  s: [src-defi-kingdoms-docs-home]
+dates:
+  launched: {date: "2021-08-22", s: [src-defi-kingdoms-docs-realms], note: "Serendale 1.0 を Harmony で DEX と流動性マイニング報酬として開始"}
+
+architecture:
+  onchain:
+    level: partial-rules
+    detail: >-
+      DEX、Gardens（LP ステーキングと報酬の発行・ロック）、ヒーロー NFT、クエストの報酬はコントラクトで処理される（Master Gardener コントラクトが報酬を mint）。
+      戦闘（Void Hunt、Colosseum）など各ゲーム要素の判定がどこまでオンチェーンかは本エントリでは未確認。
+    s: [src-defi-kingdoms-docs-gardens, src-defi-kingdoms-docs-home]
+  offchain:
+    - {item: "ゲームクライアント（王国の UI）", s: [src-defi-kingdoms-docs-home]}
+  admin:
+    level: significant
+    detail: "DFK Chain はプロジェクトが「ガス価格・安定性・手数料を管理するため」に持つ専用チェーンで、運営所有のバリデータを含む。Harmony 版の閉鎖・王国の移転は運営が決めた。"
+    s: [src-defi-kingdoms-docs-chain, src-defi-kingdoms-docs-realms]
+  open_source:
+    level: unknown
+    detail: "コントラクト・クライアントの公開状況は未確認（監査結果ページの存在のみ確認）。"
+  extensibility:
+    level: unknown
+    detail: "開発者向けドキュメント（devs.defikingdoms.com）があるが内容は未確認。"
+
+compare:
+  gameplay: {t: "流動性を提供して Gardens に預け、ヒーローを採掘・釣り・採集・園芸などのクエストに出して報酬を得る。後に戦闘（Void Hunt、PvP の Colosseum）が加わった。", k: fact, s: [src-defi-kingdoms-docs-home, src-defi-kingdoms-docs-gardens]}
+  necessity: {t: "ゲームの中心が DEX と流動性マイニングそのものであり、DeFi 部分はチェーンが前提。ゲーム要素（ヒーロー・クエスト）はその報酬の受け取り方を装飾する役割が大きい。", k: analysis, s: [src-defi-kingdoms-docs-gardens]}
+  information: {t: "報酬の発行スケジュールとロック率、プール配分はドキュメントで公開される。", k: fact, s: [src-defi-kingdoms-docs-gardens]}
+  persistence: {t: "Harmony 版は閉鎖後「Outpost」として残り、残った流動性の引き出し・xJEWEL の変換・資産のブリッジは可能とされる。", k: fact, s: [src-defi-kingdoms-docs-realms]}
+  extensibility: {t: "未確認。", k: unknown}
+  money_flow: {t: "報酬は週単位のエポックで減る発行量から配られ、初期（Epoch 1）は請求額の 95% がロックされ、エポックごとに解放率が 2% ずつ上がる。請求時には開発・マーケティング基金・創業者基金にも追加で mint される（創業者基金は 95% ロック）。", k: fact, s: [src-defi-kingdoms-docs-gardens]}
+  entry_barrier: {t: "ウォレット、ガス（DFK Chain では JEWEL）、流動性の提供やヒーロー購入の初期資金が必要。", k: fact, s: [src-defi-kingdoms-docs-chain, src-defi-kingdoms-docs-gardens]}
+
+concepts: [e-p2e, c-own-chain, c-nft-asset, e-dual-token, e-sink-faucet]
+
+article:
+  counter_evidence:
+    - {t: "Harmony からの離脱は Horizon ブリッジ攻撃の約 2 か月後だったが、報道は離脱理由を「Harmony との協業の難しさ」とし、攻撃を原因とは書いていない。Klaytn 側が協業に対価を払ったと運営幹部が AMA で述べており、移転はホストチェーンの事故よりチェーン間の誘致競争で説明できる可能性がある。", k: claim, who: "The Block / Kingdom Studios 社長 Dreamer", s: [src-defi-kingdoms-theblock-leave], q: "this is another major chain paying for a collaboration with DFK"}
+  constraints:
+    - {t: "王国ごとにチェーンと Power Token が分かれ（Harmony の JEWEL、DFK Chain の CRYSTAL、Kaia の JADE）、利用者と流動性がチェーン間で分断される構成になった。", k: analysis, s: [src-defi-kingdoms-docs-realms, src-defi-kingdoms-docs-home]}
+
+events:
+  - {id: ev-dfk-serendale-harmony, date: "2021-08-22", type: launch, title: "Serendale 1.0 を Harmony で開始", s: [src-defi-kingdoms-docs-realms]}
+  - {id: ev-dfk-crystalvale, date: "2022-03-30", type: launch, title: "DFK Chain（Avalanche Subnet）で Crystalvale を開始", s: [src-defi-kingdoms-docs-realms]}
+  - {id: ev-dfk-harmony-leave, date: "2022-08-23", type: announce, title: "Serendale を Harmony から Klaytn へ移すと発表", detail: "Horizon ブリッジ攻撃（約 1 億ドル）の約 2 か月後", s: [src-defi-kingdoms-theblock-leave]}
+  - {id: ev-dfk-harmony-close, date: "2022-10-12", type: end, title: "Harmony の Serendale を閉鎖し Outpost 化", s: [src-defi-kingdoms-docs-realms]}
+  - {id: ev-dfk-serendale-klaytn, date: "2022-12-07", type: launch, title: "Serendale 2.0 を Klaytn（現 Kaia）で開始（JADE）", s: [src-defi-kingdoms-docs-realms]}
+  - {id: ev-dfk-colosseum, date: "2024-10-04", type: launch, title: "PvP の DFK Colosseum を Metis で開始", s: [src-defi-kingdoms-docs-realms]}
+
+relations:
+  - {to: aavegotchi, type: similar-to, basis: analytic, note: "DeFi の仕組みをゲームの中心に据えた同時期の例"}
+  - {to: axie-infinity, type: similar-to, basis: analytic, note: "ゲーム専用チェーン（Ronin / DFK Chain）を持った P2E"}
+  - {to: c-own-chain, type: similar-to, basis: analytic, note: "Avalanche Subnet でゲーム専用チェーンを運用"}
+
+unknowns:
+  - "Horizon ブリッジ攻撃が DFK の資産（Harmony 上のブリッジ済みトークンと流動性）に与えた具体的な影響"
+  - "利用者数の推移（Harmony 期、DFK Chain 期、Kaia 期）"
+  - "コントラクトのソース公開とクエスト・戦闘判定のオンチェーン範囲"
+  - "Klaytn からの対価の条件"
+
+sources:
+  - {id: src-defi-kingdoms-docs-home, title: "DeFi Kingdoms Whitepaper (docs home)", url: "https://docs.defikingdoms.com/", publisher: "DeFi Kingdoms Docs", type: official-docs, primary: true, published: "2025-08-08", accessed: "2026-10-23", access: fetched, lang: en, note: "3 チェーンで稼働、Power Token、ナビゲーション"}
+  - {id: src-defi-kingdoms-docs-realms, title: "Realms", url: "https://docs.defikingdoms.com/how-defi-kingdoms-works/realms", publisher: "DeFi Kingdoms Docs", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "各王国の開始・閉鎖日"}
+  - {id: src-defi-kingdoms-docs-chain, title: "DeFi Kingdoms Blockchain", url: "https://docs.defikingdoms.com/how-defi-kingdoms-works/defi-kingdoms-blockchain", publisher: "DeFi Kingdoms Docs", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "Avalanche Subnet、JEWEL がガス、バリデータへの手数料 25%"}
+  - {id: src-defi-kingdoms-docs-gardens, title: "The Gardens", url: "https://docs.defikingdoms.com/how-defi-kingdoms-works/the-gardens", publisher: "DeFi Kingdoms Docs", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "エポック、ロック率、プロジェクトへの追加 mint、引き出し手数料"}
+  - {id: src-defi-kingdoms-theblock-leave, title: "DeFi Kingdoms to leave Harmony for metaverse-focused blockchain", url: "https://www.theblock.co/post/164497/defi-kingdoms-to-leave-harmony-for-metaverse-focused-blockchain", publisher: "The Block", type: news, primary: false, published: "2022-08-23", accessed: "2026-10-23", access: fetched, lang: en, note: "Klaytn への移転、Harmony との協業の難しさ、Klaytn の対価"}

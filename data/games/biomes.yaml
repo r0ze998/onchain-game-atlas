@@ -1,0 +1,197 @@
+id: biomes
+name: Biomes
+name_ja: バイオームズ
+aliases: ["Biomes AW", "Biome-1", "DUST（2025-04 に改名した後継）"]
+kind: game
+depth: deep
+updated: "2026-10-23"
+chains: [Redstone (mainnet, OP Stack L2), Garnet (Redstone testnet), DUST Chain（DUST 期、2026-04 以降）]
+team: "tenetxyz（Dhvani Patel, Dhrumil Shah ほか）。2025 年以降は他の開発者も参加し、2026 年の報道は DUST を Lattice のプロジェクトとして扱う"
+summary: >-
+  MUD で作られた Minecraft 風のボクセル世界で、採掘・建築・クラフト・移動のすべてが Redstone 上のトランザクションになる。
+  プレイヤーは当初「フック」と「委任」で自分の行動に第三者コントラクトを介在させ、2024-06 以降はチェスト・フォースフィールド・看板などの「スマートアイテム」に「チップ」（任意のコントラクト）を取り付けて、店・銀行・私有地・入場制限を作れた。
+  チップの保護はゲーム内の電池（バッテリー）残量に依存し、他プレイヤーが叩いて残量を削れば外せるという、管理者ではなくゲーム内物理で拡張の効力を決める設計をとった。
+  2025-04 に DUST へ改名して新しいワールドを展開し、2026-04 に Redstone から専用の DUST Chain へ移行したが、DUST Chain も 2026-12-31 に停止すると告知されている。
+selection_reason: >-
+  「プレイヤーがスマートコントラクトで世界のオブジェクトの振る舞いを書き換える」拡張モデルを、フック・委任 → チップ → プログラムと 2 年間で 3 度作り直した記録がコードの履歴として残っており、
+  何が信頼の仕組みとして機能し、何が捨てられたかを追える。同時に、確認できる拡張の大半が開発チーム自身の作例であり、世界が二度チェーンを移り最終的に停止に向かう点で、許可不要拡張の持続性への反例でもあるから。
+categories:
+  - {id: aw, role: primary, reason: "Autonomous World を掲げ、プレイヤーのコントラクトをスマートアイテムに取り付けて世界の振る舞いを拡張する"}
+  - {id: onchain-rules, role: secondary, reason: "地形生成・採掘・建築・移動・体力・フォースフィールドの判定を MUD の System コントラクトで実行する"}
+  - {id: infra, role: secondary, reason: "MUD・Redstone の旗艦的な利用例で、後に専用チェーン DUST Chain へ移行した"}
+status:
+  value: pivoted
+  as_of: "2026-10"
+  note: >-
+    Biomes の名前での世界は 2024-04 から 2025-05 まで Redstone 上の同一ワールドアドレスで運用され、2025-04-01 にリポジトリが DUST へ改名、2025-05〜06 に新しいワールドが Redstone に展開された。
+    DUST は 2026-04 に DUST Chain へ移行（README は「DUST mainnet」で稼働中と記載）。一方 dustproject.org は参照日時点で「DUST Chain は 2026-12-31 に停止する」と告知している。
+    Redstone 自体は 2026-05-15 に停止した。Biomes 期のワールドがその後どう扱われたかの公式説明は見つからなかった。
+  s: [src-biomes-worlds-json, src-biomes-commits, src-biomes-migration-2026, src-biomes-dust-site, src-biomes-l2beat]
+dates:
+  announced: {date: "2024-02", s: [src-biomes-commits, src-biomes-buidlguidl], note: "現リポジトリの初回コミットは 2024-02-25。2024-03 に biomes.everlon.xyz でプレイテスト"}
+  launched: {date: "2024-05", s: [src-biomes-buidlguidl, src-biomes-decrypt-redstone, src-biomes-worlds-json], note: "Redstone メインネット（2024-05-01）の初期タイトル。開発者の記録では 4 つのエクスペリエンスとともに Biome-1 を公開。ワールドアドレスは 2024-04-28 に確定"}
+
+architecture:
+  onchain:
+    level: core-rules
+    detail: >-
+      MUD の World に地形・ブロック・インベントリ・体力（stamina）・フォースフィールド・チップ等のテーブルを持ち、採掘・建築・クラフト・移動・攻撃を System コントラクトで判定する。
+      2024 年版ではチップ（任意コントラクト）がチェスト・フォースフィールド・看板に取り付けられ、onAttached / onDetached / onChipHit / 転送フック等が呼ばれる。DUST 版では Program として ProgramSystem から各フックが呼ばれる。
+    s: [src-biomes-chipsystem-2024, src-biomes-programs-doc]
+  offchain:
+    - {item: "MUD インデクサ（Dozer 等）と公式ブラウザクライアント。2024-12 のデータ移行スクリプトも Dozer のクエリに依存", s: [src-biomes-commits]}
+    - {item: "エクスペリエンス（Biomes 期）や DUST アプリの UI は外部 Web アプリとしてクライアントに埋め込まれる", s: [src-biomes-experience-docs, src-biomes-app-registration]}
+    - {item: "乱数は 2025-09 にブロックハッシュから drand へ切り替え", s: [src-biomes-changelog]}
+  admin:
+    level: significant
+    detail: >-
+      MUD の ROOT 名前空間所有者がシステムのアップグレードを行い、2024-07 には AdminHookSystem でプレイヤーが登録したフックを一括削除する機能を追加した。
+      DUST 版では Guardian が世界を一時停止でき、ROOT のみが再開できる。README は「アルファ期間中はバランス・新システム・バグ修正が変わり得る」とし、ガバナンスの分散化は将来の目標としている。
+    s: [src-biomes-adminhook, src-biomes-guardian, src-biomes-dust-repo]
+  open_source:
+    level: full
+    detail: "コア（world）、デフォルトプログラム、クライアント SDK（dustkit）、エクスペリエンス／scaffold テンプレートが GitHub で公開（旧 tenetxyz、現 dustproject 組織）。"
+    url: "https://github.com/dustproject/dust"
+    s: [src-biomes-dust-repo, src-biomes-experience-prs]
+  extensibility:
+    level: permissionless-onchain
+    detail: >-
+      2024-05〜07: プレイヤーが同意して登録する MUD のオプショナル・システムフック（自分の行動の前後に第三者コントラクトを実行）と委任（第三者が自分の代わりに行動）でエクスペリエンスを作る。
+      2024-06〜2025-02: スマートチェスト・フォースフィールド・看板に任意のチップコントラクトを付け、取引・入場制限・表示を制御する。
+      2025-04 以降（DUST）: エンティティに Program を付け、フォースフィールドの Program が区域内の付け替えを検証する。グローバル／文脈アプリの登録も誰でも可能。
+      確認できた作例は開発者 dhvanipa による多数のチップ例と、第三者による未マージの Biocash（2024-05）。
+    s: [src-biomes-experience-docs, src-biomes-chipsystem-2024, src-biomes-programs-doc, src-biomes-experience-prs, src-biomes-biocash-pr]
+
+compare:
+  gameplay: {t: "一人称のボクセル世界で木や鉱石を採掘し、ブロックを置き、作業台でクラフトし、フォースフィールドで自分の区域を守る。体力（stamina）が行動を制限し、溶岩などで消耗する。チップを付けたチェストで売買・預金ができる。", k: fact, s: [src-biomes-bankless, src-biomes-commits, src-biomes-experience-prs]}
+  necessity: {t: "第三者が書いたチェストのルール（価格・入場条件）を運営の許可なく共有世界に置き、他者がそれを信頼して取引できる点はオンチェーン実行の利点になり得る。ただし運営はシステム更新・フック一括削除・一時停止の権限を持ち、ワールド自体も作り直されたため、利用者が運営を信頼しなくてよい状況にはなっていなかった。", k: analysis, s: [src-biomes-adminhook, src-biomes-guardian, src-biomes-worlds-json]}
+  information: {t: "全状態が公開。私有チェストや私的な看板はアクセス制御で操作を制限するもので、内容の秘匿ではない。", k: fact, s: [src-biomes-experience-prs]}
+  persistence: {t: "Biomes 期の Redstone ワールド（2024-04-28 確定のアドレス）は 2025-05 以降、新しい DUST ワールドに置き換えられ、2024-12 には運営がチェスト・店の状態を新規格へ移行するスクリプトを実行した。Redstone は 2026-05-15 に停止し、DUST Chain も 2026-12-31 の停止を告知している。", k: fact, s: [src-biomes-worlds-json, src-biomes-commits, src-biomes-l2beat, src-biomes-dust-site]}
+  extensibility: {t: "フック／委任（同意制）→ チップ（オブジェクト単位、電池で保護）→ Program（フォースフィールドが区域内の付け替えを検証）と仕組みが 3 回変わった。いずれも誰でもコントラクトを書いて付けられる。", k: fact, s: [src-biomes-experience-docs, src-biomes-chipsystem-2024, src-biomes-programs-doc]}
+  money_flow: {t: "トークン報酬はなく、プレイヤーは Redstone のガスを払う（Bankless は約 0.01 ETH で数千トランザクション分と記載）。チップ付きチェストでは ETH や ERC-20 で取引でき、作者が売上を受け取る設計の作例があった。開発資金の一部は BuidlGuidl の助成（開発者 2 名で計 15 ETH の引き出し記録）。", k: fact, s: [src-biomes-bankless, src-biomes-experience-prs, src-biomes-buidlguidl]}
+  entry_barrier: {t: "ブラウザで遊べるが、ウォレットと Redstone 上の ETH が必要。拡張にはチップ／プログラムのコントラクトを書いてデプロイし、MUD World Explorer 等から付け替える知識が要る。", k: fact, s: [src-biomes-program-registration, src-biomes-bankless]}
+
+concepts: [c-permissionless-extension, c-autonomous-world, c-ecs-engine, c-onchain-state, c-onchain-rules, c-own-chain, m-land, m-production-chain, c-onchain-randomness]
+proposed_concepts:
+  - {id: c-energy-backed-extension, name: エネルギー担保型の拡張保護, desc: "第三者コントラクト（チップ）の効力をゲーム内の電池・エネルギー残量で維持させ、残量が尽きる・他者に削られると誰でも外せるようにする。管理者ではなくゲーム内物理で拡張の存続を決める。"}
+  - {id: c-opt-in-hooks, name: 同意制フック・委任, desc: "プレイヤーが明示的に登録したときだけ、第三者コントラクトが自分の行動の前後に介入したり代理行動したりできる。離脱時の没収（ステーク）で約束を担保する。"}
+
+article:
+  what:
+    - {t: "Biomes は MUD 製の 3D ボクセル世界で、採掘・建築・クラフト・移動のすべての行動が Redstone 上のトランザクションになる。2024-10 にアルファを開始し、「最大の GDP を持つ仮想世界」を目指すと掲げた。", k: claim, who: "運営 (Biomes)", s: [src-biomes-bankless, src-biomes-devcon-gdp], q: "Biomes is growing the virtual world with the largest GDP. As a fully onchain 3D voxel world, every single action in Biomes"}
+    - {t: "3 つの柱は Digital Matter（ブロックの物質性）、Smart Items（チェスト等が任意のスマートコントラクトに従って動く）、Infinite Expansion とされた。", k: claim, who: "運営 (Biomes)", s: [src-biomes-bankless], q: "Smart Items allow in-world objects like chests to function according to customizable smart contracts"}
+    - {t: "プレイヤー組織 Settlers Union が初心者向けクエストを運営していたと Bankless は記す。", k: fact, s: [src-biomes-bankless]}
+    - {t: "DUST に改名後は「チェストを店に、扉を通行料ゲートに変える」「コードは自分が去っても世界のルールとして残る」と説明している。", k: claim, who: "運営 (DUST)", s: [src-biomes-dust-what], q: "It becomes a new core rule of the world, shaping everyone's reality and persisting even if you leave."}
+  loop:
+    - {t: "コードと作例から再構成した一巡（2024 年後半）: 採掘してブロックと資源を集める → フォースフィールドを置いて区域を確保 → スマートチェストを作りチップを取り付ける → 電池を入れてチップを保護 → 他プレイヤーがそのチェストでブロックを売買・預金する → 敵対者はウィッカー（工具）で叩いて電池を削り、尽きればチップを外せる。", k: analysis, s: [src-biomes-chipsystem-2024, src-biomes-hitchip, src-biomes-experience-prs]}
+    - {t: "Biomes 初期（2024-05）のエクスペリエンス作例は Deathmatch、Race to the Sky、Bounty Hunter、Build-A-Nomics、Build for Drops で、プレイヤーがフックや委任を登録して参加するミニゲームだった。", k: fact, s: [src-biomes-scaffold-prs, src-biomes-experience-docs]}
+  before_after:
+    - {t: "OPCraft（2022）は MUD の Minecraft 風デモだったが、Biomes は同じジャンルで、第三者コントラクトがプレイヤーの行動に介入する仕組み（フック・委任）と、世界のオブジェクトに付くチップを本番チェーン上で運用した。", k: analysis, s: [src-biomes-experience-docs, src-biomes-chipsystem-2024]}
+    - {t: "フックは「プレイヤーが同意して登録しないと介入できない」、委任は「プレイヤーが許可した範囲で代理行動する」形で、拡張の信頼をプレイヤー個人の同意に置いた。途中離脱を防ぐにはステークや参加費の没収を使うよう文書は勧めていた。", k: fact, s: [src-biomes-experience-docs]}
+    - {t: "チップ期には、信頼の単位がプレイヤー個人から「オブジェクトと区域」へ移り、チップを付けたオブジェクトの所有・保護をゲーム内の電池で裏付けるようになった。", k: analysis, s: [src-biomes-chipsystem-2024, src-biomes-hitchip]}
+  onchain_tradeoffs:
+    - {t: "第三者チップの呼び出しは、利用者が止めたい動機を持つ行動（叩く・電池切れ後の取り外し）では固定ガス上限付きの safe call にし、悪意あるチップが行動を妨害できないようにした（DUST 版では SAFE_PROGRAM_GAS = 1,000,000）。", k: fact, s: [src-biomes-chipsystem-2024, src-biomes-programs-doc]}
+    - {t: "電池の残る間はチップが取り外しを拒否でき、電池が 0 なら誰でも外せる。保護を続けるには電池を補給し続ける必要があり、拡張の維持にゲーム内コストがかかる。", k: fact, s: [src-biomes-chipsystem-2024, src-biomes-hitchip]}
+    - {t: "全行動がトランザクションのため、運営は採掘・建築・移動・攻撃の 1 ブロックあたりのレート制限（例: 採掘 20、プレイヤー攻撃 1）を 2025-09 に導入した。", k: fact, s: [src-biomes-changelog]}
+    - {t: "2024-10 にアバター（rover）経由の移動を実時間移動へ置き換え、UX が桁違いに良くなったと開発者は記録している。", k: claim, who: "開発者 (dhvanipa.eth)", s: [src-biomes-buidlguidl], q: "Implemented real-time movement so no more rover/avatar, making the UX an order of magnitude better (live on testnet)"}
+  roles:
+    - {t: "開発チーム: コア System、クライアント、テンプレートを作り、チップの作例も大半を書いた。エクスペリエンス用リポジトリで確認できた PR は 25 件すべて開発者 dhvanipa によるもの（表示された 1 ページ分）。", k: fact, s: [src-biomes-experience-prs]}
+    - {t: "作例 PR には「Settlers Union Bank」「Orden Downtown Chest」「WASD Member Chest」「Sakura Enjoyer Chest」など、プレイヤー集団名を冠したチェストが含まれ、開発者がプレイヤー組織向けのチップを書いていた可能性がある。", k: analysis, s: [src-biomes-experience-prs, src-biomes-experience-pr20]}
+    - {t: "第三者: scaffold リポジトリに外部の cupOJoseph らによる「Biocash contracts」PR（トークンとアイテム転送）が 2024-05 に出されたが、マージされていない。", k: fact, s: [src-biomes-biocash-pr]}
+    - {t: "運営: ROOT 権限でシステム更新とフック一括削除を行い、データ移行（2024-12、2026-04）を実施した。", k: fact, s: [src-biomes-adminhook, src-biomes-commits, src-biomes-migration-2026]}
+    - {t: "エージェント・ボット: DUST のドキュメントにはボットによる自動化の章（コンソール・スクリプト）があり、自動化を前提にしている。AI エージェントの参加実績は確認できなかった。", k: fact, s: [src-biomes-dust-repo]}
+  trajectory:
+    - {t: "2024-02 開発開始、2024-03 プレイテスト、2024-05 Redstone メインネットで Biome-1 と 4 つのエクスペリエンスを公開、2024-06 チップ導入、2024-07 フォースフィールド導入とユーザーフックの削除、2024-08-31 スマートアイテム版をメインネット公開、2024-10 アルファ開始。", k: fact, s: [src-biomes-buidlguidl, src-biomes-commits, src-biomes-bankless]}
+    - {t: "2024-12 に Exchange 規格を導入し、既存のチェスト・アイテムショップ・交換所のデータを新規格へ移行するスクリプトを運営が実行した。", k: fact, s: [src-biomes-commits]}
+    - {t: "2025-02 にフックと委任の利用を削除し、地形システムを作り直し、2025-03 にエクスペリエンスパッケージを削除、2025-04-01 に DUST へ改名した。", k: fact, s: [src-biomes-commits]}
+    - {t: "Redstone 上のワールドアドレスは 2024-04-28 から 2025-05 まで同一で、2025-05-29〜06-11 に新しいアドレスへ 4 回置き換わった（DUST ワールドの展開）。", k: fact, s: [src-biomes-worlds-json]}
+    - {t: "2025-02 以降は tenetxyz 以外の開発者（V、Kevin Ingersoll、vdrg、alvarius 等）のコミットが加わった。2026-04 の報道は DUST を Lattice の最後のプロジェクトとし、残余資金を充てると伝えた。2026-04-06 の移行で DUST は Redstone から DUST Chain へ移った。", k: fact, s: [src-biomes-commits, src-biomes-techflow, src-biomes-migration-2026]}
+    - {t: "参照日（2026-10）時点で dustproject.org は DUST Chain を 2026-12-31 に停止すると告知している。", k: fact, s: [src-biomes-dust-site], q: "DUST CHAIN IS SHUTTING DOWN ON DECEMBER 31, 2026. FOLLOW THESE STEPS TO WITHDRAW YOUR ETH."}
+  retention_evidence:
+    - {t: "プレイヤー数、DAU、チップの取り付け数、チップ付きチェストの取引額のいずれも公表値を見つけられなかった。「最大の GDP」は数値の伴わない主張。", k: unknown}
+    - {t: "GitHub 指標は dustproject/dust がスター 27・フォーク 4・979 コミット、エクスペリエンステンプレートがスター 2、scaffold がスター 5・フォーク 3（参照日時点）。外部開発者の参加が広がった形跡は薄い。", k: fact, s: [src-biomes-dust-repo, src-biomes-experience-prs, src-biomes-scaffold-prs]}
+    - {t: "コミット数は 2025-04〜05 に月約 100 件でピークとなり、2025-08 以降は月 14 件以下、2025-10〜2026-03 はほぼゼロで、2026-04 に移行のための 3 件がある。", k: fact, s: [src-biomes-commits]}
+  extensions:
+    - {t: "開発者による作例チップ: 店（固定価格、トークン、ステーブルコイン、動的価格、VRGDA、Uniswap 風 AMM、NFT 販売）、銀行チェスト（アイテムごとに ERC-20 を発行）、私有チェスト、私有区域・NFT 所有者限定区域（フォースフィールド）、パルクール報酬チェスト、私的看板・画像表示。", k: fact, s: [src-biomes-experience-prs, src-biomes-buidlguidl]}
+    - {t: "開発者の記録では、2024-06 に ETH 店・ボンディングカーブ店・トークン化商品店の「経済プリミティブ」を作り、2024-08 に ERC-721 を発行する売買チェストと、ゲーム内アイテムごとに ERC-20 を発行する銀行チェストをメインネットに公開した。", k: fact, s: [src-biomes-buidlguidl]}
+    - {t: "第三者が独自に書いてメインネットに付け、他プレイヤーが使い続けたチップの記録は見つからなかった。プレイヤー集団名の付いた作例 PR は 2024-12-31 にマージされずに閉じられている。", k: fact, s: [src-biomes-experience-prs, src-biomes-experience-pr20]}
+    - {t: "2024-07-25 に運営は AdminHookSystem（ROOT 専用の deleteAllUserHooks）を追加し、スクリプトで各プレイヤーの登録済みフックを走査して削除した。フック型の拡張はこの時点で強制的に外された。", k: fact, s: [src-biomes-adminhook]}
+  constraints:
+    - {t: "拡張の仕組みが 2 年で 3 回変わり、そのたびに既存の拡張はインターフェース変更・データ移行・削除の対象になった。拡張作者にとって「付けたコードが残る」前提は Biomes 期には成立していなかった。", k: analysis, s: [src-biomes-adminhook, src-biomes-commits, src-biomes-worlds-json]}
+    - {t: "DUST の README は「アルファ中もワールドのコントラクトアドレスは変えず、システムのインターフェースは後方互換に保つ」と約束したが、その後チェーン自体を移し、さらにチェーン停止を告知している。", k: fact, s: [src-biomes-dust-repo, src-biomes-migration-2026, src-biomes-dust-site]}
+    - {t: "チップ／プログラムの内容を利用者が確かめる仕組みはコントラクトの公開以外になく、信頼はアクセス制御（区域のフォースフィールドが付け替えを検証）と電池による保護に委ねられていた。", k: analysis, s: [src-biomes-programs-doc, src-biomes-chipsystem-2024]}
+  principles:
+    - {t: "電池で裏付けた拡張の効力: 第三者コントラクトの「取り外し拒否」を、ゲーム内で補給が必要な電池が残る間だけ有効にし、他者が叩いて削れるようにすると、放棄された拡張は自然に排除され、守りたい拡張は維持費を払い続ける。適用条件は、電池の生産・補給が遊びの一部として意味を持つこと。破綻条件は、維持費が拡張の利益を上回る場合で、誰も拡張を置かなくなる。", k: analysis, s: [src-biomes-chipsystem-2024, src-biomes-hitchip]}
+    - {t: "妨害されたくない行動では第三者コードを固定ガスで呼ぶ: 攻撃される側が拒否したがる行動（叩かれる、外される）ではフックの失敗で行動全体が巻き戻らないよう固定ガスの safe call にし、拡張が世界の物理を人質に取れないようにする。破綻条件は、どの行動が「妨害されたくない」かの線引きを誤った場合で、悪意あるコードが資産を凍結し得る。", k: analysis, s: [src-biomes-programs-doc, src-biomes-chipsystem-2024]}
+    - {t: "同意制フックは個人単位では安全だが、世界単位では使われにくい: 自分の行動に介入させる許可を個々に求める方式は安全側だが、参加のたびに登録が必要で、運営自身が 2024-07 に削除し、オブジェクトに付く方式へ移った。適用条件は、短期のミニゲームのように参加・離脱が明確な場合。", k: analysis, s: [src-biomes-experience-docs, src-biomes-adminhook]}
+  counter_evidence:
+    - {t: "確認できる拡張のほぼすべてが開発チーム自身の作例で、唯一見つかった第三者の PR（Biocash）はマージされていない。許可不要の仕組みが第三者による拡張とその利用を生んだという証拠は見つからなかった。", k: fact, s: [src-biomes-experience-prs, src-biomes-biocash-pr]}
+    - {t: "運営は ROOT 権限でユーザーのフックを一括削除し、ワールドを作り直し、データを移行しており、「誰にも消せない拡張」とは逆の運用が行われた。アルファ段階の調整としては合理的だが、Autonomous World の主張とは緊張関係にある。", k: fact, s: [src-biomes-adminhook, src-biomes-worlds-json, src-biomes-commits]}
+    - {t: "dustproject.org は「Can't be wiped」「one permanent network」と掲げながら、同じページで DUST Chain の 2026-12-31 停止を告知している。世界の永続性は運営資金とチェーン運営に依存していた。", k: fact, s: [src-biomes-dust-site]}
+    - {t: "運営が拡張機構を何度も作り直したのは、第三者の需要に応えた結果ではなく、運営自身の設計探索だった可能性がある（PR 作者がほぼ単独であることから）。拡張可能性は製品の差別化要素ではあっても、定着の原因だったかは評価できない。", k: analysis, s: [src-biomes-experience-prs, src-biomes-commits]}
+
+metrics:
+  - {id: m-biomes-buidlguidl-grants, type: grants, value: 15, value_text: "計 15 ETH（8 ETH＋7 ETH）", unit: ETH, period: "2024（BuidlGuidl の該当コホート期間）", definition: "BuidlGuidl 助成からの引き出し額。dhvanipa.eth が 17 回で 8 ETH、wandcrafting.eth が 14 回で 7 ETH", nature: reported, s: [src-biomes-buidlguidl]}
+  - {id: m-biomes-safe-program-gas, type: other, value: 1000000, unit: gas, period: "DUST 版（2025〜）", definition: "妨害され得る行動でプログラムを呼ぶ際の固定ガス上限 SAFE_PROGRAM_GAS", nature: measured, s: [src-biomes-programs-doc]}
+  - {id: m-biomes-repo-commits, type: other, value: 979, unit: commits, period: "2024-02〜2026-04", definition: "dustproject/dust（旧 biomes-contracts）の総コミット数", nature: measured, s: [src-biomes-dust-repo, src-biomes-commits]}
+
+events:
+  - {id: ev-biomes-start, date: "2024-02-25", type: other, title: "biomes-contracts 初回コミット（MUD テンプレート）", s: [src-biomes-commits]}
+  - {id: ev-biomes-mainnet, date: "2024-05", type: launch, title: "Redstone メインネットで Biome-1 公開", detail: "4 つのエクスペリエンス（scaffold-eth テンプレート製）とともに公開", s: [src-biomes-buidlguidl, src-biomes-decrypt-redstone]}
+  - {id: ev-biomes-chips, date: "2024-06-23", type: spec-change, title: "チップ（Chips）導入", detail: "チェスト等に任意コントラクトを取り付ける仕組み", s: [src-biomes-commits]}
+  - {id: ev-biomes-delete-hooks, date: "2024-07-25", type: spec-change, title: "ユーザーフックを運営が一括削除", detail: "ROOT 専用 deleteAllUserHooks を追加しスクリプトで実行", s: [src-biomes-adminhook]}
+  - {id: ev-biomes-smart-items, date: "2024-08-31", type: release, title: "スマートアイテム版をメインネット公開", detail: "biome1.biomes.aw。売買チェスト・銀行チェスト", s: [src-biomes-buidlguidl]}
+  - {id: ev-biomes-alpha, date: "2024-10", type: launch, title: "アルファ開始", s: [src-biomes-bankless]}
+  - {id: ev-biomes-devcon, date: "2024-11", type: other, title: "Devcon 7 で「Growing the Biomes GDP」講演", s: [src-biomes-devcon-gdp]}
+  - {id: ev-biomes-migrate-2024, date: "2024-12-26", type: spec-change, title: "チェスト・店のデータを Exchange 規格へ移行", s: [src-biomes-commits]}
+  - {id: ev-biomes-rename-dust, date: "2025-04-01", type: pivot, title: "DUST へ改名", detail: "フック・委任の削除（2025-02）、エクスペリエンスパッケージ削除（2025-03）に続く", s: [src-biomes-commits]}
+  - {id: ev-biomes-new-world, date: "2025-06-11", type: release, title: "DUST の新ワールドを Redstone に展開（最終アドレス）", detail: "2025-05-29 から 4 回の再展開", s: [src-biomes-worlds-json]}
+  - {id: ev-biomes-redstone-end, date: "2026-05-15", type: end, title: "Redstone 停止", s: [src-biomes-l2beat]}
+  - {id: ev-biomes-dust-chain, date: "2026-04-06", type: spec-change, title: "DUST を DUST Chain へ移行", detail: "README を「DUST mainnet で稼働」に変更", s: [src-biomes-migration-2026]}
+
+relations:
+  - {to: opcraft, type: similar-to, basis: analytic, note: "MUD 製の Minecraft 風ボクセル世界"}
+  - {to: mud, type: built-with, basis: confirmed, note: "MUD テンプレートから開始し、MUD のフック・委任・World を利用", s: [src-biomes-commits, src-biomes-experience-docs]}
+  - {to: downstream, type: similar-to, basis: analytic, note: "同じ Redstone 上で、オブジェクトにプレイヤーのコントラクトを付けて拡張する設計"}
+  - {to: autonomous-worlds-essay, type: influenced-by, basis: confirmed, note: "DUST の README・ドキュメントは 0xPARC の Autonomous Worlds 記事にリンクし、それを目標として掲げる", s: [src-biomes-dust-repo]}
+  - {to: c-permissionless-extension, type: built-with, basis: confirmed, note: "チップ／プログラム", s: [src-biomes-chipsystem-2024, src-biomes-programs-doc]}
+
+unknowns:
+  - "プレイヤー数・DAU、チップ付きチェストの数と取引額、外部作者のチップの数（Redstone 停止でチェーンデータを参照できなかった）。"
+  - "Biomes 期のワールドから DUST ワールドへ、プレイヤーの資産・建築・チップが移されたか（2024-12 の移行は同一ワールド内の規格変更）。"
+  - "Settlers Union 等のプレイヤー組織名を冠したチップが実際に本番で使われたか、誰の依頼で書かれたか。"
+  - "tenetxyz と Lattice の関係（合流・買収・委託のいずれか）を示す一次資料。"
+  - "DUST Chain 停止後に状態のアーカイブや移行が予定されているか。"
+  - "docs.biomes.aw は参照日に名前解決できず、当時の公式ドキュメント全体は確認できなかった。"
+contradictions:
+  - {t: "DUST の README は「ワールドのコントラクトアドレスは変わらない」「マップは消えない」とするが、2026-04 にチェーン自体を移行し、公式サイトは DUST Chain の 2026-12-31 停止を告知している。", s: [src-biomes-dust-repo, src-biomes-migration-2026, src-biomes-dust-site]}
+  - {t: "Redstone の停止日時: L2BEAT・TechFlow は 2026-05-15 23:59 UTC、ChainCatcher は 2026-05-16 07:59（UTC+8 表記とみられる）。", s: [src-biomes-l2beat, src-biomes-techflow, src-biomes-chaincatcher]}
+
+sources:
+  - {id: src-biomes-dust-repo, title: "dustproject/dust (formerly tenetxyz/biomes-contracts)", url: "https://github.com/dustproject/dust", publisher: "GitHub", type: code, primary: true, published: "2026-04", accessed: "2026-10-23", access: fetched, lang: en, note: "git clone と WebFetch。README（アルファ、不変の約束、DUST mainnet）、docs、スター 27"}
+  - {id: src-biomes-commits, title: "dustproject/dust commit history", url: "https://github.com/dustproject/dust/commits/main", publisher: "GitHub", type: code, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "blobless clone で 979 コミットの履歴を確認（チップ導入、移行、改名、作者構成）"}
+  - {id: src-biomes-worlds-json, title: "packages/world/worlds.json (history)", url: "https://github.com/dustproject/dust/commits/main/packages/world/worlds.json", publisher: "GitHub", type: code, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "チェーン 690（Redstone）のワールドアドレスの変遷を git 履歴で確認"}
+  - {id: src-biomes-changelog, title: "CHANGELOG.md", url: "https://github.com/dustproject/dust/blob/main/CHANGELOG.md", publisher: "GitHub", type: code, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "2025-06〜2025-09 の変更（drand、レート制限、フック構造体化）"}
+  - {id: src-biomes-programs-doc, title: "docs/pages/programs/index.md", url: "https://github.com/dustproject/dust/blob/main/docs/pages/programs/index.md", publisher: "GitHub", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "Program の付け外し、フォースフィールドによる検証、SAFE_PROGRAM_GAS"}
+  - {id: src-biomes-program-registration, title: "docs/pages/programs/registration.md", url: "https://github.com/dustproject/dust/blob/main/docs/pages/programs/registration.md", publisher: "GitHub", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "updateProgram の手順。既定では設置者が更新権を持つ"}
+  - {id: src-biomes-app-registration, title: "docs/pages/apps/registration.md", url: "https://github.com/dustproject/dust/blob/main/docs/pages/apps/registration.md", publisher: "GitHub", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "グローバル／文脈アプリの登録"}
+  - {id: src-biomes-guardian, title: "packages/world/src/systems/GuardianSystem.sol", url: "https://github.com/dustproject/dust/blob/main/packages/world/src/systems/GuardianSystem.sol", publisher: "GitHub", type: code, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "Guardian による一時停止、ROOT のみ再開"}
+  - {id: src-biomes-chipsystem-2024, title: "packages/world/src/systems/ChipSystem.sol (2025-01-03)", url: "https://github.com/dustproject/dust/blob/d198c8bda5b05fa20df242630942e2df46dacfcf/packages/world/src/systems/ChipSystem.sol", publisher: "GitHub", type: code, primary: true, published: "2025-01-03", accessed: "2026-10-23", access: fetched, lang: en, note: "attachChip / detachChip / powerChip、電池残量による取り外し拒否"}
+  - {id: src-biomes-hitchip, title: "packages/world/src/systems/HitChipSystem.sol (2025-01-03)", url: "https://github.com/dustproject/dust/blob/d198c8bda5b05fa20df242630942e2df46dacfcf/packages/world/src/systems/HitChipSystem.sol", publisher: "GitHub", type: code, primary: true, published: "2025-01-03", accessed: "2026-10-23", access: fetched, lang: en, note: "ウィッカーで叩いて電池を削る、onChipHit を safe call"}
+  - {id: src-biomes-adminhook, title: "delete user hooks (commit 9e11c8d)", url: "https://github.com/dustproject/dust/commit/9e11c8d9143685f2856319968caa0b9784381c63", publisher: "GitHub", type: code, primary: true, published: "2024-07-25", accessed: "2026-10-23", access: fetched, lang: en, note: "ROOT 専用 deleteAllUserHooks とプレイヤーのフックを削除するスクリプト"}
+  - {id: src-biomes-migration-2026, title: "Migration (#443)", url: "https://github.com/dustproject/dust/commit/4dff6ca0a9a734c39f4162627d520b2ab14476b1", publisher: "GitHub", type: code, primary: true, published: "2026-04-06", accessed: "2026-10-23", access: fetched, lang: en, note: "README を Redstone mainnet から DUST mainnet へ変更"}
+  - {id: src-biomes-experience-docs, title: "Biomes AW Experiences Template docs (hooks, delegations)", url: "https://github.com/dustproject/biomes-experience/tree/main/docs/pages", publisher: "GitHub", type: official-docs, primary: true, published: "2024-08", accessed: "2026-10-23", access: fetched, lang: en, note: "git clone。同意制フック、委任、ステーク没収の推奨"}
+  - {id: src-biomes-experience-prs, title: "dustproject/biomes-experience pull requests", url: "https://github.com/dustproject/biomes-experience/pulls?q=is%3Apr", publisher: "GitHub", type: code, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "34 PR のうち表示 25 件すべて dhvanipa。チップ作例の一覧"}
+  - {id: src-biomes-experience-pr20, title: "Example Chip(Chest): Settlers Union Bank #20", url: "https://github.com/dustproject/biomes-experience/pull/20", publisher: "GitHub", type: code, primary: true, published: "2024-12-31", accessed: "2026-10-23", access: fetched, lang: en, note: "本文は「SUB」のみ。未マージで 2024-12-31 にクローズ"}
+  - {id: src-biomes-scaffold-prs, title: "dustproject/biomes-scaffold pull requests", url: "https://github.com/dustproject/biomes-scaffold/pulls?q=is%3Apr", publisher: "GitHub", type: code, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "2024-05 のエクスペリエンス作例（Deathmatch 等）"}
+  - {id: src-biomes-biocash-pr, title: "Biocash contracts #6", url: "https://github.com/dustproject/biomes-scaffold/pull/6", publisher: "GitHub", type: code, primary: true, published: "2024-05-13", accessed: "2026-10-23", access: fetched, lang: en, note: "第三者（cupOJoseph ほか）の PR。未マージ"}
+  - {id: src-biomes-buidlguidl, title: "Jessy's Hacker House (BuidlGuidl grants archive)", url: "https://buidlguidl.com/grants-archive/cohorts/jessys-hacker-house", publisher: "BuidlGuidl", type: retrospective, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "Biomes 開発者 2 名の作業記録（2024-03〜10）と助成引き出し額"}
+  - {id: src-biomes-bankless, title: "Biomes Is Readying for Autonomous Worlds Domination", url: "https://www.bankless.com/biomes-autonomous-world", publisher: "Bankless", author: "William M. Peaster", type: news, primary: false, published: "2024-11-12", accessed: "2026-10-23", access: fetched, lang: en, note: "2024-10 アルファ、3 つの柱、Settlers Union、ガス感"}
+  - {id: src-biomes-devcon-gdp, title: "Growing the Biomes GDP using Digital Matter and Smart Items", url: "https://archive.devcon.org/devcon-7/growing-the-biomes-gdp-using-digital-matter-and-smart-items", publisher: "Devcon Archive", author: "Dhrumil Shah, Dhvani Patel", type: talk, primary: true, published: "2024-11", accessed: "2026-10-23", access: fetched, lang: en, note: "講演概要のみ確認（動画本編は未視聴）"}
+  - {id: src-biomes-decrypt-redstone, title: "Redstone Network Launches to Power Fully On-Chain Ethereum Games", url: "https://decrypt.co/229005/redstone-network-launches-fully-on-chain-ethereum-games", publisher: "Decrypt", type: news, primary: false, published: "2024-05-01", accessed: "2026-10-23", access: fetched, lang: en, note: "Redstone 初期タイトルに Biomes"}
+  - {id: src-biomes-dust-site, title: "DUST", url: "https://dustproject.org", publisher: "DUST", type: official-docs, primary: true, published: "2026-10", accessed: "2026-10-23", access: fetched, lang: en, note: "DUST Chain の 2026-12-31 停止告知、「Can't be wiped」等の標語"}
+  - {id: src-biomes-dust-what, title: "DUST — What", url: "https://dustproject.org/what", publisher: "DUST", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "プレイヤーコードが世界のルールになる、管理者なし等の説明"}
+  - {id: src-biomes-l2beat, title: "Redstone - L2BEAT", url: "https://l2beat.com/layer2s/projects/redstone", publisher: "L2BEAT", type: analysis, primary: false, accessed: "2026-10-23", access: fetched, lang: en, note: "2026-05-15 停止"}
+  - {id: src-biomes-techflow, title: "TechFlow newsletter (Lattice / Redstone shutdown)", url: "https://www.techflowpost.com/en-US/newsletter/119817", publisher: "TechFlow", type: news, primary: false, published: "2026-04-15", accessed: "2026-10-23", access: fetched, lang: en, note: "Lattice の段階的終了、DUST は DUST Chain へ、0xPARC が支援継続。title はニュースレター内の該当項目を示す仮題（原見出しは未取得）"}
+  - {id: src-biomes-chaincatcher, title: "The blockchain game infrastructure Lattice announced the gradual shutdown of its business, and the Redstone network will …", url: "https://www.chaincatcher.com/en/article/2258693", publisher: "ChainCatcher", type: news, primary: false, published: "2026-04-15", accessed: "2026-10-23", access: fetched, lang: en, note: "Lattice の段階的終了、Redstone 停止、残余資金を DUST へ"}
+  - {id: src-biomes-docs-site, title: "Biomes docs", url: "https://docs.biomes.aw", publisher: "Biomes", type: official-docs, primary: true, accessed: "2026-10-23", access: unreachable, lang: en, note: "参照日に名前解決できず"}

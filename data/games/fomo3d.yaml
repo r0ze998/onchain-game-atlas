@@ -1,0 +1,212 @@
+id: fomo3d
+name: Fomo3D
+name_ja: フォモ・スリーディー
+aliases: [FoMo3D, "FOMO3D Long", "FoMo3D Long Official", F3D, exitscam.me]
+kind: game
+depth: deep
+updated: "2026-10-23"
+chains: [Ethereum mainnet]
+team: "Team JUST（匿名。コントラクトのヘッダには Inventor / Justo / Sumpunk / Mantso と「© Jekyll Island Inc. 2018」。PoWH3D（P3D）と同じチーム）"
+summary: >-
+  2018 年 7 月に Ethereum 上で始まった、最後に「キー」を買った者が賞金プールの 48% を得るタイマー型のゲーム。キー購入ごとに残り時間が 30 秒延び（上限 24 時間）、
+  購入額の一部は既存のキー保有者に配当として即時に分配される。公式自ら「出口詐欺（exit scam）のシミュレーション」「強欲の社会実験」と称した。
+  第 1 ラウンドは 2018-08-22、ブロックを高額ガスの無意味な取引で埋めて他者の購入を締め出す「ブロック詰め（block stuffing）」によって 10,469 ETH で決着し、
+  第 2 ラウンドも同じ手口で終わったと分析されている。公開された決定的ルールの上で、ゲームの外側（ブロック生成とガス市場）が勝敗を決めた代表例。
+selection_reason: >-
+  m-last-buyer（最終購入者総取り）と配当の組み合わせを、改変不能なコントラクトで大規模に実行した事例であり、
+  (1) オンチェーンのルールが「完全に公開されている」ことが攻撃者に最適化の余地を与えたこと、(2) 乱数・人間判定（isHuman）の脆弱性と模倣品の連鎖、
+  (3) ラウンドを重ねるごとの急激な縮小、を一次資料（コントラクト、トランザクション、セキュリティ分析、論文）で追えるから。
+  ゲームとして面白かったかではなく、オンチェーンでの「終わり方」の設計に関する反証として重要。
+categories:
+  - {id: onchain-rules, role: primary, reason: "キー価格、タイマー延長、配当、ラウンド終了と賞金分配がすべてコントラクト内で実行される"}
+  - {id: p2e, role: secondary, reason: "参加者の資金を参加者に再分配する賭博・ポンジ型の資金循環（運営は手数料を得る）。Play-to-Earn の前史として、報酬の原資が後続参加者だけである構造の典型"}
+  - {id: infra, role: secondary, reason: "決着がブロックのガス上限・ガス価格オークション・採掘者の取引選択に依存した"}
+status:
+  value: dormant
+  as_of: "2026-10"
+  note: >-
+    コントラクト（FoMo3D Long）は Ethereum 上に残り、参照日時点で残高約 1,094 ETH、取引数 246,135 件を Etherscan で確認した。
+    第 3 ラウンド（2018-10 には賞金プール約 103 ETH）以後の公式な活動は確認できなかった。公式サイト exitscam.me は宣伝ページとして残るが、ラウンド情報は表示されていない。
+  s: [src-fomo3d-etherscan-contract, src-fomo3d-secbit-solution, src-fomo3d-exitscam-site]
+dates:
+  launched: {date: "2018-07-06", s: [src-fomo3d-etherscan-deploy], note: "FoMo3D Long のデプロイ日（UTC）。プレイ開始は activate() 後で、正確な開始時刻は未確認"}
+
+architecture:
+  onchain:
+    level: all
+    detail: >-
+      キーの購入（価格曲線は F3DKeysCalcLong）、タイマー（初期 1 時間、1 キーごとに 30 秒延長、最大 24 時間）、チーム別の手数料配分（配当・P3D・紹介料・コミュニティ 2%・エアドロップ 1%）、
+      ラウンド終了時の分配（勝者 48%、コミュニティ 2%、残りを配当・P3D・次ラウンドへ）、エアドロップ抽選、出金がすべてコントラクトで実行される。
+      ラウンドの終了は時間切れ後に誰かが取引を送ったときに endRound が走る形で実装され、時間切れそのものはブロックのタイムスタンプで判定される。
+    s: [src-fomo3d-source, src-fomo3d-ethresearch]
+  offchain:
+    - {item: "公式 Web UI（exitscam.me）と紹介リンク・名前登録（PlayerBook コントラクトと連携）", s: [src-fomo3d-exitscam-site, src-fomo3d-source]}
+    - {item: "取引の順序はチェーン外のガス価格オークションと採掘者の選択で決まり、これが第 1・第 2 ラウンドの決着を左右した", s: [src-fomo3d-solmaz, src-fomo3d-sok-frontrunning]}
+    - {item: "ラウンド前の準備期間の長さ（rndGap_）を返す外部設定コントラクト F3DexternalSettings はソースが公開されておらず、第三者がオンチェーンの値から再構成した", s: [src-fomo3d-source]}
+  admin:
+    level: limited
+    detail: >-
+      activate() はハードコードされた 5 つのアドレス（Team JUST）だけが一度だけ呼べ、別の FoMo3D コントラクトとの相互リンクも初期設定で行う。
+      本調査で読んだソースには、運営が賞金プールを引き出す関数や一時停止は見当たらず、運営も「資金を管理できない」と主張した。
+      ただし外部設定コントラクトのソースは非公開で、その振る舞いは第三者がオンチェーンの返り値から推定したものにとどまる。
+    s: [src-fomo3d-source, src-fomo3d-financemagnates]
+  open_source:
+    level: partial
+    detail: >-
+      本体 FoMo3Dlong は Etherscan で検証済み（Exact Match、Solidity 0.4.24）。本調査では Etherscan のソースタブを直接読めず、公式ソースを集約したとする第三者リポジトリ（reedhong/fomo3d_clone）で読んだ。
+      F3DexternalSettings はソース非公開。Hackernoon の編集注は 2018-08-02 時点でコードが完全には検証されていないと記す。
+    url: "https://etherscan.io/address/0xA62142888ABa8370742bE823c1782D17A0389Da1#code"
+    s: [src-fomo3d-etherscan-contract, src-fomo3d-source, src-fomo3d-hackernoon-attrition]
+  extensibility:
+    level: none
+    detail: >-
+      ゲームのルールを第三者が拡張する仕組みはない。実際に起きた「拡張」は、コードを複製した模倣ゲーム（Last Winner 等）と、
+      エアドロップ抽選を予測して当たるときだけ購入する攻撃コントラクト、ブロック詰め用コントラクトだった。
+    s: [src-fomo3d-secbit-odaily, src-fomo3d-secbit-solution, src-fomo3d-solmaz]
+
+compare:
+  gameplay: {t: "ETH でキーを買うとタイマーが 30 秒延び（最大 24 時間）、自分が「最後の購入者」になる。時間切れの時点の最後の購入者がプールの 48% を得る。保有キーに応じて後続の購入から配当が入り、購入時に選ぶ 4 チームで配分比率が変わる。", k: fact, s: [src-fomo3d-source, src-fomo3d-financemagnates]}
+  necessity: {t: "運営が資金を持ち逃げできないこと（「出口詐欺」をコードで不可能にすること）が唯一の差別化であり、その点でチェーンは必然だった。ただし決着はコントラクトの外側（ブロック内の取引選択）で決まり、改変不能性は公平な終了を保証しなかった。", k: analysis, s: [src-fomo3d-financemagnates, src-fomo3d-sok-frontrunning]}
+  information: {t: "残り時間・プール・最後の購入者・コントラクトの状態がすべて公開されており、攻撃者は getCurrentRoundInfo() で状態を読んでから自分の取引の成否を決められた。エアドロップの乱数もブロック情報と送信者アドレスから計算でき予測可能だった。", k: fact, s: [src-fomo3d-secbit-solution, src-fomo3d-source]}
+  persistence: {t: "コントラクトは停止機能なしで残り続け、運営がいなくても出金や新ラウンドの開始は取引を送れば可能。参照日時点でも約 1,094 ETH が残っている。", k: fact, s: [src-fomo3d-etherscan-contract, src-fomo3d-source]}
+  extensibility: {t: "公式の拡張手段はない。コードの複製による模倣品が多数作られた。", k: fact, s: [src-fomo3d-inside, src-fomo3d-secbit-odaily]}
+  money_flow: {t: "資金の原資は参加者の ETH のみ。購入額は配当（キー保有者）、賞金プール、P3D 保有者、紹介者、コミュニティ（2%）、エアドロップ（1%）に分かれ、ラウンド終了時にプールの 48% が勝者へ。新規購入が止まれば配当も止まる。", k: fact, s: [src-fomo3d-source, src-fomo3d-ethresearch]}
+  entry_barrier: {t: "Ethereum ウォレット、ETH、ガス代が必要。最初の 100 ETH が集まるまでは 1 人あたり 1 ETH までに制限する反クジラ規則があった。勝つためには、ガス市場とブロック生成の理解が事実上必要だった。", k: fact, s: [src-fomo3d-source, src-fomo3d-solmaz]}
+
+concepts: [m-last-buyer, c-onchain-rules, c-onchain-state, c-onchain-randomness, e-entry-fee-prize, m-seasons, m-bot-automation]
+proposed_concepts:
+  - {id: c-block-stuffing, name: ブロック詰め・取引抑圧, desc: "高いガス価格の取引でブロックの容量を埋め、他者の取引が一定時間取り込まれないようにする。期限付きの状態を持つコントラクトの決着を操作する。"}
+  - {id: e-dividend-ponzi, name: 後続参加者による配当, desc: "新規参加者の支払いを既存参加者に配当として即時分配する。成長が止まると配当も止まる。"}
+
+article:
+  what:
+    - {t: "プレイヤーは ETH で「キー」を買う。キーは売却できるトークンではなく、賞金プールの取り分と配当の権利を表す。購入のたびにタイマーが延び、価格は少しずつ上がる。", k: fact, s: [src-fomo3d-exitscam-site, src-fomo3d-survey-2019]}
+    - {t: "残り時間が 0 になったときに最後に買った人がプールの 48% を得る。公式サイトは最後の購入者の名前の横に「is EXIT SCAMMING」と表示した。", k: fact, s: [src-fomo3d-source, src-fomo3d-financemagnates]}
+    - {t: "購入時に 4 つのチームのいずれかを選び、それによって購入額のうち配当に回る割合と、ラウンド終了時の残りの配分（次ラウンド繰越・P3D）が変わる。", k: fact, s: [src-fomo3d-source]}
+    - {t: "0.1 ETH 以上の購入はエアドロップ抽選の対象となり、当たると小さなエアドロップ用プールの一部を得る。", k: fact, s: [src-fomo3d-source]}
+    - {t: "運営は自らを「強欲についての心理的社会実験」と呼んだ。", k: claim, who: "Team JUST", s: [src-fomo3d-financemagnates, src-fomo3d-vice]}
+  loop:
+    - {t: "以下はコントラクトのソースと当時の報道からの再構成（筆者は実プレイしていない）。exitscam.me でウォレットを接続し、チームを選び、キーを何個買うか決めて購入トランザクションを送る。", k: fact, s: [src-fomo3d-source, src-fomo3d-exitscam-site]}
+    - {t: "購入が取り込まれると、そのプレイヤーが「最後の購入者」になり、タイマーが 1 キーあたり 30 秒延びる（24 時間を超えない）。以後、他の誰かの購入から配当が自分の残高に積み上がる。", k: fact, s: [src-fomo3d-source]}
+    - {t: "プールが大きくなると、残り時間がわずかになった時点で多数の購入が集中し、タイマーは何度も延長される。この消耗戦を Hackernoon の分析は「War of Attrition」と呼んだ。", k: fact, s: [src-fomo3d-hackernoon-attrition, src-fomo3d-survey-ponzi-snippet]}
+    - {t: "時間切れ後、次の取引（誰の購入でもよい）がラウンドを終了させ、勝者・保有者への分配が行われ、新ラウンドが始まる。勝者は withdraw() で賞金を引き出す。", k: fact, s: [src-fomo3d-source, src-fomo3d-etherscan-win-tx]}
+  before_after:
+    - {t: "消耗戦（War of Attrition）やドル・オークションのような「最後まで払い続けた者が勝つ」構造はゲーム理論上よく知られていたが、Fomo3D はそれを運営が資金に手を出せないコントラクトで、実際の ETH を賭けて実行した（Hackernoon の分析は消耗戦として説明し、脚注でドル・オークションに言及する）。", k: analysis, s: [src-fomo3d-hackernoon-attrition]}
+    - {t: "同じチームの PoWH3D（P3D）が「手数料を保有者に配当する」型を先に作り、Fomo3D はその配当にタイマーと最終購入者の賞金を加え、購入の一部を P3D 保有者に流した。", k: fact, s: [src-fomo3d-financemagnates, src-fomo3d-source]}
+    - {t: "それまで「終わらないのではないか」と議論されていたタイマーが、第 1 ラウンドではゲーム内の購入競争ではなく、ブロックの空間そのものを買い占める手段で止められた。", k: fact, s: [src-fomo3d-sok-frontrunning, src-fomo3d-solmaz]}
+  onchain_tradeoffs:
+    - {t: "改変不能なコントラクトにより、運営による持ち逃げは起きにくくなった（運営もそれを主張した）。", k: claim, who: "Team JUST", s: [src-fomo3d-financemagnates], q: "We have no control of the funds or balance, and it's run entirely without human intervention based on the code!"}
+    - {t: "一方、タイマーの判定がブロックのタイムスタンプで行われるため、一定時間ブロックに他者の購入を入れさせなければ勝てる。攻撃者は約 175 秒（ブロック 6191896〜6191909）にわたりブロックをほぼ満杯にした。", k: fact, s: [src-fomo3d-solmaz]}
+    - {t: "SoK 論文はこれを「suppression attack（抑圧攻撃）」と分類し、攻撃者の取引の実行結果自体は重要でなく、空ブロックが続いても攻撃者には同じだったと指摘した。", k: fact, s: [src-fomo3d-sok-frontrunning]}
+    - {t: "エアドロップの乱数は block.timestamp・difficulty・coinbase・gaslimit・number と msg.sender から計算され、同じ計算を事前に行うコントラクトで当たるときだけ購入する攻撃が可能だった。extcodesize による人間判定は、コンストラクタ内からの呼び出しで回避できた。", k: fact, s: [src-fomo3d-source, src-fomo3d-secbit-solution, src-fomo3d-ethresearch]}
+    - {t: "ガス上限・ガス価格オークションという基盤側の性質が、ゲームの決着に直結した。", k: analysis, s: [src-fomo3d-solmaz, src-fomo3d-sok-frontrunning]}
+  roles:
+    - {t: "参加者はキー購入者、配当目当ての早期保有者、紹介者（10% 前後の紹介料）、P3D 保有者に分かれる。", k: fact, s: [src-fomo3d-source]}
+    - {t: "Team JUST はコントラクトを起動し、コミュニティ分（2%）と P3D 側の流れを受ける。第 1 ラウンド後には勝者を祝福するツイートをした。", k: fact, s: [src-fomo3d-source, src-fomo3d-tnw]}
+    - {t: "勝者・攻撃者は人間の手作業ではなく、ブロック詰め用のコントラクトとエアドロップ予測コントラクトを用いた。自動化された主体が勝敗を決めるゲームであり、ボット（エージェント）の参加を前提にした設計ではなかった。", k: fact, s: [src-fomo3d-solmaz, src-fomo3d-secbit-solution]}
+    - {t: "採掘者は高いガス価格の取引を優先することで、攻撃者の取引を選び、事実上の決着者になった。Justin Drake は、プールが十分に大きくなれば採掘者が勝者を選ぶと事前に警告していた。", k: claim, who: "Justin Drake（ethresear.ch）", s: [src-fomo3d-ethresearch]}
+  trajectory:
+    - {t: "2018-07-06 に FoMo3D Long がデプロイされた。2018-07-21 には ethresear.ch で「Fomo3D は Ethereum を破壊するか」が議論され、プールは 17,000 ETH 超と書かれた。", k: fact, s: [src-fomo3d-etherscan-deploy, src-fomo3d-ethresearch]}
+    - {t: "SECBIT によれば参加は 2018-07-20〜21 に頂点を迎え、第 1 ラウンドの投入額は 40,000 ETH 超、参加は 18,000 超だった。", k: claim, who: "SECBIT Labs", s: [src-fomo3d-secbit-solution, src-fomo3d-secbit-odaily]}
+    - {t: "2018-08-22、第 1 ラウンドがブロック詰めで終わり、勝者 0xa169…bf85 は 07:04:12 UTC（ブロック 6191962）に 10,469.66 ETH を引き出した。", k: fact, s: [src-fomo3d-etherscan-win-tx, src-fomo3d-solmaz]}
+    - {t: "第 2 ラウンドは 33 日続き、2018-09-24 に 0x18a0 が 3,264.668 ETH を獲得した。SECBIT は手口が第 1 ラウンドとまったく同じだと分析した。Solmaz の表も第 2・第 3 ラウンドそれぞれにブロック詰め用コントラクトのアドレスを挙げている。", k: claim, who: "SECBIT Labs / Onur Solmaz", s: [src-fomo3d-secbit-odaily, src-fomo3d-solmaz]}
+    - {t: "第 3 ラウンドのプールは 2018-10-09 時点で約 103 ETH にとどまり（SECBIT）、Solmaz の表では第 3 ラウンドの賞金は 376 ETH、ラウンドを終わらせた取引はブロック 6507774 だった。このブロックのタイムスタンプは 2018-10-13 14:12:45 UTC（検証役が RPC で確認）。", k: fact, s: [src-fomo3d-secbit-solution, src-fomo3d-solmaz, src-fomo3d-rpc-blocks]}
+  retention_evidence:
+    - {t: "ラウンドごとの勝者賞金は 10,469 ETH → 3,264 ETH → 376 ETH と急減した。", k: fact, s: [src-fomo3d-solmaz, src-fomo3d-etherscan-win-tx]}
+    - {t: "SECBIT は 2018-09 以降、類似ゲームがほぼ姿を消し、多くの類似コントラクトが休止したと述べた。", k: claim, who: "SECBIT Labs", s: [src-fomo3d-secbit-odaily]}
+    - {t: "INSIDE は中国語圏の資料を引き、参加者のうち利益を得たのは 3 割弱と伝えたが、算定方法は示されていない。", k: claim, who: "INSIDE（中国語圏の出典を引用）", s: [src-fomo3d-inside]}
+    - {t: "一意の参加アドレス数、ラウンド間の再参加率、プレイヤーごとの損益分布の一次集計は見つからなかった（dune 等は遮断）。", k: unknown}
+  extensions:
+    - {t: "INSIDE によれば英語圏・台湾・中国で多数の模倣品が現れ、多くは数百 ETH で失速した。SNOW Dividends は約 900 ETH まで伸びた後、不具合のある複製の公開を経て運営がサイトを閉じた。", k: claim, who: "INSIDE", s: [src-fomo3d-inside]}
+    - {t: "Last Winner は Fomo3D を改変してラウンド時間を短くした模倣品で、SECBIT と AnChain.ai は 2018-08-17 にハッカー集団 BAPT-LW20 によるエアドロップ悪用を公表し、同集団がそのラウンドで計 12,948 ETH を得たと述べた。", k: claim, who: "SECBIT Labs", s: [src-fomo3d-secbit-odaily]}
+    - {t: "Team JUST 自身もラウンドの短い版（Quick / SOON）を 2018-07-28 に出した。", k: fact, s: [src-fomo3d-inside, src-fomo3d-exitscam-site]}
+    - {t: "SoK 論文の調査対象には FomoWar など同系統のゲームが並ぶ。", k: fact, s: [src-fomo3d-sok-frontrunning]}
+  constraints:
+    - {t: "時間切れの判定がブロックのタイムスタンプに依存し、その間に取引が取り込まれるかは攻撃者と採掘者が左右できる。プールが大きいほど、ブロックを買い占めるコスト（Solmaz の試算で 1 ブロック約 4 ETH）を払う価値が上がる。", k: fact, s: [src-fomo3d-solmaz]}
+    - {t: "公開された状態を読むコントラクトから攻撃できるため、人間判定（extcodesize）は防御にならなかった。SECBIT は tx.origin == msg.sender の利用や、情報取得関数への制限、勝者を確率的に決めることを提案した。", k: fact, s: [src-fomo3d-secbit-solution]}
+    - {t: "原資が後続参加者だけなので、新規流入が止まると配当も賞金も細る。ラウンドの縮小はこの構造と、決着方法への不信の両方で説明され得る。", k: analysis, s: [src-fomo3d-secbit-odaily]}
+    - {t: "金融・賭博規制、ポンジとしての法的評価については本調査で一次資料を確認していない。", k: unknown}
+  principles:
+    - {t: "時間切れで決まる勝敗はブロック空間の競売になる: 「最後の取引から一定時間で決着」という規則は、プールの価値がブロック数個分のガス代を上回った瞬間に、ゲーム内の選択ではなく取引の取り込み順の争いに変わる。適用条件は賞金が小さいか、時間窓がブロック詰めのコストに比べ十分長いこと。", k: analysis, s: [src-fomo3d-solmaz, src-fomo3d-sok-frontrunning]}
+    - {t: "完全公開の状態と決定的乱数は、条件付き実行を許す: 攻撃コントラクトが同じブロック内で状態や乱数を計算し、自分に有利なときだけ実行（不利なら revert）できる。対策は将来のブロックハッシュへのコミット（コミット・リビール）や確率的な決着。", k: analysis, s: [src-fomo3d-secbit-solution, src-fomo3d-source]}
+    - {t: "運営の不正を不可能にすることと、ゲームの公平性は別物: 持ち逃げを防ぐ改変不能性は、ゲームの外側（採掘者・ガス市場）による決着を防がない。オンチェーンのルールを「公正」と呼ぶ前に、順序付けの権限が誰にあるかを設計に含める必要がある。", k: analysis, s: [src-fomo3d-financemagnates, src-fomo3d-sok-frontrunning]}
+  counter_evidence:
+    - {t: "勝者がブロック詰めを行ったという解釈は Solmaz と SECBIT の分析が支持し、SoK 論文はそれら（と匿名ブログ）を引用して分類しているため、3 者は完全に独立した裏付けではない。勝者本人の説明はない。Vice によれば運営の Discord 告知も「ブロックチェーンを詰まらせて他の参加者を締め出した」と述べる一方、開発者（Inventor）は「他の人間のプレイヤーがいない瞬間を見つけた」とも語っており、直前に人間の購入意欲が細っていたことが攻撃の成立条件だった可能性はある。", k: analysis, s: [src-fomo3d-vice, src-fomo3d-solmaz, src-fomo3d-sok-frontrunning]}
+    - {t: "TNW が伝えた批判は「採掘者がブロックを検閲した」というもので、攻撃者の取引ではなく採掘者の行動とする見方もあった。ただし BTC-Echo は、該当ブロックが SparPool・BitClubPool・Nanopool・Ethermine など複数のプールによって採掘されたと記しており、単一の採掘者による検閲という説明とは合いにくい。", k: claim, who: "TNW が紹介した批判者 / BTC-Echo", s: [src-fomo3d-tnw, src-fomo3d-btcecho]}
+    - {t: "Justin Drake は「採掘者が勝者になる」と予想したが、確認できた資料では勝者は高額ガスで多数のプールに取引を取り込ませた参加者であり、採掘者自身が勝ったという証拠は見つからなかった。採掘者の裁量よりもガス価格オークションが決着を左右した。", k: analysis, s: [src-fomo3d-ethresearch, src-fomo3d-btcecho, src-fomo3d-solmaz]}
+    - {t: "ラウンドの急縮小を攻撃のせいだけにはできない。INSIDE は第 1 ラウンド中（7 月末の短期版公開後）に、多くの参加者が倍以上の利益は難しいと気付いて売りが出て、P3D 側の ETH 残高が約 8 万から約 5.5 万 ETH に減ったと記しており、ポンジ型の構造自体が成長の天井を持っていた。", k: claim, who: "INSIDE", s: [src-fomo3d-inside]}
+    - {t: "ethresear.ch の議論では、プールが拡大し続けると Ethereum の流動性を吸い上げるという懸念が出た（同じスレッドで DaveyZ は分配規則を根拠に反論）。実際にはプールは第 1 ラウンドの約 2 万 ETH 台が頂点で、以後のラウンドは縮小しており、懸念は現実化しなかったと見られる。", k: analysis, s: [src-fomo3d-ethresearch, src-fomo3d-vice, src-fomo3d-solmaz]}
+
+metrics:
+  - {id: m-fomo3d-r1-prize, type: other, value: 10469.66, value_text: "10,469.66 ETH", unit: ETH, period: "2018-08-22（第 1 ラウンド）", definition: "勝者が withdraw() で引き出した額（Etherscan の内部送金）", nature: measured, s: [src-fomo3d-etherscan-win-tx]}
+  - {id: m-fomo3d-r1-pot, type: other, value: 21811, value_text: "約 21,811 ETH", unit: ETH, period: "2018-08-22（第 1 ラウンド終了時）", definition: "Vice が記した総プール（勝者分は半分弱）", nature: reported, s: [src-fomo3d-vice]}
+  - {id: m-fomo3d-r1-inflow, type: volume, value: 40000, value_text: "40,000 ETH 超", unit: ETH, period: "第 1 ラウンド（2018-07〜08）", definition: "SECBIT による投入資金の総額（集計方法の詳細は不明）", nature: estimated, s: [src-fomo3d-secbit-solution, src-fomo3d-secbit-odaily]}
+  - {id: m-fomo3d-r1-participations, type: other, value: 18000, value_text: "18,000 超", unit: participations, period: "第 1 ラウンド（ピークは 2018-07-20〜21）", definition: "SECBIT のいう参加数（participations / participants。一意アドレスか取引数かは不明）", nature: estimated, s: [src-fomo3d-secbit-solution, src-fomo3d-secbit-odaily]}
+  - {id: m-fomo3d-pot-0721, type: other, value: 17000, value_text: "17,000 ETH 超", unit: ETH, period: "2018-07-21", definition: "ethresear.ch 投稿者が記したコントラクトの蓄積額", nature: reported, s: [src-fomo3d-ethresearch]}
+  - {id: m-fomo3d-pot-0724, type: other, value: 21515, unit: ETH, period: "2018-07-24", definition: "Finance Magnates が報じた公式サイト上のプール", nature: reported, s: [src-fomo3d-financemagnates]}
+  - {id: m-fomo3d-r2-prize, type: other, value: 3264.668, unit: ETH, period: "2018-09-24（第 2 ラウンド、33 日間）", definition: "第 2 ラウンドの最終賞金（SECBIT）", nature: estimated, s: [src-fomo3d-secbit-odaily], note: "Solmaz は 3,264 ETH と記載"}
+  - {id: m-fomo3d-r3-prize, type: other, value: 376, unit: ETH, period: "第 3 ラウンド（2018-10-13 終了。ブロック 6507774）", definition: "Solmaz の表による第 3 ラウンドの賞金", nature: estimated, s: [src-fomo3d-solmaz]}
+  - {id: m-fomo3d-r3-pool-1009, type: other, value: 103.4482, unit: ETH, period: "2018-10-09 02:00 GMT", definition: "第 3 ラウンドの賞金プール（SECBIT）", nature: estimated, s: [src-fomo3d-secbit-solution]}
+  - {id: m-fomo3d-stuffing-cost, type: other, value: 4, value_text: "1 ブロック約 4 ETH", unit: ETH, period: "2018-08-22", definition: "ブロック詰めに要したガス代の 1 ブロックあたりの目安（Solmaz がブロック 6191906・6191908 から算出）", nature: estimated, s: [src-fomo3d-solmaz], note: "Vice が引いた開発者推定では準備に 40〜50 ETH"}
+  - {id: m-fomo3d-tx-count, type: transactions, value: 246135, unit: tx, period: "2018-07-06〜参照日 2026-10-23", definition: "FoMo3D Long コントラクトの取引数（Etherscan 表示）", nature: measured, s: [src-fomo3d-etherscan-contract]}
+  - {id: m-fomo3d-residual-balance, type: other, value: 1094.46, unit: ETH, period: "参照日 2026-10-23", definition: "コントラクトに残る ETH 残高（未引き出しの配当等と見られるが内訳は未確認）", nature: measured, s: [src-fomo3d-etherscan-contract]}
+  - {id: m-fomo3d-lastwinner-hack, type: other, value: 12948, unit: ETH, period: "2018-08（Last Winner 第 1 ラウンド）", definition: "模倣品 Last Winner で BAPT-LW20 が得たとされる総額（SECBIT）", nature: estimated, s: [src-fomo3d-secbit-odaily]}
+
+events:
+  - {id: ev-fomo3d-deploy, date: "2018-07-06", type: launch, title: "FoMo3D Long をデプロイ", detail: "ブロック 5915466、作成者 0xF39e…69E3（activate 可能な 5 アドレスの 1 つ）", s: [src-fomo3d-etherscan-deploy, src-fomo3d-source]}
+  - {id: ev-fomo3d-ethresearch, date: "2018-07-21", type: other, title: "ethresear.ch「Alert! Will Fomo3D destroy Ethereum?」", detail: "採掘者による勝者選択・検閲のリスクを Justin Drake らが議論", s: [src-fomo3d-ethresearch]}
+  - {id: ev-fomo3d-short, date: "2018-07-28", type: release, title: "短期版（SOON / Quick）公開", detail: "INSIDE によれば 10 分で 9,800 ETH が流入", s: [src-fomo3d-inside]}
+  - {id: ev-fomo3d-lastwinner-hack, date: "2018-08-17", type: incident, title: "模倣品 Last Winner のエアドロップ悪用を SECBIT・AnChain.ai が公表", s: [src-fomo3d-secbit-odaily]}
+  - {id: ev-fomo3d-r1-end, date: "2018-08-22", type: round, title: "第 1 ラウンドがブロック詰めで決着", detail: "最後の購入はブロック 6191896、終了はブロック 6191909、勝者の引き出しはブロック 6191962（10,469.66 ETH）", s: [src-fomo3d-solmaz, src-fomo3d-etherscan-win-tx, src-fomo3d-vice]}
+  - {id: ev-fomo3d-r2-end, date: "2018-09-24", type: round, title: "第 2 ラウンド終了（3,264.668 ETH）", detail: "SECBIT は第 1 ラウンドと同じ手口と分析", s: [src-fomo3d-secbit-odaily]}
+  - {id: ev-fomo3d-r3-end, date: "2018-10-13", type: round, title: "第 3 ラウンド終了（376 ETH）", detail: "Solmaz の表で勝者の最後の購入はブロック 6507761、終了取引はブロック 6507774（2018-10-13 14:12:45 UTC、検証役が RPC で確認）。ブロック詰め用コントラクトも記載", s: [src-fomo3d-solmaz, src-fomo3d-rpc-blocks]}
+  - {id: ev-fomo3d-secbit-solution, date: "2018-10-09", type: paper, title: "SECBIT「A Comprehensive Solution to Bugs in Fomo3D-like Games」", detail: "第 3 ラウンドのプール約 103 ETH。乱数・人間判定・ブロック詰めへの対策を提案", s: [src-fomo3d-secbit-solution]}
+  - {id: ev-fomo3d-solmaz, date: "2018-10-18", type: paper, title: "Onur Solmaz「The Anatomy of a Block Stuffing Attack」", s: [src-fomo3d-solmaz]}
+  - {id: ev-fomo3d-sok, date: "2019-02", type: paper, title: "SoK: Transparent Dishonesty が Fomo3D を抑圧攻撃として分類", s: [src-fomo3d-sok-frontrunning]}
+
+relations:
+  - {to: m-last-buyer, type: built-with, basis: confirmed, note: "最終購入者がプールの 48% を得るタイマー", s: [src-fomo3d-source]}
+  - {to: c-onchain-randomness, type: contrasts-with, basis: confirmed, note: "ブロック情報由来の乱数が予測・条件付き実行で悪用された反例", s: [src-fomo3d-secbit-solution, src-fomo3d-source]}
+  - {to: satoshi-dice, type: similar-to, basis: analytic, note: "ブロックチェーン上の賭博が取引量・基盤に負荷を与えた系譜。SatoshiDice は判定をサーバーで、Fomo3D はコントラクトで行う"}
+  - {to: huntercoin, type: similar-to, basis: analytic, note: "公開された決定的ルールの上で、自動化された主体（ボット・攻撃コントラクト）が勝敗を決めた"}
+  - {to: dark-forest, type: contrasts-with, basis: analytic, note: "Dark Forest は秘匿情報とラウンド運営者による管理で終わり方を制御したのに対し、Fomo3D は完全公開・管理者なしで終了条件を基盤に委ねた"}
+  - {to: freysa, type: similar-to, basis: analytic, note: "参加費が上昇しながらプールが膨らみ、最後の勝者が総取りする賞金ゲームという資金構造が共通"}
+
+unknowns:
+  - "第 1 ラウンドの一意参加アドレス数と、キー購入の総額のオンチェーン集計（SECBIT の数字の定義）。"
+  - "第 3 ラウンド（2018-10-13 終了）以後に新ラウンドが始まったか、その規模。"
+  - "Etherscan で検証済みのソースと、本調査で読んだ第三者リポジトリ（reedhong/fomo3d_clone）が一致するか（検証役もバイトコードとの照合はしていない）。"
+  - "コントラクトに残る約 1,094 ETH の内訳（未引き出しの配当、終わっていないラウンドのプール等）。"
+  - "F3DexternalSettings の実際のロジック（ソース非公開）。"
+  - "Team JUST が受け取った総額（コミュニティ 2% 分と P3D 経由の流れ）。"
+  - "Péter Szilágyi によるエアドロップ不具合の公表（2018-07-23 とされる）の一次資料（reddit は取得不可）。"
+  - "勝者が第 1・第 2 ラウンドで同一人物・同一集団か（SECBIT は手口の同一性のみを主張）。"
+contradictions:
+  - {t: "第 1 ラウンドの決着の扱い: Solmaz はブロック 6191909 でラウンド終了とし、Vice はブロック 6191962 を賞金の取引とする。Etherscan では 6191962 は勝者の withdraw() であり、終了と引き出しの違いと見られる。", s: [src-fomo3d-solmaz, src-fomo3d-vice, src-fomo3d-etherscan-win-tx]}
+  - {t: "ブロック詰めの開始: Vice はブロック 6191903 から独占が始まったとし、SoK 論文はタイマー残り約 3 分で 1 キーを買ってから高ガスの取引を送ったと記す。Solmaz は最後の購入から約 175 秒の停滞とする。", s: [src-fomo3d-vice, src-fomo3d-sok-frontrunning, src-fomo3d-solmaz]}
+  - {t: "攻撃費用: Solmaz は 1 ブロック約 4 ETH、Vice が引いた開発者は準備に 40〜50 ETH と推定。対象範囲が異なる可能性がある。", s: [src-fomo3d-solmaz, src-fomo3d-vice]}
+  - {t: "ドル換算: SoK 論文は約 210 万ドル、TNW は約 280 万ドル、Vice は約 300 万ドルとする（換算時点の違い）。", s: [src-fomo3d-sok-frontrunning, src-fomo3d-tnw, src-fomo3d-vice]}
+  - {t: "初期タイマー: コードは rndInit_ = 1 時間、2024 年の解説記事（Jeremy Clark）は 5 分と書く（同記事は実在の勝者を仮名「Mallory」で呼ぶ説明的な語り口）。", s: [src-fomo3d-source, src-fomo3d-yacn]}
+  - {t: "第 3 ラウンドの規模: SECBIT は 2018-10-09 時点のプールを約 103 ETH とし、Solmaz は 4 日後（10-13）に終わった第 3 ラウンドの賞金を 376 ETH とする。賞金がプールの 48% なら終了時のプールは約 780 ETH で、4 日で 7 倍以上に増えたことになる。いずれかの数字の定義（「pool」が何を指すか）が異なる可能性がある（検証役による計算）。", s: [src-fomo3d-secbit-solution, src-fomo3d-solmaz]}
+
+sources:
+  - {id: src-fomo3d-etherscan-contract, title: "Fomo3D: Long (FoMo3Dlong) contract 0xA62142888ABa8370742bE823c1782D17A0389Da1", url: "https://etherscan.io/address/0xA62142888ABa8370742bE823c1782D17A0389Da1", publisher: "Etherscan", type: onchain-data, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "検証済み（Exact Match）、Solidity 0.4.24、残高約 1,094 ETH、取引 246,135 件、作成者"}
+  - {id: src-fomo3d-etherscan-deploy, title: "Contract creation tx 0xf63e775e10b0f662574ab49cd4c080ddcda8ca7d0012b5f0fbf0b03ad1c977ac", url: "https://etherscan.io/tx/0xf63e775e10b0f662574ab49cd4c080ddcda8ca7d0012b5f0fbf0b03ad1c977ac", publisher: "Etherscan", type: onchain-data, primary: true, published: "2018-07-06", accessed: "2026-10-23", access: fetched, lang: en, note: "ブロック 5915466、2018-07-06 11:17:45 UTC"}
+  - {id: src-fomo3d-etherscan-win-tx, title: "Round 1 winner withdraw tx 0xe08a519c03cb0aed0e04b33104112d65fa1d3a48cd3aeab65f047b2abce9d508", url: "https://etherscan.io/tx/0xe08a519c03cb0aed0e04b33104112d65fa1d3a48cd3aeab65f047b2abce9d508", publisher: "Etherscan", type: onchain-data, primary: true, published: "2018-08-22", accessed: "2026-10-23", access: fetched, lang: en, note: "ブロック 6191962、07:04:12 UTC、withdraw()、10,469.66 ETH の内部送金"}
+  - {id: src-fomo3d-source, title: "reedhong/fomo3d_clone（FoMo3Dlong.sol ほか公式コントラクトの集約）", url: "https://github.com/reedhong/fomo3d_clone", publisher: "GitHub", type: code, primary: false, published: "2018-08", accessed: "2026-10-23", access: fetched, lang: zh, note: "第三者が公式コントラクトのソースを集約したとするリポジトリ。clone して rndInit_ / rndInc_ / rndMax_、fees_、potSplit_、airdrop()、isHuman、activate()、buyCore を確認。F3DexternalSettings は非公開ソースのため推定"}
+  - {id: src-fomo3d-exitscam-site, title: "FOMO3D (exitscam.me)", url: "https://exitscam.me", publisher: "Team JUST", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "宣伝ページ。Long Con / Quick Scam、キー、タイマー、エアドロップの説明。ラウンド情報なし"}
+  - {id: src-fomo3d-solmaz, title: "The Anatomy of a Block Stuffing Attack", url: "https://solmaz.io/2018/10/18/anatomy-block-stuffing/", publisher: "solmaz.io", author: "Onur Solmaz", type: analysis, primary: true, published: "2018-10-18", accessed: "2026-10-23", access: fetched, lang: en, note: "第 1 ラウンドのブロック単位の分析、ブロック詰めコントラクト、1 ブロック約 4 ETH、第 2・3 ラウンドの勝者と賞金"}
+  - {id: src-fomo3d-secbit-odaily, title: "The second round of Fomo3D awards was given out, hackers won the prize（題名は取得時に途中で切れていた）", url: "https://www.odaily.news/en/post/5133892", publisher: "Odaily（SECBIT Labs 寄稿）", author: "SECBIT Labs", type: analysis, primary: true, published: "2018-09-28", accessed: "2026-10-23", access: fetched, lang: en, note: "第 2 ラウンド 3,264.668 ETH・33 日、第 1 ラウンドと同じ手口、Last Winner と BAPT-LW20"}
+  - {id: src-fomo3d-secbit-solution, title: "A Comprehensive Solution to Bugs in Fomo3D-like Games", url: "https://hackernoon.com/a-comprehensive-solution-to-bugs-in-fomo3d-like-games-ab3b054f3cc5", publisher: "HackerNoon", author: "SECBIT Labs", type: analysis, primary: true, published: "2018-10-09", accessed: "2026-10-23", access: fetched, lang: en, note: "第 3 ラウンドのプール 103 ETH、参加ピーク、isHuman 回避、getCurrentRoundInfo と assert による詰め、対策案"}
+  - {id: src-fomo3d-sok-frontrunning, title: "SoK: Transparent Dishonesty: Front-running Attacks on Blockchain", url: "https://arxiv.org/abs/1902.05164", publisher: "arXiv", author: "Shayan Eskandari, Seyedehmahsa Moosavi, Jeremy Clark", type: paper, primary: true, published: "2019-02", accessed: "2026-10-23", access: fetched, lang: en, note: "Fomo3D を suppression attack として分類。10,469 ETH、約 3 分前の購入と高ガス取引。根拠として匿名ブログ・SECBIT・Solmaz を引用（v3 は 2019-04）"}
+  - {id: src-fomo3d-ethresearch, title: "Alert! Will Fomo3D destroy Ethereum?", url: "https://ethresear.ch/t/alert-will-fomo3d-destroy-ethereum/2630", publisher: "Ethereum Research", author: "toliuyi ほか", type: forum, primary: true, published: "2018-07-21", accessed: "2026-10-23", access: fetched, lang: en, note: "17,000 ETH 超、採掘者による勝者選択（Justin Drake）、isHuman の回避（nootropicat）、48% / 2% の分配"}
+  - {id: src-fomo3d-vice, title: "A Wildly Popular Ethereum Gambling Game Just Paid Out 3 Million Dollars", url: "https://www.vice.com/en/article/fomo3d-winner-clogged-ethereum-blockchain", publisher: "Motherboard / VICE", author: "Jordan Pearson", type: news, primary: false, published: "2018-08-23", accessed: "2026-10-23", access: fetched, lang: en, note: "21,811 ETH のプール、ブロック 6191896 / 6191903 / 6191962、開発者の推定費用 40〜50 ETH と発言"}
+  - {id: src-fomo3d-tnw, title: "Never-ending Ethereum ‘exit scam’ actually ends, paying $2.8M to anonymous winner", url: "https://thenextweb.com/news/exit-scam-ethereum-jackpot", publisher: "The Next Web", author: "Matthew Beedham", type: news, primary: false, published: "2018-08-24", accessed: "2026-10-23", access: fetched, lang: en, note: "10,469 ETH、採掘者による検閲という批判、直後のブロックで 103 件の購入失敗"}
+  - {id: src-fomo3d-financemagnates, title: "Firm Openly Runs Pyramid Scheme and Exit Scam, Makes Millions Anyway", url: "https://financemagnates.com/cryptocurrency/news/firm-openly-runs-pyramid-scheme-and-exit-scam-makes-millions-anyway/amp", publisher: "Finance Magnates", author: "Simon Golstein", type: news, primary: false, published: "2018-07-24", accessed: "2026-10-23", access: fetched, lang: en, note: "プール 21,515 ETH、Team JUST の自己紹介と資金管理不能の主張、P3D"}
+  - {id: src-fomo3d-hackernoon-attrition, title: "FOMO3D and Dangerous Game Theory", url: "https://hackernoon.com/fomo3d-and-dangerous-game-theory-97bd5f47ab3b", publisher: "HackerNoon", author: "Matt Stephenson", type: analysis, primary: false, published: "2018-07-23", accessed: "2026-10-23", access: fetched, lang: en, note: "消耗戦（War of Attrition）としての分析、編集注（8/2 時点でコード未完全検証）"}
+  - {id: src-fomo3d-inside, title: "暴起暴落的以太坊博弈遊戲 Fomo3D，會為區塊鏈帶來什麼新啟示？", url: "https://www.inside.com.tw/article/13789-revelation-of-fomo3d", publisher: "INSIDE", author: "fOx", type: news, primary: false, published: "2018-08-07", accessed: "2026-10-23", access: fetched, lang: zh, note: "模倣品と失速、短期版 7/28、P3D の推移、利益を得たのは 3 割弱との伝聞"}
+  - {id: src-fomo3d-survey-2019, title: "Blockchain Games: A Survey", url: "https://arxiv.org/abs/1906.05558", publisher: "arXiv", author: "Tian Min, Hanyi Wang, Yaoze Guo, Wei Cai", type: paper, primary: false, published: "2019-06-13", accessed: "2026-10-23", access: fetched, lang: en, note: "Fomo3D（7/2018）を 24 時間・30 秒延長・48% と要約"}
+  - {id: src-fomo3d-survey-ponzi-snippet, title: "Security Analysis of Ponzi Schemes in Ethereum Smart Contracts", url: "https://arxiv.org/abs/2510.03819", publisher: "arXiv", type: paper, primary: false, accessed: "2026-10-23", access: snippet, lang: en, note: "検索要約のみ。最後の 30 秒に購入が集中するとの記述"}
+  - {id: src-fomo3d-yacn, title: "Front Running Ethereum（節「The Tale of Fomo3D」）", url: "https://yacn.substack.com/p/front-running-ethereum", publisher: "Yet Another Crypto Newsletter", author: "Jeremy Clark", type: analysis, primary: false, published: "2024-12-24", accessed: "2026-10-23", access: fetched, lang: en, note: "前回り攻撃の説明。勝者を仮名 Mallory で語る。初期タイマー 5 分と記載"}
+  - {id: src-fomo3d-btcecho, title: "Fomo3D: Wie ein Hacker das Schneeballsystem überlistete", url: "https://www.btc-echo.de/news/fomo3d-wie-ein-hacker-das-schneeballsystem-ueberlistete-56842/", publisher: "BTC-Echo", author: "Philipp Giese", type: news, primary: false, published: "2018-09-04", accessed: "2026-10-23", access: fetched, lang: de, note: "検証役が追加。ブロック 6191898〜6191908 は平均 14 取引と小さく、SparPool・BitClubPool・Nanopool・Ethermine など複数のプールが採掘"}
+  - {id: src-fomo3d-rpc-blocks, title: "Ethereum mainnet eth_getBlockByNumber / eth_getBalance（ブロック 5915466・6191896・6191909・6391548・6507761・6507774）", url: "https://eth.drpc.org", publisher: "dRPC（公開 RPC）", type: onchain-data, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "検証役が JSON-RPC で取得。6191909 = 2018-08-22 06:51:17 UTC、6391548 = 2018-09-24 15:35:45 UTC、6507774 = 2018-10-13 14:12:45 UTC。コントラクト残高 1094.46 ETH"}

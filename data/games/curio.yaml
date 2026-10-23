@@ -1,0 +1,109 @@
+id: curio
+name: Curio
+aliases: [Curio Research, Treaty, Keystone]
+kind: game
+depth: index
+updated: "2026-10-23"
+chains: [Curio 専用のアプリチェーン（2022 年の海戦 RTS デモ）, "Treaty の設定にある独自チェーン（Constellation chain 2938、AltLayer chain 9992 等。本番の展開先は未確認）"]
+team: "Curio Research（Curiosity Research Inc.）"
+summary: >-
+  Curio はオンチェーン戦略ゲームを作ってきたスタジオで、2022 年夏に専用アプリチェーン上で海戦テーマの RTS デモ、2023-01 にプレイヤーが「条約（Treaty）」という
+  スマートコントラクトを書いてゲームの中核関数に規則を差し込める 4X 戦略ゲーム Treaty を公開した。
+  その後、EVM コントラクトでは性能が足りないとして、Go で書くゲームサーバーと EVM を一体化したロールアップ SDK「Keystone」（2023-11）に移った。
+  参照日時点の GitHub 組織プロフィールは「Makers of Duper」となっている。
+selection_reason: >-
+  「プレイヤーが書いた論理（user-generated logic）をコアのゲーム関数に直接フックさせる」という、第三者拡張をゲームの規則の内側に入れた設計を、
+  Diamond パターンと承認関数で実装して公開した例であり、同時にその後チーム自身がスマートコントラクト中心の設計から離れた経緯（性能・ティック・開発体験）を書き残している。
+categories:
+  - {id: onchain-rules, role: primary, reason: "Treaty では資源・軍隊・移動・戦闘・収穫がコントラクト（Diamond の GameFacet）で判定される"}
+  - {id: aw, role: secondary, reason: "プレイヤーが条約コントラクトで制度（同盟・禁輸・傭兵・融資）を作ることを中心に据えた"}
+  - {id: infra, role: secondary, reason: "専用アプリチェーンと、ゲームサーバーと EVM を一体化した Keystone を開発した"}
+status:
+  value: pivoted
+  as_of: "2026-10"
+  note: >-
+    ブログの最終投稿は 2023-11-10（Keystone 公開）。GitHub の keystone は 2024-01、treaty-contracts は 2023-05 が最終更新で、
+    組織プロフィールは「Makers of Duper」と表示される。Duper の内容は確認できなかった。Treaty の運営終了の告知は見つからなかった。
+  s: [src-curio-keystone, src-curio-github, src-curio-profile]
+dates:
+  announced: {date: "2022-12-22", s: [src-curio-treaty-intro], note: "Treaty を告知（2023-01 公開予定）"}
+  launched: {date: "2023-01", s: [src-curio-treaty-intro, src-curio-treaty-repo], note: "Treaty の公開。リポジトリに 2023-01-30「Treaty bugs while launching」のコミット"}
+
+architecture:
+  onchain:
+    level: core-rules
+    detail: >-
+      Treaty はゲームの関数を EIP-2535 Diamond（GameFacet・AdminFacet・GetterFacet）にまとめ、状態を独自の ECS（エンティティとコンポーネント）に保持した。
+      資源と兵種は独自の CurioERC20 で、軍隊などはスマートコントラクトウォレットとして資源を保有する。プレイヤーの行動は GameFacet の関数で、
+      プレイヤー間の委任と「条約の承認」の 2 種類の権限確認を通る。
+    s: [src-curio-tech-overview, src-curio-treaty-repo]
+  offchain:
+    - {item: "インデクサとクライアント（ECS の自動同期）。ゲーム定数は Python でオフチェーン生成してから登録", s: [src-curio-tech-overview, src-curio-treaty-intro]}
+    - {item: "Keystone 以降はゲーム論理を Go のゲームサーバーで処理し、EVM はプリコンパイル経由で状態を読み書きする構成", s: [src-curio-keystone]}
+  admin:
+    level: significant
+    detail: >-
+      Treaty は Diamond でアップグレード可能。AdminFacet の onlyAdmin（ゲーム展開者）がコンポーネント登録・認可トークン追加などを行い、
+      条約コントラクトは AdminFacet の一部関数（委任の代行、条約ホワイトリストの操作）を onlyTreaty 経由で呼べる。
+    s: [src-curio-treaty-repo, src-curio-tech-overview]
+  open_source:
+    level: partial
+    detail: "Treaty のコントラクト（MIT）、Keystone（Go、MIT）、2022-07 デモのコントラクト（GPL-3.0、アーカイブ）を公開。社内リポジトリから公開用に移す運用（RELEASE.md）。クライアントの公開は確認できなかった。"
+    url: "https://github.com/curio-research"
+    s: [src-curio-github, src-curio-treaty-repo]
+  extensibility:
+    level: permissionless-onchain
+    detail: >-
+      条約テンプレートの登録（registerTreatyTemplate）は管理者制限のない外部関数で、誰でも CurioTreaty 規格のコントラクトを登録できる。条約は approveMove・approveTransfer などの
+      承認関数を通じて、署名者の移動・攻撃・資源転送を制限・許可でき、コアの関数実行時に強制される。公式リポジトリには同盟、禁輸、傭兵リーグ、不可侵条約、集団防衛基金、
+      融資、賞金首、OTC などの条約例がある。運営は条約アイデアコンテスト（受賞者に 150 ドル以上）を開いた。プレイヤーが実際に展開した条約の数は確認できなかった。
+    s: [src-curio-treaty-repo, src-curio-diplomat, src-curio-ugl]
+
+compare:
+  gameplay: {t: "Treaty は 4X 戦略ゲームで、国家（プレイヤー）が資源を収穫し、軍隊を動かして戦い、条約で同盟・禁輸・傭兵契約などを結ぶ。前身の 2022 年夏のデモは海戦 RTS。", k: fact, s: [src-curio-treaty-intro, src-curio-keystone]}
+  necessity: {t: "運営は、プレイヤー間の社会契約を誰の同意も要らずにコアの規則へフックできることを「ユーザー生成ロジック」と呼び、オンチェーンでなければできないと主張した。その後、性能のためにゲーム論理を Go のサーバーへ移したことは、ゲームの中核処理まで EVM に置く必然性への疑問を運営自身が示したものと読める。", k: analysis, s: [src-curio-ugl, src-curio-keystone]}
+  information: {t: "状態は ECS として公開され、条約の内容もコントラクトとして公開される。秘匿情報の仕組みは確認できなかった。", k: fact, s: [src-curio-tech-overview]}
+  persistence: {t: "Treaty の世界がどれだけ稼働したか、停止したかの記録は見つからない。コントラクトのコードは公開されている。", k: unknown}
+  extensibility: {t: "条約テンプレートの許可不要の登録と、承認関数によるコア関数へのフック。委任機能で他者やコントラクトに自分の操作を任せられる。", k: fact, s: [src-curio-treaty-repo, src-curio-treaty-intro]}
+  money_flow: {t: "2023-02 に Bain Capital Crypto などから 290 万ドルのシード資金を調達したと運営は発表。ゲーム内の資金循環（参加費・賞金）は確認できなかった。", k: claim, who: "Curio", s: [src-curio-seed]}
+  entry_barrier: {t: "条約を書くには Solidity と Curio の承認関数の理解が必要。プレイ自体の参加条件（ウォレット、ガス、招待）は確認できなかった。", k: fact, s: [src-curio-diplomat]}
+
+concepts: [c-onchain-rules, c-ecs-engine, c-own-chain, c-permissionless-extension, c-fungible-ingame-token, c-autonomous-world, m-pvp-territory]
+
+article:
+  principles:
+    - {t: "コア関数への承認フック: 移動・攻撃・転送などのコア関数に「署名した条約が許可するか」の確認を差し込むと、プレイヤーが書いた制度（同盟の不可侵、禁輸）を全員の同意なしに、参加者にだけ強制できる。適用条件は、どの関数にフックできるかが事前に列挙され、参加が任意であること。破綻条件は、フックがガスを浪費・失敗させる悪意ある条約や、脱退・委任の取り消しで約束が守られない場合（Treaty の条約例には最低在籍時間や脱退時のホワイトリスト解除などの個別対策が書かれている）。", k: analysis, s: [src-curio-treaty-intro, src-curio-treaty-repo]}
+  counter_evidence:
+    - {t: "Curio 自身が Keystone の告知で、単一 EVM チェーン上のゲームは多数の同時ユーザーを扱えず、ティック駆動のゲームループが作れず、ゲーム開発の既存ツールも使えないと総括し、ゲーム論理を Go に移した。完全にスマートコントラクトで書く設計への、当事者による反論である。", k: claim, who: "Curio", s: [src-curio-keystone], q: "Games built on a single EVM blockchain cannot handle many concurrent users let alone scale to millions."}
+    - {t: "Phase 1 の振り返りでは、RTS は多数の部隊の操作が「クリック競争」になり確定が即時でないチェーンに不向きで、殲滅型の勝利条件は長期のゲームに向かないとして、SLG（Rise of Kingdoms 型）へ方向転換した。", k: claim, who: "Curio", s: [src-curio-phase1]}
+
+events:
+  - {id: ev-curio-naval-demo, date: "2022", type: testnet, title: "専用アプリチェーンで海戦 RTS デモ（夏）", detail: "運営は数千人が遊んだと記述。デモのコントラクトは 2022-07 のもの", s: [src-curio-keystone, src-curio-github]}
+  - {id: ev-curio-phase1, date: "2022-10-24", type: other, title: "Phase 1 完了を発表、SLG 型への方針転換と Treaty 構想", s: [src-curio-phase1]}
+  - {id: ev-curio-treaty-announce, date: "2022-12-22", type: announce, title: "Treaty を告知", s: [src-curio-treaty-intro]}
+  - {id: ev-curio-treaty-launch, date: "2023-01", type: launch, title: "Treaty 公開と条約アイデアコンテスト", s: [src-curio-diplomat, src-curio-treaty-repo]}
+  - {id: ev-curio-seed, date: "2023-02-27", type: funding, title: "290 万ドルのシード資金調達を発表", detail: "Bain Capital Crypto、TCG Crypto ほか。ゲーム向け独自チェーンの開発を表明", s: [src-curio-seed]}
+  - {id: ev-curio-keystone, date: "2023-11-10", type: pivot, title: "Keystone（ゲームサーバー＋EVM のロールアップ SDK）を公開", s: [src-curio-keystone]}
+
+relations:
+  - {to: mud, type: similar-to, basis: analytic, note: "同時期にオンチェーン ECS とインデクサの自動同期を独自に実装。MUD の告知も Curio を同じ領域の作品として挙げている"}
+  - {to: dark-forest, type: similar-to, basis: analytic, note: "オンチェーン戦略ゲームでの第三者コントラクトという関心が共通。Curio は拡張をコア関数のフックに入れた点で異なる"}
+  - {to: c-permissionless-extension, type: built-with, basis: confirmed, note: "条約テンプレートを誰でも登録でき、コア関数で強制される", s: [src-curio-treaty-repo]}
+
+unknowns:
+  - "「smart objects」という用語・機能（調査依頼にあったが Curio の一次資料では確認できなかった。EVE Frontier の用語との混同の可能性）。"
+  - "Treaty の本番展開チェーン、参加者数、展開された条約の数、運営終了時期。"
+  - "Duper が何か、Keystone を使った旗艦ゲームが公開されたか。"
+  - "海戦 RTS デモの参加者数（「数千人」は運営の記述のみ）。"
+
+sources:
+  - {id: src-curio-phase1, title: "Announcing: Phase 1 Completion", url: "https://blog.curio.gg/phase-1/", publisher: "Curio blog", type: official-blog, primary: true, published: "2022-10-24", accessed: "2026-10-23", access: fetched, lang: en, note: "オンチェーン ECS エンジン、RTS の問題点と SLG への転換、Treaty 構想"}
+  - {id: src-curio-treaty-intro, title: "Introducing Treaty", url: "https://blog.curio.gg/introducing-treaty/", publisher: "Curio blog", type: official-blog, primary: true, published: "2022-12-22", accessed: "2026-10-23", access: fetched, lang: en, note: "条約がコア関数にフック、スマートコントラクトウォレット、委任、2023-01 公開予定"}
+  - {id: src-curio-tech-overview, title: "How We Built This - Treaty Technical Overview", url: "https://blog.curio.gg/how-we-built-this-treaty-technical-overview/", publisher: "Curio blog", type: official-blog, primary: true, published: "2023-01-03", accessed: "2026-10-23", access: fetched, lang: en, note: "ECS、Diamond の各 Facet、CurioERC20、委任と条約承認の 2 種の権限"}
+  - {id: src-curio-ugl, title: "Next Gen Onchain Gaming with User-Generated Logic", url: "https://blog.curio.gg/next-gen-onchain-gaming-with-user-generated-logic/", publisher: "Curio blog", type: official-blog, primary: true, published: "2023-01-18", accessed: "2026-10-23", access: fetched, lang: en, note: "ユーザー生成ロジック（UGL）の設計論"}
+  - {id: src-curio-diplomat, title: "Who’s the Best On-chain Diplomat?", url: "https://blog.curio.gg/whos-the-best-on-chain-diplomat/", publisher: "Curio blog", type: official-blog, primary: true, published: "2023-01-20", accessed: "2026-10-23", access: fetched, lang: en, note: "条約アイデアコンテスト、Embargo の例、承認関数、受賞者に 150 ドル"}
+  - {id: src-curio-seed, title: "Our $2.9M Seed Round", url: "https://blog.curio.gg/our-2-9m-seed-round/", publisher: "Curio blog", type: official-blog, primary: true, published: "2023-02-26", accessed: "2026-10-23", access: fetched, lang: en, note: "シード 290 万ドル、ゲーム向けカスタムチェーン開発"}
+  - {id: src-curio-keystone, title: "Introducing Keystone", url: "https://blog.curio.gg/introducing-keystone/", publisher: "Curio blog", type: official-blog, primary: true, published: "2023-11-10", accessed: "2026-10-23", access: fetched, lang: en, note: "海戦 RTS デモと Treaty の振り返り、EVM の限界、Go のゲームサーバーと EVM の一体化"}
+  - {id: src-curio-treaty-repo, title: "curio-research/treaty-contracts", url: "https://github.com/curio-research/treaty-contracts", publisher: "GitHub", type: code, primary: true, published: "2023-02", accessed: "2026-10-23", access: fetched, lang: en, note: "git clone で確認。registerTreatyTemplate（制限なし）、AdminFacet の onlyAdmin/onlyTreaty、条約例、hardhat のネットワーク設定"}
+  - {id: src-curio-github, title: "Curio (curio-research) GitHub organization", url: "https://github.com/curio-research", publisher: "GitHub", type: code, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "7 リポジトリ、keystone 最終更新 2024-01、demo-contracts はアーカイブ"}
+  - {id: src-curio-profile, title: "curio-research/.github (organization profile)", url: "https://github.com/curio-research/.github", publisher: "GitHub", type: code, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "プロフィール README は「Makers of Duper」"}

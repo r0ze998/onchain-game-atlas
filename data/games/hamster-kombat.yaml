@@ -1,0 +1,93 @@
+id: hamster-kombat
+name: Hamster Kombat
+name_ja: ハムスター・コンバット
+aliases: [HMSTR, HamsterVerse]
+kind: game
+depth: index
+updated: "2026-10-23"
+chains: [TON（HMSTR トークン）]
+team: "Hamster Kombat チーム（詳細未確認）"
+summary: >-
+  Telegram のミニアプリで、ハムスターの画像をタップしてゲーム内コインを貯め、架空の暗号資産取引所を「アップグレード」して時間あたりの収入を増やすタップ型ゲーム。
+  ゲーム内コインはオフチェーンで、将来のエアドロップへの期待が参加の主な誘因だった。2024 年に 3 億人超のプレイヤーを主張し、2024-09-26 に TON 上の HMSTR を配布したが、
+  対象は約 1.3 億人に絞られ、230 万人超が「チーター」として BAN され、配布後 1〜2 か月で月間利用者は約 4,090 万人に減ったと報じられた。
+selection_reason: >-
+  「ポイント（オフチェーン）→ エアドロップ（オンチェーン）」型の報酬期待が、農業・放置型の単純ループにどれだけの人数を集め、配布後にどれだけ残るかを示す最大規模の例だから。
+  ゲームの規則にはチェーンを一切使わず、報酬の受け取りだけにチェーンを使う設計の極端な形であり、多重アカウントの排除が配布直前に一括で行われた点も、報酬設計の反例として重要。
+categories:
+  - {id: p2e, role: primary, reason: "ゲーム内コインと行動がエアドロップ配分の基準とされ、報酬期待が参加の主な誘因だった"}
+  - {id: assets, role: secondary, reason: "報酬は TON 上の HMSTR トークンとして配布された"}
+status:
+  value: unknown
+  as_of: "2026-10"
+  note: "2025 年初めに Season 2（HamsterVerse）を開始したと報じられたが、2026 年の稼働状況は一次資料で確認できなかった。"
+  s: [src-hamster-kombat-decrypt-explainer]
+dates:
+  launched: {date: "2024", s: [src-hamster-kombat-decrypt-explainer], note: "正確な開始日は未確認。Decrypt の解説初出は 2024-06-02"}
+
+architecture:
+  onchain:
+    level: assets-only
+    detail: "タップ・アップグレード・時間収入などの進行はすべて Telegram ミニアプリのサーバー側。チェーン上にあるのは配布された HMSTR（TON）のみ。"
+    s: [src-hamster-kombat-decrypt-explainer]
+  offchain:
+    - {item: "ゲーム内コイン、アップグレード、紹介（招待）、配分の計算", s: [src-hamster-kombat-decrypt-explainer, src-hamster-kombat-decrypt-purge]}
+    - {item: "不正検出（行動分析）と BAN", s: [src-hamster-kombat-decrypt-purge]}
+  admin:
+    level: significant
+    detail: "配分基準・不正判定・没収（68 億 HMSTR）を運営が一方的に決めた。没収分の半分は他の参加者へ、残りは焼却・供給から除外と説明された。"
+    s: [src-hamster-kombat-decrypt-purge]
+  open_source:
+    level: unknown
+    detail: "ソース公開は確認できなかった。"
+  extensibility:
+    level: none
+    detail: "第三者が拡張できる仕組みは確認できなかった。Season 2 は運営による複数ゲーム（HamsterVerse）として計画された。"
+    s: [src-hamster-kombat-decrypt-explainer]
+
+compare:
+  gameplay: {t: "画像をタップしてコインを得て、取引所の「アップグレード」を買い、1 時間あたりの受動的収入を増やす。例: 250 コインのアップグレードで毎時 40 コイン。", k: fact, s: [src-hamster-kombat-decrypt-explainer]}
+  necessity: {t: "遊びの部分にチェーンは使われず、チェーンはエアドロップの受け取りにのみ使われた。ゲームとしてのオンチェーン化の必然性はない。", k: analysis, s: [src-hamster-kombat-decrypt-explainer]}
+  information: {t: "不正の判定は運営の行動分析で行われ、判定基準の詳細は公開されなかった（公表されたのは 400 アカウントを 1 つの Binance アドレスにつないだ例など）。", k: fact, s: [src-hamster-kombat-decrypt-purge]}
+  persistence: {t: "HMSTR はチェーン上に残るが、ゲームの状態はサーバー側であり、運営停止後に遊べる仕組みはない。", k: analysis, s: [src-hamster-kombat-decrypt-explainer]}
+  extensibility: {t: "未確認（第三者拡張の仕組みは見つからなかった）。", k: unknown}
+  money_flow: {t: "総供給 1,000 億 HMSTR のうち 750 億をコミュニティに割り当て、600 億を Season 1 後に配布（532.5 億は即時、67.5 億は 10 か月ベスティング）、150 億を Season 2 用とした。運営側の収益源は本エントリでは未確認。", k: fact, s: [src-hamster-kombat-ct-131m, src-hamster-kombat-decrypt-purge]}
+  entry_barrier: {t: "Telegram アカウントだけで始められ、初期費用もウォレットも不要。受け取り時にウォレット（または取引所アドレス）が必要。", k: analysis, s: [src-hamster-kombat-decrypt-explainer, src-hamster-kombat-decrypt-purge]}
+
+concepts: [e-points-airdrop, m-farming-idle, e-p2e]
+
+article:
+  counter_evidence:
+    - {t: "配布後に月間利用者が約 86% 減った一方、運営の代表者は「シーズン制なので想定どおり」とし、月間利用者は 3,000 万超を保っていると述べた。ただしその 3,000 万が報酬（Season 2 のエアドロップ）を期待して残ったのか、娯楽として残ったのかを区別する資料はなく、「報酬なしで残った層」の証拠にはならない。", k: claim, who: "運営 (Hamster Kombat) の代表者", s: [src-hamster-kombat-forklog-decline, src-hamster-kombat-forklog-reengage], q: "our MAU remains above 30 million"}
+  principles:
+    - {t: "オフチェーンのポイント＋一回限りのエアドロップは、配布日を境に誘因が消える。適用条件はゲームの楽しさが報酬期待より弱いこと。配布直前の一括 BAN（230 万）は多重アカウントを事後に排除できるが、正規参加者の不信（基準の後出し）を同時に生む。", k: analysis, s: [src-hamster-kombat-decrypt-purge, src-hamster-kombat-forklog-decline]}
+
+metrics:
+  - {id: m-hamster-kombat-players-2024, type: players, value: 300000000, value_text: "3 億超（累計、運営主張）", unit: players, period: "2024（配布前）", definition: "運営が主張する累計プレイヤー数", nature: reported, s: [src-hamster-kombat-ct-131m, src-hamster-kombat-decrypt-explainer]}
+  - {id: m-hamster-kombat-eligible-2024-09, type: players, value: 131000000, value_text: "約 1.31 億（Decrypt は約 1.29 億）", unit: accounts, period: "2024-09", definition: "エアドロップ対象として認められたアカウント", nature: reported, s: [src-hamster-kombat-ct-131m, src-hamster-kombat-decrypt-alltime-low]}
+  - {id: m-hamster-kombat-bans-2024-09, type: other, value: 2300000, value_text: "230 万超", unit: accounts, period: "2024-09-23 発表", definition: "運営が BAN したチーター", nature: reported, s: [src-hamster-kombat-decrypt-purge]}
+  - {id: m-hamster-kombat-mau-2024-11, type: mau, value: 40900000, value_text: "3 億（9 月末）→ 4,090 万", unit: players, period: "2024-11 初め", definition: "Telegram ボットのアプリ統計による月間の「タッパー」数（ForkLog が引用）", nature: reported, s: [src-hamster-kombat-forklog-decline]}
+
+events:
+  - {id: ev-hamster-kombat-bans, date: "2024-09-23", type: other, title: "230 万超のチーターを BAN、68 億 HMSTR を没収", detail: "1 人が 400 超のアカウントを 1 つの Binance アドレスに接続した例などを公表", s: [src-hamster-kombat-decrypt-purge]}
+  - {id: ev-hamster-kombat-airdrop, date: "2024-09-26", type: launch, title: "HMSTR を TON 上で配布・上場", s: [src-hamster-kombat-ct-131m, src-hamster-kombat-decrypt-alltime-low]}
+  - {id: ev-hamster-kombat-decline, date: "2024-11", type: other, title: "月間利用者が約 4,090 万に減少と報道", s: [src-hamster-kombat-forklog-decline]}
+
+relations:
+  - {to: pixels, type: similar-to, basis: analytic, note: "報酬期待で巨大な利用者数を集め、配布・報酬改定の前後に大量 BAN と急減が起きた"}
+  - {to: e-points-airdrop, type: similar-to, basis: analytic, note: "オフチェーンのポイントを将来のトークン配分の基準にした代表例"}
+
+unknowns:
+  - "ゲームの正確な開始日と運営主体"
+  - "累計 3 億の定義（Telegram アカウント単位か）と重複・ボットの割合"
+  - "配布後に残った月間 3,000〜4,000 万の内訳（Season 2 報酬期待か娯楽か）"
+  - "2025〜2026 年の稼働状況と利用者数（2025-02 の 1,168 万という数字は検索結果の要約でしか見ていない）"
+  - "運営の収益源（広告・提携など）"
+
+sources:
+  - {id: src-hamster-kombat-decrypt-explainer, title: "What Is 'Hamster Kombat'? The Hit Telegram Game, HMSTR Token, and Season 2 Plans", url: "https://decrypt.co/233407/what-is-hamster-kombat-telegram-game-token-airdrop", publisher: "Decrypt", type: news, primary: false, published: "2024-06-02", accessed: "2026-10-23", access: fetched, lang: en, note: "遊び方、3 億超、TON、Season 2 計画（2025-01-02 更新）"}
+  - {id: src-hamster-kombat-decrypt-purge, title: "Why 'Hamster Kombat' Purged Millions of Players From the Telegram Airdrop", url: "https://decrypt.co/250940/why-hamster-kombat-purged-millions-players-telegram-airdrop", publisher: "Decrypt", type: news, primary: false, published: "2024-09-24", accessed: "2026-10-23", access: fetched, lang: en, note: "230 万 BAN、400 アカウントの例、68 億没収、60% 配布"}
+  - {id: src-hamster-kombat-ct-131m, title: "Hamster Kombat airdrop: 131 million users qualified", url: "https://cointelegraph.com/news/hamster-kombat-airdrop-131-million-users-qualified", publisher: "Cointelegraph", type: news, primary: false, published: "2024-09-23", accessed: "2026-10-23", access: fetched, lang: en, note: "1.31 億対象、3 億超、供給配分"}
+  - {id: src-hamster-kombat-decrypt-alltime-low, title: "Hamster Kombat token hits all-time low", url: "https://decrypt.co/289725/hamster-kombat-all-time-low-price", publisher: "Decrypt", type: news, primary: false, published: "2024-11-02", accessed: "2026-10-23", access: fetched, lang: en, note: "約 1.29 億対象、TON、価格の最安値"}
+  - {id: src-hamster-kombat-forklog-reengage, title: "Hamster Kombat developers aim to re-engage players", url: "https://forklog.com/en/hamster-kombat-developers-aim-to-reengage-players/", publisher: "ForkLog", type: news, primary: false, published: "2024-11-19", accessed: "2026-10-23", access: fetched, lang: en, note: "運営代表者の「想定どおり」「MAU 3,000 万超」"}
+  - {id: src-hamster-kombat-forklog-decline, title: "Hamster Kombat loses nearly 260 million players post-listing", url: "https://forklog.com/en/hamster-kombat-loses-nearly-260-million-players-post-listing/", publisher: "ForkLog", type: news, primary: false, published: "2024-11-04", accessed: "2026-10-23", access: fetched, lang: en, note: "3 億→4,090 万（月間）、1.31 億受領、230 万 BAN"}

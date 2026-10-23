@@ -1,0 +1,203 @@
+id: loot
+name: Loot (for Adventurers)
+name_ja: ルート（冒険者のための）
+aliases: [Loot, LOOT, "Loot Project", "Lootverse"]
+kind: protocol
+depth: deep
+updated: "2026-10-23"
+chains: [Ethereum mainnet]
+team: "Dom Hofmann（Vine 共同創業者）が個人で公開。以後の派生は Will Papper（Adventure Gold）、BibliothecaDAO（Realms / Loot Survivor）など第三者"
+summary: >-
+  2021-08-27 に Dom Hofmann が公開した、8000 個の「冒険者の装備袋」を表す ERC-721。各袋は武器・胸・頭・腰・足・手・首・指輪の 8 つの装備名だけからなり、
+  名前はトークン ID のハッシュから決定的に生成され、白文字の SVG としてコントラクト内で描画される。統計値・画像・ゲームは意図的に省かれ、
+  誰でも無料（ガス代のみ）で請求できた。意味付けを第三者に委ねた結果、数か月で 100 近い派生プロジェクトが生まれ、
+  「最小プリミティブを公開して上に作らせる」設計の代表例になったが、取引と関心は 1〜2 か月で急減した。
+selection_reason: >-
+  ゲームそのものではなく、ゲームの「素材」だけをチェーンに置いて派生を促した最も明確な事例であり、
+  利用者が構想する「他プレイヤーが作った機能の再利用」の可能性と限界（意味の合意が成立しない、派生同士が接続しない、ガバナンスの分裂、投機の先行）を
+  コード・オンチェーン状態・当時の報道・1 年後の振り返りで追えるため。派生から実際に動くゲーム（Loot Survivor 等）が出た一方、多くは告知に留まった反例も含む。
+categories:
+  - {id: assets, role: primary, reason: "装備袋を ERC-721 として発行し、内容（装備名）と画像をコントラクトが生成する"}
+  - {id: aw, role: secondary, reason: "統計値・ルールを省いた最小の資産を公開し、意味付けとゲームを第三者に委ねた。派生エコシステム（Lootverse）が Autonomous Worlds の議論の素材になった"}
+  - {id: onchain-rules, role: secondary, reason: "装備の生成規則（ハッシュ→装備名・接尾辞・+1）はコントラクト内の純関数。ただしゲームのルールは持たない"}
+status:
+  value: dormant
+  as_of: "2026-10"
+  note: >-
+    コントラクトは不変で、tokenURI による装備の生成は今も呼べる。参照日の totalSupply は 7779、保有アドレスは 2326（Etherscan 表示）、24 時間の移転は 0。
+    lootproject.com は資料・派生一覧を掲載し続けている。2022-08 時点で平均売価はピークの 21 ETH 超からフロア 0.93 ETH に下がり、取引高は 2021-09 から 95% 減少していた。
+    派生のうち Realms / Loot Survivor 系は Starknet 上で別エコシステムとして続いた。終了を宣言した一次資料はないため dormant とした。
+  s: [src-loot-rpc-state, src-loot-etherscan-token, src-loot-site, src-loot-decrypt-2022]
+dates:
+  launched: {date: "2021-08-27", s: [src-loot-coindesk-2021-09, src-loot-platformer-2021-09], note: "Dom Hofmann のツイートで公開。フロントエンドなし、コントラクト直接操作のみ"}
+
+architecture:
+  onchain:
+    level: assets-only
+    detail: >-
+      Loot（0xFF9C…13D7）は OpenZeppelin の ERC721Enumerable・ReentrancyGuard・Ownable を継承し、claim(1〜7777) は誰でも無料で、ownerClaim(7778〜8000) は所有者だけが呼べる。
+      各装備名は keccak256(部位プレフィックス + tokenId) を剰余で装備リストに対応させ、同じ乱数の rand % 21 が 15 以上なら接尾辞（of Power 等）、19 以上なら名前の前置詞、20 なら「+1」を付ける。
+      tokenURI はこれを SVG と JSON に組み立てて Base64 で返すため、画像・メタデータは外部サーバーに依存しない。統計値・戦闘・ゲームルールは一切ない。
+    s: [src-loot-sourcify]
+  offchain:
+    - {item: "公式のミント用フロントエンドはなく、当初は Etherscan 等でコントラクトを直接呼んだ", s: [src-loot-coindesk-2021-09]}
+    - {item: "派生の一覧・資料・フォーラムは community maintained の lootproject.com、loot-talk.com、Discord", s: [src-loot-site, src-loot-faq]}
+    - {item: "派生ゲームのロジックは各派生側（例: Loot Survivor は Starknet 上の Cairo コントラクト＋Apibara インデクサ＋Next.js クライアント）", s: [src-loot-survivor-repo]}
+  admin:
+    level: limited
+    detail: >-
+      Loot 本体にアップグレード・停止・トークン URI 変更の機能はなく、所有者権限は 7778〜8000 番の袋の請求（ownerClaim）と Ownable の所有権移転・放棄だけ。
+      参照日の owner() は 0xbf7e…995e で、所有権は放棄されていない。Hofmann は所有者が事実上の権威（「教会」）であり続けることを懸念し、鍵の焼却が投票にかけられたと報じられた。
+      一方、派生の Adventure Gold（AGLD）は所有者が上限なく追加発行（daoMint）でき、Loot コントラクトのアドレスや請求範囲・シーズンも変更できる。
+    s: [src-loot-sourcify, src-loot-rpc-state, src-loot-defiant-keys, src-loot-agld-source]
+  open_source:
+    level: full
+    detail: "Loot のソースは Etherscan / Sourcify で検証済みで、全ロジックが 1 ファイルにある。ライセンス表記は SPDX ではなく、サイトは「好きなように使ってよい」と述べるが、CC0 等の明示的な権利放棄文言はサイト本文では確認できなかった。"
+    url: "https://etherscan.io/address/0xff9c1b15b16263c61d017ee9f65c50e4ae0113d7#code"
+    s: [src-loot-sourcify, src-loot-site]
+  extensibility:
+    level: permissionless-onchain
+    detail: >-
+      装備名は公開関数（getWeapon 等）と ERC-721 の所有で誰でも読めるため、第三者は許可なく「Loot 保有者向け」の派生コントラクトを作れた。
+      例: 1 袋あたり 10,000 AGLD を請求できる Adventure Gold、袋 ID に対応する能力値の Ability Score、アドレスごとに仮想の袋を作る Synthetic Loot、土地の Realms (for Adventurers)。
+      ただし派生同士の互換性・意味の合意を担保する仕組みはなく、lootproject.com の派生一覧は「コミュニティ投稿・未監査」と明記している。
+    s: [src-loot-agld-source, src-loot-coindesk-2021-09, src-loot-resources, src-loot-platformer-2021-09]
+
+compare:
+  gameplay: {t: "本体にゲームはない。袋を請求・保有・売買し、派生プロジェクトが袋を「入場券」や素材として使う（例: AGLD の請求、能力値・地図・キャラクターの付与、後年の Loot Survivor の装備体系）。", k: fact, s: [src-loot-sourcify, src-loot-resources, src-loot-survivor-repo]}
+  necessity: {t: "誰の許可もなく他人が「Loot 保有者」を参照できること、運営なしで装備と画像が永続的に生成されることには、チェーン上に置く意味がある。ただしゲームを成立させる統計値・ルール・意味は全て外部にあり、それらは中央サーバーでも同じように作れる。", k: analysis, s: [src-loot-sourcify, src-loot-site]}
+  information: {t: "全情報が公開。各袋の中身はトークン ID だけで決まるため、ミント前から全 8000 袋の内容を計算できた（請求者やブロックに依存しない）。", k: fact, s: [src-loot-sourcify]}
+  persistence: {t: "Loot 本体は停止・変更機能を持たず、tokenURI がチェーン上で画像を生成するため、運営不在でも資産と見た目は残る。派生（AGLD・ゲーム）はそれぞれの運営と管理者権限に依存する。", k: fact, s: [src-loot-sourcify, src-loot-agld-source]}
+  extensibility: {t: "許可不要。2022-01 時点で 100 超の派生・ツール、lootproject.com の一覧には参照日に 95 件の派生プロジェクトが載る（コミュニティ投稿・未監査）。", k: fact, s: [src-loot-nonfungible-2022, src-loot-resources]}
+  money_flow: {t: "Hofmann はミント手数料もロイヤリティも取らなかった。初期の利益は二次市場の売買と派生のエアドロップ（AGLD）に生じ、後に保有者投票で 5% のロイヤリティを Loot（Royalty）DAO に入れる仕組みが加わった。", k: fact, s: [src-loot-coindesk-2021-09, src-loot-decrypt-2022, src-loot-nonfungible-2022]}
+  entry_barrier: {t: "当初はガス代とコントラクト直接操作の知識だけで請求できたが、全袋は 4 時間以内に請求され、以後の入手は二次市場（2021-09 初旬のフロア 5.25〜7.5 ETH）が必要になった。無料の Synthetic Loot と More Loot がその障壁への応答として作られた。", k: fact, s: [src-loot-faq, src-loot-coindesk-2021-09, src-loot-platformer-2021-09, src-loot-site]}
+
+concepts: [c-composable-primitive, c-nft-asset, c-permissionless-extension, c-autonomous-world, c-onchain-state, c-fungible-ingame-token, e-royalty-creator, e-points-airdrop]
+proposed_concepts:
+  - {id: c-deterministic-onchain-generation, name: トークン ID からの決定的な内容生成, desc: "資産の中身をトークン ID のハッシュから純関数で導き、画像もコントラクトが描画する。保存も外部サーバーも不要だが、内容はミント前に全て計算可能。"}
+  - {id: e-holder-airdrop-bootstrap, name: 保有者へのエアドロップによる派生の立ち上げ, desc: "既存 NFT の保有者に新トークンや資産を無料配布して、派生プロジェクトの初期利用者と注目を得る。"}
+
+article:
+  what:
+    - {t: "Loot は「冒険者の装備」をランダムに生成しチェーン上に保存した 8000 個の袋で、統計値・画像・その他の機能は他者の解釈に委ねるために意図的に省いた、と自ら説明する。", k: fact, s: [src-loot-site, src-loot-sourcify], q: "Stats, images, and other functionality are intentionally omitted for others to interpret."}
+    - {t: "1 つの袋は 8 行の文字列（例: 武器・胸・頭・腰・足・手・首・指輪）で、黒背景に白い serif 体で書かれた SVG として表示される。一部の装備には「of Power」などの接尾辞、「\"Grim Shout\"」のような名前、「+1」が付き、これが希少性の手がかりになった。", k: fact, s: [src-loot-sourcify]}
+    - {t: "サイトの説明は「Loot を好きなように使ってよい」で終わる。Hofmann は袋を「リストの上の項目にすぎない」と表現し、価値は人々がそれで何をするかで決まると述べた（Platformer の取材）。", k: claim, who: "Dom Hofmann", s: [src-loot-site, src-loot-platformer-2021-09], q: "value doesn't have to be a dollar amount. It can be many things."}
+    - {t: "プレイヤーが「見て・選んで・得る」ものは本体にはなく、袋の保有が派生プロジェクトでの資格（エアドロップの請求権、キャラクター生成、ゲームの装備）になるという関係だけがある。", k: analysis, s: [src-loot-resources, src-loot-agld-source]}
+  loop:
+    - {t: "以下はコントラクトと当時の報道からの再構成（筆者は実際に請求していない）。2021-08-27 の告知を見た参加者が Etherscan からコントラクトの claim(tokenId) を直接呼び、1〜7777 の空き番号を無料（ガス代のみ）で請求する。", k: fact, s: [src-loot-coindesk-2021-09, src-loot-sourcify]}
+    - {t: "請求した袋の中身は tokenURI で即座に見られ、内容がトークン ID だけで決まるため、どの番号にどの装備が入るかは請求前に計算できた。全袋は 4 時間以内に請求された。", k: fact, s: [src-loot-sourcify, src-loot-faq]}
+    - {t: "保有者は派生側のコントラクトで特典を請求する（例: Adventure Gold で 1 袋あたり 10,000 AGLD、Ability Score や Realms などの派生 NFT）。袋を持たない人は Synthetic Loot（アドレスから導出される譲渡不可の仮想袋）や More Loot を使う。", k: fact, s: [src-loot-agld-source, src-loot-platformer-2021-09, src-loot-site]}
+    - {t: "その先の「遊び」は派生次第で、2021-09 時点の評者は「Loot のゲームはまだない」と書いた。後年、Loot Survivor（Starknet）が Loot の装備体系を使ったローグライクとして実装された。", k: fact, s: [src-loot-kohli-2021-09, src-loot-survivor-repo], q: "there is no game for loot yet"}
+  before_after:
+    - {t: "それ以前の NFT プロジェクトは画像・ステータス・ゲームを運営が用意し、意味も運営が定めるのが一般的だった。Loot は逆に、最小限の文字列だけを置いて意味の層を空けた。", k: analysis, s: [src-loot-site, src-loot-coindesk-2021-09]}
+    - {t: "Hofmann は手数料とロイヤリティを取らなかった理由を、プロジェクトの「ボトムアップで共同的な精神」を強めるためと説明した。", k: claim, who: "Dom Hofmann（Decrypt の取材）", s: [src-loot-decrypt-2022], q: "Those decisions were intended as a way to reinforce the bottom-up and communal spirit of the project"}
+    - {t: "Hofmann は自らをリーダーではなく「一人の作り手」と位置づけ、Loot のアイテムが別々の人が作るゲームをまたいで使えるかに関心があると述べた。", k: claim, who: "Dom Hofmann（Platformer の取材）", s: [src-loot-platformer-2021-09], q: "I'm not leading the project"}
+    - {t: "画像と内容をコントラクト内で生成する方式自体は Loot 以前にもあり、Loot の新しさは「統計値も絵も省く」という省略の徹底にあった、と見るのが妥当である。「最初のオンチェーン NFT」と言える根拠は本調査で確認していない。", k: analysis}
+  onchain_tradeoffs:
+    - {t: "生まれた遊び: 誰でも保有者を参照できるため、他人の資産を「入場券」にした派生が許可なく次々に作られた（1 か月で 100 超）。派生作者は既存の保有者集団を初期ユーザーとして得られた。", k: fact, s: [src-loot-nonfungible-2022, src-loot-resources]}
+    - {t: "生まれた遊び: 派生トークン（AGLD）の取引が始まり、袋の保有者は無料で受け取った AGLD を売却できた。初期価格では 1 袋あたり数万ドル相当と報じられた。", k: fact, s: [src-loot-agld-cryptonews, src-loot-kohli-2021-09]}
+    - {t: "増えた不便: 中身が決定的で事前計算可能なため、希少な番号を狙って請求できる構造だった（実際にどの程度狙われたかは未確認）。", k: analysis, s: [src-loot-sourcify]}
+    - {t: "増えた不便: フロントエンドも監査もなく、「自己責任でミント」と告知された。", k: fact, s: [src-loot-coindesk-2021-09], q: "available via contract only. not audited. mint at your own risk"}
+    - {t: "増えた不便: 統計値がないため、各派生が独自に能力値や希少度を定義し、同じ袋の「強さ」が派生ごとに異なった（Ability Score、Divine Stats、Character、Loot Class など複数の能力値系派生が並立）。", k: fact, s: [src-loot-resources, src-loot-coindesk-2021-09]}
+  roles:
+    - {t: "作者（Hofmann）: コントラクトを公開し、手数料を取らず、Discord を管理し、指導を求められれば行うと述べた。7778〜8000 番の未請求分により最大の保有者と報じられたが、参照日の totalSupply は 7779 で、所有者枠は 2 袋しか請求されていない。", k: fact, s: [src-loot-platformer-2021-09, src-loot-rpc-state]}
+    - {t: "派生作者: Will Papper（AGLD）、Andy Chorlian（Ability Score）など。AGLD のコントラクトは Loot DAO に管理機能を提供すると明記し、未監査と注記している。", k: fact, s: [src-loot-coindesk-2021-09, src-loot-agld-source]}
+    - {t: "保有者・DAO: 2021-09 に AGLD 保有者と Loot 保有者のどちらが統治するかで対立し、AGLD を統治トークンとして受け入れる提案が可決された（賛成 832・反対 659 と報道、検索要約）。保有者投票で 5% のロイヤリティが Royalty DAO に導入された。", k: fact, s: [src-loot-kohli-2021-09, src-loot-agld-governance, src-loot-decrypt-2022]}
+    - {t: "エージェント・AI: 派生一覧に「AI-based role-playing descriptions」を掲げる Loot Descriptions があるが、AI エージェントがプレイヤーとして参加した事例は確認できなかった。", k: fact, s: [src-loot-resources]}
+  trajectory:
+    - {t: "2021-08-27 公開、4 時間以内に全袋請求。2021-09 初旬（Platformer の 09-02 記事が「水曜日」に発表と記載）に Synthetic Loot、同月に Adventure Gold が登場した（検索要約では 09-02）。", k: fact, s: [src-loot-coindesk-2021-09, src-loot-faq, src-loot-platformer-2021-09, src-loot-agld-cryptonews]}
+    - {t: "CryptoSlam のデータとして、取引高は 2021-09 の 2.21 億ドルから 10 月には 1200 万ドル未満へ 95% 減少し、累計二次流通は約 2.8 億ドルと報じられた。", k: fact, s: [src-loot-decrypt-2022]}
+    - {t: "2022-01 時点で 7 日間の取引は 200 ETH 未満、1 日の売買は 8 件未満、フロアは 1.75 ETH、保有ウォレットは 2541 だった（NonFungible）。2022-08 のフロアは 0.93 ETH（Decrypt）。", k: fact, s: [src-loot-nonfungible-2022, src-loot-decrypt-2022]}
+    - {t: "2022-06 に Gitcoin で 13 万ドルの Lootverse Round が告知され、Royalty DAO は 2021-12-25 に 25 ETH の遡及的公共財助成を可決した（保有 144 ETH）。", k: fact, s: [src-loot-decrypt-2022, src-loot-nonfungible-2022]}
+    - {t: "2023 年以降、BibliothecaDAO の Loot Survivor が Starknet 上で公開され、2025-05 にもリポジトリが更新されている。参照日の Loot 本体は保有アドレス 2326、24 時間移転 0。", k: fact, s: [src-loot-survivor-repo, src-loot-etherscan-token]}
+  retention_evidence:
+    - {t: "示されている指標: 保有ウォレット数は 2022-01 に 2541、2026-10 に 2326（Etherscan 表示）。保有者の数は大きく減っていないが、取引はほぼ止まっている。", k: fact, s: [src-loot-nonfungible-2022, src-loot-etherscan-token]}
+    - {t: "示されている指標: 派生の数（100 超、一覧 95 件）は「作る側」の関心を示すが、各派生の利用者数や存続は一覧に記載がない。", k: fact, s: [src-loot-nonfungible-2022, src-loot-resources]}
+    - {t: "示されていない指標: Loot 由来のゲームを実際に遊んだ人数、派生をまたいで同じ袋を使った人数、AGLD 受領者の売却率。本体にゲームがないため DAU という概念自体が当てはまらない。", k: unknown}
+    - {t: "保有者の一部が長期に保有し続けていることは、遊びではなく収集・記念・ガバナンス目的でも説明できる。", k: analysis}
+  extensions:
+    - {t: "Adventure Gold（AGLD）: Will Papper による ERC-20。1 袋あたり 10,000 AGLD をシーズンごとに請求でき、DAO が新シーズン・追加発行・Loot アドレス変更を行える設計。参照日の総供給は約 9284 万 AGLD で、袋の請求上限 8000 万を超える分は追加発行による。season は 0 のまま。", k: fact, s: [src-loot-agld-source, src-loot-rpc-state]}
+    - {t: "Synthetic Loot / More Loot / Genesis Loot: アドレス由来の無料・譲渡不可の仮想袋、年間約 25 万袋を無料請求できる mLoot、0.25 ETH の Genesis Loot。", k: fact, s: [src-loot-site, src-loot-platformer-2021-09]}
+    - {t: "Realms (for Adventurers): 8000 個の土地 NFT（参照日 totalSupply 8000）。派生一覧は「@UnchartedAtlas から fork した Realm Wonders」と説明する。後に BibliothecaDAO の Realms / Eternum として Starknet 上で展開された。", k: fact, s: [src-loot-rpc-state, src-loot-resources, src-loot-decrypt-2022]}
+    - {t: "Loot Survivor: Starknet 上の「オンチェーンのアーケードゲーム」。README は装備が「OG loot contract」に基づくと明記し、Cairo で装備体系を再実装している（Ethereum の袋の所有を参照するかは確認していない）。プレイには LORDS を支払う。", k: fact, s: [src-loot-survivor-repo], q: "The items are based off the OG loot contract"}
+    - {t: "その他: 能力値（Ability Score）、地図（Crypts & Caverns 等）、キャラクター、伝承（Loot Lore）、音楽（Tunes）など 95 件が一覧に並ぶ。Decrypt は 1 年後の時点で Crypts & Caverns を利用可能な基盤とし、Loot MMO や Loot 2 を未リリース・構想段階と記した。", k: fact, s: [src-loot-resources, src-loot-decrypt-2022]}
+  constraints:
+    - {t: "意味の合意がない: 統計値を省いたことで、各派生が互換性のない能力値・希少度を定義し、袋の「同じアイテムが別のゲームで同じ意味を持つ」状態は自動的には生まれない。", k: analysis, s: [src-loot-resources]}
+    - {t: "ガバナンスの空白: 本体に統治機構がないため、派生トークン（AGLD）の保有者と袋の保有者が統治権を争い、派生の管理者権限（無制限の追加発行など）が実質的な権力になった。", k: fact, s: [src-loot-kohli-2021-09, src-loot-agld-source]}
+    - {t: "Hofmann は、コントラクト所有者が事実上の権威であり続けることを懸念した。参照日でも所有権は放棄されていない。", k: claim, who: "Dom Hofmann（The Defiant の記事内）", s: [src-loot-defiant-keys, src-loot-rpc-state], q: "I worry that the contract owner is and always will be the de facto authority ('the church') on Loot"}
+    - {t: "投機の先行: 高いフロア価格が「遊ぶための資産」を高額化した。Hofmann 自身、NFT がなければ遊べないのはおかしいと述べ、Synthetic Loot を作った。", k: claim, who: "Dom Hofmann（CoinDesk の記事内）", s: [src-loot-coindesk-2021-09], q: "you shouldn't need an NFT to play anything"}
+    - {t: "派生が Ethereum mainnet のガス代を避けて別チェーン（Starknet）へ移ると、元の袋との接続はブリッジや再実装に依存し、「同じ資産を共有する世界」は分断される。", k: analysis, s: [src-loot-survivor-repo]}
+  principles:
+    - {t: "意図的な未完成（最小プリミティブ）: 統計値・絵・ルールを省いた資産を許可不要で公開すると、第三者が「意味の層」を作る余地が生まれ、短期間に多数の派生が集まる。適用条件は資産の参照が誰でも無料でできること、初期配布が広いこと（無料請求）。破綻条件は意味の合意を調停する仕組みがない場合で、派生は並立するだけで相互に接続せず、関心は投機の波とともに去る（取引高は 1 か月で 95% 減）。", k: analysis, s: [src-loot-site, src-loot-resources, src-loot-decrypt-2022]}
+    - {t: "保有者エアドロップによる派生の立ち上げ: 派生作者が既存の保有者にトークンを無料配布すると、初日から利用者と注目を得られる（AGLD）。適用条件は配布先の集団が活発であること。破綻条件は受領者が即座に売却する場合で、派生トークンの保有者が元資産の保有者と対立する統治問題を生む。", k: analysis, s: [src-loot-agld-source, src-loot-kohli-2021-09]}
+    - {t: "決定的な内容生成: トークン ID のハッシュから内容と画像をコントラクト内で生成すると、ストレージも外部サーバーも不要で永続性が高い。適用条件は内容が小さな語彙の組合せで表せること。破綻条件は公平な配布が必要な場合で、内容はミント前に計算できるため希少番号の狙い撃ちを防げない。", k: analysis, s: [src-loot-sourcify]}
+    - {t: "無料・仮想の写し（Synthetic Loot）で参加障壁を下げる: 元資産が高騰したとき、アドレスから導出される譲渡不可の写しを派生側が「認める」ことで参加を広げられる。破綻条件は派生側が写しを認めない場合で、Hofmann も「認めるかは作り手が選べる」と述べており強制力はない。", k: analysis, s: [src-loot-platformer-2021-09]}
+  counter_evidence:
+    - {t: "派生の数は多いが、1 年後の振り返りでも主要なゲーム（Realms: Eternum、Loot MMO）は開発・テスト段階で、Loot 2 は構想に留まった。「最小プリミティブが豊かな世界を生む」という解釈に対し、派生の多くは告知・ミントで止まった。", k: fact, s: [src-loot-decrypt-2022]}
+    - {t: "最も遊ばれた派生（Loot Survivor）は Ethereum 上の袋の所有を前提にせず、装備体系を Starknet で再実装し、独自トークン（LORDS）で運営している。Loot の価値は「コントラクトの再利用」より「名前と世界観（語彙）の再利用」にあった可能性があり、それならブロックチェーン上の資産である必然性は弱い。", k: analysis, s: [src-loot-survivor-repo]}
+    - {t: "熱狂の時期（2021-08〜09）は NFT 市場全体の高騰期と重なり、Loot の設計の効果と市場全体の投機を分離できない。CoinDesk は当時から投機バブルの懸念と粗雑な模倣の多さを指摘していた。", k: fact, s: [src-loot-coindesk-2021-09]}
+    - {t: "Hofmann は「教会」を作らないために鍵の焼却を議論したが、参照日でも所有権は残り、統治は派生トークン側に移った。運営不在の設計が、別の中心（AGLD の管理者・DAO）を生んだ。", k: fact, s: [src-loot-defiant-keys, src-loot-rpc-state, src-loot-kohli-2021-09]}
+
+metrics:
+  - {id: m-loot-supply-2026, type: other, value: 7779, unit: bags, period: "2026-10-23 時点", definition: "Loot.totalSupply() の eth_call 結果（筆者取得）。公開請求枠 7777 ＋所有者枠 2", nature: measured, s: [src-loot-rpc-state]}
+  - {id: m-loot-holders-2026, type: wallets, value: 2326, unit: addresses, period: "2026-10-23 時点", definition: "Etherscan が表示する保有アドレス数", nature: measured, s: [src-loot-etherscan-token]}
+  - {id: m-loot-holders-2022, type: wallets, value: 2541, unit: wallets, period: "2022-01", definition: "1 つ以上保有するウォレット数（NonFungible）", nature: measured, s: [src-loot-nonfungible-2022]}
+  - {id: m-loot-volume-2021-09, type: nft_sales, value: 221000000, value_text: "2.21 億ドル", unit: USD, period: "2021-09", definition: "月間取引高（CryptoSlam、Decrypt の引用）", nature: measured, s: [src-loot-decrypt-2022]}
+  - {id: m-loot-volume-2021-10, type: nft_sales, value: 12000000, value_text: "1200 万ドル未満", unit: USD, period: "2021-10", definition: "月間取引高（CryptoSlam、Decrypt の引用）", nature: measured, s: [src-loot-decrypt-2022]}
+  - {id: m-loot-volume-total-2022, type: nft_sales, value: 280000000, value_text: "約 2.8 億ドル", unit: USD, period: "2021-08〜2022-08", definition: "累計二次流通額（Decrypt）", nature: measured, s: [src-loot-decrypt-2022]}
+  - {id: m-loot-floor-2021-09, type: other, value: 7.5, value_text: "最高 7.5 ETH（執筆時 5.25 ETH）", unit: ETH, period: "2021-08-27〜2021-09-02", definition: "OpenSea のフロア価格（CoinDesk）", nature: measured, s: [src-loot-coindesk-2021-09]}
+  - {id: m-loot-floor-2022-01, type: other, value: 1.75, unit: ETH, period: "2022-01", definition: "フロア価格（NonFungible）", nature: measured, s: [src-loot-nonfungible-2022]}
+  - {id: m-loot-floor-2022-08, type: other, value: 0.93, unit: ETH, period: "2022-08", definition: "フロア価格（Decrypt）", nature: measured, s: [src-loot-decrypt-2022]}
+  - {id: m-loot-derivatives-2022, type: other, value: 100, value_text: "100 超", unit: projects, period: "公開から約 1 か月（2022-01 記事）", definition: "Loot に基づく・周辺の派生プロジェクトとツールの数（NonFungible の記述）", nature: estimated, s: [src-loot-nonfungible-2022]}
+  - {id: m-loot-derivatives-list, type: other, value: 95, unit: projects, period: "参照日 2026-10-23", definition: "lootproject.com/resources の Derivative Projects 掲載数（コミュニティ投稿・未監査）", nature: measured, s: [src-loot-resources]}
+  - {id: m-loot-agld-supply, type: other, value: 92840001, value_text: "約 9284 万 AGLD", unit: AGLD, period: "2026-10-23 時点", definition: "AdventureGold.totalSupply() の eth_call（筆者取得）。袋 8000×10,000 = 8000 万が請求上限で、差分は daoMint 等による", nature: measured, s: [src-loot-rpc-state]}
+  - {id: m-loot-royalty-dao-2022, type: other, value: 144, unit: ETH, period: "2022-01", definition: "Loot Royalty DAO の保有額（NonFungible）", nature: reported, s: [src-loot-nonfungible-2022]}
+  - {id: m-loot-gitcoin-2022, type: grants, value: 130000, unit: USD, period: "2022-06", definition: "Gitcoin の Lootverse Round（Loot プロジェクト資金、Decrypt）", nature: reported, s: [src-loot-decrypt-2022]}
+
+events:
+  - {id: ev-loot-launch, date: "2021-08-27", type: launch, title: "Loot をツイートで公開", detail: "no fee, just gas。8000 袋、コントラクト直接操作のみ", s: [src-loot-coindesk-2021-09, src-loot-platformer-2021-09]}
+  - {id: ev-loot-synthetic, date: "2021-09", type: release, title: "Synthetic Loot 公開", detail: "Platformer（2021-09-02）は「水曜日」に発表と記載", s: [src-loot-platformer-2021-09]}
+  - {id: ev-loot-agld, date: "2021-09", type: release, title: "Adventure Gold（AGLD）公開", detail: "1 袋あたり 10,000 AGLD の請求。検索要約では 2021-09-02 公開", s: [src-loot-agld-cryptonews, src-loot-agld-source]}
+  - {id: ev-loot-agld-gov, date: "2021-09", type: other, title: "AGLD を統治トークンとする提案が可決", detail: "Loot 保有者と AGLD 保有者の対立", s: [src-loot-kohli-2021-09, src-loot-agld-governance]}
+  - {id: ev-loot-royalty-grant, date: "2021-12-25", type: other, title: "Royalty DAO の遡及的公共財助成 Round 1 可決（25 ETH）", s: [src-loot-nonfungible-2022]}
+  - {id: ev-loot-gitcoin, date: "2022-06", type: other, title: "Gitcoin で Lootverse Round（13 万ドル）を告知", s: [src-loot-decrypt-2022]}
+
+relations:
+  - {to: loot-survivor, type: similar-to, basis: confirmed, note: "Loot Survivor 側から見て Loot の派生（README が OG loot contract に基づくと明記）", s: [src-loot-survivor-repo]}
+  - {to: realms-eternum, type: similar-to, basis: analytic, note: "Realms (for Adventurers) は Loot 派生の土地 NFT で、Eternum はその系譜（Decrypt 2022 が Realms: Eternum を Lootverse のゲームとして紹介）。"}
+  - {to: dope-wars-roll-your-own, type: similar-to, basis: analytic, note: "Dope Wars は Loot 形式の派生として知られるが、本調査では一次資料で未確認"}
+  - {to: autonomous-worlds-essay, type: similar-to, basis: analytic, note: "運営不在で第三者が意味を足す世界という発想が重なる。影響関係は未確認"}
+  - {to: cryptokitties, type: contrasts-with, basis: analytic, note: "CryptoKitties は外見の解釈を運営が持ち、Loot は意味付けを全て第三者に委ねた"}
+  - {to: c-composable-primitive, type: built-with, basis: confirmed, note: "統計値・画像を意図的に省いて他者の解釈に委ねると明言", s: [src-loot-site]}
+  - {to: c-permissionless-extension, type: built-with, basis: confirmed, note: "AGLD など第三者コントラクトが Loot の所有を許可なく参照", s: [src-loot-agld-source]}
+
+unknowns:
+  - "Dom Hofmann の公開ツイート原文（x.com は取得不可。CoinDesk・Platformer の引用で代替）。"
+  - "Loot DAO / Royalty DAO の現状（財務、提案、マルチシグ構成）。公式ドキュメントは見つからなかった。"
+  - "鍵（所有権）焼却の投票結果。参照日に所有権は残っているが、投票が否決されたのか未実行なのかは不明。"
+  - "希少な番号の狙い撃ち請求が実際に起きたか。請求者の分布。"
+  - "Loot Survivor が Ethereum の Loot 袋の保有を特典等で参照しているか。Loot Survivor の正確な mainnet 公開日。"
+  - "派生 95 件のうち、実際に稼働した・現在も稼働しているものの数。"
+  - "AGLD の追加発行（約 1284 万）の時期と用途。"
+contradictions:
+  - {t: "フロア価格の時点差: CoinDesk（2021-09-02）は最高 7.5 ETH、CoinMarketCap（検索要約）は 2021-09-08 に 8.56 ETH、AMBCrypto（日付不明、検索要約）は 11.6 ETH と記載。", s: [src-loot-coindesk-2021-09]}
+  - {t: "所有者の保有: Platformer（2021-09）は Hofmann が未公開の数百袋により最大の保有者と報じたが、参照日の totalSupply は 7779 で、所有者枠 223 袋のうち 2 袋しか請求されていない。", s: [src-loot-platformer-2021-09, src-loot-rpc-state]}
+  - {t: "装備の数: Kohli は「7 つのランダムな単語」と書くが、コントラクトは 8 部位（武器・胸・頭・腰・足・手・首・指輪）を生成する。", s: [src-loot-kohli-2021-09, src-loot-sourcify]}
+
+sources:
+  - {id: src-loot-sourcify, title: "Loot verified source (Ethereum mainnet 0xFF9C1b15B16263C61d017ee9F65C50e4AE0113D7)", url: "https://sourcify.dev/server/v2/contract/1/0xFF9C1b15B16263C61d017ee9F65C50e4AE0113D7?fields=sources", publisher: "Sourcify", type: code, primary: true, published: "2021-08", accessed: "2026-10-23", access: fetched, lang: en, note: "claim / ownerClaim、pluck（greatness）、tokenURI の SVG 生成、説明文"}
+  - {id: src-loot-rpc-state, title: "Ethereum JSON-RPC eth_call against Loot, AdventureGold and Realms (publicnode)", url: "https://ethereum-rpc.publicnode.com/", publisher: "PublicNode RPC", type: onchain-data, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "筆者が eth_call で取得: Loot totalSupply 7779・owner 0xbf7e…995e、AGLD totalSupply 92,840,001・season 0・owner 0xed4f…7ef9、Realms (for Adventurers) totalSupply 8000"}
+  - {id: src-loot-etherscan-token, title: "Loot (LOOT) token tracker", url: "https://etherscan.io/token/0xff9c1b15b16263c61d017ee9f65c50e4ae0113d7", publisher: "Etherscan", type: onchain-data, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "保有者 2326、最大総供給 7779、24 時間移転 0"}
+  - {id: src-loot-site, title: "Loot", url: "https://www.lootproject.com/", publisher: "lootproject.com (community maintained)", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "説明文、契約アドレス、mLoot・Synthetic・Genesis Loot、Rings / Rift"}
+  - {id: src-loot-faq, title: "Loot FAQ", url: "https://www.lootproject.com/faq", publisher: "lootproject.com (community maintained)", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "Dom Hofmann が公開、ガス代のみ・4 時間以内に全袋請求、未監査、7778〜8000 は deployer 枠"}
+  - {id: src-loot-resources, title: "Loot Resources", url: "https://www.lootproject.com/resources", publisher: "lootproject.com (community maintained)", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "Derivative Projects 95 件（コミュニティ投稿・未監査）"}
+  - {id: src-loot-agld-source, title: "AdventureGold verified source (0x32353A6C91143bfd6C7d363B546e62a9A2489A20)", url: "https://sourcify.dev/server/v2/contract/1/0x32353A6C91143bfd6C7d363B546e62a9A2489A20?fields=sources", publisher: "Sourcify", author: "Will Papper", type: code, primary: true, published: "2021-09", accessed: "2026-10-23", access: fetched, lang: en, note: "1 袋 10,000 AGLD、シーズン制、daoMint・Loot アドレス変更、未監査の注記"}
+  - {id: src-loot-coindesk-2021-09, title: "The Latest NFT Fad Is a Text-Based Fantasy Game Building Block", url: "https://www.coindesk.com/tech/2021/09/01/the-latest-nft-fad-is-a-text-based-fantasy-game-building-block/", publisher: "CoinDesk", author: "Andrew Thurman", type: news, primary: false, published: "2021-09-02", accessed: "2026-10-23", access: fetched, lang: en, note: "Hofmann のツイート引用、無料・ロイヤリティなし、フロア 7.5→5.25 ETH、派生、投機への懸念"}
+  - {id: src-loot-platformer-2021-09, title: "Loot is a viral social network that looks like nothing you've ever seen", url: "https://www.platformer.news/loot-is-a-viral-social-network-that/", publisher: "Platformer", author: "Casey Newton", type: interview, primary: false, published: "2021-09-02", accessed: "2026-10-23", access: fetched, lang: en, note: "Hofmann の発言（実験、リーダーではない、Synthetic Loot）、最大保有者との報道"}
+  - {id: src-loot-kohli-2021-09, title: "What's up with Loot?", url: "https://kermankohli.substack.com/p/whats-up-with-loot", publisher: "Kerman Kohli (Substack)", author: "Kerman Kohli", type: analysis, primary: false, published: "2021-09-08", accessed: "2026-10-23", access: fetched, lang: en, note: "Loot 保有者と AGLD 保有者の統治対立、「ゲームはまだない」"}
+  - {id: src-loot-agld-cryptonews, title: "Gaming Token 'Adventure Gold' Listed Amid 'Loot' NFT Buzz", url: "https://cryptonews.com/news/gaming-token-adventure-gold-listed-amid-loot-nft-buzz/", publisher: "Cryptonews", type: news, primary: false, published: "2021-09", accessed: "2026-10-23", access: snippet, lang: en, note: "検索要約のみ: 2021-09-02 公開、1 袋 10,000 AGLD、初期価格で最大 7 万ドル相当"}
+  - {id: src-loot-agld-governance, title: "The Loot Community Supports $AGLD to Become a Community Governance Token Temporarily Leading the Way", url: "https://tokeninsight.com/en/news/the-loot-community-supports-agld-to-become-a-community-governance-token-temporarily-leading-the-way", publisher: "TokenInsight", type: news, primary: false, published: "2021-09", accessed: "2026-10-23", access: snippet, lang: en, note: "検索要約のみ: 賛成 832・反対 659"}
+  - {id: src-loot-defiant-keys, title: "The Founder of LOOT Wants to Throw Away the Keys to the Contract", url: "https://thedefiant.io/news/nfts-and-web3/loot-nft-keys", publisher: "The Defiant", author: "Brady Dale", type: news, primary: false, accessed: "2026-10-23", access: fetched, lang: en, note: "冒頭のみ取得（本文は読み込み中）。Hofmann の「教会」発言。投票の詳細は検索要約のみ"}
+  - {id: src-loot-nonfungible-2022, title: "The derivatives of Loot (for Adventurers)", url: "https://nonfungible.com/blog/the-derivatives-of-loot-for-adventurers", publisher: "NonFungible.com", type: analysis, primary: false, published: "2022-01-18", accessed: "2026-10-23", access: fetched, lang: en, note: "100 超の派生、7 日 200 ETH 未満、フロア 1.75 ETH、2541 ウォレット、Royalty DAO 144 ETH"}
+  - {id: src-loot-decrypt-2022, title: "Loot, One Year Later: The NFT Hype Is Dead—But 'Lootverse' Hope Lives On", url: "https://decrypt.co/108354/loot-one-year-later-nft-hype-dead-lootverse-hope-lives-on", publisher: "Decrypt", author: "Andrew Hayward", type: retrospective, primary: false, published: "2022-08-26", accessed: "2026-10-23", access: fetched, lang: en, note: "取引高 95% 減（CryptoSlam）、フロア 0.93 ETH、Hofmann の発言、Eternum・Loot MMO・Loot 2 の状況、5% ロイヤリティ、Gitcoin"}
+  - {id: src-loot-survivor-repo, title: "BibliothecaDAO/loot-survivor", url: "https://github.com/BibliothecaDAO/loot-survivor", publisher: "GitHub (BibliothecaDAO)", type: code, primary: true, published: "2025-05", accessed: "2026-10-23", access: fetched, lang: en, note: "git clone（最終コミット 2025-05-06）。README: OG loot に基づく装備、Starknet、Cairo、Apibara、LORDS、Pragma VRF"}

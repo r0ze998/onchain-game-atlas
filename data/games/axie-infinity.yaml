@@ -1,0 +1,292 @@
+id: axie-infinity
+name: Axie Infinity
+name_ja: アクシー・インフィニティ
+aliases: [Axie, "Axie Infinity: Classic", "Axie Infinity: Origins", "Axie Infinity: Homeland", "Atia's Legacy"]
+kind: game
+depth: deep
+updated: "2026-10-23"
+chains: [Ethereum, Loom Network (旧マーケット), Ronin]
+team: "Sky Mavis（共同創業者として運営は Jeff (Jihoz), Andy, Trung, Tu (Masamune), Aleks (Psycheout) を挙げる）"
+summary: >-
+  Axie Infinity は、遺伝子（体のパーツ）を持つ収集キャラクター Axie を NFT として所有し、3 体のチームでカード対戦を行い、
+  報酬トークン SLP と運営トークン AXS を使って Axie を繁殖させるゲーム群である。2021 年に運営発表で日次 200 万人超まで急拡大し、
+  「Play-to-Earn」とスカラーシップ（資産の貸し出しと報酬分配）を大衆化した一方、SLP の発行超過による価格崩落、
+  自前サイドチェーン Ronin のブリッジから約 6 億ドル相当が流出した事件を経験した。経済設計・チェーン設計の成功と失敗の両方が
+  一つの運営の公開記録として残っている点で、設計史上の基準例である。
+selection_reason: >-
+  P2E・二層トークン・スカラーシップ・ゲーム専用チェーンという 4 つの論点が一つの作品に集中しており、運営自身が経済調整の理由と数値を
+  ブログで逐次公開しているため、「何を試し、何が起き、どう直したか」を一次資料で追える。成功例としてではなく、報酬トークン経済の
+  破綻条件とその後の再設計（SLP 上限・非譲渡報酬 bAXS・評判スコア）を記録する対象として選んだ。
+categories:
+  - {id: p2e, role: primary, reason: "遊びで換金可能な SLP/AXS を得る設計と、その発行・消費の調整の歴史が中心"}
+  - {id: assets, role: secondary, reason: "Axie・Land・Rune/Charm などのゲーム資産を NFT として発行・二次流通させる"}
+  - {id: infra, role: secondary, reason: "Ethereum の手数料を避けるため専用サイドチェーン Ronin を構築し、ブリッジ事件の当事者となった"}
+status:
+  value: active
+  as_of: "2026-10"
+  note: "2026-09-30 に Origins Season 19 が開始、Classic は IP を Axie Foundation に移してコミュニティが開発できるようにする手続き中、Land は 2026-06 に Homeland を終了して Terrariums に移行、新作 MMORPG Atia's Legacy はプレイテスト段階（いずれも運営ブログによる）。"
+  s: [src-axie-blog-origins-s19, src-axie-blog-terrariums-v1, src-axie-blog-lounge-2026-10]
+dates:
+  announced: {date: "2018-02", s: [src-axie-blog-seriesb], note: "運営は「Axie was born in February 2018」と記述。正式な発表日・初公開日は未確認"}
+  launched: {date: "2018", s: [src-axie-wp-contracts], note: "2018 年に Origin Axie のプレセール用コントラクトが使われた（Ethereum）。ゲームとしての正式ローンチ日は特定できなかった"}
+
+architecture:
+  onchain:
+    level: partial-rules
+    detail: >-
+      チェーン上にあるのは Axie（ERC-721）・Land・アイテム・Rune/Charm（ERC-1155）、AXS と SLP（ERC-20）、繁殖・マーケット・ステーキング・
+      報酬請求のコントラクトである。繁殖はコントラクトで実行され SLP と AXS を消費する。対戦の判定、報酬額の計算、シーズン順位、
+      Homeland/Terrariums の進行、bAXS 以前のゲーム内通貨などはサーバー側にあり、報酬は Claim Reward コントラクトで請求する形をとる。
+      Homeland について運営は、オンチェーン要素は Land NFT と Land アイテムの配置だけだと明言している。
+    s: [src-axie-wp-contracts, src-axie-blog-homeland-alpha, src-axie-blog-greatreset, src-axie-blog-origins-s1]
+  offchain:
+    - {item: "対戦（Classic / Origins）の判定・マッチング・MMR・報酬計算は運営のゲームサーバーとアカウント（Sky Mavis Account / メールとパスワード）で行う（判定のサーバー実行は第三者分析の記述）", s: [src-axie-blog-origin-launch, src-cg-scholarship-study, src-axie-naavik-df]}
+    - {item: "Origins の Rune/Charm は「Sealed（NFT 化不可）」のものと、168 時間待って Ronin にミントできるものに分かれる", s: [src-axie-blog-origins-s1]}
+    - {item: "Terrariums の燃料 Lunium はオフチェーン資源で、ゲーム内ショップで購入する", s: [src-axie-blog-terrariums-v1]}
+    - {item: "Premium Cursed Coliseum に入金した SLP はゲーム内でのみ使え、引き出し不可（2024-01 時点）", s: [src-axie-blog-slp-classic]}
+    - {item: "Axie Score（評判スコア）はオフチェーンで計算され、高スコア者へのステーキング報酬は手動のスナップショットとエアドロップで配る", s: [src-axie-blog-axs-staking-revamp, src-axie-blog-axie-score]}
+    - {item: "ボット・マルチアカウントの検出と BAN は運営判断", s: [src-axie-blog-season20, src-axie-blog-origins-s19]}
+  admin:
+    level: significant
+    detail: >-
+      運営は SLP の発行量（アドベンチャー・デイリークエスト報酬の廃止、MMR 別報酬）と繁殖手数料を一方的に変更してきた。2022-08 には
+      マーケットコントラクトを差し替え全出品を取り下げた。SLP の供給上限 440 億は「社会契約」とゲーム内発行で守るとされ、
+      コントラクトでは強制されない。SLP 買い戻し基金はコアチームが管理するウォレットに置かれた。Ronin のバリデータ選定・ブリッジ停止も運営側で行われた。
+      2025 年以降は AXS ステーキング報酬の配分変更、Ronin Waypoint ウォレットの終了も運営判断で実施されている。
+    s: [src-axie-blog-season20, src-axie-blog-breedingadjustment, src-axie-blog-greatreset, src-axie-blog-slpcap, src-axie-blog-securing-ronin, src-axie-blog-axs-staking-revamp, src-axie-blog-waypoint-sunset]
+  open_source:
+    level: partial
+    detail: >-
+      GitHub の axieinfinity 組織で、初期の公開コントラクト（2018）、Ronin のノード実装（アーカイブ済み）、Ronin のブリッジ・DPoS コントラクト、
+      ゲーム制作用のスターターキットやアセットキットが公開されている。対戦ロジック・ゲームサーバー・Origins クライアントのソースは確認できなかった。
+    url: "https://github.com/axieinfinity"
+    s: [src-axie-github-org]
+  extensibility:
+    level: official-api
+    detail: >-
+      運営は「アートと遺伝子データは第三者が容易にアクセスできる」とし、査定ツール・マーケット検索・情報サイトなどの第三者ツールが多数作られた。
+      2022 年の Builders Program では選抜チームに助成（AXS）・パートナー向け API・Ronin ウォレット連携を提供したが、外部チームの作品を
+      ゲームルールとして取り込む仕組み（許可不要のコントラクト拡張）はない。初期のファンメイドのミニゲームは Ronin 移行後に終了した。
+    s: [src-axie-wp-master, src-axie-wp-thirdparty, src-axie-blog-builders, src-axie-blog-link-directory]
+
+compare:
+  gameplay: {t: "Axie 3 体のチームで行うターン制カード対戦（体のパーツがカードを決める）と、2 体の Axie から新しい Axie を作る繁殖が中心。後に土地経営（Homeland→Terrariums）、MMORPG（Atia's Legacy）のプレイテストが加わった。", k: fact, s: [src-axie-wp-battling, src-axie-wp-breeding, src-axie-blog-terrariums-v1]}
+  necessity: {t: "運営自身が「P2E の仕組みに完全に分散化された公開チェーンは不要」と述べており、オンチェーン化の主目的はルールの検証ではなく、資産の所有・希少性・外部市場での換金に置かれている。換金可能性がスカラーシップ市場を生んだ点では必然性があったが、対戦自体はチェーンなしでも成立する。", k: analysis, s: [src-axie-wp-technology]}
+  information: {t: "資産の所有・取引・繁殖履歴・トークン発行はチェーン上で公開され、第三者が SLP の発行量と消費量を集計できた。対戦の内部状態・マッチング・ボット判定・報酬計算の根拠は運営サーバー内で非公開。", k: fact, s: [src-axie-blog-dev-journal-econ, src-axie-blog-season20, src-axie-wp-contracts]}
+  persistence: {t: "NFT とトークンは運営停止後もチェーン上に残るが、遊ぶための対戦サーバー・アカウント・報酬計算は運営に依存する。実際に Homeland の終了（2026-06）、ファンメイドミニゲームの消滅が起きている。資産の保管も運営のサービスに依存し得る: 2026-10 には Ronin Waypoint（ソーシャルログイン・MPC）ウォレットの終了に伴い、期限までに移さない資産はアクセス不能になり得ると運営が告知した。", k: fact, s: [src-axie-blog-classic-back, src-axie-blog-terrariums-v1, src-axie-blog-builders, src-axie-blog-waypoint-sunset]}
+  extensibility: {t: "公開チェーンデータを読む分析ツール・ギルド管理ツール・トラッカーが多数あり、運営もリンク集で紹介している。ゲーム体験の拡張は Builders Program など運営の選抜・許可を経る形に限られる。", k: fact, s: [src-axie-blog-link-directory, src-axie-blog-builders]}
+  money_flow: {t: "新規参加者が既存プレイヤーから Axie を買い、既存プレイヤーは対戦で得た SLP を売る。マーケット手数料 4.25% と繁殖の AXS 部分はコミュニティ・トレジャリーへ入る。外部からの資金流入が既存プレイヤーの換金を支える構造だと報道は指摘している。", k: fact, s: [src-axie-blog-treasury-2020, src-theblock-axie-money]}
+  entry_barrier: {t: "対戦には Axie 3 体が必要で、2021-08 時点で対戦に耐えるチームは最低 1,500 ドル程度と推定された。2022 年の Origin 以降は無料のスターター Axie（非 NFT）で始められる。Ronin ウォレットの作成と ETH の入手も必要。", k: fact, s: [src-cg-scholarship-study, src-axie-blog-origin-launch]}
+
+concepts: [c-nft-asset, c-fungible-ingame-token, c-own-chain, c-client-plugins, m-breeding, m-collectible-cards, m-seasons, m-land, m-farming-idle, e-p2e, e-dual-token, e-scholarship, e-sink-faucet, e-entry-fee-prize, e-grants-subsidy]
+
+article:
+  what:
+    - {t: "プレイヤーは Axie と呼ばれる生き物を NFT として所有する。各 Axie は 6 つの体のパーツと体型を持ち、各パーツに優性・劣性 2 段の計 3 つの遺伝子がある。", k: fact, s: [src-axie-wp-breeding]}
+    - {t: "Classic（2019-12 公開）は 3 体の Axie でチームを組むターン制カードバトルで、Axie は自分のパーツに対応するカードを引き、プレイヤーはその使う順番とタイミングを選ぶ。", k: fact, s: [src-axie-wp-battling]}
+    - {t: "勝利やクエストの報酬として ERC-20 の SLP（Smooth Love Potion）が、リーダーボード上位には AXS（Axie Infinity Shards、総供給 2 億 7,000 万）が配られた。SLP は繁殖で消費される。", k: fact, s: [src-axie-wp-battling, src-axie-wp-axs-alloc, src-axie-blog-breedingadjustment]}
+    - {t: "運営は Classic を「ゲーム内資源を ERC-20 として配った最初のゲーム」と主張している。", k: claim, who: "運営 (Sky Mavis)", s: [src-axie-wp-battling], q: "Classic was the first game ever to distribute in-game resources as ERC20 tokens."}
+    - {t: "2022 年以降は Origins（Classic の作り直し）、土地を使う Homeland（2026-06 終了）と後継の Terrariums、MMORPG の Atia's Legacy（プレイテスト）へと「同じ NFT を複数の遊びで使う」形に広がった。", k: fact, s: [src-axie-wp-battling, src-axie-blog-terrariums-v1, src-axie-blog-atias-founders]}
+  loop:
+    - {t: "（2021 年の Classic を運営資料から再構成）プレイヤーはマーケットで Axie を 3 体買う（またはスカラーシップで借りる）。毎日エネルギーの範囲で PvE のアドベンチャーと PvP のアリーナを遊び、デイリークエストを達成して SLP を受け取る。", k: fact, s: [src-axie-blog-season20, src-cg-scholarship-study]}
+    - {t: "PvP では MMR が高いほど 1 勝あたりの SLP が多かった（Season 20 変更前は 2000 以上で 18 SLP、1100–1299 で 6 SLP）。2022-02 以前はアドベンチャーで 1 日 50 SLP、デイリークエストでも SLP が得られた。", k: fact, s: [src-axie-blog-season20]}
+    - {t: "貯めた SLP は外部市場で売るか、繁殖に使う。繁殖は 2 体の親で SLP（繁殖回数ごとに増える）と AXS を払い、5 日で成体になる卵を得る。1 体の繁殖は最大 7 回で、親子・兄弟間の繁殖はできない。", k: fact, s: [src-axie-wp-breeding]}
+    - {t: "生まれた Axie は自分のチーム強化に使うか、マーケットで新規参加者に売る。つまり一巡は「対戦→SLP→繁殖→Axie 販売→新規参加者が対戦を始める」で閉じる。", k: analysis, s: [src-axie-blog-breedingadjustment, src-theblock-axie-money]}
+    - {t: "Origins では Rune/Charm の作成（SLP を消費し、一部は NFT 化可能）と 60 日のシーズン制リーダーボード（AXS、Season 17 以降は非譲渡の bAXS）が中心になった。", k: fact, s: [src-axie-blog-origins-s1, src-axie-blog-origins-s19]}
+  before_after:
+    - {t: "CryptoKitties（2017）は繁殖と所有を示したが遊び方は収集・取引が中心だった。Axie は同じ繁殖型 NFT に対戦の用途と、対戦で得る換金可能な報酬トークンを加えた。", k: analysis}
+    - {t: "Ethereum 上では手数料が高く、運営は 2021-02 の Ronin メインネット公開時に「高い取引手数料」を重圧として挙げ、まず Land・アイテムから移行を始めた（Ronin 以後に取引頻度がどれだけ上がったかの一次データは本調査では確認していない）。", k: fact, s: [src-axie-blog-ronin-mainnet]}
+    - {t: "それ以前のゲームでもアカウント共有や資産の貸し借りは規約違反として扱われることが多かったが、Axie では運営がスカラー（借り手）とマネージャー（貸し手）を公式に共同体の役割として挙げた。", k: fact, s: [src-axie-blog-october-2021, src-cg-scholarship-study]}
+    - {t: "運営は「スカラーシップモデルの発明」が仕事の未来を変えるとまで主張した。", k: claim, who: "運営 (Sky Mavis)", s: [src-axie-blog-seriesb], q: "The invention of the scholarship model is redefining the future of work and has created hundreds of thousands of jobs in countries severely impacted by the pandemic."}
+  onchain_tradeoffs:
+    - {t: "Axie と SLP が外部で換金できたことで、資本を持つ人（マネージャー）と時間を持つ人（スカラー）の間に貸借市場が生まれた。ウォレットの資産はマネージャーが持ち、スカラーにはゲームのログイン情報だけを渡すことで、資産を移されずに貸せた。", k: fact, s: [src-cg-scholarship-study], q: "In most traditional games, this would violate the terms of service, but not Axie Infinity."}
+    - {t: "一方で報酬の価値が外部市場で決まるため、運営はトークンの発行量・消費量を中央銀行のように調整し続ける必要が生じた。運営共同創業者 Jeff Zirlin も報道で自らを「バンカー」と表現している。", k: fact, s: [src-theblock-axie-money]}
+    - {t: "自前サイドチェーンで手数料は下がったが、少数のバリデータとブリッジに資産が集中した。2022-03-23、Sky Mavis と Axie DAO のバリデータ鍵が奪われ、ブリッジから 173,600 ETH と 2,550 万 USDC が引き出された。運営は少ないバリデータ数を根本原因と認めた。", k: fact, s: [src-axie-blog-funding-2022], q: "The root cause of the breach was the small validator set which made it much easier to compromise the network."}
+    - {t: "流出は 6 日後の 03-29、ユーザーの 5,000 ETH の出金失敗の報告で発覚した。報道によれば、9 バリデータのうち 5 署名で出金が承認される構成で、2021-11 に Axie DAO が Sky Mavis に与えた署名代行の許可が取り消されていなかった。", k: fact, s: [src-rekt-ronin, src-bleeping-fbi-ronin]}
+    - {t: "SLP 上限 440 億や評判スコアのように、後の再設計の多くはコントラクトではなく運営の約束・オフチェーン計算で実装された。オンチェーン資産の上に置いたルールの信頼は、結局運営への信頼に依存している。", k: analysis, s: [src-axie-blog-slpcap, src-axie-blog-axie-score]}
+  roles:
+    - {t: "運営（Sky Mavis）はゲーム開発に加え、SLP/AXS の発行と繁殖手数料の調整、マーケット手数料の設定、Ronin の運用、ボット検出、リーダーボード報酬の配分を行う。", k: fact, s: [src-axie-blog-season20, src-axie-blog-breedingfee, src-axie-blog-securing-ronin]}
+    - {t: "スカラーシップのマネージャーは Axie を貸し出して報酬を分配した。Reuters によれば 200 人のスカラーを抱えたあるマネージャーは取り分 60% で、スカラーの日収は約 450 ペソ（記事が挙げる最低賃金 470 ペソをやや下回る）だった。", k: fact, s: [src-reuters-ph-ditch]}
+    - {t: "ギルドの Yield Guild Games（YGG）は、プレイヤー 70%・コミュニティマネージャー 20%・YGG 10% の分配を採っていたと共同創業者が述べている。", k: claim, who: "YGG 共同創業者 Gabby Dizon（Forkast 報道）", s: [src-forkast-p2e-dwindle]}
+    - {t: "AXS 保有者は 2021-09 からステーキングで AXS を受け取り、2025 年までに App.axie 上の提案投票（AIP）が始まり、たとえばトレジャリー資産のステーキングを投票にかけている（投票の実行方式がオンチェーンかは未確認）。投票力は AXS だけでなく、保有・貢献・成績から計算される Axie Score で決まる。", k: fact, s: [src-axie-blog-stake-live, src-axie-blog-aip-004, src-axie-blog-axie-score]}
+    - {t: "ボットは公認されず、運営は PvE の SLP 報酬をボットが稼ぎやすい部分として削減し、2026 年もマルチアカウントは永久 BAN としている。AI エージェントの公式な参加の仕組みはない。2026 年には運営が AI ツールでファンが Axie のゲームを作るコンテスト（Vibeathon、第 1 ラウンド 91 作品）を開催した。", k: fact, s: [src-axie-blog-dev-journal-econ, src-axie-blog-origins-s19, src-axie-blog-lounge-2026-10]}
+  trajectory:
+    - {t: "運営発表の日次プレイヤー数は 2021-04 の 3.8 万人から 2021-10 に 200 万人超、2021-12 に 250 万人超へ伸びた（定義は非公開）。", k: fact, s: [src-axie-blog-seriesb, src-axie-blog-breedingfee]}
+    - {t: "SLP の発行は消費を上回り続け、運営は 2022-01 に「持続不可能」と認め、2022-02 にアドベンチャーとデイリークエストの SLP 報酬を 0 にし、代わりに AXS のリーダーボード報酬を 30 万枠に拡大した。", k: fact, s: [src-axie-blog-dev-journal-econ, src-axie-blog-season20], q: "This inflation in the token is not sustainable."}
+    - {t: "2022-03 の Ronin ブリッジ事件の後、運営は 1 億 5,000 万ドルの資金調達を発表し利用者に補填した。後の追記では実際の調達は 1,100 万ドルにとどまり、補填は自社資金で行ったとしている。ブリッジは 2022-06-28 に監査と大口出金の停止機構を加えて再開した。", k: fact, s: [src-axie-blog-funding-2022, src-theblock-ronin-reopen], q: "In the end, we only raised $11M, rather than the $150M that was originally allocated."}
+    - {t: "2022-04 に Origin（後の Origins）が早期アクセスで公開され、旧作は Classic として残った。Classic は 2023-11 に「復活」として再公開され、2024-01 には SLP 参加費制のモードが加わった。", k: fact, s: [src-axie-blog-origin-launch, src-axie-blog-classic-back, src-axie-blog-slp-classic]}
+    - {t: "2024-01 に運営は SLP 供給上限 440 億（当時供給約 414 億）と買い戻し基金を導入した。2023 年は消費が発行の 3 倍超で 2.8% のデフレだったと運営は述べる。", k: fact, s: [src-axie-blog-slpcap]}
+    - {t: "Land ゲームは 2022-12 に Homeland のアルファとして公開されたが、2024-02 に創業者が「拠点建設だけではゲームにならない」と方針転換を表明し、2026-06 に Homeland は終了して受動的な報酬ゲーム Terrariums に置き換えられた。", k: fact, s: [src-axie-blog-homeland-alpha, src-axie-blog-homeland-path, src-axie-blog-terrariums-v1], q: "Base building simply cannot be a full game."}
+  retention_evidence:
+    - {t: "示されている指標：運営発表の日次プレイヤー（ピーク期に 200〜270 万）、月間アクティブ 220 万（2022-04）、2024 年 Q3 のゲーム DAA 8.7 万・MAA 15.5 万、2024-02 時点の直近 30 日プレイヤー 18 万人。いずれも運営発表で、算出方法は公開されていない。", k: fact, s: [src-axie-blog-breedingfee, src-axie-blog-funding-2022, src-axie-blog-q3-2024, src-axie-blog-homeland-path]}
+    - {t: "Reuters は日次ユーザーがピーク約 270 万から約 25 万へ減ったと報じた（2023-04 時点の報道。数値の出所は暗号資産ゲーム情報サイト Cryptogambling.tv で、計測方法は不明）。", k: fact, s: [src-reuters-ph-ditch]}
+    - {t: "示されていない指標：コホート別の継続率、1 人あたりの複数アカウント率、スカラー（借り手）と所有者の内訳、ボット比率は公開されていない。Axie を保有する 260 万アドレス（2022-04）もプレイヤー数ではなく、マネージャーが多数のアカウントを持つ構造のため人数との対応は不明。", k: fact, s: [src-axie-blog-funding-2022]}
+    - {t: "同じ 2021-10 の運営アップデートは「daily active players」200 万超と並べて、Ronin の日次アクティブアドレスの最高記録を 428,536（2021-10-04）と記す。対戦報酬の請求や取引をしないプレイヤーがいるとしても、DAU はオンチェーンで観測できる活動の約 4.7 倍で、DAU の大半はチェーン上に現れない（運営サーバー内の）活動だと読める。日次でアドレスが動かないことは遊んでいないことを意味しないため、この差は「DAU の水増し」の証拠ではない。", k: analysis, s: [src-axie-blog-october-2021]}
+    - {t: "運営自身が、エネルギー制度上 Axie を 3 アカウントに分けてスカラーに渡す方が効率的だったと書いており、2021 年の DAU には報酬目的のアカウント分割が含まれていた可能性がある。DAU の伸びを「遊びの定着」と読むことはできない。", k: analysis, s: [src-axie-blog-season20], q: "it’s actually more energy-efficient to split up 9 Axies onto 3 separate accounts and give them to scholars, than it is to buy your 10th from the marketplace for the extra energy."}
+    - {t: "2023 年以降も Origins は Season 19（2026-09）まで続き、Classic も 2023-11 に再公開されて運営され続けており、規模は縮小しながらも継続して遊ぶ層がいることは示されているが、その人数の推移の一次データは限られる（Classic の現行シーズン番号は本調査の出典では確認できなかった）。", k: fact, s: [src-axie-blog-origins-s19, src-axie-blog-classic-back, src-axie-blog-lounge-2026-10]}
+  extensions:
+    - {t: "コミュニティは Axie の査定ツール、マーケット検索、情報サイト（axie.zone など）を作り、運営は白書でこれを紹介した。", k: fact, s: [src-axie-wp-thirdparty]}
+    - {t: "2018–2019 年には Flappy Axie や Axie Sushi などのファンメイドのミニゲームがあったが、Ronin への移行後に終了した。", k: fact, s: [src-axie-blog-builders], q: "they ultimately were discontinued once Ronin was released."}
+    - {t: "2022-04 の Builders Program は最低 1 万ドル相当の AXS 助成とパートナー API を提供し、収益の 0–75% をトレジャリーに納める条件を付けた。応募は 2025-02 に締め切られた。", k: fact, s: [src-axie-blog-builders]}
+    - {t: "2026 年時点で運営が紹介する第三者ツールには、トレジャリー分析、マーケット分析、一括送付・委任・スナップショットツール（AxieDAO Tools）、Origins の試合分析（axie.top、AxieMeta）、Terrariums の管理ツールがある。", k: fact, s: [src-axie-blog-link-directory]}
+    - {t: "スカラーシップの管理（アカウント配布、SLP の集計と分配）を行うギルドとツールが第三者の事業として成立した。YGG は分配をスマートコントラクトで自動化したと報じられているが、一次資料では確認できなかった。", k: unknown}
+  constraints:
+    - {t: "SLP の主な消費先は繁殖で、繁殖が意味を持つのは新しい Axie を買う新規参加者がいる間だけである。運営も「新規プレイヤーが遊べるのは Axie がプレイヤーより多いときだけ」と書いており、消費は新規流入に依存していた。", k: fact, s: [src-axie-blog-breedingadjustment]}
+    - {t: "繁殖手数料を SLP と AXS の 2 通貨で設定したため、両者の価格変動で手数料の比率が崩れ、AXS 部分が 80% を超えて SLP の消費が細った。運営は手作業で何度も比率を直した。", k: fact, s: [src-axie-blog-breedingadjustment, src-axie-blog-breedingfee], q: "While we are currently making these changes manually, long-term we’d like to outsource management of the economy either to intelligent machines or informed members of the Axie community."}
+    - {t: "報酬が MMR に比例し、プレイヤー数の増加とともに MMR が全体に上がる「MMR インフレ」が起きたため、シーズン 19 の初日から最終日までに PvP 1 戦あたりの平均 SLP が約 40% 増えたと運営は述べる。運営はオフシーズンの MMR リセットで対処した（告知前にリセットしたことを運営自身が誤りと認めている）。", k: fact, s: [src-axie-blog-dev-journal-econ]}
+    - {t: "白書のガバナンス移行の基準（DAU 1,000 万人超かつ週 5% 成長の継続、外部チームの 10 万 DAU ゲーム 3 本）は満たされていない。運営はトレジャリーについて 2025-06 時点でコミュニティが資金を使う仕組みはないと述べた。ただしその後 2025-12 までに AIP-003（ETH のステーキング）・AIP-004（AXS と RON のステーキング）がトレジャリー資産の運用を投票にかけており、使途の一部は投票対象になりつつある。", k: fact, s: [src-axie-wp-dao, src-axie-blog-axie-score, src-axie-blog-aip-004], q: "However, there is currently no mechanism for community members to make use of these funds."}
+    - {t: "未解決：報酬の価値を外部市場が決める限り、遊びの面白さとは独立に、価格下落が報酬目的の参加者を一斉に離脱させる。bAXS（非譲渡、換金に評判連動の手数料）はこの連動を弱める試みだが、効果を示すデータはまだない。", k: analysis, s: [src-axie-blog-origins-s19]}
+  principles:
+    - {t: "【発行＝プレイ量／消費＝新資産生成】報酬トークンの発行がプレイ回数に比例し、主な消費が「新しい資産を作ること」に限られる設計は、新規参加者が作られた資産を買い続ける期間にしか釣り合わない。適用条件：参加者が増えている、または資産に新規参加以外の需要（消費・破壊・アップグレード）がある。破綻条件：流入が鈍ると資産が売れず繁殖が止まり、発行だけが残る（Axie では 2022-02 時点で発行が消費の約 4 倍）。", k: analysis, s: [src-axie-blog-season20, src-axie-blog-breedingadjustment]}
+    - {t: "【所有と労働の分離（スカラーシップ）】資産が高価で換金可能な報酬があるとき、資産の貸借は参加者を急拡大させる。適用条件：報酬の現金価値が借り手の機会費用（地域の賃金）を上回る。破綻条件：報酬価格が下がり賃金を下回ると借り手は一斉に去り、また報酬設計がアカウント分割を有利にすると、指標上の DAU が遊びの需要を過大に示す。", k: analysis, s: [src-reuters-ph-ditch, src-axie-blog-season20, src-cg-scholarship-study]}
+    - {t: "【二通貨の固定手数料】一つの行為の手数料を変動価格の 2 トークンの固定量で決めると、価格比が動くたびに一方の消費が止まる。適用条件：運営が頻繁に手数料を見直せる、または手数料を法定通貨建てで自動調整できる。破綻条件：手動調整の遅れの間に一方（Axie では AXS）が手数料の 80% 超を占め、もう一方のシンクが機能しなくなる。", k: analysis, s: [src-axie-blog-breedingadjustment, src-axie-blog-breedingfee]}
+    - {t: "【専用チェーンとブリッジ】手数料を下げるための専用チェーンは、高頻度の資産操作を可能にする一方、ブリッジの署名者が少数で一社に偏ると単一障害点になる。適用条件：署名者を独立した組織に分散し、大口出金の監視・停止機構を持つ。破綻条件：過半の鍵を一社が持つ、一時的な権限付与を取り消さない、出金監視がない（Ronin では 9 中 5 署名、4 鍵が Sky Mavis、発覚まで 6 日）。", k: analysis, s: [src-rekt-ronin, src-axie-blog-funding-2022, src-theblock-ronin-reopen]}
+    - {t: "【非譲渡報酬＋評判連動の換金手数料】報酬を譲渡不可のトークンで渡し、ゲーム内の消費（繁殖・強化・ステーキング）には使えるが外部換金には評判スコアに応じた手数料をかける設計（bAXS）は、短期の換金目的の参加を抑える狙いを持つ。適用条件：ゲーム内に十分な使い道がある。破綻条件：使い道が乏しければ報酬の魅力が消え、評判スコアが資産保有で買えるなら手数料の差は富の差になる（Axie Score は保有を 4 割に制限している）。効果はまだ未検証。", k: analysis, s: [src-axie-blog-origins-s19, src-axie-blog-axie-score]}
+  counter_evidence:
+    - {t: "2021 年の急成長と 2022 年の縮小は、パンデミック下の失業と暗号資産市場全体の上昇・下落でも説明でき、経済設計の効果と切り分けられない。AXS の最高値（2021-11-06）は市場全体のピーク期と重なる。ただし SLP の最高値は 2021-07-13 で AXS より約 4 か月早く、市場が上昇を続けている間に SLP だけが下落していた点は、市場要因だけでは説明できず SLP 固有の発行超過を示唆する（市場全体のピーク時期は本エントリの出典では未確認）。", k: analysis, s: [src-coingecko-api-2026-10, src-axie-blog-seriesb]}
+    - {t: "Ronin の事件（2022-03）は縮小期と重なっており、利用者減少の原因が経済設計か、事件による信頼低下か、市場下落かは資料から判別できない。", k: analysis}
+    - {t: "運営によれば 2023 年の SLP は消費が発行の 3 倍超でデフレだったが、SLP 価格は回復せず 2026-10 時点で約 0.00055 ドルである。発行と消費の均衡だけでは報酬トークンの価値は戻らないことを示しており、「インフレが崩壊の原因」という単純な読みに反する。", k: analysis, s: [src-axie-blog-slpcap, src-coingecko-api-2026-10]}
+    - {t: "スカラーシップは搾取とだけは言えない。Reuters の例ではスカラーの日収は最低賃金に近く、パンデミック期に実際の収入源となった。一方でマネージャーが 60% を取る例もあり、評価は分配条件次第である。", k: analysis, s: [src-reuters-ph-ditch]}
+    - {t: "運営は「Play-to-Earn を発明した」と主張するが、ゲーム内行為に暗号資産の報酬を結びつける例は Huntercoin（2014）などそれ以前にもある。Axie が新しかったのは規模と、貸借市場の成立である可能性が高い。", k: analysis, s: [src-axie-blog-homeland-path]}
+    - {t: "縮小後もゲームは終了せず、Origins と Classic のシーズン、新作のプレイテストが 2026 年まで続いている。「P2E の失敗例」として終わった作品と扱うのは事実に反する。", k: fact, s: [src-axie-blog-origins-s19, src-axie-blog-atias-playtest3]}
+
+metrics:
+  - {id: m-axie-dau-2021-04, type: dau, value: 38000, value_text: "3.8 万", unit: players, period: "2021-04", definition: "運営が「daily active players」として公表した値（算出方法は非公開）", nature: reported, s: [src-axie-blog-seriesb, src-axie-blog-breedingfee]}
+  - {id: m-axie-dau-2021-10, type: dau, value: 2000000, value_text: "200 万超", unit: players, period: "2021-10", definition: "運営が「daily active players」として公表した値（算出方法は非公開）", nature: reported, s: [src-axie-blog-october-2021, src-axie-blog-seriesb]}
+  - {id: m-axie-dau-2021-12, type: dau, value: 2500000, value_text: "250 万超", unit: players, period: "2021-12", definition: "運営が「daily players」として公表した値（算出方法は非公開）", nature: reported, s: [src-axie-blog-breedingfee], note: "同時期の開発アップデートでは Season 19 開始時に「270 万人超のプレイヤー」、3M DAU に近づくとも記載"}
+  - {id: m-axie-dau-peak-reuters, type: dau, value: 2700000, value_text: "約 270 万（ピーク）→ 約 25 万", unit: players, period: "ピーク（時期明記なし）と 2023-04 頃", definition: "Reuters が Cryptogambling.tv を出所として報じた日次アクティブユーザー（計測方法不明）", nature: estimated, s: [src-reuters-ph-ditch]}
+  - {id: m-axie-ronin-daa-2021-10, type: wallets, value: 428536, value_text: "428,536（過去最高）", unit: addresses, period: "2021-10-04", definition: "Ronin の日次アクティブアドレス数（運営発表。同時期の DAU 200 万超と比較用）", nature: reported, s: [src-axie-blog-october-2021]}
+  - {id: m-axie-mau-2022-04, type: mau, value: 2200000, value_text: "220 万", unit: players, period: "2022-04", definition: "運営が「monthly active players」として公表した値", nature: reported, s: [src-axie-blog-funding-2022]}
+  - {id: m-axie-holders-2022-04, type: wallets, value: 2600000, value_text: "260 万", unit: wallets, period: "2022-04", definition: "Axie を保有するユニークアドレス数（運営発表）。人数ではない", nature: reported, s: [src-axie-blog-funding-2022]}
+  - {id: m-axie-players-30d-2024-02, type: players, value: 180000, value_text: "18 万", unit: players, period: "2024-02 時点の直近 30 日", definition: "直近 30 日に Axie のゲームを遊んだプレイヤー数（運営発表）", nature: reported, s: [src-axie-blog-homeland-path]}
+  - {id: m-axie-daa-2024-q3, type: dau, value: 87000, value_text: "8.7 万（DAA）", unit: players, period: "2024 Q3", definition: "運営が「Game DAA」と呼ぶ日次アクティブアカウント（定義非公開）", nature: reported, s: [src-axie-blog-q3-2024]}
+  - {id: m-axie-maa-2024, type: mau, value: 155000, value_text: "15.5 万（キャンペーン時 21 万超）", unit: players, period: "2024（Q3 まで）", definition: "Axie エコシステムの月間アクティブアカウント（運営発表）", nature: reported, s: [src-axie-blog-q3-2024]}
+  - {id: m-axie-market-volume-2021-10, type: nft_sales, value: 2200000000, value_text: "22 億ドル", unit: USD, period: "累計（2021-10 時点）", definition: "運営の NFT マーケットプレイスでの累計取引額（運営発表）", nature: reported, s: [src-axie-blog-seriesb]}
+  - {id: m-axie-appaxie-volume-2024, type: nft_sales, value: 25600000, value_text: "2,560 万ドル", unit: USD, period: "2024-01〜2024-10（年初来累計）", definition: "App.axie（公式マーケット）の取引額（運営発表）", nature: reported, s: [src-axie-blog-q3-2024]}
+  - {id: m-axie-ronin-tvl-2021-10, type: tvl, value: 4500000000, value_text: "45 億ドル（ウォレット 200 万超）", unit: USD, period: "2021-10", definition: "Ronin 上の預かり資産総額（運営発表。算出方法非公開）", nature: reported, s: [src-axie-blog-seriesb]}
+  - {id: m-axie-seriesb-2021, type: funding, value: 152000000, value_text: "1 億 5,200 万ドル", unit: USD, period: "2021-10", definition: "Sky Mavis の Series B 調達額（運営発表）", nature: reported, s: [src-axie-blog-seriesb]}
+  - {id: m-axie-round-2022, type: funding, value: 11000000, value_text: "発表 1 億 5,000 万ドル → 実調達 1,100 万ドル", unit: USD, period: "2022-04（後日追記）", definition: "Ronin 事件後の調達。発表額と、運営が後に追記した実調達額", nature: reported, s: [src-axie-blog-funding-2022]}
+  - {id: m-axie-ronin-hack-2022, type: other, value_text: "173,600 ETH ＋ 2,550 万 USDC（報道換算で約 6.2 億ドル）", unit: ETH/USDC, period: "2022-03-23", definition: "Ronin ブリッジから引き出された資産", nature: reported, s: [src-axie-blog-funding-2022, src-bleeping-fbi-ronin]}
+  - {id: m-axie-slp-mint-burn-2022-02, type: other, value: 4, value_text: "発行が消費の約 4 倍", unit: ratio, period: "2022-02 時点", definition: "1 日あたり SLP 発行量／繁殖による消費量（運営発表、Nansen のデータを引用）", nature: reported, s: [src-axie-blog-season20]}
+  - {id: m-axie-slp-issuance-2022-01, type: other, value: 187000000, value_text: "1 日約 1 億 8,700 万 SLP（約 330 万ドル）", unit: SLP/day, period: "2022-01", definition: "The Block が報じたプレイヤーへの 1 日あたり SLP 配布量", nature: estimated, s: [src-theblock-axie-money]}
+  - {id: m-axie-slp-cut-2022-02, type: other, value: 175000000, value_text: "アドベンチャー約 1.3 億＋デイリー約 4,500 万 SLP/日の削減", unit: SLP/day, period: "2022-02（Season 20）", definition: "運営が見積もった報酬廃止による 1 日あたり発行削減量", nature: reported, s: [src-axie-blog-season20]}
+  - {id: m-axie-slp-supply-2024-01, type: other, value: 41400000000, value_text: "約 414 億（上限 440 億を設定）", unit: SLP, period: "2024-01", definition: "SLP の総供給（運営発表）", nature: reported, s: [src-axie-blog-slpcap]}
+  - {id: m-axie-slp-price, type: token_price, value: 0.00055, value_text: "最高値 0.3997 ドル（2021-07-13）→ 約 0.00055 ドル（2026-10-23）", unit: USD, period: "2021-07-13 と 2026-10-23", definition: "CoinGecko の集計市場価格", nature: measured, s: [src-coingecko-api-2026-10]}
+  - {id: m-axie-axs-price, type: token_price, value: 1.02, value_text: "最高値 164.9 ドル（2021-11-06）→ 約 1.02 ドル（2026-10-23）", unit: USD, period: "2021-11-06 と 2026-10-23", definition: "CoinGecko の集計市場価格", nature: measured, s: [src-coingecko-api-2026-10]}
+  - {id: m-axie-treasury-2025-12, type: other, value: 23000000, value_text: "約 2,300 万 AXS と 9.6 万 RON（2,300 万ドル超）", unit: AXS, period: "2025-12", definition: "Axie トレジャリーが保有する AXS と RON（運営発表。ETH は別）", nature: reported, s: [src-axie-blog-aip-004]}
+  - {id: m-axie-treasury-revenue-2024, type: revenue, value: 300000, value_text: "月平均約 30 万ドル", unit: USD/month, period: "2024（Q3 まで）", definition: "トレジャリー収入（Axie 販売、Ascension・Evolution 手数料、Rune/Charm 購入）の月平均（運営発表）", nature: reported, s: [src-axie-blog-q3-2024]}
+  - {id: m-axie-team-cost-2021-08, type: other, value: 1500, value_text: "最低 1,500 ドル程度", unit: USD, period: "2021-08", definition: "PvP に耐える Axie 3 体チームの購入費用の推定（CoinGecko の調査）", nature: estimated, s: [src-cg-scholarship-study]}
+  - {id: m-axie-scholar-split, type: other, value_text: "CoinGecko はスカラー 50〜70% とするが、Reuters の例ではマネージャー 60%（スカラー 40%）。YGG は 70/20/10", unit: "%", period: "2021–2022", definition: "スカラーシップの報酬分配比率。統一基準はない", nature: reported, s: [src-cg-scholarship-study, src-forkast-p2e-dwindle, src-reuters-ph-ditch]}
+
+events:
+  - {id: ev-axie-origin-presale, date: "2018", type: launch, title: "Origin Axie のプレセール（Ethereum）", detail: "2018 年に Origin Axie プレセール用コントラクト、同年初頭に MEO Season 1 の販売が行われた。", s: [src-axie-wp-contracts]}
+  - {id: ev-axie-idle-battle, date: "2018-10", type: release, title: "最初の対戦システム（放置型）", s: [src-axie-wp-battling]}
+  - {id: ev-axie-classic-slp, date: "2019-12", type: release, title: "ターン制カードバトル（後の Classic）と SLP の公開", detail: "SLP は 2019-12 に繁殖用のユーティリティトークンとして公開。", s: [src-axie-wp-battling, src-axie-blog-dev-journal-econ]}
+  - {id: ev-axie-axs-launchpad, date: "2020-10-26", type: announce, title: "AXS を Binance Launchpad で販売すると発表", detail: "過去のプレイ実績のスナップショットを取り、後にエアドロップ。", s: [src-axie-blog-axs-binance]}
+  - {id: ev-axie-ronin-mainnet, date: "2021-02-01", type: launch, title: "Ronin メインネット公開", detail: "Land・アイテムから移行開始。手数料の高さを理由に挙げた。", s: [src-axie-blog-ronin-mainnet]}
+  - {id: ev-axie-breeding-fee-2021-09, date: "2021-09-23", type: spec-change, title: "繁殖手数料を 2 AXS→1 AXS、SLP を増額", s: [src-axie-blog-breedingadjustment]}
+  - {id: ev-axie-staking, date: "2021-09-30", type: launch, title: "AXS ステーキング開始と初期コミュニティへの 80 万 AXS 配布", s: [src-axie-blog-stake-live]}
+  - {id: ev-axie-seriesb, date: "2021-10-05", type: funding, title: "Sky Mavis が Series B で 1 億 5,200 万ドルを調達", s: [src-axie-blog-seriesb]}
+  - {id: ev-axie-katana, date: "2021-11-04", type: launch, title: "Ronin の DEX Katana 公開", s: [src-axie-blog-katana]}
+  - {id: ev-axie-breeding-fee-2021-12, date: "2021-12-08", type: spec-change, title: "繁殖の SLP コストを 3 倍、AXS を 0.5 に", s: [src-axie-blog-breedingfee]}
+  - {id: ev-axie-season20, date: "2022-02-03", type: spec-change, title: "Season 20 の経済調整を発表（アドベンチャー・デイリー SLP を 0 に）", s: [src-axie-blog-season20]}
+  - {id: ev-axie-ronin-hack, date: "2022-03-23", type: incident, title: "Ronin ブリッジから 173,600 ETH と 2,550 万 USDC が流出", detail: "03-29 に発覚。FBI は 2022-04-14 に北朝鮮系の Lazarus Group / APT38 によると発表。", s: [src-axie-blog-funding-2022, src-bleeping-fbi-ronin, src-rekt-ronin]}
+  - {id: ev-axie-securing-ronin, date: "2022-04-05", type: spec-change, title: "バリデータ拡大計画（3 か月で 21 の独立バリデータ）を発表", s: [src-axie-blog-securing-ronin]}
+  - {id: ev-axie-round-2022, date: "2022-04-06", type: funding, title: "Binance 主導の 1 億 5,000 万ドル調達を発表（後に実調達 1,100 万ドルと追記）", s: [src-axie-blog-funding-2022]}
+  - {id: ev-axie-origin-ea, date: "2022-04-07", type: launch, title: "Axie Infinity: Origin を早期アクセス公開", detail: "無料スターター Axie、Rune/Charm を導入。", s: [src-axie-blog-origin-launch]}
+  - {id: ev-axie-bridge-reopen, date: "2022-06-28", type: release, title: "Ronin ブリッジ再開", detail: "監査と大口出金の停止機構を追加、利用者への補填完了と発表。", s: [src-theblock-ronin-reopen]}
+  - {id: ev-axie-great-reset, date: "2022-08-08", type: spec-change, title: "マーケットコントラクト差し替え（ERC-1155 対応）、全出品を取り下げ", s: [src-axie-blog-greatreset]}
+  - {id: ev-axie-origins-s1, date: "2022-09-13", type: release, title: "Origins Season 1 開始（60 日シーズン）", s: [src-axie-blog-origins-s1]}
+  - {id: ev-axie-homeland-alpha, date: "2022-12-28", type: release, title: "Land ゲーム Homeland のアルファを公開", s: [src-axie-blog-homeland-alpha]}
+  - {id: ev-axie-classic-back, date: "2023-11-22", type: release, title: "Axie Classic の復活", s: [src-axie-blog-classic-back]}
+  - {id: ev-axie-slp-cap, date: "2024-01-11", type: spec-change, title: "SLP 供給上限 440 億と買い戻し基金を導入", s: [src-axie-blog-slpcap]}
+  - {id: ev-axie-homeland-pivot, date: "2024-02-29", type: pivot, title: "創業者が Homeland の方針転換を表明", s: [src-axie-blog-homeland-path]}
+  - {id: ev-axie-axie-score, date: "2025-06-19", type: spec-change, title: "Axie Score の新しい計算式を公開（投票力に使用）", s: [src-axie-blog-axie-score]}
+  - {id: ev-axie-ronin-l2, date: "2025-08-15", type: announce, title: "Ronin を Ethereum の L2 に移行すると発表", s: [src-ronin-blog-homecoming]}
+  - {id: ev-axie-atias-pt1, date: "2025-09-25", type: testnet, title: "Atia's Legacy 最初のプレイテスト（約 1,000 人）", s: [src-axie-blog-atias-founders]}
+  - {id: ev-axie-staking-revamp, date: "2025-11-26", type: spec-change, title: "AXS ステーキング報酬を 9 日ごとに 5% 減らす方式に変更", s: [src-axie-blog-axs-staking-revamp]}
+  - {id: ev-axie-terrariums, date: "2026-06-17", type: pivot, title: "Terrariums V1 公開、Homeland 終了", s: [src-axie-blog-terrariums-v1]}
+  - {id: ev-axie-origins-s19, date: "2026-09-30", type: release, title: "Origins Season 19 開始（報酬は bAXS）", s: [src-axie-blog-origins-s19]}
+
+relations:
+  - {to: cryptokitties, type: similar-to, basis: analytic, note: "繁殖で新しい NFT を生む経済。Axie は繁殖に対戦用途と換金可能な報酬トークンを加えた。直接の影響を当事者が述べた資料は確認していない"}
+  - {to: pixels, type: influenced-by, basis: confirmed, note: "創業者が Homeland の再設計で「Pixel's free-to-play onboarding」の成功を参考にすると明記", s: [src-axie-blog-homeland-path]}
+  - {to: gods-unchained, type: similar-to, basis: analytic, note: "資産所有はチェーン上、対戦ルールは運営サーバーという分担が共通"}
+  - {to: stepn, type: similar-to, basis: analytic, note: "行動量に比例する報酬トークンの発行と、新規流入に依存した消費という構造が共通"}
+  - {to: dark-forest, type: contrasts-with, basis: analytic, note: "Dark Forest はルールをコントラクトで実行。Axie は資産のみをチェーンに置き、ルールは運営が変更できる"}
+  - {to: huntercoin, type: contrasts-with, basis: analytic, note: "ゲーム内行為への暗号資産報酬は Huntercoin（2014）が先行。Axie は規模と貸借市場の成立が異なる"}
+  - {to: e-scholarship, type: similar-to, basis: analytic, note: "スカラーシップを大衆化した代表例"}
+  - {to: c-own-chain, type: similar-to, basis: analytic, note: "ゲーム専用サイドチェーン Ronin とブリッジ事件"}
+
+unknowns:
+  - "対戦（Classic/Origins）の判定がすべてサーバーで行われることを明言した一次資料は見つけられなかった（ログイン方式・報酬の Claim 方式・BAN 運用からの推定。第三者の Naavik は「Sky Mavis のサーバーが戦闘結果を計算する」と記す）"
+  - "DAU・DAA の定義（アカウント単位か人単位か、マルチアカウントの扱い）は非公開"
+  - "スカラー（借り手）の総数、ギルド経由の割合、地域別の内訳"
+  - "YGG がスカラー分配をスマートコントラクトで自動化していたかは一次資料で確認できなかった"
+  - "bAXS の導入告知記事（S19 告知が「bAXS で報酬を配る 3 シーズン目」と書くため Origins S17 からと判断できるが、正確な日付は未確認）と、Terrariums の bAXS 配布量の総額"
+  - "Ronin の公式事後報告（roninchain.com の Community Alert / Postmortem）は 404 で直接取得できず、Sky Mavis ブログと報道で代替した"
+  - "2025-12〜2026-06 の運営ブログのアーカイブが API 上で欠けており、その期間の変更は確認できていない"
+  - "Axie の経済を扱った査読付き論文は確認できなかった"
+
+contradictions:
+  - {t: "Sky Mavis は「バリデータを 5 から 21 に拡大する」と書いたが、報道・分析では事件当時のバリデータは 9（承認閾値 5）とされる。運営記述の「5」が何を指すか不明", s: [src-axie-blog-funding-2022, src-rekt-ronin]}
+  - {t: "The Block は攻撃者が「9 つのバリデータノードを掌握した」と書くが、運営と他の報道は Sky Mavis の 4 鍵と Axie DAO の 1 鍵の計 5 とする", s: [src-theblock-ronin-reopen, src-rekt-ronin]}
+  - {t: "Origin の早期アクセス公開日は白書では 2022-04-06、公開告知記事の日付は 2022-04-07（04-06 付の資金調達記事も「tomorrow's launch」と記載）", s: [src-axie-wp-battling, src-axie-blog-origin-launch, src-axie-blog-funding-2022]}
+  - {t: "白書は Origins を「real-time combat system」と書く一方、同じ箇所と公開告知では「Sequential turns」のターン制と説明している", s: [src-axie-wp-battling, src-axie-blog-origin-launch]}
+  - {t: "SLP の価格ピーク: Reuters 配信記事は SLP が「2022-02 のピーク」から 99% 下落したと書くが、CoinGecko の最高値は 2021-07-13（0.3997 ドル）で、同記事内でも価格は 2021 年後半から下落したと記す。", s: [src-reuters-ph-ditch, src-coingecko-api-2026-10]}
+  - {t: "初期コミュニティへの AXS 配布額を、ステーキング開始記事は 80 万 AXS・5,000 万ドル超、Series B 記事は 1 億ドル超としている（価格時点の違いの可能性）", s: [src-axie-blog-stake-live, src-axie-blog-seriesb]}
+
+sources:
+  - {id: src-axie-wp-master, title: "Axie Infinity (Official Whitepaper, last updated November 2021)", url: "https://whitepaper.axieinfinity.com/", publisher: "Sky Mavis", type: official-docs, primary: true, published: "2021-11", accessed: "2026-10-23", access: fetched, lang: en, note: "概要、P2E の説明、第三者がアートと遺伝子データにアクセスできる旨"}
+  - {id: src-axie-wp-breeding, title: "Breeding", url: "https://whitepaper.axieinfinity.com/gameplay/breeding", publisher: "Sky Mavis", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "遺伝子、最大 7 回、SLP コスト表、5 日の成熟"}
+  - {id: src-axie-wp-battling, title: "Battling", url: "https://whitepaper.axieinfinity.com/gameplay/battling", publisher: "Sky Mavis", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "2018 放置型、2019-12 Classic、2022-04 Origins の経緯"}
+  - {id: src-axie-wp-technology, title: "Technology", url: "https://whitepaper.axieinfinity.com/technology", publisher: "Sky Mavis", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "分散化についての運営の立場（P2E に完全分散は不要）"}
+  - {id: src-axie-wp-contracts, title: "Key Smart Contracts", url: "https://whitepaper.axieinfinity.com/technology/key-smart-contracts", publisher: "Sky Mavis", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "AXIE ERC721、Claim Reward、繁殖、マーケット、SLP のコントラクト一覧"}
+  - {id: src-axie-wp-ronin, title: "Ronin Ethereum Sidechain", url: "https://whitepaper.axieinfinity.com/technology/ronin-ethereum-sidechain", publisher: "Sky Mavis", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "Axie 専用サイドチェーンとしての Ronin の説明"}
+  - {id: src-axie-wp-axs-alloc, title: "Allocations and Unlock schedule", url: "https://whitepaper.axieinfinity.com/axs/allocations-and-unlock", publisher: "Sky Mavis", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "AXS 総供給 2.7 億と配分"}
+  - {id: src-axie-wp-dao, title: "Decentralized Organization", url: "https://whitepaper.axieinfinity.com/d-a-o", publisher: "Sky Mavis", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "段階的分散化とフェーズ移行基準"}
+  - {id: src-axie-wp-thirdparty, title: "Third Party Development", url: "https://whitepaper.axieinfinity.com/community/third-party-development", publisher: "Sky Mavis", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "コミュニティ製ツールの例"}
+  - {id: src-axie-github-org, title: "axieinfinity repositories", url: "https://github.com/orgs/axieinfinity/repositories", publisher: "GitHub", type: code, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "公開リポジトリ一覧（コントラクト、Ronin、スターターキット）"}
+  - {id: src-axie-blog-axs-binance, title: "Axie Infinity X Binance!", url: "https://blog.axieinfinity.com/p/axs", publisher: "The Lunacian (Axie Infinity blog)", type: official-blog, primary: true, published: "2020-10-26", accessed: "2026-10-23", access: fetched, lang: en, note: "AXS 発表、スナップショット、トレジャリー"}
+  - {id: src-axie-blog-treasury-2020, title: "The Community Treasury: An Overview", url: "https://blog.axieinfinity.com/p/the-community-treasury-an-overview", publisher: "The Lunacian (Axie Infinity blog)", type: official-blog, primary: true, published: "2020-11-25", accessed: "2026-10-23", access: fetched, lang: en, note: "マーケット手数料 4.25% と繁殖手数料がトレジャリーへ"}
+  - {id: src-axie-blog-ronin-mainnet, title: "[Ronin] Mainnet Launch!", url: "https://blog.axieinfinity.com/p/ronin", publisher: "The Lunacian (Axie Infinity blog)", type: official-blog, primary: true, published: "2021-02-01", accessed: "2026-10-23", access: fetched, lang: en, note: "Ronin 公開と手数料問題"}
+  - {id: src-axie-blog-breedingadjustment, title: "Breeding Fee Adjustment & Axie Economics", url: "https://blog.axieinfinity.com/p/breedingadjustment", publisher: "The Lunacian (Axie Infinity blog)", type: official-blog, primary: true, published: "2021-09-23", accessed: "2026-10-23", access: fetched, lang: en, note: "繁殖手数料変更と経済の考え方、手動調整"}
+  - {id: src-axie-blog-stake-live, title: "AXS Staking is Live!", url: "https://blog.axieinfinity.com/p/stake", publisher: "The Lunacian (Axie Infinity blog)", type: official-blog, primary: true, published: "2021-09-30", accessed: "2026-10-23", access: fetched, lang: en, note: "ステーキング開始、80 万 AXS 配布"}
+  - {id: src-axie-blog-seriesb, title: "Sky Mavis Series B: Fueling the Play-to-Earn Revolution", url: "https://blog.axieinfinity.com/p/seriesb", publisher: "The Lunacian (Axie Infinity blog)", type: official-blog, primary: true, published: "2021-10-05", accessed: "2026-10-23", access: fetched, lang: en, note: "1.52 億ドル調達、DAU 推移、スカラーシップの主張"}
+  - {id: src-axie-blog-october-2021, title: "October Development Update", url: "https://blog.axieinfinity.com/p/october", publisher: "The Lunacian (Axie Infinity blog)", type: official-blog, primary: true, published: "2021-10-12", accessed: "2026-10-23", access: fetched, lang: en, note: "DAU 200 万超、スカラー/マネージャーを共同体の役割として列挙"}
+  - {id: src-axie-blog-katana, title: "Katana: The Ronin Dex Is Live!", url: "https://blog.axieinfinity.com/p/katana", publisher: "The Lunacian (Axie Infinity blog)", type: official-blog, primary: true, published: "2021-11-04", accessed: "2026-10-23", access: fetched, lang: en, note: "Ronin の DEX"}
+  - {id: src-axie-blog-breedingfee, title: "Breeding Fee Adjustment", url: "https://blog.axieinfinity.com/p/breedingfee", publisher: "The Lunacian (Axie Infinity blog)", type: official-blog, primary: true, published: "2021-12-08", accessed: "2026-10-23", access: fetched, lang: en, note: "SLP 3 倍・AXS 半減、AXS が手数料の 80% 超"}
+  - {id: src-axie-blog-dev-journal-econ, title: "Dev Journal: Economic Balancing", url: "https://blog.axieinfinity.com/p/dev-journal-economic-balancing", publisher: "The Lunacian (Axie Infinity blog)", type: official-blog, primary: true, published: "2022-01-04", accessed: "2026-10-23", access: fetched, lang: en, note: "SLP インフレの認識、ボット対策、MMR リセット"}
+  - {id: src-axie-blog-season20, title: "Upcoming Season 20 & Economic Balancing Adjustments", url: "https://blog.axieinfinity.com/p/upcoming-season-20-and-economic-balancing", publisher: "The Lunacian (Axie Infinity blog)", type: official-blog, primary: true, published: "2022-02-03", accessed: "2026-10-23", access: fetched, lang: en, note: "SLP 報酬削減、発行の内訳、エネルギーとアカウント分割"}
+  - {id: src-axie-blog-securing-ronin, title: "Securing Ronin", url: "https://blog.axieinfinity.com/p/securing-ronin", publisher: "The Lunacian (Axie Infinity blog)", type: official-blog, primary: true, published: "2022-04-05", accessed: "2026-10-23", access: fetched, lang: en, note: "バリデータ追加と 21 バリデータ目標"}
+  - {id: src-axie-blog-funding-2022, title: "Sky Mavis Raises $150M Led By Binance, Funds to be Restored on the Ronin Bridge", url: "https://blog.axieinfinity.com/p/funding", publisher: "The Lunacian (Axie Infinity blog)", type: official-blog, primary: true, published: "2022-04-06", accessed: "2026-10-23", access: fetched, lang: en, note: "事件の概要・根本原因・補填、後日の実調達額追記、各種指標"}
+  - {id: src-axie-blog-origin-launch, title: "Axie Infinity: Origin Is Live In Early Access!", url: "https://blog.axieinfinity.com/p/axieorigin", publisher: "The Lunacian (Axie Infinity blog)", type: official-blog, primary: true, published: "2022-04-07", accessed: "2026-10-23", access: fetched, lang: en, note: "Origin 公開、無料スターター、アカウント方式"}
+  - {id: src-axie-blog-greatreset, title: "The Great Reset: Preparing For NFT Runes & Charms", url: "https://blog.axieinfinity.com/p/greatreset", publisher: "The Lunacian (Axie Infinity blog)", type: official-blog, primary: true, published: "2022-08-08", accessed: "2026-10-23", access: fetched, lang: en, note: "マーケットコントラクト差し替えと全出品取り下げ"}
+  - {id: src-axie-blog-origins-s1, title: "Axie: Origins Season 1 Is Live!", url: "https://blog.axieinfinity.com/p/season1", publisher: "The Lunacian (Axie Infinity blog)", type: official-blog, primary: true, published: "2022-09-13", accessed: "2026-10-23", access: fetched, lang: en, note: "60 日シーズン、Sealed Rune/Charm、168 時間後のミント"}
+  - {id: src-axie-blog-homeland-alpha, title: "Axie Land Alpha!", url: "https://blog.axieinfinity.com/p/homeland", publisher: "The Lunacian (Axie Infinity blog)", type: official-blog, primary: true, published: "2022-12-28", accessed: "2026-10-23", access: fetched, lang: en, note: "Homeland アルファ、オンチェーン要素は Land NFT とアイテム配置のみ"}
+  - {id: src-axie-blog-classic-back, title: "Axie Classic. Is Back.", url: "https://blog.axieinfinity.com/p/axie-classic-is-back", publisher: "The Lunacian (Axie Infinity blog)", type: official-blog, primary: true, published: "2023-11-22", accessed: "2026-10-23", access: fetched, lang: en, note: "Classic 復活、AXP（動的 NFT）"}
+  - {id: src-axie-blog-slpcap, title: "Updates To SLP’s Monetary Policy!", url: "https://blog.axieinfinity.com/p/slpcap", publisher: "The Lunacian (Axie Infinity blog)", type: official-blog, primary: true, published: "2024-01-11", accessed: "2026-10-23", access: fetched, lang: en, note: "SLP 上限 440 億（社会契約）、買い戻し基金、2023 年の 2.8% デフレ"}
+  - {id: src-axie-blog-slp-classic, title: "SLP Returns to Axie Classic with Premium Cursed Coliseum", url: "https://blog.axieinfinity.com/p/slp-returns-to-axie-classic", publisher: "The Lunacian (Axie Infinity blog)", type: official-blog, primary: true, published: "2024-01-11", accessed: "2026-10-23", access: fetched, lang: en, note: "SLP 参加費制モード、入金 SLP は引き出し不可"}
+  - {id: src-axie-blog-homeland-path, title: "The Path Ahead For Homeland", url: "https://blog.axieinfinity.com/p/the-path-ahead-for-homeland", publisher: "The Lunacian (Axie Infinity blog)", type: official-blog, primary: true, published: "2024-02-29", accessed: "2026-10-23", access: fetched, lang: en, note: "Homeland の反省と方針転換、30 日 18 万人、「発明した」一覧"}
+  - {id: src-axie-blog-q3-2024, title: "Lunacia’s Q3 State of the Nation Address", url: "https://blog.axieinfinity.com/p/q3-state-of-the-nation", publisher: "The Lunacian (Axie Infinity blog)", type: official-blog, primary: true, published: "2024-10-30", accessed: "2026-10-23", access: fetched, lang: en, note: "DAA 8.7 万、MAA 15.5 万、トレジャリー収入"}
+  - {id: src-axie-blog-axie-score, title: "You’ve received a new Axie Score!", url: "https://blog.axieinfinity.com/p/youve-received-a-new-axie-score", publisher: "The Lunacian (Axie Infinity blog)", type: official-blog, primary: true, published: "2025-06-19", accessed: "2026-10-23", access: fetched, lang: en, note: "評判スコアと投票力、トレジャリーの使途がない旨"}
+  - {id: src-ronin-blog-homecoming, title: "Ronin’s Homecoming to Ethereum", url: "https://blog.roninchain.com/p/ronins-homecoming-to-ethereum", publisher: "Ronin blog", type: official-blog, primary: true, published: "2025-08-15", accessed: "2026-10-23", access: fetched, lang: en, note: "Ronin の L2 移行計画（Axie ブログの API 経由で本文取得）"}
+  - {id: src-axie-blog-atias-founders, title: "Axie Infinity’s Next Decade", url: "https://blog.axieinfinity.com/p/atias-legacy-founders-note", publisher: "The Lunacian (Axie Infinity blog)", type: official-blog, primary: true, published: "2025-09-24", accessed: "2026-10-23", access: fetched, lang: en, note: "Atia's Legacy 最初のプレイテストと構想"}
+  - {id: src-axie-blog-axs-staking-revamp, title: "AXS Staking Revamp", url: "https://blog.axieinfinity.com/p/axs-staking-revamp", publisher: "The Lunacian (Axie Infinity blog)", type: official-blog, primary: true, published: "2025-11-26", accessed: "2026-10-23", access: fetched, lang: en, note: "ステーキング報酬の逓減、Axie Score 連動の手動配布"}
+  - {id: src-axie-blog-aip-004, title: "AIP-004 is LIVE on App.axie!", url: "https://blog.axieinfinity.com/p/aip-004-is-live-on-appaxie", publisher: "The Lunacian (Axie Infinity blog)", type: official-blog, primary: true, published: "2025-12-09", accessed: "2026-10-23", access: fetched, lang: en, note: "トレジャリー保有 AXS/RON とステーキング提案"}
+  - {id: src-axie-blog-terrariums-v1, title: "Terrariums V1 is LIVE!", url: "https://blog.axieinfinity.com/p/terrariums-v1-is-live", publisher: "The Lunacian (Axie Infinity blog)", type: official-blog, primary: true, published: "2026-06-17", accessed: "2026-10-23", access: fetched, lang: en, note: "Terrariums 公開と Homeland 終了、Lunium はオフチェーン"}
+  - {id: src-axie-blog-link-directory, title: "The Complete Axie Infinity Link Directory", url: "https://blog.axieinfinity.com/p/the-complete-axie-infinity-link-directory", publisher: "The Lunacian (Axie Infinity blog)", type: official-blog, primary: true, published: "2026-06-22", accessed: "2026-10-23", access: fetched, lang: en, note: "公式リンクと第三者ツール一覧"}
+  - {id: src-axie-blog-atias-playtest3, title: "The Trials Begin: Atia's Legacy Playtest 3 is LIVE!", url: "https://blog.axieinfinity.com/p/atias-legacy-playtest-3-is-live", publisher: "The Lunacian (Axie Infinity blog)", type: official-blog, primary: true, published: "2026-07-01", accessed: "2026-10-23", access: fetched, lang: en, note: "PvP プレイテスト、Playtest 2 参加 6,000 人"}
+  - {id: src-axie-blog-origins-s19, title: "Origins S19 is LIVE!", url: "https://blog.axieinfinity.com/p/origins-s19-is-live", publisher: "The Lunacian (Axie Infinity blog)", type: official-blog, primary: true, published: "2026-09-30", accessed: "2026-10-23", access: fetched, lang: en, note: "bAXS（非譲渡）報酬、Axie Score 連動の換金手数料、マルチアカウント BAN"}
+  - {id: src-axie-blog-waypoint-sunset, title: "Migrate Your Waypoint Assets Before October 16", url: "https://blog.axieinfinity.com/p/migrate-your-waypoint-assets-before", publisher: "The Lunacian (Axie Infinity blog)", type: official-blog, primary: true, published: "2026-10-02", accessed: "2026-10-23", access: fetched, lang: en, note: "Ronin Waypoint ウォレットの終了と移行"}
+  - {id: src-axie-blog-lounge-2026-10, title: "We expected a few games. You Built 91!", url: "https://blog.axieinfinity.com/p/lunacian-lounge-recap-oct-13", publisher: "The Lunacian (Axie Infinity blog)", type: official-blog, primary: true, published: "2026-10-14", accessed: "2026-10-23", access: fetched, lang: en, note: "Vibeathon（AI でファンがゲーム制作）、Atia's Legacy の方針、Terrariums の計画"}
+  - {id: src-axie-blog-builders, title: "Axie Infinity Builders Program!", url: "https://blog.axieinfinity.com/p/builders", publisher: "The Lunacian (Axie Infinity blog)", type: official-blog, primary: true, published: "2022-04-22", accessed: "2026-10-23", access: fetched, lang: en, note: "第三者開発の助成と条件、初期ミニゲームの終了"}
+  - {id: src-rekt-ronin, title: "Ronin Network - REKT", url: "https://rekt.news/ronin-rekt", publisher: "rekt.news", type: analysis, primary: false, published: "2022-03-29", accessed: "2026-10-23", access: fetched, lang: en, note: "9 バリデータ中 5 署名、Axie DAO の許可が取り消されていなかった経緯、閾値を 8/9 に変更"}
+  - {id: src-bleeping-fbi-ronin, title: "FBI links largest crypto hack ever to North Korean hackers", url: "https://www.bleepingcomputer.com/news/security/fbi-links-largest-crypto-hack-ever-to-north-korean-hackers", publisher: "BleepingComputer", author: "Sergiu Gatlan", type: news, primary: false, published: "2022-04-14", accessed: "2026-10-23", access: fetched, lang: en, note: "FBI による Lazarus Group / APT38 への帰属、OFAC 指定"}
+  - {id: src-theblock-ronin-reopen, title: "Axie Infinity's Ronin Ethereum bridge officially reopens following hack", url: "https://www.theblock.co/post/154590/axie-infinitys-ronin-ethereum-bridge-officially-reopens-following-hack", publisher: "The Block", author: "MK Manoylov", type: news, primary: false, published: "2022-06-28", accessed: "2026-10-23", access: fetched, lang: en, note: "ブリッジ再開、1:1 裏付け、大口出金停止機構"}
+  - {id: src-theblock-axie-money, title: "Play-to-earn game Axie Infinity: Where does the money come from?", url: "https://www.theblock.co/post/130322/play-to-earn-game-axie-infinity-where-does-the-money-come-from", publisher: "The Block", author: "Tim Copeland", type: analysis, primary: false, published: "2022-01-15", accessed: "2026-10-23", access: fetched, lang: en, note: "新規参加者の資金が既存プレイヤーに流れる構造、1 日 1.87 億 SLP、運営は中央銀行役"}
+  - {id: src-reuters-ph-ditch, title: "Stung by losses, Filipino players ditch Axie Infinity crypto game", url: "https://gulfnews.com/business/markets/stung-by-losses-filipino-players-ditch-axie-infinity-crypto-game-1.1682588424494", publisher: "Gulf News (Reuters 配信)", type: news, primary: false, published: "2023-04-27", accessed: "2026-10-23", access: fetched, lang: en, note: "フィリピンのマネージャーとスカラーの収入、DAU 270 万→25 万（掲載日は Gulf News の更新日）"}
+  - {id: src-cg-scholarship-study, title: "Play-To-Earn: A Study on Scholarship Viability", url: "https://assets.coingecko.com/reports/Research/Play-To-Earn-A-Study-on-Scholarship-Viability.pdf", publisher: "CoinGecko", author: "Khor Win Win", type: analysis, primary: false, published: "2021-08-26", accessed: "2026-10-23", access: fetched, lang: en, note: "スカラーシップの仕組み（ログイン情報の共有）、分配 50–70%、チーム費用"}
+  - {id: src-forkast-p2e-dwindle, title: "As earnings from play-to-earn games dwindle, some turn to upskilling players", url: "https://forkast.news/earnings-play-to-earn-games-dwindle-upskill-players/", publisher: "Forkast", author: "Timmy Shen", type: news, primary: false, published: "2022-07-08", accessed: "2026-10-23", access: fetched, lang: en, note: "YGG の 70/20/10 分配（共同創業者の発言）と収入減への対応"}
+  - {id: src-axie-naavik-df, title: "Dark Forest: A Beacon of Light for Blockchain Games", url: "https://naavik.co/deep-dives/dark-forest-beacon-of-light/", publisher: "Naavik", author: "Anthony Pecorella", type: analysis, primary: false, published: "2022-06-20", accessed: "2026-10-23", access: fetched, lang: en, note: "検証時に追加。Axie は大きな専用クライアントを要し、戦闘結果を Sky Mavis のサーバーが計算してチェーンに書くと対比的に記述"}
+  - {id: src-coingecko-api-2026-10, title: "CoinGecko API: smooth-love-potion / axie-infinity market data", url: "https://api.coingecko.com/api/v3/coins/smooth-love-potion", publisher: "CoinGecko", type: analysis, primary: false, accessed: "2026-10-23", access: fetched, lang: en, note: "SLP と AXS（/coins/axie-infinity）の最高値・最高値日・2026-10-23 時点価格・供給量"}

@@ -1,0 +1,254 @@
+# 発明・概念の語彙。kind: tech（技術）| mechanic（ゲームメカニクス）| econ（経済設計）| infra（開発基盤）| idea（思想）
+# 概念同士の関係は relations に書く。basis: confirmed は出典必須、analytic は分析上の類似。
+- id: c-nft-asset
+  name: 非代替トークンとしてのゲーム資産
+  kind: tech
+  desc: ゲーム内のアイテムやキャラクターをトークン（ERC-721 等）として発行し、運営の DB 外で所有・移転できるようにする。
+- id: c-fungible-ingame-token
+  name: 代替可能なゲーム内通貨のトークン化
+  kind: tech
+  desc: ゲーム内通貨や資源を ERC-20 等のトークンにし、外部市場で取引可能にする。
+- id: c-onchain-state
+  name: ゲーム状態のオンチェーン保持
+  kind: tech
+  desc: 位置・資源・所有だけでなく、ゲームの進行状態そのものをチェーン上に置く。
+- id: c-onchain-rules
+  name: ルールのオンチェーン実行
+  kind: tech
+  desc: 行動の合法性判定や結果計算をコントラクトが行い、運営サーバーを経由しない。
+- id: c-own-chain
+  name: ゲーム専用チェーン・サイドチェーン・L2
+  kind: infra
+  desc: 手数料・処理量の問題を避けるため、ゲーム専用や特定用途のチェーンを使う。
+- id: c-gas-abstraction
+  name: セッションキー・手数料肩代わり
+  kind: infra
+  desc: 毎回の署名やガス支払いをなくし、操作感を通常のゲームに近づける仕組み。
+- id: c-zk-hidden-info
+  name: ZK 証明による秘匿情報
+  kind: tech
+  desc: 公開台帳上で、情報を明かさずに行動の正当性だけを証明する。
+- id: c-commit-reveal
+  name: コミット・リビール
+  kind: tech
+  desc: 先にハッシュを公開し後で中身を明かすことで、同時手番や秘匿選択を実現する。
+- id: c-onchain-randomness
+  name: オンチェーン乱数（ブロックハッシュ・VRF 等）
+  kind: tech
+  desc: 乱数をどこから得るか。予測・操作の余地と信頼の置き場所が設計を左右する。
+- id: c-ecs-engine
+  name: オンチェーン ECS エンジン
+  kind: infra
+  desc: Entity-Component-System でチェーン上の状態を構造化し、クライアント同期や拡張を容易にする基盤。
+- id: c-permissionless-extension
+  name: 許可不要のオンチェーン拡張
+  kind: tech
+  desc: 第三者が運営の許可なくコントラクトを追加し、既存の世界のルールや資産と組み合わせられる。
+- id: c-client-plugins
+  name: クライアントプラグイン・第三者クライアント
+  kind: tech
+  desc: 公開された状態を読む別 UI・自動化スクリプト・プラグインを第三者が作れる。
+- id: c-ai-agent-player
+  name: AI エージェントがプレイヤーとして参加
+  kind: tech
+  desc: 言語モデル等で動くエージェントが、人間と同じインターフェースで行動・取引する。
+- id: c-composable-primitive
+  name: 最小プリミティブの公開と派生
+  kind: idea
+  desc: 意図的に最小限の資産や規則だけを公開し、意味付けや遊び方を第三者に委ねる。
+- id: c-autonomous-world
+  name: Autonomous Worlds
+  kind: idea
+  desc: ルールと状態がチェーン上にあり、運営の継続に依存せず誰でも拡張できる世界という考え方。
+- id: c-cc0
+  name: CC0・パブリックドメインの資産
+  kind: idea
+  desc: 知的財産権を放棄し、派生作品を自由にする。
+- id: m-breeding
+  name: 繁殖・交配による資産生成
+  kind: mechanic
+  desc: 既存の資産を組み合わせて新しい資産を作る。供給量と希少性の設計が経済を左右する。
+- id: m-collectible-cards
+  name: 収集型カード・トレーディング
+  kind: mechanic
+  desc: カードやキャラクターの収集・交換・デッキ構築。
+- id: m-fog-of-war
+  name: 戦場の霧
+  kind: mechanic
+  desc: 他者の位置や状態が見えないことが駆け引きの源になる。
+- id: m-seasons
+  name: シーズン制・ラウンド制
+  kind: mechanic
+  desc: 世界を定期的にリセットし、新規参入と先行者有利の問題に対処する。
+- id: m-permadeath
+  name: パーマデス・ローグライク
+  kind: mechanic
+  desc: キャラクターの死が恒久的で、一回ごとの挑戦に価値を置く。
+- id: m-land
+  name: 土地・区画の所有
+  kind: mechanic
+  desc: 地図上の区画をトークン化し、所有者が開発・貸与・売買する。
+- id: m-production-chain
+  name: 生産チェーン・クラフト・自動化
+  kind: mechanic
+  desc: 資源を加工・組み立てて上位の財を作る。工場・物流ゲームの中核。
+- id: m-farming-idle
+  name: 農業・放置型生産
+  kind: mechanic
+  desc: 時間経過で資源が増える。日次の再訪を促すが、報酬目的の作業化もしやすい。
+- id: m-pvp-territory
+  name: 領土争い・PvP 戦闘
+  kind: mechanic
+  desc: 限られた地図資源をめぐる戦闘・占領。
+- id: m-last-buyer
+  name: 最終購入者が総取りするタイマー
+  kind: mechanic
+  desc: 購入のたびにタイマーが延び、時間切れ時の最後の購入者が賞金を得る。
+- id: m-ai-adversary
+  name: AI を攻略対象にするゲーム
+  kind: mechanic
+  desc: AI エージェントを説得・攻略・出し抜くこと自体を遊びにする。
+- id: m-bot-automation
+  name: ボット・自動化の公認
+  kind: mechanic
+  desc: スクリプトや自動化を禁止せず、ゲームの一部として受け入れる。
+- id: e-p2e
+  name: Play-to-Earn
+  kind: econ
+  desc: 遊ぶことで換金可能なトークンや資産を得る設計。
+- id: e-dual-token
+  name: 二層トークン（統治／報酬）
+  kind: econ
+  desc: 供給が限定されたガバナンストークンと、遊びで発行される報酬トークンを分ける。
+- id: e-scholarship
+  name: スカラーシップ（資産の貸与と収益分配）
+  kind: econ
+  desc: 資産保有者が資産をプレイヤーに貸し、得た報酬を分配する。
+- id: e-entry-fee-prize
+  name: 参加費と賞金プール
+  kind: econ
+  desc: 参加者から徴収した資金を勝者に分配する。報酬の原資が明確。
+- id: e-sink-faucet
+  name: 発行（faucet）と消費（sink）の均衡
+  kind: econ
+  desc: 報酬トークンの発行量と、ゲーム内で消費・焼却される量の釣り合い。
+- id: e-royalty-creator
+  name: 二次流通手数料・制作者への分配
+  kind: econ
+  desc: 二次売買時の手数料や派生作品の利用料を制作者に分配する。
+- id: e-points-airdrop
+  name: ポイント・エアドロップ期待
+  kind: econ
+  desc: 将来のトークン配布を期待させてプレイを促す。
+- id: e-grants-subsidy
+  name: 助成金・エコシステム補助
+  kind: econ
+  desc: チェーンや財団の助成金・インセンティブで開発や遊びを支える。
+- id: c-tee-attestation
+  name: TEE（信頼実行環境）による実行の証明
+  kind: tech
+  desc: AI 推論やサーバー処理をハードウェアの隔離環境で動かし、その実行を外部に証明しようとする仕組み。信頼はハードウェア提供者に移る。
+- id: c-server-oracle-results
+  name: サーバーが結果をチェーンに書き込む（オラクル型）
+  kind: tech
+  desc: 試合や判定はサーバーで行い、その結果だけを運営の権限でチェーンに記録する。資産と報酬は検証可能だが、判定自体は運営への信頼に依存する。
+- id: m-rising-message-fee
+  name: 試行ごとに上がる参加料
+  kind: mechanic
+  desc: 挑戦のたびに手数料が上がり、賞金プールに積み上がる。挑戦の価値と期待値の釣り合いが遊びを形作る。
+- id: m-human-coached-agent
+  name: 人間が育成・指示する AI エージェント
+  kind: mechanic
+  desc: 人間は直接操作せず、訓練・方針・指示を通じて AI の行動に影響を与える。人間の意思決定は「準備」に移る。
+- id: c-consensus-embedded-rules
+  name: ゲームルールをコンセンサスに組み込む
+  kind: tech
+  desc: ゲーム状態の遷移をチェーン自体のブロック検証規則に含め、全ノードがゲームを計算する。
+- id: c-block-stuffing
+  name: ブロック詰め（ブロック空間の買い占め）
+  kind: tech
+  desc: 高いガス代の取引でブロックを埋め、他者の取引を一定時間締め出す。時間制限付きのオンチェーンゲームで勝敗を左右し得る。
+- id: e-human-mining
+  name: プレイによる採掘（遊びで新規発行を得る）
+  kind: econ
+  desc: 新規発行される通貨の一部を、計算ではなくゲーム内の行動に対して配る。
+- id: e-dividend-ponzi
+  name: 後続の購入者が先行者に配当する構造
+  kind: econ
+  desc: 新しい参加者の支払いが既存参加者への配当になる。成長が止まると破綻する。
+- id: c-hook-mediated-interop
+  name: フックによる異なる作者のルール間の相互運用
+  kind: tech
+  desc: ある拡張が共有状態を書き換える前後に、他の拡張が許可・拒否・追加処理を差し込めるようにする。既定で拒否するか許可するかが合成可能性を大きく左右する。
+- id: m-season-end-lock
+  name: シーズン終了時の資産・状態の凍結
+  kind: mechanic
+  desc: シーズン終了で世界の状態や資産を凍結・持ち越し不可にする。新規参入の公平性と、積み上げた価値の喪失がトレードオフになる。
+- id: m-npc-agent-bounty
+  name: 報酬を持つ AI 制御の NPC 勢力
+  kind: mechanic
+  desc: 運営が制御する AI 勢力を世界に置き、討伐や交易の対象にする。AI はプレイヤーと対等な参加者ではなく環境の一部として働く。
+- id: c-host-chain-dependency
+  name: ホストチェーンへの依存
+  kind: infra
+  desc: ゲームが載るチェーン（専用 L2/L3 を含む）が停止・移行すると、ルールの永続性の約束も共に失われる。
+- id: c-owner-scoped-extension
+  name: 所有範囲に限定された拡張
+  kind: tech
+  desc: 第三者の拡張が、自分の所有物（建物・区画・ゾーン）の中だけでルールを変えられる。他者への影響を制限して信頼問題を減らす。
+- id: c-energy-backed-extension
+  name: ゲーム内資源で維持される拡張
+  kind: mechanic
+  desc: 拡張（チップ等）の動作や防御にゲーム内の資源・電池を消費させ、他者が資源を削ることで無力化できる。審査の代わりにゲーム内コストで拡張を律する。
+- id: c-namespace-permissions
+  name: 名前空間ごとの所有と権限
+  kind: infra
+  desc: 共有ワールドの中で、テーブルやシステムを名前空間単位で所有させ、書き込み権限を所有者が管理する（MUD の World など）。
+- id: c-delegated-extension
+  name: 委任による第三者機能の利用
+  kind: tech
+  desc: プレイヤーが自分の代わりに行動する権限を第三者のコントラクトへ委任し、他者が作った機能（自動化・代行・協力）を使えるようにする。委任は取り消し可能。
+- id: c-player-created-matches
+  name: プレイヤーが費用を払って試合・場を作る
+  kind: econ
+  desc: 試合や遊び場の作成をプレイヤーに開放し、作成費や参加費をトークンで支払わせる。
+- id: m-prescience
+  name: 予知できる乱数を前提にした攻略
+  kind: mechanic
+  desc: 乱数の入力が公開・予測可能であることを隠さず、先読みを攻略要素にする。プレイヤーが入力を操作できると破綻する。
+- id: m-risk-staking
+  name: 奪われるリスクのあるステーキング
+  kind: mechanic
+  desc: 資産を預けて報酬を得る間、他プレイヤーに一部を奪われる確率を設ける。
+- id: e-client-provider-fee
+  name: クライアント提供者への手数料分配
+  kind: econ
+  desc: プレイを中継した第三者クライアント（フロントエンド）に参加費の一部を分配し、別 UI の開発を促す。
+- id: c-sybil-gating
+  name: 換金直前の本人性・評判ゲート
+  kind: tech
+  desc: 遊ぶこと自体は開放し、出金・取引だけを評判スコアや本人確認の閾値の後ろに置いて、多重アカウントの収益化を抑える。
+- id: e-progression-gated-fees
+  name: 進行度で下がる換金手数料
+  kind: econ
+  desc: 新規アカウントの売却手数料を高くし、ゲーム内の進行に応じて下げることで、使い捨てアカウントの採算を消す。
+- id: e-expiring-season-token
+  name: 期限付きの季節トークン
+  kind: econ
+  desc: シーズンごとに失効する資源トークンを発行し、長期のインフレを持ち越さない。
+- id: e-spend-only-token
+  name: 消費専用（譲渡・売却不可）の報酬
+  kind: econ
+  desc: 報酬をゲーム内でのみ使える形で配り、外部換金による抽出圧力を下げる。
+- id: c-swappable-rule-module
+  name: 差し替え可能なルール部品
+  kind: tech
+  desc: ルールの一部を管理者が差し替えられる別コントラクトに置く。修正は容易になるが、プレイヤーの検証可能性と永続性の約束は弱まる。
+- id: m-cooldown-escalation
+  name: 使うたびに伸びるクールダウン
+  kind: mechanic
+  desc: 資産を使うたびに次の使用までの待ち時間を伸ばし、1 個体からの量産を抑える。
+- id: c-deterministic-onchain-generation
+  name: トークン ID からの決定的な内容生成
+  kind: tech
+  desc: 内容や画像をトークン ID のハッシュからコントラクト内で生成し、外部ストレージなしで永続させる。

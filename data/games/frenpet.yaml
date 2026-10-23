@@ -1,0 +1,106 @@
+id: frenpet
+name: Fren Pet
+aliases: [FrenPet, $FP]
+kind: game
+depth: index
+updated: "2026-10-23"
+chains: [Base]
+team: "@cadu_veloso と @surfcoderepeat による 2 人の自己資金チーム（運営記載）"
+summary: >-
+  Base 上の放置型ペット育成ゲーム。ペット（NFT）を作り、3 日以内に餌を与え続けないと休眠・死亡し、30 分ごとに他のペットを「bonk」（攻撃）して得点を奪い、
+  得点を ETH 報酬と交換できる。ETH 報酬の原資は $FP トークンの売買にかかる税で、得点を換金すると得点とペットの成長はリセットされる。
+  2023-09 に公開、2023-11 に Diamond（EIP-2535）で全面的に書き直した V2 を公開した。
+selection_reason: >-
+  ゲームの状態と PvP をコントラクトに置き、報酬をトークンの取引税から払う「取引量に依存する経済」の小規模な実例であり、
+  公開状態上の攻撃対象選び・ボットによる自動化・アップグレード可能な Diamond と「審査付きの第三者 Facet」という拡張方針を、
+  完全な許可不要拡張（MUD 等）と対比できるから。
+categories:
+  - {id: p2e, role: primary, reason: "得点をトークン取引税由来の ETH と交換でき、$FP の購入・ステーク・燃焼がゲーム進行と結びつく"}
+  - {id: onchain-rules, role: secondary, reason: "餌やり・攻撃・得点移動・休眠・死亡と NFT の焼却などがコントラクトで処理される（Diamond）"}
+status:
+  value: active
+  as_of: "2026-10"
+  note: >-
+    参照日時点で公式サイトとドキュメントが稼働し、ドキュメントは無料で始められる現行の仕組み（1 日 10 トランザクションまで運営負担）を説明している。
+    第三者の Super Fren Pet のページは FrenPet へのステーキングが参照の数週間前まで機能していたことを示す。プレイヤー数などの活動量は確認していない。
+  s: [src-frenpet-docs-overview, src-frenpet-superfrenpet]
+dates:
+  launched: {date: "2023-09", s: [src-frenpet-hello], note: "公式ブログ「Hello Frens」（2023-09-01）で公開を告知"}
+
+architecture:
+  onchain:
+    level: core-rules
+    detail: >-
+      V2 は EIP-2535 Diamond（Base 上の 1 アドレス）に機能を集約し、ペット NFT、$FP（ERC-20）、pGOLD（譲渡不可のポイント）を別コントラクトで持つ。
+      攻撃の勝率は攻撃側 AP ÷（攻撃側 AP＋防御側 DP）で、得点の移動上限（0.5%）などがドキュメントに規定されている。各ペットの DNA は鋳造時に乱数で決まりオンチェーンに保存される。
+    s: [src-frenpet-docs-contracts, src-frenpet-docs-pvp, src-frenpet-v2]
+  offchain:
+    - {item: "ログイン（メール・X・Apple ID など）と自動作成されるウォレット、スマートアカウントのガス肩代わり（1 日 10 トランザクションまで）", s: [src-frenpet-docs-overview]}
+    - {item: "フロントエンドのデータは公開 API で提供。bonk とルーレットは FrenPet の署名付きログインを要し、第三者のボットはそれらを自動化しないと Super Fren Pet は書く", s: [src-frenpet-v2, src-frenpet-superfrenpet]}
+    - {item: "pGOLD の配分アルゴリズムは予告なく変更され得ると運営は明記", s: [src-frenpet-next-steps]}
+  admin:
+    level: significant
+    detail: >-
+      V2 は「中央集権性が増すが、機能の反復とバグ修正のため」アップグレード可能な Diamond にしたと運営は明言。第三者が作る Facet は運営がホワイトリストに入れて統合し、
+      その Facet は契約のストレージとすべての論理にアクセスできる。運営は Uniswap v3 のプールをブロックする権利を留保している。
+    s: [src-frenpet-v2, src-frenpet-docs-rewards]
+  open_source:
+    level: unknown
+    detail: "ドキュメントのリポジトリ（surfer77）は公開されているが、ゲームコントラクトのソースコードの公開は確認できなかった。Diamond は louper.dev で facet を参照できる。"
+    s: [src-frenpet-docs-contracts]
+  extensibility:
+    level: official-api
+    detail: >-
+      公開 API と「審査付きの Facet 追加」。運営は Facet を作りたい開発者にまず相談するよう求めている。第三者のオンチェーン活用例として、取引手数料で 1 匹のペットを共同育成する
+      Super Fren Pet（$SFP）があり、キーパーボットがステーキングと餌やりを自動化する。
+    s: [src-frenpet-v2, src-frenpet-superfrenpet]
+
+compare:
+  gameplay: {t: "ペットを鋳造し、3 日ごとに餌（攻撃 10 回で 1 つ得るきのこ、または有料）を与え、30 分ごと（パス保持者は 10 分）に 1 時間攻撃されていないペットを攻撃して得点を奪う。毎日のルーレット、ガチャで AP/DP を上げ、モンスター収集・進化・サイコロゲームもある。", k: fact, s: [src-frenpet-docs-gameplay, src-frenpet-docs-pvp]}
+  necessity: {t: "得点を ETH と交換できる報酬プールを運営の管理外のコントラクトで自動分配する点にオンチェーン化の意味がある。ゲーム性（たまごっち型の育成と非同期 PvP）自体はオンチェーンを必要としない。", k: analysis, s: [src-frenpet-docs-rewards]}
+  information: {t: "全ペットの得点・状態は公開で、リーダーボードから攻撃対象を選ぶ。攻撃されたペットは 1 時間攻撃対象にならない。", k: fact, s: [src-frenpet-docs-pvp]}
+  persistence: {t: "ペットは餌を与えないと休眠し、休眠中のペットは得点を失いやすく、死亡したペットは誰でも焼却でき、焼却した人は星を得る。V1 から V2 への移行では全ペットがエアドロップで引き継がれた。", k: fact, s: [src-frenpet-docs-gameplay, src-frenpet-docs-pvp, src-frenpet-v2]}
+  extensibility: {t: "公開 API と、運営審査を経た第三者 Facet の統合（許可制）。", k: fact, s: [src-frenpet-v2]}
+  money_flow: {t: "$FP の売買に 4% の税（ドキュメント時点）がかかり、ETH に替えて 2% をプレイヤー報酬、1% を開発者、1% を流動性に回す。報酬は全ペットの得点に占める割合で請求でき、請求すると得点がリセットされる。きのこ購入の $FP は 100% 燃焼、ステークした $FP は 30 日かけて全額返却される。", k: fact, s: [src-frenpet-docs-rewards, src-frenpet-docs-fp, src-frenpet-docs-stake]}
+  entry_barrier: {t: "現行はメール等のログインで自動作成ウォレットにより無料で始められ、1 日 10 トランザクションまで運営がガスを負担。それ以上は ETH の入金が必要。V2 公開時は招待制で、鋳造に $FP が必要だった。", k: fact, s: [src-frenpet-docs-overview, src-frenpet-v2]}
+
+concepts: [c-nft-asset, c-fungible-ingame-token, c-gas-abstraction, e-p2e, e-sink-faucet, m-bot-automation, m-permadeath, m-farming-idle]
+
+article:
+  principles:
+    - {t: "取引税を報酬原資にする: ゲーム内報酬をトークンの売買税から払うと、運営が報酬を発行しなくて済む。適用条件は、トークンに継続的な取引量があること。破綻条件は取引量が落ちた場合で、報酬原資も比例して細り、得点を換金するとペットがリセットされる設計では、換金の時期をめぐる駆け引きが報酬プールの縮小時に一斉換金へ傾き得る。", k: analysis, s: [src-frenpet-docs-rewards, src-frenpet-v2]}
+  counter_evidence:
+    - {t: "運営は V2 告知時点で、取引量の 2% の収入は自分たちを支えるには安定していないと書いた。取引税モデルは開発者の持続性も取引量に依存させる。", k: claim, who: "Fren Pet 運営", s: [src-frenpet-v2], q: "so far it hasn't been consistent to sustain ourselves"}
+
+events:
+  - {id: ev-frenpet-launch, date: "2023-09-01", type: launch, title: "Fren Pet を公開（Hello Frens）", s: [src-frenpet-hello]}
+  - {id: ev-frenpet-v2, date: "2023-11-09", type: release, title: "V2 公開（Diamond への全面書き直し、招待制、ショップ、保険・盾）", detail: "V1 の全ペットを V2 にエアドロップ", s: [src-frenpet-v2]}
+  - {id: ev-frenpet-pgold, date: "2023-12-01", type: spec-change, title: "pGOLD（譲渡不可ポイント）と Season 1 を告知", detail: "3 か月で 1000 万 pGOLD を毎週配布（12/8 開始）", s: [src-frenpet-next-steps]}
+
+relations:
+  - {to: axie-infinity, type: similar-to, basis: analytic, note: "育成＋対戦で得点を報酬に換える P2E。Fren Pet は報酬を新規発行でなく取引税から払う"}
+  - {to: cryptokitties, type: similar-to, basis: analytic, note: "ペット NFT の育成・収集。Fren Pet は死と休眠という維持コストを加えた"}
+  - {to: dark-forest, type: contrasts-with, basis: analytic, note: "自動化を公認した Dark Forest に対し、Fren Pet は bonk に署名付きログインを要求し、第三者ボットの自動化範囲を限定した（Super Fren Pet の記述による）"}
+
+unknowns:
+  - "ボット・多重ペット保有の規模と、上位プレイヤーがボットかどうか（ソーシャル投稿の断片のみで未確認）。"
+  - "フロントランニング（攻撃可能になったペットの奪い合い、$FP 取引での先回り）の実例。調査依頼にあったが一次資料・オンチェーン分析を確認できなかった。"
+  - "コントラクトのソースコード公開の有無、Diamond の所有者権限の範囲（第三者監査記事は Medium で遮断され未読）。"
+  - "プレイヤー数・継続率・報酬プールの総額。"
+contradictions:
+  - {t: "ペットの鋳造費用: V2 告知は 100 $FP（次の鋳造者から返金）とし、Bankless の記事（2023-12-12）は 10 $FP と記載。時期による変更の可能性。", s: [src-frenpet-v2, src-frenpet-bankless]}
+  - {t: "取引税: V2 告知では開発者の取り分を取引量の 2% と書き、現行ドキュメントは税 4% のうち開発者 1% と記載（時期による変更の可能性）。", s: [src-frenpet-v2, src-frenpet-docs-rewards]}
+
+sources:
+  - {id: src-frenpet-docs-overview, title: "Overview | Fren Pet", url: "https://docs.frenpet.xyz/", publisher: "Fren Pet docs", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "Base 上の放置型ゲーム、無料開始、1 日 10 トランザクションまで運営負担"}
+  - {id: src-frenpet-docs-gameplay, title: "Gameplay | Fren Pet", url: "https://docs.frenpet.xyz/gameplay", publisher: "Fren Pet docs", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "餌やり・休眠・ルーレット・訓練・攻撃・モンスター・星"}
+  - {id: src-frenpet-docs-pvp, title: "Player Vs Player (PVP) | Fren Pet", url: "https://docs.frenpet.xyz/pvp", publisher: "Fren Pet docs", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "攻撃間隔・1 日 32 回・勝率式・得点移動の上限・死亡ペットの焼却"}
+  - {id: src-frenpet-docs-rewards, title: "Rewards | Fren Pet", url: "https://docs.frenpet.xyz/rewards", publisher: "Fren Pet docs", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "4% の売買税の配分、得点の請求とリセット、Uniswap v3 プールのブロック権"}
+  - {id: src-frenpet-docs-fp, title: "$FP | Fren Pet", url: "https://docs.frenpet.xyz/fp", publisher: "Fren Pet docs", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "燃焼、公平な配布（1 人上限）、チームの事前割当なし"}
+  - {id: src-frenpet-docs-stake, title: "Stake to Play (S2P) | Fren Pet", url: "https://docs.frenpet.xyz/stake", publisher: "Fren Pet docs", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "ステークした $FP は 30 日で全額返却"}
+  - {id: src-frenpet-docs-contracts, title: "Contracts | Fren Pet", url: "https://docs.frenpet.xyz/contracts", publisher: "Fren Pet docs", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "V2 Diamond・FP・NFT・pGOLD のアドレス"}
+  - {id: src-frenpet-hello, title: "Hello Frens", url: "https://docs.frenpet.xyz/blog/hello-world", publisher: "Fren Pet blog", type: official-blog, primary: true, published: "2023-09-01", accessed: "2026-10-23", access: fetched, lang: en, note: "公開告知（1 段落）"}
+  - {id: src-frenpet-v2, title: "Fren Pet V2", url: "https://docs.frenpet.xyz/blog/v2", publisher: "Fren Pet blog", type: official-blog, primary: true, published: "2023-11-09", accessed: "2026-10-23", access: fetched, lang: en, note: "Diamond による書き直し、第三者 Facet のホワイトリスト、招待制、収入が安定しないこと"}
+  - {id: src-frenpet-next-steps, title: "Fren Pet Next Steps", url: "https://paragraph.com/@frenpet/i46u16XdtviEvGsJ0DYo", publisher: "frenpet.eth (Paragraph)", type: official-blog, primary: true, published: "2023-12-01", accessed: "2026-10-23", access: fetched, lang: en, note: "pGOLD、Season 1、2 人の自己資金チーム"}
+  - {id: src-frenpet-bankless, title: "How to Adopt a Fren Pet", url: "https://www.bankless.com/read/how-to-adopt-a-fren-pet", publisher: "Bankless", author: "William M. Peaster", type: news, primary: false, published: "2023-12-12", accessed: "2026-10-23", access: fetched, lang: en, note: "Privy 埋め込みウォレット、鋳造 10 $FP、得点の ETH 交換"}
+  - {id: src-frenpet-superfrenpet, title: "Super Fren Pet", url: "https://www.super-fren-pet.xyz/", publisher: "Super Fren Pet", type: official-docs, primary: false, accessed: "2026-10-23", access: fetched, lang: en, note: "第三者による共同育成ペット。キーパーボットがステーキングを自動化、bonk は署名付きログインが必要で自動化しない"}

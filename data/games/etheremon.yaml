@@ -1,0 +1,95 @@
+id: etheremon
+name: Etheremon
+name_ja: イーサモン
+aliases: [Ethermon（2019 年以降の後継）, EMONT]
+kind: game
+depth: index
+updated: "2026-10-23"
+chains: [Ethereum mainnet]
+team: "Etheremon チーム（共同創業者 Nedrick Ngo ほか）。2019 年以降は上位プレイヤーと新チームによる Ethermon として継続したとされる"
+summary: >-
+  2017 年 12 月に Ethereum 上で始まった、Pokémon に着想を得たモンスター収集・対戦ゲーム。モンスター（Mon）はトークンで、
+  城（castle）への攻撃などの対戦判定、経験値、変身（transform）の一部がコントラクトで実行された。ERC-20 の EMONT トークンもゲーム内報酬として使われた。
+  乱数は直前ブロックのハッシュとアドレスから作られ、モデレーターがゲーム設定や経験値を変更できる設計だった。
+selection_reason: >-
+  CryptoKitties 直後に、資産の所有だけでなく対戦の判定までコントラクトに載せようとした初期の例であり、
+  「対戦をオンチェーンで判定するとき、乱数と管理者権限をどこに置いたか」をコードで確認できるから。
+categories:
+  - {id: onchain-rules, role: primary, reason: "城への攻撃（attackCastle）と勝敗・経験値の計算が EtheremonBattle コントラクトで行われる"}
+  - {id: assets, role: secondary, reason: "モンスターを ERC-721 として扱い、EMONT（ERC-20）を報酬に使った"}
+status:
+  value: unknown
+  as_of: "2026-10"
+  note: "公式リポジトリの最終更新は 2024-08（GitHub 表示）。etheremon.com は参照日時点でカジノの紹介サイトになっている。後継の Ethermon の現状は確認できなかった（公式ドメインは名前解決できず）。"
+  s: [src-etheremon-github-org, src-etheremon-site-now]
+dates:
+  launched: {date: "2017-12", s: [src-etheremon-bgamer-2018, src-etheremon-code], note: "共同創業者は 2017-12 に始めたと述べ、コントラクトの最初のコミットは 2017-12-24"}
+
+architecture:
+  onchain:
+    level: partial-rules
+    detail: >-
+      モンスターのデータ（EtheremonData）、捕獲・世界（EtheremonWorld）、城の作成と攻撃・勝敗・経験値（EtheremonBattle）、取引（EtheremonTrade）、変身、ERC-721 化がコントラクトにある。
+      対戦の乱数は直前ブロックのハッシュとプレイヤーアドレスから作られる（getRandom）。調査論文は、追加された一部の要素は完全にはコントラクトで実装されていない可能性があると記す。
+    s: [src-etheremon-code, src-etheremon-survey-2019]
+  offchain:
+    - {item: "Web クライアント、アドベンチャーモード等の一部要素（どこまでがオンチェーンかは未確認）", s: [src-etheremon-bgamer-2018, src-etheremon-survey-2019]}
+    - {item: "Decentraland と連携した VR 対戦の構想（2018 年時点でデモ）", s: [src-etheremon-bgamer-2018]}
+  admin:
+    level: significant
+    detail: >-
+      各コントラクトに owner とモデレーターがあり、モデレーターはモンスターの経験値の増減、型相性・ゲーム設定の変更、城の除去、コントラクト参照先の変更、ETH の引き出しができる。
+      owner は isMaintaining で機能を停止できる。
+    s: [src-etheremon-code]
+  open_source:
+    level: partial
+    detail: "スマートコントラクトは etheremon/smartcontract で公開。クライアントのソースは確認できなかった。"
+    url: "https://github.com/etheremon/smartcontract"
+    s: [src-etheremon-code, src-etheremon-github-org]
+  extensibility:
+    level: none
+    detail: "コントラクト間の参照先や設定はモデレーターが変更する設計で、第三者がルールを追加する仕組みは確認できなかった。"
+    s: [src-etheremon-code]
+
+compare:
+  gameplay: {t: "モンスターを捕まえて育て、他プレイヤーが作った城（3 体＋支援 3 体）を攻撃して勝てば経験値と報酬を得る。トレーニング、対戦、アドベンチャーなど 4 つのモードがあった。", k: fact, s: [src-etheremon-code, src-etheremon-bgamer-2018]}
+  necessity: {t: "モンスターの所有と対戦結果を運営の DB 外に置く意図だが、モデレーターが経験値や設定を書き換えられるため、判定の改変不能性は限定的。", k: analysis, s: [src-etheremon-code]}
+  information: {t: "モンスターの能力・城の構成は公開。乱数は直前ブロックハッシュ由来で、同じブロック内では予測可能。", k: fact, s: [src-etheremon-code]}
+  persistence: {t: "コントラクトは残るが、owner が maintaining を有効にすると機能が止まる。運営の継続に依存する設計。", k: fact, s: [src-etheremon-code]}
+  extensibility: {t: "第三者による拡張の例は確認できなかった。", k: unknown}
+  money_flow: {t: "モンスターの購入（0.03 ETH から）が主な収入源。EMONT は総量 2000 万で 70% をゲーム内で採掘させる設計と報じられた。", k: fact, s: [src-etheremon-egamers-2018]}
+  entry_barrier: {t: "Ethereum ウォレット、ETH とガス代が必要。報道は基本無料プレイと記すが、その範囲は未確認。", k: fact, s: [src-etheremon-egamers-2018]}
+
+concepts: [c-nft-asset, c-onchain-rules, c-onchain-randomness, c-fungible-ingame-token, m-collectible-cards, e-p2e]
+
+metrics:
+  - {id: m-etheremon-mau-2018-08, type: mau, value: 465, unit: users, period: "2018-08 頃", definition: "BlockchainGamer が DappRadar から引用した月間アクティブユーザー（定義は DappRadar 準拠）", nature: estimated, s: [src-etheremon-bgamer-2018]}
+  - {id: m-etheremon-battles-2018, type: other, value: 150000, unit: battles, period: "2018-08 時点の累計", definition: "eGamers が記した完了済み対戦数（出典不明）", nature: reported, s: [src-etheremon-egamers-2018]}
+  - {id: m-etheremon-mons-2018, type: nft_sales, value: 35000, value_text: "35,000 超", unit: mons, period: "2018-08 時点の累計", definition: "購入されたモンスター数（eGamers。出典不明）", nature: reported, s: [src-etheremon-egamers-2018]}
+  - {id: m-etheremon-daily-2018, type: dau, value: 185, unit: players, period: "2018-08 頃", definition: "eGamers 執筆時の日次プレイヤー数（DappRadar 2 位とされる）", nature: estimated, s: [src-etheremon-egamers-2018]}
+
+events:
+  - {id: ev-etheremon-contracts, date: "2017-12-24", type: release, title: "コントラクト v.beta.0.02 をコミット", s: [src-etheremon-code]}
+  - {id: ev-etheremon-erc721, date: "2018-02-23", type: spec-change, title: "ERC-721 トークン化をコントラクトに追加", s: [src-etheremon-code]}
+  - {id: ev-etheremon-decentraland, date: "2018-02", type: announce, title: "Decentraland との VR 対戦の提携を発表", s: [src-etheremon-bgamer-2018]}
+
+relations:
+  - {to: cryptokitties, type: similar-to, basis: analytic, note: "同時期の ERC-721 収集ゲーム。Etheremon は対戦判定までコントラクトに載せた"}
+  - {to: decentraland, type: similar-to, basis: analytic, note: "2018 年に VR 対戦の提携を発表（実装の実態は未確認）"}
+  - {to: c-onchain-randomness, type: built-with, basis: confirmed, note: "直前ブロックハッシュ＋アドレスの乱数で対戦を判定", s: [src-etheremon-code]}
+
+unknowns:
+  - "2019 年の Ethermon への移行の経緯（上位プレイヤーによる取得とされるが一次資料を取得できず）。"
+  - "コントラクトのアドレスとデプロイ日、モデレーター権限が実際に行使された記録。"
+  - "乱数の予測を利用した攻撃が実際にあったか。"
+  - "累計プレイヤー数・継続率の一次データ。"
+contradictions:
+  - {t: "利用者数: eGamers は「6.5000 users」と誤記と見られる数値を書き、BlockchainGamer は DappRadar の月間 465 人を引く。定義・時点が異なる。", s: [src-etheremon-egamers-2018, src-etheremon-bgamer-2018]}
+
+sources:
+  - {id: src-etheremon-code, title: "etheremon/smartcontract", url: "https://github.com/etheremon/smartcontract", publisher: "GitHub", type: code, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "clone して EtheremonBattle.sol（getRandom、attackCastle、onlyModerators、withdrawEther、isMaintaining）とコミット履歴（2017-12-24〜）を確認"}
+  - {id: src-etheremon-github-org, title: "Etheremon (GitHub organization)", url: "https://github.com/etheremon", publisher: "GitHub", type: code, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "4 リポジトリ、smartcontract の最終更新 2024-08-12"}
+  - {id: src-etheremon-bgamer-2018, title: "Bringing monster battles to life with Etheremon & VR", url: "https://www.blockchaingamer.biz/features/5752/bringing-monster-battles-to-life-with-etheremon-vr/", publisher: "BlockchainGamer.biz", author: "James McQuillan", type: interview, primary: true, published: "2018-08-23", accessed: "2026-10-23", access: fetched, lang: en, note: "共同創業者 Nedrick Ngo、2017-12 開始、4 モード、Decentraland VR、DappRadar の MAU 465"}
+  - {id: src-etheremon-egamers-2018, title: "Etheremon: When VR Meets Blockchain", url: "https://egamers.io/etheremon-when-vr-meets-blockchain/", publisher: "eGamers.io", author: "George Tsagkarakis", type: news, primary: false, published: "2018-08-10", accessed: "2026-10-23", access: fetched, lang: en, note: "35,000 超の Mon、15 万対戦、EMONT 2000 万の 70% を採掘、0.03 ETH から"}
+  - {id: src-etheremon-survey-2019, title: "Blockchain Games: A Survey", url: "https://arxiv.org/abs/1906.05558", publisher: "arXiv", author: "Tian Min, Hanyi Wang, Yaoze Guo, Wei Cai", type: paper, primary: false, published: "2019-06-13", accessed: "2026-10-23", access: fetched, lang: en, note: "Etheremon（12/2017）。追加要素は完全にはコントラクト化されていない可能性、長期間上位 5 位"}
+  - {id: src-etheremon-site-now, title: "etheremon.com（参照日時点の内容）", url: "https://www.etheremon.com", publisher: "etheremon.com", type: archive, primary: false, accessed: "2026-10-23", access: fetched, lang: en, note: "参照日時点ではイーサリアム対応カジノの紹介サイト。ゲームとは無関係の内容"}

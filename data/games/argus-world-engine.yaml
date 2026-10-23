@@ -1,0 +1,91 @@
+id: argus-world-engine
+name: World Engine (Argus Labs)
+name_ja: ワールドエンジン（Argus）
+aliases: ["World Engine", "Cardinal", "Argus World Engine"]
+kind: engine
+depth: index
+updated: "2026-10-23"
+chains: ["EVM ベースシャード（Polaris＋Rollkit、DA に Celestia、2022〜2024 期）", "ゲームシャード（Cardinal）"]
+team: "Argus Labs（創業者・CEO Scott Sunarto）"
+summary: >-
+  Argus Labs が開発する、オンチェーンゲーム向けの「シャード型ロールアップ」SDK。汎用 EVM の「ベースシャード」と、ゲームロジックを Go で書く ECS・ティック駆動の「ゲームシャード」（最初の実装が Cardinal）を分け、
+  ゲームは毎ティック決定的に状態を進める。イベント駆動の EVM では重力や回復のような定期更新に「クランク」トランザクションが必要になるという問題への回答として設計された。
+  2024-12 に EVM 関連の依存を外し、2025-10 以降「ゼロから書き直し中」と README に掲げている。
+selection_reason: >-
+  「ゲームのルールを汎用チェーンのコントラクトで動かす」MUD・Dojo 系に対し、「ゲーム専用の実行環境（サーバー的ループ）を検証可能にしてチェーンにつなぐ」という逆向きの設計を代表するため。
+  リアルタイム性と引き換えに第三者が同じ状態にコントラクトで合成する経路がどう変わるかを比較する基準点になる。
+categories:
+  - {id: infra, role: primary, reason: "ゲーム専用のシャード型ロールアップ SDK"}
+  - {id: onchain-rules, role: secondary, reason: "ゲームロジックをゲームシャード内で決定的に実行し、検証可能にすることを目指す"}
+status:
+  value: active
+  as_of: "2026-10"
+  note: "Argus-Labs/world-engine は参照日の直前（2026-10-20）までコミットがあるが、README は「ゼロから書き直し中」と記載。v1 系（EVM ベースシャード＋Cardinal）は 2024-12 に EVM 依存が外され、2025-10 に v2 準備が始まった。"
+  s: [src-argus-repo, src-argus-commits]
+dates:
+  launched: {date: "2023", s: [src-argus-4pillars], note: "2023-10 の第三者解説時点で Cardinal とベースシャードが公開済み。正式な公開日は未確認"}
+
+architecture:
+  onchain:
+    level: partial-rules
+    detail: >-
+      v1 期: EVM ベースシャード（Berachain の Polaris と Rollkit で構成、Celestia へデータ投稿）が資産・コントラクトを扱い、ゲームシャード Cardinal が Go で書かれたゲームロジックを最大 20 ティック／秒で実行する。シャード間は非同期で、アトミックな束ねはできないと第三者解説は記す。
+      ゲームシャードの実行がどの程度ベースシャードやデータ可用性層で検証されたかは本調査では確認できなかった。
+    s: [src-argus-4pillars, src-argus-commits]
+  offchain:
+    - {item: "Nakama ベースのリレー／ゲームサーバー（v1 期）", s: [src-argus-4pillars, src-argus-commits]}
+    - {item: "Cardinal 自体がティックを回すゲームサーバー的プロセス", s: [src-argus-loop-doc]}
+  admin:
+    level: unknown
+    detail: "シーケンサーの運営主体、アップグレード権限、ゲームシャード運営者の権限は未確認。"
+    s: []
+  open_source:
+    level: full
+    detail: "GitHub で LGPL-3.0 として公開。Go、protobuf、C#／TypeScript クライアント。"
+    url: "https://github.com/Argus-Labs/world-engine"
+    s: [src-argus-repo]
+  extensibility:
+    level: official-api
+    detail: "ドキュメントは「コミュニティプラグインとプリセットシャード」を掲げ、リポジトリには data・lobby・physics2d のプラグインがある。これらはゲーム開発者がシャードに組み込むライブラリで、プレイヤーが稼働中のゲームに許可なく拡張を加える仕組みではない。"
+    s: [src-argus-repo]
+
+compare:
+  gameplay: {t: "エンジンでありゲームではない。Argus は World Engine で動くゲームとして Dark Frontier（ZK を使う宇宙征服 MMORTS）を挙げる。", k: claim, who: "Argus Labs", s: [src-argus-argus-site]}
+  necessity: {t: "ゲームの状態更新をティック駆動の専用シャードに置くことで、EVM の手数料・遅延・クランク問題を避けつつ検証可能性を保つという主張。代わりに、第三者のコントラクトがゲーム状態と同期的に合成する余地は小さくなる（シャード間は非同期）。", k: analysis, s: [src-argus-loop-doc, src-argus-4pillars]}
+  information: {t: "未確認（秘匿情報の扱いはゲーム実装次第）。", k: unknown}
+  persistence: {t: "ゲームシャードはゲーム開発者が運営するプロセスで、運営停止後に第三者が同じ状態で継続できるかは未確認。", k: unknown}
+  extensibility: {t: "開発者向けのプラグイン（data, lobby, physics2d）とクライアント SDK。プレイヤーによる許可不要拡張は設計目標として確認できなかった。第三者解説は「Intergame」として出版者・市場・モッダー間の互換性を掲げると記す。", k: fact, s: [src-argus-repo, src-argus-4pillars]}
+  money_flow: {t: "未確認。検索要約では 1000 万ドルのシード（Haun Ventures 主導）とされるが、取得して読めた資料では確認できなかった。", k: unknown, s: [src-argus-jobs]}
+  entry_barrier: {t: "開発者は Go と ECS、ゲームシャードの運用を扱う必要がある。プレイヤー側の障壁はゲーム次第。", k: analysis, s: [src-argus-repo]}
+
+concepts: [c-own-chain, c-ecs-engine, c-onchain-rules]
+proposed_concepts:
+  - {id: c-tick-driven-rollup, name: ティック駆動のゲーム専用ロールアップ, desc: "トランザクション到着ではなく固定間隔のティックで状態を進めるゲーム専用の実行層。定期更新（重力・回復）をクランクなしに扱える。"}
+
+events:
+  - {id: ev-we-nakama, date: "2022-12", type: other, title: "EVM フックと Nakama 受信の実装", detail: "リポジトリ履歴の初期のゲーム関連コミット", s: [src-argus-commits]}
+  - {id: ev-we-cardinal, date: "2023-03", type: release, title: "Cardinal の開発が本格化", s: [src-argus-commits]}
+  - {id: ev-we-evm-removed, date: "2024-12-10", type: spec-change, title: "EVM 依存を削除", detail: "e2e-evm テストを無効化", s: [src-argus-commits]}
+  - {id: ev-we-v2, date: "2025-10-21", type: spec-change, title: "v2 準備（ゼロからの書き直し）開始", s: [src-argus-commits, src-argus-repo]}
+
+relations:
+  - {to: dark-forest, type: similar-to, basis: analytic, note: "Dark Forest と同じくオンチェーン宇宙戦略（Dark Frontier）を手がける。検索要約では創業者 Scott Sunarto が Dark Forest の共同制作者とされるが、一次資料で未確認"}
+  - {to: mud, type: contrasts-with, basis: analytic, note: "MUD は EVM コントラクト上の ECS、World Engine はコントラクト外のティック駆動シャード"}
+  - {to: dojo, type: contrasts-with, basis: analytic, note: "Dojo も汎用チェーン（Starknet）上のコントラクト ECS"}
+  - {to: magicblock, type: similar-to, basis: analytic, note: "ゲーム用に専用の実行環境を切り出す発想"}
+  - {to: c-ecs-engine, type: built-with, basis: confirmed, note: "Cardinal は ECS", s: [src-argus-repo]}
+
+unknowns:
+  - "ゲームシャードの実行の正しさを誰がどう検証するか（不正証明・有効性証明の有無）。"
+  - "Dark Frontier の稼働期間と規模。求人情報の「1 週間で 70 万件超のプレイヤートランザクション」は会社の主張で、独立の確認はできなかった。"
+  - "v2 の設計（README・アーキテクチャ文書は作成中）。"
+  - "創業者と Dark Forest の関係を示す一次資料。"
+contradictions: []
+
+sources:
+  - {id: src-argus-repo, title: "Argus-Labs/world-engine", url: "https://github.com/Argus-Labs/world-engine", publisher: "GitHub", type: code, primary: true, published: "2026-10-20", accessed: "2026-10-23", access: fetched, lang: en, note: "git clone。README（書き直し中）、docs/introduction（ティック駆動、コミュニティプラグイン）、LGPL-3.0、pkg/plugin"}
+  - {id: src-argus-commits, title: "Argus-Labs/world-engine commit history", url: "https://github.com/Argus-Labs/world-engine/commits/main", publisher: "GitHub", type: code, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "blobless clone で git log を確認。2019 年のコミットは Cosmos 系コードの取り込みとみられる"}
+  - {id: src-argus-loop-doc, title: "Loop-driven Runtime (docs/cardinal/loop.mdx)", url: "https://github.com/Argus-Labs/world-engine/blob/main/docs/cardinal/loop.mdx", publisher: "GitHub", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "イベント駆動とループ駆動の比較、クランク問題"}
+  - {id: src-argus-4pillars, title: "Argus: Road to Intergame Thesis", url: "https://research.4pillars.io/en/research/argus-road-to-intergame-thesis", publisher: "Four Pillars", author: "Moyed", type: analysis, primary: false, published: "2023-10-26", accessed: "2026-10-23", access: fetched, lang: en, note: "EVM ベースシャード（Polaris, Rollkit, Celestia）、Cardinal、20 ティック／秒、Intergame"}
+  - {id: src-argus-argus-site, title: "Argus Labs", url: "https://argus.gg", publisher: "Argus Labs", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "World Engine の説明、Dark Frontier、投資家・顧問一覧"}
+  - {id: src-argus-jobs, title: "Argus Labs is hiring (web3.career)", url: "https://web3.career/software-engineer-arguslabs/77490", publisher: "web3.career", type: news, primary: false, accessed: "2026-10-23", access: snippet, lang: en, note: "検索要約のみ。1000 万ドルのシード、Dark Frontier で 70 万件超のトランザクション"}

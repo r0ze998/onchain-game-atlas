@@ -1,0 +1,210 @@
+# 設計仮説: 事例とインサイトから組み立てた、検証前の具体的な設計案。推奨ではない。
+# needs_chain.answer: yes | partial | no | unknown
+
+- id: hyp-owner-scoped-facilities
+  short: 区画内の施設ロジック公開＋利用料
+  title: 自分の区画内に限って施設のロジックを公開させ、他人が利用料を払って使う生産経済
+  summary: >-
+    プレイヤーは自分の区画に工場・農場を置き、その加工レシピ（入力→出力・所要時間・手数料）を自分で定義できる。他プレイヤーは原料を送って加工を依頼し、手数料を払う。
+    ロジックが効くのは作者の区画内だけで、世界の保存則（資源の総量・生成）はコアが握る。「他人が作った機能を使う」ことを、信頼を最小にした形で試す。
+  mechanics:
+    - 所有範囲に限定された拡張（Downstream の建物種別所有・ゾーン）
+    - 生産チェーンと遅延評価の生産（Primodium）
+    - 拡張の維持にゲーム内資源を払わせ、放置された施設は他者が無力化できる（Biomes の電池）
+    - 利用料の一部を作者へ自動分配（Loot Survivor のクライアント提供者分配の応用）
+  player_choices:
+    - 自分で全工程を作るか、他人の施設に外注するか
+    - 自分の施設の価格・レシピ・公開範囲をどう設定するか
+    - どの作者を信頼するか（仕様変更の履歴・評判を見て）
+  incentive_conflicts:
+    - 作者は利用が増えた後に価格や仕様を変えたい。利用者は固定を望む（バージョン固定と移行の扱いが要る）
+    - 作者が自分の別アカウントで利用して実績を偽装できる（自己取引）
+    - 便利な施設に依存が集中すると、その作者の離脱が経済の停止になる
+  failure_conditions:
+    - 他人の施設がほとんど使われない（Biomes・Downstream で利用の証拠が見つからなかった）
+    - プレイヤー数が少なく、外注するより自作する方が早い
+    - 区画が孤立し、区画をまたぐ経済が育たない（Downstream の区画設計の破綻条件）
+  needs_chain:
+    answer: partial
+    reason: >-
+      ロジックの固定・利用料の自動分配・運営不在での継続を約束したい場合のみチェーンが効く。最初の検証（他人の施設が使われるか）はサーバー上のプラグイン API で十分で、
+      PixeLAW の分析が示すように同じ構造はチェーンなしでも書ける。
+  evidence:
+    - {game: downstream, stance: support, note: "種別所有で拡張どうしの競合を避け、運営審査なしに機能を追加できる構造を実装した。", s: [src-downstream-plugin-rule]}
+    - {game: primodium, stance: support, note: "システム単位の委任と報酬エスクローで、代行のような他者機能の利用をコア改修なしに作れる。", s: [src-primodium-bounty-example]}
+    - {game: biomes, stance: counter, note: "拡張機構は何度も作られたが、第三者の拡張とその利用の証拠は見つからなかった。", s: [src-biomes-experience-prs]}
+    - {game: downstream, stance: counter, note: "確認できた外部作例は運営の協力者によるもの。", s: [src-downstream-advanced-tutorials]}
+  insights: [ins-permissionless-ext-unused, ins-trust-boundary, ins-minimal-primitive]
+  experiment:
+    design: オフチェーン試作で、作者 3〜5 人がレシピを定義し、利用側 20〜30 人が 1〜2 週間遊ぶ。バージョン固定あり／なしの 2 群。
+    signal: 自作できる状況での外注率、外注の再利用率、作者の価格改定回数、群間差。
+    kill: 外注の再利用率が 10% 未満なら、「他人の機能の再利用」は中核から外す。
+    cost: 小（チェーン不要。2〜3 週間の開発）
+  relation_to_current: >-
+    「プレイヤーが作った機能を他のプレイヤーも利用・組み合わせられる」という現在の関心に最も近い仮説。ただし事例の証拠はむしろこの方向に否定的（需要が確認されていない）で、
+    最初の実験はそれを反証する機会として設計している。
+
+- id: hyp-short-season-civ
+  short: 短期シーズン文明戦（持ち越しは名声のみ）
+  title: 2 時間〜3 日の短い文明戦を繰り返し、持ち越すのは資産ではなく名声と記録だけにする
+  summary: >-
+    数週間の永続文明ではなく、短いシーズンで農場・工場・戦闘の一巡を完結させる。進軍は固定区間で一括解決し、目的地はコミットで秘匿する。
+    資産はシーズンごとにリセットし、持ち越すのは戦績・称号・リプレイだけにする。新規参加と経済のインフレを同時に回避することを狙う。
+  mechanics:
+    - シーズン制（Dark Forest のラウンド、Eternum の Blitz への移行）
+    - 固定区間の一括解決とコミット・リビール（Fomo3D の教訓、Conquest.eth）
+    - 期限付きの季節トークン／資源（Sunflower Land）
+    - 新規参加者向けの別ランキング
+  player_choices:
+    - 生産に投資するか早期に攻めるか（短い時間で回収できるか）
+    - 目的地を秘匿した進軍で、陽動と本命をどう配分するか
+    - 同盟を組むか、単独で動くか
+  incentive_conflicts:
+    - 熟練集団はツールと知識を持ち越せるため、資産リセットだけでは新規の勝ち目が戻らない
+    - 賞金を付けると自動化と多重アカウントの採算が上がる
+    - 短いシーズンでは「文明が育つ」体験が薄くなる
+  failure_conditions:
+    - 同じ集団が毎回勝つ（Dark Forest の orden_gg）
+    - 2 時間で決着する遊びに文明シミュレーションの要素（工場・技術）が入りきらない
+    - 決着が締め切り直前の行動順で決まる
+  needs_chain:
+    answer: partial
+    reason: >-
+      賞金の自動分配・結果の第三者検証・秘匿進軍の改ざん防止を約束したい場合に有効。遊びの検証自体はオフチェーンで足りる。
+      短い試合は Eternum が運営シーケンサに移ったように、性能のためにチェーン依存を減らす圧力がかかりやすい。
+  evidence:
+    - {game: realms-eternum, stance: support, note: "数週間のシーズンから 60 分の Blitz と日替わり形式へ移った。", s: [src-realms-eternum-readme]}
+    - {game: dark-forest, stance: support, note: "ラウンド制で得点規則を変え、各ラウンドに再参加の鍵を配った。", s: [src-df-gameplay-policy, src-df-r3-wrapup]}
+    - {game: dark-forest, stance: counter, note: "ラウンド制でも同一集団が上位を占め続けた。", s: [src-df-r5-wrapup]}
+    - {game: realms-eternum, stance: counter, note: "短時間形式への移行は、「永続する文明」という当初の価値提案を手放すことでもあった。", s: [src-realms-eternum-readme]}
+  insights: [ins-long-season-shrinks, ins-ordering-fairness, ins-veteran-concentration, ins-sink-new-asset, ins-zk-fog-compute]
+  experiment:
+    design: 同じルールで 2 時間・3 日・2 週間の 3 形式を試作し、各 10〜20 人。後発参加者（開始から 30% 経過後）を各形式に必ず含める。
+    signal: 後発参加者の完走率、上位との差、再参加意向、文明要素（工場・技術）を使った割合。
+    kill: どの形式でも後発の完走率が 30% 未満なら、追い上げ機構を作るまで長さの議論は保留。
+    cost: 中
+  relation_to_current: >-
+    現在の構想にある「10 分ごとのターン・秘匿進軍・14 日シーズン」とは長さの前提が異なる。長期シーズンを短期に置き換える根拠（Eternum の移行）と、
+    短期でも熟練集団が勝ち続ける反証（Dark Forest）の両方がある。
+
+- id: hyp-ai-lieutenants
+  short: AI は人間の部下（方針だけ与える）
+  title: AI 市民は人間が方針を与える「部下」として動き、判定と推論はチェーン外、記録と選択肢の検証だけを公開する
+  summary: >-
+    プレイヤーは AI 市民に方針（守る・交易を優先・この相手を攻める等）を与え、AI は合法な選択肢の中から行動する。人間の意思決定は方針の設定と、
+    AI が迷ったときの承認に集中させる。AI の推論そのものはチェーン外で行い、入力候補・選択・検証結果のログを公開する。AI を対等なプレイヤーとは扱わない。
+  mechanics:
+    - 人間が育成・指示する AI（AI Arena、Parallel Colony）
+    - 合法手の候補をコードが作り、AI が選び、コードが検証する
+    - 共有文脈（他人の行動が AI の判断材料になる、Freysa）
+    - 報酬を持つ AI 勢力（Eternum の NPC）
+  player_choices:
+    - どの方針を与えるか、どこまで AI に任せるか
+    - AI の提案を承認するか却下するか
+    - 他プレイヤーの AI の癖を読んで利用するか
+  incentive_conflicts:
+    - 最適な方針を書けるプレイヤー（スクリプト化）が有利になり、方針設定が「ボット作り」に近づく
+    - AI 推論の費用を誰が払うか（運営負担なら上限、プレイヤー負担なら格差）
+    - AI の行動が運営の制御下にあると、AI が絡む結果の公正さを運営に依存する
+  failure_conditions:
+    - プレイヤーが「自分で決めた」と感じる決定が少なすぎる
+    - AI の判断が遅い・失敗するとき、自動処理が大半の行動を担い、AI の存在感が消える
+    - 換金可能な報酬がある場合、AI の参加が本人性ゲート（Sunflower Land の規約）と衝突する
+  needs_chain:
+    answer: no
+    reason: >-
+      AI 社会の創発もプレイヤーの指示体験もオフチェーンで成立した事例がある。チェーンが意味を持つのは、外部の第三者が自分の AI を同じルールで参加させる開放性を約束したい場合に限られ、
+      その場合も判定の公正さはチェーンでは示せない（Freysa）。
+  evidence:
+    - {game: ai-arena, stance: support, note: "試合中の操作を取り除き、デモ・学習設定に人間の判断を集めた。", s: [src-aiarena-notion-training]}
+    - {game: parallel-colony, stance: support, note: "公開版は人間の指示を中心にした遊びとして出ている。", s: [src-colony-official]}
+    - {game: freysa, stance: counter, note: "チェーンは資金の流れを示したが、AI 判定の公正さは検証されていなかった。", s: [src-freysa-blog-verifiable-games]}
+    - {game: sunflower-land, stance: counter, note: "換金のある農業ゲームの規約は、AI エージェントやヘッドレスクライアントを禁止している。", s: [src-sunflower-land-docs-prohibited]}
+    - {game: realms-eternum, stance: counter, note: "エージェントを入れる試みは NPC 軍に留まり、内部でも複数のエージェント開発が削除された。", s: [src-realms-eternum-s1-config, src-realms-eternum-hired-agents]}
+  insights: [ins-human-decision-preparation, ins-llm-judge-trust, ins-agent-society-offchain]
+  experiment:
+    design: 30 分のシナリオを「AI なし」「方針のみ」「個別命令可」の 3 群で 6〜9 人ずつ遊んでもらう。AI はローカル実行、チェーンなし。
+    signal: 事後に列挙された「自分が決めた」決定の数、介入回数、満足度、AI の失敗時に人間が取った行動。
+    kill: 方針群の「自分が決めた」決定数が AI なし群の半分未満なら、AI の役割を縮小する。
+    cost: 小
+  relation_to_current: >-
+    現在の構想の「コードが候補を出し、モデルが選び、コードが検証する」構造とほぼ同じだが、ここでは AI を対等な参加者ではなく部下として扱う点が異なる。
+    人間と AI が対等に長期で遊んだ事例は見つからなかったため、対等性を前提にした設計への支持は乏しい。
+
+- id: hyp-offchain-first
+  short: チェーンなしで核を検証
+  title: ブロックチェーンを使わずに核のループを検証し、チェーンは「なければ成立しない機能」が見つかってから足す
+  summary: >-
+    農場・工場・戦闘・AI 市民のループを、トークンも換金もないオフチェーン版で作り、継続率と遊びの質を測る。チェーンは所有の持ち出し・第三者の参加・賞金の自動分配など、
+    オフチェーンでは約束できない機能が明確になった時点で、その機能に限って足す。
+  mechanics:
+    - サーバー権威のゲーム（Pixels・Sunflower Land の実際の運用）
+    - 換金不能のランキングと名声
+    - 後から所有・決済の層だけをチェーンに載せる
+  player_choices:
+    - 通常のゲームと同じ（チェーン固有の選択は持たない）
+  incentive_conflicts:
+    - チェーンを前提にした資金調達・コミュニティ・ハッカソンの評価軸と合わない
+    - 後からトークンを足すと、初期プレイヤーの動機が変わる（報酬目的の流入）
+  failure_conditions:
+    - オフチェーン版で継続率が低ければ、チェーンを足しても救えない（逆は成り立たない）
+    - 後からチェーンを足す設計にすると、運営不在での継続という約束を最初から放棄することになる
+  needs_chain:
+    answer: no
+    reason: >-
+      仮説そのものが「チェーン不要」の検証。Pixels・Sunflower Land で遊びと不正対策がサーバー側にあったこと、AI 社会の研究がオフチェーンで行われたことが根拠。
+  evidence:
+    - {game: pixels, stance: support, note: "報酬を中央集権的な仕組みに移し、法定通貨での換金を予定した。", s: [src-pixels-bg-stacked]}
+    - {game: sunflower-land, stance: support, note: "遊びの大半はウォレット不要で、ボット対策もサーバー側。", s: [src-sunflower-land-docs-collectibles]}
+    - {game: generative-agents, stance: support, note: "エージェント社会の創発はオフチェーンで示された。", s: [src-ga-arxiv]}
+    - {game: dark-forest, stance: counter, note: "ルールがコントラクトにあったから、運営休止後も第三者が Lobbies で遊び場を作れた。", s: [src-df-lobbies]}
+    - {game: cryptokitties, stance: counter, note: "汎用チェーン上のコントラクトは、運営の関心が薄れても 2026 年まで動いている。", s: [src-ck-etherscan-txs]}
+  insights: [ins-ownership-layer-only, ins-reward-metrics-misread, ins-host-dependency, ins-agent-society-offchain]
+  experiment:
+    design: 現在のループをオフチェーン（換金なし）で 2 週間公開し、同じ指標でチェーン版の過去データと比べる。並行して「チェーンでなければ成立しない機能」の一覧を作る。
+    signal: D7 継続率、セッション長、一覧で理由が書けた機能の数。
+    kill: なし（この仮説は他の仮説のベースラインとして使う）。
+    cost: 小〜中
+  relation_to_current: >-
+    現在の構想がチェーン（Solana 互換）と参加費・賞金を前提にしていることへの反対仮説。根拠となる事例は多いが、運営不在での継続や第三者参加を価値にするなら逆の結論になる。
+
+- id: hyp-automation-league
+  short: 自動化を公認したボット部門
+  title: ボットと自動化を禁止せず「ボットを書くこと」を公式の遊びにし、人間部門と分ける
+  summary: >-
+    公開状態のゲームではボットが避けられないという前提に立ち、公式 API と行動制限（レート・手数料）を用意してボット部門を作る。AI エージェントもボットの一種として同じ部門に入れる。
+    人間部門は本人性を軽く確認し、報酬は換金不能にする。Dark Forest がラウンドごとに規則を変えたように、シーズンごとに目的関数を変える。
+  mechanics:
+    - ボット・自動化の公認（Dark Forest）
+    - 委任による第三者機能の利用（Primodium）
+    - 換金直前の本人性ゲート（Sunflower Land、Pixels）
+    - シーズンごとの得点規則の変更
+  player_choices:
+    - 人間部門で遊ぶか、ボットを書くか
+    - 他人が公開したボット部品を使うか、自作するか
+    - シーズンの目的関数にどう適応するか
+  incentive_conflicts:
+    - ボット部門の上位は計算資源と熟練が支配し、新規が入りにくい
+    - 人間部門への偽装（ボットが人間を装う）の誘因が報酬の大きさに比例する
+    - 他人のボット部品は鍵・資産のリスクを伴う（Dark Forest のプラグイン警告）
+  failure_conditions:
+    - ボットを書ける人が少なく、部門が成立しない
+    - 人間部門が過疎化し、観戦以外の役割がなくなる
+    - 同じ集団が両部門を支配する
+  needs_chain:
+    answer: partial
+    reason: >-
+      ボットの公平な扱い（同じ API・同じ手数料・行動ログの公開）を第三者に検証させたい場合にはチェーンが役立つ。単一運営の大会ならサーバーでも可能。
+  evidence:
+    - {game: dark-forest, stance: support, note: "自動化を公認し、ツール作りが競技になった。プラグインコンテストも開かれた。", s: [src-df-gameplay-policy, src-df-plugins-contest]}
+    - {game: huntercoin, stance: support, note: "公開盤面に換金可能な報酬を置いた結果、ボット軍団の競争になった。禁止より公認の方が現実的とする根拠。", s: [src-huntercoin-bgamer-2018]}
+    - {game: dark-forest, stance: counter, note: "同一集団が上位を占め続け、R5 では公平性の論争が起きた。", s: [src-df-r5-wrapup]}
+    - {game: sunflower-land, stance: counter, note: "換金のある運営は、逆に AI エージェントやヘッドレスクライアントを禁止する方向を取った。", s: [src-sunflower-land-docs-prohibited]}
+  insights: [ins-public-state-automation, ins-permissionless-ext-unused, ins-veteran-concentration]
+  experiment:
+    design: 1 シーズンだけ公式ボット API を公開し、ボット部門（AI エージェント可）と人間部門を分ける。報酬は換金不能。
+    signal: ボット部門の参加者数と多様性（同じ戦略の割合）、人間部門の離脱率、観戦数。
+    kill: ボット部門の参加が 5 チーム未満、または上位が 1 戦略に収束したら、目的関数の変更なしには続けない。
+    cost: 小〜中
+  relation_to_current: >-
+    人間と AI を同じ世界に置く構想に対し、「同じ盤面に置かず部門を分ける」という代替案。AI を公平に扱う問題を、AI を特別扱いしないことで回避する。

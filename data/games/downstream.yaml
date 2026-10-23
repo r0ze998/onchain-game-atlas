@@ -1,0 +1,201 @@
+id: downstream
+name: Downstream
+name_ja: ダウンストリーム
+aliases: ["Downstream Redstone", "ds (playmint/ds)"]
+kind: platform
+depth: deep
+updated: "2026-10-23"
+chains: [Redstone (mainnet, OP Stack L2), Garnet (Redstone testnet)]
+team: "Playmint（英国 Brighton。CEO David Amor。2022 年 Bitkraft 主導のシードに 1kx 等が参加）"
+summary: >-
+  Playmint が 2022 年末から開発した、六角形タイルの世界で建物・アイテム・ゾーン（区画）のロジックをプレイヤーがコントラクトと JavaScript プラグインで書き足せるオンチェーン世界（「ゲームプラットフォーム兼制作ツール」）。
+  建物の種類（BuildingKind）を登録した者がその実装コントラクトとクライアントプラグインを所有・更新でき、ゾーン NFT の所有者は自分のゾーン内で地形や建物を自由に配置できた。
+  2024-05 に Lattice の Redstone メインネットで公開されたが、外部チームの作例（Hexcraft・Tonk Attack・Labyrinth）は Playmint のリポジトリに取り込まれて配布され、開発は 2024-07 にほぼ止まり、ホストの Redstone は 2026-05-15 に停止した。
+selection_reason: >-
+  「他プレイヤーが作った機能を同じ世界で再利用できる」という構想を、建物単位のコントラクト＋サンドボックス化されたクライアントプラグイン＋区画所有という具体的な仕組みで実装し、コードと作例が公開されている数少ない例。
+  同時に、外部の作例の多くが投資家・提携先によるもので、一般プレイヤーによる拡張の利用実績を示す資料が見つからず、ホストチェーンの停止で世界ごと失われたという点で、許可不要拡張の限界を示す反例としても重要だから。
+categories:
+  - {id: aw, role: primary, reason: "誰でも建物種別・アイテム・ゾーンの実装コントラクトとプラグインを登録でき、単一の共有世界に追加される設計（Autonomous World を自称）"}
+  - {id: onchain-rules, role: secondary, reason: "移動・建設・クラフト・戦闘・クエストの判定が Rule コントラクト群（BuildingRule, CombatRule 等）で行われる"}
+  - {id: infra, role: secondary, reason: "Redstone（OP Stack L2、Plasma モード）上に展開され、独自のインデクサ（GraphQL）と CLI・タイル／建物ファブリケーターを提供した"}
+status:
+  value: ended
+  as_of: "2026-10"
+  note: >-
+    Downstream のメインネット展開は Redstone のみ（リポジトリの deployments は garnet と redstone）。Redstone は 2026-05-15 23:59 UTC に停止すると Lattice が告知した。
+    参照日時点で redstone.downstream.game と downstream.game は名前解決できず、1kx の Hexcraft リポジトリは 2026-05-31 にアーカイブされた。
+    Playmint による Downstream 固有の終了告知は見つからなかった。ゲームリポジトリの最後の実質的な開発コミットは 2024-07 で、2025-11 にライセンスファイルが追加されたのみ。
+    集約サイトは Cartridge が 2026-01 に Playmint を買収したと記載する（一次資料未確認）。
+  s: [src-downstream-commits, src-downstream-l2beat-redstone, src-downstream-site, src-downstream-hexcraft-repo, src-downstream-signalbase]
+dates:
+  announced: {date: "2022-11", s: [src-downstream-commits, src-downstream-gamestx], note: "リポジトリ初回コミットは 2022-11-18。GamesTX は「2022 年末から開発」と記載。公開の告知日は未確認"}
+  launched: {date: "2024-05", s: [src-downstream-decrypt-redstone, src-downstream-bcg-redstone], note: "Redstone メインネット公開（2024-05-01 告知）に合わせて展開。Decrypt は公式 X 投稿「May 1st に launch」を引用、BlockchainGamer.biz は 2024-05-03 時点で launched と記載"}
+  ended: {date: "2026-05-15", s: [src-downstream-l2beat-redstone], note: "ホストチェーン Redstone の停止日。Downstream 固有の終了日・告知は未確認"}
+
+architecture:
+  onchain:
+    level: core-rules
+    detail: >-
+      Cog フレームワーク上の Game / State / Dispatcher / Router 構成で、状態はノード（Player, MobileUnit, Bag, Tile, BuildingKind, Building, Zone, Quest 等）とエッジ（Owner, Location, Implementation 等）のグラフとしてチェーン上に保持される。
+      移動・建設・建物使用・クラフト・抽出・戦闘・クエストは Rule コントラクトの reduce 関数で判定される。建物の振る舞いは BuildingKind ごとの実装コントラクトの use() が呼ばれることで決まる。
+    s: [src-downstream-game-contract, src-downstream-building-rule, src-downstream-plugin-rule]
+  offchain:
+    - {item: "インデクサ（GraphQL API）。公式 Web クライアントと CLI のアクション送信・状態取得はこれを経由する", s: [src-downstream-external-conn]}
+    - {item: "クライアントプラグインの JavaScript ソースはチェーン上の注釈（annotation）として保存されるが、実行はブラウザ内 QuickJS サンドボックス（Web Worker）で行われる", s: [src-downstream-plugin-rule, src-downstream-sandbox]}
+    - {item: "Tonk Attack は外部サーバー（Tonk Services）の稼働を前提にしていた", s: [src-downstream-advanced-tutorials, src-downstream-tonk-repo]}
+    - {item: "建物の 3D モデル・UI 表示・タイル／建物ファブリケーターは公式クライアント側", s: [src-downstream-redstone-guide]}
+  admin:
+    level: significant
+    detail: >-
+      ゲームコントラクトの owner は registerRule（新しい Rule の登録）、autorizeStateMutation（任意アドレスへの状態書き込み権付与）、ゾーンのユニット上限・タイムアウト変更、注目ゾーン（featured）の指定を ownerOnly で実行できる。
+      ゾーン NFT（Zones721）の owner はミント価格を変更できる。ゾーン所有者は CheatsRule 経由で自ゾーン内のタイル・袋・建物を自由に生成・破棄できる。
+      CEO は「開発者の god mode がない」と述べたが、コード上は運営が Rule 追加と状態書き込み権の付与を保持している（contradictions 参照）。
+    s: [src-downstream-game-contract, src-downstream-owner-controls, src-downstream-cheats-rule, src-downstream-gamestx]
+  open_source:
+    level: full
+    detail: "コントラクト・クライアント・CLI・インデクサ・作例マップが playmint/ds で公開。コードは MIT（2025 年追加の License ファイル）、アセットは CC0 と記載。主要 Rule の SPDX 表記は UNLICENSED のまま残っている。"
+    url: "https://github.com/playmint/ds"
+    s: [src-downstream-repo, src-downstream-plugin-rule]
+  extensibility:
+    level: permissionless-onchain
+    detail: >-
+      誰でも BuildingKind・Item・ZoneKind を登録し、その所有者として実装コントラクト（use() 等）を紐付け、JS プラグインを注釈として登録できた（REGISTER_KIND_IMPLEMENTATION / DEPLOY_KIND_IMPLEMENTATION / REGISTER_KIND_PLUGIN）。
+      プラグインは自分が所有する対象にしか付けられない。ゾーン（最大 32,000 の ERC-721）を購入すると、そのゾーンの地図と ZoneKind 実装を所有者が決められた。
+      実例として 1kx の Hexcraft（MOBA）、Tonk の Tonk Attack（社会的推理）、RockawayX の Labyrinth of Trials、Playmint の Ducks v Burgers が公式リポジトリに収録された。
+    s: [src-downstream-plugin-rule, src-downstream-building-rule, src-downstream-advanced-tutorials, src-downstream-zones721]
+
+compare:
+  gameplay: {t: "六角形タイルの世界でユニットを動かし、赤・緑・青の 3 種の「goo」（攻撃・生命・防御に対応）を抽出し、それを材料に建物を建て、アイテムをクラフトし、クエストや戦闘をこなす。遊びの中身は大部分がゾーン所有者や建物作者が用意した「ゾーン内ゲーム」による。", k: fact, s: [src-downstream-1kx-hexcraft, src-downstream-building-rule, src-downstream-advanced-tutorials]}
+  necessity: {t: "建物作者のロジックが運営の審査なしに共有世界へ加わる点は、コントラクトとして実行されることでしか成立しにくい。ただし運営は Rule 追加と状態書き込み権を保持し、外部作例も公式リポジトリへの取り込みで配布されたため、実運用は「運営がキュレーションする拡張可能サーバー」と大差なかった可能性がある。", k: analysis, s: [src-downstream-game-contract, src-downstream-commits]}
+  information: {t: "全状態がチェーン上で公開。パスワード付き扉（Labyrinth）はハッシュで秘匿値を照合する程度で、ZK 等による秘匿情報の仕組みは確認できなかった。", k: fact, s: [src-downstream-advanced-tutorials]}
+  persistence: {t: "コードは公開されているが、メインネットの世界はホストチェーン Redstone の停止（2026-05-15）とともに失われたとみられ、公式ドメインも参照日時点で名前解決できない。プレイヤーが作った建物やゾーンを別チェーンへ移した記録は見つからなかった。", k: fact, s: [src-downstream-l2beat-redstone, src-downstream-site, src-downstream-repo]}
+  extensibility: {t: "建物・アイテム・ゾーンの実装コントラクトと、QuickJS サンドボックスで動く UI プラグインを誰でも登録できた。外部チームの作例は 3 件確認できたが、いずれも Playmint のリポジトリ内に取り込まれていた。", k: fact, s: [src-downstream-plugin-rule, src-downstream-sandbox, src-downstream-advanced-tutorials]}
+  money_flow: {t: "トークン報酬はなく、プレイヤーはゾーン購入費（ガイドでは 0.001 ETH）と Redstone のガスを払う。ゾーン販売収益は Zones721 の owner へ。開発資金は 2022 年の 400 万ドルのシード（Bitkraft 主導）。", k: fact, s: [src-downstream-redstone-guide, src-downstream-zones721, src-downstream-seed]}
+  entry_barrier: {t: "遊ぶだけならウォレット接続とメッセージ署名で始められたが、拡張するには MetaMask、ETH の購入と Redstone へのブリッジ、npm の ds-cli、YAML での地図記述、Solidity と JS の知識が必要だった。", k: fact, s: [src-downstream-redstone-guide, src-downstream-advanced-tutorials]}
+
+concepts: [c-permissionless-extension, c-client-plugins, c-onchain-rules, c-onchain-state, c-autonomous-world, m-land, m-production-chain, c-own-chain, c-cc0]
+proposed_concepts:
+  - {id: c-owner-scoped-extension, name: 所有範囲に限定された拡張権限, desc: "拡張を登録できる対象を「自分が所有する種別・区画」に限定し、他者の資産・ルールは書き換えられないようにする。区画所有者は区画内では全権を持つ。"}
+  - {id: c-host-chain-dependency, name: ホストチェーンへの存続依存, desc: "ゲーム専用・特定用途のチェーンが停止すると、その上の世界・拡張・資産がまとめて失われる。Autonomous World の「誰も止められない」という主張の前提条件。"}
+
+article:
+  what:
+    - {t: "プレイヤーは六角形タイルの世界でユニット（MobileUnit）を操作し、タイルから 3 色の goo を抽出し、それを材料に建物を建て、アイテムを作る。建物は隣接したユニットが「使う」ことで動作し、その振る舞いは建物種別ごとのコントラクトが決める。", k: fact, s: [src-downstream-building-rule, src-downstream-1kx-hexcraft]}
+    - {t: "Redstone 版では、プレイヤーは ERC-721 のゾーン（区画）を購入し、タイルファブリケーターで地図を描き、建物ファブリケーターで建物種別をデプロイし、ds-cli で自分のゾーンに適用した。つまり「遊ぶ場所」はゾーン所有者が作るミニゲームの集合だった。", k: fact, s: [src-downstream-redstone-guide, src-downstream-zones721]}
+    - {t: "運営は Downstream を「完全にオンチェーンのゲームプラットフォーム兼制作ツール」と説明し、CEO は「誰でも許可なくスマートコントラクトを追加してゲーム機能を拡張できる」と述べた。", k: claim, who: "運営 (Playmint, David Amor)", s: [src-downstream-repo, src-downstream-amor-column], q: "it allows anyone to permissionlessly add smart contracts which allows the game functionality to be extended"}
+    - {t: "CEO は自身の過去作が 3 億 5000 万ダウンロードだったのに対し、Downstream は「100 人が遊べば満足」と語っており、大衆向けではなく実験的な世界として位置付けていた。", k: claim, who: "運営 (David Amor)", s: [src-downstream-gamestx], q: "The previous games I worked had 350 million downloads but at the moment I'd be happy with 100 people playing Downstream"}
+  loop:
+    - {t: "公式チュートリアルから再構成した一巡: ゾーンを購入 → 地図を描いて適用 → 建物ファブリケーターで建物種別（材料・入出力・モデル）を登録 → 建物を地図に配置 → ユニットで隣接して use し、実装コントラクトが状態を変える → 必要ならプラグインで専用 UI を出す。", k: fact, s: [src-downstream-redstone-guide, src-downstream-advanced-tutorials]}
+    - {t: "Hexcraft（1kx の 2 日間ハッカソン作）では、プレイヤーはチーム登録所で赤／青に振り分けられ、5 つのクラス建物のどれかでクラスアイテムをクラフトし、相手の拠点を破壊した側が勝つ。移動とスポーンは改造できなかったため、公平性は観戦リングと社会的ルールで担保した。", k: fact, s: [src-downstream-1kx-hexcraft, src-downstream-hexcraft-repo]}
+    - {t: "Ducks v Burgers・Hexcraft・Labyrinth には ZoneKind 契約によるゲームのリセット機能が 2024-04〜05 に追加され、ゾーン単位で試合を繰り返す「セッション型」の遊びになっていた。", k: fact, s: [src-downstream-commits]}
+  before_after:
+    - {t: "Dark Forest などでは第三者の拡張はクライアントプラグインや外部コントラクトに限られ、公式宇宙のルールそのものには加われなかった。Downstream は建物種別ごとに実装コントラクトを紐付けることで、第三者のロジックが共有世界のオブジェクトとして他プレイヤーに使われる経路をコアに組み込んだ。", k: analysis, s: [src-downstream-building-rule, src-downstream-plugin-rule]}
+    - {t: "第三者 UI プラグインを QuickJS（WebAssembly 上の JS エンジン）のサンドボックスで実行し、dispatch・encodeCall・log 等の限られた API だけを渡す設計で、Dark Forest のプラグインが秘密鍵に触れ得た問題への一つの回答になっている。", k: analysis, s: [src-downstream-sandbox]}
+    - {t: "CEO は、運営がアップデート・サーバー・BAN を握る従来の運営型ゲームと対比し、追加されたコードは不変の「デジタル物理」に従い、一つの共有世界に積み重なると主張した。", k: claim, who: "運営 (David Amor)", s: [src-downstream-amor-column], q: "People in that world (including us) can permissionlessly add code to extend the functionality of the game"}
+  onchain_tradeoffs:
+    - {t: "建物の構築費は 3 種の goo をそれぞれ 10 以上要求し、レシピの数量は 1〜100、材料は登録済みアイテムに限るなど、拡張の自由度は「物理」側の制約で枠付けされていた。これにより第三者が無から資源を生む建物を作ることを防いでいる。", k: fact, s: [src-downstream-building-rule]}
+    - {t: "Hexcraft の作者は、改造範囲が限られ移動・スポーンを変えられなかったこと、建物の建設が複雑すぎてゲームの軸にできなかったこと、埋め込み JS が実時間でなく周期的にしか動かなかったことを挙げた。", k: fact, s: [src-downstream-1kx-hexcraft]}
+    - {t: "Redstone 版の 1 ゾーンの同時ユニット上限は既定で 20、30 分無操作のユニットはタイムアウトする設定で、ゾーンは少人数の部屋として設計されていた。", k: fact, s: [src-downstream-game-contract, src-downstream-owner-controls]}
+    - {t: "拡張するには ETH をブリッジし CLI・YAML・Solidity を扱う必要があり、作り手の層は開発者に限られた。", k: analysis, s: [src-downstream-redstone-guide]}
+  roles:
+    - {t: "Playmint: コア Rule・クライアント・インデクサ・ファブリケーターを開発し、ゲームの owner として Rule 追加・状態書き込み権の付与・注目ゾーンの指定・ゾーン価格設定を握った。", k: fact, s: [src-downstream-game-contract, src-downstream-owner-controls]}
+    - {t: "ゾーン所有者: 自ゾーンの地図と ZoneKind 実装を決め、CheatsRule 経由でゾーン内のタイル・建物・袋を自由に生成できる「区画内の神」だった。", k: fact, s: [src-downstream-cheats-rule, src-downstream-zones721]}
+    - {t: "建物種別の作者: 種別を最初に登録した者が所有者となり、実装コントラクトとプラグインの差し替え権を独占する。他プレイヤーはその建物を使うだけで、内容を変えられない。", k: fact, s: [src-downstream-plugin-rule, src-downstream-building-rule]}
+    - {t: "外部チーム: 確認できた外部作例の作者は 1kx（Playmint のシード投資家）、Tonk、RockawayX で、一般プレイヤーではなく投資家・提携先の開発チームだった。", k: fact, s: [src-downstream-advanced-tutorials, src-downstream-seed]}
+    - {t: "AI エージェントの参加に関する記述は見つからなかった。CLI と GraphQL があるため技術的にはボットが操作可能だったと考えられる。", k: analysis, s: [src-downstream-external-conn]}
+  trajectory:
+    - {t: "コミット数の推移は 2023-06〜2024-04 に月 100〜360 件と活発で、2024-05 に 122 件、2024-07 に 20 件の後、2025-11 の 3 件（ライセンス追加）を除き止まっている。", k: fact, s: [src-downstream-commits]}
+    - {t: "2024-03 に Tonk・Hexcraft・Labyrinth の作例が「croissant」複合マップに統合され、2024-04-24 に Tonk の看板・種別が削除された（後にチュートリアルでは外部サービス前提の作例として残る）。", k: fact, s: [src-downstream-commits, src-downstream-advanced-tutorials]}
+    - {t: "2024-05 の Redstone 公開時、クライアントには「Redstone hackathon」への参加を促すバナーが掲出され、2024-05-14 に撤去された。ハッカソンの成果物や参加数は確認できなかった。", k: fact, s: [src-downstream-commits]}
+    - {t: "2024-07 にドキュメントを Redstone 中心に書き換えたのが最後のまとまった更新で、その後 Redstone は 2026-05-15 に停止した。", k: fact, s: [src-downstream-commits, src-downstream-l2beat-redstone]}
+    - {t: "集約サイト Signalbase は Cartridge が 2026-01-13 に Playmint を買収したと記載するが、出典は示されていない。", k: claim, who: "Signalbase", s: [src-downstream-signalbase]}
+  retention_evidence:
+    - {t: "プレイヤー数・DAU・ゾーン販売数・登録された建物種別数・プラグイン数のいずれも、公式・第三者の公表値を見つけられなかった。Redstone 停止後はチェーンデータの直接参照もできなかった。", k: unknown}
+    - {t: "GitHub 上の指標は、リポジトリのスター 22、フォーク 10、コミット 3,055（参照日時点）。外部作例リポジトリは Tonk 30 コミット・スター 1、RockawayX 12 コミット・スター 1 で、継続的な外部開発を示していない。", k: fact, s: [src-downstream-repo, src-downstream-tonk-repo, src-downstream-rockawayx-repo]}
+    - {t: "Optimism RetroPGF 3 の申請文は検索要約上「1 週間の技術テストで拡張できることが示された」と述べているが、本文を取得できず、テストの規模・参加者は確認できなかった。", k: unknown, s: [src-downstream-retropgf]}
+  extensions:
+    - {t: "Hexcraft（1kx）: チーム割り当て、建物コントラクトによるクラフト制限（他のクラスアイテムを持っていると作れない）、ユニットのモデル差し替えを使った MOBA。1kx は Playmint のシード投資家。", k: fact, s: [src-downstream-1kx-hexcraft, src-downstream-advanced-tutorials, src-downstream-seed]}
+    - {t: "Tonk Attack（Tonk）: Botnet Tower・Debug Depot という建物と Tonk アイテムを追加した社会的推理ゲーム。外部サーバー接続と UI の大幅な置き換えを使い、Tonk Services の稼働が前提だった。", k: fact, s: [src-downstream-tonk-repo, src-downstream-advanced-tutorials]}
+    - {t: "Labyrinth of Trials（RockawayX）: 扉、パスワードのハッシュ照合、戦闘ステータス、アイテム確認、クエスト、地図リセットを使う迷路。README は伝承や外部体験が未完成と記す。", k: fact, s: [src-downstream-rockawayx-repo, src-downstream-advanced-tutorials]}
+    - {t: "これらの作例は Playmint の開発者によって公式リポジトリへ統合・修正（「Rockaway map reintegrated with croissant map」等）されており、外部作者がチェーン上に独立して展開し、無関係なプレイヤーが使い続けた記録は見つからなかった。", k: fact, s: [src-downstream-commits]}
+    - {t: "一般プレイヤーが作ったゾーンや建物が、作者以外のプレイヤーに継続的に使われたことを示す資料は見つからなかった。", k: unknown}
+  constraints:
+    - {t: "拡張の信頼は「所有者だけが自分の種別・ゾーンを変えられる」というアクセス制御と、プラグインのサンドボックスで担保されていたが、建物コントラクトの内容そのもの（資産を奪わないか）を利用者が判断する仕組み（審査・評判・表示）はコード上に見当たらない。運営の「featured」指定がほぼ唯一のキュレーション手段だった。", k: analysis, s: [src-downstream-plugin-rule, src-downstream-owner-controls]}
+    - {t: "建物種別の所有者は後から実装を差し替えられるため、使う側にとって「一度確かめれば安全」とはならない。", k: analysis, s: [src-downstream-plugin-rule]}
+    - {t: "世界の存続はホストチェーン（Redstone）とインデクサ・公式クライアントの稼働に依存し、チェーン停止で拡張も一緒に失われた。", k: analysis, s: [src-downstream-l2beat-redstone, src-downstream-external-conn]}
+    - {t: "Hexcraft の作者は、世界全体の目的・経済・地図規則がまだなく、それが自由である一方で設計の難しさでもあったと述べた。", k: claim, who: "1kx (Peter Pan)", s: [src-downstream-1kx-hexcraft]}
+  principles:
+    - {t: "種別所有による拡張権限: 「最初に登録した者がその建物種別の実装とプラグインを所有する」と定めると、拡張どうしの書き換え競合が起きず、運営の審査なしに機能を追加できる。適用条件は、拡張が資源生成など世界の保存則を破れないよう、コア側（材料・入出力の上限）で枠を決めておくこと。破綻条件は、所有者が後から実装を差し替えられるのに利用者側に検証・通知の手段がない場合で、使う側の信頼が育たない。", k: analysis, s: [src-downstream-plugin-rule, src-downstream-building-rule]}
+    - {t: "区画内全権＋区画外不可侵: ゾーン所有者に区画内の生成権（チート）を与え、区画外には影響させない構成は、ミニゲーム作者の自由度を最大化しつつ他者への害を区画に閉じ込める。破綻条件は、区画をまたぐ経済や共有資産がない場合で、各区画は孤立した部屋の集まりになり、「一つの世界に積み重なる」という主張と逆の結果になる。", k: analysis, s: [src-downstream-cheats-rule, src-downstream-zones721, src-downstream-amor-column]}
+    - {t: "UI 拡張のサンドボックス化: 第三者の UI コードを WebAssembly の JS エンジン内で動かし、公開する API を限定すると、プラグイン共有の最大の障害だった鍵の盗難リスクを下げられる。適用条件は、プラグインがチェーン上の行動を自分では送れず、ユーザー署名を経る設計であること。", k: analysis, s: [src-downstream-sandbox]}
+  counter_evidence:
+    - {t: "確認できた外部作例は 3 件で、作者はいずれも投資家・提携先の開発チームであり、Playmint の開発者が公式リポジトリへ取り込み・修正していた。許可不要の仕組みがあっても、実際の拡張は「運営の協力者による公式コンテンツ」として流通しており、許可不要性が拡張を生んだ証拠にはならない。", k: analysis, s: [src-downstream-advanced-tutorials, src-downstream-commits, src-downstream-seed]}
+    - {t: "CEO は「god mode がない」と述べたが、コントラクトの owner は Rule の追加と任意アドレスへの状態書き込み権の付与を保持していた。運営を信頼しなくてよい世界ではなかった。", k: fact, s: [src-downstream-gamestx, src-downstream-game-contract]}
+    - {t: "「誰にも止められない」はずの世界が、ホストチェーンを運営する Lattice の事業終了によって失われた。拡張の永続性はチェーン運営者の事業継続に依存していた。", k: fact, s: [src-downstream-l2beat-redstone, src-downstream-chaincatcher-lattice]}
+    - {t: "Hexcraft の公平性を観戦リングと社会的ルールに頼ったことは、ゲームとしての成立に必要な規則（移動・スポーン）を拡張側から変えられない限り、オンチェーン強制より人の合意の方が実用的だった例とも読める。", k: analysis, s: [src-downstream-1kx-hexcraft]}
+    - {t: "プレイヤー数等の指標がないため、拡張可能性が定着に寄与したかどうかは評価できない。開発が 2024-07 にほぼ止まった理由（資金・需要・戦略転換）も一次資料で確認できなかった。", k: unknown}
+
+metrics:
+  - {id: m-downstream-seed-2022, type: funding, value: 4000000, value_text: "400 万ドル", unit: USD, period: "2022-04〜05", definition: "Playmint のシードラウンド（Bitkraft 主導、1kx・Cherry・Ethereal・Play Ventures 参加）。Downstream 以前の The Crypt 等も対象", nature: reported, s: [src-downstream-seed]}
+  - {id: m-downstream-zone-price, type: other, value: 0.001, value_text: "0.001 ETH", unit: ETH, period: "2024（Redstone 版ガイド記載時点）", definition: "ゾーン 1 区画の購入価格（公式ガイド記載。コントラクト既定値は 1 ETH で owner が変更可能）", nature: reported, s: [src-downstream-redstone-guide, src-downstream-zones721]}
+  - {id: m-downstream-zone-supply, type: other, value: 32000, unit: zones, period: "コントラクト定数", definition: "Zones721 の TOTAL_SUPPLY（発行上限。販売数ではない）", nature: measured, s: [src-downstream-zones721]}
+  - {id: m-downstream-repo-commits, type: other, value: 3055, unit: commits, period: "2022-11〜2025-11（参照日 2026-10-23）", definition: "playmint/ds の総コミット数（GitHub 表示）", nature: measured, s: [src-downstream-repo, src-downstream-commits]}
+
+events:
+  - {id: ev-downstream-repo-start, date: "2022-11-18", type: other, title: "playmint/ds リポジトリ初回コミット", detail: "当初は Unity プロジェクトとして開始", s: [src-downstream-commits]}
+  - {id: ev-downstream-amor-column, date: "2023-09", type: other, title: "CEO が Autonomous World としての構想を寄稿", detail: "誰でも許可なくスマートコントラクトを追加できると主張", s: [src-downstream-amor-column]}
+  - {id: ev-downstream-hexcraft, date: "2024-02", type: other, title: "1kx が Hexcraft 制作記を公開", detail: "2 日間の社内ハッカソンで Downstream 内に MOBA を構築", s: [src-downstream-1kx-hexcraft]}
+  - {id: ev-downstream-croissant, date: "2024-03-07", type: release, title: "外部作例を croissant 複合マップに統合", detail: "RockawayX の Labyrinth、Tonk、Hexcraft を公式リポジトリ内のマップとして収録", s: [src-downstream-commits]}
+  - {id: ev-downstream-redstone, date: "2024-05", type: launch, title: "Redstone メインネットで公開", detail: "Redstone メインネット（2024-05-01）の初期タイトルの一つ。ゾーン購入・建物ファブリケーターを提供", s: [src-downstream-decrypt-redstone, src-downstream-bcg-redstone]}
+  - {id: ev-downstream-last-docs, date: "2024-07-22", type: other, title: "チュートリアルを Redstone 中心に改訂（最後のまとまった更新）", s: [src-downstream-commits]}
+  - {id: ev-downstream-redstone-shutdown, date: "2026-05-15", type: end, title: "ホストチェーン Redstone 停止", detail: "Lattice が 2026-04-15 に告知。Downstream 固有の告知は未確認", s: [src-downstream-l2beat-redstone, src-downstream-chaincatcher-lattice]}
+
+relations:
+  - {to: dark-forest, type: contrasts-with, basis: analytic, note: "Dark Forest のプラグインはブラウザで秘密鍵に触れ得たのに対し、Downstream は QuickJS サンドボックスで実行し、さらに建物ロジックをコントラクトとしてコアに組み込んだ"}
+  - {to: biomes, type: similar-to, basis: analytic, note: "同じ Redstone 上で、プレイヤーがオブジェクト（建物／チェスト・フォースフィールド）にコントラクトを付けて世界を拡張する設計。Redstone 停止の影響も共通"}
+  - {to: mud, type: contrasts-with, basis: analytic, note: "Redstone 上だが MUD ではなく Playmint 独自の Cog フレームワーク（ノード・エッジのグラフ状態）を使用"}
+  - {to: pixelaw, type: similar-to, basis: analytic, note: "共有世界上に第三者がアプリ（ミニゲーム）を追加する構造"}
+  - {to: autonomous-worlds-essay, type: influenced-by, basis: confirmed, note: "CEO が Downstream を autonomous world と呼び、その性質で構想を説明している", s: [src-downstream-amor-column, src-downstream-gamestx]}
+  - {to: c-permissionless-extension, type: built-with, basis: confirmed, note: "BuildingKind / ZoneKind の実装登録", s: [src-downstream-plugin-rule]}
+  - {to: c-client-plugins, type: built-with, basis: confirmed, note: "チェーン上に保存した JS プラグインを QuickJS で実行", s: [src-downstream-plugin-rule, src-downstream-sandbox]}
+
+unknowns:
+  - "プレイヤー数、ゾーン販売数、登録された建物種別・プラグインの数、外部作者による種別の利用回数（Redstone 停止後はチェーンデータを参照できなかった）。"
+  - "2024-05 の Redstone hackathon で Downstream 上に作られた成果物の有無と数。"
+  - "開発が 2024-07 以降ほぼ止まった理由と、Playmint による Downstream の公式な終了告知の有無。"
+  - "Redstone 停止前に世界の状態を保存・移行したか。"
+  - "Cartridge による Playmint 買収の一次資料と、Downstream への影響。"
+  - "CheatsRule が Redstone 本番でゾーン所有者に開放されていたか（コード上は所有者または ZoneKind 実装に許可）。"
+  - "Optimism RetroPGF 3 の申請本文と受領額。"
+contradictions:
+  - {t: "CEO は「開発者に god mode がない／誰でも同じ権限で拡張できる」と述べたが、コントラクトでは owner のみが registerRule と autorizeStateMutation を実行できる。", s: [src-downstream-gamestx, src-downstream-game-contract]}
+  - {t: "ゾーン価格: 公式ガイドは 0.001 ETH、Zones721 の既定値は 1 ETH（owner が setMintPrice で変更可能なため、本番設定が 0.001 ETH だった可能性が高い）。", s: [src-downstream-redstone-guide, src-downstream-zones721]}
+  - {t: "ライセンス: 2025 年追加の License ファイルは MIT だが、Rule コントラクトの SPDX 表記は UNLICENSED のまま。", s: [src-downstream-repo, src-downstream-plugin-rule]}
+
+sources:
+  - {id: src-downstream-repo, title: "playmint/ds (Downstream)", url: "https://github.com/playmint/ds", publisher: "GitHub", type: code, primary: true, published: "2025-11", accessed: "2026-10-23", access: fetched, lang: en, note: "git clone と WebFetch で確認。README、License（MIT／アセット CC0）、スター 22・フォーク 10・3,055 コミット"}
+  - {id: src-downstream-commits, title: "playmint/ds commit history", url: "https://github.com/playmint/ds/commits/main", publisher: "GitHub", type: code, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "blobless clone で git log を確認。月別コミット数、外部作例の統合、hackathon バナー、最終更新"}
+  - {id: src-downstream-redstone-guide, title: "A Quick Start Guide for Downstream Redstone", url: "https://github.com/playmint/ds/blob/main/tutorial/REDSTONEGUIDE.md", publisher: "Playmint (GitHub)", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "ゾーン購入（0.001 ETH）、ds-cli、タイル／建物ファブリケーター"}
+  - {id: src-downstream-advanced-tutorials, title: "Advanced Tutorials", url: "https://github.com/playmint/ds/blob/main/tutorial/ADVANCEDTUTORIALS.md", publisher: "Playmint (GitHub)", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "作例マップ一覧（Tonk, 1kx Hexcraft, RockawayX Labyrinth, Ducks v Burgers）と使用機能"}
+  - {id: src-downstream-external-conn, title: "External Connections", url: "https://github.com/playmint/ds/blob/main/tutorial/external-connections.md", publisher: "Playmint (GitHub)", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "インデクサの GraphQL API と RPC"}
+  - {id: src-downstream-owner-controls, title: "Game Owner Controls", url: "https://github.com/playmint/ds/blob/main/contracts/owner-controls.md", publisher: "Playmint (GitHub)", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "featured ゾーン、ユニット上限、タイムアウト、ミント価格の変更"}
+  - {id: src-downstream-game-contract, title: "contracts/src/Downstream.sol", url: "https://github.com/playmint/ds/blob/main/contracts/src/Downstream.sol", publisher: "GitHub", type: code, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "ownerOnly の registerRule / autorizeStateMutation、ゾーン既定値（20 ユニット、30 分）"}
+  - {id: src-downstream-building-rule, title: "contracts/src/rules/BuildingRule.sol", url: "https://github.com/playmint/ds/blob/main/contracts/src/rules/BuildingRule.sol", publisher: "GitHub", type: code, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "建物種別登録、構築コスト制約、use() による実装コントラクト呼び出し"}
+  - {id: src-downstream-plugin-rule, title: "contracts/src/rules/PluginRule.sol", url: "https://github.com/playmint/ds/blob/main/contracts/src/rules/PluginRule.sol", publisher: "GitHub", type: code, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "プラグイン登録（所有対象のみ）、実装の登録・CREATE2 デプロイ"}
+  - {id: src-downstream-cheats-rule, title: "contracts/src/rules/CheatsRule.sol", url: "https://github.com/playmint/ds/blob/main/contracts/src/rules/CheatsRule.sol", publisher: "GitHub", type: code, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "ゾーン所有者または ZoneKind 実装によるタイル・建物・袋の生成"}
+  - {id: src-downstream-zones721, title: "contracts/src/Zones721.sol", url: "https://github.com/playmint/ds/blob/main/contracts/src/Zones721.sol", publisher: "GitHub", type: code, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "ゾーン ERC-721、TOTAL_SUPPLY 32000、mintPrice（既定 1 ETH、owner 変更可）"}
+  - {id: src-downstream-sandbox, title: "frontend/src/workers/sandbox.ts", url: "https://github.com/playmint/ds/blob/main/frontend/src/workers/sandbox.ts", publisher: "GitHub", type: code, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "プラグインを quickjs-emscripten で実行し限定 API を渡す"}
+  - {id: src-downstream-amor-column, title: "Why Playmint is building fully onchain autonomous world Downstream", url: "https://www.blockchaingamer.biz/?p=26579", publisher: "BlockchainGamer.biz", author: "David Amor", type: interview, primary: true, published: "2023-09-25", accessed: "2026-10-23", access: fetched, lang: en, note: "CEO の寄稿。許可不要のコントラクト追加、共有世界、運営型ゲームとの対比"}
+  - {id: src-downstream-gamestx, title: "Autonomous worlds and godless games", url: "https://gamestx.substack.com/p/autonomous-worlds-and-godless-games", publisher: "GamesTX", author: "Jon Jordan", type: interview, primary: false, published: "2024-01-24", accessed: "2026-10-23", access: fetched, lang: en, note: "David Amor の発言（god mode なし、100 人で満足）。2022 年末から開発"}
+  - {id: src-downstream-1kx-hexcraft, title: "Modding worlds: Building Hexcraft with Downstream", url: "https://1kx.capital/writing/modding-worlds-building-hexcraft-with-downstream", publisher: "1kx", author: "Peter Pan", type: retrospective, primary: true, published: "2024-02", accessed: "2026-10-23", access: fetched, lang: en, note: "2 日間ハッカソンでの MOBA 制作、goo、制約、社会的ルールによる公平性"}
+  - {id: src-downstream-hexcraft-repo, title: "1kx-network/hexcraft", url: "https://github.com/1kx-network/hexcraft", publisher: "GitHub", type: code, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "Hexcraft の README と deploy 手順。2026-05-31 にアーカイブ"}
+  - {id: src-downstream-tonk-repo, title: "tonk-gg/ds-extensions-debuggus", url: "https://github.com/tonk-gg/ds-extensions-debuggus", publisher: "GitHub", type: code, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "Tonk Attack の建物・アイテム、Tonk Services 依存、30 コミット・スター 1"}
+  - {id: src-downstream-rockawayx-repo, title: "rockawayx-labs/ds-dx (Labyrinth of Trials)", url: "https://github.com/rockawayx-labs/ds-dx", publisher: "GitHub", type: code, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "Downstream 用カスタムマップ、12 コミット・スター 1"}
+  - {id: src-downstream-decrypt-redstone, title: "Redstone Network Launches to Power Fully On-Chain Ethereum Games", url: "https://decrypt.co/229005/redstone-network-launches-fully-on-chain-ethereum-games", publisher: "Decrypt", type: news, primary: false, published: "2024-05-01", accessed: "2026-10-23", access: fetched, lang: en, note: "Redstone 初期タイトルに Downstream・Biomes。公式 X 投稿の引用"}
+  - {id: src-downstream-bcg-redstone, title: "Lattice's Redstone mainnet and its first games launch", url: "https://www.blockchaingamer.biz/?p=31912", publisher: "BlockchainGamer.biz", author: "Jenny Jordan", type: news, primary: false, published: "2024-05-03", accessed: "2026-10-23", access: fetched, lang: en, note: "Downstream が Redstone で公開済みと記載"}
+  - {id: src-downstream-seed, title: "Playmint has announced $4 million seed round led by BITKRAFT Ventures", url: "https://www.blockchaingamer.biz/?p=18188", publisher: "BlockchainGamer.biz", type: news, primary: false, published: "2022-05-02", accessed: "2026-10-23", access: fetched, lang: en, note: "Bitkraft 主導、1kx・Cherry・Ethereal・Play Ventures 参加"}
+  - {id: src-downstream-l2beat-redstone, title: "Redstone - L2BEAT", url: "https://l2beat.com/layer2s/projects/redstone", publisher: "L2BEAT", type: analysis, primary: false, accessed: "2026-10-23", access: fetched, lang: en, note: "アーカイブ扱い。2026-05-15 23:59 UTC 停止、2026-04-15 告知"}
+  - {id: src-downstream-chaincatcher-lattice, title: "The blockchain game infrastructure Lattice announced the gradual shutdown of its business, and the Redstone network will …", url: "https://www.chaincatcher.com/en/article/2258693", publisher: "ChainCatcher", type: news, primary: false, published: "2026-04-15", accessed: "2026-10-23", access: fetched, lang: en, note: "Lattice の事業終了、残余資金を DUST に充てる"}
+  - {id: src-downstream-signalbase, title: "Cartridge Acquires Playmint, Bolstering Web…", url: "https://www.trysignalbase.com/news/acquisitions/playmint-acquired-by-cartridge-acquisition", publisher: "Signalbase", type: analysis, primary: false, published: "2026-01-13", accessed: "2026-10-23", access: fetched, lang: en, note: "出典を示さない集約記事。Downstream への言及なし"}
+  - {id: src-downstream-site, title: "Downstream Redstone client", url: "https://redstone.downstream.game/", publisher: "Playmint", type: official-docs, primary: true, accessed: "2026-10-23", access: unreachable, lang: en, note: "参照日に名前解決できず（downstream.game も同様）"}
+  - {id: src-downstream-retropgf, title: "Downstream - Optimism RetroPGF 3 application", url: "https://vote.optimism.io/retropgf/3/application/0x60e8b63d4c87c43409731ac1370379af9884f7239cf69b052fb36c14d121f736", publisher: "Optimism Agora", type: forum, primary: true, accessed: "2026-10-23", access: snippet, lang: en, note: "WebFetch では本文が描画されず、検索要約のみ"}

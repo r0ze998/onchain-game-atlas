@@ -1,0 +1,104 @@
+id: magicblock
+name: MagicBlock
+name_ja: マジックブロック
+aliases: ["Ephemeral Rollups", "MagicBlock Engine", BOLT]
+kind: platform
+depth: index
+updated: "2026-10-23"
+chains: [Solana（基盤層）, MagicBlock Ephemeral Rollups（SVM 互換の一時実行層）]
+team: "MagicBlock（Magicblock Pte. Ltd.）。共同創業者 Andrea Fortugno, Gabriele Picco"
+summary: >-
+  Solana のアカウントを一時的に「委任（delegate）」して専用の SVM 実行環境（Ephemeral Rollup）へ移し、そこで高頻度に更新したのち状態を Solana にコミットして
+  委任を解除する仕組み。2023 年の論文は、フルオンチェーンゲームを状態を分断せずに拡張するため、ECS ベースの部品化と、ティック・セッション・ガスレス取引を持つ
+  一時ロールアップを提案した。ゲーム用 ECS フレームワーク BOLT は参照日時点で非推奨となり、現在は ER を汎用の低遅延実行層として打ち出している。
+selection_reason: >-
+  「オンチェーンゲームは基盤層の速度・手数料では成立しにくい」という問題に対し、専用チェーンを分けるのではなく、必要な間だけ状態を
+  一時実行層へ移して戻すという別解を示す。ゲーム向けに始まった基盤が汎用（取引・価格配信）へ軸足を移した例としても比較材料になる。
+categories:
+  - {id: infra, role: primary, reason: "Solana のアカウントを一時ロールアップへ委任し、低遅延・ガスレスで実行してから基盤層へコミットする実行基盤"}
+  - {id: onchain-rules, role: secondary, reason: "ゲームのロジックを SVM プログラムのまま一時ロールアップで実行し、フルオンチェーンゲームの拡張を目的に掲げた"}
+status:
+  value: active
+  as_of: "2026-10"
+  note: "公式ドキュメントが mainnet / devnet の公開 ER バリデータを掲載し、magicblock-validator は参照日の 2 日前にも更新されている。BOLT は非推奨で保守されていない。"
+  s: [src-mb-docs-er, src-mb-validator-repo, src-mb-bolt-repo]
+dates:
+  announced: {date: "2023-11-05", s: [src-mb-arxiv], note: "論文「Ephemeral Rollups are All you Need」の arXiv 初版"}
+
+architecture:
+  onchain:
+    level: partial-rules
+    detail: >-
+      プログラム（ゲームロジック）は Solana 上のものと同じバイトコードで ER 上でも動くと公式は説明する。アカウントの所有者を Delegation Program に変えて ER バリデータへ委任し、
+      ER 上で更新した状態を運営者が定期的または要求に応じて Solana へコミットし、委任解除で元の所有者に戻す。ER 実行中の状態の正しさは
+      「動的な不正証明」と分散型の Security Committee に依拠すると記す。
+    s: [src-mb-docs-er, src-mb-docs-intro]
+  offchain:
+    - {item: "ER バリデータ（アジア・EU・米国・TEE のエンドポイント）を MagicBlock が公開。委任時に使うバリデータを指定する", s: [src-mb-docs-er]}
+    - {item: "Magic Router による取引の振り分け", s: [src-mb-docs-er]}
+  admin:
+    level: unknown
+    detail: "Delegation Program・バリデータ・Security Committee の権限構造は今回確認していない。"
+    s: [src-mb-docs-er]
+  open_source:
+    level: partial
+    detail: "magicblock-validator は Business Source License 1.1、BOLT は MIT（非推奨）、delegation-program・ephemeral-rollups-sdk も公開。"
+    url: "https://github.com/magicblock-labs"
+    s: [src-mb-validator-repo, src-mb-bolt-repo, src-mb-github-org]
+  extensibility:
+    level: official-api
+    detail: "任意の Solana プログラムに委任機能を加えれば ER を使えるという SDK。BOLT は「オンチェーンに展開されたモジュールとロジックを再利用・寄与できる」ECS を掲げたが、非推奨となった。"
+    s: [src-mb-docs-er, src-mb-bolt-repo]
+
+compare:
+  gameplay: {t: "ゲームではなく基盤。資金調達時の報道では、オンチェーンのリアルタイム多人数ゲーム Supersize が利用例として挙げられた。", k: fact, s: [src-mb-pulse2]}
+  necessity: {t: "ゲームの状態を Solana の流動性・合成可能性から切り離さずに高頻度更新したいという要求への応答。ただし ER 中の状態は一時的にバリデータと不正証明の仕組みに依存し、基盤層と同じ信頼モデルではない。", k: analysis, s: [src-mb-docs-er, src-mb-arxiv]}
+  information: {t: "通常の ER は公開状態。TEE 上のバリデータによる「プライベートで検証可能」なアプリを掲げるが、その保証の詳細は確認していない。", k: fact, s: [src-mb-docs-intro, src-mb-docs-er]}
+  persistence: {t: "最終状態は Solana にコミットされる。ER は一時的な実行環境で、委任解除で基盤層へ戻る。", k: fact, s: [src-mb-docs-er]}
+  extensibility: {t: "既存の Solana プログラムに委任命令を加えて使う SDK 型。ゲーム向け ECS の BOLT は非推奨。", k: fact, s: [src-mb-docs-er, src-mb-bolt-repo]}
+  money_flow: {t: "ER 上の取引手数料はゼロまたはゼロに近いことを目標とすると公式は述べる。MagicBlock 自体の収益モデルは確認していない。資金は 2024-09 の 300 万ドル（a16z CSX 主導）と 2025-04 の 750 万ドル（Lightspeed Faction 主導）と報じられた。", k: fact, s: [src-mb-docs-intro, src-mb-pulse2]}
+  entry_barrier: {t: "開発者は基盤層と ER の 2 つの接続を扱い、委任・コミット・委任解除の手順をプログラムに組み込む必要がある。", k: fact, s: [src-mb-docs-er]}
+
+concepts: [c-own-chain, c-gas-abstraction, c-ecs-engine, c-onchain-rules]
+proposed_concepts:
+  - {id: c-ephemeral-delegation, name: 一時実行層への状態委任（Ephemeral Rollup）, desc: "基盤層のアカウントを一時的に専用実行環境へ委任して高頻度に更新し、終了時に状態を基盤層へコミットして委任を解除する。専用チェーンへの恒久的な移転と対照的。"}
+
+article:
+  principles:
+    - {t: "必要な間だけ状態を移す: 対戦やセッションの間だけアカウントを一時実行層へ委任し、終わったら基盤層へ戻すと、基盤層の資産・プログラムとの合成可能性を保ちながら高頻度更新ができる。適用条件はセッションの境界が明確で、委任中は他プログラムから当該アカウントを触らなくてよいこと。破綻条件は永続的な共有世界のように常時多数が同じ状態を読み書きする場合で、委任が恒常化すれば実質的に別チェーンになる。", k: analysis, s: [src-mb-docs-er, src-mb-arxiv]}
+  counter_evidence:
+    - {t: "ゲーム向け ECS の BOLT は「Fully On-chain games と Autonomous Worlds」のための枠組みとして公開されたが、参照日時点で非推奨・保守停止と明記されている。資金調達時の利用例もデリバティブ取引・通信・価格配信が多く、ゲーム特化の基盤としての需要は確認できない。", k: fact, s: [src-mb-bolt-repo, src-mb-pulse2]}
+    - {t: "10 ms のブロック時間や数百万 TPS への水平拡張は公式の主張であり、独立した計測は今回確認していない。", k: claim, who: "MagicBlock 公式ドキュメント", s: [src-mb-docs-intro]}
+
+metrics:
+  - {id: m-mb-blocktime-claim, type: other, value: 10, unit: ms, period: "参照日 2026-10-23", definition: "公式ドキュメントが主張する ER の状態遷移・ブロック時間（Solana 既定 400 ms との対比）", nature: reported, s: [src-mb-docs-intro]}
+  - {id: m-mb-seed-2025, type: funding, value: 7500000, unit: USD, period: "2025-04-24 発表", definition: "シード・ラウンド（Lightspeed Faction 主導）", nature: reported, s: [src-mb-pulse2]}
+  - {id: m-mb-preseed-2024, type: funding, value: 3000000, unit: USD, period: "2024-09", definition: "a16z CSX 主導の前回ラウンド（報道）", nature: reported, s: [src-mb-pulse2]}
+
+events:
+  - {id: ev-mb-paper, date: "2023-11-05", type: paper, title: "論文「Ephemeral Rollups are All you Need」arXiv 初版", detail: "v4 は 2025-02-14", s: [src-mb-arxiv]}
+  - {id: ev-mb-funding-2024, date: "2024-09", type: funding, title: "300 万ドルの資金調達（a16z CSX 主導）", s: [src-mb-pulse2]}
+  - {id: ev-mb-funding-2025, date: "2025-04-24", type: funding, title: "750 万ドルのシード（Lightspeed Faction 主導）", s: [src-mb-pulse2]}
+
+relations:
+  - {to: mud, type: similar-to, basis: analytic, note: "BOLT はオンチェーン ECS という点で MUD と同じ発想（Solana / SVM 向け）"}
+  - {to: dojo, type: similar-to, basis: analytic, note: "オンチェーンゲーム用の ECS エンジンという位置づけ。Dojo は Starknet・Cairo"}
+  - {to: argus-world-engine, type: similar-to, basis: analytic, note: "ゲーム用の専用実行層。World Engine はシャード型ロールアップ、MagicBlock は基盤層アカウントの一時委任"}
+  - {to: c-ecs-engine, type: built-with, basis: confirmed, note: "BOLT は ECS アーキテクチャ", s: [src-mb-bolt-repo]}
+
+unknowns:
+  - "BOLT の非推奨化の時期と理由。"
+  - "ER 上で動いたゲームの数・利用者数・取引量。"
+  - "Security Committee の構成、不正証明の実装状況、委任中の検閲・停止に対する保証。"
+  - "MagicBlock の創業時期（報道は 2023-09 と記すが一次資料未確認）。"
+contradictions: []
+
+sources:
+  - {id: src-mb-docs-intro, title: "The high-performance engine for onchain games and applications on Solana (MagicBlock docs introduction)", url: "https://docs.magicblock.gg/introduction", publisher: "MagicBlock docs", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "SVM 互換、10 ms、ゼロに近い手数料、水平拡張、TEE"}
+  - {id: src-mb-docs-er, title: "Ephemeral Rollup (MagicBlock docs)", url: "https://docs.magicblock.gg/pages/ephemeral-rollups-ers/introduction/ephemeral-rollup", publisher: "MagicBlock docs", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "委任・実行・コミット・委任解除の流れ、Delegation Program、公開バリデータ、不正証明と Security Committee"}
+  - {id: src-mb-docs-whitepaper, title: "Whitepaper (MagicBlock docs)", url: "https://docs.magicblock.gg/pages/overview/additional-information/whitepaper.md", publisher: "MagicBlock docs", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "論文 arXiv 2311.02650 への案内と要旨"}
+  - {id: src-mb-arxiv, title: "Ephemeral Rollups are All you Need", url: "https://arxiv.org/abs/2311.02650", publisher: "arXiv", author: "Gabriele Picco, Andrea Fortugno", type: paper, primary: true, published: "2023-11-05", accessed: "2026-10-23", access: fetched, lang: en, note: "FOC ゲームの拡張、ECS 部品化、ティック・証明可能なセッション・ガスレス取引。v4 は 2025-02-14"}
+  - {id: src-mb-bolt-repo, title: "magicblock-labs/bolt", url: "https://github.com/magicblock-labs/bolt", publisher: "GitHub", author: "Magicblock Pte. Ltd.", type: code, primary: true, published: "2026-05-28", accessed: "2026-10-23", access: fetched, lang: en, note: "git clone。非推奨・保守停止の告知、FOC ゲームと AW 向け ECS、MIT"}
+  - {id: src-mb-validator-repo, title: "magicblock-labs/magicblock-validator", url: "https://github.com/magicblock-labs/magicblock-validator", publisher: "GitHub", type: code, primary: true, published: "2026-10-21", accessed: "2026-10-23", access: fetched, lang: en, note: "git clone。ER 用 SVM バリデータ、Business Source License 1.1"}
+  - {id: src-mb-github-org, title: "magicblock-labs (GitHub organization)", url: "https://github.com/magicblock-labs", publisher: "GitHub", type: code, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "delegation-program、ephemeral-rollups-sdk、Session Keys、Solana.Unity-SDK 等"}
+  - {id: src-mb-pulse2, title: "MagicBlock: $7.5 Million Seed Funding Raised For Decentralized Solana Game And App Platform", url: "https://pulse2.com/magicblock-7-5-million-seed-raised-for-decentralized-solana-game-and-app-platform/", publisher: "Pulse 2.0", type: news, primary: false, published: "2025-04-24", accessed: "2026-10-23", access: fetched, lang: en, note: "750 万ドル（Lightspeed Faction 主導）、前回 300 万ドル（a16z CSX、2024-09）、Supersize・Flash Trade・dTelecom・Pyth Lazer・Jito"}

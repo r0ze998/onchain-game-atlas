@@ -1,0 +1,104 @@
+id: pirate-nation
+name: Pirate Nation
+name_ja: パイレーツ・ネイション
+aliases: ["Proof of Play", "Apex", "Boss Chain"]
+kind: game
+depth: index
+updated: "2026-10-23"
+chains: [Polygon（初期）, Arbitrum Nova, "Apex（Arbitrum L3）", "Boss Chain（Arbitrum L3）", Ethereum mainnet（PFP NFT）, Abstract（Arcade 版）]
+team: "Proof of Play（CEO Amitt Mahajan、FarmVille の共同制作者）"
+summary: >-
+  Proof of Play のボクセル調・海賊 RPG。300 以上のコントラクトにゲームロジックの多くを載せ、プレイヤーの手数料を運営が肩代わりするため Polygon → Arbitrum Nova → 自前の Arbitrum L3（Apex、続いて Boss Chain）へと移った。
+  ピーク時に日次 10 万超のアクティブウォレット・1 日 100 万件超のトランザクションに達したと報じられたが、約 1 万まで減った 2025-08 に終了を告知し、2025-09-18 にゲームを、09-25 に 2 本の L3 を停止した。
+  2026-08 に会社自体の終了と、Unity クライアント・コントラクトのオープンソース化、アートの CC0 化を発表した。
+selection_reason: >-
+  「専用チェーンを持ち、ガスを運営が負担する大規模オンチェーン RPG」の規模・費用・終了の経緯が数値付きで報じられた事例で、ゲーム専用チェーンの固定費が終了判断に直結したことを示す。
+  また、戦闘結果を運営のバリデーター権限で書き込む設計は「オンチェーン」の範囲を見極める比較対象になるため。
+categories:
+  - {id: onchain-rules, role: primary, reason: "クエスト・クラフト・装備・取引などの多くを 300 超のコントラクトで実行（戦闘結果は運営の検証役が書き込む）"}
+  - {id: infra, role: secondary, reason: "Arbitrum Nova から自前の L3（Apex, Boss）へ移行し、運営費が終了理由になった"}
+  - {id: p2e, role: secondary, reason: "2024-06 にプレイして稼ぐシーズン経由で PIRATE トークンを発行"}
+status:
+  value: ended
+  as_of: "2026-10"
+  note: "オンチェーン版は 2025-09-18 に停止、Apex と Boss は 2025-09-25 に停止。PvE の一部は Abstract 上の Proof of Play Arcade に残ると 2025-09 に報じられた。2026-08-04 に Proof of Play 自体の事業終了が報じられ、Pirate Nation Foundation が PIRATE トークンの支援を続けるとされる。"
+  s: [src-pn-bcg-shutdown-date, src-pn-bcg-kill, src-pn-bcg-company-end]
+dates:
+  launched: {date: "2022-12", s: [src-pn-decrypt-nova], note: "Decrypt は 2022-12 開始と記載。BlockchainGamer.biz は 2023 年夏、The Block は 2024-08 時点で「約 3 か月前」に開始と記載（contradictions 参照）"}
+  ended: {date: "2025-09-18", s: [src-pn-bcg-shutdown-date], note: "オンチェーン版の停止日。L3 は 09-25"}
+
+architecture:
+  onchain:
+    level: partial-rules
+    detail: >-
+      GameRegistry に登録されたコンポーネント／システム型のコントラクト群（ロール制御）で、クエスト・クラフト・装備・取引・ショップ・ダンジョン等を実行。
+      ダンジョン戦闘や PvP の結果は BATTLE_VALIDATOR_ROLE／PVP_VALIDATOR_ROLE を持つ運営側エンドポイントが、検証データの IPFS URL とともにまとめて書き込む。
+    s: [src-pn-contracts, src-pn-bcg-company-end]
+  offchain:
+    - {item: "戦闘の検証役（バリデーター・エンドポイント）", s: [src-pn-contracts]}
+    - {item: "アートは IPFS（2023 年時点）", s: [src-pn-decrypt-nova]}
+    - {item: "trusted forwarder（PopForwarder）による手数料肩代わり", s: [src-pn-contracts, src-pn-decrypt-nova]}
+  admin:
+    level: significant
+    detail: "MANAGER_ROLE によるアカウントの BAN、PAUSER_ROLE による停止、GAME_LOGIC_CONTRACT_ROLE を与えたコントラクトだけが状態を書き換えられる許可制、アップグレード可能なコントラクト群。"
+    s: [src-pn-contracts]
+  open_source:
+    level: full
+    detail: "終了後にコントラクト（piratenation-contracts、2025-09-18 公開、MIT）、Unity クライアント（アーカイブ版）、内部ツールを GitHub で公開し、アートを CC0 にした。"
+    url: "https://github.com/proofofplay"
+    s: [src-pn-contracts, src-pn-github-org, src-pn-bcg-company-end]
+  extensibility:
+    level: none
+    detail: "ゲームロジックの書き換えは GAME_LOGIC_CONTRACT_ROLE を運営が付与したコントラクトに限られ、第三者の許可不要拡張は確認できなかった。"
+    s: [src-pn-contracts]
+
+compare:
+  gameplay: {t: "海賊キャラクター（NFT）を育て、クエスト・ダンジョン・PvP・クラフトで資源と装備を集めるブラウザ RPG。", k: fact, s: [src-pn-decrypt-nova, src-pn-contracts]}
+  necessity: {t: "運営は「ほぼすべてのゲームロジックと状態がオンチェーン」と述べたが、コード上は戦闘結果を運営の検証役が書き込み、ロジック追加も運営の許可制だった。結果として、終了時にゲームを第三者が継続する経路はなかった。", k: analysis, s: [src-pn-decrypt-nova, src-pn-contracts]}
+  information: {t: "未確認（戦闘の詳細データは IPFS に置かれ、結果のみチェーンに記録される形）。", k: unknown}
+  persistence: {t: "運営が 2 本の L3 を停止したため、ゲーム状態はチェーンごと失われた。プレイヤーは停止前にトークンを引き出し、ゲーム内資産を「Plunder Certificate」に変換して将来の PIRATE 配布と交換する措置が取られた。", k: fact, s: [src-pn-bcg-kill, src-pn-bcg-shutdown-date]}
+  extensibility: {t: "第三者による許可不要拡張の仕組みはなかった。", k: fact, s: [src-pn-contracts]}
+  money_flow: {t: "運営がガスを負担（Polygon 期は 1 日 3000〜4000 ドル）し、チェーン運営費は月 15 万ドル（ゲーム込み）と報じられた。収益源は NFT 販売と PIRATE トークン（2024-06 発行）。資金は 2023 年の 3300 万ドルのシード（a16z crypto・Greenoaks 共同主導）。", k: fact, s: [src-pn-decrypt-nova, src-pn-bcg-kill, src-pn-theblock-boss]}
+  entry_barrier: {t: "無料で遊べ、手数料は運営が肩代わりした。", k: fact, s: [src-pn-theblock-boss, src-pn-decrypt-nova]}
+
+concepts: [c-own-chain, c-gas-abstraction, c-onchain-state, c-nft-asset, e-p2e, c-onchain-randomness, c-cc0]
+
+metrics:
+  - {id: m-pn-polygon-gas, type: other, value_text: "1 日 3000〜4000 ドル", unit: USD/day, period: "2023-03 以前（Polygon 期）", definition: "運営が肩代わりしていたガス代（CEO 発言）", nature: reported, s: [src-pn-decrypt-nova]}
+  - {id: m-pn-apex-tx, type: transactions, value: 2500000, value_text: "約 250 万件／日", unit: tx/day, period: "2024-08", definition: "Apex チェーンの 1 日あたりトランザクション数（The Block 記載、出典は運営とみられる）", nature: reported, s: [src-pn-theblock-boss]}
+  - {id: m-pn-peak-dauw, type: dau, value: 100000, value_text: "10 万超（ピーク）→ 約 1 万（2025-08）", unit: wallets, period: "ピーク時期不明〜2025-08", definition: "日次アクティブ・ユニークウォレット（DAUW）。運営発表", nature: reported, s: [src-pn-bcg-kill]}
+  - {id: m-pn-opcost, type: other, value: 150000, value_text: "月 15 万ドル", unit: USD/month, period: "2025-08", definition: "2 本の L3 とゲームの運営費（運営発表）", nature: reported, s: [src-pn-bcg-shutdown-date]}
+  - {id: m-pn-seed, type: funding, value: 33000000, unit: USD, period: "2023", definition: "シードラウンド（a16z crypto・Greenoaks 共同主導）", nature: reported, s: [src-pn-theblock-boss, src-pn-bcg-company-end]}
+
+events:
+  - {id: ev-pn-nova, date: "2023-03-30", type: spec-change, title: "Polygon から Arbitrum Nova への移行を発表", detail: "ガス肩代わりの費用増が理由。NFT はブリッジでなく「ミラーリング」", s: [src-pn-decrypt-nova]}
+  - {id: ev-pn-boss, date: "2024-08-28", type: spec-change, title: "2 本目のチェーン Boss Chain を追加", detail: "Apex（Arbitrum L3）が容量上限に達したため", s: [src-pn-theblock-boss]}
+  - {id: ev-pn-shutdown-announce, date: "2025-08", type: announce, title: "Pirate Nation と Apex・Boss の終了を告知", s: [src-pn-bcg-kill]}
+  - {id: ev-pn-end, date: "2025-09-18", type: end, title: "オンチェーン版を停止", detail: "Apex と Boss は 09-25 に停止", s: [src-pn-bcg-shutdown-date]}
+  - {id: ev-pn-open-source, date: "2025-09-18", type: release, title: "piratenation-contracts を公開", s: [src-pn-contracts]}
+  - {id: ev-pn-company-end, date: "2026-08-04", type: end, title: "Proof of Play が事業終了を発表", detail: "Unity クライアント等を公開、アートを CC0 に", s: [src-pn-bcg-company-end]}
+
+relations:
+  - {to: c-own-chain, type: built-with, basis: confirmed, note: "Apex・Boss（Arbitrum L3）", s: [src-pn-theblock-boss]}
+  - {to: sky-strife, type: similar-to, basis: analytic, note: "ゲーム専用・特定用途チェーン上のオンチェーンゲームの終了"}
+  - {to: dark-forest, type: contrasts-with, basis: analytic, note: "Dark Forest は第三者拡張を公認、Pirate Nation はロール許可制"}
+  - {to: biomes, type: similar-to, basis: analytic, note: "ホストチェーンの停止で世界が失われた"}
+
+unknowns:
+  - "Apex の開始日と基盤（RaaS 事業者の有無）。"
+  - "ピーク DAUW の時期と、P2E シーズン・エアドロップ期待との関係。"
+  - "戦闘検証役が何を検証していたか（IPFS 上のデータ形式）。"
+  - "Plunder Certificate の PIRATE 交換が実施されたか。"
+  - "Proof of Play 終了の一次声明本文（報道経由でのみ確認）。"
+contradictions:
+  - {t: "開始時期: Decrypt は 2022-12、BlockchainGamer.biz は 2023 年夏、The Block は 2024-08 時点で「約 3 か月前」と記載（段階的な公開の別々の時点を指す可能性）。", s: [src-pn-decrypt-nova, src-pn-bcg-kill, src-pn-theblock-boss]}
+  - {t: "運営費: 2025-09 の記事は 2 本の L3 とゲームで月 15 万ドル、2026-08 の記事は CEO の説明として 1 チェーンあたり月約 6 万ドルと記載。", s: [src-pn-bcg-shutdown-date, src-pn-bcg-company-end]}
+
+sources:
+  - {id: src-pn-decrypt-nova, title: "Why Pirate Nation Is Leaving Polygon and Setting Sail Towards Arbitrum Nova", url: "https://decrypt.co/124969/why-pirate-nation-leaving-polygon-setting-sail-towards-arbitrum-nova", publisher: "Decrypt", author: "Kate Irwin", type: interview, primary: false, published: "2023-03-30", accessed: "2026-10-23", access: fetched, lang: en, note: "CEO インタビュー。ガス肩代わり費用、Nova 選定、ミラーリング、ほぼ全ロジックがオンチェーン"}
+  - {id: src-pn-theblock-boss, title: "FarmVille co-creator's crypto game Pirate Nation adds second chain to serve future growth", url: "https://www.theblock.co/post/313552/farmville-co-creators-crypto-game-pirate-nation-adds-second-chain-to-serve-future-growth", publisher: "The Block", author: "RT Watson", type: news, primary: false, published: "2024-08-28", accessed: "2026-10-23", access: fetched, lang: en, note: "Apex は Arbitrum L3、約 250 万 tx／日、Boss Chain 追加、3300 万ドルのシード"}
+  - {id: src-pn-bcg-kill, title: "Proof of Play kills Pirate Nation, doubles down on PIRATE token", url: "https://www.blockchaingamer.biz/news/40071/proof-of-play-shuts-down-pirate-nation-focus-pirate-token/", publisher: "BlockchainGamer.biz", author: "Jon Jordan", type: news, primary: false, published: "2025-08-19", accessed: "2026-10-23", access: fetched, lang: en, note: "終了告知、DAUW 10 万超→約 1 万、Plunder Certificate、Arcade"}
+  - {id: src-pn-bcg-shutdown-date, title: "Pirate Nation shuts down on 18th September", url: "https://www.blockchaingamer.biz/?p=40291", publisher: "BlockchainGamer.biz", author: "Jon Jordan", type: news, primary: false, published: "2025-09-08", accessed: "2026-10-23", access: fetched, lang: en, note: "09-18 停止、09-25 に L3 停止、月 15 万ドル"}
+  - {id: src-pn-bcg-company-end, title: "Pirate Nation developer Proof of Play shuts down", url: "https://www.blockchaingamer.biz/?p=42740", publisher: "BlockchainGamer.biz", author: "Jon Jordan", type: news, primary: false, published: "2026-08-05", accessed: "2026-10-23", access: fetched, lang: en, note: "会社終了、300 超のコントラクト、1 日 100 万 tx 超、1 チェーン月約 6 万ドル、オープンソース化"}
+  - {id: src-pn-contracts, title: "proofofplay/piratenation-contracts", url: "https://github.com/proofofplay/piratenation-contracts", publisher: "GitHub", type: code, primary: true, published: "2025-09-18", accessed: "2026-10-23", access: fetched, lang: en, note: "git clone。449 の .sol、ロール定義、BanSystem、BATTLE_VALIDATOR_ROLE による戦闘結果の書き込み、MIT"}
+  - {id: src-pn-github-org, title: "Proof of Play (GitHub organization)", url: "https://github.com/proofofplay", publisher: "GitHub", type: code, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "piratenation-game（Unity クライアントのアーカイブ）、piratenation-art 等 10 リポジトリ"}

@@ -1,0 +1,98 @@
+id: etherization
+name: Etherization
+name_ja: イーサリゼーション
+aliases: [Wrapped Etherization, wethz.eth]
+kind: game
+depth: index
+updated: "2026-10-23"
+chains: [Ethereum mainnet（2016 年のコントラクト）, Polygon（後年の layer 2 版）]
+team: "bSpend（bitcointalk のアカウント。Bspend の創業者 Vedran Kajić とする二次資料があるが一次資料では未確認）"
+summary: >-
+  2016 年 6 月に告知され、2016-09-16 に Ethereum メインネットへデプロイされた、Civilization 風の都市争奪・経済戦略ゲーム。
+  プレイヤーは ETH を自分の「国庫」に入れ、都市を取得し、3 種のユニット（三すくみ）で隣接都市を攻め、5 種の建物から他プレイヤーの行動の手数料を得る。
+  1 手ごとに一定時間（告知時 30 分）の待ち時間があり、ガス上限のためにロジックを 3 つのコントラクトに分けた。後年、都市を ERC-721 でラップし Polygon 上の layer 2 版を公開している。
+selection_reason: >-
+  CANDIDATES では 2018 年頃の文明ゲームとされていたが、調査の結果 2016 年の Ethereum 初期に、都市・ユニット・生産建物・他者の行動からの手数料という
+  「文明シミュレーションの経済」をコントラクトに書いた非常に早い例であることが分かった。資料は乏しく、一次資料は告知投稿・現行の公式ページ・コントラクトに限られる。
+categories:
+  - {id: onchain-rules, role: primary, reason: "都市の取得・ユニットの生産と移動・攻撃・建物からの手数料分配をコントラクトで実行する（告知と検証済みコントラクトによる）"}
+  - {id: assets, role: secondary, reason: "2016 年の都市を後に ERC-721 でラップした（Wrapped Etherization）"}
+status:
+  value: unknown
+  as_of: "2026-10"
+  note: >-
+    公式ページは Polygon 上の layer 2 版が稼働中と記し、フロントエンドを Arweave に置くと説明する。2016 年のコントラクトの取引数は Etherscan 上 145 件。
+    実際のプレイヤー数・活動状況は確認できなかった。
+  s: [src-etherization-about, src-etherization-etherscan]
+dates:
+  announced: {date: "2016-06-24", s: [src-etherization-bitcointalk], note: "bitcointalk の告知スレッド（Reddit 投稿への誘導）"}
+  launched: {date: "2016-09-16", s: [src-etherization-deploy-tx], note: "2016 年コントラクトのデプロイ日（UTC）。プレイ開始日は未確認"}
+
+architecture:
+  onchain:
+    level: core-rules
+    detail: >-
+      告知によれば、国庫への ETH の出し入れ、都市の取得、ユニット（pikemen / swordsmen / horsemen）の生産・移動・攻撃、建物（quarry / farm / woodworks / metalworks / stables）による
+      手数料分配がコントラクトで実行され、ガス上限のため 3 つのコントラクトに分割された。2016 年のコントラクトは Etherscan で検証済み（Solidity 0.3.5）。
+      本調査ではソースを直接読めておらず、ルールの詳細はコードでは未確認。
+    s: [src-etherization-bitcointalk, src-etherization-etherscan]
+  offchain:
+    - {item: "フロントエンドとソースコードを Arweave に置き、ENS（wethz.eth）等から参照すると公式ページは記す", s: [src-etherization-about]}
+  admin:
+    level: unknown
+    detail: "2016 年コントラクトの管理者権限は確認できなかった。公式ページは「100% decentralized」と主張するが、根拠となるコード確認はしていない。"
+    s: [src-etherization-about]
+  open_source:
+    level: partial
+    detail: "2016 年コントラクトは Etherscan で検証済み、Polygon 側も Etherscan / Polygonscan で検証済みと公式ページは記す。GitHub 等のリポジトリは確認できなかった。"
+    s: [src-etherization-etherscan, src-etherization-about]
+  extensibility:
+    level: unknown
+    detail: "第三者による拡張の例は確認できなかった。"
+    s: []
+
+compare:
+  gameplay: {t: "都市を取得し、隣接（インデックス差 3 以内）する都市へユニットを動かして攻撃・占領する。ユニットは三すくみ。生産建物を持つと、他プレイヤーがそのユニットや建物に払う費用の一部を得る。1 手ごとに待ち時間がある。", k: fact, s: [src-etherization-bitcointalk]}
+  necessity: {t: "国庫が ETH そのもので、他者の行動から手数料を得る経済を運営なしに執行することが主眼であり、資金の扱いに関してはチェーンの役割が大きい。ゲームの面白さに対してチェーンが必要かは資料からは判断できない。", k: analysis, s: [src-etherization-bitcointalk]}
+  information: {t: "都市・ユニット・国庫はコントラクトの状態として公開されると見られるが、秘匿情報の有無は未確認。", k: unknown}
+  persistence: {t: "2016 年のコントラクトは Ethereum 上に残り（残高約 1.9 ETH、取引 145 件）、公式ページは後継の Polygon 版とフロントエンドの Arweave 配置を案内する。", k: fact, s: [src-etherization-etherscan, src-etherization-about]}
+  extensibility: {t: "未確認。", k: unknown}
+  money_flow: {t: "プレイヤーが国庫に ETH を入れ、ユニット・建物・維持費の支払いが建物の所有者に分配され、都市の占領で他者の国庫を得る。告知は「上手に遊べば利益を出せる」とした。", k: fact, s: [src-etherization-bitcointalk], q: "Players add or withdraw ether to their treasury; by playing well they can increase it and make profit."}
+  entry_barrier: {t: "Ethereum ウォレットと、国庫に入れる ETH が必要。都市取得の費用は一次資料では確認できなかった（二次資料は 2 ETH とするが未取得）。", k: fact, s: [src-etherization-bitcointalk]}
+
+concepts: [c-onchain-rules, c-onchain-state, m-pvp-territory, m-production-chain, e-p2e, c-nft-asset]
+
+article:
+  principles:
+    - {t: "他者の行動に課金する生産建物: 建物の所有者が、同種のユニット生産・建設・維持のたびに手数料を得る設計は、「他プレイヤーが作った機能の利用料」をゲーム経済に組み込む最初期の形と見られる。成立条件は継続的な行動量があること。行動が減ると建物の収益も消え、Fomo3D 型の後続参加者依存と同じ弱点を持つ。", k: analysis, s: [src-etherization-bitcointalk]}
+  counter_evidence:
+    - {t: "2016 年コントラクトの取引数は 145 件にとどまり、ゲームが大規模に遊ばれた証拠は見当たらない。文明ゲームの先駆とする評価は、規模ではなく設計上の先行性に限られる。", k: analysis, s: [src-etherization-etherscan]}
+
+metrics:
+  - {id: m-etherization-2016-tx, type: transactions, value: 145, unit: tx, period: "2016-09-16〜参照日 2026-10-23", definition: "2016 年コントラクト（0xb40d…358B）の取引数（Etherscan 表示。内部取引・他の 2 コントラクトは含まない可能性）", nature: measured, s: [src-etherization-etherscan]}
+  - {id: m-etherization-cities, type: other, value: 1156, unit: towns, period: "設計値", definition: "公式ページが記す町（都市）の総数", nature: reported, s: [src-etherization-about]}
+
+events:
+  - {id: ev-etherization-ann, date: "2016-06-24", type: announce, title: "bitcointalk で「Etherization - Ethereum strategy game」を告知", s: [src-etherization-bitcointalk]}
+  - {id: ev-etherization-deploy, date: "2016-09-16", type: launch, title: "Etherization コントラクトを Ethereum メインネットにデプロイ", detail: "ブロック 2269698", s: [src-etherization-deploy-tx]}
+
+relations:
+  - {to: realms-eternum, type: similar-to, basis: analytic, note: "都市・資源・戦争をオンチェーンで扱う文明型ゲームの遠い先例。影響関係の証拠はない"}
+  - {to: fomo3d, type: similar-to, basis: analytic, note: "他者の行動から手数料を得る資金循環という点で類似"}
+  - {to: m-production-chain, type: similar-to, basis: analytic, note: "生産建物が他者の生産に課金する。加工連鎖そのものではない"}
+
+unknowns:
+  - "2016 年コントラクトのソースの中身（管理者権限、都市価格、待ち時間の定数）。Etherscan で検証済みだが本調査では読めなかった。"
+  - "2016 年に実際に何人が遊んだか、いつまで活動があったか。"
+  - "開発者の実名（Vedran Kajić とする記述は二次資料のみ）。"
+  - "Polygon 版の公開日、活動量、2016 年版との関係（ラップの仕組み）。"
+  - "「34 × 34 の地図」「最初は 2 ETH」など二次資料の数値（Adam McBride の記事は medium.com で取得不可）。"
+contradictions:
+  - {t: "CANDIDATES.md は 2018 年頃の文明ゲームとしていたが、告知は 2016-06、コントラクトのデプロイは 2016-09-16。", s: [src-etherization-bitcointalk, src-etherization-deploy-tx]}
+  - {t: "総都市数: 公式ページは 1156 の町とし、2016 年の告知投稿には数の記載がない。", s: [src-etherization-about, src-etherization-bitcointalk]}
+
+sources:
+  - {id: src-etherization-bitcointalk, title: "Etherization - Ethereum strategy game", url: "https://bitcointalk.org/index.php?topic=1525827.0", publisher: "Bitcoin Forum", author: "bSpend", type: forum, primary: true, published: "2016-06-24", accessed: "2026-10-23", access: fetched, lang: en, note: "ルール概要（国庫、30 分の待ち、3 ユニット、5 建物、隣接、3 コントラクト分割）"}
+  - {id: src-etherization-about, title: "Etherization", url: "https://about.etherization.org/", publisher: "Etherization", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "2016 年コントラクトと ERC-721 / Polygon のアドレス、1156 の町、layer 2 稼働、Arweave、「100% decentralized」の主張"}
+  - {id: src-etherization-etherscan, title: "Etherization contract 0xb40d0312BaC389AE0a05053020Aac80c9237358B", url: "https://etherscan.io/address/0xb40d0312BaC389AE0a05053020Aac80c9237358B", publisher: "Etherscan", type: onchain-data, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "検証済み（Solidity 0.3.5-nightly 2016-08-08）、取引 145 件、残高約 1.9 ETH"}
+  - {id: src-etherization-deploy-tx, title: "Etherization contract creation tx 0x640c7bdfc16225d38f1b9afc78141873e367d995a523f0fe9efddabf067fbc0f", url: "https://etherscan.io/tx/0x640c7bdfc16225d38f1b9afc78141873e367d995a523f0fe9efddabf067fbc0f", publisher: "Etherscan", type: onchain-data, primary: true, published: "2016-09-16", accessed: "2026-10-23", access: fetched, lang: en, note: "ブロック 2269698、2016-09-16 11:33:53 UTC"}

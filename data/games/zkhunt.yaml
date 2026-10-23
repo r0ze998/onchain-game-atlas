@@ -1,0 +1,98 @@
+id: zkhunt
+name: ZK Hunt
+name_ja: ZK ハント
+aliases: [zkHunt, ZK-Hunt]
+kind: game
+depth: index
+updated: "2026-10-23"
+chains: [ローカルの開発チェーン（anvil）のみ確認]
+team: "Flynn Swainston-Calcutt（GitHub: FlynnSC）。README は技術解説を 0xPARC ブログに置くと記す"
+summary: >-
+  MUD（v0.16 系）上に作られた、ZK 証明による秘匿移動と情報の非対称性を試す RTS 風 PvP の試作。平原では位置が公開され、ジャングルに入ると
+  位置は Poseidon コミットメントとしてのみ保存され、移動の正当性は circom の回路で証明される。相手は「どこにいる可能性があるか」の集合しか追えない。
+  槍による攻撃や「探索（search）」は、隠れた側に応答（ZK 証明）を求め、期限内に応答しなければ清算されるという、秘匿情報に応答義務を組み合わせた仕組みを持つ。
+selection_reason: >-
+  Dark Forest が「計算で晴れる霧」を作ったのに対し、ZK Hunt は「公開と秘匿を地形で切り替える」「秘匿側に応答義務と期限を課す」という別の秘匿情報メカニクスを、
+  小規模なコードで示している。秘匿情報には応答できないプレイヤー（オフライン）をどう扱うかという、オンチェーン秘匿ゲーム全般の弱点が具体的に見える。
+categories:
+  - {id: zk, role: primary, reason: "ジャングル内の移動・被弾回避・探索への応答・潜在位置の公開を circom の ZK 回路で証明する"}
+  - {id: onchain-rules, role: secondary, reason: "移動・攻撃・探索・清算の判定を MUD の System コントラクトで行う"}
+status:
+  value: archived
+  as_of: "2026-10"
+  note: "README は「試作（prototype）」と明記。リポジトリの最終コミットは 2023-10-10（README 更新）、実装上の最終変更は 2023-05。公開ネットワークで運営された記録は確認できなかった。"
+  s: [src-zkhunt-repo]
+dates:
+  launched: {date: "2022-09", s: [src-zkhunt-repo], note: "リポジトリの初回コミットは 2022-09-22、平原・ジャングル移動の初期実装は 2022-09-28。公開ゲームとしての開始ではない"}
+
+architecture:
+  onchain:
+    level: core-rules
+    detail: >-
+      MUD v0.16 の ECS（Component / System コントラクト）で、平原移動（PlainsMoveSystem）、ジャングルへの出入り、ジャングル内移動（JungleMoveSystem）、
+      攻撃、探索・応答、清算（LiquidationSystem）を実装。ジャングル内の位置は Poseidon コミットメントで保存され、各移動は 1 マスの直交移動であることを
+      証明する回路（jungleMove）の Solidity 検証器でチェックされる。秘匿探索ではチャレンジ対象のマス集合を暗号化して送り、応答側はナリファイアを出す。
+    s: [src-zkhunt-repo, src-zkhunt-circuits, src-zkhunt-liquidation]
+  offchain:
+    - {item: "ZK 証明の生成（circom / snarkjs）と、相手の潜在位置集合の追跡はクライアント側", s: [src-zkhunt-repo]}
+    - {item: "回路の準備（powers of tau の実行）を開発者がローカルで行う", s: [src-zkhunt-repo]}
+  admin:
+    level: unknown
+    detail: "ComponentDevSystem という System（名前からは開発用と見られる）が存在する。公開ネットワークへの展開がないため運用上の管理権限は評価できない"
+    s: [src-zkhunt-repo]
+  open_source:
+    level: full
+    detail: "回路・コントラクト・クライアント一式を MIT ライセンスで公開（コントラクト個別ファイルには Unlicense 表記もある）"
+    url: "https://github.com/FlynnSC/zk-hunt"
+    s: [src-zkhunt-repo, src-zkhunt-liquidation]
+  extensibility:
+    level: none
+    detail: "試作として公開されたコード。第三者がフォークして回路を改造した例として ETHOnline 2024 の提出作品がある"
+    s: [src-zkhunt-ethglobal]
+
+compare:
+  gameplay: {t: "格子状の地図でユニットを動かす 2 人以上の PvP。平原では位置が見え、ジャングルでは位置が隠れる。槍で攻撃し、探索で隠れた相手の位置を問いただせる。", k: fact, s: [src-zkhunt-repo, src-zkhunt-circuits]}
+  necessity: {t: "第三者の審判なしに「隠れたまま正しく動いた」「探索された位置にいない」ことを相手に検証させる点が、公開台帳と ZK を組み合わせる理由。試作であり、オンチェーンである必要性を実プレイで検証した記録はない。", k: analysis}
+  information: {t: "ジャングル内の位置はコミットメントのみ公開。相手が見られるのは入った地点と可能性のある位置の集合で、移動ごとに広がり、ジャングルを出ると確定する。", k: fact, s: [src-zkhunt-circuits, src-zkhunt-ethresearch]}
+  persistence: {t: "公開ネットワークでの展開を確認できず、遊ぶにはローカルで構築する必要がある。", k: fact, s: [src-zkhunt-repo]}
+  extensibility: {t: "ソース公開による改造（フォーク）のみ。第三者の改造例が 1 件確認できる。", k: fact, s: [src-zkhunt-ethglobal]}
+  money_flow: {t: "トークン・資産・賞金は確認できない（研究用の試作）。", k: fact, s: [src-zkhunt-repo]}
+  entry_barrier: {t: "Rust・foundry・circom・snarkjs の導入、回路の準備、ローカルチェーンの起動が必要で、開発者向け。", k: fact, s: [src-zkhunt-repo]}
+
+concepts: [c-zk-hidden-info, m-fog-of-war, c-commit-reveal, c-ecs-engine, c-onchain-rules]
+proposed_concepts:
+  - {id: m-challenge-response-liquidation, name: 応答義務と期限付き清算, desc: "秘匿状態を持つプレイヤーに、他者のチャレンジ（探索・攻撃）への ZK 応答を期限内に求め、応答がなければ不利な結果（清算）を確定させる。"}
+
+article:
+  principles:
+    - {t: "地形で公開・秘匿を切り替える霧: 位置の秘匿を常時ではなく特定地形（ジャングル）に限ると、秘匿の証明コストを必要な場面に限定でき、出入りの瞬間が駆け引きになる。適用条件は公開状態から秘匿状態への出入りを公開イベントにできること。破綻条件は秘匿領域が狭く、潜在位置集合がすぐ絞り込まれる場合。", k: analysis, s: [src-zkhunt-circuits, src-zkhunt-ethresearch]}
+    - {t: "応答義務つきの秘匿: 隠れた側に「探索されたマスにいない」ことを期限内に証明させ、応答がなければ清算する。適用条件は応答期限がネットワークの確定時間より十分長いこと。破綻条件は応答期限が短い（コード上の RESPONSE_PERIOD は 5 秒）か、プレイヤーがオフラインになりやすい場合で、秘匿の代償が「常時オンライン」になる。", k: analysis, s: [src-zkhunt-liquidation, src-zkhunt-circuits]}
+  counter_evidence:
+    - {t: "公開ネットワークでの運営やプレイヤー数の記録はなく、メカニクスが遊びとして成立するかは検証されていない。", k: fact, s: [src-zkhunt-repo]}
+    - {t: "応答しないと清算される設計は、秘匿情報を持つ側に常時オンラインと証明生成の負担を課す。秘匿の価値が操作負担を上回るかは不明。", k: analysis, s: [src-zkhunt-liquidation]}
+
+events:
+  - {id: ev-zkhunt-init, date: "2022-09-28", type: release, title: "平原・ジャングル移動の回路・コントラクト・クライアントの初期実装", s: [src-zkhunt-repo]}
+  - {id: ev-zkhunt-delay-response, date: "2022-12-30", type: spec-change, title: "秘匿チャレンジへの応答を遅らせる選択肢を追加", s: [src-zkhunt-repo]}
+  - {id: ev-zkhunt-track, date: "2023-05-14", type: spec-change, title: "探索成功時の永続的追跡、エンティティごとのナリファイア・キューを追加", s: [src-zkhunt-repo]}
+
+relations:
+  - {to: mud, type: built-with, basis: confirmed, note: "README が mud 上の試作と明記。依存は @latticexyz/* 0.16.4", s: [src-zkhunt-repo]}
+  - {to: dark-forest, type: similar-to, basis: analytic, note: "ZK による秘匿位置という同じ問題設定。DF は座標空間の総当たりで霧が晴れ、ZK Hunt は地形と応答義務で秘匿を扱う点が対照的"}
+  - {to: mental-poker, type: similar-to, basis: analytic, note: "信頼できる審判なしに秘匿情報ゲームを行う問題の系譜"}
+  - {to: c-zk-hidden-info, type: built-with, basis: confirmed, note: "circom 回路で秘匿移動を証明", s: [src-zkhunt-circuits]}
+
+unknowns:
+  - "0xPARC ブログの技術解説（0xparc.org/blog/zk-hunt）の本文。JavaScript 描画のため取得できなかった。公開日も未確認。"
+  - "公開テストネット等での展開・プレイテストの有無と参加者数。"
+  - "0xPARC からの助成の有無と金額。"
+contradictions:
+  - {t: "MUD のバージョン: リポジトリの package.json は @latticexyz/* 0.16.4、ETHGlobal の提出作品は「MUD 1.2」上と記載。", s: [src-zkhunt-repo, src-zkhunt-ethglobal]}
+
+sources:
+  - {id: src-zkhunt-repo, title: "FlynnSC/zk-hunt", url: "https://github.com/FlynnSC/zk-hunt", publisher: "GitHub", author: "Flynn Swainston-Calcutt", type: code, primary: true, published: "2023-10-10", accessed: "2026-10-23", access: fetched, lang: en, note: "git clone（全履歴 40 コミット、2022-09-22〜2023-10-10）。README、MUD 0.16.4、MIT、ゲーム操作"}
+  - {id: src-zkhunt-circuits, title: "zk-hunt packages/circuits/src (jungleMove, hiddenSearch, hiddenSearchResponse, hiddenSearchLiquidation 等)", url: "https://github.com/FlynnSC/zk-hunt/tree/main/packages/circuits/src", publisher: "GitHub", type: code, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "回路のコメント: コミットメントと 1 マス移動、暗号化チャレンジとナリファイア、清算の証明"}
+  - {id: src-zkhunt-liquidation, title: "zk-hunt packages/contracts/src/systems/LiquidationSystem.sol", url: "https://github.com/FlynnSC/zk-hunt/blob/main/packages/contracts/src/systems/LiquidationSystem.sol", publisher: "GitHub", type: code, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "応答期間（Constants.sol で RESPONSE_PERIOD = 5 秒）経過後に清算"}
+  - {id: src-zkhunt-0xparc-blog, title: "ZK Hunt (0xPARC blog)", url: "https://0xparc.org/blog/zk-hunt", publisher: "0xPARC", type: official-blog, primary: true, accessed: "2026-10-23", access: unreachable, lang: en, note: "README が技術解説の所在として挙げる。ページは JS 描画で本文を取得できなかった"}
+  - {id: src-zkhunt-ethresearch, title: "Completely Recursive SNARK Circuit - The Savior of \"Play to Earn\"", url: "https://ethresear.ch/t/completely-recursive-snark-circuit-the-savior-of-play-to-earn/18439", publisher: "Ethereum Research forum", author: "Mirror (Salus)", type: forum, primary: false, published: "2024-01-23", accessed: "2026-10-23", access: fetched, lang: en, note: "ZK Hunt の平原・ジャングル、潜在位置集合、Poseidon コミットメントの説明"}
+  - {id: src-zkhunt-ethglobal, title: "TIL ZK Hunt n Fhenix (ETHGlobal showcase)", url: "https://ethglobal.com/showcase/til-zk-hunt-n-fhenix-dm1qk", publisher: "ETHGlobal", type: forum, primary: false, accessed: "2026-10-23", access: fetched, lang: en, note: "ETHOnline 2024。ZK Hunt（MUD 1.2 と記載）をフォークし新しい移動規則の回路を作成"}

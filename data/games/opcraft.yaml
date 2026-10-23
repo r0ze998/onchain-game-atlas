@@ -1,0 +1,107 @@
+id: opcraft
+name: OPCraft
+aliases: [MUDCraft]
+kind: game
+depth: index
+updated: "2026-10-23"
+chains: [Optimism Bedrock テストネット（Lattice が運用した OP Stack チェーン）]
+team: "Lattice"
+summary: >-
+  Lattice が MUD v1 の実証として作った、地形・ブロック・所有のすべてをチェーン上に置く Minecraft 風のボクセル世界。
+  2022-10 の Devcon 期間に Optimism Bedrock テストネットで 2 週間公開され、2022-10-31 に終了した。プレイヤーは採掘・建築・クラフトし、
+  ダイヤモンドを賭けて区画を確保し、クライアントプラグインや独自のコンポーネント・システムを持ち込んで「人民共和国」のような制度を作った。
+  状態肥大（終了時にクライアントの読み込みに約 20 分）が MUD v2 と Redstone の設計動機になった。
+selection_reason: >-
+  プレイヤーが運営の想定しない社会制度（土地の集団所有・配給・社会信用）を、独自のコントラクトで世界に追加した早期の具体例として、
+  Autonomous Worlds 論の根拠としてしばしば引かれる。同時に、2 週間・テストネット・賞品なしという条件での出来事であり、その一般化には慎重さが要る。
+categories:
+  - {id: aw, role: primary, reason: "目的やクエストのない共有世界で、プレイヤーがコンポーネントとシステムを追加して制度を作った"}
+  - {id: onchain-rules, role: secondary, reason: "採掘・建築・クラフト・区画確保と、Perlin ノイズによる地形生成がコントラクトで判定される"}
+  - {id: infra, role: secondary, reason: "MUD v1 の負荷試験として、状態肥大とブロックスペースの飽和を明らかにした"}
+status:
+  value: ended
+  as_of: "2026-10"
+  note: >-
+    公開テストは 2022-10-31 0 時 UTC（ハロウィン）に終了し、世界はその時点で凍結され閲覧専用クライアント（opcraft.mud.dev）で公開された。
+    Lattice によれば、その後 Zuse と Dhvani が OPCraft を引き継いで Biomes にし、Biomes は Lattice と合流して DUST になった。
+    閲覧専用の opcraft.mud.dev は参照日（2026-10-23）にも HTTP 200 を返した（検証役が確認。中身の表示までは未確認）。
+  s: [src-opcraft-part3, src-opcraft-repo, src-opcraft-winding-down]
+dates:
+  launched: {date: "2022-10", s: [src-opcraft-zero-to-v2, src-opcraft-part3], note: "Devcon（2022）期間中に Optimism Bedrock テストネットで公開。開始日は未確認"}
+  ended: {date: "2022-10-31", s: [src-opcraft-part3], note: "2 週間の公開テストがハロウィンの夜 0 時 UTC に終了"}
+
+architecture:
+  onchain:
+    level: core-rules
+    detail: >-
+      ブロックは MUD v1 のエンティティで、Position・Item・OwnedBy などのコンポーネントで表され、採掘（Mine）・設置（Build）・クラフト・ステーク・区画確保（Claim）・転送がシステムで判定される。
+      未採掘の地形は Solidity と WebAssembly の Perlin ノイズで手続き生成され、チェーン上で検証される。一方、プレイヤーの位置はチェーンに置かれず、P2P で配信されたため、
+      ループで遠隔地を採掘する自動化が可能だった。
+    s: [src-opcraft-part1, src-opcraft-part3, src-opcraft-zero-to-v2, src-opcraft-repo]
+  offchain:
+    - {item: "プレイヤー位置の P2P 配信、クライアント（noa エンジン）、MUD インデクサ", s: [src-opcraft-zero-to-v2, src-opcraft-repo]}
+    - {item: "公式サイトのプラグインは Lattice の公開リポジトリへの PR と手動の品質・安全確認を経て掲載された", s: [src-opcraft-part3]}
+  admin:
+    level: significant
+    detail: >-
+      MUD v1 ではコンポーネントの所有者が書き込み権を管理する。最終版リポジトリの deploy.json には、全コンポーネントへの書き込み権を持ち所有者だけが呼べる ComponentDevSystem
+      （コード中に「本番に含めないこと」と注記）と BulkSetStateSystem が含まれる。2022-10 の公開テスト時の展開にどこまで含まれていたかは確認していない。
+    s: [src-opcraft-repo]
+  open_source:
+    level: full
+    detail: "latticexyz/opcraft にクライアントとコントラクトを公開（コントラクトの一部は GPL-3.0 表記）。最終コミット 2022-12-16。"
+    url: "https://github.com/latticexyz/opcraft"
+    s: [src-opcraft-repo]
+  extensibility:
+    level: permissionless-onchain
+    detail: >-
+      世界自体は許可不要で、誰でも独自のクライアントや新しいコンポーネント・システムを展開できた。実例: SupremeLeaderOP が 13 万 5200 個のダイヤを集めて出現地点周辺を確保し、
+      ComradeComponent・GovernmentSystem などを展開して「Autonomous People's Republic of OPCraft」を作った。チャット・テレポート・紅葉表示・ダイヤ掘削などのプラグインも作られた。
+      ただし公式サイト掲載のプラグインは審査制で、許可不要だったのはオンチェーンの世界と自前のフロントエンドだと Lattice は注記している。
+    s: [src-opcraft-part3, src-opcraft-zero-to-v2]
+
+compare:
+  gameplay: {t: "目的やクエストのないボクセル世界で、採掘・建築・クラフトを行い、ダイヤを賭けて 16×16×16 の区画を守る。プレイヤーは巨大なドット絵、空中ピラミッド、Dark Forest への敬意を表す惑星などを作った。", k: fact, s: [src-opcraft-part3]}
+  necessity: {t: "Lattice は「所有者のいない世界でなければプレイヤーは安心して創造できない」と主張したが、実際の公開は 2 週間で終わり凍結された。プレイヤーが規則を追加できたのはオンチェーンの共有状態ゆえだが、長期の永続性は実証されていない。", k: analysis, s: [src-opcraft-part3]}
+  information: {t: "ブロックと所有は公開。プレイヤー位置はオンチェーンにない。", k: fact, s: [src-opcraft-part3]}
+  persistence: {t: "公開テスト終了時の世界が閲覧専用で公開され、コードも公開されているが、テストネット上の世界は継続しなかった。後継の Biomes・DUST は別プロジェクトとして再出発した。", k: fact, s: [src-opcraft-part3, src-opcraft-repo, src-opcraft-winding-down]}
+  extensibility: {t: "許可不要のコンポーネント・システム追加と自前クライアント、審査制の公式プラグイン。", k: fact, s: [src-opcraft-part3]}
+  money_flow: {t: "テストネットのため実費・賞品は確認できない。ゲーム内のダイヤが区画確保のステーク資産として機能した。", k: fact, s: [src-opcraft-part3]}
+  entry_barrier: {t: "テストネットで遊べた。具体的なウォレット・ガスの扱いは未確認。", k: unknown}
+
+concepts: [c-ecs-engine, c-onchain-state, c-onchain-rules, c-permissionless-extension, c-client-plugins, c-autonomous-world, m-land, m-bot-automation, c-own-chain]
+
+article:
+  principles:
+    - {t: "プレイヤーが制度をコントラクトとして追加できる: ゲームに組合・政府の仕組みがなくても、プレイヤーが独自のコンポーネントとシステムを展開し、参加者がそれに資産を預ける形で制度（集団所有・配給・社会信用）を作れる。適用条件は、資産の移転と土地の権利がオンチェーンの規則で表され、第三者コントラクトがそれを操作できること。破綻条件は、参加の誘因が弱い・期間が短い場合で、OPCraft の共和国は終了 2 日前に宣言され、反発したプレイヤーは空に別の都市を作った。", k: analysis, s: [src-opcraft-part3]}
+  counter_evidence:
+    - {t: "共和国などの事例は 2 週間・テストネット・資産価値なしという条件下のもので、運営自身が「期待を超えた」と述べる主観的な報告に基づく。長期的に制度が維持されるか、実資産が絡んでも同様に起きるかは示されていない。", k: analysis, s: [src-opcraft-part3]}
+    - {t: "2 週間・約 2000 人規模でもテストネットのブロックスペースが活動のピークで飽和し、L1 にデータを投稿する通常の L2 では 1 ブロック置くのも非常に高額だったと Lattice は述べた。同じ設計を本番の大規模世界に広げるには専用チェーン（後の Redstone）が必要と判断された。", k: claim, who: "Lattice", s: [src-opcraft-intro-redstone, src-opcraft-zero-to-v2]}
+    - {t: "Lattice によれば、区画確保のステークに使うダイヤは、位置がオンチェーンで強制されない仕様を突いた「ダイヤモンド・ドリル」（ループによる自動採掘）で大量に掘られた。共和国の 13 万 5200 ダイヤがドリル由来かは書かれていないが、土地の囲い込みという「創発的制度」の経済的基盤が、オンチェーン範囲の抜け穴による自動化と結び付いていた可能性があり、純粋な社会的創発の例として扱うには留保が要る。", k: analysis, s: [src-opcraft-part3]}
+    - {t: "プレイヤー位置がオフチェーンだったため、ループによる遠隔採掘が可能になった。オンチェーンの範囲の選び方が、意図しない自動化を生んだ例でもある。", k: fact, s: [src-opcraft-part3]}
+
+events:
+  - {id: ev-opcraft-start, date: "2022-10", type: testnet, title: "Devcon 期間中に Optimism Bedrock テストネットで 2 週間の公開テスト", s: [src-opcraft-zero-to-v2, src-opcraft-part3]}
+  - {id: ev-opcraft-apro, date: "2022-10-29", type: other, title: "SupremeLeaderOP が人民共和国を宣言", detail: "13 万 5200 ダイヤを集めて出現地点周辺を確保、comrade プラグインと独自コントラクト", s: [src-opcraft-part3]}
+  - {id: ev-opcraft-end, date: "2022-10-31", type: end, title: "公開テスト終了、世界を凍結", s: [src-opcraft-part3]}
+  - {id: ev-opcraft-mud-upgrade, date: "2022-12-16", type: release, title: "リポジトリを MUD 1.31.2 に更新（最終コミット）", s: [src-opcraft-repo]}
+
+relations:
+  - {to: mud, type: built-with, basis: confirmed, note: "MUD v1 の実証作品", s: [src-opcraft-part1, src-opcraft-zero-to-v2]}
+  - {to: biomes, type: successor-of, basis: confirmed, note: "Lattice によれば Zuse と Dhvani が OPCraft を引き継いで Biomes にした（Biomes が OPCraft の後継）", s: [src-opcraft-winding-down]}
+  - {to: sky-strife, type: same-team, basis: confirmed, note: "どちらも Lattice の社内開発", s: [src-opcraft-zero-to-v2]}
+  - {to: autonomous-worlds-essay, type: similar-to, basis: analytic, note: "Lattice は OPCraft を最初の Autonomous World への試みと位置づけた。論考との時間的前後関係は本エントリでは確認していない"}
+
+unknowns:
+  - "公開テストの正確な開始日、参加者数の定義（Lattice は約 2000 人・約 1000 万ブロック採掘と記述）。"
+  - "0xPARC の関与の有無（調査依頼にあったが一次資料で確認できなかった）。"
+  - "公開テスト時の展開に ComponentDevSystem が含まれていたか。"
+  - "第三者が展開したコンポーネント・システムの総数。"
+
+sources:
+  - {id: src-opcraft-part1, title: "Making of OPCraft (Part 1): Building an on-chain voxel game", url: "https://lattice.xyz/blog/making-of-opcraft-part-1-building-an-on-chain-voxel-game", publisher: "Lattice blog", author: "Lattice", type: official-blog, primary: true, published: "2022-11", accessed: "2026-10-23", access: fetched, lang: en, note: "「先月 OPCraft を公開」、ECS によるブロック表現、Mine/Build システム"}
+  - {id: src-opcraft-part3, title: "Making of OPCraft (Part 3): What happened in two weeks of OPCraft", url: "https://lattice.xyz/blog/making-of-opcraft-part-3-what-happened-in-two-weeks-of-opcraft", publisher: "Lattice blog", author: "Lattice", type: retrospective, primary: true, published: "2022", accessed: "2026-10-23", access: fetched, lang: en, note: "2 週間の出来事、プラグイン、APRO、10/31 終了、プラグイン審査の注記"}
+  - {id: src-opcraft-zero-to-v2, title: "MUD from zero to v2", url: "https://lattice.xyz/blog/mud-zero-to-v2", publisher: "Lattice blog", author: "Lattice", type: retrospective, primary: true, published: "2023", accessed: "2026-10-23", access: fetched, lang: en, note: "試作 2 日・3 か月で完成、Devcon 2022 で Bedrock テストネット公開、状態肥大、約 2000 人・約 1000 万ブロック"}
+  - {id: src-opcraft-repo, title: "latticexyz/opcraft", url: "https://github.com/latticexyz/opcraft", publisher: "GitHub", type: code, primary: true, published: "2022-12", accessed: "2026-10-23", access: fetched, lang: en, note: "git clone で確認。システム一覧、deploy.json（ComponentDevSystem）、README（凍結世界は opcraft.mud.dev）"}
+  - {id: src-opcraft-intro-redstone, title: "Introducing: Redstone", url: "https://lattice.xyz/blog/introducing-redstone", publisher: "Lattice blog", author: "Lattice", type: official-blog, primary: true, published: "2023", accessed: "2026-10-23", access: fetched, lang: en, note: "OPCraft が Bedrock テストネットのブロックスペースを飽和させ、L1 に投稿していたら高額だったという教訓"}
+  - {id: src-opcraft-winding-down, title: "Winding Down Lattice", url: "https://lattice.xyz/winding-down", publisher: "Lattice", author: "Ludens & Alvarius", type: retrospective, primary: true, published: "2026-04", accessed: "2026-10-23", access: fetched, lang: en, note: "Zuse と Dhvani が OPCraft を Biomes にし、DUST へ合流"}

@@ -1,0 +1,70 @@
+# 時代区分。区切りは「何の制約が変わったか」。from/to は年（または年月）で、出来事の日付で振り分ける。
+- id: era-prehistory
+  title: 前史 — 専用チェーンと資産発行の実験
+  from: "2012"
+  to: "2016"
+  summary: >-
+    Ethereum 以前・直後の時期。ゲームのルールをチェーンのコンセンサス自体に組み込む（Huntercoin）、Bitcoin 上の賭け（SatoshiDice）、
+    Counterparty 上のカード資産（Spells of Genesis、Rare Pepe）など、汎用スマートコントラクトがない中での試みが並ぶ。
+  changes:
+    - {t: "汎用スマートコントラクトがないため、ゲームのルールを実行するにはチェーン自体を作る（Huntercoin は Namecoin 由来の専用チェーンで盤面をブロック検証に組み込んだ）か、資産の発行だけをチェーンに置くしかなかった。", k: analysis, s: [src-huntercoin-code]}
+    - {t: "賭けゲームの大量の小額取引が Bitcoin のブロック空間と議論を圧迫し、ゲームの取引量とチェーンの容量の衝突が早くから現れた。", k: analysis, s: [src-satoshidice-btc082]}
+  unchanged: 遊びのルールの大半はチェーン外にあり、「所有」以外をチェーンに置く実用的な手段はまだなかった。
+  key_games: [huntercoin, satoshi-dice, spells-of-genesis, rare-pepe, etherization]
+
+- id: era-collectibles
+  title: ERC-721 と収集・投機の時代
+  from: "2017"
+  to: "2019"
+  summary: >-
+    Ethereum 上でゲーム資産をトークンとして発行し、繁殖や売買をコントラクトで実行できるようになった。CryptoKitties の混雑と Fomo3D のブロック詰めは、
+    共有チェーン上のゲームがチェーン全体と資源を奪い合うことを示した。
+  changes:
+    - {t: "非代替トークン（後の ERC-721）により、ゲーム資産の所有と移転を運営の DB の外で扱えるようになった。CryptoKitties の交配規則はコントラクトに実装された。", k: analysis, s: [src-ck-sourcify-kittycore]}
+    - {t: "ゲームの人気が共有チェーンの容量を圧迫し、手数料の高騰が運営と他の利用者の双方に問題になった（占有率の数値は資料により幅がある）。", k: analysis, s: [src-ck-techcrunch-2017-12]}
+    - {t: "時間制限のあるゲームが、ゲーム内の選択ではなく取引の順序（ブロック空間）で決着し得ることが Fomo3D で示された。", k: analysis, s: [src-fomo3d-solmaz]}
+  unchanged: 遊びの大半（画像、UI、対戦ルール）はサーバー側にあり、共有チェーンの処理能力は大量のゲーム内行動に足りなかった。
+  key_games: [cryptokitties, fomo3d, etheremon, gods-unchained, decentraland]
+
+- id: era-p2e-zk
+  title: P2E の急拡大と、ZK・最小プリミティブの登場
+  from: "2020"
+  to: "2021"
+  summary: >-
+    専用サイドチェーン（Ronin）や低手数料チェーン（xDai、Polygon）でゲーム内の頻繁な取引が可能になり、P2E とスカラーシップが急拡大した。
+    同じ時期に、ZK による秘匿（Dark Forest）と、最小の資産を公開して派生を委ねる設計（Loot）が現れた。
+  changes:
+    - {t: "専用チェーンにより高頻度の資産操作が可能になったが、少数の署名者に依存するブリッジが単一障害点になった（Ronin）。", k: analysis, s: [src-rekt-ronin]}
+    - {t: "ZK 証明をブラウザで生成し、公開台帳上で位置を隠したまま行動を検証できるようになった。", k: analysis, s: [src-df-announce]}
+    - {t: "報酬トークンの換金価値が地域の賃金を上回る期間、資産の貸借（スカラーシップ）で参加者が急増した。", k: analysis, s: [src-reuters-ph-ditch, src-cg-scholarship-study]}
+    - {t: "統計値も絵もない最小の資産を無料請求で配ることで、短期間に多数の派生が集まった。", k: analysis, s: [src-loot-resources]}
+  unchanged: 報酬経済は新規流入に依存し、利用指標は報酬目的の参加と区別されなかった。
+  key_games: [axie-infinity, dark-forest, loot, stepn, wolf-game, sunflower-land, defi-kingdoms]
+
+- id: era-engines-aw
+  title: オンチェーンエンジンと Autonomous Worlds
+  from: "2022"
+  to: "2024-06"
+  summary: >-
+    MUD や Dojo といったオンチェーンゲーム用の基盤と、ゲーム向けの L2 / L3（Redstone など）が整い、ルールと状態をすべてチェーンに置き、
+    第三者が拡張できる「Autonomous Worlds」の試作が相次いだ。同時に P2E の縮小と、報酬設計の見直しが進んだ。
+  changes:
+    - {t: "ECS 型のオンチェーンフレームワークで、状態の同期・名前空間ごとの権限・第三者システムの追加が標準化された。", k: analysis, s: [src-mud-docs-world, src-mud-docs-access]}
+    - {t: "ゲーム専用の L2 / L3 により、ターン制や RTS のような高頻度の行動をオンチェーンで扱えるようになった。", k: analysis, s: [src-mud-redstone-live]}
+    - {t: "Autonomous Worlds という考え方が言語化され、運営に依存しない世界と許可不要の拡張が設計目標として掲げられた。", k: analysis, s: [src-awe-0xparc-part1]}
+  unchanged: 拡張の仕組みは整ったが、第三者が作り他のプレイヤーが使った拡張の証拠は乏しく、プレイヤー数の公表もほとんどなかった。
+  key_games: [mud, dojo, opcraft, sky-strife, primodium, downstream, biomes, pixelaw, loot-survivor, pixels, autonomous-worlds-essay]
+
+- id: era-agents-retreat
+  title: AI エージェントの参入と、基盤の撤退・再編
+  from: "2024-07"
+  to: null
+  summary: >-
+    言語モデルのエージェントをゲームの相手・参加者・NPC にする試み（Freysa、AI Arena、Eternum の AI 軍、Parallel Colony）が現れた。
+    一方で、ゲーム専用チェーンの停止や運営母体の縮小により、Autonomous Worlds の試作の多くが失われ、残ったゲームは短い試合形式やオフチェーン化へ移った。
+  changes:
+    - {t: "AI に判定・運営をさせるゲームが現れたが、チェーンが示したのは資金の流れで、AI の判定の公正さは検証されていなかった。", k: analysis, s: [src-freysa-blog-verifiable-games]}
+    - {t: "ゲーム専用 L2 の運営母体の縮小で、その上の世界が拡張ごと失われた。", k: analysis, s: [src-sky-strife-winding-down]}
+    - {t: "長期シーズンの文明ゲームが、短時間の試合形式と運営シーケンサへ移った。", k: analysis, s: [src-realms-eternum-readme]}
+  unchanged: 人間と AI が対等なプレイヤーとして長期に同じ世界で遊んだ事例は確認できない。
+  key_games: [freysa, ai-arena, realms-eternum, parallel-colony, daydreams, magicblock]

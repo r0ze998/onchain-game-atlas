@@ -1,0 +1,114 @@
+id: wolf-game
+name: Wolf Game
+name_ja: ウルフ・ゲーム
+aliases: [Woolf, "$WOOL", "Wolf Game 2.0"]
+kind: game
+depth: index
+updated: "2026-10-23"
+chains: [Ethereum mainnet, Blast（2024 年に移行と報道）, Solana（2025 年の Wolf Game 2.0）]
+team: "匿名の開発チーム（コントラクトの展開者アドレスは 0x2502…8DEF）。2023-08 に Pixel Vault が買収したと報道。2025 年時点の CEO は GFunk（仮名）"
+summary: >-
+  2021-11 に Ethereum で始まった、羊（Sheep）と狼（Wolf）の NFT を「Barn」にステークして $WOOL を得るゲーム。羊は 1 日 1 万 WOOL を生むが、
+  請求時に 20% を狼へ税として払い、引き揚げ（unstake）時には 50% の確率で全額を狼に奪われる。WOOL で新しい NFT を作ると 10% の確率で
+  ステーク中の狼に横取りされる。画像と特性はオンチェーンの SVG で生成される。公開から約 1 週間後に新しい NFT コントラクト（アップグレード可能なプロキシ）が展開されており、関係者の報告ではステーキング契約の再入可能性バグによる停止・移行とされる（本文は未取得）。
+  2025 年の Solana での再始動（Wolf Game 2.0）は反発を受けて数日で停止した。
+selection_reason: >-
+  「ステーキング報酬」に他プレイヤーからの盗みというリスクを組み込み、DeFi の利回りをゲームの駆け引きに変えた初期の例。
+  一方で乱数がブロック情報由来で、ステーキング契約に再入可能性があり、移行後のコントラクトはアップグレード可能なプロキシであるなど、
+  「100% オンチェーン」を掲げたゲームが実際にはどこで壊れ、どこに管理権限が残ったかをコードで確認できる。
+categories:
+  - {id: p2e, role: primary, reason: "NFT のステーキングで $WOOL を得る稼ぐ型の設計。リスク（盗み）を報酬設計に組み込んだ"}
+  - {id: onchain-rules, role: secondary, reason: "税・盗み・横取りの判定、WOOL の発行上限、特性と画像の生成をコントラクトが行う"}
+  - {id: assets, role: secondary, reason: "羊・狼の NFT（ERC-721）と WOOL（ERC-20）"}
+status:
+  value: unknown
+  as_of: "2026-10"
+  note: >-
+    公式サイトは Valley と Caves という別モードを案内している（© Shiftless 2026）。2025-04-14 に Solana 上の Wolf Game 2.0 を停止し SOL トークンの流動性を引き揚げると公式が発表した。
+    元の Ethereum 版ステーキングが現在も機能しているかは確認していない。
+  s: [src-wolf-site, src-wolf-decrypt-2025]
+dates:
+  launched: {date: "2021-11", s: [src-wolf-nobumei, src-wolf-sourcify-woolf], note: "Woolf コントラクトはブロック 13,638,597 で展開。日本語ニュースレターは 2021-11-20 リリースと記載"}
+
+architecture:
+  onchain:
+    level: core-rules
+    detail: >-
+      Woolf（ERC-721）が mint・特性の抽選・横取り先の選択を、Barn がステーキング・1 日 1 万 WOOL の発生・20% の税・引き揚げ時の 50% の没収・2 日間の最低滞在・
+      発行上限 24 億 WOOL を、WOOL（ERC-20）が発行と焼却を担う。乱数は tx.origin・直前のブロックハッシュ・タイムスタンプ・種のハッシュで、Barn も同じ方式。
+      特性画像は Traits コントラクトに base64 PNG として保存され、tokenURI がオンチェーンで SVG を組み立てる。
+    s: [src-wolf-sourcify-woolf]
+  offchain:
+    - {item: "フロントエンド（wolf.game）。後継モード Valley / Caves の仕組みは今回確認していない", s: [src-wolf-site]}
+  admin:
+    level: significant
+    detail: >-
+      初期の Woolf / Barn / WOOL / Traits には所有者専用の pause、有料枠数の変更（setPaidTokens）、売上の引き出し、WOOL の発行者（controller）の追加・削除、
+      特性画像の上書き（uploadTraits）、Barn の rescue モード切替がある。移行後の NFT コントラクト（0x7f36…be2f）は TransparentUpgradeableProxy で、管理者が実装を差し替えられる。
+      2025 年の 2.0 では公式が停止と流動性引き揚げを決めた。
+    s: [src-wolf-sourcify-woolf, src-wolf-sourcify-proxy, src-wolf-decrypt-2025]
+  open_source:
+    level: partial
+    detail: "初期コントラクトは Sourcify で検証済みソースが読める。クライアントや後継版のソース公開は確認できなかった。"
+    url: "https://sourcify.dev/server/v2/contract/1/0xEB834ae72B30866af20a6ce5440Fa598BfAd3a42"
+    s: [src-wolf-sourcify-woolf]
+  extensibility:
+    level: none
+    detail: "WOOL の発行・焼却は所有者が許可した controller に限られる。Avalanche 上のフォーク（Avax Wolfgame）があったと読者コメントは記すが未確認。"
+    s: [src-wolf-sourcify-woolf]
+
+compare:
+  gameplay: {t: "羊を Barn に預けて WOOL を貯め、請求（20% 税）か引き揚げ（50% で全没収）を選ぶ。狼は保有するだけで税と没収分を alpha 値（5〜8）に比例して受け取る。WOOL で次世代を mint すると 10% で狼の持ち主に横取りされる。", k: fact, s: [src-wolf-sourcify-woolf, src-wolf-nobumei]}
+  necessity: {t: "盗み・税の規則をコントラクトに置くことで、運営に頼らず他プレイヤーとの奪い合いが検証可能になる。ただし乱数はブロック情報由来で、運営は停止・発行者変更・アップグレードの権限を持っていた。", k: analysis, s: [src-wolf-sourcify-woolf, src-wolf-sourcify-proxy]}
+  information: {t: "全状態とステーク状況は公開。乱数の入力（tx.origin・前ブロックハッシュ・タイムスタンプ）は取引時点で計算可能で、結果を見て取引を通すかどうかを選べる余地がある。", k: analysis, s: [src-wolf-sourcify-woolf]}
+  persistence: {t: "初期コントラクトは移行で置き換えられ、移行後の NFT はアップグレード可能なプロキシ。2024 年に Blast、2025 年に Solana へ移った（後者は停止）と報じられた。", k: fact, s: [src-wolf-sourcify-proxy, src-wolf-decrypt-2025]}
+  extensibility: {t: "第三者が規則を拡張する仕組みは確認できない。", k: fact, s: [src-wolf-sourcify-woolf]}
+  money_flow: {t: "Gen 0（最初の 20%）は 0.069420 ETH で販売、以降は 2 万・4 万・8 万 WOOL を焼却して mint。羊の WOOL の 20%（請求時）または 100%（引き揚げ時に 50% の確率）が狼の持ち主へ移る。WOOL の総発行は 24 億で停止。", k: fact, s: [src-wolf-sourcify-woolf]}
+  entry_barrier: {t: "Ethereum のウォレットとガス代、Gen 0 の購入費（0.069420 ETH）か WOOL。mint はコントラクトからは呼べない（EOA 限定）。", k: fact, s: [src-wolf-sourcify-woolf]}
+
+concepts: [c-nft-asset, c-fungible-ingame-token, c-onchain-rules, c-onchain-randomness, e-p2e, e-sink-faucet]
+proposed_concepts:
+  - {id: m-risk-staking, name: 盗みのリスクを組み込んだステーキング, desc: "ステーク報酬に他プレイヤーへの税・確率的な没収・新規発行の横取りを組み込み、利回りを駆け引きに変える（risk-to-earn）。"}
+
+article:
+  principles:
+    - {t: "利回りに対抗プレイヤーを入れる: ステーキング報酬の一部を「捕食者」側の資産保有者に流し、引き揚げ時に確率的な全没収を置くと、いつ請求・引き揚げるかが戦略になる。適用条件は捕食者と被捕食者の比率が供給側で固定され（mint の 90/10）、税率と没収率が公開されていること。破綻条件は乱数が予測・選別可能な場合で、有利な結果だけを通す者が没収を回避できる。", k: analysis, s: [src-wolf-sourcify-woolf]}
+    - {t: "外部呼び出しの前に状態を確定させる: Barn の引き揚げは NFT を safeTransferFrom で返した後にステーク記録を削除しており、受け手のコールバックで再入できる順序になっている。報道された再入可能性バグの具体的な経路は一次資料で未確認だが、この順序はその類型に当たる。", k: analysis, s: [src-wolf-sourcify-woolf]}
+  counter_evidence:
+    - {t: "「100% オンチェーン」を掲げたにもかかわらず、移行後の NFT コントラクトは管理者がアップグレードできるプロキシで、WOOL の発行者も所有者が追加できる。ルールの不変性は運営への信頼に置き換わっていた。", k: fact, s: [src-wolf-sourcify-proxy, src-wolf-sourcify-woolf]}
+    - {t: "2025 年の 2.0 は既存の羊・狼・土地を燃やして別の資産に替える設計で、評議会（Farmhands Council）も 1 週間前まで内容を知らなかったと報じられ、数日で停止した。オンチェーン資産の所有は、運営が経済を作り替えることを防がなかった。", k: fact, s: [src-wolf-decrypt-2025]}
+
+metrics:
+  - {id: m-wolf-mint-price, type: other, value: 0.06942, unit: ETH, period: "2021-11", definition: "Gen 0 の mint 価格（MINT_PRICE 定数）", nature: measured, s: [src-wolf-sourcify-woolf]}
+  - {id: m-wolf-wool-cap, type: other, value: 2400000000, unit: WOOL, period: "初期 Barn", definition: "ステーキングによる WOOL 発行の総上限（MAXIMUM_GLOBAL_WOOL）。総供給 50 億は二次資料の記載", nature: measured, s: [src-wolf-sourcify-woolf, src-wolf-nobumei]}
+  - {id: m-wolf-supply, type: other, value: 50000, value_text: "Gen 0 1 万＋WOOL で mint 4 万", unit: NFTs, period: "2021-11", definition: "NFT の最大供給（二次資料。コード上は MAX_TOKENS をコンストラクタで設定し、有料枠は 20%）", nature: reported, s: [src-wolf-nobumei]}
+  - {id: m-wolf-sales-5d, type: nft_sales, value_text: "5 日間で 5,200 万ドル", unit: USD, period: "2021-11（公開直後の 5 日間）", definition: "The Defiant の見出し（集計元の記載なし）", nature: reported, s: [src-wolf-defiant]}
+
+events:
+  - {id: ev-wolf-deploy, date: "2021-11", type: launch, title: "Woolf / WOOL / Barn を Ethereum に展開し公開", detail: "Woolf はブロック 13,638,597、WOOL はブロック 13,638,578", s: [src-wolf-sourcify-woolf, src-wolf-sourcify-wool, src-wolf-nobumei]}
+  - {id: ev-wolf-migration, date: "2021-11", type: spec-change, title: "新しい NFT コントラクト（アップグレード可能プロキシ）を展開", detail: "ブロック 13,699,765。検索要約では Barn の再入可能性バグ（11-22 報告）による停止と 11-27 の移行とされるが、本文は未取得", s: [src-wolf-sourcify-proxy, src-wolf-herdsman]}
+  - {id: ev-wolf-pixelvault, date: "2023-08", type: other, title: "Pixel Vault が買収（金額非公開）と報道", s: [src-wolf-decrypt-2025]}
+  - {id: ev-wolf-v2, date: "2025-04-09", type: release, title: "Solana 上で Wolf Game 2.0 と SOL トークンを開始", s: [src-wolf-decrypt-2025]}
+  - {id: ev-wolf-v2-halt, date: "2025-04-14", type: end, title: "Wolf Game 2.0 を停止し流動性を引き揚げ、CEO が退任表明", s: [src-wolf-decrypt-2025]}
+
+relations:
+  - {to: fomo3d, type: similar-to, basis: analytic, note: "金融的な賭けをゲームの規則としてコントラクトに置き、乱数・取引順序の操作が戦略になり得る"}
+  - {to: defi-kingdoms, type: similar-to, basis: analytic, note: "DeFi の利回り・ステーキングをゲームの表現に変える"}
+  - {to: c-onchain-randomness, type: built-with, basis: confirmed, note: "tx.origin・前ブロックハッシュ・タイムスタンプのハッシュ", s: [src-wolf-sourcify-woolf]}
+
+unknowns:
+  - "再入可能性バグの報告日・悪用の有無・移行日（The Herdsman's report は medium.com のため取得できず、検索要約でのみ確認）。"
+  - "ブロック情報由来の乱数を Flashbots 等で選別して希少な mint を得た事例の一次資料。"
+  - "移行後の Barn・WOOL コントラクトの構成と管理権限、プロキシの管理者アドレス。"
+  - "Blast 移行の日付と内容、Valley / Caves の仕組み、現在のプレイヤー数。"
+contradictions: []
+
+sources:
+  - {id: src-wolf-sourcify-woolf, title: "Woolf (0xEB834ae72B30866af20a6ce5440Fa598BfAd3a42) verified sources incl. Barn.sol, WOOL.sol, Traits.sol", url: "https://sourcify.dev/server/v2/contract/1/0xEB834ae72B30866af20a6ce5440Fa598BfAd3a42", publisher: "Sourcify", type: code, primary: true, published: "2021-11", accessed: "2026-10-23", access: fetched, lang: en, note: "API で検証済みソースを取得。MINT_PRICE、mintCost、selectRecipient、random、Barn の税・没収・上限、所有者専用関数"}
+  - {id: src-wolf-sourcify-wool, title: "WOOL (0x8355DBE8B0e275ABAd27eB843F3eaF3FC855e525) verification metadata", url: "https://sourcify.dev/server/v2/contract/1/0x8355DBE8B0e275ABAd27eB843F3eaF3FC855e525", publisher: "Sourcify", type: code, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "WOOL.sol、展開ブロック 13,638,578、同一展開者"}
+  - {id: src-wolf-sourcify-proxy, title: "Wolf Game NFT (0x7f36182dee28c45de6072a34d29855bae76dbe2f) verified sources", url: "https://sourcify.dev/server/v2/contract/1/0x7f36182dee28c45de6072a34d29855bae76dbe2f", publisher: "Sourcify", type: code, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "TransparentUpgradeableProxy、展開ブロック 13,699,765、同一展開者"}
+  - {id: src-wolf-site, title: "Wolf Game (official site)", url: "https://wolf.game/", publisher: "Wolf Game", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "risk-to-earn、Valley と Caves、© Shiftless 2026"}
+  - {id: src-wolf-decrypt-2025, title: "'Wolf Game' Halted After Solana Relaunch Prompts Backlash", url: "https://decrypt.co/314859/wolf-game-halted-solana-relaunch-backlash", publisher: "Decrypt", author: "Ryan S. Gladwin", type: news, primary: false, published: "2025-04-15", accessed: "2026-10-23", access: fetched, lang: en, note: "2023-08 Pixel Vault 買収、Blast 移行、2.0 の開始（04-09）と停止（04-14）、評議会の反応"}
+  - {id: src-wolf-nobumei, title: "Wolf Gameに見るTokenized Minting事例、狼と羊の仁義なき戦いがオンチェーン上で始まる", url: "https://nobumei.substack.com/p/wolf-gametokenized-minting", publisher: "nobumei (Substack)", author: "nobumei", type: analysis, primary: false, published: "2021-11-21", accessed: "2026-10-23", access: fetched, lang: ja, note: "2021-11-20 リリース、Gen 0 1 万・WOOL で 4 万、税・没収・横取りの規則、WOOL 総供給 50 億"}
+  - {id: src-wolf-defiant, title: "Wolf Game NFTs (The Defiant, slug: wolf-game-nfts-play-to-earn)", url: "https://thedefiant.io/wolf-game-nfts-play-to-earn/", publisher: "The Defiant", author: "yyctrader", type: news, primary: false, accessed: "2026-10-23", access: fetched, lang: en, note: "見出しと要約のみ取得。5 日間で 5,200 万ドルの販売"}
+  - {id: src-wolf-herdsman, title: "Wolf Game Herdsman's report", url: "https://muellerberndt.medium.com/wolf-game-herdsmans-report-5802c9d477bd", publisher: "Medium", type: retrospective, primary: true, accessed: "2026-10-23", access: snippet, lang: en, note: "medium.com は遮断。検索要約では 2021-11-22 の再入可能性報告、Barn の停止、rescue 関数の問題、ブロック由来の乱数の指摘"}

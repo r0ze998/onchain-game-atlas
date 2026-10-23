@@ -1,0 +1,89 @@
+id: spells-of-genesis
+name: Spells of Genesis
+name_ja: スペルズ・オブ・ジェネシス
+aliases: [SoG, BitCrystals, BCY]
+kind: game
+depth: index
+updated: "2026-10-23"
+chains: [Bitcoin（Counterparty）]
+team: "EverdreamSoft SA（スイス・ジュネーブ。CEO Shaban Shaame。前作 Moonga）"
+summary: >-
+  スイスの EverdreamSoft が開発した、トレーディングカードとアーケード的な射撃操作を組み合わせたモバイルゲーム。
+  2015 年から一部のカードを Bitcoin 上の Counterparty 資産として発行し、ゲーム内外で自由に売買できるようにした。
+  プレミアム通貨 BitCrystals（BCY）も Counterparty 資産としてトークンセールで販売した。ゲームのルールはサーバー側で、チェーンにあるのはカードと通貨の所有だけ。
+selection_reason: >-
+  「ゲーム資産をチェーンに置き、ルールは従来のサーバーに置く」という型を、ERC-721 以前に Bitcoin 上で実装した初期の例であり、
+  ゲーム内通貨のトークンセールによる開発資金調達の早い事例でもあるから。公式は「2015 年以来の最初の NFT モバイルゲーム」と主張している。
+categories:
+  - {id: assets, role: primary, reason: "カードと BitCrystals を Counterparty 資産として発行し、ゲーム外でも取引可能にした"}
+  - {id: p2e, role: secondary, reason: "ゲーム内通貨のトークンセールで開発資金を集め、通貨を焼却してゲーム資産を発行する設計"}
+status:
+  value: active
+  as_of: "2026-10"
+  note: "公式サイトは Android・iOS・Web 版を案内し、2023 年からの月額 NFT ルートボックス（ChainChronicles）と BitCrystals のステーキング報酬を掲載している（実際の利用者数は未確認）。"
+  s: [src-sog-site]
+dates:
+  announced: {date: "2015-02-16", s: [src-sog-counterparty-forum], note: "Counterparty フォーラムで Counterparty の利用計画を公表"}
+  launched: {date: "2017-04-20", s: [src-sog-site], note: "公式サイトがゲームの公開日として記載。最初のオンチェーンカードは 2015-03-11"}
+
+architecture:
+  onchain:
+    level: assets-only
+    detail: "カード（一部）と BitCrystals が Counterparty 資産として Bitcoin 上にある。カードの希少性は Counterparty の発行ロック機能で公開的に固定できる。ゲームの対戦・進行はチェーン外。"
+    s: [src-sog-counterparty-forum, src-sog-btcmag-2015]
+  offchain:
+    - {item: "ゲームのルール・対戦・進行はアプリとサーバー側。ゲーム内で育てたカードを「Blockchainize」してチェーンに出す仕組みがある", s: [src-sog-site]}
+    - {item: "BitCrystals の販売はトークンセールサイトと ShapeShift 経由", s: [src-sog-btcmag-sale]}
+  admin:
+    level: significant
+    detail: "カードと通貨の発行主体は EverdreamSoft。BitCrystals を焼却して新しいゲーム資産を発行する仕組みも運営が管理する。"
+    s: [src-sog-counterparty-forum]
+  open_source:
+    level: unknown
+    detail: "ゲームのソース公開は確認できなかった。"
+    s: []
+  extensibility:
+    level: none
+    detail: "カード資産は Counterparty の DEX や第三者のウォレット・ディスペンサーで取引できるが、ゲームのルールを第三者が拡張する仕組みは確認できなかった。"
+    s: [src-sog-site, src-sog-counterparty-forum]
+
+compare:
+  gameplay: {t: "カードでデッキを組み、アーケード的なタイミングでオーブ（呪文）を敵に放つ。トレーディングカードゲームと射撃の組み合わせ。", k: fact, s: [src-sog-btcmag-2015, src-sog-site]}
+  necessity: {t: "チェーンが担うのは所有と移転だけで、ゲームの成立にチェーンは不要。チェーンの役割は、カードを運営のデータベース外で売買・保持できるようにし、発行数を公開的にロックすること。", k: analysis, s: [src-sog-counterparty-forum]}
+  information: {t: "カードと通貨の保有・発行数は Counterparty 上で公開。ゲーム内の状態は非公開（サーバー）。", k: fact, s: [src-sog-counterparty-forum]}
+  persistence: {t: "運営が停止してもカード資産自体は Bitcoin 上に残るが、ゲームとして遊ぶにはアプリとサーバーが必要。", k: analysis, s: [src-sog-counterparty-forum]}
+  extensibility: {t: "第三者が拡張した例は見つからなかった。", k: unknown}
+  money_flow: {t: "BitCrystals を 1 億枚発行予定で、うち 7000 万枚をトークンセールで販売し開発資金にした。ゲーム内ではカードパックや資産の取得に BitCrystals を使い、焼却または再利用する。", k: fact, s: [src-sog-btcmag-2015, src-sog-counterparty-forum]}
+  entry_barrier: {t: "基本無料のモバイルゲームとして遊べ、カードをチェーンに出すときに Counterparty 対応のウォレットが必要になる（詳細な手順は未確認）。", k: analysis, s: [src-sog-site]}
+
+concepts: [c-nft-asset, c-fungible-ingame-token, m-collectible-cards]
+
+metrics:
+  - {id: m-sog-bcy-sale, type: other, value: 70000000, value_text: "7000 万 BCY（総発行予定 1 億）", unit: BCY, period: "2015-08（トークンセール）", definition: "トークンセールで販売予定とされた BitCrystals の数（調達額ではない）", nature: reported, s: [src-sog-btcmag-2015, src-sog-counterparty-forum]}
+  - {id: m-sog-moonga-downloads, type: other, value: 250000, value_text: "25 万超", unit: downloads, period: "2015-05 時点", definition: "前作 Moonga のダウンロード数（SoG ではない）", nature: reported, s: [src-sog-btcmag-2015]}
+
+events:
+  - {id: ev-sog-counterparty-plan, date: "2015-02-16", type: announce, title: "Counterparty でのカード資産化と BitCrystals を公表", s: [src-sog-counterparty-forum]}
+  - {id: ev-sog-first-card, date: "2015-03-11", type: release, title: "最初のオンチェーンカード（FDCARD）", s: [src-sog-site]}
+  - {id: ev-sog-token-sale, date: "2015-08-04", type: funding, title: "BitCrystals のトークンセール開始（ShapeShift）", detail: "当初予定の Swarm から自社サイトに移行", s: [src-sog-btcmag-sale]}
+  - {id: ev-sog-launch, date: "2017-04-20", type: launch, title: "ゲームを公開、第 2 カードコレクション開始", s: [src-sog-site]}
+  - {id: ev-sog-chainchronicles, date: "2023", type: release, title: "月額 NFT ルートボックス ChainChronicles を開始", s: [src-sog-site]}
+
+relations:
+  - {to: rare-pepe, type: similar-to, basis: analytic, note: "同じ Counterparty 上のカード資産。SoG は運営がゲームのために発行し、Rare Pepe は運営不在の作家投稿型"}
+  - {to: gods-unchained, type: similar-to, basis: analytic, note: "カード所有をチェーンに、ルールをサーバーに置く同じ型"}
+  - {to: cryptokitties, type: similar-to, basis: analytic, note: "ERC-721 以前のゲーム資産トークン化の例として対比される"}
+
+unknowns:
+  - "BitCrystals トークンセールの実際の調達額（BTC / USD）。"
+  - "プレイヤー数・継続率、チェーン上のカードを実際に移転したユーザー数。"
+  - "現在カードが Bitcoin（Counterparty）以外のチェーンにもあるか（公式サイトは OpenSea・LooksRare にも言及）。"
+  - "「Blockchainize」の具体的な手順と、運営がゲーム内カードとチェーン上カードの対応をどう管理しているか。"
+contradictions:
+  - {t: "「最初の NFT モバイルゲーム」とする公式の主張に対し、独立した検証は見つからない。2015 年の最初のカード発行とゲームの公開（2017-04-20）には 2 年の差がある。", s: [src-sog-site]}
+
+sources:
+  - {id: src-sog-site, title: "Spells of Genesis", url: "https://www.spellsofgenesis.com", publisher: "EverdreamSoft", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "2015-03-11 の最初のカード、2017-04-20 公開、2023 年の ChainChronicles、対応プラットフォーム"}
+  - {id: src-sog-counterparty-forum, title: "Spells of Genesis - Using Counterparty to Innovate Game Economy", url: "https://forums.counterparty.io/t/spells-of-genesis-using-counterparty-to-innovate-game-economy/924", publisher: "Counterparty Forum", author: "edshnin", type: forum, primary: true, published: "2015-02-16", accessed: "2026-10-23", access: fetched, lang: en, note: "カードへの Counterparty トークン割当、ロック、BitCrystals、7000 万枚の販売"}
+  - {id: src-sog-btcmag-2015, title: "Moonga Game Series to Utilize Blockchain for In-game Assets and Crowdfunding", url: "https://bitcoinmagazine.com/articles/moonga-game-series-utilize-blockchain-game-assets-crowdfunding-1431120521", publisher: "Bitcoin Magazine", author: "Andrew Wagner", type: news, primary: false, published: "2015-05-09", accessed: "2026-10-23", access: fetched, lang: en, note: "EverdreamSoft、Moonga、1 億 BCY、焼却と再利用"}
+  - {id: src-sog-btcmag-sale, title: "Popular Arcade Game Launches Token Sale with Shapeshift", url: "https://bitcoinmagazine.com/articles/popular-arcade-game-launches-token-sale-shapeshift-1438641359", publisher: "Bitcoin Magazine", author: "Joseph Young", type: news, primary: false, published: "2015-08-04", accessed: "2026-10-23", access: fetched, lang: en, note: "2015-08-04 のセール開始、Swarm から移行、ShapeShift"}

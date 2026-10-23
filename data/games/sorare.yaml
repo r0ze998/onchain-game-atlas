@@ -1,0 +1,93 @@
+id: sorare
+name: Sorare
+name_ja: ソラーレ
+aliases: [Sorare Football, Sorare NBA, Sorare MLB]
+kind: game
+depth: index
+updated: "2026-10-23"
+chains: [Ethereum mainnet（初期）, StarkEx（2021-07〜）, Solana（2025-10〜、カード）, Base（ETH 残高）]
+team: "Sorare SAS（フランス。Nicolas Julia / Adrien Montfort）"
+summary: >-
+  実在の選手のライセンスカードを NFT として発行し、実際の試合データ（Opta 等）から運営が計算するスコアで競うファンタジースポーツ。
+  2019 年公開、2021 年に 6.8 億ドルを調達し、サッカーから NBA・MLB へ広げた。チェーンは Ethereum → StarkEx → Solana（カード）と移った。
+  英国では無免許の賭博提供として起訴され（2024）、フランスでは換金可能なデジタル資産を使うゲームの法制度（JONUM）の対象になった。
+selection_reason: >-
+  ルールの入力が現実世界のデータ（試合結果）で、スコア計算を運営が行う「外部データ依存型」の代表例。
+  ライセンス・規制（賭博該当性）・チェーン移転が設計の自由度をどう縛るかを、規制当局の一次資料と報道で確認できるため。
+categories:
+  - {id: assets, role: primary, reason: "ライセンス選手カードを NFT として発行・取引。スコア計算と報酬はチェーン外"}
+  - {id: p2e, role: secondary, reason: "大会の報酬としてカードや ETH 等を配り、規制当局は賭博該当性を問題にした"}
+  - {id: infra, role: secondary, reason: "StarkEx（L2）から Solana（圧縮 NFT）へ移行"}
+status:
+  value: active
+  as_of: "2025-10"
+  note: "2025-10 にカードを Solana へ移した（Cointelegraph 2025-10-15）。英国賭博委員会の訴訟は 2026-05 時点で公判が 2027-06-07 に延期されている。"
+  s: [src-sorare-cointelegraph-2025, src-sorare-ukgc]
+dates:
+  launched: {date: "2019", s: [src-sorare-wikipedia]}
+
+architecture:
+  onchain:
+    level: assets-only
+    detail: "選手カード（希少度・通し番号・シーズン等のメタデータ）を NFT として発行・取引する。スコアは第三者データ提供者（Opta 等）の試合統計を運営定義の行列で処理して計算し、チェーン外で行われる。"
+    s: [src-sorare-wikipedia, src-sorare-cointelegraph-2025]
+  offchain:
+    - {item: "試合データの取得とスコア計算（Opta 等、運営定義のスコア行列）", s: [src-sorare-wikipedia]}
+    - {item: "大会・ランキング・報酬配布の運営", s: [src-sorare-wikipedia]}
+  admin:
+    level: significant
+    detail: "カードの発行・スコア規則・報酬・チェーン移行（StarkEx→Solana、ETH 残高→Base）は運営が決定した。"
+    s: [src-sorare-wikipedia, src-sorare-cointelegraph-2025]
+  open_source:
+    level: unknown
+    detail: "未確認。"
+  extensibility:
+    level: unknown
+    detail: "Solana 移行の理由として運営は Phantom 等の外部ウォレットとの接続を挙げた（検索要約）。第三者ゲームでの利用実例は未確認。"
+
+compare:
+  gameplay: {t: "保有カードから 5 人等のラインナップを組み、実在の試合での成績から計算されるスコアで他プレイヤーと競う。", k: fact, s: [src-sorare-wikipedia]}
+  necessity: {t: "スコアの入力（試合結果）も計算も運営に依存するため、チェーンが担うのはカードの所有と二次流通だけである。ライセンスの性質上、運営なしで続く構成ではない。", k: analysis, s: [src-sorare-wikipedia]}
+  information: {t: "未確認", k: unknown}
+  persistence: {t: "NFT は残るが、スコア計算・大会・ライセンス契約は運営に依存する。", k: analysis, s: [src-sorare-wikipedia]}
+  extensibility: {t: "未確認", k: unknown}
+  money_flow: {t: "カード販売（一次・二次）と大会報酬。2021-09 に Series B で 6.8 億ドル（評価額 43 億ドル）を調達した。", k: fact, s: [src-sorare-wikipedia]}
+  entry_barrier: {t: "未確認（無料カードでの参加範囲は時期により異なる可能性）。", k: unknown}
+
+concepts: [m-collectible-cards, c-nft-asset, c-own-chain, e-entry-fee-prize]
+
+article:
+  counter_evidence:
+    - {t: "英国賭博委員会は 2024-09-26 に、免許なしで賭博の機会を提供したとして Sorare を起訴した。公判は 2026-06-15 予定から 2027-06-07 へ延期されている。換金可能な資産を報酬にする設計は、ゲームの外側の法的分類によって制約される。", k: fact, s: [src-sorare-ukgc]}
+    - {t: "Sorare NFT のフロア価格は 2022-04 初旬の 91.25 ドルから 2025-10-12 の 2.21 ドルへ下がった（DappRadar、Cointelegraph の引用）。一方で 1 日の NFT 売買件数は 5000〜30000 件で 2022 年並みとされ、価格の下落と取引件数の維持が並存している。", k: fact, s: [src-sorare-cointelegraph-2025]}
+
+metrics:
+  - {id: m-sorare-seriesb-2021, type: funding, value: 680000000, unit: USD, period: "2021-09", definition: "Series B 調達額（評価額 43 億ドル、Wikipedia）", nature: reported, s: [src-sorare-wikipedia]}
+  - {id: m-sorare-users-2025, type: players, value: 5000000, unit: users, period: "2025-10 時点", definition: "会社が述べた利用者数（定義不明、Cointelegraph の記事）", nature: reported, s: [src-sorare-cointelegraph-2025]}
+  - {id: m-sorare-daily-sales-2025, type: transactions, value_text: "1 日 5,000〜30,000 件", unit: sales/day, period: "2025-10 頃", definition: "Sorare NFT の日次売買件数（Cointelegraph の記述、出典不明確）", nature: estimated, s: [src-sorare-cointelegraph-2025]}
+  - {id: m-sorare-floor, type: other, value_text: "91.25 ドル（2022-04）→ 2.21 ドル（2025-10-12）", unit: USD, period: "2022-04〜2025-10", definition: "NFT のフロア価格（DappRadar、Cointelegraph の引用）", nature: measured, s: [src-sorare-cointelegraph-2025]}
+  - {id: m-sorare-buyers-2023-01, type: wallets, value: 50000, value_text: "5 万超", unit: buyers, period: "2023-01", definition: "月間一意購入者（サッカー・NBA・MLB 合計、The First Mint、出典の明示なし）", nature: estimated, s: [src-sorare-firstmint-2023]}
+
+events:
+  - {id: ev-sorare-starkex, date: "2021-07", type: spec-change, title: "取引の大半を StarkEx（L2）へ移行", s: [src-sorare-wikipedia]}
+  - {id: ev-sorare-seriesb, date: "2021-09", type: funding, title: "Series B で 6.8 億ドル調達", s: [src-sorare-wikipedia]}
+  - {id: ev-sorare-ukgc, date: "2024-09-26", type: incident, title: "英国賭博委員会が無免許の賭博提供で起訴", s: [src-sorare-ukgc]}
+  - {id: ev-sorare-solana, date: "2025-10", type: spec-change, title: "カードを Solana へ移行", detail: "ETH 対応は Base 統合で継続", s: [src-sorare-cointelegraph-2025, src-sorare-wikipedia]}
+  - {id: ev-sorare-trial-postponed, date: "2026-05-18", type: other, title: "英国での公判を 2027-06-07 に延期", s: [src-sorare-ukgc]}
+
+relations:
+  - {to: nba-top-shot, type: similar-to, basis: analytic, note: "ライセンスを受けたスポーツの NFT。Top Shot は収集中心、Sorare はファンタジー競技"}
+  - {to: gods-unchained, type: similar-to, basis: analytic, note: "カード NFT の所有と、運営によるルール・スコア計算の分業"}
+
+unknowns:
+  - "公式ヘルプ（help.sorare.com）は 403 で取得できず、スコア規則・無料参加範囲・報酬設計を一次資料で確認できなかった。"
+  - "利用者数の定義、継続率。"
+  - "フランス JONUM 法の下での位置づけの詳細（Wikipedia の記述のみ）。"
+contradictions:
+  - {t: "英国の公判日: 報道（2024-10）は 2025-06-16、Wikipedia は 2026-03 時点で係属中、賭博委員会の告知は 2026-06-15 予定を 2027-06-07 に延期と記載。", s: [src-sorare-ukgc, src-sorare-wikipedia]}
+
+sources:
+  - {id: src-sorare-wikipedia, title: "Sorare", url: "https://en.wikipedia.org/wiki/Sorare", publisher: "Wikipedia", type: wiki, primary: false, accessed: "2026-10-23", access: fetched, lang: en, note: "創業者、調達、ライセンス、StarkEx・Solana、UKGC、JONUM、スコア計算"}
+  - {id: src-sorare-ukgc, title: "Consumer information notice: Sorare.com prosecution", url: "https://www.gamblingcommission.gov.uk/news/article/consumer-information-notice-sorare-com-prosecution", publisher: "Gambling Commission (UK)", type: official-docs, primary: true, published: "2024-09-26", accessed: "2026-10-23", access: fetched, lang: en, note: "Gambling Act 2005 第 33・36 条違反で起訴、2026-05-18 更新で公判を 2027-06-07 に延期"}
+  - {id: src-sorare-cointelegraph-2025, title: "Sorare CEO still bullish on Ethereum despite 'upgrading' to Solana", url: "https://cointelegraph.com/news/sorare-hypes-ethereum-despite-migrating-to-solana", publisher: "Cointelegraph", author: "Brayden Lindrea", type: news, primary: false, published: "2025-10-15", accessed: "2026-10-23", access: fetched, lang: en, note: "10 超のゲームとカードを Solana へ、Base 統合、500 万利用者、フロア価格の推移"}
+  - {id: src-sorare-firstmint-2023, title: "The State of NFT Sports", url: "https://thefirstmint.substack.com/p/the-state-of-nft-sports", publisher: "The First Mint (Substack)", type: analysis, primary: false, published: "2023-02-07", accessed: "2026-10-23", access: fetched, lang: en, note: "Sorare 2023-01 の一意購入者 5 万超、NBA Top Shot の購入者減少"}

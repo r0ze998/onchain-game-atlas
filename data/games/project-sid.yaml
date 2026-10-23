@@ -1,0 +1,92 @@
+id: project-sid
+name: "Project Sid: Many-agent simulations toward AI civilization"
+aliases: ["Project Sid", "PIANO"]
+kind: research
+depth: index
+updated: "2026-10-23"
+chains: []
+team: "Altera.AL（Andrew Ahn, Nic Becker, Stephanie Carroll ほか、Guangyu Robert Yang）"
+summary: >-
+  Altera が 2024-10 に公開した技術報告。PIANO（並列に動く複数モジュールと、行動を一本化する認知コントローラ）という構成で、
+  Minecraft の中に 10〜1000 人超の LLM エージェントを住まわせ、役割の分化、税法の遵守と改正、ミームと宗教の伝播を測った。
+  ブロックチェーンを使わず、ゲームサーバーと LLM だけで「文明の指標」を試みた例として、生産・統治を含むエージェント文明の構想と直接比較できる。
+selection_reason: >-
+  農場・生産・統治を持つエージェント文明というアイデアに最も近い公開研究であり、しかもオフチェーンで実施された。
+  一方で、宗教は指定された「司祭」エージェントが持ち込み、改宗はキーワードで判定し、1000 人規模はサーバーの限界で応答が途切れたなど、
+  主張と実際の測定の距離を検証できる。チェーンの必要性と、エージェント社会の「創発」の主張の強さの両方を測る反例として選んだ。
+categories:
+  - {id: ai, role: primary, reason: "多数の LLM エージェントによる社会・文明シミュレーションのアーキテクチャと評価"}
+status:
+  value: archived
+  as_of: "2026-10"
+  note: "技術報告（arXiv v1、2024-10-31）と動画を公開。コードは公開されていない。実験の継続や製品化は本エントリでは未確認。"
+  s: [src-sid-arxiv, src-sid-github]
+dates:
+  announced: {date: "2024-10-31", s: [src-sid-arxiv], note: "arXiv 投稿日"}
+
+architecture:
+  onchain:
+    level: none
+    detail: "ブロックチェーンは使わない。世界は Minecraft サーバー、エージェントの判断は LLM（性能は GPT-4o で初めて得られたと記載）。投票の意見収集には S3 ストレージを使った。"
+    s: [src-sid-paper]
+  offchain:
+    - {item: "Minecraft サーバー（1000 人超の実行ではサーバーの計算資源を超え、エージェントが時折応答しなくなった）", s: [src-sid-paper]}
+    - {item: "LLM 推論（GPT-4o。役割の推定にも GPT-4o を使用）", s: [src-sid-paper]}
+    - {item: "選挙管理エージェントによる憲法改正の集計（フィードバックは S3 に保存）", s: [src-sid-paper]}
+  admin:
+    level: significant
+    detail: "研究者が世界の設定、初期の共同体目標、税の時期を知らせる信号、影響力を持つエージェント（賛成・反対派、司祭）の配置を決めている。"
+    s: [src-sid-paper]
+  open_source:
+    level: none
+    detail: "GitHub リポジトリは技術報告の PDF・図・動画のみで、コードは含まれない。"
+    url: "https://github.com/altera-al/project-sid"
+    s: [src-sid-github]
+  extensibility:
+    level: none
+    detail: "第三者が実行・拡張できる公開物はない。"
+    s: [src-sid-github]
+
+compare:
+  gameplay: {t: "人間のプレイヤーではなくエージェントが主体。エージェントは採集・クラフト・会話・投票を行い、研究者が条件を変えて社会の指標を測る。報告は人間と実時間で交流できる設計を掲げる。", k: fact, s: [src-sid-arxiv, src-sid-paper]}
+  necessity: {t: "所有・支払い・第三者による検証を必要としない研究で、オンチェーン化の必然性はない。税（共同チェストへの預け入れ）や憲法改正もサーバー内の仕組みで実現した。", k: analysis, s: [src-sid-paper]}
+  information: {t: "研究者が全エージェントの社会目標・会話・行動ログを記録して分析した。", k: fact, s: [src-sid-paper]}
+  persistence: {t: "研究用の実験で、各実行は数十分〜数時間（税の実験は 1200 秒、宗教の分析は 2 時間超）。常設の世界ではない。", k: fact, s: [src-sid-paper]}
+  extensibility: {t: "コード非公開のため第三者は再現・拡張できない。", k: fact, s: [src-sid-github]}
+  money_flow: {t: "資金循環はない。税はゲーム内アイテムを共同チェストに預ける行為として実装された。", k: fact, s: [src-sid-paper]}
+  entry_barrier: {t: "一般参加の経路はない（研究報告のみ）。", k: fact, s: [src-sid-github]}
+
+concepts: [c-ai-agent-player, m-production-chain]
+
+article:
+  principles:
+    - {t: "並列モジュール＋ボトルネックの意思決定（PIANO）: 会話・行動・記憶などを並列に走らせ、認知コントローラで 1 つの意図に絞ってから各出力に流すと、実時間環境でも「言うこととやることの不一致」を減らせると報告された。適用条件は実時間の応答が必要な環境。破綻条件は人数を増やしたとき計算資源が追いつかない場合で、1000 人超ではサーバーが限界を超えた。", k: analysis, s: [src-sid-paper]}
+    - {t: "共同体目標と社会的認識による役割分化: 同じ村に 30 人を置き、共同体目標（通常・芸術・武）を変えると役割の分布が変わり、他者のプロファイルを持てないエージェントは専門化しなかったと報告された。適用条件は他者についての記憶とやり取りがあること。破綻条件は役割の判定自体を LLM（GPT-4o）が社会目標の文から推定しているため、行動上の分業と言葉上の分業が区別しにくい点。", k: analysis, s: [src-sid-paper]}
+  counter_evidence:
+    - {t: "「文化と宗教の伝播」は、研究者が指定した Pastafarian の司祭エージェントが布教し、他のエージェントの発話に特定のキーワードが出たかで改宗を判定したもの。自発的な宗教の発生ではない。", k: fact, s: [src-sid-paper]}
+    - {t: "税法の実験は 25 人の有権者に賛成・反対の影響力エージェント 3 人と選挙管理エージェント 1 人を配置した設計で、税の時期も信号で知らされた。報告自身が、エージェントは基盤モデルの既存知識に基づくため民主制や貨幣のような制度の de novo な発生はシミュレートできないと限界に書いている。", k: fact, s: [src-sid-paper]}
+    - {t: "報告は、視覚と空間推論の欠如により建築などの協働が制限されると述べる。生産・建設が中心の文明ゲームにそのまま当てはめられる証拠ではない。", k: fact, s: [src-sid-paper]}
+    - {t: "チェーンを一切使わずに、多数エージェントの社会実験（統治・分業・文化伝播）を実施できた。エージェント文明にブロックチェーンが必要だという主張への反証になる一方、所有や第三者の拡張を扱っていないため、チェーンが役立つ部分を否定する証拠でもない。", k: analysis, s: [src-sid-paper]}
+
+events:
+  - {id: ev-sid-paper, date: "2024-10-31", type: paper, title: "技術報告を arXiv と GitHub で公開", s: [src-sid-arxiv, src-sid-github]}
+
+metrics:
+  - {id: m-sid-items, type: other, value_text: "平均 17 種（上位は 30〜40 種）、集団で約 320 種で飽和", unit: items, period: "単一エージェント 30 分 / 49 人・4 時間", definition: "エージェントが取得した Minecraft アイテムの種類数（報告の図による）", nature: reported, s: [src-sid-paper]}
+  - {id: m-sid-scale, type: other, value_text: "単一社会 50〜100 人、文明 500〜1000 人（分析は 500 人の 1 回の実行）", unit: agents, period: "2024-10 報告", definition: "シミュレーションのエージェント数", nature: reported, s: [src-sid-paper]}
+
+relations:
+  - {to: generative-agents, type: similar-to, basis: analytic, note: "報告は Generative Agents を参考文献に挙げる。Smallville の 25 人に対し、Minecraft で数百〜1000 人規模へ広げた"}
+  - {to: ai-town, type: similar-to, basis: analytic, note: "いずれもオフチェーンのエージェント社会。AI Town はコード公開の基盤、Project Sid は非公開の研究"}
+  - {to: realms-eternum, type: contrasts-with, basis: analytic, note: "生産・統治・戦争を持つ文明ゲームをオンチェーンで人間が遊ぶ例との対比。Sid はオフチェーンでエージェントだけの文明を測る"}
+
+unknowns:
+  - "コードやデータの公開予定、再現実験の有無。"
+  - "エージェントの実行コスト（報告に記載を確認できなかった）。"
+  - "Altera のその後の製品・研究の展開（本エントリでは調べていない）。"
+  - "人間のプレイヤーとエージェントが同じ世界で遊んだ実験の結果（報告は人間との実時間交流を可能にする設計と述べるのみ）。"
+
+sources:
+  - {id: src-sid-arxiv, title: "Project Sid: Many-agent simulations toward AI civilization (arXiv:2411.00114)", url: "https://arxiv.org/abs/2411.00114", publisher: "arXiv", author: "Altera.AL et al.", type: paper, primary: true, published: "2024-10-31", accessed: "2026-10-23", access: fetched, lang: en, note: "要旨（10〜1000+ 人、PIANO、役割分化・集団規則・文化と宗教の伝播）"}
+  - {id: src-sid-paper, title: "Project Sid: Many-agent simulations toward AI civilization (PDF)", url: "https://arxiv.org/pdf/2411.00114", publisher: "arXiv", author: "Altera.AL et al.", type: paper, primary: true, published: "2024-10-31", accessed: "2026-10-23", access: fetched, lang: en, note: "本文 35 ページ。実験設定、GPT-4o 依存、1000 人超でのサーバー限界、Pastafarian 司祭、限界節"}
+  - {id: src-sid-github, title: "altera-al/project-sid", url: "https://github.com/altera-al/project-sid", publisher: "GitHub", type: code, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "技術報告の PDF・図・動画のみ。コードなし"}

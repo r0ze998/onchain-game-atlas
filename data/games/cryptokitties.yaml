@@ -1,0 +1,224 @@
+id: cryptokitties
+name: CryptoKitties
+name_ja: クリプトキティーズ
+aliases: [CK, "CryptoKitties: Collectible and Breedable Cats"]
+kind: game
+depth: deep
+updated: "2026-10-23"
+chains: [Ethereum mainnet]
+team: "Axiom Zen（Launch Labs, Inc.）が開発し、2018-03 に Dapper Labs として分社（Dieter Shirley / Roham Gharegozlou / Bryce Bladon ほか）"
+summary: >-
+  2017 年 11 月に Ethereum 上で公開された、猫を集めて交配させる収集ゲーム。猫 1 匹ごとに所有をコントラクトで記録し（ERC-721 の草案に準拠）、
+  交配の可否・クールダウン・世代・子の遺伝子の計算をコントラクト内で行う一方、遺伝子から絵への変換と UI は運営のサーバーに置いた。
+  2017 年 12 月に Ethereum の取引を大きく占有して混雑を引き起こし、「1 つのゲームが共有チェーンを詰まらせる」ことを示した。
+  その後利用は急減したが、コントラクトは停止されずに残り、2026 年 10 月時点でも交配トランザクションが送られている。
+selection_reason: >-
+  ゲーム資産を NFT として所有させる形を広めた代表例で、ERC-721 の起草者が同じチームにいた。交配による資産の自己増殖という経済設計、
+  ゲームが共有チェーンの容量を奪い合う問題、遺伝子ロジックを非公開の別コントラクトに置いた設計、急速な熱狂と衰退、
+  そして Dapper Labs が Flow という専用チェーンを作るきっかけになった経緯を、コントラクトのコード、オンチェーンの状態、論文、当時の報道で確かめられる。
+categories:
+  - {id: assets, role: primary, reason: "猫 1 匹ずつを ERC-721 草案準拠のトークンとして発行し、所有・譲渡・オークションをコントラクトで扱う"}
+  - {id: onchain-rules, role: secondary, reason: "交配の可否（近親禁止）、クールダウン、世代、子の遺伝子計算はコントラクト内で実行される。ただし遺伝子計算の契約は差し替え可能で、現行のものはソース非公開"}
+  - {id: infra, role: secondary, reason: "2017-12 の Ethereum 混雑の当事者で、Dapper Labs は後に専用チェーン Flow を作った"}
+status:
+  value: active
+  as_of: "2026-10"
+  note: >-
+    KittyCore コントラクトは停止状態（paused）ではなく、参照日 2026-10-23 にも breedWithAuto（交配）、approve、transfer のトランザクションが確認できた。
+    newContractAddress は未設定で、後継コントラクトへの移行も宣言されていない。ただし Flow への移行計画（2020 年発表）は 2024 年時点で未実現とみられ、
+    運営による新しい公式製品は Telegram の放置ゲーム「All the ZEN」（2024-10）とミームコイン構想（2025）で、元のゲームの開発状況は確認できなかった。
+    「active」はコントラクトが動き、利用が続いているという意味で、運営が活発に開発しているという意味ではない。
+  s: [src-ck-etherscan-txs, src-ck-rpc-state, src-ck-decrypt-2024-zen, src-ck-opensea-carr-2025]
+dates:
+  announced: {date: "2017-10-19", s: [src-ck-wikipedia], note: "Waterloo の Ethereum ハッカソン（ETHWaterloo）でテスト版を披露（Wikipedia 記載）"}
+  launched: {date: "2017-11", s: [src-ck-wikipedia, src-ck-frontiers-2021], note: "Wikipedia は 5 日間のクローズドベータ後の 2017-11-28 公開、Frontiers 論文はリリースを 2017-11-23 とする（contradictions 参照）"}
+
+architecture:
+  onchain:
+    level: core-rules
+    detail: >-
+      KittyCore（Ethereum mainnet 0x06012c8c…266d）が猫の構造体（256 ビットの genes、誕生時刻、クールダウン終了ブロック、両親 ID、交配中の相手、クールダウン段階、世代）と所有を保持し、
+      交配（breedWith / breedWithAuto）、出産（giveBirth）、近親交配の禁止、14 段階のクールダウン表（1 分〜7 日）、世代番号 = max(親の世代)+1 を実行する。
+      子の遺伝子は外部の GeneScience コントラクトの mixGenes(genes1, genes2, targetBlock) が、母猫のクールダウン終了ブロックの 1 つ前のブロックハッシュを乱数源として計算する。
+      販売・種付けのオークション（ダッチオークション）も別コントラクトとしてチェーン上にある。一方、遺伝子から見た目（毛色・柄・目など）への変換、画像（SVG）、ゲームのウェブ UI、検索はオフチェーン。
+    s: [src-ck-sourcify-kittycore, src-ck-sourcify-genescience, src-ck-bounty-repo, src-ck-hackernoon-genome]
+  offchain:
+    - {item: "遺伝子→外見（cattributes）の解釈と画像生成。2017 年当時、猫の画像は運営 API が返す Google Cloud Storage 上の SVG だった", s: [src-ck-hackernoon-genome]}
+    - {item: "出産（giveBirth）の自動呼び出しは運営の「autobirth daemon」が担い、利用者は breedWithAuto で手数料（autoBirthFee）を前払いする。giveBirth 自体は誰でも呼べる", s: [src-ck-sourcify-kittycore, src-ck-bounty-repo]}
+    - {item: "gen0（第 0 世代）猫の遺伝子の選定と出品は COO アドレス（運営）が行う", s: [src-ck-sourcify-kittycore]}
+    - {item: "ウェブサイト、マーケット表示、カタログ、KittyVerse 向けの公開 API とデータベース", s: [src-ck-betakit-kittyverse, src-ck-hackernoon-genome]}
+  admin:
+    level: significant
+    detail: >-
+      CEO / CFO / COO の 3 役割があり、C レベルなら一時停止（pause）、解除は CEO のみ。CEO は遺伝子計算コントラクト（setGeneScienceAddress）、メタデータ・オークションの参照先、後継コントラクト（setNewAddress）を差し替えられる。
+      COO は任意の遺伝子で販促用猫を最大 5000 匹（createPromoKitty）、gen0 猫を最大 45000 匹作成でき、autoBirthFee も変更できる。CFO は資金を引き出せる。
+      参照日の eth_call では geneScience が 0x4fcf…04fa を指しており、これは 2019 年に公開された GeneScience（0xf97e…6a2b）とは別のアドレスで、Etherscan 上でソース未検証だった。
+      販売オークションの ownerCut は 375（3.75%）、secondsPerBlock は 12 に更新されていた。
+    s: [src-ck-sourcify-kittycore, src-ck-rpc-state, src-ck-etherscan-genescience-current, src-ck-awesome-mirror]
+  open_source:
+    level: partial
+    detail: >-
+      KittyCore とオークションのソースは公開時からバグバウンティ用リポジトリで公開され、mainnet のソースも検証済み。ただし同リポジトリのライセンスは「レビューと教育目的のみ」で、複製・改変・再配布は許可されていない。
+      GeneScience はローンチ時に非公開で、コミュニティが 2017-12 にバイトコードから逆解析した。2019 年に旧 GeneScience のソースが公開されたが、参照日時点で KittyCore が指す遺伝子コントラクトはソース未検証。
+    url: "https://github.com/dapperlabs/cryptokitties-bounty"
+    s: [src-ck-bounty-repo, src-ck-sourcify-kittycore, src-ck-awesome-mirror, src-ck-etherscan-genescience-current]
+  extensibility:
+    level: official-api
+    detail: >-
+      所有と交配はコントラクトの公開関数なので、第三者は運営の許可なく猫を読み取り・取引・譲渡させるアプリを作れた（例: 独自レースの KittyRace、交配計算ツール KittyCalc、ステッカーの KittyHats）。
+      運営は 2018-06 に KittyVerse として公開 API・データベース・文書と、資産利用を認める規約変更、少額融資型の Nifty Kitty Program を用意した。
+      ただし交配ルール・遺伝子計算・外見の定義を第三者が拡張する手段はなく、拡張は「既存の猫を別のゲームで使う」方向に限られる。
+    s: [src-ck-betakit-kittyverse, src-ck-opensea-carr-2025, src-ck-kittyhats, src-ck-crowdfund-kittyrace]
+
+compare:
+  gameplay: {t: "猫を買い、2 匹を選んで交配させ、クールダウン後に生まれる子猫の見た目（cattributes）と世代を狙って集め、売買・種付けオークションで取引する。戦闘や勝敗は本体にはない。", k: fact, s: [src-ck-bounty-repo, src-ck-sourcify-kittycore]}
+  necessity: {t: "所有・交配制約・世代をコントラクトに置いたことで、運営外の市場や第三者アプリが同じ猫を扱えた点にはオンチェーンの意味がある。一方、遺伝子計算は管理者が差し替え可能で現行版はソース非公開、外見の解釈と画像はサーバー依存であり、「運営を信頼しなくてよい繁殖ゲーム」にはなっていない。", k: analysis, s: [src-ck-sourcify-kittycore, src-ck-etherscan-genescience-current, src-ck-hackernoon-genome]}
+  information: {t: "遺伝子（256 ビット、うち 48 の遺伝子座）は誰でも読めるが、その意味（どの値がどの外見か・どの組合せが変異するか）は当初非公開で、逆解析した者が有利になった。子の遺伝子は交配時点では未確定のブロックハッシュで決まる。", k: fact, s: [src-ck-sourcify-genescience, src-ck-awesome-mirror, src-ck-arxiv-fairness]}
+  persistence: {t: "KittyCore は 2017 年から停止されずに動き続け、2026-10 時点でも交配が行われている。ただし画像・外見の解釈とウェブ UI は運営のサーバーに依存し、遺伝子計算コントラクトも管理者が差し替えられるため、運営停止後に同じ体験が残る保証はない。", k: fact, s: [src-ck-etherscan-txs, src-ck-rpc-state, src-ck-hackernoon-genome, src-ck-sourcify-kittycore]}
+  extensibility: {t: "第三者アプリが猫を読み取り・利用することは許可不要で可能で、KittyVerse で公式にも支援された。交配ルールそのものの拡張は不可。", k: fact, s: [src-ck-betakit-kittyverse, src-ck-sourcify-kittycore]}
+  money_flow: {t: "運営は gen0 猫のオークション収入（開始価格は直近 5 回の平均 +50%、最低 0.01 ETH）、二次オークションの手数料（参照日の ownerCut は 3.75%）、出産代行手数料を得る。プレイヤーは交配で新しい猫を作って売ることで収入を得られたが、供給は交配で増え続ける。", k: fact, s: [src-ck-sourcify-kittycore, src-ck-rpc-state]}
+  entry_barrier: {t: "2017 年当時は MetaMask 等のウォレット、ETH の購入、各操作のガス代が必要だった。2017-12 の混雑期には交配の出産代行手数料が 0.001 から 0.002 ETH に引き上げられた。", k: fact, s: [src-ck-techcrunch-2017-12, src-ck-consensys-2018]}
+
+concepts: [c-nft-asset, m-breeding, c-onchain-rules, c-onchain-state, c-onchain-randomness, m-collectible-cards, c-own-chain, e-royalty-creator]
+proposed_concepts:
+  - {id: c-swappable-rule-module, name: 差し替え可能なルール・モジュール, desc: "中核コントラクトは不変でも、ルールの一部（遺伝子計算・オークション等）を管理者が別コントラクトに差し替えられる構成。透明性と修正可能性のトレードオフを生む。"}
+  - {id: m-cooldown-escalation, name: 使用回数で伸びるクールダウン, desc: "資産を使うたびに次に使えるまでの時間が伸び、1 個体からの無制限な生産を抑える。"}
+
+article:
+  what:
+    - {t: "プレイヤーは猫（Kitty）を所有し、2 匹を選んで交配させる。猫は固定の性別を持たず、交配ごとに母（matron）と父（sire）の役を選ぶ。母は妊娠し、クールダウン後に子猫が生まれて母の所有者に渡る。", k: fact, s: [src-ck-bounty-repo, src-ck-sourcify-kittycore]}
+    - {t: "各猫は 256 ビットの不変の遺伝子を持ち、見た目（毛の柄・色・目・口など）はそこから決まる。親の世代の大きい方 +1 が子の世代になり、世代が高いほど初期クールダウンが長い（cooldownIndex は floor(世代/2) から始まる）。", k: fact, s: [src-ck-sourcify-kittycore, src-ck-bounty-repo]}
+    - {t: "猫は販売オークションで売買でき、自分の猫を「種付け役」として他人に貸し出す種付けオークションもある。どちらも時間とともに価格が変わるダッチオークション（クロックオークション）。", k: fact, s: [src-ck-bounty-repo]}
+    - {t: "運営は gen0 猫を一定間隔で出品し、プレイヤーはまずそこか二次市場から猫を手に入れる。gen0 は上限 45000、販促用は上限 5000 とコントラクトに書かれている。", k: fact, s: [src-ck-sourcify-kittycore, src-ck-bounty-repo]}
+  loop:
+    - {t: "以下はコントラクトとバウンティ文書からの再構成（筆者は実プレイしていない）。gen0 オークションまたは二次オークションで猫を 2 匹買う（bid）。", k: fact, s: [src-ck-bounty-repo]}
+    - {t: "breedWithAuto で交配を申し込み、出産代行の手数料を前払いする。コントラクトは近親（親子・兄弟）でないこと、両方がクールダウン明けであることを確認し、母のクールダウン終了ブロックを記録する。", k: fact, s: [src-ck-sourcify-kittycore]}
+    - {t: "クールダウン（1 分〜最大 7 日、交配のたびに段階が上がる）が過ぎると、運営のデーモンか誰かが giveBirth を呼び、GeneScience が両親の遺伝子と目標ブロックのハッシュから子の遺伝子を計算する。", k: fact, s: [src-ck-sourcify-kittycore, src-ck-sourcify-genescience]}
+    - {t: "生まれた子の見た目をサイトで確認し、珍しい特徴（cattributes）なら高値で売るか、種付けオークションに出して手数料を得る。望む特徴が出るまで交配を繰り返す。", k: fact, s: [src-ck-bounty-repo, src-ck-arxiv-fairness]}
+  before_after:
+    - {t: "それ以前にも Counterparty 上のカード資産（Rare Pepe 等）はあったが、CryptoKitties は資産の「生成規則」（交配・遺伝・世代）まで Ethereum のコントラクトに書いた点が異なる。ERC-721 の最初の草案（2017-09）は Axiom Zen の Dieter Shirley が起草し、確定版 EIP-721 は CryptoKitties を「以前の版の標準と互換」な実装例として挙げる。", k: fact, s: [src-ck-eip721-issue, src-ck-eip721]}
+    - {t: "EIP-721 は一時停止中の譲渡禁止など、CryptoKitties の実装を「先行例（prior art）」として参照している。", k: fact, s: [src-ck-eip721], q: "Disallow transfers if the contract is paused — prior art, CryptoKitties deployed contract, line 611"}
+    - {t: "「最初の NFT ゲーム」「ERC-721 を生んだ」と言い切る直接の根拠はない。草案自体は CryptoPunks や Decentraland なども例示しており、CryptoKitties は標準化の主要な当事者の一つと言うのが正確である。", k: analysis, s: [src-ck-eip721-issue]}
+  onchain_tradeoffs:
+    - {t: "生まれた遊び: 交配ルールと遺伝子が公開台帳にあるため、遺伝子を読んで有利な組合せを探す分析ツール（KittyCalc 等）や逆解析が生まれ、遺伝の解読そのものが競争になった。", k: fact, s: [src-ck-awesome-mirror, src-ck-opensea-carr-2025]}
+    - {t: "増えた不便: 2017-12 初旬、Infura への要求は 1 日 20 億件から 40 億件超に増え、未処理トランザクションの待ち行列が伸び続けたと ConsenSys は振り返った。運営は混雑を理由に出産手数料を引き上げた。", k: fact, s: [src-ck-consensys-2018, src-ck-techcrunch-2017-12], q: "a sixfold increase in total network requests in the first week of December alone."}
+    - {t: "増えた不便: クールダウンは秒単位の表をブロック数に換算する（secondsPerBlock）ため、ブロック時間の変化に管理者が追随する必要があった。参照日の値は 12 で、ソース初期値 15 から変更されている。", k: fact, s: [src-ck-sourcify-kittycore, src-ck-rpc-state]}
+    - {t: "乱数: 子の遺伝子は母のクールダウン終了直前のブロックハッシュから計算される。交配時点では未来のブロックだが、そのブロックが出た後は誰でも結果を事前計算できる。256 ブロック以内に出産が呼ばれない場合の代替処理もコントラクトに書かれている。", k: fact, s: [src-ck-sourcify-genescience]}
+    - {t: "Dapper Labs の CEO は、数千人が交配を始めるとネットワークが「完全に倒れる」と述べ、これが Flow 開発の背景だと報じられた。", k: claim, who: "Roham Gharegozlou（Dapper Labs CEO）", s: [src-ck-cointelegraph-flow-2020], q: "CryptoKitties on Ethereum, as soon as a few thousand people start breeding, it totally falls over and congests the network."}
+  roles:
+    - {t: "運営: gen0 の遺伝子を選んで出品し（COO）、出産代行デーモンを動かし、遺伝子計算コントラクトを管理し、一時停止・差し替えの権限を持つ。収入は gen0 販売とオークション手数料。", k: fact, s: [src-ck-sourcify-kittycore, src-ck-bounty-repo]}
+    - {t: "プレイヤー: 収集・交配・売買を行う。Frontiers の分析では 2020-05 までに約 10.4 万アドレスが猫の移転に関わった。", k: fact, s: [src-ck-frontiers-2021]}
+    - {t: "第三者開発者: KittyVerse 以前から許可なくアプリを作り、2018-06 以降は公開 API と規約変更で支援された。共同創業者は「誰もが利害関係者」と述べた。", k: claim, who: "Bryce Bladon（共同創業者、Betakit の記事内）", s: [src-ck-betakit-kittyverse], q: "Everyone's a stakeholder, and every new experience results in new ways to use your CryptoKitty."}
+    - {t: "コミュニティ開発者が後に運営側に入った例として、KittyCalc の共同作者 Alan Carr は Dapper Labs のプロダクトリードになり、運営所有の希少遺伝子を持つ猫と交配できる「Red Dot District」を導入したと述べた。", k: claim, who: "Alan Carr（Dapper Labs）", s: [src-ck-opensea-carr-2025]}
+    - {t: "エージェント・ボット: giveBirth は誰でも呼べて報酬（前払い手数料）があるため、出産呼び出しはボット向けの仕事として設計されていた。AI エージェントの参加事例は確認できなかった。", k: fact, s: [src-ck-sourcify-genescience, src-ck-sourcify-kittycore]}
+  trajectory:
+    - {t: "2017-10 にハッカソンで披露、2017-11 末に公開。2017-12-02 頃から利用者が急増し、2017-12-10 に日次の関与アドレス数が最大となった（Frontiers 論文の区分）。", k: fact, s: [src-ck-wikipedia, src-ck-frontiers-2021]}
+    - {t: "同論文によれば 2018 年初めには人気がピークの 10% 未満に落ち、2018-01-15 以降は長期の緩やかな減少（serenity 期）に入った。", k: fact, s: [src-ck-frontiers-2021], q: "At the beginning of 2018, the game's popularity is less than 10% of its peak."}
+    - {t: "2018-03 に Dapper Labs として分社し 1200 万ドル、2018-11 に 1500 万ドルを調達した。2018-06 に KittyVerse を開始した。", k: fact, s: [src-ck-wikipedia, src-ck-betakit-kittyverse]}
+    - {t: "2020-05 に Flow 上での提供を発表したが、2024-10 の報道は Telegram ゲーム「All the ZEN」を 2017 年以来最初の公式製品とし、Flow での「本格的な再始動」を予告段階として扱っている。", k: fact, s: [src-ck-cointelegraph-flow-2020, src-ck-decrypt-flow-2020, src-ck-decrypt-2024-zen]}
+    - {t: "参照日の eth_call では猫の総数 2,025,808、gen0 作成数 34,928（上限 45,000 に未達）、販促用 3,087。KittyCore への総トランザクションは Etherscan 表示で 5,042,215 件。", k: fact, s: [src-ck-rpc-state, src-ck-etherscan-txs]}
+  retention_evidence:
+    - {t: "示されている指標: 2017-11-23〜2020-05-19 の移転記録 5,173,521 件、関与アドレス 104,517、猫 1,923,901 匹（Frontiers、フルノードから抽出）。", k: fact, s: [src-ck-frontiers-2021]}
+    - {t: "同論文は多くのプレイヤーがリリース 10 日目と 18 日目前後に参入し、その後 1 か月以内に離れたと述べ、衰退要因として猫の供給過剰、プレイヤー収入の減少、貧富差の拡大、ブロックチェーンの制約を挙げる（因果は論文の解釈）。", k: claim, who: "Xin-Jian Jiang, Xiao Fan Liu（Frontiers in Physics）", s: [src-ck-frontiers-2021]}
+    - {t: "2026-10-23 にも交配（breedWithAuto）を含むトランザクションが確認でき、少数の継続利用者がいることは示される。ただし 1 日数件〜十数件程度の規模で、利用者数は不明。", k: fact, s: [src-ck-etherscan-txs]}
+    - {t: "示されていない指標: 継続率、プレイヤー単位の DAU/MAU の公式値、ボットによる交配・出産呼び出しの割合、運営自身の保有猫の取引割合は公表されていない。", k: unknown}
+  extensions:
+    - {t: "KittyVerse（2018-06）: 公開 API・データベース・文書、資産利用を認める規約、Nifty License、少額融資（収益がなければ補助金になる）の Nifty Kitty Program。", k: fact, s: [src-ck-betakit-kittyverse]}
+    - {t: "KittyRace: 運営と独立に作られた猫のレース。結果は乱数と猫の特徴に依存し、参加料の大半は勝者の猫の所有者に配られたと報じられた（記事本文は取得できず検索要約のみのため未検証）。", k: claim, who: "Crowdfund Insider（2018-04、検索要約）", s: [src-ck-crowdfund-kittyrace]}
+    - {t: "KittyHats: 猫に貼るステッカーを売るサイト（参照日にはタイトル「KittyHats | Stickers for CryptoKitties」のみ確認）。仕組み（別コントラクトで猫に紐付けるか等）は確認できなかった。", k: fact, s: [src-ck-kittyhats]}
+    - {t: "遺伝子の逆解析: Sean Soria が 2017-12 にバイトコードから mixGenes を逆解析し、Ruby / Python 移植がコミュニティで公開された。", k: fact, s: [src-ck-awesome-mirror]}
+    - {t: "KittyCalc: Alan Carr と Jordan Castro が作った交配計算ツール。後にその機能の多くが拡張機能や公式サイトに取り込まれた。", k: claim, who: "Alan Carr", s: [src-ck-opensea-carr-2025]}
+  constraints:
+    - {t: "交配で供給が際限なく増える（上限は約 40 億匹の ID 空間のみ）。gen0 は上限があるが、子猫の数は利用者の交配回数で決まり、需要が減っても供給は止まらない。", k: fact, s: [src-ck-sourcify-kittycore]}
+    - {t: "Sako らは遺伝子決定アルゴリズムの乱数性が低く、その偏りを知る者が利益面で大きく有利になると論じた。", k: claim, who: "Kentaro Sako, Shin'ichiro Matsuo, Sachin Meier（arXiv 2102.03721）", s: [src-ck-arxiv-fairness], q: "a significant advantage to gain profit is given to players who know its bias over those who do not"}
+    - {t: "共有チェーン上の 1 アプリの人気が手数料と遅延を通じて全利用者に波及し、ゲーム自身も高いガスで遊びにくくなる。", k: analysis, s: [src-ck-consensys-2018, src-ck-cointelegraph-flow-2020]}
+    - {t: "管理者権限が残る: 遺伝子計算コントラクト・メタデータの参照先の差し替え、一時停止、任意遺伝子の販促猫の作成。現行の遺伝子コントラクトはソース未検証で、ルールの透明性は 2019 年の公開時より後退している可能性がある。", k: fact, s: [src-ck-sourcify-kittycore, src-ck-etherscan-genescience-current]}
+    - {t: "未解決: 画像・外見の解釈が運営サーバーにあるため、運営停止時に猫の「見た目」をどう保つか。", k: unknown}
+  principles:
+    - {t: "使用回数で伸びるクールダウン: 資産を使うたびに次の使用までの待ちを倍々に伸ばす（1 分→7 日の 14 段階）と、1 個体からの量産を抑えつつ「若い個体」に価値が生まれる。適用条件は時間をチェーン上で計れること。破綻条件は個体数そのものが多くなる場合で、個体ごとの制限では全体の供給過剰を止められない（Frontiers が供給過剰を衰退要因に挙げた）。", k: analysis, s: [src-ck-sourcify-kittycore, src-ck-frontiers-2021]}
+    - {t: "世代番号による希少性: 子の世代を max(親)+1 とし、低世代ほど短いクールダウンを与えると、原初の資産（gen0）に恒久的な価値の差が付く。適用条件は gen0 の発行上限が明示されていること。破綻条件は運営が販促用の資産を任意の遺伝子で作れる場合で、希少性の担保が運営の自制に依存する。", k: analysis, s: [src-ck-sourcify-kittycore]}
+    - {t: "未来のブロックハッシュによるコミット: 交配時に「どのブロックのハッシュを使うか」だけを確定させると、追加のオラクルなしで操作されにくい乱数が得られる。適用条件は目標ブロックが行動時点で未来であること。破綻条件は 256 ブロック制限と、結果を事前計算できる呼び出し者が出産タイミングを選べる設計で、Sako らは偏りを指摘した。", k: analysis, s: [src-ck-sourcify-genescience, src-ck-arxiv-fairness]}
+    - {t: "誰でも呼べる報酬付きの維持処理（giveBirth）: 状態遷移を前払い手数料付きで公開すると、運営デーモンが止まっても第三者のボットが世界を進められる。適用条件は報酬がガス代を上回ること。破綻条件はガス高騰期で、手数料の引き上げ（0.001→0.002 ETH、参照日は 0.008 ETH）が必要になる。", k: analysis, s: [src-ck-sourcify-kittycore, src-ck-techcrunch-2017-12, src-ck-rpc-state]}
+    - {t: "ルールの一部を別コントラクトに隔離: 遺伝子計算を差し替え可能な別契約にすると、所有を壊さずにバグ修正や秘匿ができる。破綻条件は差し替えがプレイヤーの検証能力を奪う場合で、現行コントラクトは未検証になっている。", k: analysis, s: [src-ck-sourcify-kittycore, src-ck-etherscan-genescience-current]}
+  counter_evidence:
+    - {t: "熱狂の主因はメディアの注目だったと Frontiers 論文は分析しており、「オンチェーンの所有・繁殖」という設計が定着をもたらした証拠にはならない。利用はピークから数週間で 1 割未満に落ちた。", k: claim, who: "Xin-Jian Jiang, Xiao Fan Liu", s: [src-ck-frontiers-2021]}
+    - {t: "運営自身が Ethereum では規模に耐えないと述べて別チェーン（Flow）を作り、その後の主力製品（NBA Top Shot）は Flow 上で、カストディ型の体験を採った。CryptoKitties の成功を「パブリックチェーン上のゲーム」の成功と読むことには、運営の行動自体が反証になる。", k: analysis, s: [src-ck-cointelegraph-flow-2020, src-ck-decrypt-flow-2020]}
+    - {t: "第三者拡張（KittyVerse）は、猫を別のゲームで使うことに留まり、交配ルールの拡張は不可能だった。運営は規約変更と融資という「許可と資金」で拡張を促す必要があった。", k: analysis, s: [src-ck-betakit-kittyverse]}
+    - {t: "コントラクトが今も動くことは永続性の証拠だが、外見・画像・UI はサーバー依存で、遺伝子計算も差し替えられている。「オンチェーンだから残る」の範囲は所有記録と交配制約に限られる。", k: analysis, s: [src-ck-etherscan-genescience-current, src-ck-hackernoon-genome]}
+    - {t: "ネットワーク占有率は資料によって 11〜25% と幅があり、測定方法を明示した一次データは本調査では確認できなかった。「Ethereum を止めた」という定番の語りは、程度について報道に依存している。", k: analysis, s: [src-ck-techcrunch-2017-12, src-ck-mittr-2017-12, src-ck-wikipedia, src-ck-decrypt-2024-zen]}
+
+metrics:
+  - {id: m-ck-share-tc-2017-12, type: transactions, value: 15, value_text: "約 15%", unit: "%", period: "2017-12-03 時点", definition: "Ethereum ネットワークのトラフィックに占める割合（TechCrunch の記述。算出方法・元データは記事に明示なし）", nature: estimated, s: [src-ck-techcrunch-2017-12]}
+  - {id: m-ck-share-mittr-2017-12, type: transactions, value: 12, value_text: "12%", unit: "%", period: "2017-12-04 時点", definition: "Ethereum 全トランザクションに占める割合（MIT Technology Review の記述。出典名なし）", nature: estimated, s: [src-ck-mittr-2017-12]}
+  - {id: m-ck-share-bloomberg-2017-12, type: transactions, value: 11, value_text: "11%（12/2 は 4%）", unit: "%", period: "2017-12-04 頃", definition: "ETH Gas Station のデータによる全トランザクションに占める割合（Bloomberg、検索要約のみ）", nature: estimated, s: [src-ck-bloomberg-2017-12]}
+  - {id: m-ck-infura-requests, type: other, value_text: "1 日 20 億件 → 40 億件超", unit: requests/day, period: "2017-12 第 1 週", definition: "Infura の 1 日あたりリクエスト数（Infura の Michael Wuehler の発言、ConsenSys 記事）", nature: reported, s: [src-ck-consensys-2018]}
+  - {id: m-ck-volume-2017-12-03, type: nft_sales, value: 1300000, value_text: "約 130 万ドル", unit: USD, period: "2017-11-28〜2017-12-03", definition: "取引総額（TechCrunch の記述、算出方法不明）", nature: estimated, s: [src-ck-techcrunch-2017-12]}
+  - {id: m-ck-median-price-2017-12, type: other, value: 11.44, value_text: "11.44 ドル", unit: USD, period: "2017-12-04 時点", definition: "猫の販売価格の中央値（MIT TR が kittysales.herokuapp.com を引用）", nature: estimated, s: [src-ck-mittr-2017-12]}
+  - {id: m-ck-transfers-2020, type: transactions, value: 5173521, unit: transfers, period: "2017-11-23〜2020-05-19", definition: "Parity フルノードの eth_getLogs で抽出した猫の移転記録数", nature: measured, s: [src-ck-frontiers-2021]}
+  - {id: m-ck-addresses-2020, type: wallets, value: 104517, unit: addresses, period: "2017-11-23〜2020-05-19", definition: "猫の移転に関与したアドレス数（Frontiers）", nature: measured, s: [src-ck-frontiers-2021]}
+  - {id: m-ck-kitties-2020, type: other, value: 1923901, unit: kitties, period: "2020-05-19 まで", definition: "データ中の猫の数（Frontiers）", nature: measured, s: [src-ck-frontiers-2021]}
+  - {id: m-ck-total-supply-2026, type: other, value: 2025808, unit: kitties, period: "2026-10-23 時点", definition: "KittyCore.totalSupply() の eth_call 結果（筆者取得）", nature: measured, s: [src-ck-rpc-state]}
+  - {id: m-ck-gen0-2026, type: other, value: 34928, unit: kitties, period: "2026-10-23 時点", definition: "gen0CreatedCount()（上限 45000）。promoCreatedCount() は 3087（上限 5000）", nature: measured, s: [src-ck-rpc-state]}
+  - {id: m-ck-txcount-2026, type: transactions, value: 5042215, unit: tx, period: "2026-10-23 時点の累計", definition: "Etherscan が表示する KittyCore への累計トランザクション数", nature: measured, s: [src-ck-etherscan-txs]}
+  - {id: m-ck-funding-2018-03, type: funding, value: 12000000, unit: USD, period: "2018-03", definition: "Dapper Labs 分社時の調達額（Union Square Ventures・Andreessen Horowitz 主導、Wikipedia 記載）", nature: reported, s: [src-ck-wikipedia]}
+  - {id: m-ck-funding-2018-11, type: funding, value: 15000000, unit: USD, period: "2018-11", definition: "Venrock 主導の調達額（Wikipedia 記載）", nature: reported, s: [src-ck-wikipedia]}
+
+events:
+  - {id: ev-ck-erc721-draft, date: "2017-09-22", type: other, title: "ERC-721 草案の議論スレッド（#721）が開かれる", detail: "起草者 Dieter Shirley（dete@axiomzen.co）", s: [src-ck-eip721-issue]}
+  - {id: ev-ck-ethwaterloo, date: "2017-10-19", type: announce, title: "ETHWaterloo でテスト版を披露", s: [src-ck-wikipedia]}
+  - {id: ev-ck-bounty, date: "2017-11-16", type: testnet, title: "Rinkeby でバグバウンティ開始（11/20 まで）", detail: "KittyCore 等のソースを公開。GeneScience は非公開", s: [src-ck-bounty-repo]}
+  - {id: ev-ck-launch, date: "2017-11", type: launch, title: "Ethereum mainnet で公開", detail: "Wikipedia は 11/28、Frontiers は 11/23 とする", s: [src-ck-wikipedia, src-ck-frontiers-2021]}
+  - {id: ev-ck-congestion, date: "2017-12", type: incident, title: "Ethereum の混雑", detail: "12/2 頃から急増、12/10 に関与アドレス数がピーク。出産手数料を 0.001→0.002 ETH に引き上げ", s: [src-ck-frontiers-2021, src-ck-techcrunch-2017-12, src-ck-consensys-2018]}
+  - {id: ev-ck-dapper, date: "2018-03-20", type: funding, title: "Dapper Labs として分社、1200 万ドル調達", s: [src-ck-wikipedia]}
+  - {id: ev-ck-kittyverse, date: "2018-06-27", type: release, title: "KittyVerse と Nifty Kitty Program を開始", s: [src-ck-betakit-kittyverse]}
+  - {id: ev-ck-flow-announce, date: "2020-05-21", type: announce, title: "Flow 上での提供を発表", s: [src-ck-cointelegraph-flow-2020, src-ck-decrypt-flow-2020]}
+  - {id: ev-ck-zen, date: "2024-10-01", type: release, title: "Telegram ゲーム All the ZEN を公開", detail: "2017 年以来最初の公式製品と報道。Flow での再始動の予告", s: [src-ck-decrypt-2024-zen]}
+
+relations:
+  - {to: nba-top-shot, type: same-team, basis: confirmed, note: "どちらも Dapper Labs の製品。Top Shot は Flow 上", s: [src-ck-opensea-carr-2025, src-ck-cointelegraph-flow-2020]}
+  - {to: rare-pepe, type: similar-to, basis: analytic, note: "ERC-721 草案が先行例として挙げた収集資産。CryptoKitties は生成規則までコントラクトに置いた点が異なる"}
+  - {to: axie-infinity, type: similar-to, basis: analytic, note: "繁殖による資産生成と供給過剰の問題を共有する。影響関係の一次証拠は本調査では未確認"}
+  - {to: etheremon, type: similar-to, basis: analytic, note: "同時期の Ethereum 上の収集型モンスターゲーム"}
+  - {to: loot, type: contrasts-with, basis: analytic, note: "CryptoKitties は意味（外見）の解釈を運営が独占し、Loot は意味付けを第三者に委ねた"}
+  - {to: m-breeding, type: built-with, basis: confirmed, note: "交配・クールダウン・世代をコントラクトで実装", s: [src-ck-sourcify-kittycore]}
+
+unknowns:
+  - "Ethereum 全体に占めるトランザクション比率の、測定方法が明示された一次データ（ETH Gas Station の原データは参照できなかった）。"
+  - "現行の GeneScience（0x4fcf…04fa、未検証）へいつ・なぜ差し替えたか、遺伝子ルールが変わったか。"
+  - "Flow 版 CryptoKitties が実際に提供されたか（2024 年報道からは未実現と読める）。"
+  - "KittyHats、KittyRace の仕組みと稼働期間。KittyVerse 参加アプリの総数。"
+  - "現在のウェブサイトで交配・マーケットがどこまで機能しているか（トップページはタイトルのみ取得）。"
+  - "DAU・継続率の公式値。"
+contradictions:
+  - {t: "公開日: Wikipedia は 2017-11-28（5 日間のクローズドベータ後）、Frontiers 論文は 2017-11-23 リリースとする（後者はベータ開始日の可能性）。ConsenSys 記事は 2017-10 公開と記載。", s: [src-ck-wikipedia, src-ck-frontiers-2021, src-ck-consensys-2018]}
+  - {t: "ネットワーク占有率: TechCrunch 15%、MIT TR 12%、Bloomberg（ETH Gas Station）11%、Decrypt（2024）13%、Wikipedia 約 25%。測定日と定義が異なる。", s: [src-ck-techcrunch-2017-12, src-ck-mittr-2017-12, src-ck-bloomberg-2017-12, src-ck-decrypt-2024-zen, src-ck-wikipedia]}
+  - {t: "運営の収入源: TechCrunch は「最初の 100 匹の販売収入」と書くが、コントラクトは gen0 を最大 45000 匹オークションし、二次オークションにも手数料を課す。", s: [src-ck-techcrunch-2017-12, src-ck-sourcify-kittycore]}
+  - {t: "gen0 上限: KittyCore のコメントは gen0 の上限を 5 万匹と書くが、定数は GEN0_CREATION_LIMIT = 45000 と PROMO_CREATION_LIMIT = 5000（合計で 5 万）。", s: [src-ck-sourcify-kittycore]}
+  - {t: "Flow 移行: 2020 年の報道は「Ethereum から移行する」とし、CEO は Ethereum 版も並行させたいと述べた。2026 年時点で Ethereum 版は動き続け、Flow 版の提供は確認できない。", s: [src-ck-decrypt-flow-2020, src-ck-cointelegraph-flow-2020, src-ck-etherscan-txs]}
+
+sources:
+  - {id: src-ck-bounty-repo, title: "dapperlabs/cryptokitties-bounty", url: "https://github.com/dapperlabs/cryptokitties-bounty", publisher: "GitHub (Axiom Zen / Dapper Labs)", type: code, primary: true, published: "2017-11", accessed: "2026-10-23", access: fetched, lang: en, note: "git clone で README・CryptoKitty Basics・コントラクトを確認。Rinkeby バウンティ（2017-11-16〜20）、役割、クールダウン表、閲覧・教育目的のみのライセンス"}
+  - {id: src-ck-sourcify-kittycore, title: "KittyCore verified source (Ethereum mainnet 0x06012c8cf97BEaD5deAe237070F9587f8E7A266d)", url: "https://sourcify.dev/server/v2/contract/1/0x06012c8cf97BEaD5deAe237070F9587f8E7A266d?fields=sources", publisher: "Sourcify", type: code, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "mainnet ソース。mixGenes(…, targetBlock)、cooldowns、secondsPerBlock=15、autoBirthFee=2 finney、GEN0 45000 / PROMO 5000、gen0 価格式、役割と差し替え関数"}
+  - {id: src-ck-sourcify-genescience, title: "GeneScience verified source (0xf97e0A5b616dfFC913e72455Fde9eA8bBe946a2B)", url: "https://sourcify.dev/server/v2/contract/1/0xf97e0A5b616dfFC913e72455Fde9eA8bBe946a2B?fields=sources", publisher: "Sourcify", author: "Axiom Zen, Dieter Shirley, Fabiano P. Soriani, Jordan Schalm", type: code, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "48 遺伝子座、ブロックハッシュ乱数、ascension（変異）、256 ブロック超過時の代替処理"}
+  - {id: src-ck-etherscan-txs, title: "CryptoKitties: Core transactions", url: "https://etherscan.io/txs?a=0x06012c8cf97bead5deae237070f9587f8e7a266d", publisher: "Etherscan", type: onchain-data, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "累計 5,042,215 件。2026-10-23 にも Approve・Breed With Auto 等"}
+  - {id: src-ck-etherscan-code, title: "CryptoKitties: Core (KittyCore) contract code", url: "https://etherscan.io/address/0x06012c8cf97bead5deae237070f9587f8e7a266d#code", publisher: "Etherscan", type: onchain-data, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "Exact Match 検証済み、v0.4.18。ページ上ではソース本文が切れており、ABI とバイトコードのみ読めた"}
+  - {id: src-ck-etherscan-genescience-current, title: "Contract 0x4fcfd9f5fda7b27dd731de6dfe15f7caf79304fa", url: "https://etherscan.io/address/0x4fcfd9f5fda7b27dd731de6dfe15f7caf79304fa#code", publisher: "Etherscan", type: onchain-data, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "KittyCore.geneScience() が指す現行コントラクト。ソース未検証、作成から約 2 年 10 か月（表示上）"}
+  - {id: src-ck-rpc-state, title: "Ethereum JSON-RPC eth_call against KittyCore (publicnode)", url: "https://ethereum-rpc.publicnode.com", publisher: "PublicNode RPC", type: onchain-data, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "筆者が eth_call で取得: totalSupply 2025808、gen0CreatedCount 34928、promoCreatedCount 3087、paused false、autoBirthFee 0.008 ETH、secondsPerBlock 12、geneScience 0x4fcf…、販売オークション ownerCut 375"}
+  - {id: src-ck-eip721, title: "ERC-721: Non-Fungible Token Standard", url: "https://eips.ethereum.org/EIPS/eip-721", publisher: "Ethereum Improvement Proposals", author: "William Entriken, Dieter Shirley, Jacob Evans, Nastassia Sachs", type: official-docs, primary: true, published: "2018-01-24", accessed: "2026-10-23", access: fetched, lang: en, note: "CryptoKitties を先行例・以前の版と互換な実装として言及"}
+  - {id: src-ck-eip721-issue, title: "ERC: Non-fungible Token Standard #721", url: "https://github.com/ethereum/EIPs/issues/721", publisher: "GitHub (ethereum/EIPs)", author: "dete (Dieter Shirley)", type: forum, primary: true, published: "2017-09-22", accessed: "2026-10-23", access: fetched, lang: en, note: "草案の議論スレッド。著者メールは axiomzen.co。CryptoPunks・Decentraland 等を例示"}
+  - {id: src-ck-techcrunch-2017-12, title: "People have spent over $1M buying virtual cats on the Ethereum blockchain", url: "https://techcrunch.com/2017/12/03/people-have-spent-over-1m-buying-virtual-cats-on-the-ethereum-blockchain/", publisher: "TechCrunch", author: "Fitz Tepper", type: news, primary: false, published: "2017-12-03", accessed: "2026-10-23", access: fetched, lang: en, note: "約 130 万ドル、トラフィックの約 15%、出産手数料 0.001→0.002 ETH"}
+  - {id: src-ck-mittr-2017-12, title: "Ethereum's first killer app is here, and it's a game where you create digital cats", url: "https://www.technologyreview.com/2017/12/04/147310/ethereums-first-killer-app-is-here-and-its-a-game-where-you-create-digital-cats/", publisher: "MIT Technology Review", author: "Mike Orcutt", type: news, primary: false, published: "2017-12-04", accessed: "2026-10-23", access: fetched, lang: en, note: "全トランザクションの 12%、販売価格中央値 11.44 ドル"}
+  - {id: src-ck-bloomberg-2017-12, title: "CryptoKitties Mania Overwhelms Ethereum Network's Processing", url: "https://www.bloomberg.com/news/articles/2017-12-04/cryptokitties-quickly-becomes-most-widely-used-ethereum-app", publisher: "Bloomberg", type: news, primary: false, published: "2017-12-04", accessed: "2026-10-23", access: snippet, lang: en, note: "403 で本文取得不可。検索要約で ETH Gas Station による 11%（12/2 は 4%）"}
+  - {id: src-ck-consensys-2018, title: "The Inside Story of the CryptoKitties Congestion Crisis", url: "https://consensys.com/blog/the-inside-story-of-the-cryptokitties-congestion-crisis", publisher: "ConsenSys", type: retrospective, primary: false, published: "2018-02-20", accessed: "2026-10-23", access: fetched, lang: en, note: "ネットワーク要求 6 倍、Infura 1 日 20 億→40 億件超"}
+  - {id: src-ck-frontiers-2021, title: "CryptoKitties Transaction Network Analysis: The Rise and Fall of the First Blockchain Game Mania", url: "https://www.frontiersin.org/journals/physics/articles/10.3389/fphy.2021.631665/full", publisher: "Frontiers in Physics", author: "Xin-Jian Jiang, Xiao Fan Liu", type: paper, primary: true, published: "2021-03-03", accessed: "2026-10-23", access: fetched, lang: en, note: "フルノードから 517 万件の移転を抽出。4 段階（primer / rise / fall / serenity）と衰退要因"}
+  - {id: src-ck-arxiv-fairness, title: "Fairness in ERC token markets: A Case Study of CryptoKitties", url: "https://arxiv.org/abs/2102.03721", publisher: "arXiv", author: "Kentaro Sako, Shin'ichiro Matsuo, Sachin Meier", type: paper, primary: true, published: "2021-02-07", accessed: "2026-10-23", access: fetched, lang: en, note: "遺伝子決定の乱数性の低さと情報格差による不公平（要旨のみ確認）"}
+  - {id: src-ck-wikipedia, title: "CryptoKitties", url: "https://en.wikipedia.org/wiki/CryptoKitties", publisher: "Wikipedia", type: wiki, primary: false, accessed: "2026-10-23", access: fetched, lang: en, note: "公開日、ETHWaterloo、分社・調達、Flow 計画、約 25%、2022 年の取引減少"}
+  - {id: src-ck-betakit-kittyverse, title: "CryptoKitties launches KittyVerse to attract more third-party developers", url: "https://betakit.com/cryptokitties-launches-kittyverse-to-attract-more-third-party-developers/", publisher: "BetaKit", type: news, primary: false, published: "2018-06-27", accessed: "2026-10-23", access: fetched, lang: en, note: "公開 API・DB・文書、規約変更、Nifty License、Nifty Kitty Program"}
+  - {id: src-ck-crowdfund-kittyrace, title: "You Can Now Race Your CryptoKitty", url: "https://www.crowdfundinsider.com/2018/04/132607-you-can-now-race-your-cryptokitty/", publisher: "Crowdfund Insider", type: news, primary: false, published: "2018-04", accessed: "2026-10-23", access: snippet, lang: en, note: "403 で本文取得不可。検索要約: AxiomZen と独立に開発、参加料の大半は勝者に"}
+  - {id: src-ck-kittyhats, title: "KittyHats | Stickers for CryptoKitties", url: "https://kittyhats.co/", publisher: "KittyHats", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "タイトルのみ取得（本文は JS 描画の可能性）"}
+  - {id: src-ck-hackernoon-genome, title: "Hacking the CryptoKitties Genome", url: "https://hackernoon.com/hacking-the-cryptokitties-genome-1cb3e7dddab3", publisher: "Hacker Noon", author: "Abhishek Chadha", type: analysis, primary: false, published: "2017-12-07", accessed: "2026-10-23", access: fetched, lang: en, note: "256 ビット遺伝子、API の image_url が Google Cloud Storage の SVG"}
+  - {id: src-ck-awesome-mirror, title: "contracts/cryptokitties (mirror of awesome-cryptokitties notes)", url: "https://github.com/eshnil2000/contracts/blob/master/cryptokitties", publisher: "GitHub", type: analysis, primary: false, accessed: "2026-10-23", access: fetched, lang: en, note: "Sean Soria による mixGenes の逆解析（2017-12）、2019 年の GeneScience ソース公開、Ruby/Python 移植"}
+  - {id: src-ck-cointelegraph-flow-2020, title: "Dapper Labs Welcomes CryptoKitties Onto Flow Blockchain", url: "https://cointelegraph.com/news/dapper-labs-welcomes-cryptokitties-onto-flow-blockchain", publisher: "Cointelegraph", author: "Samuel Haig", type: news, primary: false, published: "2020-05-21", accessed: "2026-10-23", access: fetched, lang: en, note: "Flow での提供、CEO の「ネットワークが倒れる」発言"}
+  - {id: src-ck-decrypt-flow-2020, title: "CryptoKitties scratch Ethereum, find new life on Flow blockchain", url: "https://decrypt.co/29694/cryptokitties-scratch-ethereum-find-new-life-flow-blockchain", publisher: "Decrypt", type: news, primary: false, published: "2020-05-21", accessed: "2026-10-23", access: fetched, lang: en, note: "Ethereum から Flow へ移行、Ethereum の猫も持ち込めると CEO"}
+  - {id: src-ck-decrypt-2024-zen, title: "CryptoKitties Are Back—As a Telegram Crypto Game", url: "https://decrypt.co/284116/cryptokitties-back-telegram-crypto-game", publisher: "Decrypt", author: "Ryan S. Gladwin", type: news, primary: false, published: "2024-10-01", accessed: "2026-10-23", access: fetched, lang: en, note: "All the ZEN、2017 年以来最初の公式製品、Flow での再始動予告、ピーク時 13%"}
+  - {id: src-ck-opensea-carr-2025, title: "In Conversation With Alan Carr of CryptoKitties", url: "https://opensea.io/blog/articles/in-conversation-with-alan-carr-of-cryptokitties", publisher: "OpenSea", type: interview, primary: true, published: "2025-04-15", accessed: "2026-10-23", access: fetched, lang: en, note: "KittyCalc、Red Dot District、ミームコイン構想、All the ZEN の 25 万人"}
