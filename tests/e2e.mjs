@@ -258,11 +258,11 @@ await step('図: ホームの図が描画され、ホバーとフォーカスで
   assert.ok(/#\/entries\?cat=.+&onchain=/.test(p.url()), 'heatmap cell did not link to filtered list');
   const n = await p.locator('.entry-item').count();
   assert.ok(n > 0, 'filtered list empty');
-  // イラストは使わない（図はすべて研究データから描く SVG/HTML）
+  // イラストは使わない（図はすべて研究データから描く SVG/HTML）。画像は各プロジェクトのアイコンだけ
   for (const r of ['', 'timeline', 'hypotheses', 'about', 'insight/' + data.insights[0].id, 'entry/' + deep[0].id]) {
     await p.goto('about:blank');
     await p.goto(BASE + '#/' + r);
-    assert.equal(await p.locator('img').count(), 0, `unexpected image on ${r}`);
+    assert.equal(await p.locator('img:not(.eicon)').count(), 0, `unexpected image on ${r}`);
   }
   await p.goto(BASE + '#/entry/' + deep[0].id);
   assert.ok(await p.locator('.arch .meter').count() >= 4, 'architecture meters missing');

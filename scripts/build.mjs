@@ -37,6 +37,18 @@ if (fs.existsSync(vdir)) {
 }
 const sv = path.join(vdir, '_synthesis.md');
 if (fs.existsSync(sv)) dataset.synthesisVerification = fs.readFileSync(sv, 'utf8');
+// 市場データ（自動取得。研究データとは別）とアイコン
+const mk = path.join(ROOT, 'data', 'market.json');
+if (fs.existsSync(mk)) {
+  const m = JSON.parse(fs.readFileSync(mk, 'utf8'));
+  dataset.market = { fetchedAt: m.fetchedAt, note: m.note };
+  for (const g of dataset.games) {
+    const e = m.entries[g.id];
+    if (!e) continue;
+    if (e.icon && !fs.existsSync(path.join(ROOT, 'site', e.icon.file))) { warnings.push(`icon missing ${e.icon.file}`); delete e.icon; }
+    g.market = e;
+  }
+}
 // 記録の指紋: 各 YAML ファイルの SHA-256 と、それらを葉とするマークル木の根。
 // 内容が 1 文字でも変わればハッシュが変わるので、引用・保存した版との照合に使える
 const sha = (buf) => crypto.createHash('sha256').update(buf).digest('hex');

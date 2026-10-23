@@ -88,7 +88,7 @@
     const row = (label, f) => `<tr><th scope="row" class="rowh">${label}</th>${gs.map((g) => `<td>${f(g)}</td>`).join('')}</tr>`;
     const arch = (key, map) => (g) => { const x = g.architecture?.[key]; return x ? `${A.charts.meter(A.charts.ORDERS[key], map, x.level, '')}<div class="small">${esc(x.detail || '')}${A.cites(x.s)}</div>` : '<span class="muted">未記入</span>'; };
     const metricsOf = (g) => (I.metricsByGame.get(g.id) || []).slice(0, 6).map((m) => `<div class="small">${esc(L.metric_type[m.type])}: ${m.value_text ? esc(m.value_text) : A.fmtNum(m.value)} ${esc(m.unit)}（${esc(m.period)}・${esc(L.nature[m.nature])}）${A.cites(m.s)}</div>`).join('') || '<span class="muted small">登録なし</span>';
-    return head + `<div class="table-wrap"><table class="cmp-table"><thead><tr><th class="rowh">項目</th>${gs.map((g) => `<th><a href="#/entry/${esc(g.id)}">${esc(g.name)}</a></th>`).join('')}</tr></thead><tbody>
+    return head + `<div class="table-wrap"><table class="cmp-table"><thead><tr><th class="rowh">項目</th>${gs.map((g) => `<th><span class="cmp-h">${A.charts.icon(g, 24)}<a href="#/entry/${esc(g.id)}">${esc(g.name)}</a></span></th>`).join('')}</tr></thead><tbody>
       ${row('概要', (g) => `<div class="small">${esc(g.summary)}</div>`)}
       ${row('時期・状態', (g) => `${esc(A.periodText(g))}<div class="small">${esc(L.status[g.status?.value] || '不明')}</div>`)}
       ${row('領域', (g) => A.catTags(g))}
@@ -98,6 +98,8 @@
       ${row('管理者権限', arch('admin', L.admin))}
       ${row('ソース公開', arch('open_source', L.open_source))}
       ${row('第三者の拡張', arch('extensibility', L.extensibility))}
+      ${row('公式リンク', (g) => A.charts.linkBar(g) || '<span class="muted small">未登録</span>')}
+      ${row('市場データ（自動取得）', (g) => { const c = g.market?.coins?.[0]; const t = g.market?.tvl; return [c ? `<div class="small mono">${esc(c.symbol)} ${A.charts.usd(c.price)}・時価総額 ${A.charts.usd(c.market_cap)}・最高値から ${A.charts.pct(c.from_ath_pct)}</div>` : '', t ? `<div class="small mono">TVL ${A.charts.usd(t.current)}（ピーク ${A.charts.usd(t.peak)}・${esc(t.peak_date)}）</div>` : ''].join('') || '<span class="muted small">トークン・TVL なし</span>'; })}
       ${row('数値（定義が異なるため横比較に注意）', metricsOf)}
       ${row('持ち込める原理', (g) => g.article?.principles ? A.stmts(g.article.principles.slice(0, 3)) : '<span class="muted small">深掘りなし</span>')}
       ${row('反証・別の説明', (g) => g.article?.counter_evidence ? A.stmts(g.article.counter_evidence.slice(0, 3)) : '<span class="muted small">深掘りなし</span>')}

@@ -307,3 +307,174 @@
     return `<ol class="chain" aria-label="時代区分（ブロックごとに 1 つの時代）">${blocks.join('')}</ol>`;
   };
 })();
+
+/* 公式リンク・アイコン・市場データ・利用者指標 */
+(function () {
+  'use strict';
+  const A = window.A;
+  const { esc, L, I, D } = A;
+  const C = A.charts;
+
+  // 記録ハッシュから決まる 5×5 の対称パターン（アイコンが無い事例の代わり）
+  C.identicon = (g, size = 40) => {
+    const h = g.hash || g.id.split('').map((c) => c.charCodeAt(0).toString(16)).join('').padEnd(64, '0');
+    const bits = h.slice(0, 15).split('').map((c) => parseInt(c, 16) % 2 === 0);
+    let cells = '';
+    for (let y = 0; y < 5; y++) for (let x = 0; x < 3; x++) if (bits[y * 3 + x]) {
+      cells += `<rect x="${x}" y="${y}" width="1" height="1"></rect>`;
+      if (x < 2) cells += `<rect x="${4 - x}" y="${y}" width="1" height="1"></rect>`;
+    }
+    return `<svg class="eicon ident" width="${size}" height="${size}" viewBox="-0.5 -0.5 6 6" aria-hidden="true"><title>記録ハッシュから生成した識別用パターン</title>${cells}</svg>`;
+  };
+  C.icon = (g, size = 40) => (g.market?.icon ? `<img class="eicon" src="${esc(g.market.icon.file)}" width="${size}" height="${size}" alt="" loading="lazy" decoding="async">` : C.identicon(g, size));
+
+  const GLYPH = {
+    website: '<circle cx="8" cy="8" r="6.2"/><path d="M1.8 8h12.4M8 1.8c2 2 2 10.4 0 12.4M8 1.8c-2 2-2 10.4 0 12.4"/>',
+    play: '<rect x="1.8" y="1.8" width="12.4" height="12.4" rx="1"/><path d="M6.4 5.2v5.6l4.4-2.8z" fill="currentColor"/>',
+    docs: '<path d="M3.5 1.8h6l3 3v9.4h-9z"/><path d="M9.5 1.8v3h3M5.5 8h5M5.5 10.6h5"/>',
+    whitepaper: '<path d="M3.5 1.8h6l3 3v9.4h-9z"/><path d="M9.5 1.8v3h3M5.5 8h5M5.5 10.6h3"/>',
+    x: '<path d="M2.5 2.5l11 11M13.5 2.5l-11 11"/>',
+    discord: '<path d="M2 4.5c0-1.2 1-2 2.2-2h7.6c1.2 0 2.2.8 2.2 2v5c0 1.2-1 2-2.2 2H7l-3 2.5v-2.5h0C2.8 11.5 2 10.7 2 9.5z"/>',
+    telegram: '<path d="M14 2.5L1.8 7.4l4.4 1.5 1.5 4.6 2.3-3 3.2 2.4z"/>',
+    github: '<path d="M5.5 4.5L2 8l3.5 3.5M10.5 4.5L14 8l-3.5 3.5M9 3l-2 10"/>',
+    blog: '<path d="M2.5 13.5l1-3.5 7.5-7.5 2.5 2.5-7.5 7.5z"/><path d="M9.5 4l2.5 2.5"/>',
+  };
+  const LINK_LABEL = { website: '公式サイト', play: '遊ぶ', docs: 'ドキュメント', whitepaper: 'ホワイトペーパー', x: 'X', discord: 'Discord', telegram: 'Telegram', github: 'GitHub', blog: 'ブログ' };
+  const glyph = (k) => `<svg class="glyph" viewBox="0 0 16 16" aria-hidden="true">${GLYPH[k] || GLYPH.website}</svg>`;
+  C.linkBar = (g) => {
+    const items = Object.entries(g.links || {}).map(([k, v]) => {
+      const url = typeof v === 'string' ? v : v.url;
+      const dead = typeof v === 'object' && v.status && v.status !== 'active';
+      return `<a class="lnk ${dead ? 'dead' : ''}" href="${esc(url)}" target="_blank" rel="noopener" title="${esc(url)}${dead ? '（閉鎖・休止）' : ''}">${glyph(k)}<span>${esc(LINK_LABEL[k] || k)}</span>${dead ? '<small>閉鎖</small>' : ''}</a>`;
+    });
+    return items.length ? `<nav class="lnks" aria-label="${esc(g.name)} の公式リンク">${items.join('')}</nav>` : '';
+  };
+
+  const usd = (v) => {
+    if (v == null) return '—';
+    const a = Math.abs(v);
+    if (a >= 1e9) return `$${(v / 1e9).toFixed(2)}B`;
+    if (a >= 1e6) return `$${(v / 1e6).toFixed(1)}M`;
+    if (a >= 1e3) return `$${(v / 1e3).toFixed(1)}K`;
+    if (a >= 1) return `$${v.toFixed(2)}`;
+    return `$${v.toPrecision(3)}`;
+  };
+  C.usd = usd;
+  const pct = (v) => (v == null ? '—' : `${v > 0 ? '+' : ''}${v.toFixed(v > -10 && v < 10 ? 1 : 0)}%`);
+  C.pct = pct;
+
+  // 小さな折れ線（面）。series: [[x(ts or 'YYYY-MM'), value], ...]
+  function spark(series, { w = 320, h = 70, label = '' } = {}) {
+    if (!series || series.length < 2) return '';
+    const vals = series.map((p) => p[1]);
+    const max = Math.max(...vals), min = 0;
+    const xs = (i) => 2 + (i / (series.length - 1)) * (w - 4);
+    const ys = (v) => h - 4 - ((v - min) / (max - min || 1)) * (h - 10);
+    const d = series.map((p, i) => `${i ? 'L' : 'M'}${xs(i).toFixed(1)},${ys(p[1]).toFixed(1)}`).join('');
+    const last = series[series.length - 1];
+    const pk = vals.indexOf(max);
+    return `<svg class="spark" viewBox="0 0 ${w} ${h}" role="img" aria-label="${esc(label)}"><path class="area" d="${d}L${xs(series.length - 1)},${h - 4}L2,${h - 4}Z"></path><path class="ln" d="${d}"></path>
+      <circle cx="${xs(pk)}" cy="${ys(max)}" r="3.5" class="pk"></circle><circle cx="${xs(series.length - 1)}" cy="${ys(last[1])}" r="3.5" class="end"></circle></svg>`;
+  }
+
+  // 詳細画面: 市場データ（自動取得）
+  C.marketBlock = (g) => {
+    const m = g.market;
+    if (!m || (!m.coins?.length && !m.tvl)) return '';
+    const fetched = D.market?.fetchedAt?.slice(0, 10);
+    const coins = (m.coins || []).map((c) => `<div class="mk-card">
+      <div class="mk-h"><b>${esc(c.symbol)}</b><span class="muted small">${esc(c.name)}</span><a class="small" href="${esc(c.source_url)}" target="_blank" rel="noopener">CoinGecko</a></div>
+      <dl class="mk-kv"><div><dt>価格</dt><dd>${usd(c.price)}</dd></div><div><dt>時価総額</dt><dd>${usd(c.market_cap)}</dd></div>
+      <div><dt>最高値</dt><dd>${usd(c.ath)}<small>${esc(c.ath_date || '')}</small></dd></div><div><dt>最高値から</dt><dd class="${(c.from_ath_pct ?? 0) < -50 ? 'neg' : ''}">${pct(c.from_ath_pct)}</dd></div></dl>
+      ${spark(c.chart_365d, { label: `${c.symbol} の直近 365 日の価格` })}<p class="mk-cap">直近 365 日の価格（週次）。● 期間内の最高・最新</p></div>`).join('');
+    const t = m.tvl;
+    const tvl = t ? `<div class="mk-card">
+      <div class="mk-h"><b>TVL</b><span class="muted small">${esc(t.name)}</span><a class="small" href="${esc(t.source_url)}" target="_blank" rel="noopener">DefiLlama</a></div>
+      <dl class="mk-kv"><div><dt>現在</dt><dd>${usd(t.current)}<small>${esc(t.current_date)}</small></dd></div><div><dt>ピーク</dt><dd>${usd(t.peak)}<small>${esc(t.peak_date)}</small></dd></div>
+      <div><dt>ピークから</dt><dd class="${(t.from_peak_pct ?? 0) < -50 ? 'neg' : ''}">${pct(t.from_peak_pct)}</dd></div></dl>
+      ${spark(t.series_monthly, { label: `${t.name} の TVL の月次推移` })}<p class="mk-cap">TVL の月次推移（${esc(t.series_monthly[0]?.[0] || '')}〜）。● 最高・最新</p></div>` : '';
+    return `<section id="market"><h2>市場データ <span class="mono small muted">auto · ${esc(fetched || '')}</span></h2>
+      <p class="small muted">CoinGecko と DefiLlama の公開 API から ${esc(fetched || '')} に自動取得した値です。トークン価格や TVL は投機や市場全体の動きも含むため、遊ばれているかどうかの指標ではありません。研究上の数値は下の「数値」を参照してください。</p>
+      <div class="mk-grid">${coins}${tvl}</div></section>`;
+  };
+
+  // 詳細画面: アカウント・利用者に関する指標（研究データの metrics から）
+  const ACCT_TYPES = ['wallets', 'dau', 'mau', 'players', 'transactions', 'retention'];
+  C.accountMetrics = (g) => {
+    const ms = (I.metricsByGame.get(g.id) || []).filter((m) => ACCT_TYPES.includes(m.type));
+    if (!ms.length) return '';
+    const byType = new Map();
+    for (const m of ms) { if (!byType.has(m.type)) byType.set(m.type, []); byType.get(m.type).push(m); }
+    const cards = [...byType.entries()].map(([t, arr]) => {
+      const sorted = arr.slice().sort((a, b) => String(b.period).localeCompare(String(a.period)));
+      const m = sorted[0];
+      return `<div class="acct"><span class="acct-t">${esc(L.metric_type[t])}</span><b>${m.value_text ? esc(m.value_text) : A.fmtNum(m.value)} <small>${esc(m.unit)}</small></b>
+        <span class="acct-p">${esc(m.period)}・<span class="k ${m.nature === 'measured' ? 'k-fact' : m.nature === 'reported' ? 'k-claim' : 'k-analysis'}">${esc(L.nature[m.nature])}</span>${A.cites(m.s)}</span>
+        ${arr.length > 1 ? `<span class="acct-more">ほか ${arr.length - 1} 件</span>` : ''}</div>`;
+    }).join('');
+    return `<div class="accts" aria-label="アカウント・利用者に関する指標">${cards}</div><p class="small muted">アカウント・利用者に関する指標（最新期間の 1 件を表示。定義・性質は下の「数値」に全件）。運営発表の数字は検証されていません。</p>`;
+  };
+
+  // ホーム: トークンは最高値からどれだけ下がったか
+  C.drawdownChart = () => {
+    const rows = [];
+    for (const g of D.games) for (const c of g.market?.coins || []) if (c.from_ath_pct != null) rows.push({ g, c });
+    if (rows.length < 3) return null;
+    rows.sort((a, b) => a.c.from_ath_pct - b.c.from_ath_pct);
+    const W = 720, rowH = 24, ml = 190, mr = 70, mt = 22;
+    const H = mt + rows.length * rowH + 10;
+    const xs = (v) => ml + ((-v) / 100) * (W - ml - mr);
+    let svg = `<svg class="viz" viewBox="0 0 ${W} ${H}" role="img" aria-label="各トークンの価格が最高値から何パーセント下がったか">`;
+    for (const t of [0, 25, 50, 75, 100]) svg += `<line class="grid" x1="${xs(-t)}" x2="${xs(-t)}" y1="${mt - 6}" y2="${H - 6}"></line><text class="tick" x="${xs(-t)}" y="${mt - 10}" text-anchor="middle">−${t}%</text>`;
+    rows.forEach(({ g, c }, i) => {
+      const y = mt + i * rowH + 4;
+      const w = Math.max(2, xs(c.from_ath_pct) - ml);
+      svg += `<text class="tick lbl" x="${ml - 8}" y="${y + 12}" text-anchor="end">${esc(c.symbol)} · ${esc(g.name.length > 18 ? g.name.slice(0, 17) + '…' : g.name)}</text>`;
+      svg += `<path d="M${ml},${y} H${ml + w - 4} Q${ml + w},${y} ${ml + w},${y + 4} V${y + 12} Q${ml + w},${y + 16} ${ml + w - 4},${y + 16} H${ml} Z" fill="var(--s2)"></path>`;
+      svg += `<text class="val" x="${ml + w + 6}" y="${y + 12}">${pct(c.from_ath_pct)}</text>`;
+      svg += `<rect class="hit" data-tip="${i}" tabindex="0" x="0" y="${y - 4}" width="${W}" height="${rowH}" aria-label="${esc(c.symbol)}: 最高値から ${pct(c.from_ath_pct)}"></rect>`;
+    });
+    svg += `<line class="axis" x1="${ml}" x2="${ml}" y1="${mt - 6}" y2="${H - 6}"></line></svg>`;
+    const date = D.market?.fetchedAt?.slice(0, 10);
+    return {
+      html: `<figure class="viz-fig" id="viz-dd"><figcaption><b>トークンは最高値からどれだけ下がったか</b><span>各ゲームの主要トークンの現在価格と過去最高値の差（CoinGecko、${esc(date || '')} 取得）。価格は投機と市場全体の動きを含み、遊ばれているかの指標ではない。</span></figcaption><div class="viz-scroll">${svg}</div>
+        <details class="viz-table"><summary>表で見る</summary><div class="table-wrap"><table><thead><tr><th>トークン</th><th>事例</th><th>最高値</th><th>最高値の日</th><th>現在</th><th>最高値から</th></tr></thead><tbody>${rows.map(({ g, c }) => `<tr><td>${esc(c.symbol)}</td><td><a href="#/entry/${esc(g.id)}">${esc(g.name)}</a></td><td class="num">${usd(c.ath)}</td><td>${esc(c.ath_date || '')}</td><td class="num">${usd(c.price)}</td><td class="num">${pct(c.from_ath_pct)}</td></tr>`).join('')}</tbody></table></div></details></figure>`,
+      after: (root) => C.bindTips(root.querySelector('#viz-dd'), (i) => {
+        const { g, c } = rows[Number(i)];
+        return `<b>${esc(c.symbol)}（${esc(g.name)}）</b><div>最高値 ${usd(c.ath)}（${esc(c.ath_date || '')}）</div><div>現在 ${usd(c.price)}・時価総額 ${usd(c.market_cap)}</div><div>最高値から ${pct(c.from_ath_pct)}</div>`;
+      }),
+    };
+  };
+
+  // ホーム: TVL のピークと現在（ダンベル）
+  C.tvlChart = () => {
+    const rows = D.games.filter((g) => g.market?.tvl?.peak).map((g) => ({ g, t: g.market.tvl })).sort((a, b) => b.t.peak - a.t.peak);
+    if (rows.length < 2) return null;
+    const W = 720, rowH = 30, ml = 160, mr = 20, mt = 24;
+    const H = mt + rows.length * rowH + 8;
+    const maxV = Math.max(...rows.map((r) => r.t.peak));
+    const lg = (v) => Math.log10(Math.max(v, 1e3));
+    const lo = 3, hi = Math.ceil(lg(maxV));
+    const xs = (v) => ml + ((lg(v) - lo) / (hi - lo)) * (W - ml - mr);
+    let svg = `<svg class="viz" viewBox="0 0 ${W} ${H}" role="img" aria-label="TVL のピークと現在（対数軸）">`;
+    for (let e = lo; e <= hi; e++) svg += `<line class="grid" x1="${xs(10 ** e)}" x2="${xs(10 ** e)}" y1="${mt - 6}" y2="${H - 6}"></line><text class="tick" x="${xs(10 ** e)}" y="${mt - 10}" text-anchor="middle">${usd(10 ** e).replace('.0', '').replace('.00', '')}</text>`;
+    rows.forEach(({ g, t }, i) => {
+      const y = mt + i * rowH + 12;
+      svg += `<text class="tick lbl" x="${ml - 10}" y="${y + 4}" text-anchor="end">${esc(g.name.length > 18 ? g.name.slice(0, 17) + '…' : g.name)}</text>`;
+      svg += `<line x1="${xs(t.current)}" x2="${xs(t.peak)}" y1="${y}" y2="${y}" stroke="var(--axis)" stroke-width="2"></line>`;
+      svg += `<circle cx="${xs(t.peak)}" cy="${y}" r="5" fill="var(--s1)" stroke="var(--surface)" stroke-width="2"></circle><circle cx="${xs(t.current)}" cy="${y}" r="5" fill="var(--s2)" stroke="var(--surface)" stroke-width="2"></circle>`;
+      svg += `<rect class="hit" data-tip="${i}" tabindex="0" x="0" y="${y - rowH / 2}" width="${W}" height="${rowH}" aria-label="${esc(g.name)}: ピーク ${usd(t.peak)}、現在 ${usd(t.current)}"></rect>`;
+    });
+    svg += `</svg>`;
+    const date = D.market?.fetchedAt?.slice(0, 10);
+    return {
+      html: `<figure class="viz-fig" id="viz-tvl"><figcaption><b>TVL のピークと現在</b><span>DefiLlama に TVL があるゲームだけ（対数軸、${esc(date || '')} 取得）。TVL はゲームに預けられた資産の評価額で、プレイヤー数ではない。</span></figcaption>
+        <ul class="viz-legend"><li><span class="sw" style="background:var(--s1)"></span>ピーク</li><li><span class="sw" style="background:var(--s2)"></span>現在</li></ul><div class="viz-scroll">${svg}</div>
+        <details class="viz-table"><summary>表で見る</summary><div class="table-wrap"><table><thead><tr><th>事例</th><th>ピーク</th><th>ピークの日</th><th>現在</th><th>ピークから</th></tr></thead><tbody>${rows.map(({ g, t }) => `<tr><td><a href="#/entry/${esc(g.id)}">${esc(g.name)}</a></td><td class="num">${usd(t.peak)}</td><td>${esc(t.peak_date)}</td><td class="num">${usd(t.current)}</td><td class="num">${pct(t.from_peak_pct)}</td></tr>`).join('')}</tbody></table></div></details></figure>`,
+      after: (root) => C.bindTips(root.querySelector('#viz-tvl'), (i) => {
+        const { g, t } = rows[Number(i)];
+        return `<b>${esc(g.name)}</b><div><span class="sw" style="background:var(--s1)"></span>ピーク ${usd(t.peak)}（${esc(t.peak_date)}）</div><div><span class="sw" style="background:var(--s2)"></span>現在 ${usd(t.current)}（${esc(t.current_date)}）</div><div>ピークから ${pct(t.from_peak_pct)}</div>`;
+      }),
+    };
+  };
+})();

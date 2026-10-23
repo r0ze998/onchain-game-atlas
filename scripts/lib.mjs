@@ -249,6 +249,19 @@ export function buildDataset(raw, { today = new Date().toISOString().slice(0, 10
       relations.push({ from: g.id, ...r });
     }
     for (const c of g.contradictions || []) cite(c.s, `${W} contradiction`, ref);
+    // 公式リンクと外部データの ID
+    const LINK_KEYS = ['website', 'play', 'docs', 'whitepaper', 'x', 'discord', 'telegram', 'github', 'blog'];
+    for (const [k, v] of Object.entries(g.links || {})) {
+      if (!LINK_KEYS.includes(k)) err(W, `unknown links key ${k}`);
+      const url = typeof v === 'string' ? v : v?.url;
+      if (!url || !/^https:\/\//.test(url)) err(W, `links.${k} must be an https url`);
+      if (v && typeof v === 'object') { cite(v.s, `${W} links.${k}`, ref); if (v.status && !['active', 'defunct', 'archived'].includes(v.status)) err(W, `links.${k}.status bad`); }
+    }
+    for (const [k, v] of Object.entries(g.ids || {})) {
+      if (!['coingecko', 'defillama'].includes(k)) err(W, `unknown ids key ${k}`);
+      const arr = Array.isArray(v) ? v : [v];
+      if (!arr.every((x) => typeof x === 'string' && /^[a-z0-9-]+$/.test(x))) err(W, `ids.${k} must be slug strings`);
+    }
   }
   for (const r of raw.globalRelations) {
     const w = `relations.yaml ${r.from}->${r.to}`;

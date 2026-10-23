@@ -16,7 +16,9 @@
     const facts = countStatements();
     const st = A.charts.statusByYear();
     const mx = A.charts.domainMatrix();
-    V.home._after = [st.after, mx.after];
+    const dd = A.charts.drawdownChart();
+    const tv = A.charts.tvlChart();
+    V.home._after = [st.after, mx.after, dd?.after, tv?.after].filter(Boolean);
     const cards = [
       ['timeline', '#/timeline', '歴史をたどる', '5 つの時代区分と 300 件を超える出来事。何の制約が変わったかで区切っています。'],
       ['entries', '#/entries', '索引から探す', `${D.games.length} 事例を、領域・状態・オンチェーンの範囲・拡張性で絞り込み。`],
@@ -51,6 +53,11 @@
       <h2>全体像</h2>
       <div class="viz-grid">${st.html}${mx.html}</div>
     </section>
+    ${dd || tv ? `<section class="home-sec">
+      <div class="sec-head"><h2>市場に残った記録</h2><span class="mono small muted">auto · CoinGecko / DefiLlama · ${esc(D.market?.fetchedAt?.slice(0, 10) || '')}</span></div>
+      <p class="small muted">公開 API から自動取得した市場の値です。研究上の数値（運営発表・実測・推定）とは分けて扱い、遊ばれているかどうかの指標としては使いません。</p>
+      <div class="viz-grid">${dd ? dd.html : ''}${tv ? tv.html : ''}</div>
+    </section>` : ''}
     <section class="home-sec">
       <div class="sec-head"><h2>主な知見</h2><a href="#/insights">すべてのインサイト（${D.insights.length}）</a></div>
       <p class="small muted">確信度は証拠の量と質の評価で、正しさの保証ではありません。どのインサイトにも反例と、次に試す小さな実験が付いています。</p>
@@ -140,10 +147,12 @@
   };
   function entryItem(g) {
     const a = g.architecture || {};
+    const c0 = g.market?.coins?.[0];
+    const chips = [c0 && c0.from_ath_pct != null ? `<span class="mchip" title="${esc(c0.symbol)} の現在価格（最高値からの変化、CoinGecko）">${esc(c0.symbol)} ${A.charts.usd(c0.price)} · 最高値から ${A.charts.pct(c0.from_ath_pct)}</span>` : '', g.market?.tvl ? `<span class="mchip" title="DefiLlama の TVL">TVL ${A.charts.usd(g.market.tvl.current)}</span>` : ''].join('');
     return `<li class="entry-item">
-      <div><h3><a href="#/entry/${esc(g.id)}">${esc(g.name)}</a> ${g.depth === 'deep' ? '<span class="tag primary">深掘り</span>' : ''}</h3>
+      <div class="ei-head">${A.charts.icon(g, 36)}<div><h3><a href="#/entry/${esc(g.id)}">${esc(g.name)}</a> ${g.depth === 'deep' ? '<span class="tag primary">深掘り</span>' : ''}</h3>
       <div class="meta">${A.statusDot(g)}${esc(L.kind[g.kind])}・${esc(A.periodText(g))}・状態: ${esc(L.status[g.status?.value] || '不明')}・オンチェーン: ${esc(L.onchain[a.onchain?.level] || '不明')}・拡張: ${esc(L.extensibility[a.extensibility?.level] || '不明')}</div>
-      <div>${A.catTags(g)}</div></div>
+      <div>${A.catTags(g)}${chips}</div></div></div>
       <div class="acts">${entryActions(g.id)}</div>
       <p>${esc(g.summary)}</p></li>`;
   }
@@ -165,14 +174,16 @@
     const qs = [...new Set(I.questionsByGame.get(g.id) || [])];
     const hs = [...new Set(I.hypothesesByGame.get(g.id) || [])];
     const srcs = (g.sources || []).map((s) => I.source.get(s.id)).filter(Boolean);
-    const toc = [['overview', '概要'], life && ['life', 'ライフライン'], ['arch', '構造'], ...secs.map((s) => [`sec-${s}`, L.section[s]]), ['axes', '比較軸'], metrics.length && ['metrics', '数値'], events.length && ['events', '出来事'], rels.length && ['rels', 'つながり'], (g.unknowns?.length || g.contradictions?.length) && ['unknowns', '未確認・矛盾'], ['verification', '検証'], ['sources', '出典']].filter(Boolean);
+    const toc = [['overview', '概要'], life && ['life', 'ライフライン'], ['arch', '構造'], ...secs.map((s) => [`sec-${s}`, L.section[s]]), ['axes', '比較軸'], g.market && (g.market.coins?.length || g.market.tvl) && ['market', '市場データ'], metrics.length && ['metrics', '数値'], events.length && ['events', '出来事'], rels.length && ['rels', 'つながり'], (g.unknowns?.length || g.contradictions?.length) && ['unknowns', '未確認・矛盾'], ['verification', '検証'], ['sources', '出典']].filter(Boolean);
     return `<div class="detail"><article>
       <p class="small muted"><a href="#/entries">索引</a> / ${esc(L.kind[g.kind])}</p>
-      <h1>${esc(g.name)}${g.name_ja ? ` <span class="muted small">${esc(g.name_ja)}</span>` : ''}</h1>
+      <div class="e-title">${A.charts.icon(g, 56)}<h1>${esc(g.name)}${g.name_ja ? ` <span class="muted small">${esc(g.name_ja)}</span>` : ''}</h1></div>
       <div>${A.catTags(g)} <span class="tag">${esc(L.depth[g.depth])}</span> <span class="tag">状態: ${esc(L.status[g.status?.value] || '不明')}${g.status?.as_of ? '（' + A.fmtDate(g.status.as_of) + '時点）' : ''}</span></div>
       <p class="rec-meta"><span class="vbadge ${g.verification ? 'ok' : 'no'}">${g.verification ? '✓ 独立検証済み' : '未検証'}</span><span class="mono">id: ${esc(g.id)}</span>${g.hash ? `<span class="mono" title="元データ ${esc(g.file)} の SHA-256">sha256:${esc(g.hash.slice(0, 12))}…</span>` : ''}<span class="mono">sources: ${(g.sources || []).length}</span><span class="mono">updated: ${esc(g.updated)}</span></p>
       <div class="btn-row">${entryActions(g.id)}<a class="btn" href="#/graph/${esc(g.id)}">つながりを見る</a></div>
+      ${A.charts.linkBar(g)}
       <section id="overview"><p class="lede">${esc(g.summary)}</p>
+      ${A.charts.accountMetrics(g)}
       <dl class="kv"><dt>選定理由</dt><dd>${esc(g.selection_reason)}</dd>
       ${g.team ? `<dt>開発主体</dt><dd>${esc(g.team)}</dd>` : ''}
       ${g.chains?.length ? `<dt>チェーン</dt><dd>${g.chains.map(esc).join('、')}</dd>` : ''}
@@ -188,6 +199,7 @@
       ${g.depth === 'index' ? '<p class="note-box">この項目は索引レベルです。深掘り記事はまだありません。</p>' : ''}
       <section id="axes"><h2>比較軸</h2><dl class="kv">${A.AXES.map((ax) => `<dt>${esc(L.axis[ax])}</dt><dd>${A.stmt(g.compare?.[ax])}</dd>`).join('')}</dl>
       <p><a class="btn" href="#/compare/${esc(g.id)}">この項目から比較を始める</a></p></section>
+      ${A.charts.marketBlock(g)}
       ${metrics.length ? `<section id="metrics"><h2>数値（定義・期間・性質つき）</h2>${A.metricTable(metrics)}</section>` : ''}
       ${events.length ? `<section id="events"><h2>出来事</h2><ul class="tl">${events.map(A.eventLi).join('')}</ul></section>` : ''}
       ${rels.length ? `<section id="rels"><h2>つながり</h2>${A.relTable(rels, g.id)}</section>` : ''}
