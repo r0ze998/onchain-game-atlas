@@ -5,6 +5,11 @@ aliases: [Wrapped Etherization, wethz.eth]
 kind: game
 depth: index
 updated: "2026-10-23"
+links:
+  website: https://about.etherization.org/
+  play: https://etherization.org/
+  whitepaper: https://about.etherization.org/wp-content/uploads/2023/11/Etherization-L2-whitepaper-Public-v2.pdf
+  x: https://x.com/EtherizationNFT
 chains: [Ethereum mainnet（2016 年のコントラクト）, Polygon（後年の layer 2 版）]
 team: "bSpend（bitcointalk のアカウント。Bspend の創業者 Vedran Kajić とする二次資料があるが一次資料では未確認）"
 summary: >-

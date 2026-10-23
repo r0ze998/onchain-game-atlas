@@ -5,6 +5,8 @@ aliases: [Ethermon（2019 年以降の後継）, EMONT]
 kind: game
 depth: index
 updated: "2026-10-23"
+links:
+  github: https://github.com/etheremon/smartcontract
 chains: [Ethereum mainnet]
 team: "Etheremon チーム（共同創業者 Nedrick Ngo ほか）。2019 年以降は上位プレイヤーと新チームによる Ethermon として継続したとされる"
 summary: >-

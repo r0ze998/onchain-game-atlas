@@ -5,6 +5,9 @@ aliases: ["Downstream Redstone", "ds (playmint/ds)"]
 kind: platform
 depth: deep
 updated: "2026-10-23"
+links:
+  website: {url: https://redstone.downstream.game/, status: defunct, note: "Redstone 停止（2026-05）後、参照日時点で名前解決できない", s: [src-downstream-site]}
+  github: https://github.com/playmint/ds
 chains: [Redstone (mainnet, OP Stack L2), Garnet (Redstone testnet)]
 team: "Playmint（英国 Brighton。CEO David Amor。2022 年 Bitkraft 主導のシードに 1kx 等が参加）"
 summary: >-

@@ -4,6 +4,10 @@ aliases: ["a16z-infra/ai-town"]
 kind: engine
 depth: index
 updated: "2026-10-23"
+links:
+  play: https://www.convex.dev/ai-town
+  discord: https://discord.gg/PQUmTBTGmT
+  github: https://github.com/a16z-infra/ai-town
 chains: []
 team: "a16z-infra（Andreessen Horowitz のインフラ系オープンソース）と Convex"
 summary: >-

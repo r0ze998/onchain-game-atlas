@@ -5,6 +5,15 @@ aliases: [Axie, "Axie Infinity: Classic", "Axie Infinity: Origins", "Axie Infini
 kind: game
 depth: deep
 updated: "2026-10-23"
+links:
+  website: https://axieinfinity.com/
+  play: https://app.axieinfinity.com/
+  whitepaper: https://whitepaper.axieinfinity.com/
+  x: https://x.com/AxieInfinity
+  github: https://github.com/axieinfinity
+  blog: https://blog.axieinfinity.com/
+ids:
+  coingecko: [axie-infinity, smooth-love-potion]
 chains: [Ethereum, Loom Network (旧マーケット), Ronin]
 team: "Sky Mavis（共同創業者として運営は Jeff (Jihoz), Andy, Trung, Tu (Masamune), Aleks (Psycheout) を挙げる）"
 summary: >-

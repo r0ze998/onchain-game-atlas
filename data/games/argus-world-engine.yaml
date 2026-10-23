@@ -5,6 +5,14 @@ aliases: ["World Engine", "Cardinal", "Argus World Engine"]
 kind: engine
 depth: index
 updated: "2026-10-23"
+links:
+  website: https://argus.gg/
+  docs: https://world.dev/
+  x: https://x.com/ArgusLabs_
+  discord: https://discord.gg/XyfDPHDmWU
+  telegram: https://t.me/worldengine_dev
+  github: https://github.com/Argus-Labs/world-engine
+  blog: https://blog.argus.gg/
 chains: ["EVM ベースシャード（Polaris＋Rollkit、DA に Celestia、2022〜2024 期）", "ゲームシャード（Cardinal）"]
 team: "Argus Labs（創業者・CEO Scott Sunarto）"
 summary: >-

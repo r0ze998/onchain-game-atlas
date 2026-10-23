@@ -4,6 +4,11 @@ aliases: [Curio Research, Treaty, Keystone]
 kind: game
 depth: index
 updated: "2026-10-23"
+links:
+  website: https://www.curio.gg/
+  x: https://x.com/0xcurio
+  github: https://github.com/curio-research
+  blog: https://blog.curio.gg/
 chains: [Curio 専用のアプリチェーン（2022 年の海戦 RTS デモ）, "Treaty の設定にある独自チェーン（Constellation chain 2938、AltLayer chain 9992 等。本番の展開先は未確認）"]
 team: "Curio Research（Curiosity Research Inc.）"
 summary: >-

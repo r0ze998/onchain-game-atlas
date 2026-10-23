@@ -5,6 +5,11 @@ aliases: ["Biomes AW", "Biome-1", "DUST（2025-04 に改名した後継）"]
 kind: game
 depth: deep
 updated: "2026-10-23"
+links:
+  website: https://dustproject.org/
+  docs: https://dev.dustproject.org/
+  discord: https://discord.gg/4GZDgpWQ2F
+  github: https://github.com/dustproject/dust
 chains: [Redstone (mainnet, OP Stack L2), Garnet (Redstone testnet), DUST Chain（DUST 期、2026-04 以降）]
 team: "tenetxyz（Dhvani Patel, Dhrumil Shah ほか）。2025 年以降は他の開発者も参加し、2026 年の報道は DUST を Lattice のプロジェクトとして扱う"
 summary: >-

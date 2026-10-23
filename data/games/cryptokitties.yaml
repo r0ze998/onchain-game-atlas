@@ -5,6 +5,10 @@ aliases: [CK, "CryptoKitties: Collectible and Breedable Cats"]
 kind: game
 depth: deep
 updated: "2026-10-23"
+links:
+  website: https://www.cryptokitties.co/
+  x: https://x.com/CryptoKitties
+  discord: https://discord.gg/cryptokitties
 chains: [Ethereum mainnet]
 team: "Axiom Zen（Launch Labs, Inc.）が開発し、2018-03 に Dapper Labs として分社（Dieter Shirley / Roham Gharegozlou / Bryce Bladon ほか）"
 summary: >-

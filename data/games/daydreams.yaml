@@ -4,6 +4,13 @@ aliases: ["Daydreams agent framework", "daydreamsai/daydreams", "dojoengine/dayd
 kind: platform
 depth: index
 updated: "2026-10-23"
+links:
+  website: https://www.daydreams.systems/
+  x: https://x.com/daydreamsagents
+  discord: https://discord.gg/P8UUNGtHZs
+  github: https://github.com/daydreamsai/daydreams
+ids:
+  coingecko: daydreams
 chains: [Starknet（Eternum・Loot Survivor・Ponziland の例）, Abstract（Gigaverse の例）, Base など（チェーン非依存を標榜）]
 team: "Loaf（Realms / Eternum の開発者、GitHub の ponderingdemocritus と Loaf 名義が主要コミット作者）ほか"
 summary: >-

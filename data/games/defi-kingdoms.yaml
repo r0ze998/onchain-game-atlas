@@ -5,6 +5,17 @@ aliases: [DFK, Serendale, Crystalvale, "DFK Chain"]
 kind: game
 depth: index
 updated: "2026-10-23"
+links:
+  website: https://defikingdoms.com/
+  play: https://game.defikingdoms.com/
+  docs: https://docs.defikingdoms.com/
+  x: https://x.com/DefiKingdoms
+  discord: https://discord.gg/defikingdoms
+  telegram: https://t.me/defikingdoms
+  blog: https://medium.com/defi-kingdoms-official
+ids:
+  coingecko: [defi-kingdoms, defi-kingdoms-crystal]
+  defillama: defi-kingdoms
 chains: [Harmony（2021-08〜2022-10）, "DFK Chain（Avalanche Subnet、2022-03〜2026-08-28 終了予定と告知）", "Klaytn / Kaia（2022-12〜）", Metis（DFK Colosseum、2024-10〜）, "Avalanche C-Chain（2026-08 以降の移行先と告知）"]
 team: "Kingdom Studios"
 summary: >-

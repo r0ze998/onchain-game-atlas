@@ -5,6 +5,17 @@ aliases: [DCL, Genesis City]
 kind: platform
 depth: index
 updated: "2026-10-23"
+links:
+  website: https://decentraland.org/
+  play: https://decentraland.org/download
+  docs: https://docs.decentraland.org/
+  whitepaper: https://decentraland.org/whitepaper.pdf
+  x: https://x.com/decentraland
+  discord: https://dcl.gg/discord
+  github: https://github.com/decentraland
+  blog: https://decentraland.org/blog/
+ids:
+  coingecko: decentraland
 chains: [Ethereum mainnet, Polygon（ウェアラブル等。本調査では一次資料未確認）]
 team: "Decentraland Foundation（創業者 Ari Meilich / Esteban Ordano）と Decentraland DAO"
 summary: >-

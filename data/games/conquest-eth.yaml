@@ -5,6 +5,12 @@ aliases: ["conquest", "Conquest DEFCON edition", "Conquest 2025-1"]
 kind: game
 depth: index
 updated: "2026-10-23"
+links:
+  website: https://conquest.game/
+  x: https://x.com/conquest_eth
+  discord: https://discord.com/invite/Qb4gr2ekfr
+  github: https://github.com/etherplay/conquest-eth
+  blog: https://paragraph.com/@etherplay
 chains: [Gnosis Chain (xDai), "テスト・別版の展開: Sepolia, Celo, Monad testnet 等"]
 team: "Etherplay（Ronan Sandford / wighawag の個人スタジオ）"
 summary: >-

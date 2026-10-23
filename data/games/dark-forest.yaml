@@ -5,6 +5,12 @@ aliases: [DF, "Dark Forest v0.6"]
 kind: game
 depth: deep
 updated: "2026-10-23"
+links:
+  website: https://zkga.me/
+  x: https://x.com/darkforest_eth
+  discord: https://discord.gg/2u2TN6v8r6
+  github: https://github.com/darkforest-eth
+  blog: https://blog.zkga.me/
 chains: [Ethereum Ropsten (testnet), xDai / Gnosis Chain, Ethereum mainnet（賞品 NFT のみ）]
 team: "Dark Forest team（Brian Gu / gubsheep ほか。後に 0xPARC が主な資金源）"
 summary: >-

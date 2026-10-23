@@ -5,6 +5,17 @@ aliases: [Gotchiverse, GHST]
 kind: game
 depth: index
 updated: "2026-10-23"
+links:
+  website: https://www.aavegotchi.com/
+  docs: https://docs.aavegotchi.com/
+  x: https://x.com/aavegotchi
+  discord: https://discord.gg/aavegotchi
+  telegram: https://t.me/aavegotchi
+  github: https://github.com/aavegotchi
+  blog: https://blog.aavegotchi.com/
+ids:
+  coingecko: aavegotchi
+  defillama: aavegotchi
 chains: [Ethereum（GHST の初期販売）, Polygon（2021-03〜2025-07）, Base（2025-07〜）]
 team: "Pixelcraft Studios と AavegotchiDAO"
 summary: >-

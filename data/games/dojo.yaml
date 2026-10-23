@@ -4,6 +4,12 @@ aliases: [Dojo Engine, dojoengine]
 kind: engine
 depth: index
 updated: "2026-10-23"
+links:
+  website: https://dojoengine.org/
+  docs: https://book.dojoengine.org/
+  x: https://x.com/ohayo_dojo
+  discord: https://discord.gg/dojoengine
+  github: https://github.com/dojoengine/dojo
 chains: [Starknet（mainnet / Sepolia）, Katana によるアプリチェーン・ローカル開発]
 team: "dojoengine（Tarrence van As / Cartridge が創始。主要コミット作者に Tarrence、Ammar、glihm、Larko、Loaf など）"
 summary: >-

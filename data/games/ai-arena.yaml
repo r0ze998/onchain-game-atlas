@@ -4,6 +4,13 @@ aliases: ["AI Arena - Gaming Competition"]
 kind: game
 depth: deep
 updated: "2026-10-23"
+links:
+  website: https://www.aiarena.io/
+  x: https://x.com/aiarena_
+  discord: https://discord.gg/arcagents
+  github: https://github.com/ArenaX-Labs
+ids:
+  coingecko: neuron
 chains: [Arbitrum（NRN トークン・Web3 版）]
 team: "ArenaX Labs（CEO Brandon Da Silva、共同創業者 Wei Xie）。2025-01 にプロジェクト名を NRN Agents（旧 ARC Agents）に変更"
 summary: >-
