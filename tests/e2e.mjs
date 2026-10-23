@@ -9,7 +9,7 @@ import assert from 'node:assert/strict';
 
 const ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..');
 const PORT = 8123;
-const BASE = `http://127.0.0.1:${PORT}/`;
+const BASE = process.env.BASE_URL || `http://127.0.0.1:${PORT}/`; // 例: BASE_URL=https://r0ze998.github.io/onchain-game-atlas/ で公開サイトを検査
 const SHOTS = process.env.SHOTS;
 const exe = process.env.CHROMIUM_PATH || (fs.existsSync('/opt/pw-browsers/chromium-1194/chrome-linux/chrome') ? '/opt/pw-browsers/chromium-1194/chrome-linux/chrome' : undefined);
 

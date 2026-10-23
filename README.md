@@ -59,7 +59,7 @@ docs/
    事実・主張・数値・出来事の出典の有無、到達不能な出典だけに依拠する事実（エラー）と検索要約だけに依拠する事実（警告）、
    確認された関係の出典、分析上の類似の説明、深掘りの全 11 節、列挙値、ファイル名と ID の一致、出典 URL の重複。
 3. `npm run linkcheck`（任意）→ `npm run build`。
-4. `npm test`（検査ロジックの単体テストと実データの検査）、`npm run test:e2e`（実ブラウザでの主要導線）。
+4. `npm test`（検査ロジックの単体テストと実データの検査）、`npm run test:e2e`（実ブラウザでの主要導線）。公開サイトに対しては `BASE_URL=https://r0ze998.github.io/onchain-game-atlas/ node tests/e2e.mjs`。
 
 ## 検証の方法
 
