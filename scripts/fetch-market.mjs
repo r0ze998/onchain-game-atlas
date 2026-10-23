@@ -146,7 +146,9 @@ for (const g of games) {
       ...(e.coins[0]?.image ? [{ url: e.coins[0].image, from: 'CoinGecko' }] : []),
       ...(e.tvl?.logo ? [{ url: e.tvl.logo, from: 'DefiLlama' }] : []),
     ];
-    if (site) { try { for (const c of await favicon(site)) cands.push({ url: c.url, from: '公式サイト' }); } catch (err) { /* サイトに届かない */ } }
+    // 論文サーバーや大学のページなど、プロジェクト固有でない場所の favicon は使わない
+    const GENERIC = /(^|\.)(arxiv\.org|mit\.edu|github\.com|github\.io|notion\.site|substack\.com|medium\.com|acm\.org|youtube\.com)$/;
+    if (site && !GENERIC.test(new URL(site).hostname)) { try { for (const c of await favicon(site)) cands.push({ url: c.url, from: '公式サイト' }); } catch (err) { /* サイトに届かない */ } }
     for (const c of cands) {
       const file = `icons/${g.id}${extOf(c.url)}`;
       const tmp = path.join(ICON_DIR, `.${g.id}.tmp`);
