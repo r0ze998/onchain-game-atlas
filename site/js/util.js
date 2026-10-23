@@ -105,7 +105,9 @@
     if (!st) return '<span class="muted">未記入</span>';
     const who = st.k === 'claim' && st.who ? `<span class="who">（主張者: ${A.esc(st.who)}）</span>` : '';
     const q = st.q ? ` <q>${A.esc(st.q)}</q>` : '';
-    return `${A.kBadge(st.k)}${A.esc(st.t)}${who}${q}${A.cites(st.s)}`;
+    // 長い原理文は「適用条件」「破綻条件」の前で改行して読みやすくする（表示のみ。データは変えない）
+    const body = A.esc(st.t).replace(/([。．）)])\s*(適用条件|破綻条件|回避条件)(は|：|:)/g, '$1<br><span class="cond-label">$2</span>$3');
+    return `${A.kBadge(st.k)}${body}${who}${q}${A.cites(st.s)}`;
   };
   A.stmts = (arr) => `<ul class="stmts">${(arr || []).map((st) => `<li class="${st.k === 'unknown' ? 'unknown' : ''}">${A.stmt(st)}</li>`).join('')}</ul>`;
 
