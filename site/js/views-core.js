@@ -14,41 +14,60 @@
   V.home = () => {
     const deep = D.games.filter((g) => g.depth === 'deep').length;
     const facts = countStatements();
+    const st = A.charts.statusByYear();
+    const mx = A.charts.domainMatrix();
+    V.home._after = [st.after, mx.after];
     const cards = [
-      ['#/timeline', '歴史をたどる', '年表と時代区分。発表・公開・終了・仕様変更を区別して表示します。'],
-      ['#/entries', '索引から探す', '7 つの領域、状態、オンチェーンの範囲、拡張性などで絞り込みます。'],
-      ['#/compare', '設計を比較する', '2〜4 件を 7 つの軸で並べます。総合点やランキングは付けません。'],
-      ['#/graph', '発明のつながり', '確認された影響と分析上の類似を線の種類で分けて辿ります。一覧表もあります。'],
-      ['#/questions', '問いから探す', '「公開状態で駆け引きは成立するか」など、開発時の問いから事例へ進みます。'],
-      ['#/insights', 'インサイトを検証する', '主張・支持事例・反例・成立条件・確信度・次の小さな実験。'],
-      ['#/hypotheses', '設計仮説を比べる', '具体的な設計仮説を並べ、破綻条件と実験を比較して次の一手を選びます。'],
-      ['#/notebook', '研究ノート', '保存・メモ・比較セット・自分の仮説と検証記録。JSON で書き出せます。'],
+      ['timeline', '#/timeline', '歴史をたどる', '5 つの時代区分と 300 件を超える出来事。何の制約が変わったかで区切っています。'],
+      ['entries', '#/entries', '索引から探す', `${D.games.length} 事例を、領域・状態・オンチェーンの範囲・拡張性で絞り込み。`],
+      ['compare', '#/compare', '設計を比較する', '2〜4 件を 7 つの軸で並べます。総合点やランキングは付けません。'],
+      ['graph', '#/graph', '発明のつながり', '確認された影響と分析上の類似を、線の種類で分けて辿ります。'],
     ];
-    return `<div class="read">
-      <h1>オンチェーンゲーム設計アトラス</h1>
-      <p class="lede">オンチェーンゲームの歴史を横断し、「何が発明され、何が成立せず、どこにまだ可能性が残っているか」を出典付きで調べるための研究ツールです。成功例だけでなく、終了・停滞・転換した事例、小規模でも設計上重要な事例を含みます。</p>
-      <div class="stat-row">
-        <span><b>${D.games.length}</b> 件の索引</span><span><b>${deep}</b> 件の深掘り</span>
-        <span><b>${D.events.length}</b> 件の出来事</span><span><b>${D.sources.length}</b> 件の出典</span>
-        <span><b>${D.insights.length}</b> 件のインサイト</span><span><b>${D.hypotheses.length}</b> 件の設計仮説</span>
+    const ins = D.insights.slice().sort((x, y) => ({ high: 0, medium: 1, low: 2 }[x.confidence] - { high: 0, medium: 1, low: 2 }[y.confidence]));
+    return `<section class="hero">
+      <div class="hero-text">
+        <p class="eyebrow">オンチェーンゲームの設計史を、出典付きで</p>
+        <h1>オンチェーンゲーム<br>設計アトラス</h1>
+        <p class="lede">何が発明され、何が成立せず、どこにまだ可能性が残っているか。2012 年の賭けゲームから 2026 年の AI エージェントまで、成功例だけでなく終了・停滞・転換した事例も同じ重さで調べた研究ツールです。</p>
+        <div class="btn-row"><a class="btn primary" href="#/questions">問いから始める</a><a class="btn" href="#/insights">主な知見を読む</a><a class="btn" href="#/entries">事例を一覧する</a></div>
       </div>
-      <p class="note-box">本文の各文には <span class="k k-fact">事実</span><span class="k k-claim">当事者の主張</span><span class="k k-analysis">分析</span><span class="k k-unknown">未確認</span> のラベルが付きます。
-      事実 ${facts.fact} 文・主張 ${facts.claim} 文・分析 ${facts.analysis} 文・未確認 ${facts.unknown} 文。右肩の [ ] は出典で、黄色は検索要約のみで確認した資料です。データ更新日: ${A.fmtDate(D.lastUpdated)}。</p>
-    </div>
-    <div class="home-grid">${cards.map(([h, t, d]) => `<a class="card" href="${h}"><h3>${t}</h3><p class="muted">${d}</p></a>`).join('')}</div>
-    <div class="read">
-      <h2>主な知見（インサイト ${D.insights.length} 件）</h2>
-      <p class="small muted">確信度は証拠の量と質の評価で、正しさの保証ではありません。各インサイトに反例と次の実験があります。</p>
-      <ul>${D.insights.map((i) => `<li><a href="#/insight/${esc(i.id)}">${esc(i.title)}</a> <span class="conf conf-${esc(i.confidence)}">${esc(L.confidence[i.confidence])}</span> <span class="tag">${esc(L.gap_type[i.gap_type] || i.gap_type)}</span></li>`).join('')}</ul>
-      <h2>使い方の例</h2>
-      <ol>
-        <li><a href="#/questions">問い</a>から気になる問いを選び、支持事例と反例を読む。</li>
-        <li>関係する<a href="#/insights">インサイト</a>で成立条件と確信度の理由を確認し、原資料まで辿る。</li>
-        <li><a href="#/hypotheses">設計仮説</a>の比較表で破綻条件と実験コストを比べ、「この実験を選ぶ」で研究ノートに記録する。</li>
-        <li>結果を研究ノートに追記し、JSON で書き出して保管する。</li>
-      </ol>
-    </div>`;
+      ${A.illu('hero', 'hero-illu')}
+    </section>
+    <dl class="stats">
+      <div><dt>事例</dt><dd>${D.games.length}<small>うち深掘り ${deep}</small></dd></div>
+      <div><dt>出来事</dt><dd>${D.events.length}</dd></div>
+      <div><dt>出典</dt><dd>${D.sources.length}<small>一次資料 ${D.sources.filter((x) => x.primary).length}</small></dd></div>
+      <div><dt>インサイト</dt><dd>${D.insights.length}</dd></div>
+      <div><dt>設計仮説</dt><dd>${D.hypotheses.length}</dd></div>
+      <div><dt>独立検証</dt><dd>${D.games.filter((g) => g.verification).length}<small>/ ${D.games.length} 事例</small></dd></div>
+    </dl>
+    <section class="home-sec">
+      <h2>使い方: 問いから実験まで</h2>
+      ${A.charts.flow()}
+    </section>
+    <section class="home-sec">
+      <h2>全体像</h2>
+      <div class="viz-grid">${st.html}${mx.html}</div>
+    </section>
+    <section class="home-sec">
+      <div class="sec-head"><h2>主な知見</h2><a href="#/insights">すべてのインサイト（${D.insights.length}）</a></div>
+      <p class="small muted">確信度は証拠の量と質の評価で、正しさの保証ではありません。どのインサイトにも反例と、次に試す小さな実験が付いています。</p>
+      <ul class="ins-list">${ins.map((i) => {
+        const n = (s) => (i.evidence || []).filter((e) => e.stance === s).length;
+        return `<li><a href="#/insight/${esc(i.id)}"><span class="ins-title">${esc(i.title)}</span><span class="ins-meta"><span class="conf conf-${esc(i.confidence)}">${esc(L.confidence[i.confidence])}</span><span class="tag">${esc(L.gap_type[i.gap_type] || i.gap_type)}</span><span class="small muted">支持 ${n('support')}・反例 ${n('counter')}</span></span></a></li>`;
+      }).join('')}</ul>
+    </section>
+    <section class="home-sec">
+      <h2>探し方</h2>
+      <div class="home-grid">${cards.map(([k, h, t, d]) => `<a class="nav-card" href="${h}">${A.illu(k, 'nav-illu')}<span><b>${t}</b><span class="muted">${d}</span></span></a>`).join('')}</div>
+    </section>
+    <section class="home-sec read">
+      <h2>読み方の約束</h2>
+      <p>本文の各文には ${A.kBadge('fact')}${A.kBadge('claim')}${A.kBadge('analysis')}${A.kBadge('unknown')} のラベルがあります（事実 ${facts.fact}・主張 ${facts.claim}・分析 ${facts.analysis}・未確認 ${facts.unknown} 文）。文末の小さな番号は出典で、押すと資料の詳細と、その資料を引用している箇所が開きます。黄色の番号は検索結果の要約しか確認できなかった資料です。</p>
+      <p class="small muted">データ更新日: ${A.fmtDate(D.lastUpdated)}。調査と検証の方法は<a href="#/about">方法と定義</a>、出典の内訳と未確認事項は<a href="#/quality">データ品質</a>にあります。</p>
+    </section>`;
   };
+  V.home.after = (ctx) => { for (const f of V.home._after || []) f(document.getElementById('main')); };
   function countStatements() {
     const c = { fact: 0, claim: 0, analysis: 0, unknown: 0 };
     for (const g of D.games) {
@@ -85,8 +104,7 @@
       <label>並び順<select name="sort"><option value="year" ${f.sort !== 'name' ? 'selected' : ''}>年代順</option><option value="name" ${f.sort === 'name' ? 'selected' : ''}>名前順</option></select></label>
       <button type="button" class="btn" id="reset-filter">条件をクリア</button>
     </form>`;
-    return `<h1>索引</h1>
-      <p class="lede read">分類は「NFT があるからフルオンチェーン」といった判断を避け、オンチェーンの範囲・オフチェーン依存・管理者権限・ソース公開・第三者が実際に拡張できた範囲を別々に記録しています。</p>
+    return `<header class="page-head"><div class="page-head-text"><h1>索引</h1><p class="lede">分類は「NFT があるからフルオンチェーン」といった判断を避け、オンチェーンの範囲・オフチェーン依存・管理者権限・ソース公開・第三者が実際に拡張できた範囲を別々に記録しています。</p></div>${A.illu('entries', 'page-illu')}</header>
       ${tb}<p id="entry-count" class="muted small" aria-live="polite"></p><ul class="entry-list" id="entry-list"></ul>`;
   };
   V.entries.after = ({ params }) => {
@@ -122,7 +140,7 @@
     const a = g.architecture || {};
     return `<li class="entry-item">
       <div><h3><a href="#/entry/${esc(g.id)}">${esc(g.name)}</a> ${g.depth === 'deep' ? '<span class="tag primary">深掘り</span>' : ''}</h3>
-      <div class="meta">${esc(L.kind[g.kind])}・${esc(A.periodText(g))}・状態: ${esc(L.status[g.status?.value] || '不明')}・オンチェーン: ${esc(L.onchain[a.onchain?.level] || '不明')}・拡張: ${esc(L.extensibility[a.extensibility?.level] || '不明')}</div>
+      <div class="meta">${A.statusDot(g)}${esc(L.kind[g.kind])}・${esc(A.periodText(g))}・状態: ${esc(L.status[g.status?.value] || '不明')}・オンチェーン: ${esc(L.onchain[a.onchain?.level] || '不明')}・拡張: ${esc(L.extensibility[a.extensibility?.level] || '不明')}</div>
       <div>${A.catTags(g)}</div></div>
       <div class="acts">${entryActions(g.id)}</div>
       <p>${esc(g.summary)}</p></li>`;
@@ -134,11 +152,8 @@
     if (!g) return notFound();
     A.ctxEntry = g.id;
     const a = g.architecture || {};
-    const archRow = (label, key, map) => {
-      const x = a[key];
-      if (!x) return '';
-      return `<dt>${label}</dt><dd><span class="arch-level">${esc(map[x.level] || x.level)}</span>${x.detail ? '：' + esc(x.detail) : ''}${x.url ? ` <a href="${esc(x.url)}" rel="noopener" target="_blank">ソース</a>` : ''}${A.cites(x.s)}</dd>`;
-    };
+    const life = A.charts.lifeline(g);
+    V.entry._after = life ? life.after : null;
     const dates = Object.entries(g.dates || {}).map(([k, d]) => `<dt>${{ announced: '発表', launched: '公開', ended: '終了' }[k]}</dt><dd>${A.fmtDate(d.date)}${d.note ? '（' + esc(d.note) + '）' : ''}${A.cites(d.s)}</dd>`).join('');
     const secs = g.depth === 'deep' || g.article ? A.ARTICLE_ORDER.filter((s) => g.article?.[s]?.length) : [];
     const events = (I.eventsByGame.get(g.id) || []).slice().sort((x, y) => x.date.localeCompare(y.date));
@@ -148,7 +163,7 @@
     const qs = [...new Set(I.questionsByGame.get(g.id) || [])];
     const hs = [...new Set(I.hypothesesByGame.get(g.id) || [])];
     const srcs = (g.sources || []).map((s) => I.source.get(s.id)).filter(Boolean);
-    const toc = [['overview', '概要'], ['arch', '構造'], ...secs.map((s) => [`sec-${s}`, L.section[s]]), ['axes', '比較軸'], metrics.length && ['metrics', '数値'], events.length && ['events', '出来事'], rels.length && ['rels', 'つながり'], (g.unknowns?.length || g.contradictions?.length) && ['unknowns', '未確認・矛盾'], ['verification', '検証'], ['sources', '出典']].filter(Boolean);
+    const toc = [['overview', '概要'], life && ['life', 'ライフライン'], ['arch', '構造'], ...secs.map((s) => [`sec-${s}`, L.section[s]]), ['axes', '比較軸'], metrics.length && ['metrics', '数値'], events.length && ['events', '出来事'], rels.length && ['rels', 'つながり'], (g.unknowns?.length || g.contradictions?.length) && ['unknowns', '未確認・矛盾'], ['verification', '検証'], ['sources', '出典']].filter(Boolean);
     return `<div class="detail"><article>
       <p class="small muted"><a href="#/entries">索引</a> / ${esc(L.kind[g.kind])}</p>
       <h1>${esc(g.name)}${g.name_ja ? ` <span class="muted small">${esc(g.name_ja)}</span>` : ''}</h1>
@@ -162,10 +177,9 @@
       <dt>状態</dt><dd>${esc(L.status[g.status?.value] || '不明')}${g.status?.note ? '：' + esc(g.status.note) : ''}${A.cites(g.status?.s)}</dd>
       <dt>分類の根拠</dt><dd>${(g.categories || []).map((c) => `<div><b>${esc(L.category[c.id])}</b>${c.role === 'primary' ? '（主）' : ''}：${esc(c.reason)}</div>`).join('')}</dd>
       <dt>最終調査日</dt><dd>${A.fmtDate(g.updated)}</dd></dl></section>
+      ${life ? `<section id="life">${life.html}</section>` : ''}
       <section id="arch"><h2>構造：何がオンチェーンで、誰が何を変えられるか</h2>
-      <dl class="kv">${archRow('オンチェーンの範囲', 'onchain', L.onchain)}
-      ${a.offchain?.length ? `<dt>オフチェーン依存</dt><dd><ul style="margin:0">${a.offchain.map((o) => `<li>${esc(o.item)}${A.cites(o.s)}</li>`).join('')}</ul></dd>` : ''}
-      ${archRow('管理者権限', 'admin', L.admin)}${archRow('ソース公開', 'open_source', L.open_source)}${archRow('第三者の拡張', 'extensibility', L.extensibility)}</dl>
+      ${A.charts.archDiagram(g)}
       ${g.concepts?.length ? `<p class="small">関連する概念: ${g.concepts.map((c) => `<a class="tag" href="#/concept/${esc(c)}">${esc(A.nodeName(c))}</a>`).join('')}</p>` : ''}</section>
       ${secs.map((s) => `<section id="sec-${s}"><h2>${esc(L.section[s])}</h2>${A.stmts(g.article[s])}</section>`).join('')}
       ${g.depth === 'index' ? '<p class="note-box">この項目は索引レベルです。深掘り記事はまだありません。</p>' : ''}
@@ -189,6 +203,8 @@
       ${A.noteBox(`entry:${g.id}`)}
     </div></aside></div>`;
   };
+  V.entry.after = () => { if (V.entry._after) V.entry._after(document.getElementById('main')); };
+  A.statusDot = (g) => `<span class="sdot" style="background:var(${A.charts.STATUS_VAR[g.status?.value || 'unknown']})" aria-hidden="true"></span>`;
   A.ARTICLE_ORDER = ['what', 'loop', 'before_after', 'onchain_tradeoffs', 'roles', 'trajectory', 'retention_evidence', 'extensions', 'constraints', 'principles', 'counter_evidence'];
   A.AXES = ['gameplay', 'necessity', 'information', 'persistence', 'extensibility', 'money_flow', 'entry_barrier'];
 
@@ -330,8 +346,7 @@
     const byAccess = D.sources.reduce((m, s) => ((m[s.access] = (m[s.access] || 0) + 1), m), {});
     const primary = D.sources.filter((s) => s.primary).length;
     const unresolved = D.relations.filter((r) => !I.game.has(r.to) && !I.concept.has(r.to));
-    return `<div class="read"><h1>データ品質</h1>
-      <p class="lede">ビルド時の自動検査（日付形式、参照 ID、出典の有無、分類の列挙値、未来日付など）の結果と、出典の性質の内訳です。エラーが 1 件でもあるとビルドは失敗します。</p>
+    return `<div class="read"><header class="page-head"><div class="page-head-text"><h1>データ品質</h1><p class="lede">ビルド時の自動検査（日付形式、参照 ID、出典の有無、分類の列挙値、未来日付など）の結果と、出典の性質の内訳です。エラーが 1 件でもあるとビルドは失敗します。</p></div>${A.illu('quality', 'page-illu')}</header>
       <h2>自動検査</h2><p>エラー <b>${Q.errors.length}</b> 件・警告 <b>${Q.warnings.length}</b> 件（${A.fmtDate(D.generated)} ビルド）</p>
       ${Q.warnings.length ? `<details><summary>警告の一覧</summary><ul class="small">${Q.warnings.map((w) => `<li>${esc(w)}</li>`).join('')}</ul></details>` : ''}
       <h2>文の性質</h2><p>事実 ${c.fact}・当事者の主張 ${c.claim}・分析 ${c.analysis}・未確認 ${c.unknown}</p>
@@ -352,6 +367,6 @@
 
   V.about = () => document.getElementById('about-tpl') ? '' : A.aboutHtml();
 
-  function notFound() { return `<div class="read"><h1>見つかりません</h1><p><a href="#/">ホームへ</a></p></div>`; }
+  function notFound() { return `<div class="read empty-state">${A.illu('notfound', 'empty-illu')}<h1>見つかりません</h1><p>URL の項目が存在しないか、名前が変わった可能性があります。</p><p><a class="btn" href="#/entries">索引から探す</a> <a class="btn" href="#/">ホームへ</a></p></div>`; }
   A.notFound = notFound;
 })();

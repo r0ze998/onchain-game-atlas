@@ -242,6 +242,51 @@ await step('file:// でも開ける', async () => {
   assert.equal(await f.locator('.entry-item').count(), data.games.length);
 });
 
+await step('図とイラスト: ホームの図が描画され、ホバーで詳細、マスから一覧へ、画像はすべて読み込まれる', async () => {
+  await p.goto('about:blank');
+  await p.goto(BASE + '#/');
+  assert.ok(await p.locator('#viz-status svg path, #viz-status svg rect:not(.hit)').count() > 5, 'status chart empty');
+  const hit = p.locator('#viz-status .hit').nth(10);
+  await hit.hover();
+  assert.ok(await p.locator('.viz-tip').isVisible(), 'tooltip not shown on hover');
+  assert.ok((await p.locator('.viz-tip').textContent()).includes('年に開始'));
+  await hit.focus();
+  assert.ok(await p.locator('.viz-tip').isVisible(), 'tooltip not shown on focus');
+  const cell = p.locator('#viz-matrix a.hm.s6').first();
+  await cell.click();
+  await p.waitForSelector('.entry-item');
+  assert.ok(/#\/entries\?cat=.+&onchain=/.test(p.url()), 'heatmap cell did not link to filtered list');
+  const n = await p.locator('.entry-item').count();
+  assert.ok(n > 0, 'filtered list empty');
+  for (const r of ['', 'timeline', 'hypotheses', 'about', 'insight/' + data.insights[0].id, 'entry/' + deep[0].id]) {
+    await p.goto('about:blank');
+    await p.goto(BASE + '#/' + r);
+    await p.waitForLoadState('networkidle');
+    const imgs = await p.$$eval('main img', (xs) => xs.map((x) => { x.loading = 'eager'; return x.src; }));
+    await p.waitForFunction(() => [...document.querySelectorAll('main img')].every((x) => x.complete), null, { timeout: 15000 });
+    const broken = await p.$$eval('main img', (xs) => xs.filter((x) => !x.naturalWidth).map((x) => x.src));
+    assert.deepEqual(broken, [], `broken images on ${r}`);
+    assert.ok(imgs.length > 0 || r.startsWith('entry'), `no illustration on ${r}`);
+  }
+  assert.ok(data.illustrations.length <= 20, 'more than 20 illustrations (いらすとや terms)');
+  await p.goto(BASE + '#/about');
+  assert.equal(await p.locator('#credits + p + .table-wrap tbody tr').count(), data.illustrations.length, 'credit list incomplete');
+  await p.goto(BASE + '#/entry/' + deep[0].id);
+  assert.ok(await p.locator('.arch .meter').count() >= 4, 'architecture meters missing');
+  await shot(p, 'entry-arch');
+});
+
+await step('ダークモード: 主要画面で横スクロールなし・図が描画される', async () => {
+  const dpage = await newPage({ viewport: { width: 1280, height: 900 }, colorScheme: 'dark' });
+  for (const r of ['', 'timeline', 'entry/' + deep[0].id, 'hypotheses']) {
+    await dpage.goto(BASE + '#/' + r);
+    const over = await dpage.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
+    assert.ok(over <= 1, `overflow ${over} on ${r}`);
+  }
+  const bg = await dpage.evaluate(() => getComputedStyle(document.body).backgroundColor);
+  assert.notEqual(bg, 'rgb(244, 247, 246)', 'dark tokens not applied');
+});
+
 await step('ブラウザのエラーなし', async () => {
   assert.deepEqual(errors, []);
 });

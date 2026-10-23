@@ -12,8 +12,7 @@
   }).join('');
 
   // ---------- 問い ----------
-  V.questions = () => `<h1>問いから探す</h1>
-    <p class="lede read">開発中に出てくる問いから、複数の事例へ進みます。各問いには「はい」に寄る事例と「いいえ」に寄る事例の両方を置き、関連するインサイトと設計仮説につなげています。</p>
+  V.questions = () => `<header class="page-head"><div class="page-head-text"><h1>問いから探す</h1><p class="lede">開発中に出てくる問いから、複数の事例へ進みます。各問いには「はい」に寄る事例と「いいえ」に寄る事例の両方を置き、関連するインサイトと設計仮説につなげています。</p></div>${A.illu('questions', 'page-illu')}</header>
     <div class="cards">${D.questions.map((q) => {
       const c = (st) => (q.cases || []).filter((e) => e.stance === st).length;
       return `<div class="card"><h3><a href="#/question/${esc(q.id)}">${esc(q.q)}</a></h3><p class="muted">${esc(q.why || '')}</p>
@@ -23,7 +22,7 @@
     const q = I.question.get(parts[1]);
     if (!q) return A.notFound();
     const labels = { support: q.labels?.support || '支持する事例', counter: q.labels?.counter || '反する事例', context: '文脈・条件付き' };
-    return `<div class="detail"><article><p class="small muted"><a href="#/questions">問い</a></p><h1>${esc(q.q)}</h1>
+    return `<div class="detail"><article><p class="small muted"><a href="#/questions">問い</a></p><header class="page-head compact"><div class="page-head-text"><h1>${esc(q.q)}</h1></div>${A.illu('questions', 'page-illu small')}</header>
       ${q.why ? `<p class="lede">${esc(q.why)}</p>` : ''}
       ${q.answer ? `<div class="note-box"><b>現時点の暫定回答：</b>${esc(q.answer)}</div>` : ''}
       ${evGroups(q.cases, labels)}
@@ -40,8 +39,7 @@
     const gt = params.get('gap') || '';
     const cf = params.get('conf') || '';
     const list = D.insights.filter((i) => (!gt || i.gap_type === gt) && (!cf || i.confidence === cf));
-    return `<h1>インサイトを検証する</h1>
-      <p class="lede read">各インサイトは「主張・支持事例・反例・成立条件・確信度とその理由・次に試す小さな実験」で構成しています。「未解決の空白」と「需要が確認されていない領域」、「ブロックチェーンが不要な可能性」を区別しています。</p>
+    return `<header class="page-head"><div class="page-head-text"><h1>インサイトを検証する</h1><p class="lede">各インサイトは「主張・支持事例・反例・成立条件・確信度とその理由・次に試す小さな実験」で構成しています。「未解決の空白」と「需要が確認されていない領域」、「ブロックチェーンが不要な可能性」を区別しています。</p></div>${A.illu('insights', 'page-illu')}</header>
       <form class="toolbar" id="ins-filter"><label>種類<select name="gap"><option value="">すべて</option>${Object.entries(L.gap_type).map(([k, v]) => `<option value="${k}" ${gt === k ? 'selected' : ''}>${esc(v)}</option>`).join('')}</select></label>
       <label>確信度<select name="conf"><option value="">すべて</option>${['high', 'medium', 'low'].map((k) => `<option value="${k}" ${cf === k ? 'selected' : ''}>${esc(L.confidence[k])}</option>`).join('')}</select></label></form>
       <div class="cards">${list.map((i) => {
@@ -61,9 +59,10 @@
     const ex = i.experiment || {};
     const hs = (i.hypotheses || []).map((h) => I.hypothesis.get(h)).filter(Boolean);
     const qs = D.questions.filter((q) => (q.insights || []).includes(i.id));
-    return `<div class="detail"><article><p class="small muted"><a href="#/insights">インサイト</a></p><h1>${esc(i.title)}</h1>
+    return `<div class="detail"><article><p class="small muted"><a href="#/insights">インサイト</a></p><header class="page-head compact"><div class="page-head-text"><h1>${esc(i.title)}</h1></div>${A.illu('insights', 'page-illu small')}</header>
       <p><span class="conf conf-${esc(i.confidence)}">${esc(L.confidence[i.confidence])}</span> <span class="tag">${esc(L.gap_type[i.gap_type] || i.gap_type)}</span></p>
       <h2>主張</h2><p class="lede">${esc(i.claim)}</p>
+      ${A.charts.balance(i.evidence || [])}
       <h2>成立条件</h2><p>${esc(i.conditions)}</p>
       ${i.changed ? `<h2>何の制約が変わったか</h2><p>${esc(i.changed)}</p>` : ''}
       ${i.unchanged ? `<h2>まだ変わっていないこと</h2><p>${esc(i.unchanged)}</p>` : ''}
@@ -84,13 +83,26 @@
   V.hypotheses = ({ params }) => {
     const focus = params.get('focus');
     const sel = (params.get('ids') || '').split(',').filter((x) => I.hypothesis.has(x));
-    const ids = sel.length ? sel : D.hypotheses.map((h) => h.id);
+    // 既定は 3 件（表が横に長くなりすぎないように）。focus 指定があればそれを含める
+    const defaults = [...new Set([focus, ...D.hypotheses.map((h) => h.id)].filter((x) => x && I.hypothesis.has(x)))].slice(0, 3);
+    const ids = sel.length ? sel : defaults;
     const hs = ids.map((id) => I.hypothesis.get(id));
     const li = (arr) => `<ul>${(arr || []).map((x) => `<li>${esc(x)}</li>`).join('')}</ul>`;
     const row = (label, f) => `<tr><th scope="row" class="rowh">${label}</th>${hs.map((h) => `<td ${h.id === focus ? 'style="background:var(--accent-soft)"' : ''}>${f(h)}</td>`).join('')}</tr>`;
     const evs = (h, st) => (h.evidence || []).filter((e) => e.stance === st).map((e) => `<li>${A.nodeLink(e.game)}：${esc(e.note)}${A.cites(e.s)}</li>`).join('') || '<li class="muted">なし</li>';
-    return `<h1>設計仮説を比べる</h1>
-      <p class="lede read">事例とインサイトから組み立てた具体的な設計仮説です。組み合わせるメカニクス、プレイヤーの選択、衝突するインセンティブ、破綻条件、チェーンが本当に必要か、最初の実験を同じ表で比べられます。どれも検証前の仮説であり、推奨ではありません。</p>
+    return `<header class="page-head"><div class="page-head-text"><h1>設計仮説を比べる</h1><p class="lede">事例とインサイトから組み立てた具体的な設計仮説です。組み合わせるメカニクス、プレイヤーの選択、衝突するインセンティブ、破綻条件、チェーンが本当に必要か、最初の実験を同じ表で比べられます。どれも検証前の仮説であり、推奨ではありません。</p></div>${A.illu('hypotheses', 'page-illu')}</header>
+      <div class="hyp-cards">${D.hypotheses.map((h) => {
+        const n = (st) => (h.evidence || []).filter((e) => e.stance === st).length;
+        const need = { yes: '必要', partial: '一部のみ', no: '不要の可能性', unknown: '未判定' }[h.needs_chain?.answer] || '未判定';
+        return `<article class="hyp-card ${h.id === focus ? 'focus' : ''}" id="hc-${esc(h.id)}"><h3>${esc(h.short || h.title)}</h3>
+          <p class="small">${esc(h.title)}</p>
+          <dl><div><dt>チェーン</dt><dd><span class="need need-${esc(h.needs_chain?.answer || 'unknown')}">${esc(need)}</span></dd></div>
+          <div><dt>事例</dt><dd>支持 ${n('support')}・反例 ${n('counter')}</dd></div>
+          <div><dt>実験の規模</dt><dd>${esc(h.experiment?.cost || '—')}</dd></div></dl>
+          <p class="small"><b>撤退基準：</b>${esc(h.experiment?.kill || '—')}</p>
+          <div class="btn-row"><button class="btn primary" data-act="adopt-hyp" data-id="${esc(h.id)}">この実験を選ぶ</button><a class="btn" href="#/hypotheses?ids=${esc([h.id, ...ids.filter((x) => x !== h.id)].slice(0, 3).join(','))}&focus=${esc(h.id)}">詳しく比べる</a></div></article>`;
+      }).join('')}</div>
+      <h2 class="hyp-h2">詳しく比べる</h2>
       <div class="toolbar"><fieldset class="chips" id="hyp-pick"><legend>比較する仮説</legend>${D.hypotheses.map((h) => `<label class="chip"><input type="checkbox" value="${esc(h.id)}" ${ids.includes(h.id) ? 'checked' : ''}>${esc(h.short || h.title)}</label>`).join('')}</fieldset></div>
       <div class="table-wrap"><table class="cmp-table hyp-table"><thead><tr><th class="rowh">項目</th>${hs.map((h) => `<th id="h-${esc(h.id)}">${esc(h.title)}</th>`).join('')}</tr></thead><tbody>
         ${row('要約', (h) => esc(h.summary || ''))}
@@ -98,7 +110,7 @@
         ${row('プレイヤーが取る選択', (h) => li(h.player_choices))}
         ${row('衝突するインセンティブ', (h) => li(h.incentive_conflicts))}
         ${row('破綻条件', (h) => li(h.failure_conditions))}
-        ${row('チェーンは必要か', (h) => `<b>${esc({ yes: '必要', partial: '一部のみ', no: '不要の可能性が高い', unknown: '未判定' }[h.needs_chain?.answer] || h.needs_chain?.answer)}</b><div class="small">${esc(h.needs_chain?.reason || '')}</div>`)}
+        ${row('チェーンは必要か', (h) => `<b class="need need-${esc(h.needs_chain?.answer)}">${esc({ yes: '必要', partial: '一部のみ', no: '不要の可能性が高い', unknown: '未判定' }[h.needs_chain?.answer] || h.needs_chain?.answer)}</b><div class="small">${esc(h.needs_chain?.reason || '')}</div>`)}
         ${row('支持する事例', (h) => `<ul class="small">${evs(h, 'support')}</ul>`)}
         ${row('反する事例', (h) => `<ul class="small">${evs(h, 'counter')}</ul>`)}
         ${row('根拠のインサイト', (h) => (h.insights || []).map((i) => `<div class="small"><a href="#/insight/${esc(i)}">${esc(I.insight.get(i)?.title || i)}</a></div>`).join(''))}
@@ -112,7 +124,7 @@
     A.$$('#hyp-pick input').forEach((cb) => cb.addEventListener('change', () => {
       const ids = A.$$('#hyp-pick input:checked').map((x) => x.value);
       const p = new URLSearchParams();
-      if (ids.length && ids.length < D.hypotheses.length) p.set('ids', ids.join(','));
+      if (ids.length) p.set('ids', ids.join(','));
       location.hash = `#/hypotheses${p.toString() ? '?' + p : ''}`;
     }));
     const f = params.get('focus');
@@ -133,7 +145,7 @@
       if (t === 'compare') return `<a href="#/compare/${esc(id)}">比較: ${esc(id.split(',').map(A.nodeName).join(' / '))}</a>`;
       return esc(key);
     };
-    return `<h1>研究ノート</h1>
+    return `<header class="page-head"><div class="page-head-text"><h1>研究ノート</h1><p class="lede">気になった事例の保存、メモ、比較セット、自分の設計仮説と検証結果をここに集めます。ログインは不要です。</p></div>${A.illu('notebook', 'page-illu')}</header>
       <div class="warnbox read small"><b>保存場所について：</b>ノートはこのブラウザの localStorage にだけ保存されます。別のブラウザ・別の端末・プライベートウィンドウからは見えません。ブラウザのサイトデータ削除、ストレージの自動削除（例: Safari は長期間訪問しないサイトのデータを消すことがあります）、別のポートやドメインでの起動でも失われます。大事な記録は定期的に「JSON を書き出す」で保存してください。${A.store.ok ? '' : '<br><b>現在、このブラウザではノートを保存できていません。</b>'}</div>
       <div class="btn-row"><button class="btn primary" id="nb-export">JSON ファイルに書き出す</button>
         <button class="btn" id="nb-copy">JSON をコピー</button>
@@ -249,6 +261,9 @@
     <h2>日付</h2><p>日付は資料で確認できた精度のまま（年・年月・年月日）保持します。出来事の日、資料の公開日、参照日は別々に記録しています。年表で「項目の日付欄から生成」と書かれた行は、項目の発表日・公開日・終了日から自動で作った出来事です。</p>
     <h2>関係</h2><p>「確認された関係」は当事者の言及やコードのフォークなど直接証拠がある場合だけです。似ているだけのものは「分析上の類似」として破線で区別します。</p>
     <h2>出典の扱い</h2><p>実際に内容を確認した資料は「参照済み」、検索結果の要約だけで見た資料は「検索要約のみ」とし、後者だけを根拠にした事実はデータ品質ページに一覧化しています。引用は 200 文字以内の逐語引用に限り、画像は転載していません。</p>
+    <h2 id="credits">イラストのクレジット</h2>
+    <p>イラストは <a href="https://www.irasutoya.com/" target="_blank" rel="noopener">いらすとや</a>（みふねたかし氏）の素材を、<a href="https://www.irasutoya.com/p/terms.html" target="_blank" rel="noopener">利用規約</a>の範囲で使っています（参照日 2026-10-23。点数は 20 点以内）。図表はすべて研究データから自動で描いたもので、イラストは装飾であり、データの内容を表すものではありません。</p>
+    <div class="table-wrap"><table><thead><tr><th></th><th>素材</th><th>使用箇所</th></tr></thead><tbody>${(D.illustrations || []).map((x) => `<tr><td style="width:64px"><img src="${x.file}" alt="" style="width:48px;height:48px;object-fit:contain" loading="lazy"></td><td><a href="${esc(x.page)}" target="_blank" rel="noopener">${esc(x.title)}</a></td><td>${esc(x.used_for)}</td></tr>`).join('')}</tbody></table></div>
     <h2>研究ノートの保存</h2><p>ログイン不要で、このブラウザの localStorage に保存します。別のブラウザや端末とは共有されず、サイトデータの削除で消えます。JSON の書き出し・読み込みで移行・バックアップしてください。</p>
     <h2>データの追加</h2><p>研究データはリポジトリの <code>data/</code> にある YAML です。1 事例 1 ファイル（<code>data/games/&lt;id&gt;.yaml</code>）で、形式は <code>docs/RESEARCH_GUIDE.md</code> にあります。<code>npm run build</code> で検査とサイト用データの生成を行い、参照切れ・日付形式・出典の欠落があるとビルドが失敗します。</p>
     <p class="small muted">データ更新日: ${A.fmtDate(D.lastUpdated)}・ビルド日: ${A.fmtDate(D.generated)}</p></div>`;

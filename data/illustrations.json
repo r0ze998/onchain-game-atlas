@@ -1,0 +1,130 @@
+[
+ {
+  "key": "hero",
+  "file": "img/irasutoya/hero.webp",
+  "alt": "宝の地図",
+  "used_for": "ホーム",
+  "title": "宝の地図のイラスト",
+  "page": "https://www.irasutoya.com/2018/03/blog-post_38.html"
+ },
+ {
+  "key": "timeline",
+  "file": "img/irasutoya/timeline.webp",
+  "alt": "タイムマシン",
+  "used_for": "年表",
+  "title": "タイムマシンのイラスト",
+  "page": "https://www.irasutoya.com/2014/05/blog-post_3992.html"
+ },
+ {
+  "key": "entries",
+  "file": "img/irasutoya/entries.webp",
+  "alt": "本棚",
+  "used_for": "索引",
+  "title": "本棚・書棚のイラスト",
+  "page": "https://www.irasutoya.com/2015/08/blog-post_184.html"
+ },
+ {
+  "key": "compare",
+  "file": "img/irasutoya/compare.webp",
+  "alt": "釣り合った天秤",
+  "used_for": "比較",
+  "title": "いろいろな状態の天秤のイラスト",
+  "page": "https://www.irasutoya.com/2020/09/blog-post_346.html"
+ },
+ {
+  "key": "graph",
+  "file": "img/irasutoya/graph.webp",
+  "alt": "ネットワークで繋がる人々",
+  "used_for": "つながり",
+  "title": "ネットワークで繋がる人々のイラスト",
+  "page": "https://www.irasutoya.com/2018/04/blog-post_401.html"
+ },
+ {
+  "key": "questions",
+  "file": "img/irasutoya/questions.webp",
+  "alt": "疑問を浮かべる AI のキャラクター",
+  "used_for": "問い",
+  "title": "いろいろな表情のAIのキャラクター （疑問、ハート、居眠り、てへぺろ）",
+  "page": "https://www.irasutoya.com/2024/05/ai_02077105827.html"
+ },
+ {
+  "key": "insights",
+  "file": "img/irasutoya/insights.webp",
+  "alt": "ひらめく AI のキャラクター",
+  "used_for": "インサイト",
+  "title": "いろいろな表情のAIのキャラクター （ひらめく、焦る、驚く、考える）",
+  "page": "https://www.irasutoya.com/2024/05/ai_0887710706.html"
+ },
+ {
+  "key": "quality",
+  "file": "img/irasutoya/quality.webp",
+  "alt": "考える AI のキャラクター",
+  "used_for": "データ品質",
+  "title": "いろいろな表情のAIのキャラクター （ひらめく、焦る、驚く、考える）",
+  "page": "https://www.irasutoya.com/2024/05/ai_0887710706.html"
+ },
+ {
+  "key": "hypotheses",
+  "file": "img/irasutoya/hypotheses.webp",
+  "alt": "設計書",
+  "used_for": "設計仮説",
+  "title": "設計書のイラスト",
+  "page": "https://www.irasutoya.com/2019/11/blog-post_547.html"
+ },
+ {
+  "key": "notebook",
+  "file": "img/irasutoya/notebook.webp",
+  "alt": "クリップボードに書き込む人",
+  "used_for": "研究ノート",
+  "title": "クリップボードに書き込む人のイラスト（女性会社員）",
+  "page": "https://www.irasutoya.com/2020/03/blog-post_341.html"
+ },
+ {
+  "key": "era-prehistory",
+  "file": "img/irasutoya/era-prehistory.webp",
+  "alt": "マイニングリグ",
+  "used_for": "年表: 前史",
+  "title": "マイニングリグのイラスト",
+  "page": "https://www.irasutoya.com/2018/11/blog-post_699.html"
+ },
+ {
+  "key": "era-collectibles",
+  "file": "img/irasutoya/era-collectibles.webp",
+  "alt": "NFT アート",
+  "used_for": "年表: ERC-721 と収集",
+  "title": "NFTアートのイラスト",
+  "page": "https://www.irasutoya.com/2021/10/nft.html"
+ },
+ {
+  "key": "era-p2e-zk",
+  "file": "img/irasutoya/era-p2e-zk.webp",
+  "alt": "暴落するチャートを見る投資家",
+  "used_for": "年表: P2E の急拡大",
+  "title": "暴落する株価のイラスト",
+  "page": "https://www.irasutoya.com/2025/11/blog-post_19.html"
+ },
+ {
+  "key": "era-engines-aw",
+  "file": "img/irasutoya/era-engines-aw.webp",
+  "alt": "ブロックチェーン",
+  "used_for": "年表: エンジンと Autonomous Worlds",
+  "title": "ブロックチェーンのイラスト",
+  "page": "https://www.irasutoya.com/2018/02/blog-post_499.html"
+ },
+ {
+  "key": "era-agents-retreat",
+  "file": "img/irasutoya/era-agents-retreat.webp",
+  "alt": "AI と話す人",
+  "used_for": "年表: AI エージェント",
+  "title": "AIと話す人のイラスト（男性）",
+  "page": "https://www.irasutoya.com/2024/05/ai.html"
+ },
+ {
+  "key": "notfound",
+  "file": "img/irasutoya/notfound.webp",
+  "alt": "探偵",
+  "used_for": "見つからないとき",
+  "title": "探偵のイラスト（男の子）",
+  "page": "https://www.irasutoya.com/2016/10/blog-post_73.html"
+ }
+]

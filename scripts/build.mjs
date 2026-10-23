@@ -36,6 +36,11 @@ if (fs.existsSync(vdir)) {
 }
 const sv = path.join(vdir, '_synthesis.md');
 if (fs.existsSync(sv)) dataset.synthesisVerification = fs.readFileSync(sv, 'utf8');
+const il = path.join(ROOT, 'data', 'illustrations.json');
+if (fs.existsSync(il)) {
+  dataset.illustrations = JSON.parse(fs.readFileSync(il, 'utf8'));
+  for (const x of dataset.illustrations) if (!fs.existsSync(path.join(ROOT, 'site', x.file))) errors.push(`illustration file missing: ${x.file}`);
+}
 dataset.quality = { errors, warnings };
 
 for (const w of warnings) console.log('WARN ', w);
