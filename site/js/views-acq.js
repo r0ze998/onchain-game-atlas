@@ -53,6 +53,8 @@
     return D.eras.find((e) => pad(e.from, false) <= k && (e.to == null || k <= pad(e.to, true))) || null;
   };
   const byStart = (a, b) => (startDate(a) || '9999').localeCompare(startDate(b) || '9999') || a.name.localeCompare(b.name);
+  const ERA_SHORT = { 'era-prehistory': '前史', 'era-collectibles': '収集・投機', 'era-p2e-zk': 'P2E・ZK', 'era-engines-aw': 'エンジン・AW', 'era-agents-retreat': 'AI・再編' };
+  const eraName = (e) => ERA_SHORT[e.id] || String(e.title || e.id).split(' — ')[0];
   const listNames = (gs) => gs.map((g) => esc(g.name)).join('、');
 
   A.chChip = (id, href = true) => {
@@ -106,7 +108,7 @@
     const cnt = (c) => gs.filter((g) => chIds(g).includes(c));
     const max = Math.max(1, ...CH_ORDER.map((c) => cnt(c).length));
     const rows = GROUPS.map((gr) => `<div class="cb-group"><div class="cb-gh"><span class="sw" style="background:var(${gr.color})"></span>${esc(gr.name)}</div>
-      ${gr.ch.map((c) => { const n = cnt(c).length; return `<a class="cb-row" href="#/acquisition?ch=${c}" data-tip="${c}" aria-label="${esc(L.acq_channel[c])}: ${n} 件"><span class="cb-l">${esc(L.acq_channel[c])}</span><span class="cb-t"><span class="cb-f" style="width:${(n / max) * 100}%;background:var(${gr.color})"></span></span><span class="cb-n mono">${n}</span></a>`; }).join('')}</div>`).join('');
+      ${gr.ch.map((c) => { const n = cnt(c).length; return `<a class="cb-row" href="#/acquisition?ch=${c}" data-tip="${c}" aria-label="${esc(L.acq_channel[c])}: ${n} 件"><span class="cb-l" title="${esc(L.acq_channel[c])}">${esc(L.acq_channel[c])}</span><span class="cb-t"><span class="cb-f" style="width:${(n / max) * 100}%;background:var(${gr.color})"></span></span><span class="cb-n mono">${n}</span></a>`; }).join('')}</div>`).join('');
     return {
       html: `<figure class="viz-fig" id="viz-acq-ch"><figcaption><b>最初のユーザーを、何で集めたか</b><span>${gs.length} 事例で確認できたチャネルを数えた（1 事例が複数を使う）。行を押すとその事例に絞り込む。</span></figcaption>
         <div class="cb">${rows}</div>
@@ -123,11 +125,11 @@
       const hit = eg.filter((g) => use(g, gr));
       const r = eg.length ? hit.length / eg.length : 0;
       const s = !hit.length ? 0 : Math.min(6, 1 + Math.floor(r * 5.99));
-      return `<td class="hm-cell"><a class="hm s${s}" href="#/acquisition?group=${gr.id}&era=${e.id}" data-tip="${gr.id}|${e.id}" aria-label="${esc(e.name)} × ${esc(gr.name)}: ${eg.length} 件中 ${hit.length} 件">${eg.length ? Math.round(r * 100) + '%' : '–'}</a></td>`;
+      return `<td class="hm-cell"><a class="hm s${s}" href="#/acquisition?group=${gr.id}&era=${e.id}" data-tip="${gr.id}|${e.id}" aria-label="${esc(eraName(e))} × ${esc(gr.name)}: ${eg.length} 件中 ${hit.length} 件">${eg.length ? Math.round(r * 100) + '%' : '–'}</a></td>`;
     }).join('')}</tr>`).join('');
     return {
       html: `<figure class="viz-fig" id="viz-acq-era"><figcaption><b>時代ごとに、集め方の型はどう変わったか</b><span>開始時期で時代に分け、その時代の事例のうち各型のチャネルを 1 つ以上使った割合。マスを押すと該当事例へ。</span></figcaption>
-        <div class="table-wrap hm-wrap"><table class="hm-table acq-hm"><thead><tr><th></th>${eras.map(({ e, gs: eg }) => `<th scope="col">${esc(e.name)}<div class="mono small">${esc(e.from.slice(0, 4))}–${e.to ? esc(e.to.slice(0, 4)) : ''} · n=${eg.length}</div></th>`).join('')}</tr></thead><tbody>${rows}</tbody></table></div>
+        <div class="table-wrap hm-wrap"><table class="hm-table acq-hm"><colgroup><col class="acq-hm-c0"></colgroup><thead><tr><th></th>${eras.map(({ e, gs: eg }) => `<th scope="col" title="${esc(e.title || '')}">${esc(eraName(e))}<div class="mono small">${esc(e.from.slice(0, 4))}–${e.to ? esc(e.to.slice(0, 4)) : ''} · n=${eg.length}</div></th>`).join('')}</tr></thead><tbody>${rows}</tbody></table></div>
         <p class="viz-note">n は各時代の事例数で、小さい時代の割合は 1 件で大きく動く。記録に残りやすい施策（発表された賞金や配布）ほど多く数えられる偏りがある。</p></figure>`,
       after: (root) => C.bindTips(root.querySelector('#viz-acq-era'), (k) => {
         const [gid, eid] = k.split('|');
@@ -135,7 +137,7 @@
         const e = D.eras.find((x) => x.id === eid);
         const eg = gs.filter((g) => eraOf(g)?.id === eid);
         const hit = eg.filter((g) => use(g, gr));
-        return `<b>${esc(e.name)} × ${esc(gr.name)}</b><div>${eg.length} 件中 ${hit.length} 件</div><div class="muted">${listNames(hit) || 'なし'}</div>`;
+        return `<b>${esc(eraName(e))} × ${esc(gr.name)}</b><div>${eg.length} 件中 ${hit.length} 件</div><div class="muted">${listNames(hit) || 'なし'}</div>`;
       }),
     };
   };
@@ -178,7 +180,7 @@
       <form class="toolbar" id="acq-filter" aria-label="ゼロイチの絞り込み">
         <label>チャネル<select name="ch">${opt(CH_ORDER.map((c) => [c, L.acq_channel[c]]), f.ch)}</select></label>
         <label>型<select name="group">${opt(GROUPS.map((g) => [g.id, g.name]), f.group)}</select></label>
-        <label>時代<select name="era">${opt(D.eras.map((e) => [e.id, e.name]), f.era)}</select></label>
+        <label>時代<select name="era">${opt(D.eras.map((e) => [e.id, eraName(e)]), f.era)}</select></label>
         <label>対象<select name="aud">${opt(Object.entries(L.audience), f.aud)}</select></label>
         <label>現在の状態<select name="status">${opt(Object.entries(L.status), f.status)}</select></label>
         ${filtered ? '<a class="btn" href="#/acquisition">条件を外す</a>' : ''}

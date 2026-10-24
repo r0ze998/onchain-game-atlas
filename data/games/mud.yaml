@@ -3,7 +3,7 @@ name: MUD
 aliases: [MUD v1, MUD v2, "MUD: An engine for Autonomous Worlds"]
 kind: engine
 depth: index
-updated: "2026-10-23"
+updated: "2026-10-24"
 links:
   website: https://mud.dev/
   docs: https://mud.dev/introduction

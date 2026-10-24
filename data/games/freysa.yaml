@@ -146,9 +146,9 @@ acquisition:
     - {phase: growth, date: "2024-12", t: "Act III でメール登録で作れるウォレットとカード購入に対応し、暗号資産のウォレットを持たない人の入口を設けた。", k: fact, s: [src-freysa-site-act3]}
     - {phase: growth, date: "2024-12-26", t: "運営は最初の 1 か月で 4,254 回のやり取りがあり、1 回の参加費は最大 500 ドルに達したと書いた。", k: claim, who: "Freysa 運営（公式ブログ）", s: [src-freysa-blog-verifiable-games]}
   channels:
-    - {id: viral-mechanic, t: "失敗した参加費の 70% が賞金に積み上がり、試行のたびに賞金と参加費が公開の場で増えていくことが、話題と次の試行の動機を同時に生む構造だった。", k: fact, s: [src-freysa-site-act1, src-freysa-theblock-pre]}
+    - {id: viral-mechanic, t: "失敗した参加費の 70% が賞金に積み上がり、試行のたびに賞金と参加費が公開の場で増えていくことが、話題と次の試行の動機を同時に生む構造だった（仕組みは FAQ と報道で確認できるが、それが実際に拡散を生んだことを示す資料はなく、分類は分析上の判断）。", k: analysis, s: [src-freysa-site-act1, src-freysa-theblock-pre]}
     - {id: prize-competition, t: "最初に Freysa に送金を承認させた 1 人が賞金を総取りする一度きりの懸賞として設計した。", k: fact, s: [src-freysa-site-act1]}
-    - {id: crypto-social, t: "結果の告知は Freysa の X アカウントで行われ、Jarrod Watts のスレッドなど暗号資産界隈の X 投稿が攻略を解説した。", k: fact, s: [src-freysa-theblock-win, src-freysa-jarrodwatts-thread]}
+    - {id: crypto-social, t: "結果の告知は Freysa の X アカウントで行われ、Jarrod Watts のスレッドなど暗号資産界隈の X 投稿が攻略を解説した。いずれも Act I の終了時・終了後の発信で、Act I の参加者を集めた経路としては確認できず、後続の Act への露出として位置付けられる。", k: fact, s: [src-freysa-theblock-win, src-freysa-jarrodwatts-thread]}
     - {id: press, t: "The Block（2024-11-28・11-29・12-13）と Cointelegraph（2024-11-29）が Act I の途中経過と結末を報じた。", k: fact, s: [src-freysa-theblock-pre, src-freysa-theblock-win, src-freysa-theblock-reflects, src-freysa-cointelegraph-win]}
   cost:
     - {t: "初期賞金（3000〜3700 ドル）は運営が出し、残りの賞金はすべて参加者の参加費で賄われた。後から高い参加費を払った人の資金が勝者 1 人に移る、プレイヤー間の資金移転の構造である。", k: fact, s: [src-freysa-site-act1, src-freysa-theblock-win]}
@@ -161,6 +161,7 @@ acquisition:
     - {t: "報道は勝利の前日と当日に集中しており、初報時点で既に 181 人（最終 195 人）が参加していた。報道が初期の参加者を集めたわけではなく、最初の参加者の流入経路は資料で説明できない。", k: analysis, s: [src-freysa-theblock-pre, src-freysa-theblock-win]}
     - {t: "195 人が 482 回試行しており、1 人あたり平均 2 回以上で、少数の参加者が繰り返し試した可能性がある。人数がウォレット単位か人単位かも不明で、1 人が複数ウォレットを使った可能性を排除できない。", k: analysis, s: [src-freysa-theblock-win]}
     - {t: "参加者として確認できるのは人間で、AI エージェントが攻略側に加わった記録は見つからなかった。運営の「AGI との対決」という物語が集客に効いたのか、単純な賞金額が効いたのかは区別できない。", k: analysis, s: [src-freysa-site-lore, src-freysa-theblock-win]}
+    - {t: "Act I の開始（2024-11-22）は、AI エージェントが暗号資産市場の話題の中心になった時期と重なる（K33 は 2024-10-22 時点で、AI エージェント Truth Terminal に結び付いたミームコイン GOAT が 2 週間で時価総額 6.07 億ドルに達したと書いた）。参加者が賞金の仕組みではなく「AI エージェント」という当時の流行に惹かれた可能性があり、仕組みの効果を切り分けられない。", k: analysis, s: [src-freysa-k33-ai-memecoins]}
   lessons:
     - {t: "賞金が育つ様子を公開する逓増型の懸賞: 失敗の参加費を賞金に積み、残高と試行を公開すると、賞金額そのものが宣伝になる。効く条件は序盤の参加費が十分安く（10 ドル程度）、勝利が数百回の試行に耐える程度に難しいこと。破綻条件は早く破られて賞金が育たないか、上限を下げて（Act II の 20 ドル）賞金の伸びが止まる場合で、話題性も小さくなる。", k: analysis}
     - {t: "単発の懸賞を連作にする: 一度破られると終わるゲームは、次の Act を短い間隔で出し続けないと集めた人が離れる。効く条件は前回の攻略法を防御に取り込むなど、続編に新しい謎があること。破綻条件は参加者の継続を測らないまま続編を出すことで、この例でも継続率は示されていない。", k: analysis}
@@ -208,6 +209,7 @@ unknowns:
   - "運営主体（Eternis AI とする報道）と 3000 万ドル調達の報道（検索スニペットのみで本文未確認）、FAI トークンの発行時期と Freysa ゲームとの関係。"
   - "公開リポジトリの Payment.sol（トークンへのスワップ）が、どの時点のゲームで使われたか。"
 contradictions:
+  - {t: "1 回の参加費の上限: 運営ブログ（2024-12-26）は参加費が「$500 per interaction」まで上がったと書くが、報道された Act I の最終参加費は 443.24 ドル（Cointelegraph）または 449.22 ドル（The Block）で、Act II・III の上限は 20 ドル・200 ドルとされる。500 ドルは概数か、別の時点の値とみられる。", s: [src-freysa-blog-verifiable-games, src-freysa-cointelegraph-win, src-freysa-theblock-reflects]}
   - {t: "Act I のタイマー開始条件: 公開リポジトリの README は「After 1500 attempts」、公式サイトの FAQ は「After 150 attempts」/「After 150 messages」と記載。", s: [src-freysa-agent-repo, src-freysa-site-act1]}
   - {t: "Act I のシステムプロンプト: agent リポジトリの README に載る文面と、acts リポジトリ・公式 FAQ の文面（キャラクター設定や背景説明を含む長い版）が異なる。", s: [src-freysa-agent-repo, src-freysa-acts-repo]}
   - {t: "Act I の賞金額: The Block は 47,316.05 ドル、iq.wiki は 47,148 ドルと記載。", s: [src-freysa-theblock-win, src-freysa-iqwiki]}
@@ -243,3 +245,4 @@ sources:
   - {id: src-freysa-iqwiki, title: "Freysa AI - IQ.wiki", url: "https://iq.wiki/wiki/freysa-ai.md", publisher: "IQ.wiki", type: wiki, primary: false, accessed: "2026-10-23", access: fetched, lang: en, note: "Act I 47,148 ドル、Act II 12,920 ドル、Act III 20,843 ドル、FAI 総供給 8,189,700,000"}
   - {id: src-freysa-plisio, title: "Freysa AI 2026 : Sovereign Agent, FAI Token, Prize Pool", url: "https://plisio.net/ai/freysa-ai", publisher: "Plisio", type: analysis, primary: false, accessed: "2026-10-23", access: snippet, lang: en, note: "検索結果の要約のみ。勝利日を 2024-11-30 とする"}
   - {id: src-freysa-cointelegraph-win, title: "Crypto user convinces AI bot Freysa to transfer $47K prize pool", url: "https://cointelegraph.com/news/crypto-user-convinced-ai-bot-transfer-47k", publisher: "Cointelegraph", author: "Brayden Lindrea", type: news, primary: false, published: "2024-11-29", accessed: "2026-10-24", access: fetched, lang: en, note: "195 人・482 回、最後の参加費 443.24 ドル、BaseScan で Freysa のウォレットからの送金を確認したと記載。集客経路への言及なし"}
+  - {id: src-freysa-k33-ai-memecoins, title: "AI Memecoins: Next Gen Memes or Next Grift?", url: "https://k33.com/research/articles/ai-memecoins-next-gen-memes-or-next-grift", publisher: "K33 Research", author: "David Zimmerman", type: analysis, primary: false, published: "2024-10-22", accessed: "2026-10-24", access: fetched, lang: en, note: "検証役が追加。GOAT が 2 週間で時価総額 6.07 億ドル、AI エージェントを軸にしたミームコインの物語。Freysa への言及なし"}

@@ -4,7 +4,7 @@ name_ja: ダウンストリーム
 aliases: ["Downstream Redstone", "ds (playmint/ds)"]
 kind: platform
 depth: deep
-updated: "2026-10-23"
+updated: "2026-10-24"
 links:
   website: {url: https://redstone.downstream.game/, status: defunct, note: "Redstone 停止（2026-05）後、参照日時点で名前解決できない", s: [src-downstream-site]}
   github: https://github.com/playmint/ds
@@ -117,7 +117,7 @@ article:
   retention_evidence:
     - {t: "プレイヤー数・DAU・ゾーン販売数・登録された建物種別数・プラグイン数のいずれも、公式・第三者の公表値を見つけられなかった。Redstone 停止後はチェーンデータの直接参照もできなかった。", k: unknown}
     - {t: "GitHub 上の指標は、リポジトリのスター 22、フォーク 10、コミット 3,055（参照日時点）。外部作例リポジトリは Tonk 30 コミット・スター 1、RockawayX 12 コミット・スター 1 で、継続的な外部開発を示していない。", k: fact, s: [src-downstream-repo, src-downstream-tonk-repo, src-downstream-rockawayx-repo]}
-    - {t: "Optimism RetroPGF 3 の申請文は検索要約上「1 週間の技術テストで拡張できることが示された」と述べているが、本文を取得できず、テストの規模・参加者は確認できなかった。", k: unknown, s: [src-downstream-retropgf]}
+    - {t: "Optimism RetroPGF 3 の申請本文（EAS が指す JSON を取得）は「十数組のオンチェーン開発者が 1 週間の技術テストに参加し、許可なく拡張できることを示した」と述べるが、参加者名・実施期間・その後の継続は書かれていない。", k: claim, who: "Playmint", s: [src-downstream-rpgf3-metadata, src-downstream-retropgf]}
   extensions:
     - {t: "Hexcraft（1kx）: チーム割り当て、建物コントラクトによるクラフト制限（他のクラスアイテムを持っていると作れない）、ユニットのモデル差し替えを使った MOBA。1kx は Playmint のシード投資家。", k: fact, s: [src-downstream-1kx-hexcraft, src-downstream-advanced-tutorials, src-downstream-seed]}
     - {t: "Tonk Attack（Tonk）: Botnet Tower・Debug Depot という建物と Tonk アイテムを追加した社会的推理ゲーム。外部サーバー接続と UI の大幅な置き換えを使い、Tonk Services の稼働が前提だった。", k: fact, s: [src-downstream-tonk-repo, src-downstream-advanced-tutorials]}
@@ -146,6 +146,7 @@ metrics:
   - {id: m-downstream-zone-price, type: other, value: 0.001, value_text: "0.001 ETH", unit: ETH, period: "2024（Redstone 版ガイド記載時点）", definition: "ゾーン 1 区画の購入価格（公式ガイド記載。コントラクト既定値は 1 ETH で owner が変更可能）", nature: reported, s: [src-downstream-redstone-guide, src-downstream-zones721]}
   - {id: m-downstream-zone-supply, type: other, value: 32000, unit: zones, period: "コントラクト定数", definition: "Zones721 の TOTAL_SUPPLY（発行上限。販売数ではない）", nature: measured, s: [src-downstream-zones721]}
   - {id: m-downstream-repo-commits, type: other, value: 3055, unit: commits, period: "2022-11〜2025-11（参照日 2026-10-23）", definition: "playmint/ds の総コミット数（GitHub 表示）", nature: measured, s: [src-downstream-repo, src-downstream-commits]}
+  - {id: m-downstream-allowlist-size, type: wallets, value: 52, unit: wallets, period: "2023-05-30〜2023-10-27", definition: "Seeker 生成の許可リスト（contracts/src/fixtures/allowlist.json）に載った重複なしアドレス数の最大値（2023-10-10 時点）。初回は 16", nature: measured, s: [src-downstream-allowlist]}
 
 events:
   - {id: ev-downstream-repo-start, date: "2022-11-18", type: other, title: "playmint/ds リポジトリ初回コミット", detail: "当初は Unity プロジェクトとして開始", s: [src-downstream-commits]}
@@ -172,7 +173,7 @@ unknowns:
   - "Redstone 停止前に世界の状態を保存・移行したか。"
   - "Cartridge による Playmint 買収の一次資料と、Downstream への影響。"
   - "CheatsRule が Redstone 本番でゾーン所有者に開放されていたか（コード上は所有者または ZoneKind 実装に許可）。"
-  - "Optimism RetroPGF 3 の申請本文と受領額。"
+  - "Optimism RetroPGF 3 の受領額（申請本文は取得済み）。"
   - "運営（owner）が本番で registerRule / autorizeStateMutation を公開後に実行したか（Redstone 停止でチェーン履歴を参照できなかった）。"
   - "外部 3 作がメインネット（Redstone）上に実際に展開・稼働していたか。"
 contradictions:
@@ -180,6 +181,41 @@ contradictions:
   - {t: "Redstone 停止の告知日: Lattice の X 投稿は 2026-04-14 17:20 UTC、L2BEAT のマイルストーンと ChainCatcher・TechFlow の記事は 2026-04-15（アジア時間での報道日とみられる）。", s: [src-downstream-lattice-x, src-downstream-l2beat-redstone, src-downstream-chaincatcher-lattice]}
   - {t: "ゾーン価格: 公式ガイドは 0.001 ETH、Zones721 の既定値は 1 ETH（owner が setMintPrice で変更可能なため、本番設定が 0.001 ETH だった可能性が高い）。", s: [src-downstream-redstone-guide, src-downstream-zones721]}
   - {t: "ライセンス: 2025 年追加の License ファイルは MIT だが、Rule コントラクトの SPDX 表記は UNLICENSED のまま。", s: [src-downstream-repo, src-downstream-plugin-rule]}
+
+acquisition:
+  audience: [developers, players]
+  summary: {t: "最初の利用者はプレイヤーではなく、許可リストに登録した数十のウォレット（Playmint 社員と招待した外部の作り手）と、投資家・提携先の開発チーム（1kx・Tonk・RockawayX）だった。公開は自社チェーンを持たず Lattice の Redstone の開発者プレビューと Worlds Expo・Composability Day に乗る形で、一般プレイヤーの獲得を示す数値は見つからない。", k: analysis, s: [src-downstream-allowlist, src-downstream-rpgf3-metadata, src-downstream-advanced-tutorials, src-downstream-race-to-mainnet]}
+  steps:
+    - {phase: pre, date: "2023-05-30", t: "ゲーム展開時に渡すウォレットの許可リストに載ったアカウントだけが最初のユニット（Seeker）を 1 回生成できる仕組みを入れ、最初は 16 アドレス、2023-07 に「TFB」のウォレット、2023-09 に Tonk のアドレスなどを追加して 52 アドレスまで広げた。", k: fact, s: [src-downstream-allowlist]}
+    - {phase: pre, date: "2023-10", t: "2023-10-01 に「技術テスト」のため許可リストを無効化するコミットがあり、2023-10-27 に既定の許可リストを空にした。Optimism RetroPGF 3 の申請で Playmint は、十数組のオンチェーン開発者が 1 週間の技術テストに参加し、Downstream を許可なく拡張できることを示したと述べた。", k: claim, who: "Playmint", s: [src-downstream-allowlist, src-downstream-rpgf3-metadata], q: "More than a dozen onchain builders took part in a week-long technical test that demonstrated they could permissionlessy extend downstream."}
+    - {phase: pre, date: "2024-01-30", t: "CEO の David Amor はインタビューで、公開は 2024 年ではないと思う、まだプレアルファで、遊ばせてくれと押し寄せる人はいないと語った。", k: claim, who: "David Amor (Playmint CEO)", s: [src-downstream-bcg-amor-2024]}
+    - {phase: pre, date: "2024-02", t: "1kx（Playmint のシード投資家）が 2 日間の社内ハッカソンで Hexcraft を作り、2024-02〜03 に Tonk・Hexcraft・RockawayX の Labyrinth が公式リポジトリの複合マップに取り込まれた。", k: fact, s: [src-downstream-1kx-hexcraft, src-downstream-commits, src-downstream-seed]}
+    - {phase: launch, date: "2024-04", t: "Lattice の Redstone mainnet の 4 週間の開発者プレビューに参加し、2024-05 の Redstone 公開時の初期タイトルとして公開された。", k: fact, s: [src-downstream-race-to-mainnet, src-downstream-decrypt-redstone, src-downstream-bcg-redstone]}
+    - {phase: growth, date: "2024-05", t: "Redstone の Composability Day でハッカソンへの参加を呼びかけ、ビルダーガイド・Discord の Office Hours（木・金の 2 時間）・難度別の作例案を示した。クライアントには 2024-05-09 に「hackathon」の告知が固定され、2024-05-14 に外された。", k: fact, s: [src-downstream-composability-wiki, src-downstream-commits]}
+  channels:
+    - {id: invite-gating, t: "最初のユニットを生成できるウォレットを許可リストで限定し、社員・招待者から 52 アドレスまで段階的に広げた後、技術テストを経て撤廃した。", k: fact, s: [src-downstream-allowlist]}
+    - {id: existing-community, t: "Autonomous Worlds の作り手の集まり（ハッカソン・会議・AW イベントでの講演）と、投資家 1kx など資本関係のある相手から最初の拡張者を得た。", k: claim, who: "Playmint", s: [src-downstream-rpgf3-metadata, src-downstream-1kx-hexcraft, src-downstream-seed]}
+    - {id: content-research, t: "CEO の寄稿や講演で「誰でも許可なくコントラクトを足せる世界」という構想を発信した。", k: fact, s: [src-downstream-amor-column, src-downstream-rpgf3-metadata]}
+    - {id: hackathon, t: "1kx の 2 日間の社内ハッカソン（Hexcraft）と、Redstone の Composability Day のハッカソンを開発者獲得の場にした。", k: fact, s: [src-downstream-1kx-hexcraft, src-downstream-composability-wiki]}
+    - {id: platform-distribution, t: "Lattice の Redstone の開発者プレビューと公開時の初期タイトル枠（Worlds Expo）を利用した（チェーン側の施策）。", k: fact, s: [src-downstream-race-to-mainnet, src-downstream-decrypt-redstone]}
+    - {id: community-server, t: "Discord を開発者の窓口にし、Office Hours を開いた。2024-04 には README に Discord のリンクを加えた。", k: fact, s: [src-downstream-composability-wiki, src-downstream-commits]}
+  cost:
+    - {t: "開発と初期運営の原資はベンチャー資金で、Playmint は 2022 年に Bitkraft 主導・1kx 等参加の 400 万ドルのシードを調達した（Downstream 以前の作品も対象）。RetroPGF 3 の申請の資金源欄は空だった。", k: fact, s: [src-downstream-seed, src-downstream-rpgf3-metadata]}
+    - {t: "プレイヤーはゾーン（区画 NFT）を 0.001 ETH（ガイド記載時点）で買えた。賞金・トークン報酬による獲得施策は確認できなかった。", k: fact, s: [src-downstream-redstone-guide]}
+  after:
+    - {t: "外部の作例リポジトリは 2023-09〜2024-03 の短期間で止まり、本体の開発も 2024-07 以降ほぼ止まった。プレイヤー数・ゾーン販売数はどこにも公表されていない。", k: fact, s: [src-downstream-tonk-repo, src-downstream-rockawayx-repo, src-downstream-hexcraft-repo, src-downstream-commits]}
+    - {t: "CEO は「100 人が遊んでくれれば満足」と語っており、目標そのものが小さかった。", k: claim, who: "David Amor (Playmint CEO)", s: [src-downstream-gamestx, src-downstream-bcg-amor-2024]}
+  counter:
+    - {t: "「十数組が許可なく拡張できた」という技術テストは許可リストを一時的に外した招待制のテストで、参加者は Playmint が声をかけた開発者だった可能性が高い。一般の開発者が自発的に集まった証拠にはならない。", k: analysis, s: [src-downstream-allowlist, src-downstream-rpgf3-metadata]}
+    - {t: "確認できる外部の作り手（1kx・Tonk・RockawayX）は投資家・業界の開発チームで、獲得施策の成果というより人脈・資本関係による参加と読める。", k: analysis, s: [src-downstream-seed, src-downstream-advanced-tutorials]}
+    - {t: "2024-05 の露出は Redstone 公開と多数のゲームの同時公開に依存しており、2024-01 の時点で CEO は 2024 年の公開を否定していた。Redstone の日程に合わせて準備途中で出した可能性がある。", k: analysis, s: [src-downstream-bcg-amor-2024, src-downstream-race-to-mainnet]}
+  lessons:
+    - {t: "許可リストで作り手を先に集める: 一般公開前に、ユニット生成をウォレット単位で許可して社員・投資家・招待した開発チームだけに開き、技術テストの期間だけ制限を外すと、拡張の仕組みを少人数で検証できる。効く条件は招待した作り手が自分の作例を公開し、それが後の参加者の手本になること。破綻条件は作り手が投資家・提携先に偏り、テスト後に作例の保守が止まること（Tonk・RockawayX の作例は数か月で停止）。", k: analysis}
+    - {t: "他社チェーンの公開イベントに乗る: 自前の集客力が小さい作品でも、L2 の公開時の特集・開発者プレビュー・ハッカソンに参加すると一時的な露出を得られる。破綻条件は露出がチェーン側の日程で決まり、作品の準備や定着策が追いつかないこと、そしてチェーン停止で世界ごと失われること。", k: analysis}
+  metrics: [m-downstream-allowlist-size]
+  unknowns:
+    - "許可リストの「TFB」が何の集団か、技術テストの参加者の名前と実施期間。"
+    - "Redstone 公開後のプレイヤー数・ゾーン購入者数と、Composability Day の成果物。"
 
 sources:
   - {id: src-downstream-repo, title: "playmint/ds (Downstream)", url: "https://github.com/playmint/ds", publisher: "GitHub", type: code, primary: true, published: "2025-11", accessed: "2026-10-23", access: fetched, lang: en, note: "git clone と WebFetch で確認。README、License（MIT／アセット CC0）、スター 22・フォーク 10・3,055 コミット"}
@@ -210,3 +246,8 @@ sources:
   - {id: src-downstream-signalbase, title: "Cartridge Acquires Playmint, Bolstering Web…", url: "https://www.trysignalbase.com/news/acquisitions/playmint-acquired-by-cartridge-acquisition", publisher: "Signalbase", type: analysis, primary: false, published: "2026-01-13", accessed: "2026-10-23", access: fetched, lang: en, note: "出典を示さない集約記事。Downstream への言及なし"}
   - {id: src-downstream-site, title: "Downstream Redstone client", url: "https://redstone.downstream.game/", publisher: "Playmint", type: official-docs, primary: true, accessed: "2026-10-23", access: unreachable, lang: en, note: "参照日に名前解決できず（downstream.game も同様）"}
   - {id: src-downstream-retropgf, title: "Downstream - Optimism RetroPGF 3 application", url: "https://vote.optimism.io/retropgf/3/application/0x60e8b63d4c87c43409731ac1370379af9884f7239cf69b052fb36c14d121f736", publisher: "Optimism Agora", type: forum, primary: true, accessed: "2026-10-23", access: snippet, lang: en, note: "WebFetch では本文が描画されず、検索要約のみ"}
+  - {id: src-downstream-rpgf3-metadata, title: "Downstream — Optimism RetroPGF 3 application metadata", url: "https://content.optimism.io/rpgf3Application/v0/metadata/10/0x5cd05578760FAA29d7a00C1840c05a5B0C16f196.json", publisher: "Optimism (RetroPGF 3)", author: "Playmint", type: forum, primary: true, published: "2023-10", accessed: "2026-10-24", access: fetched, lang: en, note: "Agora の申請ページ（src-downstream-retropgf）が指す EAS アテステーション（2023-10-16）の申請本文 JSON を取得。Goerli 決済の OP Stack フォーク上、十数組の 1 週間技術テスト、講演活動、資金源欄は空"}
+  - {id: src-downstream-allowlist, title: "contracts/src/fixtures/allowlist.json (history)", url: "https://github.com/playmint/ds/commits/main/contracts/src/fixtures/allowlist.json", publisher: "GitHub", type: code, primary: true, published: "2023-10", accessed: "2026-10-24", access: fetched, lang: en, note: "blobless clone の git 履歴で確認。2023-05-30 に Seeker 生成の許可リスト導入（16 アドレス）、TFB・Tonk 等を追加し最大 52、2023-10-01 技術テストで無効化、2023-10-27 に空に"}
+  - {id: src-downstream-bcg-amor-2024, title: "David Amor hopes fully onchain games will shake up “boring” gaming landscape", url: "https://www.blockchaingamer.biz/?p=30062", publisher: "BlockchainGamer.biz", type: interview, primary: false, published: "2024-01-30", accessed: "2026-10-24", access: fetched, lang: en, note: "最終更新 2024-01-30 の表示。公開は 2024 年ではない、プレアルファ、100 人で満足、プレイテストとオープンな開発"}
+  - {id: src-downstream-race-to-mainnet, title: "The Race to Mainnet", url: "https://lattice.xyz/blog/race-to-mainnet", publisher: "Lattice blog", author: "Lattice", type: official-blog, primary: true, published: "2024-04", accessed: "2026-10-24", access: fetched, lang: en, note: "Redstone mainnet の 4 週間の開発者プレビューに Playmint（Downstream）が参加"}
+  - {id: src-downstream-composability-wiki, title: "Redstone Community - Composability Day Wiki", url: "https://latticexyz.notion.site/Redstone-Community-Composability-Day-Wiki-a041c3a8e1484147900e450353ff86af", publisher: "Lattice (Notion)", type: official-docs, primary: true, published: "2024-05", accessed: "2026-10-24", access: fetched, lang: en, note: "Notion 公開 API で本文取得。Downstream の項でハッカソン準備、ビルダーガイド、Discord の Office Hours（Thu 9th / Fri 10th）、作例案"}

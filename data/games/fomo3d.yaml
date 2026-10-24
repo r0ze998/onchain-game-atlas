@@ -144,7 +144,7 @@ article:
 
 acquisition:
   audience: [players]
-  summary: {t: "最初の参加者の土台は同じ Team JUST の PoWH3D（P3D）の保有者・紹介者で、購入額の一部が P3D 側へ流れる設計と 10% の紹介料が既存の参加者に勧誘の動機を与えた。そこへ、プールが膨らむ公開タイマーそのものの話題性（ethresear.ch・報道）が 2018-07 下旬の急増を重ねたと見られる。", k: analysis, s: [src-fomo3d-source, src-fomo3d-financemagnates, src-fomo3d-ethresearch, src-fomo3d-btcecho-0724]}
+  summary: {t: "最初の参加者の土台は同じ Team JUST の PoWH3D（P3D）の保有者・紹介者で、購入額の一部が P3D 側へ流れる設計と 10% の紹介料が既存の参加者に勧誘の動機を与えた。2018-07-19〜21 の急増は ethresear.ch の議論（07-21）と報道（07-23 以降）より前に起きており、議論と報道は急増への反応だった可能性が高い。急増そのものを何が起こしたかは一次資料で特定できない。", k: analysis, s: [src-fomo3d-source, src-fomo3d-financemagnates, src-fomo3d-ethresearch, src-fomo3d-btcecho-0724]}
   steps:
     - {phase: pre, t: "Team JUST は先に PoWH3D（P3D、コード上は Hourglass）を運営しており、P3D には紹介者（masternode）の経由で入った購入者の配当手数料の一部を紹介者に回す仕組みがあった。Fomo3D はキー購入額の一部と、紹介者のいない購入の紹介料分を P3D 保有者に流す設計で始まった。", k: fact, s: [src-fomo3d-source, src-fomo3d-financemagnates]}
     - {phase: launch, date: "2018-07-06", t: "FoMo3D Long をデプロイ。最初の 100 ETH が集まるまでは 1 人あたり累計 1 ETH までしか買えない反クジラ規則があり、初期の少数の大口が独占しないようにしていた。", k: fact, s: [src-fomo3d-etherscan-deploy, src-fomo3d-source]}
@@ -154,7 +154,7 @@ acquisition:
     - {phase: growth, date: "2018-08-22", t: "第 1 ラウンドがブロック詰めで決着し、Vice・TNW などが勝者と賞金を報じた。報道の山は流入の山（7 月下旬）より後で、以後のラウンドは縮小した。", k: fact, s: [src-fomo3d-vice, src-fomo3d-tnw, src-fomo3d-solmaz]}
   channels:
     - {id: existing-community, t: "同じチームの P3D 保有者が、購入額の一部（チームにより 0〜10%）と紹介者なし購入の紹介料分を受け取る立場にあり、P3D の利用者が最初の参加者・宣伝者になる動機を持っていた。", k: fact, s: [src-fomo3d-source, src-fomo3d-financemagnates]}
-    - {id: referral, t: "購入額の 10% が紹介者に入るが、紹介者が PlayerBook で名前を登録（0.01 ETH）していなければその分は P3D へ回る。紹介リンクを配る人は少額を払って登録した参加者に限られた。", k: fact, s: [src-fomo3d-source]}
+    - {id: referral, t: "購入額の 10% が紹介者に入るが、紹介者が PlayerBook で名前を登録（0.01 ETH）していなければその分は P3D へ回る。紹介リンクを配る人は少額を払って登録した参加者に限られた。公式サイトも勧誘を参加者の戦略として示し、Finance Magnates は画面上部の「shill kit」に触れている。", k: fact, s: [src-fomo3d-source, src-fomo3d-exitscam-site, src-fomo3d-financemagnates], q: "Clever players can recruit others."}
     - {id: viral-mechanic, t: "購入ごとに 30 秒延びる公開タイマーと膨らむプール、既存保有者への即時配当という仕組みそのものが話題を生み、残り時間の消耗戦を観戦・議論の対象にした。", k: analysis, s: [src-fomo3d-hackernoon-attrition, src-fomo3d-ethresearch]}
     - {id: prize-competition, t: "最後の購入者がプールの 48% を得る賞金そのものが参加理由になった。賞金の原資は参加者自身の購入額である。", k: fact, s: [src-fomo3d-source]}
     - {id: crypto-social, t: "2018-07-21 に ethresear.ch で Ethereum 全体への影響が議論され、Justin Drake らが参加した。", k: fact, s: [src-fomo3d-ethresearch]}
@@ -166,7 +166,7 @@ acquisition:
     - {t: "ラウンドごとの勝者賞金は 10,469 ETH → 3,264 ETH → 376 ETH と急減し、第 3 ラウンド（2018-10）以後の公式な活動は確認できない。", k: fact, s: [src-fomo3d-solmaz, src-fomo3d-etherscan-win-tx, src-fomo3d-secbit-solution]}
     - {t: "示されていない指標: 一意の参加アドレス数、ラウンドをまたいだ再参加率、紹介経由の購入の割合は一次集計が見つからない（Etherscan の累計取引数 246,135 件のみ）。", k: fact, s: [src-fomo3d-etherscan-contract]}
   counter:
-    - {t: "急増の時期（07-20〜21）は ethresear.ch の議論と重なるが、どちらが先かは日単位では判別できない。報道（07-23 以降）は頂点の後であり、報道が最初の流入を生んだとは言いにくい。", k: analysis, s: [src-fomo3d-ethresearch, src-fomo3d-secbit-solution, src-fomo3d-financemagnates]}
+    - {t: "ethresear.ch の議論が急増を後押ししたという説明は弱い。07-21 の最初の投稿自体が蓄積は「主に直近 2 日」に起きたと書いており、議論は急増への反応である。報道（07-23 以降）は SECBIT のいう頂点（07-20〜21）の後で、報道が最初の流入を生んだとも言いにくい。議論・報道が頂点後の参加を支えた可能性は残るが、測れていない。", k: analysis, s: [src-fomo3d-ethresearch, src-fomo3d-secbit-solution, src-fomo3d-financemagnates], q: "has accumulated more than 17000 ether at present, mostly in last two days"}
     - {t: "BTC-Echo の 5,200 は「アクティブユーザー」とされるがアドレス単位の可能性が高く、紹介料目当ての自己紹介アカウントや攻撃コントラクトを含み得る。SECBIT の 18,000 超の「参加」も一意アドレスか取引数か不明で、人数の根拠としては弱い。", k: analysis, s: [src-fomo3d-btcecho-0724, src-fomo3d-secbit-solution]}
     - {t: "紹介制度の効果は直接測れない。紹介料は名前登録者にしか入らないため、紹介経由の購入の比率は PlayerBook とイベントログを集計しなければ分からず、本調査では行っていない。", k: unknown}
   lessons:
@@ -184,7 +184,7 @@ metrics:
   - {id: m-fomo3d-r1-prize, type: other, value: 10469.66, value_text: "10,469.66 ETH", unit: ETH, period: "2018-08-22（第 1 ラウンド）", definition: "勝者が withdraw() で引き出した額（Etherscan の内部送金）", nature: measured, s: [src-fomo3d-etherscan-win-tx]}
   - {id: m-fomo3d-r1-pot, type: other, value: 21811, value_text: "約 21,811 ETH", unit: ETH, period: "2018-08-22（第 1 ラウンド終了時）", definition: "Vice が記した総プール（勝者分は半分弱）", nature: reported, s: [src-fomo3d-vice]}
   - {id: m-fomo3d-r1-inflow, type: volume, value: 40000, value_text: "40,000 ETH 超", unit: ETH, period: "第 1 ラウンド（2018-07〜08）", definition: "SECBIT による投入資金の総額（集計方法の詳細は不明）", nature: estimated, s: [src-fomo3d-secbit-solution, src-fomo3d-secbit-odaily]}
-  - {id: m-fomo3d-r1-participations, type: other, value: 18000, value_text: "18,000 超", unit: participations, period: "第 1 ラウンド（ピークは 2018-07-20〜21）", definition: "SECBIT のいう参加数（participations / participants。一意アドレスか取引数かは不明）", nature: estimated, s: [src-fomo3d-secbit-solution, src-fomo3d-secbit-odaily]}
+  - {id: m-fomo3d-r1-participations, type: other, value: 18000, value_text: "18,000 超", unit: participations, period: "第 1 ラウンド（ピークは 2018-07-20〜21）", definition: "SECBIT のいう参加数。Hackernoon 版は「more than 18,000 persons and 40,000 ethers」が頂点に達したと書き、Odaily 版は participations とする。一意アドレスか取引数か、日次か累計かは不明", nature: estimated, s: [src-fomo3d-secbit-solution, src-fomo3d-secbit-odaily]}
   - {id: m-fomo3d-pot-0721, type: other, value: 17000, value_text: "17,000 ETH 超", unit: ETH, period: "2018-07-21", definition: "ethresear.ch 投稿者が記したコントラクトの蓄積額", nature: reported, s: [src-fomo3d-ethresearch]}
   - {id: m-fomo3d-pot-0724, type: other, value: 21515, unit: ETH, period: "2018-07-24", definition: "Finance Magnates が報じた公式サイト上のプール", nature: reported, s: [src-fomo3d-financemagnates]}
   - {id: m-fomo3d-r2-prize, type: other, value: 3264.668, unit: ETH, period: "2018-09-24（第 2 ラウンド、33 日間）", definition: "第 2 ラウンドの最終賞金（SECBIT）", nature: estimated, s: [src-fomo3d-secbit-odaily], note: "Solmaz は 3,264 ETH と記載"}

@@ -76,34 +76,37 @@ acquisition:
     - {phase: pre, date: "2012", t: "前身のモバイル版 The Sandbox シリーズは 2012 年からの累計で 4000 万ダウンロード、最新作 The Sandbox Evolution は MAU 120 万（ピーク 260 万）とホワイトペーパーは述べる。", k: claim, who: "The Sandbox（2020 年ホワイトペーパー）", s: [src-tsb-whitepaper]}
     - {phase: pre, date: "2019-12", t: "最初の LAND 先行販売で 3,000 超の区画が約 4 時間で売れた。", k: fact, s: [src-tsb-decrypt-2020-presale]}
     - {phase: pre, date: "2020-02", t: "2 回目の先行販売は 6,192 区画で、Animoca Brands によれば開始数時間で 800 ETH を売り上げた。初期の LAND 購入者として Shaun the Sheep のブランド、Old Skull Games、Dapp.com、CryptoKitties、My Crypto Heroes が挙げられた。ゲーム自体は 2020 年後半の公開予定だった。", k: fact, s: [src-tsb-decrypt-2020-presale]}
-    - {phase: pre, t: "2020 年ホワイトペーパーの時点で、Foundation は 15 超のゲーム企画に資金を出し、2020-12 の公開に先立って 100 人のアーティストに NFT 制作の助成をしたと述べる。", k: claim, who: "The Sandbox（2020 年ホワイトペーパー）", s: [src-tsb-whitepaper]}
+    - {phase: pre, t: "2020 年ホワイトペーパーの時点で、Foundation は 15 超のゲーム企画に資金を出し、2020-12 の公開に先立って 100 人のアーティストに NFT 制作の助成をしたと述べる。同じ文書は、2 回の LAND 先行販売の売上を計 1,400 ETH（約 30 万ドル）、Discord の参加者を 1 万超、マーケットプレイスのアカウントを 3,500 超としている。", k: claim, who: "The Sandbox（2020 年ホワイトペーパー）", s: [src-tsb-whitepaper]}
     - {phase: launch, date: "2021-11-29", t: "Alpha（〜2021-12-20）を公開した。報酬付きの体験に入れる Alpha Pass は 5,000 枚で、うち 1,000 枚を LAND 所有者の抽選、2,250 枚を 3 週間のコンテストの参加者に配り、達成者は最大 1,000 SAND と限定 NFT を得られた。Alpha のハブと 3 つの体験はパスなしでも入れた（公式ツイート）。", k: fact, s: [src-tsb-forklog-alpha]}
-    - {phase: growth, date: "2021-12", t: "Alpha 期間の利用者は 20 万超とされる（定義不明）。同じ 2021-11 に Series B で 9300 万ドルを調達した。", k: fact, s: [src-tsb-wikipedia]}
+    - {phase: growth, date: "2021-12", t: "運営は、2021-11 に始まった最初の Alpha シーズンが 20 万超の訪問者を集め、500 万超の SAND を利用者に配ったと述べた（Wikipedia は「20 万超の利用者」と記載。定義は不明）。同じ 2021-11 に Series B で 9300 万ドルを調達した。", k: claim, who: "The Sandbox（PocketGamer.biz 2022-03 の記事内）", s: [src-tsb-pocketgamer-2022, src-tsb-wikipedia]}
   channels:
     - {id: invite-gating, t: "Alpha の報酬付き参加を 5,000 枚の Alpha Pass に限り、LAND 所有者の抽選とコンテストで配った（残る経路は記事に記載なし）。", k: fact, s: [src-tsb-forklog-alpha]}
     - {id: token-incentive, t: "Alpha Pass 保有者は課題の達成で最大 1,000 SAND と限定 NFT を得られた。", k: fact, s: [src-tsb-forklog-alpha]}
     - {id: builder-grants, t: "Foundation が 15 超のゲーム企画と 100 人のアーティストに助成し、公開前のコンテンツと制作者を確保したと運営は述べる。", k: claim, who: "The Sandbox（2020 年ホワイトペーパー）", s: [src-tsb-whitepaper]}
     - {id: ip-brand, t: "先行販売の段階から Shaun the Sheep のブランドや CryptoKitties など既存ブランド・NFT プロジェクトが LAND を買い、その名前が販売の告知に使われた。", k: fact, s: [src-tsb-decrypt-2020-presale]}
   cost:
-    - {t: "先行販売の LAND 購入者が ETH で払い（2 回目だけで数時間に 800 ETH）、2021-11 には Series B で 9300 万ドルを調達した。親会社 Animoca Brands による Pixowl 買収（2018-08）が転換の起点。", k: fact, s: [src-tsb-decrypt-2020-presale, src-tsb-wikipedia]}
-    - {t: "Alpha の報酬（1 人最大 1,000 SAND × 5,000 枚）と Foundation の助成は運営側が SAND と資金で負担した。ホワイトペーパーは SAND 建て取引手数料の 50% を Foundation に配分すると記載する。", k: fact, s: [src-tsb-forklog-alpha, src-tsb-whitepaper]}
+    - {t: "先行販売の LAND 購入者が ETH で払い（2 回目だけで数時間に 800 ETH、ホワイトペーパーでは 2 回計 1,400 ETH）、2021-11 には Series B で 9300 万ドルを調達した。親会社 Animoca Brands による Pixowl 買収（2018-08）が転換の起点。", k: fact, s: [src-tsb-decrypt-2020-presale, src-tsb-wikipedia]}
+    - {t: "Alpha の報酬（1 人最大 1,000 SAND × 5,000 枚。運営は Season 1 で 500 万超の SAND を配ったと述べる）と Foundation の助成は運営側が SAND と資金で負担した。ホワイトペーパーは SAND 建て取引手数料の 50% を Foundation に配分すると記載する。", k: fact, s: [src-tsb-forklog-alpha, src-tsb-whitepaper]}
   after:
     - {t: "2022-10 時点で、コントラクトと取引したウォレットは 24 時間で 522（DappRadar）。会社は約 20 万 MAU を主張した（定義不明）。Alpha 期間の 20 万超と同水準の主張だが、継続率は示されていない。", k: fact, s: [src-tsb-coindesk-2022, src-tsb-wikipedia]}
     - {t: "示されていない指標: 先行販売の購入者数、モバイル版のプレイヤーが Web3 版に移った数、Alpha 参加者のうち次のシーズンにも遊んだ割合。", k: unknown}
   counter:
     - {t: "4000 万ダウンロードのモバイル版プレイヤーが Web3 版の初期利用者になったことを示す資料は見つからなかった。初期の参加者は LAND の投資家と制作者で、既存 IP の利用者基盤が移ったとは言えない。", k: analysis, s: [src-tsb-whitepaper, src-tsb-decrypt-2020-presale]}
+    - {t: "逆方向の反証: SAND 報酬を得られるのは最大 5,000 枚の Alpha Pass 保有者で、ハブと 3 つの体験は誰でも入れた。運営の言う 20 万超の「訪問者」の大半は報酬対象外であり、トークン報酬だけでは流入の規模を説明できない（ブランド提携・報道・調達の話題性など別の要因を検討する必要がある）。", k: analysis, s: [src-tsb-forklog-alpha, src-tsb-pocketgamer-2022]}
     - {t: "Alpha の 20 万超は、SAND 報酬の付いた期間限定イベントであり、大型調達と暗号資産相場の高値の時期と重なる。報酬目当ての一時流入と区別する資料はない。", k: analysis, s: [src-tsb-forklog-alpha, src-tsb-wikipedia]}
   lessons:
     - {t: "参加枠を土地所有者に優先配分する（LAND 所有者向け抽選）: 先行購入者に使い道を与え、土地の需要を支えられるが、ゲームを遊びたい人ではなく保有者に枠が回るため、プレイヤー層の検証にはならない。", k: analysis}
     - {t: "限定パス＋トークン報酬の期間限定シーズン: 参加者数の山は作れるが、報酬を外したときの継続を同時に測らないと、獲得の成否を判断できない。報酬額が参加枠ごとに固定なら費用は上限を決められる。", k: analysis}
-  metrics: [m-tsb-franchise-downloads, m-tsb-presale-2019-12, m-tsb-presale-2020-02, m-tsb-alpha-passes, m-tsb-alpha-users, m-tsb-seriesb-2021, m-tsb-dappradar-2022-10, m-tsb-mau-claim-2022]
+  metrics: [m-tsb-franchise-downloads, m-tsb-presale-2019-12, m-tsb-presale-2020-02, m-tsb-alpha-passes, m-tsb-alpha-users, m-tsb-alpha-sand-distributed, m-tsb-presale-revenue-wp, m-tsb-seriesb-2021, m-tsb-dappradar-2022-10, m-tsb-mau-claim-2022]
   unknowns: ["LAND 先行販売の購入者数（ウォレット数）と、そのうち実際に体験を公開した人の数", "Foundation の助成総額と、助成を受けたゲームの公開状況", "Alpha Pass の残り 1,750 枚の配布経路"]
 
 metrics:
   - {id: m-tsb-dappradar-2022-10, type: wallets, value: 522, unit: wallets, period: "2022-10 初旬の 24 時間", definition: "DappRadar: コントラクトと取引した一意ウォレット数", nature: measured, s: [src-tsb-coindesk-2022]}
   - {id: m-tsb-dappradar-peak, type: wallets, value: 4503, value_text: "約 4,503", unit: wallets, period: "2022-10 時点の過去最高（日次）", definition: "DappRadar の日次一意ウォレットの過去最高", nature: measured, s: [src-tsb-coindesk-2022]}
   - {id: m-tsb-mau-claim-2022, type: mau, value: 200000, value_text: "約 20 万", unit: players, period: "2022-10 頃", definition: "会社が主張した月間アクティブ（Wikipedia が Bloomberg 2022-10-23 を出典に記載。MAU の定義は不明。CoinDesk で CEO が述べたのは DAU の定義「1 日 1 回以上接続した人」のみ）", nature: reported, s: [src-tsb-wikipedia]}
-  - {id: m-tsb-alpha-users, type: players, value: 200000, value_text: "20 万超", unit: players, period: "2021-11-29〜12-20（Alpha）", definition: "Alpha 期間の利用者数（Wikipedia、定義不明）", nature: reported, s: [src-tsb-wikipedia]}
+  - {id: m-tsb-alpha-users, type: players, value: 200000, value_text: "20 万超", unit: visitors, period: "2021-11-29〜12-20（Alpha Season 1）", definition: "Alpha Season 1 の訪問者数（運営の発表として PocketGamer.biz が「visitors」と記載、Wikipedia は「users」。定義の詳細は不明）", nature: reported, s: [src-tsb-pocketgamer-2022, src-tsb-wikipedia]}
+  - {id: m-tsb-alpha-sand-distributed, type: other, value: 5000000, value_text: "500 万 SAND 超", unit: SAND, period: "Alpha Season 1（2021-11〜12）", definition: "Alpha Season 1 で利用者に配られた SAND（運営の発表、PocketGamer.biz）", nature: reported, s: [src-tsb-pocketgamer-2022]}
+  - {id: m-tsb-presale-revenue-wp, type: nft_sales, value: 1400, value_text: "1,400 ETH（約 30 万ドル）", unit: ETH, period: "2019-12〜2020-02（2 回の先行販売）", definition: "ホワイトペーパーが記す最初の 2 回の LAND 先行販売の総売上", nature: reported, s: [src-tsb-whitepaper]}
   - {id: m-tsb-land-count, type: other, value: 166464, unit: parcels, period: "2020 年ホワイトペーパー", definition: "LAND の総区画数（408×408）", nature: reported, s: [src-tsb-whitepaper]}
   - {id: m-tsb-seriesb-2021, type: funding, value: 93000000, unit: USD, period: "2021-11", definition: "Series B 調達額（Wikipedia）", nature: reported, s: [src-tsb-wikipedia]}
   - {id: m-tsb-pixowl-acq, type: other, value: 4875000, unit: USD, period: "2018-08", definition: "Animoca Brands による Pixowl 買収額（現金と株式、Wikipedia）", nature: reported, s: [src-tsb-wikipedia]}
@@ -128,6 +131,7 @@ unknowns:
   - "正式版の公開日、2023 年以降の利用者数、DAO の実際の権限。"
   - "2025-08 以降の運営方針（報道されたミームコイン・Base 関連の計画の実施状況）。"
 contradictions:
+  - {t: "最初の LAND 先行販売の所要時間: Decrypt は 2019-12 の最初の先行販売を「約 4 時間」で 3,000 超区画とし、ホワイトペーパーは最初の 2 回（地図の 2.5%、次に 5%）が「ほぼ 1 時間」で完売したとする。", s: [src-tsb-decrypt-2020-presale, src-tsb-whitepaper]}
   - {t: "利用者数: DappRadar 522（取引ウォレット/24h、CoinDesk）、Wikipedia は出典不明の報告として約 500 DAU、会社主張の約 20 万 MAU（定義不明）。", s: [src-tsb-coindesk-2022, src-tsb-wikipedia]}
 
 sources:
@@ -137,3 +141,4 @@ sources:
   - {id: src-tsb-cointelegraph-2025, title: "Animoca's Sandbox overhauls as co-founders confirm new strategic roles", url: "https://cointelegraph.com/news/the-sandbox-restructuring-ai-layoffs-cofounders-role-shift", publisher: "Cointelegraph", author: "Helen Partz", type: news, primary: false, published: "2025-08-28", accessed: "2026-10-23", access: fetched, lang: en, note: "経営体制変更（Madrid は会長、Borget はグローバルアンバサダー）、人員削減「少なくとも 50%」（The Big Whale の報道として）、Borget の発言"}
   - {id: src-tsb-decrypt-2020-presale, title: "Ethereum-based Sandbox sells out another virtual LAND presale", url: "https://decrypt.co/19711/ethereum-based-sandbox-sells-out-another-virtual-land-presale", publisher: "Decrypt", author: "Andrew Hayward", type: news, primary: false, published: "2020-02-17", accessed: "2026-10-24", access: fetched, lang: en, note: "2019-12 の最初の先行販売 3,000 超を約 4 時間、2 回目 6,192 区画・数時間で 800 ETH（Animoca 発表）、初期購入者（Shaun the Sheep、CryptoKitties 等）、ゲームは 2020 年後半公開予定"}
   - {id: src-tsb-forklog-alpha, title: "The Sandbox to launch alpha version of its metaverse", url: "https://forklog.com/en/the-sandbox-to-launch-alpha-version-of-its-metaverse/amp", publisher: "ForkLog", type: news, primary: false, published: "2021-11-17", accessed: "2026-10-24", access: fetched, lang: en, note: "Alpha 2021-11-29〜12-20、Alpha Pass 5,000 枚（LAND 所有者抽選 1,000、競争参加者 2,250）、最大 1,000 SAND と NFT、埋め込みの公式ツイート"}
+  - {id: src-tsb-pocketgamer-2022, title: "The Sandbox passes 2 million registered users in 13 months", url: "https://www.pocketgamer.biz/the-sandbox-passes-2-million-registered-users-in-13-months/", publisher: "PocketGamer.biz", author: "Aaron Orr", type: news, primary: false, published: "2022-03-03", accessed: "2026-10-24", access: fetched, lang: en, note: "運営発表として Alpha Season 1 の訪問者 20 万超（原文は誤植で 200,00）と 500 万超の SAND 配布、登録者 200 万超（定義なし）、Season 2 のパス 1 万枚"}

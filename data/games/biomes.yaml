@@ -4,7 +4,7 @@ name_ja: バイオームズ
 aliases: ["Biomes AW", "Biome-1", "DUST（2025-04 に改名した後継）"]
 kind: game
 depth: deep
-updated: "2026-10-23"
+updated: "2026-10-24"
 links:
   website: https://dustproject.org/
   docs: https://dev.dustproject.org/
@@ -176,6 +176,41 @@ contradictions:
   - {t: "Redstone 停止の告知日: Lattice の X 投稿は 2026-04-14 17:20 UTC、TechFlow・ChainCatcher は 2026-04-15。", s: [src-biomes-lattice-x, src-biomes-techflow, src-biomes-chaincatcher]}
   - {t: "Redstone の停止日時: L2BEAT・TechFlow は 2026-05-15 23:59 UTC、ChainCatcher は 2026-05-16 07:59（UTC+8 表記とみられる）。", s: [src-biomes-l2beat, src-biomes-techflow, src-biomes-chaincatcher]}
 
+acquisition:
+  audience: [players, developers]
+  summary: {t: "OPCraft を引き継いだ開発者（Lattice は「OPCraft fans」と紹介）が、BuidlGuidl の助成を受けながらテストネットのプレイテストを経て、Lattice の Redstone 公開（2024-05）の初期タイトルとして出した。最初の利用者の集め方は、自前の宣伝よりも Redstone 側の開発者プレビュー・Worlds Expo・Composability Day と、時間限定イベント（エクスペリエンス）やプレイヤー組織のクエストに頼った。", k: analysis, s: [src-biomes-winding-down, src-biomes-race-to-mainnet, src-biomes-buidlguidl, src-biomes-composability-wiki]}
+  steps:
+    - {phase: pre, t: "Lattice によれば、Zuse と Dhvani が Lattice の手を離れた OPCraft を引き継いで Biomes にした。Lattice は Redstone 公開前の記事で Biomes を「デジタル物理の愛好家と OPCraft ファンのチーム」の作品と紹介した。", k: claim, who: "Lattice", s: [src-biomes-winding-down, src-biomes-race-to-mainnet], q: "by a team of digital physics aficionados and OPCraft fans"}
+    - {phase: pre, date: "2024-03", t: "開発者 2 名が BuidlGuidl の助成コホートの作業記録に、テストネット版（biomes.everlon.xyz）でのプレイテストを記した。", k: fact, s: [src-biomes-buidlguidl]}
+    - {phase: pre, date: "2024-04", t: "Redstone mainnet の 4 週間の開発者プレビューに Biomes チームが参加し、5/1 の公開に向けて準備した。", k: fact, s: [src-biomes-race-to-mainnet, src-biomes-buidlguidl]}
+    - {phase: launch, date: "2024-05", t: "Redstone の公開期間（Worlds Expo）に Biome-1 を、scaffold-eth 製テンプレートで作った 4 つのエクスペリエンス（デスマッチ等の時間限定イベント）とともに公開した。", k: fact, s: [src-biomes-buidlguidl, src-biomes-redstone-live, src-biomes-scaffold-prs]}
+    - {phase: launch, date: "2024-05", t: "Redstone の Composability Day Wiki で、誰でもスマートコントラクトで競技・報酬・賞金稼ぎなどを作れると紹介し、プラグイン文書と開発者 Discord（💻 の反応で developer ロール付与）を案内した。", k: fact, s: [src-biomes-composability-wiki]}
+    - {phase: growth, date: "2024-10", t: "アルファを開始。Bankless の紹介記事は、入場すると専用ウォレットに ETH を入れて遊ぶこと、最初のクエストはプレイヤーが作った組織 Settlers Union が出していることを伝えた。", k: fact, s: [src-biomes-bankless]}
+    - {phase: growth, date: "2024-11", t: "Devcon 7 で開発者 2 名が「Growing the Biomes GDP」を講演した。", k: fact, s: [src-biomes-devcon-gdp]}
+  channels:
+    - {id: existing-community, t: "OPCraft の世界とファン（開発者自身を含む）を出発点にした。", k: claim, who: "Lattice", s: [src-biomes-winding-down, src-biomes-race-to-mainnet]}
+    - {id: platform-distribution, t: "Lattice の Redstone の開発者プレビューと公開時の初期タイトル枠（Worlds Expo、報道でも初期タイトルとして紹介）を利用した（チェーン側の施策）。", k: fact, s: [src-biomes-race-to-mainnet, src-biomes-redstone-live, src-biomes-decrypt-redstone]}
+    - {id: hackathon, t: "Redstone の Composability Day で、Biome-1 上で作れるイベント案（旗取り、金の奪い合い、清掃に ETH を払う報酬など）を開発者向けに示した。", k: fact, s: [src-biomes-composability-wiki]}
+    - {id: community-server, t: "開発者 Discord（#dev-help、developer ロール）を開発者の受け皿にした。", k: fact, s: [src-biomes-composability-wiki]}
+    - {id: composability, t: "時間限定のエクスペリエンスやチップ付きのチェスト・店など、第三者コントラクトで作るイベントと、プレイヤー組織 Settlers Union の新規向けクエストを入口にした。", k: fact, s: [src-biomes-scaffold-prs, src-biomes-bankless, src-biomes-experience-prs]}
+    - {id: press, t: "Decrypt（Redstone 公開時）と Bankless（アルファ開始後）が紹介した。", k: fact, s: [src-biomes-decrypt-redstone, src-biomes-bankless]}
+  cost:
+    - {t: "開発者 2 名は BuidlGuidl の助成から計 15 ETH を引き出しており、初期の開発の原資の一部は助成だった。プレイヤーはガス代として ETH を自分で入れる必要があり（Bankless は 0.01 ETH で数千件の取引に足りると書く）、賞金・トークン報酬による獲得施策は確認できなかった。", k: fact, s: [src-biomes-buidlguidl, src-biomes-bankless]}
+    - {t: "2025 年以降の DUST 期は、Lattice の残余資金と 0xPARC の支援が充てられたと報じられた。", k: fact, s: [src-biomes-chaincatcher, src-biomes-techflow]}
+  after:
+    - {t: "プレイヤー数・DAU は公表されていない。エクスペリエンス用リポジトリの PR は全て開発者本人のもので、外部の作り手が増えた形跡は薄い。", k: fact, s: [src-biomes-experience-prs]}
+    - {t: "Biomes 期の世界は 2025 年に DUST として作り直され、2026 年に DUST Chain へ移った後、DUST Chain も 2026-12-31 停止と告知された。最初期の参加者が DUST に残ったかを示す資料はない。", k: fact, s: [src-biomes-worlds-json, src-biomes-migration-2026, src-biomes-dust-site]}
+  counter:
+    - {t: "Redstone 公開時の流入は、多数の作品が同時に特集されたチェーン全体の話題によるもので、Biomes 固有の施策の効果とは分けられない。", k: analysis, s: [src-biomes-redstone-live]}
+    - {t: "Settlers Union は「プレイヤーが作った組織」と紹介されるが、開発者がプレイヤー集団名のチェストを自ら書いていた形跡があり、新規向けクエストがどこまで自発的なプレイヤー活動だったかは確認できない。", k: analysis, s: [src-biomes-bankless, src-biomes-experience-prs]}
+  lessons:
+    - {t: "時間限定のエクスペリエンスを公開日に並べる: 持続する箱庭の世界でも、公開時にデスマッチや競争などの時間限定イベントを外部コントラクトとして同時に用意すると、何をすればよいかが分かる入口になる。効く条件はイベントをテンプレートで安く量産できること。破綻条件は、作るのが開発チームだけで外部の作り手が続かず、イベントの供給が止まること。", k: analysis}
+    - {t: "先行作のファンが後継を作る: 終了したデモ（OPCraft）に愛着を持つ人が後継を作ると、技術・世界観とともに最初の参加者層を引き継げる。破綻条件は、先行作の参加者が短期デモの話題性で集まっていた場合で、後継の持続的な定着には結び付かない。", k: analysis}
+  metrics: [m-biomes-buidlguidl-grants]
+  unknowns:
+    - "2024-03 のプレイテストの参加者数と募集方法、Worlds Expo・Composability Day での流入数。"
+    - "Settlers Union を誰が作ったか（プレイヤーか開発者か）。"
+
 sources:
   - {id: src-biomes-dust-repo, title: "dustproject/dust (formerly tenetxyz/biomes-contracts)", url: "https://github.com/dustproject/dust", publisher: "GitHub", type: code, primary: true, published: "2026-04", accessed: "2026-10-23", access: fetched, lang: en, note: "git clone と WebFetch。README（アルファ、不変の約束、DUST mainnet）、docs、スター 27"}
   - {id: src-biomes-commits, title: "dustproject/dust commit history", url: "https://github.com/dustproject/dust/commits/main", publisher: "GitHub", type: code, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "blobless clone で 979 コミットの履歴を確認（チップ導入、移行、改名、作者構成）"}
@@ -206,3 +241,7 @@ sources:
   - {id: src-biomes-lattice-x, title: "After five years, Lattice is winding down. Redstone shuts down May 15, 2026 (23:59 UTC).", url: "https://x.com/latticexyz/status/2044103611072835744", publisher: "Lattice (X)", type: social, primary: true, published: "2026-04-14", accessed: "2026-10-23", access: fetched, lang: en, note: "Redstone 停止の一次告知。X の公開埋め込み API で本文冒頭と投稿日時 2026-04-14T17:20:53Z を取得。検証役が追加"}
   - {id: src-biomes-dust-rpc, title: "DUST Chain public RPC (eth_chainId / eth_getBlockByNumber / eth_getCode)", url: "https://rpc.dustproject.org", publisher: "DUST", type: onchain-data, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "chain id 0xd852（55378）、genesis 2026-03-16、最新ブロック 2026-10-23、0x253e… にコードあり。テストネット RPC は 55377。検証役が追加"}
   - {id: src-biomes-docs-site, title: "Biomes docs", url: "https://docs.biomes.aw", publisher: "Biomes", type: official-docs, primary: true, accessed: "2026-10-23", access: unreachable, lang: en, note: "参照日に名前解決できず"}
+  - {id: src-biomes-winding-down, title: "Winding Down Lattice", url: "https://lattice.xyz/winding-down", publisher: "Lattice", author: "Ludens & Alvarius", type: retrospective, primary: true, published: "2026-04", accessed: "2026-10-24", access: fetched, lang: en, note: "Zuse と Dhvani が OPCraft を引き継ぎ Biomes にし、チームが合流して DUST になったと記述"}
+  - {id: src-biomes-race-to-mainnet, title: "The Race to Mainnet", url: "https://lattice.xyz/blog/race-to-mainnet", publisher: "Lattice blog", author: "Lattice", type: official-blog, primary: true, published: "2024-04", accessed: "2026-10-24", access: fetched, lang: en, note: "Redstone mainnet の 4 週間の開発者プレビュー。Biomes を「digital physics aficionados and OPCraft fans」のチームの作品と紹介"}
+  - {id: src-biomes-redstone-live, title: "Start Your Engines: Redstone is Live", url: "https://lattice.xyz/blog/start-your-engines-redstone-live", publisher: "Lattice blog", author: "Lattice", type: official-blog, primary: true, published: "2024-05", accessed: "2026-10-24", access: fetched, lang: en, note: "Worlds Expo（5/1〜15、1 日 1 作品を特集）、Biomes を 5 月公開作として列挙"}
+  - {id: src-biomes-composability-wiki, title: "Redstone Community - Composability Day Wiki", url: "https://latticexyz.notion.site/Redstone-Community-Composability-Day-Wiki-a041c3a8e1484147900e450353ff86af", publisher: "Lattice (Notion)", type: official-docs, primary: true, published: "2024-05", accessed: "2026-10-24", access: fetched, lang: en, note: "Notion 公開 API で本文取得。Biome-1 の説明、プラグイン文書、テストネット版 everlon.xyz、開発者 Discord、作れるイベント案"}
