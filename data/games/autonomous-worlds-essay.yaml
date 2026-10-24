@@ -4,7 +4,7 @@ name_ja: 自律世界（Autonomous Worlds）
 aliases: ["Autonomous Worlds essay", "ludens, Autonomous Worlds", "Autonomous Worlds N1", "AW Network"]
 kind: essay
 depth: index
-updated: "2026-10-23"
+updated: "2026-10-24"
 links:
   website: https://0xparc.org/blog/autonomous-worlds
 chains: []
@@ -64,6 +64,33 @@ article:
     - {t: "論考自身が「存亡の危機が来るまで自律性はしばしば演技的」と認めている。Redstone（2026-05 停止）上の Downstream・Biomes や、2026-12 停止予定の DUST Chain のように、AW を掲げた世界がホストチェーン停止に直面した例があり、「誰も止められない」は少なくともゲーム専用チェーンでは成り立たなかった。ただし論考の条件は「少なくとも一人がコンセンサスに参加する限り」であり、単一運営者のシーケンサーに依存する L2 はそもそも論考の想定する基盤（誰でも合意に参加できるチェーン）を満たしていなかった、と論考側から反論し得る。", k: analysis, s: [src-awe-0xparc-part1, src-awe-l2beat-redstone, src-awe-lattice-x]}
     - {t: "論考は、ハードな境界は商取引に、ソフトな境界はファンフィクションに向くと述べ、ハードな境界が常に望ましいとは主張していない。ゲームにとってどちらが良いかは論考の範囲外。", k: fact, s: [src-awe-0xparc-part1]}
 
+acquisition:
+  audience: [developers, researchers]
+  summary: {t: "論考の最初の読み手と担い手は、Dark Forest・0xPARC の周辺にいた開発者だった（著者 ludens 自身が Dark Forest を知って連絡を取った人物で、謝辞には gubsheep らが並ぶ）。公開 8 日後に 0xPARC が募集した AW Residency は応募前に本論考を読むよう求め、以後 0xPARC と Lattice が資金を出すレジデンシー、論集、ハッカソンが、この語のもとに開発者を集める場になった。", k: analysis, s: [src-awe-zkpodcast-225, src-awe-0xparc-part1, src-awe-aw-residency]}
+  steps:
+    - {phase: pre, t: "gubsheep によれば、ludens は Dark Forest を知って運営に連絡を取り、Dark Forest の実験的な機能をいくつか作り、その後 Lattice を作っている（2022-04 の発言）。", k: claim, who: "gubsheep（ZK Podcast 225）", s: [src-awe-zkpodcast-225], q: "Ludens on Twitter, who is now building Lattice"}
+    - {phase: launch, date: "2022-08-03", t: "0xPARC ブログに本論考を掲載した。謝辞には gubsheep、Will Robinson、Arthur Röing Baer らが並ぶ。", k: fact, s: [src-awe-0xparc-part1]}
+    - {phase: growth, date: "2022-08-11", t: "0xPARC がロンドンでの 3 か月の Autonomous Worlds Residency を募集し、AW の定義として gubsheep の記事と本論考を挙げて応募前に読むよう勧めた。確定参加者として Lattice、Dark Forest、DFDAO、CAPSULE、Moving Castle を挙げ、AW やオンチェーンゲームの経験は不要とした。", k: fact, s: [src-awe-aw-residency], q: "we recommend reading both links before applying"}
+    - {phase: growth, date: "2022-09", t: "Residency（2022-09〜12）には 30 人超が集まり、Words3・Asphodel・Primodium などを育てたと 0xPARC は後に述べた。", k: claim, who: "0xPARC", s: [src-awe-aw-hackathon]}
+    - {phase: growth, date: "2023-05", t: "0xPARC・Lattice・ETHGlobal が 5 日間のオンライン Autonomous Worlds Hackathon（5/18〜26）を共催し、AW の考え方と MUD を「より多くの開発者とクリエイター」に紹介するためと説明した。賞金総額は 5 万ドル超。", k: fact, s: [src-awe-aw-hackathon, src-awe-ethglobal-aw]}
+    - {phase: growth, date: "2023-08-09", t: "Autonomous Worlds Network を設立し、Residency、AW Symposium、論集 N1 で集まった関心を受けて、出版・公開資源・集会に資金を出し調整すると告知した。Devconnect 2023 の AW Assembly で N1 の再版を配るとした。", k: fact, s: [src-awe-aw-network]}
+  channels:
+    - {id: content-research, t: "論考そのものと、2022 年の AW Symposium 参加者の寄稿から編んだ論集 N1（印刷 1000 部）が、概念を広げる媒体になった。", k: fact, s: [src-awe-0xparc-part1, src-awe-n1-metalabel]}
+    - {id: existing-community, t: "Residency の確定参加者は Lattice・Dark Forest・DFDAO など 0xPARC 周辺の既存チームで、論考の謝辞にも Dark Forest 関係者が並ぶ。", k: fact, s: [src-awe-aw-residency, src-awe-0xparc-part1]}
+    - {id: builder-grants, t: "Residency の参加者に交通費（最大 £600）と宿泊費（月最大 £1,500）を補助し、案件ごとの裁量助成も用意した。", k: fact, s: [src-awe-aw-residency]}
+    - {id: hackathon, t: "2023-05 に ETHGlobal・Lattice と Autonomous Worlds Hackathon を共催し、5 万ドル超の賞金を用意した。", k: fact, s: [src-awe-aw-hackathon, src-awe-ethglobal-aw]}
+  cost:
+    - {t: "人を集める費用は論考の筆者ではなく 0xPARC と提携先が負った。Residency の滞在補助と裁量助成は 0xPARC、ハッカソンの賞金（5 万ドル超）は ETHGlobal・Optimism・0xPARC・Lattice などの提供だった。", k: fact, s: [src-awe-aw-residency, src-awe-aw-hackathon, src-awe-ethglobal-aw]}
+  after:
+    - {t: "Residency から育ったとされる Primodium などのプロジェクトや、AW Network・論集 N1・AW Assembly の継続が確認できる。一方、AW を名乗った世界のいくつかはホストチェーンの停止に直面した（counter_evidence 参照）。読者数や参加者の継続は数値で示されていない。", k: fact, s: [src-awe-aw-hackathon, src-awe-aw-network, src-awe-n1-metalabel]}
+  counter:
+    - {t: "開発者を集めたのは論考の文章だけではなく、0xPARC の資金（滞在補助・助成）と、ハッカソン告知自身が「AW を作るのが大幅に容易になった」と述べる MUD という道具の登場である。Residency の募集も gubsheep の記事を並べて挙げており、AW の語の広がりを本論考単独の効果とは言えない。", k: analysis, s: [src-awe-aw-residency, src-awe-aw-hackathon]}
+  lessons:
+    - {t: "定義の論考＋資金付きの集まり: 新しい分野の名前を論考で定め、直後に「応募前にこれを読め」と指定した資金付きレジデンシーを開くと、語彙を共有した少人数の開発者集団を短期間で作れ、その後のハッカソンで外へ広げられる。効く条件は、資金提供者と既存のチーム（ここでは Dark Forest・Lattice）がすでにいて、道具（MUD）が試作の速度を上げていること。破綻条件は、語だけが広がって論考の前提（誰でも合意に参加できる基盤）を満たさない世界まで同じ名前を名乗る場合で、看板と実態の乖離が起きる。", k: analysis}
+  unknowns:
+    - "論考の閲覧数、Residency の応募者数、ハッカソンの参加者数と提出数（ETHGlobal の展示ページは件数を明示していない）。"
+    - "論集 N1 の初版の部数と配布先。"
+
 events:
   - {id: ev-awe-part1, date: "2022-08-03", type: paper, title: "「Autonomous Worlds (Part 1)」公開", detail: "0xPARC ブログ", s: [src-awe-0xparc-part1]}
   - {id: ev-awe-residency, date: "2022-10", type: other, title: "Autonomous Worlds Residency（0xPARC）", detail: "AW Network の紹介記事が言及", s: [src-awe-aw-network]}
@@ -79,7 +106,7 @@ relations:
 
 unknowns:
   - "Part 2（Ethereum とスマートコントラクトを基盤としたデジタル物理）が公開されたか。"
-  - "ludens の実名・所属（Lattice との関係）を示す一次資料。検索では Lattice CEO Justin Glibert を「From Economicus to Ludens」と題するポッドキャスト回があるのみで、同一人物と断定できる一次資料は見つからなかった。"
+  - "ludens の実名・所属（Lattice との関係）を示す一次資料。検索では Lattice CEO Justin Glibert を「From Economicus to Ludens」と題するポッドキャスト回があるのみで、同一人物と断定できる一次資料は見つからなかった。なお gubsheep は ZK Podcast 225（2022-04）で「Twitter の Ludens は現在 Lattice を作っている」と述べており（src-awe-zkpodcast-225）、ludens が当時 Lattice を作る側にいたことは示すが、役職や実名は述べていない。"
   - "論集 N1 の初版刊行月（Metalabel のリリース日は 2024-05-15 で、これは第 2 版の販売開始とみられる）。"
 contradictions:
   - {t: "論集 N1 の初出: AW Network の紹介記事（2023-08-09）は N1 の「release」を過去のこととして述べるが、Metalabel は最初の部数を Istanbul の AW Assembly（Devconnect 2023。同記事はそこで「re-print」を配布すると予告）参加者限定としたと記す。記事前に限定配布（プレイテスト等での回覧）があった可能性があり、初版の時期は確定できない。", s: [src-awe-aw-network, src-awe-n1-metalabel]}
@@ -90,3 +117,7 @@ sources:
   - {id: src-awe-n1-metalabel, title: "Autonomous Worlds N1", url: "https://autonomousworlds.metalabel.com/aw01", publisher: "Metalabel (0xPARC / Autonomous Worlds Network)", type: paper, primary: true, published: "2024-05-15", accessed: "2026-10-23", access: fetched, lang: en, note: "目次（10 論考）、印刷 1000 部、第 2 版 333 部"}
   - {id: src-awe-lattice-x, title: "After five years, Lattice is winding down. Redstone shuts down May 15, 2026 (23:59 UTC).", url: "https://x.com/latticexyz/status/2044103611072835744", publisher: "Lattice (X)", type: social, primary: true, published: "2026-04-14", accessed: "2026-10-23", access: fetched, lang: en, note: "Redstone 停止の一次告知。X の公開埋め込み API で冒頭と投稿日時を取得。検証役が追加"}
   - {id: src-awe-l2beat-redstone, title: "Redstone - L2BEAT", url: "https://l2beat.com/layer2s/projects/redstone", publisher: "L2BEAT", type: analysis, primary: false, accessed: "2026-10-23", access: fetched, lang: en, note: "Redstone の 2026-05-15 停止"}
+  - {id: src-awe-aw-residency, title: "Autonomous Worlds Residency", url: "https://0xparc.org/blog/aw-residency", publisher: "0xPARC blog", type: official-blog, primary: true, published: "2022-08-11", accessed: "2026-10-24", access: fetched, lang: en, note: "サイトの JS バンドルに base64 で埋め込まれた本文を取り出して読んだ。ロンドン 9/19〜12/16、本論考と gubsheep の記事を応募前に読むよう推奨、確定参加者、補助と裁量助成、成果物"}
+  - {id: src-awe-aw-hackathon, title: "Autonomous Worlds Hackathon", url: "https://0xparc.org/blog/autonomous-worlds-hackathon", publisher: "0xPARC blog", type: official-blog, primary: true, published: "2023-05-02", accessed: "2026-10-24", access: fetched, lang: en, note: "同上の方法で本文を確認（hidden 扱い）。2022 Residency に 30 人超、Words3・Asphodel・Primodium、MUD、ETHGlobal・Lattice と共催、賞金 5 万ドル超"}
+  - {id: src-awe-ethglobal-aw, title: "Autonomous Worlds (ETHGlobal event)", url: "https://ethglobal.com/events/autonomous", publisher: "ETHGlobal", type: official-docs, primary: true, accessed: "2026-10-24", access: fetched, lang: en, note: "0xPARC・Lattice・ETHGlobal の非同期ハッカソン、2023-05-18〜26、賞金 5 万ドル、Optimism・0xPARC・Lattice・NFT.Storage の賞"}
+  - {id: src-awe-zkpodcast-225, title: "Dark Forest and 0xPARC with Gubsheep (Zero Knowledge Podcast, Episode 225)", url: "https://github.com/ZeroKnowledgefm/episode-transcripts/blob/main/episodes/Episode%20225.txt", publisher: "Zero Knowledge Podcast", type: interview, primary: true, published: "2022-04-13", accessed: "2026-10-24", access: fetched, lang: en, note: "書き起こし全文を取得。gubsheep が、ludens は Dark Forest を知って連絡してきて実験的機能を作り、現在 Lattice を作っていると発言"}

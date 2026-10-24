@@ -4,7 +4,7 @@ name_ja: イーサモン
 aliases: [Ethermon（2019 年以降の後継）, EMONT]
 kind: game
 depth: index
-updated: "2026-10-23"
+updated: "2026-10-24"
 links:
   github: https://github.com/etheremon/smartcontract
 chains: [Ethereum mainnet]
@@ -64,11 +64,47 @@ compare:
 
 concepts: [c-nft-asset, c-onchain-rules, c-onchain-randomness, c-fungible-ingame-token, m-collectible-cards, e-p2e]
 
+acquisition:
+  audience: [players]
+  summary: {t: "最初のプレイヤーは、2017-12 の CryptoKitties ブームの直後に Ethereum 上の収集ゲームを探していた利用者だった。公開ベータ（2017-12-18）では、同じ種類のモンスターが後から買われるたびに先に買った人へ ETH が戻る仕組みと、買われるほど上がる価格が、早く買う動機になった。", k: analysis, s: [src-etheremon-criptonoticias-2017, src-etheremon-code]}
+  steps:
+    - {phase: launch, date: "2017-12-18", t: "ベータ版として公開した。スペインの暗号資産メディアは、ベータ中に一部のモンスターが 0.694〜1.143 ETH で取引されたと報じ、P2P の市場は 1 月 1 日から開くと伝えた。", k: fact, s: [src-etheremon-criptonoticias-2017]}
+    - {phase: launch, date: "2017-12", t: "当初の仕組みでは、同じ種類・種のモンスターが後から買われると、先に買った保有者に払い戻し（devolución）が入った。開発者はこれが投機を促すとして、1 種あたり 22 体の上限を設け、追加の収益をなくす新ルールに置き換えると説明した。", k: claim, who: "開発チーム（CriptoNoticias の記事内）", s: [src-etheremon-criptonoticias-2017], q: "los demás competidores recibian una cantidad de dinero de devolución como incentivo"}
+    - {phase: launch, date: "2017-12-24", t: "公開リポジトリのコントラクトでは、捕獲価格が同じクラスの捕獲数とともに上がり（priceIncreasingRatio）、各モンスターは同じクラスで後から捕獲された数 × returnPrice の残高を受け取れる。リポジトリの最初のコミットはこの日の v.beta.0.02 で、ベータ公開時のコントラクトと同じかは確認できていない。", k: fact, s: [src-etheremon-code]}
+    - {phase: growth, date: "2017-12-26", t: "英語の暗号資産ブログは、CryptoKitties と並べて Etheremon を紹介し、1 月に予定された更新は加わり続ける多数の利用者に対応するためだと書いた。", k: fact, s: [src-etheremon-emchat-2017]}
+    - {phase: growth, date: "2018-01", t: "運営の 2018 年の振り返りによれば、1-03 に城の対戦、1-14 にジム、1-21 に変身・産卵のルールとゲーム内通貨 EMONT を導入した（Medium は取得できず、検索要約のみ）。", k: claim, who: "Etheremon 運営", s: [src-etheremon-medium-2018-lookback]}
+    - {phase: growth, date: "2018-03", t: "Twitter で Decentraland への参加を発表した。TechNews によれば、当時の対戦は文字の流れのみで、VR の画面はなかった。", k: fact, s: [src-etheremon-technews-2018]}
+    - {phase: growth, date: "2018-07", t: "共同創業者 Nedrick Ngo は、ガス代の高騰で日次アクティブユーザーが大きく減ったと述べ、対戦を Zilliqa のサイドチェーンへ移す計画を語った。", k: claim, who: "Nedrick Ngo（共同創業者、CoinDesk の記事内）", s: [src-etheremon-coindesk-2018], q: "we saw our daily active users drop a lot."}
+  channels:
+    - {id: existing-community, t: "対象は CryptoKitties ブームで MetaMask と ETH を用意していた Ethereum の利用者で、当時の報道も CryptoKitties との比較で紹介した。", k: analysis, s: [src-etheremon-criptonoticias-2017, src-etheremon-emchat-2017]}
+    - {id: viral-mechanic, t: "同じクラスのモンスターが後から捕獲されるたびに先に捕獲した保有者に ETH が積み上がり、捕獲価格も上がる仕組みで、早く買うほど有利にした。", k: fact, s: [src-etheremon-code, src-etheremon-criptonoticias-2017]}
+    - {id: ip-brand, t: "Pokémon を明示的に参照し、創業者は「人々が Pokémon にどれほど夢中か」を引き合いに出した（Pokémon の公式な提携ではない）。", k: claim, who: "Jarvis Nguyen（創業者、TechNews の記事内）", s: [src-etheremon-technews-2018, src-etheremon-coindesk-2018]}
+    - {id: press, t: "公開直後にスペイン語・英語の暗号資産メディアが CryptoKitties と並べて紹介した。", k: fact, s: [src-etheremon-criptonoticias-2017, src-etheremon-emchat-2017]}
+  cost:
+    - {t: "獲得の原資はプレイヤーの ETH だった。モンスターの捕獲代金の一部が、同じクラスに先に入った保有者への払い戻しにあてられる構造で、後から入った人が先に入った人に払った。", k: fact, s: [src-etheremon-code, src-etheremon-criptonoticias-2017]}
+    - {t: "EMONT は総量 2000 万のうち 70% をゲーム内で採掘させる設計とされ、2018-01 以降はトークンによる報酬も加わった。", k: fact, s: [src-etheremon-egamers-2018, src-etheremon-medium-2018-lookback]}
+    - {t: "広告などの獲得費用と外部からの資金調達は確認できなかった。", k: unknown}
+  after:
+    - {t: "2018-07 には DappRadar で直近 24 時間の利用者が 209 人、2018-08 頃には月 465 人とされた。共同創業者はガス代高騰で日次の利用者が大きく減ったと述べた。", k: fact, s: [src-etheremon-coindesk-2018, src-etheremon-bgamer-2018]}
+    - {t: "累計では 2018-08 までに 3 万 5000 体超のモンスターが購入され、15 万回の対戦があったとされるが、出典不明の数字で、継続率は示されていない。", k: fact, s: [src-etheremon-egamers-2018]}
+  counter:
+    - {t: "流入は CryptoKitties ブームと 2017 年末の相場上昇期に重なっており、払い戻しの仕組みではなく、新しい収集ゲームへの全体的な関心が人を呼んだ可能性がある。", k: analysis, s: [src-etheremon-emchat-2017]}
+    - {t: "払い戻しの仕組みは開発者自身が投機を促すとして公開直後に改めると説明しており、仕組みが集めた人がプレイヤーとして残ったかは疑わしい。利用者の減少についても、共同創業者はガス代高騰を理由に挙げており、獲得施策の失敗とは区別できない。", k: analysis, s: [src-etheremon-criptonoticias-2017, src-etheremon-coindesk-2018]}
+  lessons:
+    - {t: "後続購入からの払い戻し: 同じ種類が後から買われるたびに先の保有者へ還元すると、早期購入と勧誘の動機が強く働く。効く条件は新規購入が続くこと。破綻条件は、流入が止まると還元も止まり、後から買った人ほど回収できない構造になることで、開発者自身が投機を促すとして撤回した。", k: analysis}
+    - {t: "ブームの直後に既存のウォレット利用者を拾う: 先行作が作ったウォレットと ETH を持つ人たちに、似た収集の仕組み＋対戦という差分で入ると、獲得費用は小さい。ただし、基盤のガス代が上がるとその人たちごと離れる。", k: analysis, s: [src-etheremon-coindesk-2018]}
+  metrics: [m-etheremon-mau-2018-08, m-etheremon-dau-2018-07, m-etheremon-mons-2018, m-etheremon-battles-2018]
+  unknowns:
+    - "ベータ公開時の実際の returnPrice の値と、22 体上限への変更日。"
+    - "公開初月のプレイヤー数・取引数（運営の振り返りは公開 3 日で 1 万 4000 件の取引と主張するとされるが、Medium の本文は取得できず）。"
+    - "Discord・Telegram・Reddit などのコミュニティの規模と開設時期。"
+
 metrics:
   - {id: m-etheremon-mau-2018-08, type: mau, value: 465, unit: users, period: "2018-08 頃", definition: "BlockchainGamer が DappRadar から引用した月間アクティブユーザー（定義は DappRadar 準拠）", nature: estimated, s: [src-etheremon-bgamer-2018]}
   - {id: m-etheremon-battles-2018, type: other, value: 150000, unit: battles, period: "2018-08 時点の累計", definition: "eGamers が記した完了済み対戦数（出典不明）", nature: reported, s: [src-etheremon-egamers-2018]}
   - {id: m-etheremon-mons-2018, type: nft_sales, value: 35000, value_text: "35,000 超", unit: mons, period: "2018-08 時点の累計", definition: "購入されたモンスター数（eGamers。出典不明）", nature: reported, s: [src-etheremon-egamers-2018]}
   - {id: m-etheremon-daily-2018, type: dau, value: 185, unit: players, period: "2018-08 頃", definition: "eGamers 執筆時の日次プレイヤー数（DappRadar 2 位とされる）", nature: estimated, s: [src-etheremon-egamers-2018]}
+  - {id: m-etheremon-dau-2018-07, type: dau, value: 209, unit: users, period: "2018-07（記事執筆時の直近 24 時間）", definition: "CoinDesk が DappRadar から引用した 24 時間の利用者数（定義は DappRadar 準拠）", nature: estimated, s: [src-etheremon-coindesk-2018]}
 
 events:
   - {id: ev-etheremon-contracts, date: "2017-12-24", type: release, title: "コントラクト v.beta.0.02 をコミット", s: [src-etheremon-code]}
@@ -95,3 +131,8 @@ sources:
   - {id: src-etheremon-egamers-2018, title: "Etheremon: When VR Meets Blockchain", url: "https://egamers.io/etheremon-when-vr-meets-blockchain/", publisher: "eGamers.io", author: "George Tsagkarakis", type: news, primary: false, published: "2018-08-10", accessed: "2026-10-23", access: fetched, lang: en, note: "35,000 超の Mon、15 万対戦、EMONT 2000 万の 70% を採掘、0.03 ETH から"}
   - {id: src-etheremon-survey-2019, title: "Blockchain Games: A Survey", url: "https://arxiv.org/abs/1906.05558", publisher: "arXiv", author: "Tian Min, Hanyi Wang, Yaoze Guo, Wei Cai", type: paper, primary: false, published: "2019-06-13", accessed: "2026-10-23", access: fetched, lang: en, note: "Etheremon（12/2017）。追加要素は完全にはコントラクト化されていない可能性、長期間上位 5 位"}
   - {id: src-etheremon-site-now, title: "etheremon.com（参照日時点の内容）", url: "https://www.etheremon.com", publisher: "etheremon.com", type: archive, primary: false, accessed: "2026-10-23", access: fetched, lang: en, note: "参照日時点ではイーサリアム対応カジノの紹介サイト。ゲームとは無関係の内容"}
+  - {id: src-etheremon-criptonoticias-2017, title: "Monstruos criptográficos se apoderan de Ethereum con Etheremon", url: "https://www.criptonoticias.com/negocios/monstruos-criptograficos-apoderan-ethereum-etheremon", publisher: "CriptoNoticias", author: "Andrea Leal", type: news, primary: false, published: "2017-12-23", accessed: "2026-10-24", access: fetched, lang: es, note: "2017-12-18 公開のベータ、旧ルールの払い戻しと投機を理由とした 1 種 22 体上限への変更、ベータ中の価格例、1 月 1 日からの P2P 市場（記事は 2025-03-20 に更新表示）"}
+  - {id: src-etheremon-emchat-2017, title: "Etheremon vs CryptoKitties - World's First blockchain Games Battle", url: "https://www.emchat.net/emchat/2017/12/26/etheremon-vs-cryptokitties-gaming-platform", publisher: "emchat.net", author: "Alex Sandoval", type: news, primary: false, published: "2017-12-26", accessed: "2026-10-24", access: fetched, lang: en, note: "日付は URL から。2017-12-18 公開・ベータ、1 月の更新は増え続ける利用者への対応、Mashable からの引用"}
+  - {id: src-etheremon-coindesk-2018, title: "These Digital Monsters Live on Ethereum, But They'll Fight on Zilliqa", url: "https://www.coindesk.com/markets/2018/07/19/these-digital-monsters-live-on-ethereum-but-theyll-fight-on-zilliqa", publisher: "CoinDesk", author: "David Floyd", type: news, primary: false, published: "2018-07-19", accessed: "2026-10-24", access: fetched, lang: en, note: "DappRadar で 24 時間 209 人、ガス代高騰で DAU 減少（Nedrick Ngo）、対戦の中央サーバー化と Zilliqa 移行計画、操作 1 回 1〜2 ドル"}
+  - {id: src-etheremon-technews-2018, title: "區塊鏈遊戲《Etheremon》導入 VR 技術，創始人想做區塊鏈版《Pokémon》", url: "https://technews.tw/2018/03/07/blockchain-game-etheremon-enter-decentraland-vr-world/", publisher: "TechNews 科技新報（遊戲葡萄の転載）", type: news, primary: false, published: "2018-03-07", accessed: "2026-10-24", access: fetched, lang: zh, note: "Twitter で Decentraland 参加を発表、当時の対戦は文字のみ、創業者 Jarvis Nguyen の Pokémon への言及、ETH で捕獲（失敗あり）、gen0 は市場でのみ入手"}
+  - {id: src-etheremon-medium-2018-lookback, title: "Etheremon 2018 — A look back", url: "https://medium.com/etheremon/etheremon-2018-a-look-back-464272ebf151", publisher: "Etheremon (Medium)", type: retrospective, primary: true, accessed: "2026-10-24", access: snippet, lang: en, note: "medium.com はプロキシで遮断。検索要約: 1-03 城モード、1-14 ジム、1-21 変身・産卵と EMONT、公開 3 日で 1 万 4000 取引・gen0 9,516 体"}

@@ -163,6 +163,45 @@ article:
     - {t: "集中の手がかり: S0 の公式発表は優勝部族として X アカウント @orden_gg を挙げた（検証時に本文を確認）。Dark Forest で知られる orden_gg と同じ名前で、同じ熟練集団がオンチェーン戦略ゲームを横断して勝つ構図の可能性があるが、同一集団かは検証していない。", k: analysis, s: [src-realms-eternum-x-s0-champions]}
     - {t: "参加規模の証拠は S0 の約 800 登録という開発者発言程度で、継続率や S1 の規模は公表がない。「オンチェーン MMO が文明シミュレーションとして人を集め続けた」という主張を支える数値は見つからなかった。", k: analysis, s: [src-realms-eternum-bankless-s1]}
 
+acquisition:
+  audience: [holders, players]
+  summary: {t: "Realms の最初の持ち主は Loot の保有者で、公開 4 日後の Realms (for Adventurers) は Loot 保有者だけが安く先にミントできる販売から始まった。Eternum の最初のプレイヤーはその Realms 保有者（Season Pass を無料で発行）と BibliothecaDAO の既存コミュニティで、運営が用意した 100 万 LORDS 規模の賞金が Season 0 の参加を後押しした。", k: analysis, s: [src-realms-eternum-lootrealms-sourcify, src-realms-eternum-key-concepts, src-realms-eternum-bankless-s0-guide]}
+  steps:
+    - {phase: pre, date: "2021-08-31", t: "Loot 公開 4 日後に Realms (for Adventurers) のコントラクトを展開。先行販売は Loot の ownerOf で保有を確認し、同じ番号の Realm を 0.03 ETH で売り、一般販売は 0.15 ETH とした。", k: fact, s: [src-realms-eternum-lootrealms-sourcify, src-realms-eternum-lootrealms-deploy-tx]}
+    - {phase: pre, date: "2023-03-02", t: "中国語圏 Starknet コミュニティの取材で、チームは 2021-08 開始・2021 年 Q4 に Arbitrum で Eternum の試作、コミュニティ向け資金調達（BIP7）が 6 倍超の申込みだったと説明し、参加希望者には Discord で Loaf らに声をかけるよう案内した。", k: claim, who: "Realms / BibliothecaDAO（Nurstar の取材）", s: [src-realms-eternum-nurstar-2023], q: "We are one of the earliest On Chain gaming projects, starting in August 2021."}
+    - {phase: pre, date: "2024-12-02", t: "Season Pass を mainnet に展開。Realms NFT 1 つにつき 1 枚を無料で発行でき、Pass は二次市場で売買されたため、保有者以外は保有者から Pass を買って参加した。", k: fact, s: [src-realms-eternum-git-history, src-realms-eternum-key-concepts, src-realms-eternum-bankless-s1]}
+    - {phase: launch, date: "2024-12-11", t: "Season 0 を Starknet mainnet で開始。100 万 LORDS の賞金（個人・部族・実績・コンテンツ制作）と 28 種の資源トークンの TGE を伴い、Bankless が開始翌日に初心者ガイドを載せた。", k: fact, s: [src-realms-eternum-bankless-s0-guide]}
+    - {phase: launch, date: "2024-12", t: "開発者は S0 に約 800 の登録があったと述べ、ゲスト記事は開始直後に Starknet の取引の約 36% を占めたと書いた。", k: claim, who: "Loaf（Bankless）、thinkDecade（Sovereign Frontier）", s: [src-realms-eternum-bankless-s1, src-realms-eternum-sovereign-frontier]}
+    - {phase: growth, date: "2025-04-30", t: "Season 1 で、NFT を持たなくても現金・ステーブルコインで参加できる Village を導入し、開始を 3 段階に分けた。賞金は 100 万 LORDS ＋ 10 万 STRK に増え、AI エージェント軍を倒す報酬枠も設けた。", k: fact, s: [src-realms-eternum-bankless-s1, src-realms-eternum-bankless-returns, src-realms-eternum-prize-s1]}
+    - {phase: growth, date: "2026-09", t: "長期シーズンの再開ではなく、無料・日替わりの Frontier を追加し、参加料つきの 60 分 Blitz と並べた。", k: fact, s: [src-realms-eternum-frontier, src-realms-eternum-changelog-2026-03]}
+  channels:
+    - {id: existing-community, t: "Loot 保有者に Realms を先行販売し、Eternum では Realms 保有者が Season Pass を無料で発行できるようにした。", k: fact, s: [src-realms-eternum-lootrealms-sourcify, src-realms-eternum-key-concepts]}
+    - {id: invite-gating, t: "S0 は Season Pass（最大 8,000）を持つ人だけが Realm を置けた。S1 は Pass・Settling・Empire の 3 段階に開始を分け、Village で枠を広げた。", k: fact, s: [src-realms-eternum-key-concepts, src-realms-eternum-bankless-s1]}
+    - {id: prize-competition, t: "S0 は 100 万 LORDS、S1 は 100 万 LORDS ＋ 10 万 STRK の賞金プールを個人・部族・実績・エージェント狩り・制作に分けて用意した。", k: fact, s: [src-realms-eternum-bankless-s0-guide, src-realms-eternum-prize-s1]}
+    - {id: creator-stream, t: "賞金の一部（S0 20 万 LORDS、S1 15 万 LORDS ＋ 2.5 万 STRK）を芸術・文化的な制作物に配り、ガイドや作品の制作を報酬の対象にした。", k: fact, s: [src-realms-eternum-bankless-s0-guide, src-realms-eternum-prize-s1]}
+    - {id: press, t: "Bankless が S0 の開始翌日の初心者ガイド、S1 開始日の紹介記事を掲載した（S0 ガイドの著者名 OExcess は、「Realms: Week in Review」を出すニュースレター The Loot Herald の書き手 O_Excess と同名で、独立した報道とは限らない）。", k: fact, s: [src-realms-eternum-bankless-s0-guide, src-realms-eternum-bankless-s1]}
+    - {id: free-mint, t: "Realms 保有者の Season Pass は無料、2026-09 以降の Frontier は参加無料。", k: fact, s: [src-realms-eternum-key-concepts, src-realms-eternum-frontier]}
+  cost:
+    - {t: "Realms の一次販売は購入者（Loot 保有者 0.03 ETH、一般 0.15 ETH）が支払い、売上の引き出しはデプロイヤ（onlyOwner）に限られた。", k: fact, s: [src-realms-eternum-lootrealms-sourcify]}
+    - {t: "Eternum の賞金プールは運営側が用意し、S1 はエージェント報酬を除き開発チームが手動で配った。S1 の 10 万 STRK の拠出者は資料で確認できなかった。", k: fact, s: [src-realms-eternum-prize-s1]}
+    - {t: "開発資金にはコミュニティ向けの資金調達（BIP7、6 倍超の申込み）が使われたとチームは述べる。", k: claim, who: "Realms / BibliothecaDAO（Nurstar の取材）", s: [src-realms-eternum-nurstar-2023]}
+  after:
+    - {t: "S0 は開始から約 2 週間（2024-12-27 に優勝発表）、S1 は Empire 開始から約 3 週間で終わったとみられ、長期形式は S1 以降再開されていない。", k: fact, s: [src-realms-eternum-x-s0-champions, src-realms-eternum-git-history, src-realms-eternum-changelog-2025-09]}
+    - {t: "S1 の参加者数、S0 → S1 の継続率、S1 → Blitz への移行人数は公表されていない。", k: unknown}
+  counter:
+    - {t: "約 800 の登録は 8,000 の Season Pass 枠の 1 割程度で、Realms 保有者の多くが自ら遊んだとは言えない。Pass が二次市場で売買されたため、保有者は「最初のプレイヤー」ではなく「入場券の売り手」だった可能性がある。", k: analysis, s: [src-realms-eternum-bankless-s1, src-realms-eternum-key-concepts]}
+    - {t: "S0・S1 の参加は 100 万 LORDS 規模の賞金と同時で、賞金目当ての一時流入と区別できない。取引の約 36% という数字はボットや自動化を含み得る（出典も不明）。", k: analysis, s: [src-realms-eternum-sovereign-frontier, src-realms-eternum-prize-s1]}
+    - {t: "S0 の優勝部族 @orden_gg のような熟練集団が他のオンチェーン戦略ゲームから来た可能性があり、「Loot / Realms コミュニティ」以外の流入経路を示す（同一集団かは未検証）。", k: analysis, s: [src-realms-eternum-x-s0-champions]}
+  lessons:
+    - {t: "親 NFT の保有者に入場券を無料発行させ、二次市場での売買を許す（Season Pass）: 保有者は遊ぶか売るかを選べ、遊びたい外部の人は保有者から買って入れる。効く条件は枠の数（8,000）に対して需要が大きいこと。破綻条件は需要が枠を下回る場合で、Pass の価格がゼロに近づき、親資産の価値付けにも参加者の確保にも効かない（S1 で Village を足したのはこの制約への対応と読める）。", k: analysis}
+    - {t: "到達型の勝利条件と大きな賞金プールの組み合わせ: 賞金は初回参加を呼ぶが、閾値に誰かが達すると数週間で終わるため、後発の参加者が遊ぶ期間が短い。効く条件は複数の集団が拮抗すること。破綻条件は熟練集団が早期に決着をつける場合で、次シーズンの再参加の動機が弱まる。", k: analysis}
+  metrics: [m-eternum-realms-supply, m-eternum-s0-signups, m-eternum-s0-tx-share, m-eternum-s0-prize, m-eternum-s1-prize]
+  unknowns:
+    - "Realms の Loot 保有者先行販売で売れた数と、一般販売への移行日。"
+    - "S0 で Season Pass を使った人のうち Realms 保有者本人と Pass 購入者の比率。"
+    - "S1 の 10 万 STRK の拠出者（Starknet 財団・StarkWare 等か）。"
+    - "BIP7 の調達額と参加者数（本文で金額を確認できなかった）。"
+
 metrics:
   - {id: m-eternum-s0-signups, type: players, value: 800, value_text: "約 800", unit: sign-ups, period: "2024-12（Season 0）", definition: "開発者 Loaf が Bankless に述べた S0 の登録数（定義不明）", nature: reported, s: [src-realms-eternum-bankless-s1]}
   - {id: m-eternum-s0-tx-share, type: transactions, value: 36, value_text: "約 36%", unit: "% of Starknet tx", period: "2024-12（S0 開始直後、期間不明）", definition: "Starknet 全体のトランザクションに占める割合（ゲスト記事の記述、出典不明）", nature: estimated, s: [src-realms-eternum-sovereign-frontier]}
@@ -245,3 +284,6 @@ sources:
   - {id: src-realms-eternum-daydreams-readme-2024, title: "daydreamsai/daydreams readme.md (2025-01 版)", url: "https://github.com/daydreamsai/daydreams/blob/main/readme.md", publisher: "GitHub", type: code, primary: true, published: "2025-01", accessed: "2026-10-23", access: fetched, lang: en, note: "履歴を clone し 2025-01-10 以前の版を確認。「currently the only supported game is Eternum」"}
   - {id: src-realms-eternum-chaincatcher, title: "AW Frontier: The Ultimate Guide to Starknet's Full-Chain Games", url: "https://www.chaincatcher.com/en/article/2114963", publisher: "ChainCatcher", type: analysis, primary: false, published: "2024-02-23", accessed: "2026-10-23", access: fetched, lang: en, note: "Realms は Loot に基づく、BibliothecaDAO が Loot Survivor と Eternum を開発、Dojo の保守チーム"}
   - {id: src-realms-eternum-x-s0-champions, title: "Eternum Season 0 crowns its champions + time sensitive actions (Realms on X)", url: "https://x.com/RealmsEternum/status/1872493966916235630", publisher: "X", type: social, primary: true, published: "2024-12-27", accessed: "2026-10-23", access: fetched, lang: en, note: "検証時に本文を取得（現在のアカウント名は @realms_gg）。優勝部族 @orden_gg・個人 @yanik_ai、ブリッジ締切 12-28 21:30 GMT、勝利点申請締切 12-30、「Some calculations were updated」、S0 を mainnet preview と呼ぶ。投稿表示日 2024-12-27"}
+  - {id: src-realms-eternum-lootrealms-sourcify, title: "LootRealms verified source (Realms (for Adventurers), 0x7AFe30cB3E53dba6801aa0EA647A0EcEA7cBe18d)", url: "https://sourcify.dev/server/v2/contract/1/0x7AFe30cB3E53dba6801aa0EA647A0EcEA7cBe18d?fields=sources", publisher: "Sourcify", type: code, primary: true, published: "2021-08", accessed: "2026-10-24", access: fetched, lang: en, note: "mintWithLoot（privateSale、Loot 保有者のみ・0.03 ETH）、mint（一般 0.15 ETH、ID 1〜8000）、withdraw は onlyOwner"}
+  - {id: src-realms-eternum-lootrealms-deploy-tx, title: "Realms (for Adventurers) contract creation transaction", url: "https://etherscan.io/tx/0xea51eb47a9c8f7a597d74f6f86c8e82e9d3d34f2cac7c0b6d58c7f07d4e87872", publisher: "Etherscan", type: onchain-data, primary: true, published: "2021-08-31", accessed: "2026-10-24", access: fetched, lang: en, note: "2021-08-31 17:29:17 UTC、ブロック 13134698"}
+  - {id: src-realms-eternum-nurstar-2023, title: "Interview with the Realms Metaverse Game - By the Chinese StarkNet Community (English Version)", url: "https://nurstardeepdive.substack.com/p/interview-with-the-realms-metaverse", publisher: "Nurstar (Starknet Chinese Community)", type: interview, primary: true, published: "2023-03-02", accessed: "2026-10-24", access: fetched, lang: en, note: "2021-08 開始、2021 Q4 に Arbitrum で試作、BIP7 のコミュニティ調達が 6 倍超、約 12 人のチーム、Discord で Loaf / Secretive に声をかける、Dojo と提携"}

@@ -4,7 +4,7 @@ name_ja: メンタル・ポーカー
 aliases: ["SRA protocol", "Shamir–Rivest–Adleman Mental Poker"]
 kind: research
 depth: index
-updated: "2026-10-23"
+updated: "2026-10-24"
 links:
   website: https://people.csail.mit.edu/rivest/pubs.html#SRA81
 chains: []
@@ -69,6 +69,8 @@ article:
   counter_evidence:
     - {t: "論文自身が「公平な配札は不可能」と証明したうえで実用的プロトコルを示しており、その安全性は計算量的仮定に依存する（情報理論的には相手の手札は決まっている）と著者は結論でヒントを出している。", k: fact, s: [src-mp-tm125]}
     - {t: "Goldwasser と Micali（1982）は、Mental Poker では「カードの正確な値の計算が困難」なだけでは不十分で、部分情報も敵に渡らないことを示す必要があると論じ、SRA は可換暗号による「エレガントな解」を示したが部分情報が漏れないことを証明できず、実装上の問題がいくつか Lipton の「How to Cheat at Mental Poker」（1981）で指摘されたと記した。弱点の具体的内容は Lipton の本文を未確認のため、GM 論文の記述として扱う。", k: fact, s: [src-mp-gm82]}
+
+acquisition: {applies: false, note: "1979 年の暗号プロトコルの技術報告であり、利用者獲得の対象ではない。公開デモや実装への利用者募集の記録も見つからなかった。後続研究（Goldwasser–Micali 1982 等）への広がりは compare.extensibility と events を参照"}
 
 events:
   - {id: ev-mp-tm125, date: "1979-02", type: paper, title: "MIT/LCS/TM-125「Mental Poker」刊行", detail: "不可能性の証明と可換暗号による配札プロトコル", s: [src-mp-tm125]}

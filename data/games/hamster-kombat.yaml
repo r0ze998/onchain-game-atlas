@@ -4,7 +4,7 @@ name_ja: ハムスター・コンバット
 aliases: [HMSTR, HamsterVerse]
 kind: game
 depth: index
-updated: "2026-10-23"
+updated: "2026-10-24"
 links:
   website: https://hamsterkombat.io/
   play: https://t.me/hamster_kombat_bot
@@ -74,6 +74,45 @@ metrics:
   - {id: m-hamster-kombat-mau-2024-11, type: mau, value: 40900000, value_text: "4,090 万（Decrypt は「4,400 万未満、9 月下旬は 1 億超」）", unit: players, period: "2024-11 初め", definition: "Telegram のミニアプリ統計による月間利用者数（ForkLog・Decrypt が引用）", nature: reported, s: [src-hamster-kombat-forklog-decline, src-hamster-kombat-decrypt-alltime-low], note: "ForkLog は 9 月末の「3 億」と比べるが、3 億は累計プレイヤー数で月間値ではない。同じ定義の比較は Decrypt の 1 億超→4,400 万未満"}
   - {id: m-hamster-kombat-mau-2025-02, type: mau, value: 11680000, value_text: "1,168 万", unit: players, period: "2025-02-24", definition: "月間の総プレイヤー数（BitPinas。出典の明示なし、Telegram の統計と見られる）", nature: reported, s: [src-hamster-kombat-bitpinas-s2]}
   - {id: m-hamster-kombat-holders-2026-10, type: wallets, value: 1350945, value_text: "135 万", unit: wallets, period: "2026-10-23", definition: "TON 上の HMSTR jetton の保有アドレス数（tonapi の holders_count）", nature: measured, s: [src-hamster-kombat-tonapi], note: "取引所の預かり分は 1 アドレスにまとまるため人数を表さない。運営は 2024-11 に「1,100 万超のトークン保有者」と述べた（取引所内の保有を含むと見られる）"}
+  - {id: m-hamster-kombat-signups-2024-07, type: players, value: 239000000, value_text: "約 3 か月で 2.39 億登録、1 日 400〜500 万人の新規", unit: accounts, period: "2024-03〜2024-07 初め", definition: "Telegram 創業者 Durov が自身のチャンネルで述べた登録者数（Decrypt が報道）", nature: reported, s: [src-hamster-kombat-decrypt-durov], note: "ボット・重複の除外なし"}
+  - {id: m-hamster-kombat-youtube-2024-06, type: other, value: 30200000, value_text: "YouTube 3,020 万人超・Telegram チャンネル 4,680 万人超", unit: subscribers, period: "2024-06-28", definition: "公式 YouTube チャンネルと Telegram チャンネルの登録者数（Cointelegraph）", nature: reported, s: [src-hamster-kombat-ct-guinness], note: "登録・フォローにゲーム内報酬が付いていた"}
+
+acquisition:
+  audience: [players]
+  summary: {t: "最初のユーザーは Telegram の利用者そのもので、先行した Notcoin の大型エアドロップ（2024-05）で「タップでトークンがもらえる」期待が広がった直後に、紹介リンクでしか解放できないカード・日替わりコンボ・SNS フォロー課題を通じて利用者自身が勧誘役になり、Telegram 創業者の言及が拡大を後押しした。報酬はすべて将来の HMSTR エアドロップへの期待だった。", k: analysis, s: [src-hamster-kombat-theblock-founders, src-hamster-kombat-decrypt-friends, src-hamster-kombat-sherwood, src-hamster-kombat-decrypt-durov]}
+  steps:
+    - {phase: pre, t: "匿名の創業者は、2013 年から暗号資産業界にいるとし、Notcoin の成功と 2010 年代のソーシャルゲームに着想を得たと述べた。", k: claim, who: "Hamster Kombat 創業者（匿名）", s: [src-hamster-kombat-theblock-founders, src-hamster-kombat-forklog-founders], q: "We were inspired by the success of Notcoin and the popularity of social media games in the 2010s."}
+    - {phase: launch, date: "2024-03", t: "Sherwood News（Garbage Day）は、2024-03 の公開時に Telegram の全利用者に向けた参加呼びかけがあったと書く（誰が行ったかの記載はない）。", k: claim, who: "Sherwood News (Ryan Broderick, Adam Bumas)", s: [src-hamster-kombat-sherwood]}
+    - {phase: growth, date: "2024-05-24", t: "YouTube チャンネルを開設し、Cointelegraph によれば 6/28 までに 3,020 万人超の登録者、5/24〜6/26 に 4.7 億回超の再生を得た。Telegram チャンネルの登録者は 4,680 万人超だった。", k: claim, who: "Cointelegraph（運営の主張・画面写真に基づく）", s: [src-hamster-kombat-ct-guinness]}
+    - {phase: growth, date: "2024-06", t: "一部のアップグレードカードは自分の紹介リンクから友人を始めさせないと解放できず、新しいカードでは累計 9 人の招待が必要になった。カードは 500 万コインの「日替わりコンボ」に使われ、記者はこれを「プレイヤーに自分たちのマーケティングをさせる」設計と評した。", k: fact, s: [src-hamster-kombat-decrypt-friends]}
+    - {phase: growth, date: "2024-06", t: "Telegram グループへの参加、YouTube 動画の視聴、X のフォロー、友人の招待にコインが付き、X は 3 か月で 1,000 万フォロワー、YouTube は 6 月に 2,000 万人超の登録者を得たと Sherwood は集計した。", k: claim, who: "Sherwood News", s: [src-hamster-kombat-sherwood]}
+    - {phase: growth, date: "2024-07-02", t: "Telegram はミニアプリを画面下部のバーに畳める機能を出し、ミニアプリの利用者を 5 億人超とした。", k: claim, who: "Telegram / Pavel Durov", s: [src-hamster-kombat-decrypt-minibar]}
+    - {phase: growth, date: "2024-07-04", t: "Telegram 創業者 Pavel Durov が自身のチャンネルで Hamster Kombat を「世界で最も急成長しているデジタルサービス」と呼び、約 3 か月で 2.39 億人が登録し、1 日 400〜500 万人が新たに加わっていると述べた。", k: claim, who: "Pavel Durov (Telegram)", s: [src-hamster-kombat-decrypt-durov]}
+    - {phase: growth, date: "2024-07-11", t: "創業者は配布前にボットアカウントを掃除し、「ボットと紹介の不正は罰する」と述べた。", k: claim, who: "Hamster Kombat 創業者（匿名）", s: [src-hamster-kombat-theblock-founders], q: "Using bots and referral cheating will be punished."}
+    - {phase: growth, date: "2024-09-26", t: "230 万超のチーターを BAN したうえで、約 1.31 億アカウントに HMSTR を TON 上で配布した。", k: fact, s: [src-hamster-kombat-decrypt-purge, src-hamster-kombat-ct-131m]}
+  channels:
+    - {id: platform-distribution, t: "Telegram のミニアプリとして配信され、アプリストアを経ずにチャット内で始められた。Telegram はミニアプリ用の UI を追加し、創業者 Durov が自身のチャンネルで名指しで称賛した。", k: claim, who: "Decrypt（Telegram・Durov の発表を報道）", s: [src-hamster-kombat-decrypt-durov, src-hamster-kombat-decrypt-minibar]}
+    - {id: referral, t: "紹介リンクで友人を始めさせないと解放できないカードがあり、日替わりコンボ（500 万コイン）に必要だった。", k: fact, s: [src-hamster-kombat-decrypt-friends]}
+    - {id: token-incentive, t: "ゲーム内コインは将来の HMSTR エアドロップの配分基準とされ、報酬期待が参加の主な誘因だった。", k: fact, s: [src-hamster-kombat-decrypt-explainer, src-hamster-kombat-decrypt-purge]}
+    - {id: crypto-social, t: "X・YouTube のフォローや動画視聴にゲーム内コインを付け、公式アカウントのフォロワーを短期間で増やした。", k: claim, who: "Sherwood News", s: [src-hamster-kombat-sherwood]}
+    - {id: community-server, t: "公式 Telegram チャンネル（2024-06 で 4,680 万人超）への参加も課題として報酬が付いた。", k: claim, who: "Cointelegraph / Sherwood News", s: [src-hamster-kombat-ct-guinness, src-hamster-kombat-sherwood]}
+    - {id: existing-community, t: "Notcoin が先に Telegram 上のタップ型ゲームと大型エアドロップの前例を作っており、創業者自身が Notcoin を着想源に挙げた。", k: claim, who: "Hamster Kombat 創業者（匿名）", s: [src-hamster-kombat-theblock-founders]}
+  cost:
+    - {t: "獲得の原資は将来のトークンで、総供給 1,000 億 HMSTR のうち 750 億をコミュニティに割り当て、600 億を Season 1 後に配った。現金の広告費の有無と規模は確認できない。", k: fact, s: [src-hamster-kombat-ct-131m]}
+    - {t: "YouTube の再生は運営に収益をもたらした可能性があり、Cointelegraph は専門家の単価推定から 5/24〜6/26 で約 520 万ドルと見積もった（推定であり運営の発表ではない）。", k: claim, who: "Cointelegraph（専門家推定）", s: [src-hamster-kombat-ct-guinness]}
+  after:
+    - {t: "配布後、Telegram の統計で月間利用者は 9 月下旬の 1 億超から 11 月初めの 4,400 万未満に減り、2025-02 には 1,168 万とされた。運営代表者は 2024-11 に月間 3,000 万超を保っていると述べた。", k: claim, who: "Decrypt / BitPinas / 運営代表者", s: [src-hamster-kombat-decrypt-alltime-low, src-hamster-kombat-bitpinas-s2, src-hamster-kombat-forklog-reengage]}
+  counter:
+    - {t: "登録者数は人数を表さない。Cointelegraph はボット・重複アカウントを除いていない数字だと注記し、Sherwood は Telegram の利用者を実質すべて利用者に数えていると指摘した。配布前に 230 万超が BAN され、1 人が 400 超のアカウントを 1 つの Binance アドレスにつないだ例も公表された。", k: claim, who: "Cointelegraph / Sherwood News / Decrypt", s: [src-hamster-kombat-ct-guinness, src-hamster-kombat-sherwood, src-hamster-kombat-decrypt-purge]}
+    - {t: "YouTube の急成長自体が報酬付き課題による「ゲーム化された非真正な行動」で、同じ文言のコメントが並んでいたと Sherwood は指摘した。SNS 指標の伸びは関心の広がりではなく、報酬で買われたフォローである可能性がある。", k: claim, who: "Sherwood News", s: [src-hamster-kombat-sherwood]}
+    - {t: "拡大は Notcoin の配布（2024-05、約 10 億ドル相当）の直後で、同時期に多数の類似タップゲームも伸びており、Hamster Kombat 固有の設計の効果と「Telegram タップゲーム＋エアドロップ」という流行全体の効果を分けられない。", k: analysis, s: [src-hamster-kombat-theblock-founders, src-hamster-kombat-decrypt-durov]}
+  lessons:
+    - {t: "紹介でしか解放できない日替わり報酬: 毎日の高額報酬（日替わりコンボ）の材料を紹介人数で解放すると、毎日戻る理由と勧誘する理由を同時に作れる。効く条件は始めるのに費用がかからず、配信面（Telegram のチャット）で紹介リンクが直接開けること。破綻条件は報酬がエアドロップ期待だけの場合で、多重アカウントで紹介人数を自作でき、配布後は勧誘・継続の動機が同時に消える。", k: analysis}
+  metrics: [m-hamster-kombat-signups-2024-07, m-hamster-kombat-youtube-2024-06, m-hamster-kombat-players-2024, m-hamster-kombat-eligible-2024-09, m-hamster-kombat-bans-2024-09, m-hamster-kombat-mau-2024-11, m-hamster-kombat-mau-2025-02]
+  unknowns:
+    - "公開日と、公開時の Telegram 全利用者への呼びかけの主体（Telegram 側の施策か、運営の広告か）"
+    - "広告費・インフルエンサーへの支払いの有無と規模"
+    - "紹介経由の登録の割合と、そのうち多重アカウントの割合"
 
 events:
   - {id: ev-hamster-kombat-bans, date: "2024-09-23", type: other, title: "230 万超のチーターを BAN、68 億 HMSTR を没収", detail: "1 人が 400 超のアカウントを 1 つの Binance アドレスに接続した例などを公表", s: [src-hamster-kombat-decrypt-purge]}
@@ -107,3 +146,10 @@ sources:
   - {id: src-hamster-kombat-forklog-s2, title: "Hamster Kombat Launches Second Season and Announces New Airdrop", url: "https://forklog.com/en/hamster-kombat-launches-second-season-and-announces-new-airdrop/", publisher: "ForkLog", type: news, primary: false, published: "2025-02-19", accessed: "2026-10-23", access: fetched, lang: en, note: "Season 2（HamsterVerse）開始。ForkLog 英語版は AI 翻訳と表示"}
   - {id: src-hamster-kombat-bitpinas-s2, title: "Telegram Game Hamster Kombat Start Season Two as ‘HamsterVerse’", url: "https://bitpinas.com/learn-how-to-guides/hamsterverse-game-guide/", publisher: "BitPinas", type: news, primary: false, published: "2025-02", accessed: "2026-10-23", access: fetched, lang: en, note: "2025-02-24 時点の月間 1,168 万、対象 1.3 億"}
   - {id: src-hamster-kombat-tonapi, title: "tonapi: HMSTR jetton (EQAJ8uWd7EBqsmpSWaRdf_I-8R8-XHwh3gsNKhy-UrdrPcUo)", url: "https://tonapi.io/v2/jettons/EQAJ8uWd7EBqsmpSWaRdf_I-8R8-XHwh3gsNKhy-UrdrPcUo", publisher: "tonapi.io", type: onchain-data, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "検証役の計測。holders_count 1,350,945、mintable=true、admin はウォレット、総供給約 1,000 億"}
+  - {id: src-hamster-kombat-sherwood, title: "How a crypto game called Hamster Kombat growth hacked the entire internet", url: "https://sherwood.news/crypto/hamster-kombat-crypto-game-youtube-social-media-growth-hack", publisher: "Sherwood News (Garbage Day)", author: "Ryan Broderick, Adam Bumas", type: analysis, primary: false, published: "2024-07-16", accessed: "2026-10-24", access: fetched, lang: en, note: "2024-03 公開時の Telegram 全体への呼びかけ、SNS フォロー課題、X 1,000 万・YouTube 6 月 2,000 万超、非真正な行動、利用者数の数え方"}
+  - {id: src-hamster-kombat-ct-guinness, title: "Hamster Kombat destined for Guinness World Record?", url: "https://cointelegraph.com/news/hamster-kombat-guinness-world-record-200m-users", publisher: "Cointelegraph", author: "Gareth Jenkinson", type: news, primary: false, published: "2024-06-28", accessed: "2026-10-24", access: fetched, lang: en, note: "2 億人の主張（ボット・重複を除かない）、YouTube 3,020 万・Telegram 4,680 万、YouTube 収益の推定"}
+  - {id: src-hamster-kombat-decrypt-friends, title: "'Hamster Kombat' Keeps Demanding More Friends—Enough Already", url: "https://decrypt.co/237629/hamster-kombat-keeps-demanding-more-friends-enough-already", publisher: "Decrypt", author: "Andrew Hayward", type: analysis, primary: false, published: "2024-06-29", accessed: "2026-10-24", access: fetched, lang: en, note: "紹介でしか解放できないカード、累計 9 人の招待、日替わりコンボ 500 万コイン"}
+  - {id: src-hamster-kombat-theblock-founders, title: "Hamster Kombat founders reveal game's origins, plans for a second airdrop", url: "https://www.theblock.co/post/304606/hamster-kombat-founders-reveal-games-origins-plans-for-a-second-airdrop", publisher: "The Block", author: "RT Watson", type: interview, primary: true, published: "2024-07-11", accessed: "2026-10-24", access: fetched, lang: en, note: "匿名創業者の書面回答。Notcoin に着想、ボット・紹介不正の処罰、2.5 億超の主張"}
+  - {id: src-hamster-kombat-forklog-founders, title: "Hamster Kombat team announces second airdrop", url: "https://forklog.com/en/hamster-kombat-team-announces-second-airdrop/", publisher: "ForkLog", type: news, primary: false, published: "2024-07-12", accessed: "2026-10-24", access: fetched, lang: en, note: "創業者の着想（Notcoin、2010 年代のソーシャルゲーム）、Durov の支持"}
+  - {id: src-hamster-kombat-decrypt-durov, title: "Telegram CEO Calls Crypto Game Hamster Kombat World's 'Fastest-Growing Digital Service'", url: "https://decrypt.co/238702/telegram-ceo-hamster-kombat-worlds-fastest-growing", publisher: "Decrypt", author: "Sander Lutz", type: news, primary: false, published: "2024-07-05", accessed: "2026-10-24", access: fetched, lang: en, note: "Durov のチャンネル投稿（t.me/durov/307）、2.39 億登録、1 日 400〜500 万の新規"}
+  - {id: src-hamster-kombat-decrypt-minibar, title: "Telegram Just Made It Easier to Farm Crypto Games Like 'Hamster Kombat'", url: "https://decrypt.co/238242/telegram-easier-farm-crypto-games-hamster-kombat", publisher: "Decrypt", author: "Andrew Hayward", type: news, primary: false, published: "2024-07-02", accessed: "2026-10-24", access: fetched, lang: en, note: "ミニアプリバーの追加、ミニアプリ利用者 5 億人超（Telegram の主張）"}

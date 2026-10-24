@@ -4,7 +4,7 @@ name_ja: サトシダイス
 aliases: [Satoshi Dice, SatoshiDICE, S.DICE]
 kind: game
 depth: index
-updated: "2026-10-23"
+updated: "2026-10-24"
 chains: [Bitcoin]
 team: "Erik Voorhees ら共同所有者（2012-04〜2013-07）。2013-07 に匿名の買い手へ売却。開発は bitcointalk の FireDuck とする記述もある"
 summary: >-

@@ -108,11 +108,54 @@ relations:
 
 contradictions:
   - {t: "Winding Down 告知は「DUST の開発中に MUD を変更する必要がなかった」と書くが、リポジトリの非 main ブランチには 2026-01〜04 に DUST 向けの entrykit・store-sync・cli の修正がある（コアの world/store は変更なし）。", s: [src-mud-winding-down, src-mud-repo]}
+  - {t: "Autonomous Worlds ハッカソン（2023-05）: ETHGlobal の告知ページは賞金総額 5 万ドル・主催 0xPARC/Lattice/ETHGlobal と表示するが、prizes ページの部門賞は合計 2.5 万ドル（Optimism・0xPARC・Lattice・NFT.Storage）。Lattice の RetroPGF 3 申請はスポンサーを「Optimism, ETHGlobal, Protocol Labs, and Lattice」と書き 0xPARC を挙げていない。", s: [src-mud-ethglobal-aw, src-mud-rpgf3-lattice]}
 
 unknowns:
   - "MUD で作られた World の総数、名前空間を第三者が登録した World の数（チェーン横断の集計が見つからない）。"
   - "ルート名前空間の所有権を実際に放棄（address(0) へ移転）した本番 World の例。"
   - "Lattice 解散後の保守体制（コミュニティによるメンテナンスの有無）。"
+
+acquisition:
+  audience: [developers]
+  summary: {t: "最初の開発者は、Lattice 自身が育った Dark Forest／0xPARC のオンチェーンゲーム開発者コミュニティと、Lattice の社内作品（OPCraft・Sky Strife）だった。Devcon 6（2022-10）の講演と OPCraft の公開デモで存在を示し、2023-05 の ETHGlobal Autonomous Worlds ハッカソン（賞金は Optimism・0xPARC・Lattice 等が拠出）と 2024-05 の Redstone 公開時の開発者施策で外部チームを集めた。", k: analysis, s: [src-mud-winding-down, src-mud-devcon6-talk, src-mud-ethglobal-aw, src-mud-rpgf3-lattice]}
+  steps:
+    - {phase: pre, date: "2021", t: "Lattice は Dark Forest を中心とするコミュニティ（後の 0xPARC）から生まれ、Dark Forest 型の手作りの構造で zkDungeon を作った経験が MUD の出発点になったと述べる。", k: claim, who: "Lattice (ludens, alvarius)", s: [src-mud-winding-down, src-mud-zero-to-v2], q: "Lattice initially grew out of the community around Dark Forest, which was the original inspiration for zkDungeon."}
+    - {phase: launch, date: "2022-10", t: "Devcon 6（Bogotá）で Lattice の 2 人と Optimism の Kelvin Fichter が「MUD: an Engine for On-chain Games」を講演し、0xPARC と Lattice が 1 年半かけて MUD を作ってきたと紹介した。同じ週の Autonomous Worlds 自主セッションでも MUD が紹介された。", k: fact, s: [src-mud-devcon6-talk, src-mud-devcon6-sls, src-mud-op-bogota]}
+    - {phase: launch, date: "2022-10-18", t: "MUD v1 の実証として、社内作品 OPCraft を Optimism の発表とともに OP Stack のテストネットで 2 週間公開した。Lattice は約 2000 人が遊んだと述べ、OPCraft が OP Stack のゲーム用途の可能性を開発者に示したと主張した。", k: claim, who: "Lattice", s: [src-mud-opcraft-announce, src-mud-zero-to-v2, src-mud-rpgf3-lattice]}
+    - {phase: growth, date: "2023-05-18", t: "0xPARC・Lattice・ETHGlobal が初のオンライン Autonomous Worlds ハッカソン（2023-05-18〜26）を開き、MUD を使った作品を募った。部門賞は Optimism 1 万ドル、0xPARC・Lattice・NFT.Storage 各 5000 ドル。Lattice は後に MUD のハッカソン作品を 69 件と申告した。", k: fact, s: [src-mud-ethglobal-aw, src-mud-rpgf3-lattice]}
+    - {phase: growth, date: "2023-10", t: "Optimism RetroPGF 3 の申請で、Lattice は MUD を使う常勤プロジェクトを 24 件（Words3・Primodium・Sky Strife・Kamigotchi 等）とし、開発資金は非営利財団からの研究開発助成 210 万 9200 ドルと RetroPGF 2 の 18 万 3348 OP だと記した。", k: claim, who: "Lattice", s: [src-mud-rpgf3-lattice]}
+    - {phase: growth, date: "2024-03", t: "MUD v2 安定版の告知で、Project Awakening（CCP Games）・Sky Strife・Biomes・Primodium・Moving Castles・Small Brain Games・DEAR・Gaul を早期採用者として挙げ、そのフィードバックに謝意を示した。", k: fact, s: [src-mud-v2-ready]}
+    - {phase: growth, date: "2024-04", t: "自社 L2 の Redstone で 4 週間の開発者プレビューを行い、Small Brain Games・Moving Castles・Playmint・Biomes・ARPA（DEAR）・DF Ares・GG Quest などが公開前に mainnet へ展開した。公開後の 2024-05 には各ゲームが改造のアイデアと開発者 Discord を並べた「Composability Day」のハッカソンを案内した。", k: fact, s: [src-mud-race-to-mainnet, src-mud-redstone-live, src-mud-composability-wiki]}
+  channels:
+    - {id: existing-community, t: "Dark Forest／0xPARC 周辺のオンチェーンゲーム開発者の輪から生まれ、0xPARC と共同で開発した経緯を講演で前面に出した。", k: claim, who: "Lattice", s: [src-mud-winding-down, src-mud-devcon6-talk]}
+    - {id: content-research, t: "Devcon 6 の講演・自主セッション、技術ブログ（MUD: An engine for Autonomous Worlds、MUD from zero to v2）で設計思想と実証結果を公開した。", k: fact, s: [src-mud-devcon6-talk, src-mud-devcon6-sls, src-mud-engine-blog, src-mud-zero-to-v2]}
+    - {id: hackathon, t: "ETHGlobal と組んだオンライン Autonomous Worlds ハッカソン（2023-05）で MUD を指定フレームワークにし、2024-05 には Redstone 上のゲームが Composability Day のハッカソンを案内した。", k: fact, s: [src-mud-ethglobal-aw, src-mud-composability-wiki, src-mud-rpgf3-lattice]}
+    - {id: platform-distribution, t: "Optimism との協業（OPCraft の OP Stack 上での公開、ハッカソンの OP Stack 部門賞）と、自社 L2 の Redstone の開発者プレビューを採用の入口にした。", k: fact, s: [src-mud-op-bogota, src-mud-opcraft-announce, src-mud-ethglobal-aw, src-mud-race-to-mainnet]}
+    - {id: composability, t: "社内作品 OPCraft・Sky Strife を「拡張できる世界」の見本として公開し、第三者の改造・プラグインの例を開発者向けの宣伝材料にした。", k: fact, s: [src-mud-zero-to-v2, src-mud-composability-wiki]}
+  cost:
+    - {t: "MUD の開発と普及の原資は助成金で、Lattice は 0xPARC・Optimism Foundation・Ethereum Foundation などから資金を受け、ベンチャー資金は受けなかったと述べる。RetroPGF 3 の申請では研究開発助成 210 万 9200 ドルと RetroPGF 2 の 18 万 3348 OP を申告した。", k: claim, who: "Lattice", s: [src-mud-winding-down, src-mud-rpgf3-lattice]}
+    - {t: "ハッカソンの賞金は Optimism（1 万ドル）・0xPARC・Lattice・NFT.Storage（各 5000 ドル）が拠出した。フレームワーク自体は無償（MIT）で、開発者側の金銭負担は採用作品のガス代・インフラ費に限られる。", k: fact, s: [src-mud-ethglobal-aw, src-mud-repo]}
+  after:
+    - {t: "Lattice は MUD が「Ethereum で最も広く使われたオンチェーンゲームフレームワーク」になり、個人開発者から CCP Games まで使ったと総括した。ただし採用 World 数・継続している開発者数の集計は公表されていない。", k: claim, who: "Lattice (ludens, alvarius)", s: [src-mud-winding-down], q: "MUD became the most widely used framework for onchain games on Ethereum"}
+    - {t: "2023 年時点の早期採用チーム（Words3・Primodium・Sky Strife 等）の多くは 2026 年までに運営を終え、Lattice 自身も事業化できず解散した。ハッカソン作品 69 件のうち継続した作品の数は確認できない。", k: analysis, s: [src-mud-winding-down, src-mud-rpgf3-lattice]}
+  counter:
+    - {t: "採用の伸びはハッカソン賞金・助成・Redstone の開発者プレビューなど Lattice と Optimism 側の資金で支えられており、開発者が MUD の技術的利点だけで集まったとは言い切れない。賞金・助成が尽きた後の採用の持続は示されていない。", k: analysis, s: [src-mud-ethglobal-aw, src-mud-rpgf3-lattice, src-mud-winding-down]}
+    - {t: "「24 の常勤プロジェクト」「69 のハッカソン作品」は助成を申請する当事者の自己申告で、定義（常勤とは何か）や重複の有無は確認できない。", k: analysis, s: [src-mud-rpgf3-lattice]}
+    - {t: "2022〜2023 年は他にオンチェーンゲーム用の汎用フレームワークの選択肢が少なく、Dark Forest 系の開発者が自然に移った可能性もある。施策の効果と、競合の不在による選択を分けられない。", k: analysis}
+  lessons:
+    - {t: "自社ゲームを公開デモにしてエンジンを売る: エンジンの開発元が、短期間（2 週間）の公開デモを主要カンファレンスの期間中に提携チェーンと同時発表すると、技術の実証と開発者への露出を一度に得られる。効く条件はデモが未経験者にも見える成果（建築物・制度の出現）を生むこと。破綻条件はデモの負荷でエンジンの欠陥が露呈し（OPCraft の状態肥大）、作り直しの期間に開発者を待たせること。", k: analysis}
+    - {t: "チェーン側の賞金でフレームワーク指定のハッカソンを開く: L2 の運営者が部門賞を出し、フレームワーク開発元がメンターと審査をすると、双方の費用で初期作品を数十件規模で集められる。効く条件は作品を本番に載せる受け皿（テストネット・開発者プレビュー）が直後にあること。破綻条件は作品が賞金目当ての一回限りで終わり、継続開発への助成や受け皿がないこと。", k: analysis}
+  metrics: [m-mud-fulltime-projects-2023, m-mud-hackathon-projects-2023, m-mud-rd-grants-2023, m-mud-ethglobal-aw-prizes]
+  unknowns:
+    - "ETHGlobal Autonomous Worlds ハッカソンの参加者数・提出数の公式値（Lattice は 69 件と申告、出典の表計算シートは未取得）。"
+    - "MUD の開発者 Discord の規模と、最初の外部採用チームが MUD を知った経路。"
+    - "Composability Day の参加数・成果物・賞金の有無。"
+
+metrics:
+  - {id: m-mud-fulltime-projects-2023, type: other, value: 24, unit: projects, period: "2023-10（RetroPGF 3 申請時点）", definition: "Lattice が申告した「MUD を使う常勤プロジェクト」の数（根拠は Lattice の Notion 一覧）", nature: reported, s: [src-mud-rpgf3-lattice]}
+  - {id: m-mud-hackathon-projects-2023, type: other, value: 69, unit: projects, period: "〜2023-10", definition: "Lattice が申告した「MUD のハッカソン作品」の数（対象ハッカソンの範囲は不明）", nature: reported, s: [src-mud-rpgf3-lattice]}
+  - {id: m-mud-rd-grants-2023, type: grants, value: 2109200, value_text: "210 万 9200 ドル", unit: USD, period: "〜2023-10（RetroPGF 3 申請時点の累計）", definition: "Lattice が申告した非営利財団からの研究開発助成の総額（RetroPGF 2 の 18 万 3348 OP は別）", nature: reported, s: [src-mud-rpgf3-lattice]}
+  - {id: m-mud-ethglobal-aw-prizes, type: other, value: 50000, value_text: "総額 5 万ドル（部門賞の内訳は Optimism 1 万・0xPARC 5000・Lattice 5000・NFT.Storage 5000）", unit: USD, period: "2023-05-18〜26", definition: "ETHGlobal の告知ページに記載された賞金総額。部門賞の合計 2.5 万ドルとの差の内訳は不明", nature: reported, s: [src-mud-ethglobal-aw]}
 
 sources:
   - {id: src-mud-engine-blog, title: "MUD: An engine for Autonomous Worlds", url: "https://lattice.xyz/blog/mud-an-engine-for-autonomous-worlds", publisher: "Lattice blog", author: "Lattice", type: official-blog, primary: true, published: "2022", accessed: "2026-10-23", access: fetched, lang: en, note: "v1 の設計意図、World・Component・System、誰でもコンポーネントとシステムを登録できる、汎用インデクサ"}
@@ -126,3 +169,11 @@ sources:
   - {id: src-mud-standardizing, title: "Standardizing the MUD world interfaces", url: "https://lattice.xyz/blog/standardizing-mud-world-interface", publisher: "Lattice blog", author: "Lattice", type: official-blog, primary: true, published: "2025", accessed: "2026-10-23", access: fetched, lang: en, note: "MIT ライセンス、Store の ERC 草案、コミュニティによる MUD 拡張（エクスプローラ・分析・インデクサ）"}
   - {id: src-mud-winding-down, title: "Winding Down Lattice", url: "https://lattice.xyz/winding-down", publisher: "Lattice", author: "Ludens & Alvarius", type: retrospective, primary: true, published: "2026-04", accessed: "2026-10-23", access: fetched, lang: en, note: "MUD は機能完成・監査済み、移行ツール、助成金による資金、事業化できず解散、DUST での創発"}
   - {id: src-mud-redstone-live, title: "Start Your Engines: Redstone is Live", url: "https://lattice.xyz/blog/start-your-engines-redstone-live", publisher: "Lattice blog", author: "Lattice", type: official-blog, primary: true, published: "2024-05", accessed: "2026-10-23", access: fetched, lang: en, note: "共同創業者 ludens が Autonomous Worlds の論考を書いたと記述、Redstone 上の MUD 作品"}
+  - {id: src-mud-rpgf3-lattice, title: "Lattice (OPCraft & MUD) — Optimism RetroPGF 3 application metadata", url: "https://content.optimism.io/rpgf3Application/v0/metadata/10/0xc640Dd8933f12FC788C56ab121ACa4cdBb7d7FC2.json", publisher: "Optimism (RetroPGF 3)", author: "Lattice", type: forum, primary: true, published: "2023-10", accessed: "2026-10-24", access: fetched, lang: en, note: "EAS の申請アテステーション（2023-10-23）が指す申請本文 JSON を取得。常勤 MUD プロジェクト 24、ハッカソン作品 69、OPCraft 3,489,479 tx、研究開発助成 2,109,200 USD、RetroPGF 2 で 183,348.21 OP"}
+  - {id: src-mud-ethglobal-aw, title: "Autonomous Worlds (ETHGlobal) / Prizes", url: "https://ethglobal.com/events/autonomous", publisher: "ETHGlobal", type: official-docs, primary: true, published: "2023-05", accessed: "2026-10-24", access: fetched, lang: en, note: "2023-05-18〜26 のオンライン非同期ハッカソン。0xPARC・Lattice・ETHGlobal。総額 5 万ドルと表示、prizes ページの部門賞は Optimism 1 万・0xPARC・Lattice・NFT.Storage 各 5000"}
+  - {id: src-mud-devcon6-talk, title: "MUD: an Engine for On-chain Games (Devcon 6)", url: "https://archive.devcon.org/devcon-6/mud-an-engine-for-on-chain-games", publisher: "Devcon Archive", author: "Justin Glibert, alvarius, Kelvin Fichter", type: talk, primary: true, published: "2022-10", accessed: "2026-10-24", access: fetched, lang: en, note: "講演概要のみ確認（動画は未視聴）。0xPARC と Lattice が 1 年半 MUD を開発、Optimism との協業を発表予定"}
+  - {id: src-mud-devcon6-sls, title: "Autonomous Worlds Self Led Session (Devcon 6)", url: "https://archive.devcon.org/devcon-6/autonomous-worlds-self-led-session", publisher: "Devcon Archive", type: talk, primary: true, published: "2022-10", accessed: "2026-10-24", access: fetched, lang: en, note: "概要のみ。デモ、Kevin Ho と gubsheep のパネル、MUD の紹介"}
+  - {id: src-mud-op-bogota, title: "OP in Bogotá: Rollup Recap", url: "https://www.optimism.io/blog/op-in-bogota-rollup-recap", publisher: "Optimism blog", type: official-blog, primary: true, published: "2022-10-21", accessed: "2026-10-24", access: fetched, lang: en, note: "Kelvin が Lattice の MUD 講演に参加、MUD と OP Stack で OPCraft を作ったと記述"}
+  - {id: src-mud-opcraft-announce, title: "Announcing OPCraft: an Autonomous World built on the OP Stack", url: "https://optimism.io/blog/announcing-opcraft-an-autonomous-world-built-on-the-op-stack", publisher: "Optimism blog", author: "Nick Balestra", type: official-blog, primary: true, published: "2022-10-18", accessed: "2026-10-24", access: fetched, lang: en, note: "OPCraft の公式発表。約 2 週間公開し、ハロウィンに世界とチェーンを凍結"}
+  - {id: src-mud-race-to-mainnet, title: "The Race to Mainnet", url: "https://lattice.xyz/blog/race-to-mainnet", publisher: "Lattice blog", author: "Lattice", type: official-blog, primary: true, published: "2024-04", accessed: "2026-10-24", access: fetched, lang: en, note: "Redstone mainnet の 4 週間の開発者プレビュー、参加チームの列挙。ページに日付表記なし（5/1 公開の前の 4 週間と記述）"}
+  - {id: src-mud-composability-wiki, title: "Redstone Community - Composability Day Wiki", url: "https://latticexyz.notion.site/Redstone-Community-Composability-Day-Wiki-a041c3a8e1484147900e450353ff86af", publisher: "Lattice (Notion)", type: official-docs, primary: true, published: "2024-05", accessed: "2026-10-24", access: fetched, lang: en, note: "Notion 公開 API で本文取得。Biomes・DF Ares・Downstream・Sky Strife・This Cursed Machine の改造案と開発者 Discord。DF Ares の Round 3 が 5/12 まで、Downstream の Office Hours が Thu 9th/Fri 10th とあり 2024-05 と判断"}

@@ -72,6 +72,36 @@ article:
   counter_evidence:
     - {t: "Dope Wars の NFT は当初「ゲームが存在しない段階のアート」として 報じられ（4 日で約 900 万ドルが Dope Wars NFT に費やされた。一次販売は gas のみのミントだったと公式サイトは記す）、開発者自身もゲームの実現は保証されないと述べた。Loot 派生の資産が先行し、RYO が「最近ローンチした」と DopeLabs 関係者が書いたのは約 2 年後（2023-10）だった。", k: fact, s: [src-dope-wars-roll-your-own-vice, src-dope-wars-roll-your-own-op-forum, src-dope-wars-roll-your-own-site], q: "The Dope Wars NFT is artwork."}
 
+acquisition:
+  audience: [holders, players, developers]
+  summary: {t: "最初の参加者は Loot 熱の直後にガス代だけで DOPE をミントした NFT 利用者で、約 5,000 人規模の Discord に「ゲームを作る人・描く人」を呼び込む形で始まった。Roll Your Own 自体の最初のプレイヤーは、この Dope Wars 保有者コミュニティと、Cartridge / Dojo 周辺の Starknet 開発者・利用者だったとみられるが、人数の資料はない。", k: analysis, s: [src-dope-wars-roll-your-own-vice, src-dope-wars-roll-your-own-site, src-dope-wars-roll-your-own-cartridge-interview]}
+  steps:
+    - {phase: pre, date: "2021-09", t: "Loot 派生の DOPE 8,000 個をガス代のみのミントで配布し、1 DOPE あたり 125,000 PAPER を一度だけ請求できるようにした。Vice は 4 日で約 900 万ドルが DOPE に費やされたと報じた。", k: fact, s: [src-dope-wars-roll-your-own-site, src-dope-wars-roll-your-own-vice]}
+    - {phase: pre, date: "2021-09", t: "Dope Wars の X アカウントは「ゲーム開発者とアーティスト」に Discord への参加を呼びかける投稿をリツイートし、Discord は約 5,000 人に達していた（Vice 2021-09-09）。開発者 Tarrence は、ゲームは保証されず、コミュニティが上に作っていると述べた。", k: fact, s: [src-dope-wars-roll-your-own-vice], q: "I think the community is working on various games on top of it."}
+    - {phase: pre, date: "2021-09-15", t: "Cairo 0 版 RYO のリポジトリが始まり、DopeDAO と StarkWare が 2021-09 に部分的に資金を出したと DopeLabs 関係者は述べる。", k: claim, who: "Butterbum（DopeLabs、Optimism フォーラムへの代理投稿）", s: [src-dope-wars-roll-your-own-cairo0, src-dope-wars-roll-your-own-op-forum]}
+    - {phase: pre, date: "2023-04-06", t: "Cartridge の Tarrence は、Dojo と Controller の開発と並行して自社ゲーム RYO の開発を始めると述べ、標準ツールで Starknet に開発チームを呼び込む狙いを語った。", k: claim, who: "Tarrence van As（Cartridge、Nurstar の取材）", s: [src-dope-wars-roll-your-own-cartridge-interview]}
+    - {phase: pre, date: "2023-06", t: "第三者の解説は、Dojo 版 RYO の計画をテストネットでの Alpha（Web UI）→ Beta（Web とモバイル）→ mainnet と紹介し、PAPER でラウンドに参加し賞金プールを持ち帰る形を掲げたと記す。", k: fact, s: [src-dope-wars-roll-your-own-awresearch-2023], q: "Buy in to rounds with PAPER, use your hustler and items to win the streets, and take home the prize pool."}
+    - {phase: launch, date: "2023-10", t: "DopeLabs 関係者は 2023-10-03 の投稿で、RYO が Starknet の更新を待って「最近」ローンチしたと書いた。第三者記事によればバーナーウォレットで署名なしに遊べた。", k: claim, who: "Butterbum（DopeLabs、Optimism フォーラムへの代理投稿）", s: [src-dope-wars-roll-your-own-op-forum, src-dope-wars-roll-your-own-chaincatcher]}
+    - {phase: growth, date: "2023-12", t: "Dojo Holiday Game Jam #3 に Dope Wars のトラック（5,000 ドル＋優勝者に DOPE NFT 2 個）が設けられ、開発者向けに生態系を露出させた。", k: fact, s: [src-dope-wars-roll-your-own-dojo-jam3]}
+  channels:
+    - {id: existing-community, t: "Loot 派生として Loot 熱の直後に始まり、DOPE 保有者・PAPER 保有者の集団が RYO を含む後続作の母集団になった。", k: fact, s: [src-dope-wars-roll-your-own-vice, src-dope-wars-roll-your-own-op-proposal, src-dope-wars-roll-your-own-site]}
+    - {id: free-mint, t: "DOPE 8,000 個をガス代のみでミントし、PAPER を保有者に無料で請求させた。", k: fact, s: [src-dope-wars-roll-your-own-site]}
+    - {id: community-server, t: "Discord（2021-09 に約 5,000 人）にゲーム開発者とアーティストを集めた。", k: fact, s: [src-dope-wars-roll-your-own-vice]}
+    - {id: crypto-social, t: "X でのリツイートとアーティストの投稿で拡散した。", k: fact, s: [src-dope-wars-roll-your-own-vice]}
+    - {id: hackathon, t: "Dojo のゲームジャムに Dope Wars の賞金トラックを出した。", k: fact, s: [src-dope-wars-roll-your-own-dojo-jam3]}
+  cost:
+    - {t: "DOPE は一次販売の代金を取らず（ガス代のみ）、初期の金額は二次流通で生じた。RYO の開発は DopeDAO と StarkWare の部分的な出資、のちに Cartridge の自社負担で進んだとされる。", k: claim, who: "DopeLabs 関係者 / Tarrence van As", s: [src-dope-wars-roll-your-own-site, src-dope-wars-roll-your-own-op-forum, src-dope-wars-roll-your-own-cartridge-interview]}
+  after:
+    - {t: "RYO のプレイヤー数・継続の資料は見つからず、Dojo 版のリポジトリは参照日に 404 だった。LS2（2025）の無料ゲーム配布は Dope Wars を対象集合の一つ（1 NFT あたり 3 回）にしており、保有者集団は他作の獲得対象として残っている。", k: fact, s: [src-dope-wars-roll-your-own-gh-404, src-dope-wars-roll-your-own-ls-eligible]}
+  counter:
+    - {t: "2021-09 の DOPE 購入は「ゲームのない段階のアート」への支出で、RYO が実際に遊べるようになったのは約 2 年後だった。初期の集客は投機と Loot 熱によるもので、RYO の最初のプレイヤーと同じ人たちだったかは確認できない。", k: analysis, s: [src-dope-wars-roll-your-own-vice, src-dope-wars-roll-your-own-op-forum]}
+    - {t: "Dojo 版 RYO は Cartridge の自社タイトルでツールの実証を兼ねていたため、初期プレイヤーは Dope Wars 保有者より Starknet / Dojo の開発者・利用者だった可能性もある（人数の内訳の資料はない）。", k: analysis, s: [src-dope-wars-roll-your-own-cartridge-interview, src-dope-wars-roll-your-own-chaincatcher]}
+  lessons:
+    - {t: "保有者コミュニティの Discord に「作り手」を呼ぶ: ガス代のみで資産を配り、ゲームは後からコミュニティが作ると明言すると、開発者・アーティストが集まり派生が生まれる。効く条件は資産の熱が高い時期に開発者を確保できること。破綻条件は実際に遊べるものが出るまでの時間（RYO は約 2 年）で、その間に関心と資金が冷める。", k: analysis}
+  unknowns:
+    - "Dojo 版 RYO の mainnet 公開日、シーズン、賞金額、プレイヤー数。"
+    - "DOPE 保有者のうち RYO を遊んだ人の割合。"
+
 events:
   - {id: ev-ryo-dope-nft, date: "2021-09", type: launch, title: "DOPE NFT 公開（8,000 個、gas のみのミント）", detail: "公式サイトは 2021-09 公開、Tarrence は Loot（2021-08-27）の翌日と述べ、日付が食い違う。4 日で約 900 万ドルが費やされたと報道", s: [src-dope-wars-roll-your-own-vice, src-dope-wars-roll-your-own-bgb, src-dope-wars-roll-your-own-site]}
   - {id: ev-ryo-cairo0, date: "2021-09-15", type: other, title: "Cairo 0 版 RYO リポジトリ開始（perama-v）", s: [src-dope-wars-roll-your-own-cairo0]}
@@ -90,6 +120,7 @@ unknowns:
   - "Cairo 0 版のモジュールで第三者が書いたものが実際に動いたか。"
   - "DOPE NFT の正確な公開日（2021-08-31 とする検索要約あり、本文未確認）。"
 contradictions:
+  - {t: "DOPE の公開日: AW Research（2023-06）は 2021-08-31 に Ethereum mainnet で始まったと書き、本文の別箇所は 2021-09 に無料ミントされたと書く。", s: [src-dope-wars-roll-your-own-awresearch-2023]}
   - {t: "DOPE NFT の公開時期: 公式サイトは「released September 2021」、Tarrence（BlockchainGamer.biz、2024）は Loot の「the next day」（Loot は 2021-08-27 公開なので 2021-08-28）と述べる。", s: [src-dope-wars-roll-your-own-site, src-dope-wars-roll-your-own-bgb]}
   - {t: "Optimism フォーラムの提案（2022-06）は Optimism を生態系の本拠とし、2023-10 の投稿は Starknet の RYO を語る。本拠のチェーンが時期により変わった。", s: [src-dope-wars-roll-your-own-op-proposal, src-dope-wars-roll-your-own-op-forum]}
 
@@ -104,3 +135,6 @@ sources:
   - {id: src-dope-wars-roll-your-own-bgb, title: "Building fully onchain games with Cartridge's Starknet-based dev tools", url: "https://www.blockchaingamer.biz/features/interviews/34142/fully-onchain-games-cartridge-starknet-dev-tools-tarrence-van-as/", publisher: "BlockchainGamerBiz", type: interview, primary: true, published: "2024-09", accessed: "2026-10-23", access: fetched, lang: en, note: "Loot の翌日に公開、裁定取引はフルオンチェーン向き、最新 Dojo で新版を作成（最終更新 2024-09-11）"}
   - {id: src-dope-wars-roll-your-own-cartridge-interview, title: "Interview with Tarrence from Cartridge, a Starknet Gaming Console", url: "https://nurstardeepdive.substack.com/p/interview-with-tarrence-from-cartridge", publisher: "Nurstar (Starknet Chinese Community)", type: interview, primary: true, published: "2023-04-06", accessed: "2026-10-23", access: fetched, lang: en, note: "Controller・Dojo・RYO を並行開発"}
   - {id: src-dope-wars-roll-your-own-chaincatcher, title: "AW Frontier: The Ultimate Guide to Starknet's Full-Chain Games", url: "https://www.chaincatcher.com/en/article/2114963", publisher: "ChainCatcher", type: analysis, primary: false, published: "2024-02-23", accessed: "2026-10-23", access: fetched, lang: en, note: "RYO は Cartridge と Dope DAO の協業、バーナーウォレット、PvP 取引が価格に影響"}
+  - {id: src-dope-wars-roll-your-own-awresearch-2023, title: "Dope Wars - A GTA Game developed by the Cartridge team on StarkNet", url: "https://paragraph.com/@aw-research/iLDUd22l4WsGkVPIAN8b", publisher: "AW Research (Paragraph)", author: "AW_Research", type: analysis, primary: false, published: "2023-06-29", accessed: "2026-10-24", access: fetched, lang: en, note: "DOPE は 2021-08-31 開始の Loot 型フリーミント、1 個あたり 125,000 PAPER、RYO は第 4 提案で承認、Dojo 版のロードマップ（Alpha / Beta / mainnet）、PAPER でラウンド参加"}
+  - {id: src-dope-wars-roll-your-own-dojo-jam3, title: "Dojo Holiday Game Jam #3 (itch.io)", url: "https://itch.io/jam/dojo-holiday-game-jam-3", publisher: "itch.io", type: official-docs, primary: true, published: "2023-12", accessed: "2026-10-24", access: fetched, lang: en, note: "2023-12-15〜2024-01-03、一般プール 3 万 STRK＋1.6 万ドル、Dope Wars トラック 5,000 ドル＋DOPE NFT、25 エントリー"}
+  - {id: src-dope-wars-roll-your-own-ls-eligible, title: "Eligible Collections (Loot Survivor free games airdrop)", url: "https://github.com/Provable-Games/docs/blob/main/src/pages/lootsurvivor/token/eligible-collections.mdx", publisher: "Provable Games docs (GitHub)", type: official-docs, primary: true, accessed: "2026-10-24", access: fetched, lang: en, note: "Dope Wars（Ethereum）は 1 NFT あたり 3 回の無料ゲーム"}
