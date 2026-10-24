@@ -146,7 +146,7 @@
   why: 試合が成立し経済が回るには最低限の人数が要る。最初の 100 人の出どころは、その後の指標が何を測るか（遊びの需要か、報酬か、手元の資産の利得か）まで決める。
   labels: {support: 既存の集まりや少人数の招待で最初の集団を作れた, counter: 集め方の効果を確認できない・集まった人が遊ばなかった}
   answer: >-
-    acquisition 節のある 52 件のうち 35 件で、最初の利用者は既存の集まり（前作・同じチームの保有者、トークン・NFT の保有者、研究者、チェーンの利用者）から借りられた。100 人規模の具体例は、
+    acquisition 節のある 52 件のうち 35 件で、既存の集まり（前作・同じチームの保有者、トークン・NFT の保有者、研究者、チェーンの利用者）を最初の対象にしたか、そこから来たと記録された（移入が確認された件数ではなく、記述の性質は fact 19・claim 12・analysis 4）。100 人規模の具体例は、
     Sky Strife（2 週間で 100 人の目標を 2 日目に達成し最終 355 人、運営発表）、Dark Forest v0.3（Ethereum・ZK のコミュニティへの招待鍵で約 300 人）、Primodium（WASD の参加を伴い 6 日間で 300 人超）、
     Words3（自前のコミュニティと X で Base 版 124 人、自己申告）、Freysa（参加費が積み上がる懸賞で 195 人、経路は不明）。一方、Topology はパズルで 50 人を選んだが遊んだのは約 13 人、Etherization は開始した 28 アドレスの半数がデプロイ者の資金に連なっていた。
     どの事例も人数はアカウント・アドレス単位で、最初の 100 人のうち何人が残ったかは示されていない。
@@ -169,17 +169,19 @@
   labels: {support: 誘因の終了・縮小後も一定の集団が残った, counter: 誘因が終わると大きく縮んだ}
   answer: >-
     確認できた事例では、誘因で起きた急増は誘因の終了・縮小後に数分の一以下に縮み、運営自身がボット・多重アカウントを認めた例が多い（Hamster Kombat、Pixels、Conquest.eth、Sunflower Farmers）。
-    残った例は、入口を絞って作り直した Sunflower Land（2026 年まで継続、運営は累計 60 万超の農場）と、報酬対象を絞った後に日次 4 万超で「安定」とした Pixels で、どちらもピークよりずっと小さい集団だった。
+    残った例は、入口を絞って作り直した Sunflower Land（開発は 2026 年まで継続、運営は累計 60 万超の農場、現在の DAU は非公開）と、報酬対象を絞った後に日次 4 万超で「安定」とした Pixels、絞らずに 2024 年 Q3 も DAA 8.7 万（運営）を保った Axie Infinity で、いずれもピークよりずっと小さい集団だった。
+    縮小の時期は誘因の終了だけでなくトークン価格の下落とも重なり（STEPN）、因果は切り分けられていない。
     残った人が誘因で来た人と同じ人かは、どの事例でも示されていない。
   cases:
     - {game: sunflower-land, stance: support, note: "ボットで止まった後、ホワイトリストと 1 Discord＝1 アドレスで再開し、開発は 2026 年まで続いた（運営は累計 60 万超の農場と述べる）。", s: [src-sunflower-land-code-beta-2022, src-sunflower-land-docs-about]}
     - {game: pixels, stance: support, note: "報酬対象を絞った後の急落を経て、2025-06 に日次 4 万超で「安定」と自社ブログが伝えた。", s: [src-pixels-post-stabilized]}
     - {game: hamster-kombat, stance: counter, note: "配布前に 230 万超を BAN し、配布後の月間利用者は 1 億超から 2025-02 に 1,168 万とされた。", s: [src-hamster-kombat-decrypt-purge, src-hamster-kombat-decrypt-alltime-low, src-hamster-kombat-bitpinas-s2]}
-    - {game: pixels, stance: counter, note: "1 週間で 75 万アカウントの BAN を発表し、報酬対象を絞った Chapter 2 の直後に日次ウォレットは約 7 割減った。", s: [src-pixels-ct-bots, src-pixels-bg-ch2-drop]}
-    - {game: stepn, stance: counter, note: "第三者集計の MAU は 2022-05 の 70 万超から 2022-12 に 4.5 万弱へ減った。", s: [src-stepn-decrypt-2023]}
-    - {game: pirate-nation, stance: counter, note: "ポイント・トークン配布期の後、日次アクティブウォレットはピーク 10 万超から約 1 万へ減り、2025-09 に終了した。", s: [src-pn-bcg-kill]}
+    - {game: pixels, stance: counter, note: "1 週間で 75 万アカウントの BAN を発表し、報酬対象を絞った Chapter 2 の直後に日次ウォレットは 90 万超から 25.2 万へ約 7 割減った（その後 42.8 万へ一部回復）。", s: [src-pixels-ct-bots, src-pixels-bg-ch2-drop]}
+    - {game: axie-infinity, stance: support, note: "日次 200 万人超（2021-10、運営）から約 25 万人（2023-04 頃、Reuters）へ減ったが、運営発表では 2024 年 Q3 にも DAA 8.7 万が残った（定義は運営のもの）。", s: [src-axie-blog-october-2021, src-reuters-ph-ditch, src-axie-blog-q3-2024]}
+    - {game: stepn, stance: counter, note: "第三者集計の MAU は 2022-05 の 70 万超から 2022-12 に 4.5 万弱へ減った（報酬の停止ではなく GST・GMT の価値の下落と同時）。", s: [src-stepn-decrypt-2023]}
+    - {game: pirate-nation, stance: counter, note: "日次アクティブウォレットはピーク 10 万超から約 1 万へ減り、2025-09 に終了した（ピークの時期は資料で特定できず、ポイント・トークン配布期と重なるとみられるのはエントリの分析）。", s: [src-pn-bcg-kill]}
     - {game: defi-kingdoms, stance: counter, note: "高 APR の流動性マイニングで集めた TVL は 2022-01 の約 9.0 億ドルから 2022-06 に約 4,400 万ドルへ 95% 減った（価格効果を含む）。", s: [src-defi-kingdoms-llama]}
-    - {game: conquest-eth, stance: counter, note: "過去最多のトークンを配った Faction 版で複数アカウントが多発し、2025-1 版のイベントログは開始直後に集中した後ほぼゼロになった。", s: [src-conquest-future-2026, src-conquest-gnosis-logs]}
+    - {game: conquest-eth, stance: counter, note: "過去最多のトークンを配った Faction 版で複数アカウントが多発し、2025-1 版のイベントログは開始直後に集中した後ほぼゼロになった（1 か月のセッションの予定どおりの終了でも一部説明でき、ログは人数ではなく行動数）。", s: [src-conquest-future-2026, src-conquest-gnosis-logs]}
     - {game: loot-survivor, stance: context, note: "LS2 は約 8 万アドレスに計約 50 万回の無料ゲームを用意したが、2026-10 の直近 7 日のアクティブアドレスは 411（growthepie）。配布先のうち何割が遊んだかは示されていない。", s: [src-ls-docs-token, src-ls-growthepie]}
   insights: [ins-acq-paid-surge, ins-acq-invite-throttle, ins-reward-metrics-misread]
   open: "誘因で入ったコホートを誘因の終了後まで人単位で追い、ボットと人間を分けて残存率を示した公開データはない。"
