@@ -7,10 +7,10 @@
   const routes = {
     '': V.home, timeline: V.timeline, entries: V.entries, entry: V.entry, compare: V.compare, graph: V.graph, concept: V.concept,
     questions: V.questions, question: V.question, insights: V.insights, insight: V.insight, hypotheses: V.hypotheses,
-    notebook: V.notebook, sources: V.sources, source: V.source, search: V.search, quality: V.quality, about: A.aboutHtml,
+    notebook: V.notebook, sources: V.sources, source: V.source, search: V.search, quality: V.quality, about: A.aboutHtml, acquisition: V.acquisition,
   };
   const navKey = { entry: 'entries', concept: 'graph', question: 'questions', insight: 'insights' };
-  const titles = { timeline: '年表', entries: '索引', compare: '比較', graph: 'つながり', questions: '問い', insights: 'インサイト', hypotheses: '設計仮説', notebook: '研究ノート', sources: '出典', quality: 'データ品質', about: '方法と定義', search: '検索' };
+  const titles = { timeline: '年表', entries: '索引', compare: '比較', graph: 'つながり', questions: '問い', insights: 'インサイト', hypotheses: '設計仮説', notebook: '研究ノート', sources: '出典', quality: 'データ品質', about: '方法と定義', search: '検索', acquisition: 'ゼロイチ' };
 
   let lastPath = null;
   function render() {

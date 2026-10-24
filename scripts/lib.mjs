@@ -26,7 +26,12 @@ export const ENUMS = {
   concept_kind: ['tech', 'mechanic', 'econ', 'infra', 'idea'],
   confidence: ['low', 'medium', 'high'],
   stance: ['support', 'counter', 'context'],
+  audience: ['players', 'developers', 'creators', 'holders', 'researchers'],
+  acq_phase: ['pre', 'launch', 'growth'],
+  // ゼロイチ（最初のユーザー獲得）のチャネル。docs/ACQUISITION_BRIEF.md に定義
+  acq_channel: ['existing-community', 'crypto-social', 'community-server', 'invite-gating', 'hackathon', 'builder-grants', 'prize-competition', 'token-incentive', 'free-mint', 'scholarship-guild', 'referral', 'platform-distribution', 'ip-brand', 'press', 'creator-stream', 'content-research', 'composability', 'viral-mechanic', 'paid-ads'],
 };
+export const ACQ_SECTIONS = ['steps', 'cost', 'after', 'counter', 'lessons'];
 
 export const ARTICLE_SECTIONS = ['what', 'loop', 'before_after', 'onchain_tradeoffs', 'roles', 'trajectory', 'retention_evidence', 'extensions', 'constraints', 'principles', 'counter_evidence'];
 export const COMPARE_AXES = ['gameplay', 'necessity', 'information', 'persistence', 'extensibility', 'money_flow', 'entry_barrier'];
@@ -257,6 +262,42 @@ export function buildDataset(raw, { today = new Date().toISOString().slice(0, 10
       if (!url || !/^https:\/\//.test(url)) err(W, `links.${k} must be an https url`);
       if (v && typeof v === 'object') { cite(v.s, `${W} links.${k}`, ref); if (v.status && !['active', 'defunct', 'archived'].includes(v.status)) err(W, `links.${k}.status bad`); }
     }
+    // ゼロイチ: 最初のユーザーをどこから、どう集めたか
+    const q = g.acquisition;
+    if (q) {
+      const w = `${W} acquisition`;
+      if (q.applies === false) { if (!q.note) err(w, 'applies:false without note'); }
+      else {
+        for (const a of q.audience || []) if (!ENUMS.audience.includes(a)) err(w, `bad audience ${a}`);
+        if (!(q.audience || []).length) err(w, 'no audience');
+        if (!q.summary) err(w, 'no summary'); else checkStmt(q.summary, `${w}.summary`, ref);
+        if (!(q.steps || []).length) err(w, 'no steps');
+        if (!(q.channels || []).length) err(w, 'no channels');
+        for (const k of Object.keys(q)) if (![...ACQ_SECTIONS, 'applies', 'audience', 'summary', 'channels', 'metrics', 'unknowns', 'note'].includes(k)) err(w, `unknown key ${k}`);
+        for (const sec of ACQ_SECTIONS) (q[sec] || []).forEach((st, i) => checkStmt(st, `${w}.${sec}[${i}]`, ref));
+        if (g.depth === 'deep') for (const sec of ACQ_SECTIONS) if (!(q[sec] || []).length) err(w, `deep entry: acquisition.${sec} empty`);
+        let prevDate = '';
+        for (const st of q.steps || []) {
+          if (st.phase && !ENUMS.acq_phase.includes(st.phase)) err(w, `bad phase ${st.phase}`);
+          if (st.date != null) {
+            st.date = String(st.date);
+            if (!isValidDate(st.date)) err(w, `bad step date ${st.date}`);
+            else if (st.date > today) err(w, `step date in future ${st.date}`);
+            if (prevDate && st.date.slice(0, 7) < prevDate.slice(0, 7)) warn(w, `steps not in date order (${st.date})`);
+            prevDate = st.date;
+          }
+        }
+        const seen = new Set();
+        for (const c of q.channels || []) {
+          if (!ENUMS.acq_channel.includes(c.id)) err(w, `bad channel ${c.id}`);
+          if (seen.has(c.id)) err(w, `duplicate channel ${c.id}`);
+          seen.add(c.id);
+          checkStmt(c, `${w}.channels.${c.id}`, ref);
+        }
+        const mids = new Set((g.metrics || []).map((m) => m.id));
+        for (const m of q.metrics || []) if (!mids.has(m)) err(w, `unknown metric ${m}`);
+      }
+    } else if (['game', 'platform', 'protocol'].includes(g.kind)) warn(W, 'no acquisition');
     for (const [k, v] of Object.entries(g.ids || {})) {
       if (!['coingecko', 'defillama'].includes(k)) err(W, `unknown ids key ${k}`);
       const arr = Array.isArray(v) ? v : [v];
@@ -297,6 +338,7 @@ export function buildDataset(raw, { today = new Date().toISOString().slice(0, 10
   for (const q of raw.questions) {
     const w = `question ${q.id}`;
     if (!q.q) err(w, 'no q');
+    if (q.topic && !['acquisition'].includes(q.topic)) err(w, `bad topic ${q.topic}`);
     for (const c of q.cases || []) checkEvidence(c, w, { type: 'question', id: q.id });
     for (const i of q.insights || []) if (!insightIds.has(i)) err(w, `unknown insight ${i}`);
     for (const h of q.hypotheses || []) if (!hypIds.has(h)) err(w, `unknown hypothesis ${h}`);
@@ -304,6 +346,7 @@ export function buildDataset(raw, { today = new Date().toISOString().slice(0, 10
   for (const ins of raw.insights) {
     const w = `insight ${ins.id}`;
     for (const f of ['claim', 'conditions', 'confidence', 'confidence_reason', 'experiment', 'gap_type']) if (!ins[f]) err(w, `missing ${f}`);
+    if (ins.topic && !['acquisition'].includes(ins.topic)) err(w, `bad topic ${ins.topic}`);
     if (!ENUMS.confidence.includes(ins.confidence)) err(w, `bad confidence ${ins.confidence}`);
     const ev = ins.evidence || [];
     if (!ev.some((e) => e.stance === 'support')) err(w, 'no supporting case');

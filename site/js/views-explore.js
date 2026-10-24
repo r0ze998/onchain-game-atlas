@@ -98,6 +98,7 @@
       ${row('管理者権限', arch('admin', L.admin))}
       ${row('ソース公開', arch('open_source', L.open_source))}
       ${row('第三者の拡張', arch('extensibility', L.extensibility))}
+      ${row('ゼロイチ（最初のユーザー）', (g) => g.acquisition && g.acquisition.applies !== false ? `<div class="small">${A.stmt(g.acquisition.summary)}</div><div>${A.chChips(g)}</div>` : `<span class="muted small">${g.acquisition ? '対象外' : '未調査'}</span>`)}
       ${row('公式リンク', (g) => A.charts.linkBar(g) || '<span class="muted small">未登録</span>')}
       ${row('市場データ（自動取得）', (g) => { const c = g.market?.coins?.[0]; const t = g.market?.tvl; return [c ? `<div class="small mono">${esc(c.symbol)} ${A.charts.usd(c.price)}・時価総額 ${A.charts.usd(c.market_cap)}・最高値から ${A.charts.pct(c.from_ath_pct)}</div>` : '', t ? `<div class="small mono">TVL ${A.charts.usd(t.current)}（ピーク ${A.charts.usd(t.peak)}・${esc(t.peak_date)}）</div>` : ''].join('') || '<span class="muted small">トークン・TVL なし</span>'; })}
       ${row('数値（定義が異なるため横比較に注意）', metricsOf)}

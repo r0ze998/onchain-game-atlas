@@ -39,7 +39,7 @@ const deep = data.games.filter((g) => g.depth === 'deep');
 const p = await newPage({ viewport: { width: 1280, height: 900 } });
 
 await step('全ルートが例外なく描画される', async () => {
-  const routes = ['', 'timeline', 'entries', 'compare', 'graph', 'questions', 'insights', 'hypotheses', 'notebook', 'sources', 'quality', 'about', 'search?q=ZK',
+  const routes = ['', 'timeline', 'entries', 'compare', 'graph', 'questions', 'insights', 'hypotheses', 'notebook', 'sources', 'quality', 'about', 'acquisition', 'search?q=ZK',
     ...data.games.map((g) => `entry/${g.id}`), ...data.concepts.map((c) => `concept/${c.id}`), ...data.insights.map((i) => `insight/${i.id}`), ...data.questions.map((q) => `question/${q.id}`)];
   for (const r of routes) {
     await p.goto(BASE + '#/' + r);
@@ -221,7 +221,7 @@ await step('キーボード操作: スキップリンク、Tab でナビ、Enter
 
 await step('スマホ幅 (375px): 横スクロールなし、メニュー開閉', async () => {
   const m = await newPage({ viewport: { width: 375, height: 780 }, isMobile: true, hasTouch: true });
-  for (const r of ['', 'timeline', 'entries', `entry/${deep[0].id}`, 'insights', 'notebook', 'graph', 'quality']) {
+  for (const r of ['', 'timeline', 'entries', `entry/${deep[0].id}`, 'insights', 'notebook', 'graph', 'quality', 'acquisition', `entry/${deep[0].id}?s=acq`]) {
     await m.goto(BASE + '#/' + r);
     const over = await m.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
     assert.ok(over <= 1, `horizontal overflow ${over}px on ${r}`);
@@ -282,13 +282,41 @@ await step('記録の指紋: ホームに root、詳細にハッシュと検証�
 
 await step('ダークモード: 主要画面で横スクロールなし・図が描画される', async () => {
   const dpage = await newPage({ viewport: { width: 1280, height: 900 }, colorScheme: 'dark' });
-  for (const r of ['', 'timeline', 'entry/' + deep[0].id, 'hypotheses']) {
+  for (const r of ['', 'timeline', 'entry/' + deep[0].id, 'hypotheses', 'acquisition']) {
     await dpage.goto(BASE + '#/' + r);
     const over = await dpage.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
     assert.ok(over <= 1, `overflow ${over} on ${r}`);
   }
   const bg = await dpage.evaluate(() => getComputedStyle(document.body).backgroundColor);
   assert.notEqual(bg, 'rgb(244, 247, 246)', 'dark tokens not applied');
+});
+
+await step('ゼロイチ: 全事例に節があり、横断ページの図・絞り込み・事例への移動が動く', async () => {
+  const acq = data.games.filter((g) => g.acquisition && g.acquisition.applies !== false);
+  assert.equal(data.games.filter((g) => !g.acquisition).length, 0, 'entries without acquisition');
+  for (const g of deep) {
+    await p.goto(BASE + `#/entry/${g.id}`);
+    assert.equal(await p.locator('#acq').count(), 1, `no #acq on ${g.id}`);
+    if (g.acquisition.applies !== false) assert.ok(await p.locator('#acq .acq-col').count() >= 3, `flow missing on ${g.id}`);
+  }
+  await p.goto(BASE + '#/acquisition');
+  assert.equal(await p.locator('.acq-cards > li.card').count(), acq.length);
+  assert.ok(await p.locator('#viz-acq-ch .cb-row').count() >= 19);
+  assert.equal(await p.locator('#viz-acq-era tbody tr').count(), 5);
+  assert.equal(await p.locator('.acq-mx tbody tr').count(), acq.length);
+  await p.hover('#viz-acq-ch .cb-row >> nth=0');
+  assert.ok(await p.locator('.viz-tip:not([hidden])').count() >= 1, 'tooltip not shown');
+  const ch = acq.flatMap((g) => g.acquisition.channels.map((c) => c.id));
+  const top = [...new Set(ch)].sort((a, b) => ch.filter((x) => x === b).length - ch.filter((x) => x === a).length)[0];
+  await p.selectOption('#acq-filter select[name=ch]', top);
+  await p.waitForFunction((t) => location.hash.includes('ch=' + t), top);
+  const n = acq.filter((g) => g.acquisition.channels.some((c) => c.id === top)).length;
+  assert.equal(await p.locator('.acq-cards > li.card').count(), n);
+  await p.click('.acq-cards > li.card h3 a >> nth=0');
+  await p.waitForSelector('#acq');
+  assert.ok(p.url().includes('?s=acq'));
+  await p.goto(BASE + '#/compare/' + acq.slice(0, 2).map((g) => g.id).join(','));
+  assert.ok((await p.locator('.cmp-table').textContent()).includes('ゼロイチ'));
 });
 
 await step('ブラウザのエラーなし', async () => {

@@ -608,3 +608,53 @@ table.mt { table-layout: fixed; min-width: 720px; }
 table.mt th:nth-child(1) { width: 7.5em; } table.mt th:nth-child(2) { width: 11em; } table.mt th:nth-child(3) { width: 9em; }
 table.mt th:nth-child(4) { width: 6.5em; } table.mt th:nth-child(6) { width: 8em; }
 table.mt td.num { white-space: normal; text-align: left; }
+
+/* ---------- ゼロイチ ---------- */
+.read.wide { max-width: 1100px; }
+.eyebrow.mono { font-family: var(--mono); letter-spacing: .08em; font-size: .75rem; color: var(--accent); margin: 0; }
+.acq-summary { font-size: .98rem; line-height: 1.8; margin: .4rem 0 .6rem; }
+.acq-flow { list-style: none; padding: 0; margin: 1rem 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: .8rem; counter-reset: none; }
+.acq-col { border: 1px solid var(--line); border-top: 3px solid var(--accent); background: var(--surface); padding: .6rem .7rem .7rem; min-width: 0; position: relative; }
+.acq-col.acq-pre { border-top-color: var(--s3); }
+.acq-col.acq-launch { border-top-color: var(--accent); }
+.acq-col.acq-growth { border-top-color: var(--s1); }
+.acq-col.acq-none { border-top-color: var(--line); }
+.acq-col-h { display: flex; align-items: baseline; gap: .5rem; margin-bottom: .4rem; }
+.acq-col-h b { font-family: var(--display); }
+.acq-col-h .small { margin-left: auto; }
+.acq-n { color: var(--muted); font-size: .75rem; }
+.acq-step { padding: .45rem 0; border-top: 1px dashed var(--line); font-size: .9rem; line-height: 1.7; overflow-wrap: anywhere; }
+.acq-step:first-of-type { border-top: 0; }
+.acq-date { font-size: .74rem; color: var(--muted); }
+.acq-empty { margin: .3rem 0; }
+.acq-chs { list-style: none; padding: 0; margin: .4rem 0 1rem; display: grid; gap: .45rem; }
+.acq-chs li { display: grid; grid-template-columns: minmax(0, 12.5em) minmax(0, 1fr); gap: .6rem; align-items: start; font-size: .92rem; }
+.chip-ch { display: inline-flex; align-items: center; gap: .35em; font-size: .78rem; padding: .05rem .5rem; border: 1px solid var(--line); background: var(--surface-2); color: var(--text); text-decoration: none; margin: 0 .3em .3em 0; white-space: nowrap; border-radius: 2px; }
+a.chip-ch:hover { border-color: var(--accent); }
+.acq-cards { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 330px), 1fr)); gap: .8rem; }
+.acq-cards .card { min-width: 0; }
+.acq-cards .acq-summary { font-size: .88rem; line-height: 1.7; }
+.cb { display: grid; gap: .55rem; }
+.cb-gh { display: flex; align-items: center; gap: .4em; font-size: .78rem; color: var(--muted); font-weight: 700; margin-bottom: .15rem; }
+.cb-row { display: grid; grid-template-columns: minmax(0, 11em) minmax(0, 1fr) 2.2em; align-items: center; gap: .5rem; text-decoration: none; color: var(--text); font-size: .84rem; padding: 1px 0; }
+.cb-row:hover .cb-l, .cb-row:focus .cb-l { color: var(--accent); }
+.cb-l { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cb-t { height: 12px; background: var(--hm0); position: relative; }
+.cb-f { position: absolute; inset: 0 auto 0 0; min-width: 2px; }
+.cb-n { text-align: right; font-size: .8rem; }
+.acq-hm th[scope="row"] { width: 12em; text-align: left; white-space: nowrap; }
+.acq-hm th .small { font-weight: 400; color: var(--muted); }
+.acq-mx-wrap { max-height: 70vh; }
+.acq-mx { border-collapse: collapse; font-size: .82rem; min-width: 760px; }
+.acq-mx th, .acq-mx td { border: 0; border-bottom: 1px solid var(--line); padding: .2rem .15rem; text-align: center; }
+.acq-mx thead th { position: sticky; top: 0; background: var(--surface); z-index: 1; vertical-align: bottom; }
+.acq-mx th.vh span { writing-mode: vertical-rl; display: inline-block; max-height: 9.5em; font-weight: 500; font-size: .76rem; color: var(--muted); line-height: 1.2; }
+.acq-mx .acq-mx-name { text-align: left; white-space: nowrap; position: sticky; left: 0; background: var(--surface); z-index: 2; padding-right: .6rem; }
+.acq-mx tbody tr:hover td, .acq-mx tbody tr:hover th { background: var(--accent-soft); }
+.acq-mx .dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+@media (max-width: 640px) {
+  .acq-chs li { grid-template-columns: minmax(0, 1fr); gap: .15rem; }
+  .cb-row { grid-template-columns: minmax(0, 8.5em) minmax(0, 1fr) 2em; }
+  .acq-hm th[scope="row"] { width: 8em; white-space: normal; }
+}

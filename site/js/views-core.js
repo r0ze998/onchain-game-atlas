@@ -24,6 +24,7 @@
       ['entries', '#/entries', '索引から探す', `${D.games.length} 事例を、領域・状態・オンチェーンの範囲・拡張性で絞り込み。`],
       ['compare', '#/compare', '設計を比較する', '2〜4 件を 7 つの軸で並べます。総合点やランキングは付けません。'],
       ['graph', '#/graph', '発明のつながり', '確認された影響と分析上の類似を、線の種類で分けて辿ります。'],
+      ['acquisition', '#/acquisition', 'ゼロイチを調べる', '最初のユーザーが誰で、どこから、何に引かれて来たか。チャネル・原資・その後・反証まで。'],
     ];
     const ins = D.insights.slice().sort((x, y) => ({ high: 0, medium: 1, low: 2 }[x.confidence] - { high: 0, medium: 1, low: 2 }[y.confidence]));
     const root = D.integrity?.root || '';
@@ -82,6 +83,8 @@
     for (const g of D.games) {
       for (const arr of Object.values(g.article || {})) for (const st of arr || []) c[st.k] = (c[st.k] || 0) + 1;
       for (const st of Object.values(g.compare || {})) c[st.k] = (c[st.k] || 0) + 1;
+      const q = g.acquisition;
+      if (q && q.applies !== false) for (const st of [q.summary, ...(q.channels || []), ...['steps', 'cost', 'after', 'counter', 'lessons'].flatMap((k) => q[k] || [])]) if (st) c[st.k] = (c[st.k] || 0) + 1;
     }
     return c;
   }
@@ -94,6 +97,7 @@
       const parts = [g.name, g.name_ja, ...(g.aliases || []), g.team, ...(g.chains || []), g.summary, g.selection_reason];
       for (const arr of Object.values(g.article || {})) for (const st of arr || []) parts.push(st.t);
       for (const st of Object.values(g.compare || {})) parts.push(st?.t);
+      if (A.acqText) parts.push(...A.acqText(g));
       searchText.set(g.id, A.norm(parts.filter(Boolean).join(' \n ')));
     }
     return searchText.get(g.id);
@@ -174,7 +178,7 @@
     const qs = [...new Set(I.questionsByGame.get(g.id) || [])];
     const hs = [...new Set(I.hypothesesByGame.get(g.id) || [])];
     const srcs = (g.sources || []).map((s) => I.source.get(s.id)).filter(Boolean);
-    const toc = [['overview', '概要'], life && ['life', 'ライフライン'], ['arch', '構造'], ...secs.map((s) => [`sec-${s}`, L.section[s]]), ['axes', '比較軸'], g.market && (g.market.coins?.length || g.market.tvl) && ['market', '市場データ'], metrics.length && ['metrics', '数値'], events.length && ['events', '出来事'], rels.length && ['rels', 'つながり'], (g.unknowns?.length || g.contradictions?.length) && ['unknowns', '未確認・矛盾'], ['verification', '検証'], ['sources', '出典']].filter(Boolean);
+    const toc = [['overview', '概要'], life && ['life', 'ライフライン'], ['arch', '構造'], g.acquisition && ['acq', 'ゼロイチ'], ...secs.map((s) => [`sec-${s}`, L.section[s]]), ['axes', '比較軸'], g.market && (g.market.coins?.length || g.market.tvl) && ['market', '市場データ'], metrics.length && ['metrics', '数値'], events.length && ['events', '出来事'], rels.length && ['rels', 'つながり'], (g.unknowns?.length || g.contradictions?.length) && ['unknowns', '未確認・矛盾'], ['verification', '検証'], ['sources', '出典']].filter(Boolean);
     return `<div class="detail"><article>
       <p class="small muted"><a href="#/entries">索引</a> / ${esc(L.kind[g.kind])}</p>
       <div class="e-title">${A.charts.icon(g, 56)}<h1>${esc(g.name)}${g.name_ja ? ` <span class="muted small">${esc(g.name_ja)}</span>` : ''}</h1></div>
@@ -195,6 +199,7 @@
       <section id="arch"><h2>構造：何がオンチェーンで、誰が何を変えられるか</h2>
       ${A.charts.archDiagram(g)}
       ${g.concepts?.length ? `<p class="small">関連する概念: ${g.concepts.map((c) => `<a class="tag" href="#/concept/${esc(c)}">${esc(A.nodeName(c))}</a>`).join('')}</p>` : ''}</section>
+      ${A.acqSection ? A.acqSection(g) : ''}
       ${secs.map((s, i) => `<section id="sec-${s}"><h2><span class="secno">§${i + 1}</span>${esc(L.section[s])}</h2>${A.stmts(g.article[s])}</section>`).join('')}
       ${g.depth === 'index' ? '<p class="note-box">この項目は索引レベルです。深掘り記事はまだありません。</p>' : ''}
       <section id="axes"><h2>比較軸</h2><dl class="kv">${A.AXES.map((ax) => `<dt>${esc(L.axis[ax])}</dt><dd>${A.stmt(g.compare?.[ax])}</dd>`).join('')}</dl>
@@ -218,7 +223,11 @@
       ${A.noteBox(`entry:${g.id}`)}
     </div></aside></div>`;
   };
-  V.entry.after = () => { if (V.entry._after) V.entry._after(document.getElementById('main')); };
+  V.entry.after = ({ params }) => {
+    if (V.entry._after) V.entry._after(document.getElementById('main'));
+    const s = params.get('s');
+    if (s) document.getElementById(s)?.scrollIntoView();
+  };
   A.statusDot = (g) => `<span class="sdot" style="background:var(${A.charts.STATUS_VAR[g.status?.value || 'unknown']})" aria-hidden="true"></span>`;
   A.ARTICLE_ORDER = ['what', 'loop', 'before_after', 'onchain_tradeoffs', 'roles', 'trajectory', 'retention_evidence', 'extensions', 'constraints', 'principles', 'counter_evidence'];
   A.AXES = ['gameplay', 'necessity', 'information', 'persistence', 'extensibility', 'money_flow', 'entry_barrier'];
