@@ -155,13 +155,13 @@ acquisition:
     - {phase: pre, date: "2013-09-24", t: "snailbrain が bitcointalk に構想スレッド「HunterCoin - Human Mine-able Crypto Currency GameWorld」を立てた。同日の返信で、先行する Chronokings の試作で Eligius プールの協力を得てマージマイニングを試したと書いている。", k: fact, s: [src-huntercoin-ann-2013], q: "We tested merged mining with the early chronoking prototype thanks to the help of Eligius pool"}
     - {phase: pre, date: "2013-11-11", t: "テストネットの公開ベータのスレッドを立て、テスト用コインは返信にアドレスを書けば配ると案内した。初日の返信者はクラッシュ報告、採掘コマンドの共有、ASIC 非対応への不満など、採掘者の視点が中心だった。", k: fact, s: [src-huntercoin-beta-2013], q: "If you want some coins for testing, post address here."}
     - {phase: pre, t: "ベータのスレッドは、次のテストネットの上位 5 人に本番のコインを渡すと告知し、ブロックエクスプローラーとフォーセットの作成に懸賞（bounty）を掲げた（告知の日付は冒頭投稿の編集履歴からは特定できない）。", k: fact, s: [src-huntercoin-beta-2013], q: "the Top 5 Players will receive coins in the final release"}
-    - {phase: launch, date: "2014-01-27", t: "公開スレッドを「Huntercoin Release - Approx 7 days」として立てた。最初の 1 時間の返信の多くは「待っていた」「公開を楽しみにしている」というもので、構想段階からの追跡者がいたことがうかがえる。", k: fact, s: [src-huntercoin-ann-2014]}
+    - {phase: launch, date: "2014-01-27", t: "公開スレッドを「Huntercoin Release - Approx 7 days」として立てた。最初の 1 時間の返信（十数件）は「注目している」「待っていた」「革新的」「分かりにくいが面白い」といった期待や関心の表明で、旧スレッドを見ていたと書く者や、Scrypt 対応を歓迎する者もいた。構想段階からの追跡者がいたことがうかがえる。", k: fact, s: [src-huntercoin-ann-2014]}
     - {phase: launch, date: "2014-02", t: "メインネットとゲーム世界を公開した。プレイには 1 HUC が必要で、運営はクライアントを公式サイトから入れ、Poloniex などの取引所で 1 HUC を買うよう案内した。", k: fact, s: [src-huntercoin-pr-2014, src-huntercoin-xaya-legacy], q: "Players can download the client software from the Huntercoin website and acquire one HUC from an exchange such as Poloniex."}
     - {phase: growth, date: "2014-02-19", t: "運営は PR Newswire でプレスリリースを出し、約 5000 人のプレイヤーと取引開始 3 日で 100 万ドルを主張した。", k: claim, who: "Chronokings（運営）", s: [src-huntercoin-pr-2014], q: "It also has a rapidly-growing community, having accumulated around 5,000 players so far."}
     - {phase: growth, date: "2014-08", t: "Bitcoin Magazine がゲームを紹介し、プレイヤーの増加による操作の遅延を報じた。", k: fact, s: [src-huntercoin-btcmag-2014]}
   channels:
     - {id: crypto-social, t: "構想・テストネット・公開の 3 本の bitcointalk スレッドを数か月にわたって更新し続け、オルトコイン掲示板の読者を引き付けた。", k: fact, s: [src-huntercoin-ann-2013, src-huntercoin-beta-2013, src-huntercoin-ann-2014]}
-    - {id: existing-community, t: "SHA-256 と Scrypt のどちらでもマージマイニングできるようにして、既存の採掘者・プールが追加の設備なしで参加できるようにした（公開スレッドは採掘者の大半がマージマイニングしていると記す）。", k: fact, s: [src-huntercoin-ann-2014, src-huntercoin-ann-2013]}
+    - {id: existing-community, t: "SHA-256 と Scrypt のどちらでもマージマイニングできるようにして、既存の採掘者・プールが追加の設備なしで参加できるようにした（公開スレッドの冒頭投稿は「Most miners are merge mining」と記すが、この投稿は 2018-10-15 に最終編集されており、2014 年当時の状態を述べたものかは確かめられない）。", k: fact, s: [src-huntercoin-ann-2014, src-huntercoin-ann-2013]}
     - {id: prize-competition, t: "テストネットの上位 5 人に本番のコインを渡すと告知した。", k: fact, s: [src-huntercoin-beta-2013]}
     - {id: builder-grants, t: "ベータの段階で、ブロックエクスプローラーとフォーセットの作成に懸賞を掲げた。", k: fact, s: [src-huntercoin-beta-2013]}
     - {id: token-incentive, t: "ブロック報酬の 9 割を地図上に置き、拾って銀行に持ち帰れば取引所で売れる HUC になる「人間による採掘」を、参加の動機として前面に出した。", k: fact, s: [src-huntercoin-code, src-huntercoin-pr-2014]}
@@ -173,11 +173,12 @@ acquisition:
   after:
     - {t: "運営は公開直後に約 5000 人と主張したが、定義はなく、Colosimo は後に 2 人のプレイヤーがそれぞれ 5000 体規模のボット軍団を運用していたと述べている。集まった人数のうち人間がどれだけいたかは示されていない。", k: claim, who: "Chronokings / Andrew Colosimo", s: [src-huntercoin-pr-2014, src-huntercoin-bgamer-2018]}
     - {t: "NewsBTC によれば、主要開発者の急死（2014-02）の後、HUC 価格は 2014-03 に暴落し、2015 年までに当初の 1% 未満になった。継続率・人間の一意プレイヤー数の時系列はない。", k: claim, who: "NewsBTC（2016）", s: [src-huntercoin-newsbtc]}
-    - {t: "ベータの初日にマイニングコマンドを共有した wiggi は、2015 年に第三者クライアント BetterQT を作った。初期の参加者の一部は開発に回った。", k: fact, s: [src-huntercoin-beta-2013, src-huntercoin-newsbtc]}
+    - {t: "ベータの初日にマイニングコマンドを共有した wiggi は、2015 年に第三者クライアント BetterQT の開発を始めた（NewsBTC）。初期の参加者の一部は開発に回った。", k: fact, s: [src-huntercoin-beta-2013, src-huntercoin-newsbtc]}
   counter:
     - {t: "「約 5000 人」「取引開始 3 日で 100 万ドル」は運営の主張で、時価総額か取引高か、人か名前登録かが不明。取引所での売買の盛り上がりは、ゲームへの関心ではなく新コインへの投機を反映している可能性があり、当時のオルトコイン市場全体の動きとも切り分けられていない。", k: analysis, s: [src-huntercoin-pr-2014, src-huntercoin-bgamer-2018]}
     - {t: "参加者の多くはボット運用者で、構想段階で snailbrain 自身がボット支配の可能性を書いていた。「人間による採掘」が人間のプレイヤーを集めたとは言い切れない。", k: analysis, s: [src-huntercoin-ann-2013, src-huntercoin-bgamer-2018]}
-    - {t: "公開スレッドの初期の返信には「待っていた」という声が多いが、ゲームの内容への言及はほとんどなく、採掘やコインとしての関心とゲームへの関心を切り分けられない。", k: analysis, s: [src-huntercoin-ann-2014]}
+    - {t: "公開スレッドの初期の返信は期待の表明が中心で、ゲームプレイの具体的な話はほとんどなく、採掘やコインとしての関心とゲームへの関心を切り分けられない。", k: analysis, s: [src-huntercoin-ann-2014]}
+    - {t: "テストネット公開ベータ初日の返信者（o3u、wiggi、cryptohunter、phelix など数人）は、クラッシュ報告・同期速度・採掘コマンド・「また ASIC コインか」という不満・コインの要求が中心で、ゲームとして遊ぶ話はわずかだった。初期の関心の担い手は採掘者・オルトコイン愛好者であり、「人間による採掘」がゲーマーを呼んだ証拠にはならない。", k: analysis, s: [src-huntercoin-beta-2013]}
   lessons:
     - {t: "マージマイニングで既存の採掘者を呼ぶ: 新しいチェーンのゲームでも、主要な採掘アルゴリズムとマージマイニングに対応すれば、既存の採掘者がネットワークの安全とともに初期の参加者層を提供する。効く条件は、採掘者がプールの設定変更だけで参加できること。破綻条件は、採掘者がゲームに関心を持たずに報酬だけを得るため、プレイヤー層の形成にはつながりにくいこと。", k: analysis}
     - {t: "テストネットの順位報酬: 本番のコインをテストネットの上位者に約束すると、ベータで遊ぶ動機ができる。ただし、Huntercoin のように報酬が換金でき盤面が公開されている設計では、最初に最適化するのはボットであり、上位報酬は自動化を早めにする可能性がある。", k: analysis}

@@ -149,6 +149,7 @@ article:
 
 metrics:
   - {id: m-primodium-v071-players, type: players, value: 300, value_text: "300 人超（300+）", unit: players, period: "2023-09-29〜約 6 日間（v0.7.1）", definition: "プレイヤーによる記事での記述。定義・計測方法不明", nature: estimated, s: [src-primodium-wasd]}
+  - {id: m-primodium-v09-dau, type: dau, value: 330, value_text: "平均 330 DAU", unit: players, period: "2023-12（v0.9 公開後 5 日間）", definition: "チームが X で発表した平均日次アクティブユーザー（定義・計測方法は不明。ニュースレターの引用で確認）", nature: reported, s: [src-primodium-awweekly5]}
   - {id: m-primodium-unit-death-limit, type: other, value: 5000000, value_text: "500 万", unit: units, period: "v0.11 系の設定（コード参照日 2026-10-23）", definition: "試合を終了させるユニット累計死亡数の上限（prototypeConfig の unitDeathLimit）", nature: reported, s: [src-primodium-repo]}
   - {id: m-primodium-commits, type: other, value: 7681, unit: commits, period: "2022-11-27〜2025-02-06", definition: "公開リポジトリの main 履歴のコミット数（筆者が clone して数えた）", nature: measured, s: [src-primodium-repo]}
 
@@ -183,6 +184,40 @@ unknowns:
 contradictions:
   - {t: "展開先: Lattice は 2023 年に Primodium を Redstone テストネットに来る作品として紹介したが、最終版のリリース情報と worlds.json は Caldera 系の Primodium testnet（chain 10017）を示し、Redstone 上の World は記録にない。", s: [src-primodium-intro-redstone, src-primodium-latest, src-primodium-repo]}
 
+acquisition:
+  audience: [players, developers]
+  summary: {t: "最初のプレイヤーは、WASD など既存のオンチェーンゲーム系コミュニティと Primodium の Discord・X の利用者で、ウォレット不要のゲストログインと自前テストネットの自動ガス配布で参加の手間をなくし、版（v0.7〜v0.11）ごとに世界をリセットする期間限定ラウンドで再訪を促した。賞品はログイン利用者に限られた。", k: analysis, s: [src-primodium-wasd, src-primodium-repo, src-primodium-bcg-top10]}
+  steps:
+    - {phase: pre, date: "2022-11-27", t: "MUD v1 でリポジトリを開始し、2023-05 には Lattice の Sky Strife 用テストネットへ接続を切り替えるコミットがある（Lattice の基盤上で開発）。", k: fact, s: [src-primodium-repo]}
+    - {phase: launch, date: "2023-09-29", t: "v0.7.1 を 4 週間の予定で公開。WASD の FaultProofBen は WASD の公式ウォレットで参加し、6 日間で 300 人超が集まったと書いた。記事は Primodium の Discord と X、WASD 側の Discord・Telegram を案内している。", k: claim, who: "FaultProofBen（WASD）", s: [src-primodium-wasd], q: "It’s already attracted 300+ players over the past six days!"}
+    - {phase: growth, t: "2023 年に Lattice が Redstone の紹介記事で、Redstone テストネットに近く参加する MUD 作品として Primodium を挙げた（実際の展開先は Caldera の専用テストネット）。", k: fact, s: [src-primodium-intro-redstone, src-primodium-repo]}
+    - {phase: growth, date: "2023-12-21", t: "v0.9（資源の売買・海賊の襲撃・チャット等）の公開から 5 日間で平均 DAU 330 と、チームが X で「どの更新よりも多い」と発表したとニュースレターが伝える。v0.9 は Goerli の不調で約 1 週間で止まり、v0.9.1 で再開した。", k: claim, who: "運営 (Primodium)（AWWeekly #5 経由）", s: [src-primodium-awweekly5]}
+    - {phase: growth, date: "2024-03", t: "MUD v2 安定版の告知で、Lattice は Primodium の開発者ドキュメントに従って Primodium に「コードをアップロード」できる例として紹介し、World Extension の開発者向け文書と作例を公開した。", k: fact, s: [src-primodium-mud-v2-ready, src-primodium-world-ext, src-primodium-bounty-example]}
+    - {phase: growth, date: "2024-05", t: "BlockchainGamer.biz の「フルオンチェーンゲーム 10 選」が、ブラウザで遊べ NFT もログインも不要（進行はブラウザに保存）な作品として紹介した。", k: fact, s: [src-primodium-bcg-top10]}
+  channels:
+    - {id: existing-community, t: "WASD（オンチェーンゲームのメディア兼コミュニティ）が公式ウォレットで参加し、「WASD Republic」として同盟・戦争の記録を発信した。", k: claim, who: "FaultProofBen（WASD）", s: [src-primodium-wasd]}
+    - {id: community-server, t: "クライアントの設定画面と「フォロー」画面から Primodium の Discord と X へ誘導した。", k: fact, s: [src-primodium-repo]}
+    - {id: free-mint, t: "Caldera 上の自前テストネットで蛇口（faucet）がプレイヤーとセッション鍵にテスト用 ETH を自動で送り、ウォレットなしのゲストログインでも遊べた（ガス・初期費用ゼロ）。", k: fact, s: [src-primodium-repo, src-primodium-bcg-top10]}
+    - {id: prize-competition, t: "版ごとのラウンドに賞品があり、ゲストログインでは賞品を得られないとクライアントが警告した。同盟チュートリアルも「Champion バッジ（と他の賞品）」に触れる。賞品の内容・原資は確認できなかった。", k: fact, s: [src-primodium-repo], q: "Are you sure you want to login as guest? You will not be able to win prizes or play across devices."}
+    - {id: composability, t: "World Extension（別名前空間のシステムと委任による代行）の文書・作例を公開し、拡張開発者を呼び込もうとした。", k: fact, s: [src-primodium-world-ext, src-primodium-bounty-example, src-primodium-mud-v2-ready]}
+    - {id: press, t: "BlockchainGamer.biz の「10 選」や、オンチェーンゲームのニュースレター（AWWeekly）で紹介された。", k: fact, s: [src-primodium-bcg-top10, src-primodium-awweekly5]}
+  cost:
+    - {t: "参加者のガス代は運営の蛇口が払うテスト用 ETH で賄われ、プレイヤーの金銭負担はなかった。テストネット（Caldera の専用チェーン）の運用費・開発費は運営が負担したとみられるが、資金源（調達額）は一次資料で確認できなかった。", k: analysis, s: [src-primodium-repo]}
+    - {t: "ラウンドの賞品の原資と金額は不明。", k: unknown}
+  after:
+    - {t: "版ごとに状態をリセットするため、同じ世界に残った人数は構造的に測れない。示されている数値は v0.7.1 の 300 人超（プレイヤー記事）と v0.9 の平均 DAU 330（チーム発表の転載）だけで、継続率は公表されていない。", k: analysis, s: [src-primodium-wasd, src-primodium-awweekly5]}
+    - {t: "最終公式版 v0.11.1（2024-06）の後、チームは Base 上の別作品 Primodium: Empires と Solana の取引アプリへ移り、Primodium は公式デプロイとしては利用できなくなった。", k: fact, s: [src-primodium-latest, src-primodium-empires-docs, src-primodium-tub]}
+  counter:
+    - {t: "ゲストログイン・自動ガス配布では 1 人が多数のアカウントを作れる。WASD の記事自体がスクリプトによる連続襲撃を疑っており、300 人超・DAU 330 がそのまま人数を示すとは限らない。", k: analysis, s: [src-primodium-wasd, src-primodium-repo]}
+    - {t: "300 人超・DAU 330 はいずれも運営またはプレイヤーの発信を二次資料経由で見たもので、定義・計測方法は不明。賞品目当ての短期流入と、ゲームそのものの魅力による定着を区別できる資料はない。", k: analysis, s: [src-primodium-wasd, src-primodium-awweekly5]}
+  lessons:
+    - {t: "自前テストネットの自動ガス配布＋ゲストログイン: アプリ専用チェーンで蛇口を自動化し、ウォレットなしで遊び始められるようにすると、初回の離脱要因（ウォレット作成・ブリッジ・ガス購入）を消せる。賞品はウォレット接続者だけに限ると、本気の参加者を識別できる。効く条件はチェーンのガスが無価値で、運営が蛇口を管理できること。破綻条件は本番チェーンへ移るとガス負担が戻り、ゲスト利用者が移行しないこと、および多重アカウントでの賞品の取り合い。", k: analysis}
+    - {t: "版ごとのリセットラウンドで再訪を作る: 新機能を入れた版を数週間単位で出し直すと、更新のたびに告知の機会と新規参入の公平な出発点が生まれる（v0.9 は過去最高の DAU とチームが発表）。破綻条件は、リセットで蓄積が消えるため長期の定着が測れず、拡張開発者にとっても足場が毎回失われること。", k: analysis}
+  metrics: [m-primodium-v071-players, m-primodium-v09-dau]
+  unknowns:
+    - "各ラウンドの賞品の内容・総額・原資と、勝者の一覧（v0.11 の勝者を WASD とするニュースレターの記述は本文を取得できず未確認）。"
+    - "初期の参加者が Primodium を知った経路の内訳。資金調達（a16z Games Speedrun 等の記述は採用ページの検索要約のみで未確認）。"
+
 sources:
   - {id: src-primodium-repo, title: "primodiumxyz/primodium", url: "https://github.com/primodiumxyz/primodium", publisher: "GitHub", type: code, primary: true, published: "2025-02", accessed: "2026-10-23", access: fetched, lang: en, note: "git clone（全履歴）で確認。mud.config（Pri_11、DevSystem 除外条件）、onlyAdmin、MarketplaceSystem、LibPoints（死亡数による終了）、LibWormhole、worlds.json（10017/84532）、chainConfigs（Caldera）、リリースのマージ日"}
   - {id: src-primodium-readme, title: "Primodium v0.11.1 (README)", url: "https://github.com/primodiumxyz/primodium/blob/main/README.md", publisher: "GitHub", type: code, primary: true, published: "2025-02", accessed: "2026-10-23", access: fetched, lang: en, note: "ゲーム内容の概要、構成、MIT とアセットの権利"}
@@ -200,3 +235,5 @@ sources:
   - {id: src-primodium-wasd, title: "Onchain Lore V: The Primodium Wars", url: "https://paragraph.com/@wasdmedia/onchain-lore-v-the-primodium-wars", publisher: "WASD (Paragraph)", author: "FaultProofBen", type: retrospective, primary: false, published: "2023-10-05", accessed: "2026-10-23", access: fetched, lang: en, note: "v0.7.1 のプレイ記録。300 人超、襲撃の連続、スクリプトの疑い"}
   - {id: src-primodium-intro-redstone, title: "Introducing: Redstone", url: "https://lattice.xyz/blog/introducing-redstone", publisher: "Lattice blog", author: "Lattice", type: official-blog, primary: true, published: "2023", accessed: "2026-10-23", access: fetched, lang: en, note: "Redstone テストネット公開、Primodium らが近く参加と記述"}
   - {id: src-primodium-mud-v2-ready, title: "MUD v2 is ready", url: "https://lattice.xyz/blog/mud-2-is-ready", publisher: "Lattice blog", author: "Lattice", type: official-blog, primary: true, published: "2024-03", accessed: "2026-10-23", access: fetched, lang: en, note: "Primodium にコードを「アップロード」できる例として紹介"}
+  - {id: src-primodium-awweekly5, title: "AWWeekly #5", url: "https://paragraph.com/@vamient-labs/aw-weekly-5", publisher: "Vamient (Paragraph)", type: news, primary: false, published: "2023-12-26", accessed: "2026-10-24", access: fetched, lang: en, note: "v0.9/v0.9.1 の紹介。チームの X 投稿（12/21）「v0.9 公開から 5 日間で平均 330 DAU」と Goerli 不調による停止を引用"}
+  - {id: src-primodium-bcg-top10, title: "Top 10 fully onchain games", url: "https://www.blockchaingamer.biz/?p=27874", publisher: "BlockchainGamer.biz", type: news, primary: false, published: "2024-05-03", accessed: "2026-10-24", access: fetched, lang: en, note: "最終更新 2024-05-03 の表示。Primodium はブラウザで Lattice テストネット上、NFT・ログイン不要、進行はブラウザに保存と紹介"}

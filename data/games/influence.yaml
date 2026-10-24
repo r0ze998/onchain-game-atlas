@@ -3,7 +3,7 @@ name: Influence
 aliases: [Adalia]
 kind: game
 depth: index
-updated: "2026-10-23"
+updated: "2026-10-24"
 links:
   website: https://www.influenceth.io/
   play: https://game.influenceth.io/
@@ -73,6 +73,45 @@ article:
     - {t: "status: active の根拠は公式サイトの Play Now 導線と SDK のコミットで、プレイヤー数や取引量の公開データ、2024-09 以降の公式の運営報告は見つからなかった。「稼働している」ことと「遊ばれている」ことは区別が必要。", k: analysis, s: [src-influence-site, src-influence-sdk, src-influence-github-org]}
     - {t: "「unstoppable」「コミュニティが最終的に運営する」という主張に対し、SWAY の Starknet コントラクトは当初アップグレード可能な管理者役割付きで展開され、ゲームコントラクトのソースと Dispatcher の権限は確認できない。運営からの独立性は主張の段階にとどまる。", k: analysis, s: [src-influence-starkware-invest, src-influence-tokenomics, src-influence-github-org]}
 
+acquisition:
+  audience: [holders, players]
+  summary: {t: "最初の利用者は、ゲームが遊べるようになる 3 年以上前（2021-04 と 2021-09）に Ethereum 上で小惑星 NFT を買った人たちで、運営はこの販売で開発費を全額賄い、購入者の半数がブロックチェーン初利用だったと述べる。2024-06 の Starknet mainnet 公開時はこの保有者層に加え、30 ドルからの Starter Pack と SWAY を稼げるローンチイベントで新規プレイヤーを募った。", k: analysis, s: [src-influence-p2e-2021, src-influence-gamespress-2022, src-influence-bankless]}
+  steps:
+    - {phase: pre, date: "2021-04", t: "最初の小惑星販売（2021-05-01 終了）。価格は 0.028 ETH から大きさに応じて数百 ETH までで、購入者には以後の販売にはない「early adopter rewards」があるとされた。", k: fact, s: [src-influence-p2e-2021]}
+    - {phase: pre, date: "2021-10", t: "Influence は次の「Exploitation」リリースを StarkNet で出すと発表した（BlockchainGamer.biz の報道）。", k: fact, s: [src-influence-bgb-2021]}
+    - {phase: pre, date: "2022-03-15", t: "Unstoppable Games は 2 回の小惑星販売で開発費を 100% 賄ったこと、購入者の 50% がブロックチェーン初利用だったこと、ユーザー作成ツールに計 2 万ドルのコミュニティ助成（6 組）を出したことを発表した。", k: claim, who: "Unstoppable Games（プレスリリース）", s: [src-influence-gamespress-2022], q: "Unstoppable has 100% funded Influence via player blockchain purchases"}
+    - {phase: pre, date: "2023-04-10", t: "StarkWare が Unstoppable Games に戦略的出資（額非公表）。", k: fact, s: [src-influence-starkware-invest]}
+    - {phase: launch, date: "2024-06-27", t: "Starknet mainnet で正式稼働。Starknet 公式ブログが告知し、コミュニティ・スチュワードによる Bankless のゲスト記事は 30 ドルからの Starter Pack、初日にコミュニティへ配る SWAY、ローンチイベントとミッションで SWAY を稼げることを案内した。", k: fact, s: [src-influence-starknet-launch, src-influence-bankless]}
+    - {phase: growth, date: "2024-09", t: "Loot Survivor 1.5 のローンチ・トーナメントが Influence（Starknet 上の集合）を無料ゲームの対象 8 集合の一つにしており、同じ Starknet 上の他作との相互送客の対象になった。", k: fact, s: [src-influence-ls15-deploy]}
+  channels:
+    - {id: existing-community, t: "2021 年の小惑星・クルーメイトの購入者が、2024 年のゲーム公開時の最初の保有者層になった。", k: fact, s: [src-influence-p2e-2021, src-influence-gamespress-2022, src-influence-sdk]}
+    - {id: builder-grants, t: "公開前の 2022 年に、データ分析・同盟管理・資産ランキング等のユーザー作成ツールへ計 2 万ドルの助成を出した。", k: fact, s: [src-influence-gamespress-2022]}
+    - {id: token-incentive, t: "公開時に SWAY の大部分を初日にコミュニティへ配り、ローンチイベントとミッションで SWAY を稼げるとした（投資家割当なし）。", k: claim, who: "Influence コミュニティ・スチュワード（Bankless ゲスト記事）", s: [src-influence-bankless]}
+    - {id: referral, t: "残りの SWAY をゲーム内イベント・紹介・助成に充てると説明された（紹介制度の実装は未確認）。", k: claim, who: "Influence コミュニティ・スチュワード（Bankless ゲスト記事）", s: [src-influence-bankless]}
+    - {id: platform-distribution, t: "Starknet 公式ブログによる公開告知、StarkWare の出資、Loot Survivor 1.5 の無料ゲーム対象集合への組み込み。", k: fact, s: [src-influence-starknet-launch, src-influence-starkware-invest, src-influence-ls15-deploy]}
+  cost:
+    - {t: "開発費は小惑星を買ったプレイヤーが前払いし（運営の説明）、のちに StarkWare の出資が加わった。", k: claim, who: "Unstoppable Games", s: [src-influence-gamespress-2022, src-influence-starkware-invest]}
+    - {t: "公開後の獲得はゲーム内ストアの Starter Pack（プレイヤー負担）と SWAY の配布（トークン放出）で賄う設計。配布額の実績は確認できなかった。", k: claim, who: "Influence コミュニティ・スチュワード（Bankless ゲスト記事）", s: [src-influence-bankless]}
+  after:
+    - {t: "参照日の Etherscan は Ethereum 上の Influence Asteroids の保有アドレスを 1,765 と表示する（Starknet へ移した分は含まない）。", k: fact, s: [src-influence-etherscan-asteroids]}
+    - {t: "2024-06 の公開後のプレイヤー数、継続率、2021 年の購入者のうち実際に遊んだ割合は公表されていない。公式 Substack の運営報告は 2024-09 以降見つからない。", k: unknown}
+  counter:
+    - {t: "2021 年の購入は 2021 年の NFT 高騰期の資産購入で、購入者がプレイヤーになったかは別問題である。ゲームが遊べるまで 3 年以上かかっており、初期の熱はその間に冷めた可能性がある。", k: analysis, s: [src-influence-p2e-2021, src-influence-starknet-launch]}
+    - {t: "「購入者の 50% がブロックチェーン初利用」は運営のプレスリリースの主張で、計測方法は示されていない。", k: analysis, s: [src-influence-gamespress-2022]}
+    - {t: "公開時の案内記事は Influence のコミュニティ・スチュワードによるゲスト寄稿で、独立した報道ではない。", k: fact, s: [src-influence-bankless]}
+  lessons:
+    - {t: "土地（小惑星）の先行販売で開発費と初期保有者を同時に得る: 有限の土地を大きさ別の価格で売ると、ゲームより先に資金と保有者層ができる。効く条件は公開までの期間が短く、保有者に早期アクセスや固有の役割（賃貸・採掘）があること。破綻条件は公開が年単位で遅れる場合で、保有者は「待つ投資家」になり、公開時に新規プレイヤーを別に集め直す必要がある（Influence は 2024 年に Starter Pack とトークン配布を加えた）。", k: analysis}
+  metrics: [m-influence-first-time-buyers, m-influence-community-grants, m-influence-l1-asteroid-holders]
+  unknowns:
+    - "2021 年の 2 回の小惑星販売の販売数と売上（公式 Medium は参照不可）。"
+    - "テストネット（Goerli）期間の test-to-earn の参加者数と報酬（該当する公式 Substack 記事は参照日に削除されており、Wayback Machine にも到達できなかった）。"
+    - "2024-06 の公開後に Starter Pack を買った人数と SWAY の配布実績。"
+
+metrics:
+  - {id: m-influence-first-time-buyers, type: other, value: 50, unit: "%", period: "2021 年の 2 回の小惑星販売", definition: "小惑星購入者のうちブロックチェーン初利用者の割合（運営の発表、計測方法は不明）", nature: reported, s: [src-influence-gamespress-2022]}
+  - {id: m-influence-community-grants, type: grants, value: 20000, unit: USD, period: "2022-03 発表", definition: "ユーザー作成コンテンツ・ツールへのコミュニティ助成の総額（6 組）", nature: reported, s: [src-influence-gamespress-2022]}
+  - {id: m-influence-l1-asteroid-holders, type: wallets, value: 1765, unit: addresses, period: "2026-10-24 時点", definition: "Etherscan が表示する Ethereum 上の Influence Asteroids（INFA）の保有アドレス数。Starknet 側は含まない", nature: measured, s: [src-influence-etherscan-asteroids]}
+
 events:
   - {id: ev-influence-starkware, date: "2023-04-10", type: funding, title: "StarkWare が Unstoppable Games に戦略的出資", detail: "額は非公表。当時は 2023 年夏のローンチを予定", s: [src-influence-starkware-invest]}
   - {id: ev-influence-mainnet, date: "2024-06-27", type: launch, title: "Starknet mainnet で正式稼働", s: [src-influence-starknet-launch, src-influence-bankless]}
@@ -95,11 +134,16 @@ contradictions:
 sources:
   - {id: src-influence-starknet-launch, title: "Influence: Live on Mainnet", url: "https://www.starknet.io/blog/influence-live-on-mainnet/", publisher: "Starknet blog", type: official-blog, primary: true, published: "2024-06-25", accessed: "2026-10-23", access: fetched, lang: en, note: "2024-06-27 ローンチ、22 原料・11 種の小惑星、5 職種、全行動オンチェーン"}
   - {id: src-influence-bankless, title: "Influence: How to Play the New Starknet Game", url: "https://www.bankless.com/play-influence-starknet-game", publisher: "Bankless", type: news, primary: false, published: "2024-06-25", accessed: "2026-10-23", access: fetched, lang: en, note: "SWAY のフェアローンチ、NPC なし、Starter Pack 30 ドルから。著者は Influence のコミュニティ・スチュワード（Jean-Paul Faraj）によるゲスト寄稿で、独立した報道ではない"}
-  - {id: src-influence-starkware-invest, title: "Unstoppable Games Announces Strategic Investment from StarkWare", url: "https://influenceth.substack.com/p/starkware-invests-in-influence", publisher: "Influence (Substack)", author: "Chris Lexmond", type: official-blog, primary: true, published: "2023-04-10", accessed: "2026-10-23", access: fetched, lang: en, note: "StarkWare の株式出資（額非公表）、Starknet 選定理由、2023 年夏ローンチ予定"}
+  - {id: src-influence-starkware-invest, title: "Unstoppable Games Announces Strategic Investment from StarkWare", url: "https://influenceth.substack.com/p/starkware-invests-in-influence", publisher: "Influence (Substack)", author: "Chris Lexmond", type: official-blog, primary: true, published: "2023-04-10", accessed: "2026-10-23", access: fetched, lang: en, note: "StarkWare の株式出資（額非公表）、Starknet 選定理由、2023 年夏ローンチ予定。2026-10-24 の再取得では 404（記事が削除された可能性）"}
   - {id: src-influence-sdk, title: "influenceth/sdk (Influence SDK)", url: "https://github.com/influenceth/sdk", publisher: "GitHub", type: code, primary: true, published: "2026-10-22", accessed: "2026-10-23", access: fetched, lang: en, note: "git clone で README を確認。Ethereum / Starknet のアドレス、Dispatcher の run_system・ReadComponent。Dojo への言及なし"}
   - {id: src-influence-github-org, title: "Influence (GitHub organization)", url: "https://github.com/influenceth", publisher: "GitHub", type: code, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "19 リポジトリ。sdk・cubit・ibis・client 等の更新日"}
   - {id: src-influence-site, title: "Influence", url: "https://influenceth.io/", publisher: "Unstoppable Games", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "Play Now、25 万の小惑星、250 の製品、PvP は将来拡張"}
   - {id: src-influence-chaincatcher, title: "AW Frontier: The Ultimate Guide to Starknet's Full-Chain Games", url: "https://www.chaincatcher.com/en/article/2114963", publisher: "ChainCatcher", type: analysis, primary: false, published: "2024-02-23", accessed: "2026-10-23", access: fetched, lang: en, note: "テストネットの限定版、ドキュメントを読む必要がある複雑さ"}
-  - {id: src-influence-tokenomics, title: "Influence Tokenomics Overview", url: "https://influenceth.substack.com/p/influence-tokenomics-overview", publisher: "Influence (Substack)", type: official-blog, primary: true, published: "2023-03-16", accessed: "2026-10-23", access: fetched, lang: en, note: "検証時に本文取得（文書は Version 3.0 - June 22nd, 2024）。SWAY の Starknet 契約は当初アップグレード可能で管理者役割付き・ローンチ前に取り消し予定、継続発行は L1 のみ、外部投資家への割当なし"}
+  - {id: src-influence-tokenomics, title: "Influence Tokenomics Overview", url: "https://influenceth.substack.com/p/influence-tokenomics-overview", publisher: "Influence (Substack)", type: official-blog, primary: true, published: "2023-03-16", accessed: "2026-10-23", access: fetched, lang: en, note: "検証時に本文取得（文書は Version 3.0 - June 22nd, 2024）。SWAY の Starknet 契約は当初アップグレード可能で管理者役割付き・ローンチ前に取り消し予定、継続発行は L1 のみ、外部投資家への割当なし。2026-10-24 の再取得では 404（記事が削除された可能性）"}
   - {id: src-influence-starknet-dojo-blog, title: "Dojo on Starknet", url: "https://www.starknet.io/blog/dojo-on-starknet/", publisher: "Starknet blog", type: official-blog, primary: true, published: "2023-07-13", accessed: "2026-10-23", access: fetched, lang: en, note: "Influence を Dojo で作られたゲームとして列挙"}
   - {id: src-influence-substack-archive, title: "Influence - Space Strategy MMO (Substack archive)", url: "https://influenceth.substack.com/archive", publisher: "Influence (Substack)", type: official-blog, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "検証時に archive API で取得。最新 8 件は 2023-03〜2024-09。最新は 2024-09-12 の物語記事「Outside」で、運営状況の記述なし"}
+  - {id: src-influence-p2e-2021, title: "Influence Selling Asteroids for Open Space Economy", url: "https://playtoearn.com/news/influence-selling-asteroids-for-open-space-economy", publisher: "PlayToEarn", type: news, primary: false, published: "2021-04-26", accessed: "2026-10-24", access: fetched, lang: en, note: "小惑星販売は 2021-05-01 終了、0.028 ETH から、early adopter rewards"}
+  - {id: src-influence-bgb-2021, title: "Influence announces game's launch on StarkNet", url: "https://www.blockchaingamer.biz/news/16095/influence-announces-games-launch-on-starknet/", publisher: "BlockchainGamerBiz", type: news, primary: false, published: "2021-10-25", accessed: "2026-10-24", access: fetched, lang: en, note: "Exploitation リリースを StarkNet で公開する計画"}
+  - {id: src-influence-gamespress-2022, title: "Unstoppable Games Awards Community Grants of $20k for the Best User-Created Content for Its Yet-to-Be Released Game, Influence", url: "https://www.gamespress.com/Unstoppable-Games-Awards-Community-Grants-of-20k-for-the-Best-User-Cre", publisher: "Games Press（Unstoppable Games のプレスリリース）", type: official-blog, primary: true, published: "2022-03-15", accessed: "2026-10-24", access: fetched, lang: en, note: "2 回の小惑星販売で開発費 100%、購入者の 50% がブロックチェーン初利用、2 万ドルの助成（6 組）、CEO Chris Lexmond の発言"}
+  - {id: src-influence-etherscan-asteroids, title: "Influence Asteroids (INFA) token tracker", url: "https://etherscan.io/token/0x6e4c6d9b0930073e958abd2aba516b885260b8ff", publisher: "Etherscan", type: onchain-data, primary: true, accessed: "2026-10-24", access: fetched, lang: en, note: "保有アドレス 1,765、表示上の最大総供給 250,000"}
+  - {id: src-influence-ls15-deploy, title: "loot-survivor scripts/deploy_mainnet.sh", url: "https://github.com/Provable-Games/loot-survivor/blob/main/scripts/deploy_mainnet.sh", publisher: "GitHub", author: "Provable Games", type: code, primary: true, accessed: "2026-10-24", access: fetched, lang: en, note: "LS1.5 のローンチ・トーナメントの対象 8 集合に influence_address（1 NFT あたり 1 回）を含む"}

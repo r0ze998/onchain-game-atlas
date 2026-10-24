@@ -73,7 +73,7 @@ acquisition:
   summary: {t: "最初のプレイヤーは、すでに Bitcoin とウォレットを持っていた bitcointalk フォーラムの利用者で、2012-04-24 の運営者自身の告知スレッドから来た。登録もクライアントも不要で、告知に並んだ固定アドレスに送金するだけで賭けられたことが、参加の手間をほぼゼロにした。", k: analysis, s: [src-satoshidice-btt-ann, src-satoshidice-bitcoinwiki]}
   steps:
     - {phase: pre, t: "Bitcoin Wiki によれば、仕組みは bitcointalk ユーザー FireDuck が作り、別の運営者（Voorhees）に売却された。SEC 命令は Voorhees がサイトを立ち上げたと記しており、どちらが「最初」かは資料で異なる。", k: fact, s: [src-satoshidice-bitcoinwiki, src-satoshidice-sec-order]}
-    - {phase: launch, date: "2012-04-24", t: "evoorhees（Voorhees）が bitcointalk に「SatoshiDICE.com - Verified rolls, up to 65,000x winning」を投稿。同日中に複数のフォーラム利用者が少額で賭けて当たりを報告し、別の利用者は秘密値の日付切り替えを運営が操作し得ると指摘して、運営もそれを認めた。", k: fact, s: [src-satoshidice-btt-ann], q: "To play, you just send coins to any of the listed addresses based on the odds you want."}
+    - {phase: launch, date: "2012-04-24", t: "evoorhees（Voorhees）が bitcointalk に「SatoshiDICE.com - Verified rolls, up to 65,000x winning」を投稿。同日、利用者 danieldaniel が 0.2 BTC の賭けで当たりを報告し（0.01 BTC での当たり報告は翌 04-25 の投稿）、別の利用者 Stephen Gornick は秘密値の日付切り替えを運営が操作し得ると指摘して、運営もそれを認めた。", k: fact, s: [src-satoshidice-btt-ann], q: "To play, you just send coins to any of the listed addresses based on the odds you want."}
     - {phase: launch, date: "2012-04-24", t: "公開直後の賭け上限は低く、65,000 倍の賭けの上限は約 0.0013 BTC だった。運営は上限は運営の資金量で決まり、資金が増えれば上げると返信した。", k: fact, s: [src-satoshidice-btt-ann]}
     - {phase: growth, date: "2012-05-04", t: "Voorhees は Bitcoin の取引数が過去最高を記録し、その急増の大半が SatoshiDice によるものだと同じフォーラムに投稿した（件数や割合の数値は示していない）。", k: claim, who: "Erik Voorhees（運営）", s: [src-satoshidice-btt-txrecord], q: "the vast majority of the huge spike in the past couple days was SatoshiDice.com"}
     - {phase: growth, date: "2012-05-09", t: "フォーラム利用者 payb.tc が SatoshiDice をマーチンゲール法で自動的に賭ける PHP ボットを公開した。送金だけで賭けられる設計のため、第三者が自動化スクリプトを書けた。", k: fact, s: [src-satoshidice-btt-martingale], q: "i went and wrote this script yesterday for playing satoshidice martingale-style."}
@@ -92,11 +92,12 @@ acquisition:
   counter:
     - {t: "取引数の多さは利用者の多さを意味しない。1 回の賭けが 2 取引以上になり、公開 2 週間でマーチンゲールボットが公開されていたので、取引数の一部は少数の利用者の自動化による可能性がある。", k: analysis, s: [src-satoshidice-btt-martingale, src-satoshidice-bitcoinwiki]}
     - {t: "告知スレッドの冒頭投稿は 2012-11-13 に最終編集されており、「world's most popular Bitcoin betting site」などの現在の文言が公開日のものとは限らない。", k: fact, s: [src-satoshidice-btt-ann]}
+    - {t: "取引記録の投稿と同じスレッドで、利用者 Stephen Gornick は 2012-05-04 時点の累計を 21,076 回の賭け・42,152 件のブロックチェーン取引・3,387 BTC と集計した。取引数は賭け数のちょうど 2 倍で、「過去最高の取引数」は人数ではなく賭け回数×2 の反映である。一意の利用者数はこのスレッドにも示されていない。", k: fact, s: [src-satoshidice-btt-txrecord]}
     - {t: "2012 年の Bitcoin は取引の総数がまだ小さかったので、少数の利用者でも比率は大きく見えた。「全取引の過半」は、集客の大きさよりも、母数が小さかったことを示している可能性がある。", k: analysis, s: [src-satoshidice-fed-2014, src-satoshidice-survey-2019]}
   lessons:
     - {t: "送金即参加: 既存の支払い路（固定アドレスへの送金）をそのまま参加手段にすると、登録・ダウンロード・説明なしで既存のコイン保有者が遊べる。効く条件は、対象がすでにウォレットと資産を持つ集団であること。破綻条件は、基盤側の規則（少額出力の非標準化、手数料）や規制（地域遮断）で、その支払い路が使えなくなること。", k: analysis}
     - {t: "検証可能性を集客の材料にする: 告知スレッドで公平性の穴を指摘させて運営が認めると、初期の不信をフォーラム上の公開議論で減らせる。この対応が効いたのは、フォーラムの利用者が技術的に検証できたからである。一般の利用者が相手では同じ効果は期待しにくい。", k: analysis}
-  metrics: [m-satoshidice-bets, m-satoshidice-ipo-raise]
+  metrics: [m-satoshidice-bets, m-satoshidice-ipo-raise, m-satoshidice-early-wagers]
   unknowns:
     - "公開初週・初月のプレイヤー数（一意のアドレス数）。"
     - "広告（フォーラムのバナー、他サイトへの出稿）やアフィリエイトの有無と費用。"
@@ -107,6 +108,7 @@ metrics:
   - {id: m-satoshidice-buyback, type: other, value: 45500, value_text: "45,500 BTC（約 380 万ドル）", unit: BTC, period: "2013-07", definition: "全株式の買い戻し総額（1 株 0.0035 BTC。SEC 命令）", nature: reported, s: [src-satoshidice-sec-order]}
   - {id: m-satoshidice-sale, type: other, value: 126315, value_text: "126,315 BTC（約 1150 万ドル）", unit: BTC, period: "2013-07", definition: "匿名の買い手への売却額として報じられた額", nature: reported, s: [src-satoshidice-habr-2013]}
   - {id: m-satoshidice-bets, type: transactions, value: 5300000, value_text: "530 万件の賭け（うち 390 万件超が当たり）", unit: bets, period: "2013-07 時点の累計", definition: "記事が伝えたサイト上の累計の賭け数", nature: reported, s: [src-satoshidice-habr-2013]}
+  - {id: m-satoshidice-early-wagers, type: transactions, value: 21076, value_text: "21,076 回の賭け（42,152 件の取引、計 3,387 BTC、平均 0.16 BTC）", unit: bets, period: "2012-04-24〜2012-05-04 の累計", definition: "bitcointalk 利用者 Stephen Gornick が 2012-05-04 にフォーラムで示した賭け数の集計（運営発表ではない。集計方法の記載なし）", nature: estimated, s: [src-satoshidice-btt-txrecord]}
   - {id: m-satoshidice-house-edge, type: other, value: 1.9, unit: "%", period: "Bitcoin Wiki 記載時点", definition: "各アドレスのハウスエッジ", nature: reported, s: [src-satoshidice-bitcoinwiki]}
 
 events:
@@ -140,7 +142,7 @@ sources:
   - {id: src-satoshidice-99bitcoins, title: "Half of All Bitcoin Transactions Might Come From Online Gambling", url: "https://99bitcoins.com/half-of-all-bitcoin-transactions-might-come-from-online-gambling/", publisher: "99Bitcoins", type: analysis, primary: false, accessed: "2026-10-23", access: snippet, lang: en, note: "403 で本文取得不可。検索要約: 2013-06、1 日約 12,400 件の賭けと約 48,400 件の取引から 25%〜51% と推計"}
   - {id: src-satoshidice-uibk-thesis, title: "Satoshi Dice: history, principles, and effects on the Bitcoin network", url: "https://informationsecurity.uibk.ac.at/theses/satoshi-dice/", publisher: "University of Innsbruck, Security and Privacy Lab", type: paper, primary: false, accessed: "2026-10-23", access: fetched, lang: en, note: "学士論文のテーマ紹介。オフチェーン移行の理由（負荷、ゼロ承認の二重支払いリスク）。結果は未掲載"}
   - {id: src-satoshidice-survey-2019, title: "Blockchain Games: A Survey", url: "https://arxiv.org/abs/1906.05558", publisher: "arXiv", author: "Tian Min, Hanyi Wang, Yaoze Guo, Wei Cai", type: paper, primary: false, published: "2019-06-13", accessed: "2026-10-23", access: fetched, lang: en, note: "Satoshi Dice（4/2012）を「全 Bitcoin 取引の半分超に寄与」と要約"}
-  - {id: src-satoshidice-btt-ann, title: "SatoshiDICE.com - Verified rolls, up to 65,000x winning", url: "https://bitcointalk.org/index.php?topic=77870.0", publisher: "Bitcoin Forum", author: "evoorhees", type: forum, primary: true, published: "2012-04-24", accessed: "2026-10-24", access: fetched, lang: en, note: "公開告知スレッド（冒頭投稿は 2012-11-13 最終編集）。送金するだけで参加、1.9% のエッジ、当日の利用者の当たり報告、秘密値の日付切り替えへの指摘、資金量に応じた賭け上限"}
-  - {id: src-satoshidice-btt-txrecord, title: "All-time transaction record was just hit", url: "https://bitcointalk.org/index.php?topic=79285.0", publisher: "Bitcoin Forum", author: "evoorhees", type: forum, primary: true, published: "2012-05-04", accessed: "2026-10-24", access: fetched, lang: en, note: "取引数の過去最高と、その急増の大半が SatoshiDice によるとの運営者の投稿（数値なし）"}
+  - {id: src-satoshidice-btt-ann, title: "SatoshiDICE.com - Verified rolls, up to 65,000x winning", url: "https://bitcointalk.org/index.php?topic=77870.0", publisher: "Bitcoin Forum", author: "evoorhees", type: forum, primary: true, published: "2012-04-24", accessed: "2026-10-24", access: fetched, lang: en, note: "公開告知スレッド（冒頭投稿は 2012-11-13 最終編集）。送金するだけで参加、1.9% のエッジ、当日の利用者の当たり報告（04-24 は 0.2 BTC の 1 件、0.01 BTC の報告は 04-25）、秘密値の日付切り替えへの指摘、資金量に応じた賭け上限"}
+  - {id: src-satoshidice-btt-txrecord, title: "All-time transaction record was just hit", url: "https://bitcointalk.org/index.php?topic=79285.0", publisher: "Bitcoin Forum", author: "evoorhees", type: forum, primary: true, published: "2012-05-04", accessed: "2026-10-24", access: fetched, lang: en, note: "取引数の過去最高と、その急増の大半が SatoshiDice によるとの運営者の投稿（冒頭投稿に数値なし）。返信に利用者 Stephen Gornick による累計集計（21,076 回の賭け・42,152 取引・3,387 BTC）と、810 取引中 677 件が SatoshiDice 関連のブロックの報告（bpd）"}
   - {id: src-satoshidice-btt-martingale, title: "PHP martingale bot for satoshiDICE", url: "https://bitcointalk.org/index.php?topic=80245.0", publisher: "Bitcoin Forum", author: "payb.tc", type: forum, primary: true, published: "2012-05-09", accessed: "2026-10-24", access: fetched, lang: en, note: "第三者による自動賭けスクリプトの公開"}
   - {id: src-satoshidice-btt-ipo, title: "[CLOSED] S.DICE - SatoshiDICE 100% Dividend-Paying Asset on MPEx", url: "https://bitcointalk.org/index.php?topic=101902.0", publisher: "Bitcoin Forum", author: "evoorhees", type: forum, primary: true, published: "2012-08-20", accessed: "2026-10-24", access: fetched, lang: en, note: "株式売り出しスレッド（2013-07-19 最終編集で売却と 1 株 0.0035 BTC での清算を追記）。返信は利益見込みの推計など"}

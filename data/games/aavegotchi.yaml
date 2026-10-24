@@ -4,7 +4,7 @@ name_ja: アーヴェゴッチ
 aliases: [Gotchiverse, GHST]
 kind: game
 depth: index
-updated: "2026-10-23"
+updated: "2026-10-24"
 links:
   website: https://www.aavegotchi.com/
   docs: https://docs.aavegotchi.com/
@@ -82,6 +82,42 @@ article:
     - {t: "移転の公式説明（Base のインフラ・配布力・Ethereum との整合）とは別に、The Block は提案時の事情として Pixelcraft の大幅な人員削減と資金の延命、L3 市場の不振、Polygon PoS の TVL の停滞を挙げており、また L3 Geist の終了は DAO の投票結果にかかわらず決まっていたと報じた。移転は DAO の意思というより開発会社の経営判断の色が濃い。", k: claim, who: "The Block（Coderdan の提案文の引用）", s: [src-aavegotchi-theblock-vote, src-aavegotchi-blog-base]}
     - {t: "オンチェーンの状態はチェーン移転を「スナップショット＋再 mint」で可能にしたが、それはアップグレード権限で旧コントラクトを凍結できたからであり、所有の永続性が運営・DAO の権限に依存することも示した。所有者のいないスマートコントラクトに置かれた資産は移せなかった。", k: fact, s: [src-aavegotchi-blog-base]}
 
+metrics:
+  - {id: m-aavegotchi-bc-dai, type: funding, value: 30300000, value_text: "約 3,030 万 DAI（別箇所で 3,300 万ドルとも）", unit: DAI, period: "2020-09-14〜2023-03", definition: "GHST bonding curve に入った DAI の総額（Cointelegraph）", nature: reported, s: [src-aavegotchi-ct-bonding-curve], note: "同記事内で 3,030 万 DAI と 3,300 万ドルの 2 つの数字があり、整合しない"}
+  - {id: m-aavegotchi-matic-incentives, type: other, value: 100000, value_text: "10 万ドル超（GHST 5 万ドル＋MATIC 5 万ドル＋QUICK）", unit: USD, period: "2021-01-29 から 2 週間", definition: "Polygon（Matic）への移行インセンティブの告知額", nature: reported, s: [src-aavegotchi-substack-matic-incentives]}
+  - {id: m-aavegotchi-haunt1-portals, type: nft_sales, value: 10000, value_text: "1 万個を 1 分足らずで完売", unit: portals, period: "2021-03-02", definition: "Haunt 1 のポータル販売数と売り切れまでの時間（公式 Wiki）", nature: reported, s: [src-aavegotchi-wiki-haunt]}
+
+acquisition:
+  audience: [holders, players]
+  summary: {t: "最初の参加者はゲームの公開前に GHST を買った DeFi 利用者だった。2020-09 の連続トークン販売（Aragon の bonding curve）で GHST を配り、GHST をステークして得る譲渡不可の FRENS で景品抽選の券を買わせ、Chainlink などの既存コミュニティを題材にした抽選でウェアラブルを先に配った。ゲーム本体（Haunt 1、ポータル 1 万個）は Polygon へ移ってから 2021-03 に公開され、1 分足らずで売り切れた。", k: analysis, s: [src-aavegotchi-docs-ghst, src-aavegotchi-wiki-tickets, src-aavegotchi-wiki-haunt]}
+  steps:
+    - {phase: pre, date: "2020-09-14", t: "GHST を Ethereum 上の Aragon Fundraising の bonding curve（DAI 担保、準備率 30%）で連続販売し始めた。開始価格は 1 GHST＝0.2 DAI で、販売は 2023-03 に DAO の投票で閉じられるまで続いた。", k: fact, s: [src-aavegotchi-docs-ghst, src-aavegotchi-ct-bonding-curve]}
+    - {phase: pre, date: "2020-11", t: "GHST のステークで得る FRENS（譲渡不可）で抽選券を買い、ウェアラブルの景品抽選に参加する仕組みを本番公開前に動かした。最初のウェアラブル抽選は Chainlink を題材にした計 6,010 個の景品で、当選は Chainlink VRF で決めた。公式ガイドは初回を 11/10 開始、Link Marines（Chainlink の支持者）を題材にしたと書く。", k: fact, s: [src-aavegotchi-wiki-tickets, src-aavegotchi-medium-raffles]}
+    - {phase: pre, date: "2021-01", t: "Ethereum のガス代高騰を理由に公開先を Matic（Polygon）へ変え、1/4 時点で 600 万 GHST 超（380 万ドル超相当）がブリッジされた。1/14 には 10 万ドル超の移行インセンティブ（Pixelcraft の DAICO の引き出し枠から 5 万ドル分の GHST、Matic が同額の MATIC を上乗せ、Quickswap の QUICK 報酬）を告知した。", k: fact, s: [src-aavegotchi-substack-jan2021, src-aavegotchi-substack-matic-incentives]}
+    - {phase: launch, date: "2021-03-02", t: "Polygon で Haunt 1 として 1 万個のポータルを先着順で販売した（1 取引あたりの上限は投票で決定）。Wiki は 1 分足らずで売り切れ、「全員がポータルを手にできなかった」ことを除けば成功だったと書く。", k: fact, s: [src-aavegotchi-substack-launch, src-aavegotchi-wiki-haunt]}
+    - {phase: growth, date: "2021-08", t: "Haunt 2（1.5 万個）は先着をやめ、80% をオークション（#BidToEarn）、20% を GHST ステーカー向けの Drop Ticket 抽選に回した。", k: fact, s: [src-aavegotchi-wiki-haunt]}
+    - {phase: growth, date: "2025-07-25", t: "Base へ移転し、旧 Coinbase Wallet の Base アプリによりオンボーディングが滑らかになることを理由の一つに挙げた。", k: claim, who: "Aavegotchi 運営", s: [src-aavegotchi-blog-base], q: "Formerly known as Coinbase Wallet, the new Base app makes onboarding smoother than ever."}
+  channels:
+    - {id: token-incentive, t: "GHST のステークで FRENS を貯め、抽選券に換えてウェアラブル・ポータル・土地の抽選に参加させた（FRENS は 2022 年に終了）。", k: fact, s: [src-aavegotchi-wiki-tickets]}
+    - {id: existing-community, t: "Aave の利息付き aToken を担保にする設計で DeFi 利用者を対象にし、最初の抽選は Chainlink を題材にした。", k: fact, s: [src-aavegotchi-substack-launch, src-aavegotchi-wiki-tickets]}
+    - {id: platform-distribution, t: "Polygon（当時 Matic）が移行インセンティブに同額の MATIC を出し、Quickswap が報酬プールを用意した。2025 年には Base アプリの配布力を移転理由に挙げた。", k: fact, s: [src-aavegotchi-substack-matic-incentives, src-aavegotchi-blog-base]}
+    - {id: community-server, t: "Discord と 6 言語の Telegram グループで移行手順を案内した。", k: fact, s: [src-aavegotchi-substack-matic-incentives]}
+  cost:
+    - {t: "公開前の資金は GHST 購入者が bonding curve に入れた DAI で、Cointelegraph は販売期間全体で約 3,030 万 DAI とする。Pixelcraft はこの準備金から月 10 万 DAI の引き出し枠（tap）を持ち、移行インセンティブの GHST もそこから出した。", k: fact, s: [src-aavegotchi-ct-bonding-curve, src-aavegotchi-substack-matic-incentives]}
+    - {t: "Polygon への移行インセンティブの半分（5 万ドル相当の MATIC）はチェーン側（Matic）が負担した。", k: claim, who: "Aavegotchi 運営", s: [src-aavegotchi-substack-matic-incentives]}
+  after:
+    - {t: "Rarity Farming は DAO の決定でシーズンごとに約 150 万 GHST を配り続けたが、ドキュメント自身が近年の順位表は「stale」になったと書く。Polygon 期・Base 期の利用者数と継続率は公開されていない。", k: fact, s: [src-aavegotchi-docs-rarity]}
+  counter:
+    - {t: "公開前の参加の誘因は、遊びではなく GHST の価格と抽選景品の転売価値だった可能性が高い。bonding curve は買うほど価格が上がる販売方式で、早く買った人ほど有利だった。", k: analysis, s: [src-aavegotchi-docs-ghst, src-aavegotchi-ct-bonding-curve]}
+    - {t: "Haunt 1 が 1 分足らずで売り切れたことは需要の強さと同時に、少数の資金力のある参加者・自動化が先着枠を取った可能性を示す。購入者数・アドレス分布は確認できなかった。", k: analysis, s: [src-aavegotchi-wiki-haunt]}
+  lessons:
+    - {t: "譲渡不可ポイント（FRENS）→ 譲渡可能な抽選券 → 景品という段階: ゲーム公開前にトークンを長く保有させ、景品の配布で参加を可視化できる。効く条件は景品に二次市場の価値があること。破綻条件は抽選券自体が売買できるため、資金量の多い保有者が確率を買える点で、景品は人数でなくステーク量に比例して配られる。", k: analysis}
+  metrics: [m-aavegotchi-bc-dai, m-aavegotchi-matic-incentives, m-aavegotchi-haunt1-portals]
+  unknowns:
+    - "GHST の初期購入者数、FRENS の参加アドレス数、各抽選の参加者数"
+    - "Haunt 1 の購入アドレス数"
+    - "Base 移転後の新規プレイヤー数"
+
 events:
   - {id: ev-aavegotchi-haunt1, date: "2021-03-02", type: launch, title: "Polygon で Haunt 1（ポータル 1 万個）を公開", s: [src-aavegotchi-substack-launch]}
   - {id: ev-aavegotchi-base-vote, date: "2025-04", type: other, title: "DAO が Base への移転と L3 Geist の終了を可決", detail: "The Block によれば Snapshot で 95% 超の賛成。Geist の終了は提案の結果にかかわらず行うと Pixelcraft 側が述べていた", s: [src-aavegotchi-theblock-vote]}
@@ -98,6 +134,9 @@ unknowns:
   - "Gotchiverse の Alchemica 採掘がボット・自動化をどう扱ったか"
   - "Haunt 1 の販売結果"
 
+contradictions:
+  - {t: "景品数 6,010 を、公式 Wiki は Chainlink を題材にした最初のウェアラブル抽選の合計とし、公式 Medium ガイド（検索結果の要約のみ）は公開前の 3 回の抽選の合計とする", s: [src-aavegotchi-wiki-tickets, src-aavegotchi-medium-raffles]}
+
 sources:
   - {id: src-aavegotchi-substack-launch, title: "The Aavegotchi Launch is imminent! [Aavegotchi Monthly Highlights #February]", url: "https://aavegotchi.substack.com/p/the-aavegotchi-launch-is-imminent", publisher: "Aavegotchi (Substack)", type: official-blog, primary: true, published: "2021-02-25", accessed: "2026-10-23", access: fetched, lang: en, note: "3/2 の Haunt 1、ポータル 1 万、Polygon、Chainlink VRF"}
   - {id: src-aavegotchi-blog-base, title: "Aavegotchi Has Migrated to Base", url: "https://blog.aavegotchi.com/aavegotchi-has-migrated-to-base/", publisher: "Aavegotchi Blog", type: official-blog, primary: true, published: "2025-07-25", accessed: "2026-10-23", access: fetched, lang: en, note: "凍結・スナップショット・再 mint、移転の理由"}
@@ -109,3 +148,10 @@ sources:
   - {id: src-aavegotchi-docs-gotchiverse, title: "Gotchiverse", url: "https://docs.aavegotchi.com/own/game-items/gotchiverse", publisher: "Aavegotchi Docs", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "REALM 区画、設置物、Alchemica の採掘と channel"}
   - {id: src-aavegotchi-github-contracts, title: "aavegotchi/aavegotchi-contracts", url: "https://github.com/aavegotchi/aavegotchi-contracts", publisher: "GitHub", type: code, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "MIT、Polygon 版のみ"}
   - {id: src-aavegotchi-github-geist, title: "aavegotchi/aavegotchi-geist (Aavegotchi Base Contracts)", url: "https://github.com/aavegotchi/aavegotchi-geist", publisher: "GitHub", type: code, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "README と LICENSE を raw で確認。Base 版の Diamond コントラクト、MIT"}
+  - {id: src-aavegotchi-docs-ghst, title: "GHST Token", url: "https://docs.aavegotchi.com/own/tokens/ghst-token", publisher: "Aavegotchi Docs", type: official-docs, primary: true, accessed: "2026-10-24", access: fetched, lang: en, note: "2020-09-14 に Aragon の bonding curve で販売開始、DAI 担保・準備率 30%、2023-03-10 に終了"}
+  - {id: src-aavegotchi-ct-bonding-curve, title: "Aavegotchi bonding curve closes on exact day of DAI depeg", url: "https://cointelegraph.com/news/aavegotchi-bonding-curve-closes-on-exact-day-of-dai-depeg", publisher: "Cointelegraph", author: "Zhiyuan Sun", type: news, primary: false, published: "2023-03-11", accessed: "2026-10-24", access: fetched, lang: en, note: "開始価格 0.2 DAI、総額 3,030 万 DAI（別記で 3,300 万ドル）、資金の配分案"}
+  - {id: src-aavegotchi-wiki-tickets, title: "Tickets", url: "https://wiki.aavegotchi.com/en/tickets", publisher: "Aavegotchi Wiki", type: official-docs, primary: true, accessed: "2026-10-24", access: fetched, lang: en, note: "FRENS で抽選券を購入、初回ウェアラブル抽選は Chainlink 題材で 6,010 個、VRF、FRENS は 2022 年終了"}
+  - {id: src-aavegotchi-wiki-haunt, title: "Haunts", url: "https://wiki.aavegotchi.com/en/haunt", publisher: "Aavegotchi Wiki", type: official-docs, primary: true, accessed: "2026-10-24", access: fetched, lang: en, note: "Haunt 1 は先着 1 万個で 1 分足らずで完売、Haunt 2 はオークション 80%・抽選 20%"}
+  - {id: src-aavegotchi-substack-jan2021, title: "Aavegotchi Monthly Highlights #January", url: "https://aavegotchi.substack.com/p/aavegotchi-monthly-highlights-january", publisher: "Aavegotchi (Substack)", author: "Coderdan", type: official-blog, primary: true, published: "2021-01-28", accessed: "2026-10-24", access: fetched, lang: en, note: "ガス代を理由に Matic へ、1/4 時点で 600 万 GHST 超をブリッジ、bonding curve 手数料 7,000 DAI 超"}
+  - {id: src-aavegotchi-substack-matic-incentives, title: "100K+ USD Liquidity Migration Incentives Announced, Aavegotchi is moving to Matic! (+FAQ)", url: "https://aavegotchi.substack.com/p/100k-usd-liquidity-migration-incentives", publisher: "Aavegotchi (Substack)", type: official-blog, primary: true, published: "2021-01-14", accessed: "2026-10-24", access: fetched, lang: en, note: "GHST 5 万ドル（Pixelcraft の DAICO tap から）と MATIC 5 万ドル（Matic）、QUICK 報酬、FRENS・抽選券の移行、6 言語の Telegram"}
+  - {id: src-aavegotchi-medium-raffles, title: "Aavegotchi Raffles: A Frenly Guide", url: "https://aavegotchi.medium.com/aavegotchi-raffles-a-frenly-guide-66f624c9bc60", publisher: "Aavegotchi (Medium)", type: official-blog, primary: true, published: "2020-11-09", accessed: "2026-10-24", access: snippet, lang: en, note: "medium.com はプロキシで遮断。検索結果の要約のみ: 公開前に 3 回の抽選、計 6,010 個、初回は 11/10 開始で Link Marines を題材"}

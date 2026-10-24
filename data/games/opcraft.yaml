@@ -102,6 +102,44 @@ unknowns:
   - "公開テスト時の展開に ComponentDevSystem が含まれていたか。"
   - "第三者が展開したコンポーネント・システムの総数。"
 
+acquisition:
+  audience: [players, developers]
+  summary: {t: "Devcon 6（2022-10）の会期に合わせ、Optimism の公式ブログと Lattice の講演で発表し、Lattice・Optimism の X と Discord から人を呼んだ 2 週間限定のテストネット公開デモ。テスト用 ETH の受け取りに「Play OPCraft … @latticexyz @optimismFND」というツイートを課す仕組みで、参加者自身に告知させた。", k: analysis, s: [src-opcraft-op-announce, src-opcraft-devcon6-talk, src-opcraft-repo]}
+  steps:
+    - {phase: pre, date: "2022-10", t: "Lattice は試作 2 日・完成まで 3 か月で OPCraft を作り、Devcon 6 の講演「MUD: an Engine for On-chain Games」で Optimism の Kelvin Fichter と登壇し、Optimism との協業を発表すると予告した。", k: fact, s: [src-opcraft-zero-to-v2, src-opcraft-devcon6-talk]}
+    - {phase: launch, date: "2022-10-18", t: "Optimism の公式ブログが OPCraft を発表し、opcraft.mud.dev で約 2 週間公開、ハロウィンに世界とチェーンを凍結すると告知した。読者には Discord と X（@latticexyz）を案内した。", k: fact, s: [src-opcraft-op-announce], q: "Today we’re officially unveiling OPCraft: a fully on-chain 3D voxel world built with MUD"}
+    - {phase: launch, date: "2022-10", t: "クライアントはブラウザ内でバーナーウォレットを自動生成し、テスト用 ETH の蛇口（faucet）は X のハンドルを入力して指定文面をツイートし、署名入りツイートを確認してから資金を送る方式だった。", k: fact, s: [src-opcraft-repo], q: "Play OPCraft https://bit.ly/3VCVYyt @latticexyz @optimismFND"}
+    - {phase: growth, date: "2022-10-27", t: "公開期間中に Bankless が「Optimistic on OPCraft」を掲載し、閲覧・参加先として opcraft.mud.dev を紹介した。", k: fact, s: [src-opcraft-bankless]}
+    - {phase: growth, date: "2022-10", t: "プレイヤーが Discord と X で「世界政府」を宣言し、人民共和国（APRO）を作るなど、プレイヤー間の騒動が SNS 上の話題になった。", k: claim, who: "Lattice", s: [src-opcraft-part3]}
+    - {phase: growth, date: "2022-10-31", t: "公開を終え、Lattice は約 2000 人のプレイヤー、約 1000 万ブロックの採掘、2 週間で約 350 万トランザクション（Bedrock テストネットの約 2 倍）と述べた。", k: claim, who: "Lattice", s: [src-opcraft-zero-to-v2, src-opcraft-rpgf3-lattice]}
+  channels:
+    - {id: platform-distribution, t: "OP Stack（Bedrock）テストネット上で、Optimism の公式ブログが発表記事を出した（チェーン側の公式施策）。", k: fact, s: [src-opcraft-op-announce, src-opcraft-op-bogota]}
+    - {id: content-research, t: "Devcon 6 での Lattice・Optimism の共同講演と、Lattice の技術ブログ連載（Making of OPCraft Part 1〜3）。", k: fact, s: [src-opcraft-devcon6-talk, src-opcraft-part1, src-opcraft-part3]}
+    - {id: viral-mechanic, t: "テスト用 ETH の蛇口が、@latticexyz と @optimismFND を含む告知文のツイートを受け取り条件にしており、参加のたびに X 上へ宣伝が流れた。", k: fact, s: [src-opcraft-repo]}
+    - {id: crypto-social, t: "Discord と X でプレイヤー自身が「世界政府」の宣言などを発信した。", k: claim, who: "Lattice", s: [src-opcraft-part3]}
+    - {id: press, t: "Bankless が公開期間中に紹介記事を掲載し、Lattice は WIRED の記事にも取り上げられたと申告した（WIRED の記事自体は未確認）。", k: fact, s: [src-opcraft-bankless, src-opcraft-rpgf3-lattice]}
+    - {id: composability, t: "クライアントプラグインと独自コンポーネント・システムの追加を許し、プラグイン作者や制度を作るプレイヤーを呼び込んだ。", k: claim, who: "Lattice", s: [src-opcraft-part3, src-opcraft-zero-to-v2]}
+  cost:
+    - {t: "テストネットで、参加者のガス代は Lattice の蛇口が払うテスト用 ETH で賄われた。賞品は確認できず、運営費（チェーン運用・開発）は Lattice が負担した。Lattice の原資は助成金（RetroPGF 3 申請では研究開発助成 210 万 9200 ドルを申告）。", k: fact, s: [src-opcraft-repo, src-opcraft-op-announce, src-opcraft-rpgf3-lattice]}
+  after:
+    - {t: "期間限定のデモとして 2022-10-31 に凍結され、プレイヤーが残る場所はなかった。Lattice は後継の Biomes を Zuse と Dhvani が引き継いだと述べ、Redstone の公開時には Biomes の制作者を「OPCraft fans」と紹介した。", k: claim, who: "Lattice", s: [src-opcraft-part3, src-opcraft-winding-down, src-opcraft-race-to-mainnet]}
+    - {t: "参加者数（約 2000 人）以外の指標、つまり再訪率や 1 人あたりのプレイ時間は公表されていない。", k: unknown}
+  counter:
+    - {t: "約 2000 人・350 万 tx は運営の自己申告で、バーナーウォレットと自動化（ダイヤモンド・ドリル）を考えると、プレイヤー数とアカウント数・トランザクションと人の行動は一致しない可能性が高い。", k: analysis, s: [src-opcraft-zero-to-v2, src-opcraft-part3]}
+    - {t: "参加の動機が仕組み（ツイート蛇口）なのか、Devcon 会期という注目の集中、Optimism・Bankless の露出なのかは分けられない。ツイート蛇口でどれだけ新規が来たかのデータはない。", k: analysis}
+  lessons:
+    - {t: "告知ツイートを蛇口の条件にする: テストネットのガス代を配る見返りに、運営と提携先のアカウントを含む定型ツイートを求めると、参加者 1 人ごとに告知が 1 回流れ、ボット対策（X アカウント 1 つにつき 1 回）にもなる。効く条件は資金が無価値なテストネットで、参加が一時的な話題性を持つ場合。破綻条件は X 側の制限や、実資産のチェーンで多重アカウントが報酬目当てに増える場合。", k: analysis}
+    - {t: "期間を区切った公開デモ: 終了日時（ハロウィン 0 時）を先に告知すると、短期間に参加と創作が集中し、負荷試験と話題化を同時に得られる。破綻条件は、集まった人を受け止める次の世界がなく、関心が凍結とともに散ること。", k: analysis}
+  metrics: [m-opcraft-players, m-opcraft-transactions]
+  unknowns:
+    - "参加者がどの経路（Devcon 会場・Optimism・Lattice の X・Discord）から来たかの内訳。"
+    - "ツイート蛇口の利用回数と、ツイートからの流入数。"
+    - "WIRED の記事の題名・日付。"
+
+metrics:
+  - {id: m-opcraft-players, type: players, value: 2000, value_text: "約 2000 人（around 2k players）", unit: players, period: "2022-10（2 週間の公開）", definition: "Lattice の記述。数え方（ウォレット単位か）は不明", nature: reported, s: [src-opcraft-zero-to-v2]}
+  - {id: m-opcraft-transactions, type: transactions, value: 3489479, value_text: "約 350 万 tx（Bedrock テストネットの約 2 倍と記述）", unit: tx, period: "2022-10（2 週間の公開）", definition: "Lattice が RetroPGF 3 申請で示した OPCraft のトランザクション数（Blockscout の OPCraft 用エクスプローラを根拠に挙げる）", nature: reported, s: [src-opcraft-rpgf3-lattice]}
+
 sources:
   - {id: src-opcraft-part1, title: "Making of OPCraft (Part 1): Building an on-chain voxel game", url: "https://lattice.xyz/blog/making-of-opcraft-part-1-building-an-on-chain-voxel-game", publisher: "Lattice blog", author: "Lattice", type: official-blog, primary: true, published: "2022-11", accessed: "2026-10-23", access: fetched, lang: en, note: "「先月 OPCraft を公開」、ECS によるブロック表現、Mine/Build システム"}
   - {id: src-opcraft-part3, title: "Making of OPCraft (Part 3): What happened in two weeks of OPCraft", url: "https://lattice.xyz/blog/making-of-opcraft-part-3-what-happened-in-two-weeks-of-opcraft", publisher: "Lattice blog", author: "Lattice", type: retrospective, primary: true, published: "2022", accessed: "2026-10-23", access: fetched, lang: en, note: "2 週間の出来事、プラグイン、APRO、10/31 終了、プラグイン審査の注記"}
@@ -109,3 +147,9 @@ sources:
   - {id: src-opcraft-repo, title: "latticexyz/opcraft", url: "https://github.com/latticexyz/opcraft", publisher: "GitHub", type: code, primary: true, published: "2022-12", accessed: "2026-10-23", access: fetched, lang: en, note: "git clone で確認。システム一覧、deploy.json（ComponentDevSystem）、README（凍結世界は opcraft.mud.dev）"}
   - {id: src-opcraft-intro-redstone, title: "Introducing: Redstone", url: "https://lattice.xyz/blog/introducing-redstone", publisher: "Lattice blog", author: "Lattice", type: official-blog, primary: true, published: "2023", accessed: "2026-10-23", access: fetched, lang: en, note: "OPCraft が Bedrock テストネットのブロックスペースを飽和させ、L1 に投稿していたら高額だったという教訓"}
   - {id: src-opcraft-winding-down, title: "Winding Down Lattice", url: "https://lattice.xyz/winding-down", publisher: "Lattice", author: "Ludens & Alvarius", type: retrospective, primary: true, published: "2026-04", accessed: "2026-10-23", access: fetched, lang: en, note: "Zuse と Dhvani が OPCraft を Biomes にし、DUST へ合流"}
+  - {id: src-opcraft-op-announce, title: "Announcing OPCraft: an Autonomous World built on the OP Stack", url: "https://optimism.io/blog/announcing-opcraft-an-autonomous-world-built-on-the-op-stack", publisher: "Optimism blog", author: "Nick Balestra", type: official-blog, primary: true, published: "2022-10-18", accessed: "2026-10-24", access: fetched, lang: en, note: "公式発表。opcraft.mud.dev で約 2 週間公開、ハロウィンに凍結、Discord と X を案内"}
+  - {id: src-opcraft-op-bogota, title: "OP in Bogotá: Rollup Recap", url: "https://www.optimism.io/blog/op-in-bogota-rollup-recap", publisher: "Optimism blog", type: official-blog, primary: true, published: "2022-10-21", accessed: "2026-10-24", access: fetched, lang: en, note: "Devcon で Kelvin が Lattice の MUD 講演に参加、MUD と OP Stack で OPCraft を作成"}
+  - {id: src-opcraft-devcon6-talk, title: "MUD: an Engine for On-chain Games (Devcon 6)", url: "https://archive.devcon.org/devcon-6/mud-an-engine-for-on-chain-games", publisher: "Devcon Archive", author: "Justin Glibert, alvarius, Kelvin Fichter", type: talk, primary: true, published: "2022-10", accessed: "2026-10-24", access: fetched, lang: en, note: "講演概要のみ確認。Optimism との新しい協業を発表予定と記載"}
+  - {id: src-opcraft-bankless, title: "Optimistic on OPCraft", url: "https://www.bankless.com/optimistic-on-opcraft", publisher: "Bankless", author: "William M. Peaster", type: news, primary: false, published: "2022-10-27", accessed: "2026-10-24", access: fetched, lang: en, note: "公開期間中の紹介記事。参加者数の記載なし"}
+  - {id: src-opcraft-rpgf3-lattice, title: "Lattice (OPCraft & MUD) — Optimism RetroPGF 3 application metadata", url: "https://content.optimism.io/rpgf3Application/v0/metadata/10/0xc640Dd8933f12FC788C56ab121ACa4cdBb7d7FC2.json", publisher: "Optimism (RetroPGF 3)", author: "Lattice", type: forum, primary: true, published: "2023-10", accessed: "2026-10-24", access: fetched, lang: en, note: "申請本文 JSON。OPCraft は 2 週間で 3.5m tx（指標欄 3,489,479）、OP Stack のバグ発見、WIRED 掲載と申告"}
+  - {id: src-opcraft-race-to-mainnet, title: "The Race to Mainnet", url: "https://lattice.xyz/blog/race-to-mainnet", publisher: "Lattice blog", author: "Lattice", type: official-blog, primary: true, published: "2024-04", accessed: "2026-10-24", access: fetched, lang: en, note: "Biomes を「digital physics aficionados and OPCraft fans」のチームと紹介"}

@@ -4,7 +4,7 @@ name_ja: パイレーツ・ネイション
 aliases: ["Proof of Play", "Apex", "Boss Chain"]
 kind: game
 depth: index
-updated: "2026-10-23"
+updated: "2026-10-24"
 links:
   github: https://github.com/proofofplay/piratenation-contracts
 ids:
@@ -73,6 +73,41 @@ metrics:
   - {id: m-pn-peak-dauw, type: dau, value: 100000, value_text: "10 万超（ピーク）→ 約 1 万（2025-08）", unit: wallets, period: "ピーク時期不明〜2025-08", definition: "日次アクティブ・ユニークウォレット（DAUW）。BlockchainGamer.biz が運営の説明として記載", nature: reported, s: [src-pn-bcg-kill, src-pn-bcg-shutdown-date]}
   - {id: m-pn-opcost, type: other, value: 150000, value_text: "月 15 万ドル", unit: USD/month, period: "2025-08", definition: "2 本の L3 とゲームの運営費（運営発表）", nature: reported, s: [src-pn-bcg-shutdown-date]}
   - {id: m-pn-seed, type: funding, value: 33000000, unit: USD, period: "2023", definition: "シードラウンド（a16z crypto・Greenoaks 共同主導）", nature: reported, s: [src-pn-theblock-boss, src-pn-bcg-company-end]}
+  - {id: m-pn-booty-partners, type: other, value: 60, value_text: "提携 Discord コミュニティ 60（12・16・32 の 3 回）", unit: communities, period: "2024-05 頃（BOOTY シーズン）", definition: "BOOTY ポイントの対抗戦に参加した提携コミュニティ数（分析ブログの記載）", nature: reported, s: [src-pn-tpan-booty]}
+
+acquisition:
+  audience: [players, holders]
+  summary: {t: "最初の参加者は 2022-12 からの招待制ベータに入った暗号資産利用者で（創設時 NFT の Founder's Pirates 保有者の割合は不明）、FarmVille の共同制作者が率いる a16z 出資のスタジオという報道上の看板があった。2023-09 から無料キャラクターでの参加を招待・待機リスト付きで開き、2024 年はトークン配布前のポイント（BOOTY）と紹介・提携コミュニティ・SNS 課題で人を集め、ガス代を運営が負担することで取引数を大きく伸ばした。", k: analysis, s: [src-pn-gamesbeat-seed, src-pn-decrypt-seed, src-pn-tpan-booty, src-pn-decrypt-nova]}
+  steps:
+    - {phase: pre, date: "2022-12", t: "2022-12 にベータとして公開し、以後毎週更新を出した。2023-09 時点でも GamesBeat は「招待制のオンチェーン海賊 RPG」と書いている。", k: fact, s: [src-pn-gamesbeat-seed, src-pn-decrypt-nova]}
+    - {phase: pre, date: "2023-03-30", t: "Polygon 期はプレイヤーの手数料を運営が肩代わりし（1 日 3,000〜4,000 ドル）、ウォレット署名なしでゲーム内の取得ができた。一部のプレイヤーは先に Ethereum 本体で NFT を買ってから遊び始めたと CEO は述べた。", k: claim, who: "Amitt Mahajan (CEO)", s: [src-pn-decrypt-nova]}
+    - {phase: launch, date: "2023-09-21", t: "3,300 万ドルのシード（a16z crypto・Greenoaks 共同主導）の発表と同時に、NFT を持たなくても無料キャラクターで遊べる free-to-play を「コミュニティ招待」ベースで開放し始めた。Fortune は無料だが待機リストがあると書いた。", k: fact, s: [src-pn-decrypt-seed, src-pn-fortune-seed, src-pn-gamesbeat-seed]}
+    - {phase: growth, date: "2024-05", t: "トークン配布前のポイント BOOTY を配るシーズンで、Founder's Pirates 保有数に応じた倍率、連続ログインの倍率、ゲーム内進行、紹介（紹介相手が Command Rank 2 に達したときのみ）、X・Discord の課題、提携 Discord サーバー 60 個（3 回に分けて発表）の対抗戦を組み合わせた。Apex チェーンの取引数は 1 日 100 万件に近づいていたという。", k: claim, who: "Web3 with TPan（分析ブログ）", s: [src-pn-tpan-booty]}
+    - {phase: growth, date: "2024-06", t: "PIRATE トークンを play-to-earn シーズン経由で 2024-06 に発行し、その後のイベントでも PIRATE の配分を得られるようにした。", k: fact, s: [src-pn-bcg-kill]}
+    - {phase: growth, date: "2024-08", t: "Apex の取引は 1 日約 250 万件に達し、容量上限のため 2 本目のチェーン Boss Chain を追加した。", k: claim, who: "Proof of Play（The Block 経由）", s: [src-pn-theblock-boss]}
+  channels:
+    - {id: invite-gating, t: "2022-12 からのベータは招待制で、2023-09 の free-to-play も「コミュニティ招待」と待機リストで段階的に開いた。", k: fact, s: [src-pn-gamesbeat-seed, src-pn-decrypt-seed, src-pn-fortune-seed]}
+    - {id: existing-community, t: "創設時の NFT コレクション Founder's Pirates の保有者が BOOTY の倍率など最も厚い優遇を受け、提携先の 60 の Discord コミュニティを対抗戦形式で巻き込んだ。", k: claim, who: "Web3 with TPan", s: [src-pn-tpan-booty, src-pn-decrypt-seed]}
+    - {id: free-mint, t: "無料キャラクター（Starter Pirate）は運営の API 権限で 1 アカウント 1 体だけ発行され、譲渡不可（soulbound）だった。", k: fact, s: [src-pn-contracts, src-pn-decrypt-seed]}
+    - {id: token-incentive, t: "BOOTY ポイントのシーズンを経て PIRATE トークンを配り、以後もイベントで PIRATE の配分を与えた。", k: fact, s: [src-pn-tpan-booty, src-pn-bcg-kill]}
+    - {id: referral, t: "紹介相手が Command Rank 2 に達したときだけ BOOTY が付く紹介制度（上限 4 万）を置いた。", k: claim, who: "Web3 with TPan", s: [src-pn-tpan-booty]}
+    - {id: crypto-social, t: "X の「いいね」・リツイート、Discord のプロフィール変更や名前への「Pirate」追加などの課題に BOOTY を付けた。", k: claim, who: "Web3 with TPan", s: [src-pn-tpan-booty]}
+    - {id: press, t: "シード調達は「FarmVille の共同制作者」の新作として Decrypt・Fortune・GamesBeat・The Block に取り上げられた。", k: fact, s: [src-pn-decrypt-seed, src-pn-fortune-seed, src-pn-gamesbeat-seed, src-pn-theblock-boss]}
+  cost:
+    - {t: "参加の障壁を下げる費用は運営が負担した。Polygon 期のガス肩代わりは 1 日 3,000〜4,000 ドル、終了時の 2 本の L3 とゲームの運営費は月 15 万ドルとされ、原資は 3,300 万ドルのシードだった。報酬は PIRATE トークンの放出で払われた。", k: fact, s: [src-pn-decrypt-nova, src-pn-bcg-shutdown-date, src-pn-theblock-boss, src-pn-bcg-kill]}
+  after:
+    - {t: "日次アクティブウォレットはピーク時の 10 万超から 2025-08 には約 1 万に減り、運営は「継続投資を正当化できるだけの利用者を集められなかった」として 2025-09 に終了した。", k: claim, who: "Proof of Play（BlockchainGamer.biz 経由）", s: [src-pn-bcg-kill, src-pn-bcg-shutdown-date], q: "the game has not attracted enough of an audience to justify continued investment and operation"}
+  counter:
+    - {t: "1 日数百万件の取引は、ガス代が運営負担でポイント（BOOTY）が行動量に応じて付く環境での数字で、人間の活動量や人数を表さない。ピーク DAUW の時期がポイント・トークン配布期と一致するかは確認できなかった。", k: analysis, s: [src-pn-tpan-booty, src-pn-theblock-boss, src-pn-bcg-kill]}
+    - {t: "free-to-play の開放は待機リストと招待付きで、最初の利用者の多くは NFT 保有者と暗号資産利用者だった。運営費を賄うほどの層には広がらなかったことを、運営自身の終了理由が示している。", k: analysis, s: [src-pn-fortune-seed, src-pn-bcg-kill]}
+  lessons:
+    - {t: "紹介の成立条件を相手の進行度に置く（Command Rank 2 到達で初めて点が付く）と、紹介だけのための使い捨てアカウントの採算を下げられる。効く条件は進行に時間か操作が必要なこと。破綻条件はガス無料・自動化可能な環境で、進行自体がボットで安く達成できる場合。", k: analysis}
+    - {t: "ガス代を運営が全額負担すると参加障壁は消えるが、取引数・ウォレット数はポイント目的の行動で膨らみ、その費用（専用チェーンの固定費）は利用者数ではなく取引量に比例して増える。運営費が月 15 万ドルに達した時点で利用者が約 1 万では続かなかった。", k: analysis}
+  metrics: [m-pn-polygon-gas, m-pn-seed, m-pn-booty-partners, m-pn-apex-tx, m-pn-peak-dauw, m-pn-opcost]
+  unknowns:
+    - "Founder's Pirates の販売時期・価格・購入者数と、ベータ参加者に占める保有者の割合"
+    - "招待・待機リストの規模と、free-to-play 開放後の新規登録数"
+    - "BOOTY シーズンの正確な期間と参加ウォレット数、紹介経由の割合"
 
 events:
   - {id: ev-pn-nova, date: "2023-03-30", type: spec-change, title: "Polygon から Arbitrum Nova への移行を発表", detail: "ガス肩代わりの費用増が理由。NFT はブリッジでなく「ミラーリング」", s: [src-pn-decrypt-nova]}
@@ -108,3 +143,7 @@ sources:
   - {id: src-pn-pop-x, title: "Proof of Play will be ceasing operations.", url: "https://x.com/ProofOfPlay/status/2084699843868733615", publisher: "Proof of Play (X)", type: social, primary: true, published: "2026-08-04", accessed: "2026-10-23", access: fetched, lang: en, note: "BlockchainGamer.biz がリンクした一次告知。X の公開埋め込み API で冒頭部分と投稿日時 2026-08-04T17:55:49Z を取得（全文は未取得）。検証役が追加"}
   - {id: src-pn-contracts, title: "proofofplay/piratenation-contracts", url: "https://github.com/proofofplay/piratenation-contracts", publisher: "GitHub", type: code, primary: true, published: "2025-09-18", accessed: "2026-10-23", access: fetched, lang: en, note: "git clone。449 の .sol、ロール定義、BanSystem、BATTLE_VALIDATOR_ROLE による戦闘結果の書き込み、MIT"}
   - {id: src-pn-github-org, title: "Proof of Play (GitHub organization)", url: "https://github.com/proofofplay", publisher: "GitHub", type: code, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "piratenation-game（Unity クライアントのアーカイブ）、piratenation-art 等 10 リポジトリ"}
+  - {id: src-pn-gamesbeat-seed, title: "Proof of Play raises $33M for Web3 RPG, ex-Twitch CEO joins board", url: "https://gamesbeat.com/proof-of-play-raises-33m-for-web3-rpg-adds-ex-twitch-ceo-to-board-emmett-shear/", publisher: "GamesBeat", author: "Jordan Fragen", type: news, primary: false, published: "2023-09-21", accessed: "2026-10-24", access: fetched, lang: en, note: "2022-12 のベータ以後毎週更新、招待制、最初の free-to-play プレイヤーの受け入れ"}
+  - {id: src-pn-decrypt-seed, title: "'Pirate Nation' Studio Raises $33 Million to Build Fully On-Chain Games", url: "https://decrypt.co/198093/pirate-nation-studio-raises-33-million-build-fully-on-chain-games", publisher: "Decrypt", author: "Andrew Hayward", type: news, primary: false, published: "2023-09-21", accessed: "2026-10-24", access: fetched, lang: en, note: "NFT なしの無料キャラクター、埋め込み投稿は F2P を「community-invite basis」で開始、Founder's Pirates（genesis）と Pirates（F2P）の区別"}
+  - {id: src-pn-fortune-seed, title: "Web3 gaming company Proof of Play raises $33 million from a16z’s Chris Dixon and Greenoaks", url: "https://fortune.com/crypto/2023/09/21/web3-gaming-proof-of-play-33-million-a16z-chris-dixon-greenoaks", publisher: "Fortune", author: "Marco Quiroz-Gutierrez", type: news, primary: false, published: "2023-09-21", accessed: "2026-10-24", access: fetched, lang: en, note: "free-to-play で開始、ただし待機リストあり"}
+  - {id: src-pn-tpan-booty, title: "#299: 12 Features from Pirate Nation's BOOTY Dashboard", url: "https://tpan.substack.com/p/299-12-features-from-pirate-nations", publisher: "Web3 with TPan (Substack)", author: "TPan", type: analysis, primary: false, published: "2024-05-24", accessed: "2026-10-24", access: fetched, lang: en, note: "BOOTY の獲得方法（保有倍率・連続ログイン・紹介・X/Discord 課題・提携 60 コミュニティ）、1 日 100 万件近い取引"}
