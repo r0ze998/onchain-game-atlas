@@ -3,7 +3,7 @@ name: "Generative Agents: Interactive Simulacra of Human Behavior"
 aliases: ["Smallville", "Generative Agents（Park et al. 2023）"]
 kind: research
 depth: index
-updated: "2026-10-23"
+updated: "2026-10-24"
 links:
   website: https://arxiv.org/abs/2304.03442
   github: https://github.com/joonspk-research/generative_agents
@@ -70,6 +70,8 @@ article:
     - {t: "情報拡散と関係形成は、シミュレーション終了時（関係形成は開始時と終了時）に各エージェントへ「知っているか」と質問した回答で判定しており、行動として観察されたのはパーティーへの出席のみ。肯定回答は記憶ストリームと照合されたが、他エージェントについての回答 453 件のうち 1.3%（6 件）は幻覚だった。", k: fact, s: [src-ga-arxiv-pdf]}
     - {t: "論文自身が、指示調整（instruction tuning）の影響でエージェントが過度に丁寧・協力的になり、Isabella は他者の提案をほとんど断らず関心まで他者に寄っていったと報告している。協調や情報拡散の「創発」の一部は、基盤モデルの協力的な傾向で説明できる可能性がある。", k: analysis, s: [src-ga-arxiv-pdf]}
     - {t: "25 人・2 ゲーム日という規模と、数千ドル・数日の実行コストは、常時稼働する大規模な世界へそのまま外挿できないことを示唆する。", k: analysis, s: [src-ga-arxiv-pdf]}
+
+acquisition: {applies: false, note: "研究論文（UIST '23）と研究コードの公開であり、利用者獲得の対象ではない。Smallville の 25 人は LLM エージェントで、人間の利用者ではない。公開物は Python 環境と OpenAI API キーを要する研究コードで、一般向けに参加者を集めた公開デモの記録は確認できなかった。後続への広がり（AI Town のスターターキット化など）は relations と ai-town の acquisition を参照。"}
 
 events:
   - {id: ev-ga-arxiv-v1, date: "2023-04-07", type: paper, title: "arXiv v1 公開", s: [src-ga-arxiv]}

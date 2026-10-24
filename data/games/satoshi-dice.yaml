@@ -68,6 +68,40 @@ article:
   counter_evidence:
     - {t: "「全取引の過半」という数字は Voorhees 自身の主張や二次資料で、定義（件数か金額か、累計か期間か）がまちまち。連邦準備制度の論文は、データのある期間について小額取引の大半が同サービス関連だったと述べるにとどまる。", k: analysis, s: [src-satoshidice-fed-2014, src-satoshidice-survey-2019]}
 
+acquisition:
+  audience: [players]
+  summary: {t: "最初のプレイヤーは、すでに Bitcoin とウォレットを持っていた bitcointalk フォーラムの利用者で、2012-04-24 の運営者自身の告知スレッドから来た。登録もクライアントも不要で、告知に並んだ固定アドレスに送金するだけで賭けられたことが、参加の手間をほぼゼロにした。", k: analysis, s: [src-satoshidice-btt-ann, src-satoshidice-bitcoinwiki]}
+  steps:
+    - {phase: pre, t: "Bitcoin Wiki によれば、仕組みは bitcointalk ユーザー FireDuck が作り、別の運営者（Voorhees）に売却された。SEC 命令は Voorhees がサイトを立ち上げたと記しており、どちらが「最初」かは資料で異なる。", k: fact, s: [src-satoshidice-bitcoinwiki, src-satoshidice-sec-order]}
+    - {phase: launch, date: "2012-04-24", t: "evoorhees（Voorhees）が bitcointalk に「SatoshiDICE.com - Verified rolls, up to 65,000x winning」を投稿。同日中に複数のフォーラム利用者が少額で賭けて当たりを報告し、別の利用者は秘密値の日付切り替えを運営が操作し得ると指摘して、運営もそれを認めた。", k: fact, s: [src-satoshidice-btt-ann], q: "To play, you just send coins to any of the listed addresses based on the odds you want."}
+    - {phase: launch, date: "2012-04-24", t: "公開直後の賭け上限は低く、65,000 倍の賭けの上限は約 0.0013 BTC だった。運営は上限は運営の資金量で決まり、資金が増えれば上げると返信した。", k: fact, s: [src-satoshidice-btt-ann]}
+    - {phase: growth, date: "2012-05-04", t: "Voorhees は Bitcoin の取引数が過去最高を記録し、その急増の大半が SatoshiDice によるものだと同じフォーラムに投稿した（件数や割合の数値は示していない）。", k: claim, who: "Erik Voorhees（運営）", s: [src-satoshidice-btt-txrecord], q: "the vast majority of the huge spike in the past couple days was SatoshiDice.com"}
+    - {phase: growth, date: "2012-05-09", t: "フォーラム利用者 payb.tc が SatoshiDice をマーチンゲール法で自動的に賭ける PHP ボットを公開した。送金だけで賭けられる設計のため、第三者が自動化スクリプトを書けた。", k: fact, s: [src-satoshidice-btt-martingale], q: "i went and wrote this script yesterday for playing satoshidice martingale-style."}
+    - {phase: growth, date: "2012-08-20", t: "Voorhees は bitcointalk に MPEx 上の配当付き株式 S.DICE のスレッドを立て、2013-02 までに 50,600 BTC を調達した。賭けの利用者とは別に、配当を受け取る出資者の層ができた。", k: fact, s: [src-satoshidice-btt-ipo, src-satoshidice-sec-order]}
+    - {phase: growth, date: "2013-05", t: "米国からの利用を遮断した。", k: fact, s: [src-satoshidice-bitcoinwiki]}
+  channels:
+    - {id: crypto-social, t: "運営者本人が bitcointalk に告知スレッドを立て、利用者の当たり報告や公平性の指摘も同じスレッドで行われた。", k: fact, s: [src-satoshidice-btt-ann]}
+    - {id: existing-community, t: "対象は、すでに BTC を持ち任意のウォレットから送金できた 2012 年の Bitcoin 利用者だった。", k: analysis, s: [src-satoshidice-btt-ann, src-satoshidice-bitcoinwiki]}
+    - {id: composability, t: "固定アドレスに送金するだけの仕組みなので、第三者がマーチンゲール法の自動賭けボットを書いて公開した。", k: fact, s: [src-satoshidice-btt-martingale]}
+  cost:
+    - {t: "賭けの配当はプレイヤーの賭け金でまかなわれ、ハウスエッジは 1.9%。公開直後の賭け上限は運営の資金量に縛られていた。", k: fact, s: [src-satoshidice-bitcoinwiki, src-satoshidice-btt-ann]}
+    - {t: "2012-08〜2013-02 に MPEx の株式売り出しで 50,600 BTC を調達した。使途の内訳は確認していない。広告費・アフィリエイト報酬の支出は確認できなかった。", k: fact, s: [src-satoshidice-sec-order]}
+  after:
+    - {t: "2013-07 の売却時点で、累計 530 万件の賭けと報じられた。人数・継続率は公表されていない。", k: fact, s: [src-satoshidice-habr-2013]}
+    - {t: "2013-05 の米国遮断、2013-05-29 の Bitcoin 0.8.2 による極小出力の非標準化と、規制と基盤の規則変更がともに利用の条件を変えた。", k: fact, s: [src-satoshidice-bitcoinwiki, src-satoshidice-btc082]}
+  counter:
+    - {t: "取引数の多さは利用者の多さを意味しない。1 回の賭けが 2 取引以上になり、公開 2 週間でマーチンゲールボットが公開されていたので、取引数の一部は少数の利用者の自動化による可能性がある。", k: analysis, s: [src-satoshidice-btt-martingale, src-satoshidice-bitcoinwiki]}
+    - {t: "告知スレッドの冒頭投稿は 2012-11-13 に最終編集されており、「world's most popular Bitcoin betting site」などの現在の文言が公開日のものとは限らない。", k: fact, s: [src-satoshidice-btt-ann]}
+    - {t: "2012 年の Bitcoin は取引の総数がまだ小さかったので、少数の利用者でも比率は大きく見えた。「全取引の過半」は、集客の大きさよりも、母数が小さかったことを示している可能性がある。", k: analysis, s: [src-satoshidice-fed-2014, src-satoshidice-survey-2019]}
+  lessons:
+    - {t: "送金即参加: 既存の支払い路（固定アドレスへの送金）をそのまま参加手段にすると、登録・ダウンロード・説明なしで既存のコイン保有者が遊べる。効く条件は、対象がすでにウォレットと資産を持つ集団であること。破綻条件は、基盤側の規則（少額出力の非標準化、手数料）や規制（地域遮断）で、その支払い路が使えなくなること。", k: analysis}
+    - {t: "検証可能性を集客の材料にする: 告知スレッドで公平性の穴を指摘させて運営が認めると、初期の不信をフォーラム上の公開議論で減らせる。この対応が効いたのは、フォーラムの利用者が技術的に検証できたからである。一般の利用者が相手では同じ効果は期待しにくい。", k: analysis}
+  metrics: [m-satoshidice-bets, m-satoshidice-ipo-raise]
+  unknowns:
+    - "公開初週・初月のプレイヤー数（一意のアドレス数）。"
+    - "広告（フォーラムのバナー、他サイトへの出稿）やアフィリエイトの有無と費用。"
+    - "FireDuck から Voorhees への引き継ぎの日付と条件（Reddit の元投稿は取得できず）。"
+
 metrics:
   - {id: m-satoshidice-ipo-raise, type: funding, value: 50600, value_text: "50,600 BTC（当時約 72 万ドル）", unit: BTC, period: "2012-08〜2013-02", definition: "MPEx での 2 回の株式売り出しで調達した BTC（SEC 命令の認定事実）", nature: reported, s: [src-satoshidice-sec-order]}
   - {id: m-satoshidice-buyback, type: other, value: 45500, value_text: "45,500 BTC（約 380 万ドル）", unit: BTC, period: "2013-07", definition: "全株式の買い戻し総額（1 株 0.0035 BTC。SEC 命令）", nature: reported, s: [src-satoshidice-sec-order]}
@@ -106,3 +140,7 @@ sources:
   - {id: src-satoshidice-99bitcoins, title: "Half of All Bitcoin Transactions Might Come From Online Gambling", url: "https://99bitcoins.com/half-of-all-bitcoin-transactions-might-come-from-online-gambling/", publisher: "99Bitcoins", type: analysis, primary: false, accessed: "2026-10-23", access: snippet, lang: en, note: "403 で本文取得不可。検索要約: 2013-06、1 日約 12,400 件の賭けと約 48,400 件の取引から 25%〜51% と推計"}
   - {id: src-satoshidice-uibk-thesis, title: "Satoshi Dice: history, principles, and effects on the Bitcoin network", url: "https://informationsecurity.uibk.ac.at/theses/satoshi-dice/", publisher: "University of Innsbruck, Security and Privacy Lab", type: paper, primary: false, accessed: "2026-10-23", access: fetched, lang: en, note: "学士論文のテーマ紹介。オフチェーン移行の理由（負荷、ゼロ承認の二重支払いリスク）。結果は未掲載"}
   - {id: src-satoshidice-survey-2019, title: "Blockchain Games: A Survey", url: "https://arxiv.org/abs/1906.05558", publisher: "arXiv", author: "Tian Min, Hanyi Wang, Yaoze Guo, Wei Cai", type: paper, primary: false, published: "2019-06-13", accessed: "2026-10-23", access: fetched, lang: en, note: "Satoshi Dice（4/2012）を「全 Bitcoin 取引の半分超に寄与」と要約"}
+  - {id: src-satoshidice-btt-ann, title: "SatoshiDICE.com - Verified rolls, up to 65,000x winning", url: "https://bitcointalk.org/index.php?topic=77870.0", publisher: "Bitcoin Forum", author: "evoorhees", type: forum, primary: true, published: "2012-04-24", accessed: "2026-10-24", access: fetched, lang: en, note: "公開告知スレッド（冒頭投稿は 2012-11-13 最終編集）。送金するだけで参加、1.9% のエッジ、当日の利用者の当たり報告、秘密値の日付切り替えへの指摘、資金量に応じた賭け上限"}
+  - {id: src-satoshidice-btt-txrecord, title: "All-time transaction record was just hit", url: "https://bitcointalk.org/index.php?topic=79285.0", publisher: "Bitcoin Forum", author: "evoorhees", type: forum, primary: true, published: "2012-05-04", accessed: "2026-10-24", access: fetched, lang: en, note: "取引数の過去最高と、その急増の大半が SatoshiDice によるとの運営者の投稿（数値なし）"}
+  - {id: src-satoshidice-btt-martingale, title: "PHP martingale bot for satoshiDICE", url: "https://bitcointalk.org/index.php?topic=80245.0", publisher: "Bitcoin Forum", author: "payb.tc", type: forum, primary: true, published: "2012-05-09", accessed: "2026-10-24", access: fetched, lang: en, note: "第三者による自動賭けスクリプトの公開"}
+  - {id: src-satoshidice-btt-ipo, title: "[CLOSED] S.DICE - SatoshiDICE 100% Dividend-Paying Asset on MPEx", url: "https://bitcointalk.org/index.php?topic=101902.0", publisher: "Bitcoin Forum", author: "evoorhees", type: forum, primary: true, published: "2012-08-20", accessed: "2026-10-24", access: fetched, lang: en, note: "株式売り出しスレッド（2013-07-19 最終編集で売却と 1 株 0.0035 BTC での清算を追記）。返信は利益見込みの推計など"}

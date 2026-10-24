@@ -3,7 +3,7 @@ name: "Colony（Parallel Colony / Colony: Survival）"
 aliases: ["Parallel Colony", "Colony: Survival"]
 kind: game
 depth: index
-updated: "2026-10-23"
+updated: "2026-10-24"
 links:
   website: https://parallel.life/colony
   x: https://x.com/ParallelColony
@@ -73,6 +73,35 @@ article:
     - {t: "ただし、公開面で言及しないことはゲーム内部でチェーンを使っていないことを意味しない。運営がチェーン要素の扱いを説明した一次資料は見つからなかった。", k: unknown}
     - {t: "当初の「アバターが人間の直接操作なしに行動する」構想に対し、現行版では人間が入植者に話しかけ、ジレンマに答え、拠点を建てる。人間の意思決定は外されず、AI は会話相手・助言の受け手に位置付け直された。", k: fact, s: [src-colony-bcg-2024, src-colony-official]}
 
+acquisition:
+  audience: [holders, players]
+  summary: {t: "最初のプレイヤー層として運営が想定したのは、Parallel の既存の Avatar NFT 保有者と、Solana Seeker 端末の保有者だった。2025-09 のアルファは Seeker 保有者に限って開放され、その後 2026-09 に NFT もウォレットも要らない基本無料のモバイル版で一般層へ広げたが、各段階のプレイヤー数は公表されていない。", k: analysis, s: [src-colony-bcg-2024, src-colony-bcg-tcg-2025, src-colony-egamers-alpha, src-colony-bcg-launch]}
+  steps:
+    - {phase: pre, date: "2024-03", t: "Colony を発表。AI アバターは当初、既に発行済みの Parallel の Avatars（11,001 体の PFP コレクション）を基にし、PRIME で作成・行動の費用を払い、公開は 2025 年までない見込みとされた。", k: fact, s: [src-colony-bcg-2024]}
+    - {phase: pre, date: "2024-03-18", t: "Decrypt は、発表後に PRIME が史上最高値 28.00 ドルに達したと報じ、無料版も用意するが無料版では PRIME 報酬を得られず所持品も保持できないこと、公開アルファを 2024 年 Q4〜2025 年 Q1 に予定していることを伝えた。", k: fact, s: [src-colony-decrypt-2024]}
+    - {phase: pre, date: "2024-12", t: "Solana の X 投稿（検索要約のみ）は、AI エージェントが Solana 上で自律的に取引するとしてアルファを 2025 年 Q1 と予告した。", k: claim, who: "Solana（X 投稿、検索要約のみ）", s: [src-colony-solana-x-2024]}
+    - {phase: pre, date: "2025-09", t: "Parallel Studios は Solana Seeker 端末の保有者を主要なテスト対象にし、Avatar NFT の保有者もこの版をモバイルか PC で遊べるとした（BlockchainGamer.biz の報道）。", k: claim, who: "Parallel Studios（BlockchainGamer.biz の報道）", s: [src-colony-bcg-tcg-2025]}
+    - {phase: launch, date: "2025-09-22", t: "Seeker 端末（約 500 ドル）の保有者に限定したアーリーアルファを開始。公式サイトで無料登録を受け付け、1 個 10 ドルのクレート（ペット・スキン等、限定コンテンツの抽選付き）を販売した。", k: fact, s: [src-colony-egamers-alpha]}
+    - {phase: growth, date: "2026-09-03", t: "約 1 年の限定テストの後、「Colony: Survival」として App Store と Google Play で世界公開した。報道は NFT の購入やウォレットの操作なしに始められると書き、MobileGamer.biz は「silent launch」と表現した。", k: fact, s: [src-colony-bcg-launch, src-colony-mobilegamer]}
+  channels:
+    - {id: existing-community, t: "既存の Parallel Avatar NFT（11,001 体）を AI アバターの土台にし、保有者もアルファ版を遊べるとした。保有者が実際に何人参加したかは不明。", k: claim, who: "Parallel Studios（報道経由）", s: [src-colony-bcg-2024, src-colony-bcg-tcg-2025]}
+    - {id: platform-distribution, t: "アルファを Solana Seeker 端末の保有者に限定して配り、世界公開では App Store と Google Play を使った。", k: fact, s: [src-colony-egamers-alpha, src-colony-bcg-launch]}
+    - {id: invite-gating, t: "約 500 ドルの Seeker 端末の保有をアルファ参加の条件にし、公式サイトでの事前登録を経て段階的に開放した。", k: fact, s: [src-colony-egamers-alpha]}
+  cost:
+    - {t: "アルファでは 10 ドルのクレートを参加者に販売しており、獲得の原資を参加者が一部払う形だった。世界公開版は基本無料でアプリ内課金・サブスクリプションで収益化する。集客に使った広告費やトークン報酬の額は確認できなかった。", k: fact, s: [src-colony-egamers-alpha, src-colony-official]}
+  after:
+    - {t: "アルファ・世界公開版ともにプレイヤー数・継続率・売上は公表資料で確認できなかった。", k: unknown}
+  counter:
+    - {t: "2024-03 の発表直後に PRIME が史上最高値を付けており、発表への反応はプレイヤーとしての関心ではなく、トークン価格への期待だった可能性がある。", k: analysis, s: [src-colony-decrypt-2024]}
+    - {t: "Seeker 限定のアルファは、端末保有者という狭い層に絞ることで、需要を測るより Solana Mobile との提携の宣伝になっていた可能性がある。参加者数が公表されていないため、限定の効果は検証できない。", k: analysis, s: [src-colony-egamers-alpha, src-colony-bcg-tcg-2025]}
+    - {t: "世界公開版は NFT・ウォレット不要で、公式ページもチェーン要素に触れない。一般層の獲得は Web3 の既存コミュニティではなく通常のモバイル配信に頼っており、初期の保有者層とは別の集団になった可能性がある。", k: analysis, s: [src-colony-bcg-launch, src-colony-official]}
+  lessons:
+    - {t: "端末やトークンの保有者に限ったアルファから一般モバイル公開へ: 高価な端末や NFT の保有を条件にすると、少数の熱心な層でテストできる。効く条件は限定期間の学びを一般版に生かせ、保有者に固有の特典が残ること。破綻条件は一般版でチェーン要素を外した場合で、最初の保有者層に提供した価値と一般層の体験が切り離される。", k: analysis}
+  metrics: []
+  unknowns:
+    - "Seeker 限定アルファの登録者数・参加者数、Avatar NFT 保有者の参加数。"
+    - "世界公開版のダウンロード数・継続率、集客に使った広告やトークン報酬。"
+
 events:
   - {id: ev-colony-announce, date: "2024-03", type: announce, title: "Colony のホワイトペーパーと Solana 展開を発表", detail: "アバターが専用ウォレットで自律取引、PRIME で支払い、2025 年までは公開しない見込み", s: [src-colony-bcg-2024]}
   - {id: ev-colony-wayfinder, date: "2024-03-14", type: paper, title: "Wayfinder ホワイトペーパー（Colony の中核インフラと記載）", s: [src-colony-wayfinder-paper]}
@@ -106,3 +135,5 @@ sources:
   - {id: src-colony-guide, title: "Colony Game Guide (overview / gameplay / FAQ)", url: "https://parallel.life/colony/game-guide/gameplay", publisher: "Parallel Studios", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "検証時に取得。拠点・入植者・クラフト・PvE レーン戦・PvP マップ・Fabricator（Weave）・サブスクリプション。本文に NFT・PRIME・ウォレット・Solana・ブロックチェーン・Seeker の語なし（サイト共通の翻訳文字列には Parallel TCG 用の PRIME・ウォレット表記がある）"}
   - {id: src-colony-bgfun, title: "Colony: Survival Overview, Parallel's AI Colony-Builder", url: "https://blockchaingames.fun/games/colony-survival/", publisher: "blockchaingames.fun", type: wiki, primary: false, accessed: "2026-10-23", access: fetched, lang: en, note: "第三者のゲーム DB。Avatar NFT 保有者は Colony でアバターを使える、チェーンは Ethereum・Solana、PRIME は現行文書に記載なし、と記す。出典不明"}
   - {id: src-colony-panews, title: "Web3 Games Begin to Embrace AI, Perhaps Not Just About Chasing Trends or Changing Narratives", url: "https://panews.io/articles/01a0af2c-c3b6-7219-8ebb-61df6e43938e", publisher: "PANews", author: "Zen", type: analysis, primary: false, accessed: "2026-10-23", access: fetched, lang: en, note: "PRIME・NFT・ブロックチェーン・ウォレットが製品ホームページから「quietly removed」と記す。公開日の表示なし"}
+  - {id: src-colony-bcg-tcg-2025, title: "Parallel Studios prepares for Parallel TCG’s mobile and Steam launches in Q4", url: "https://www.blockchaingamer.biz/?p=40463", publisher: "BlockchainGamer.biz", author: "Jon Jordan", type: news, primary: false, published: "2025-09-23", accessed: "2026-10-24", access: fetched, lang: en, note: "ページ表示は最終更新日。Colony のアーリーアルファを 9 月に予定、Seeker 保有者を主要なテスト対象、Avatar NFT 保有者もモバイル・PC で遊べる"}
+  - {id: src-colony-decrypt-2024, title: "Creador de Parallel Detalla Juego de IA 'Colony' en Solana: PRIME Marca ATH", url: "https://decrypt.co/es/222124/creador-de-parallel-detalla-juego-de-ia-colony-en-solana-prime-marca-ath/", publisher: "Decrypt (スペイン語版)", author: "Andrew Hayward", type: news, primary: false, published: "2024-03-18", accessed: "2026-10-24", access: fetched, lang: es, note: "PRIME が史上最高値 28.00 ドル、既存 Avatar NFT を基にする、無料版は PRIME 報酬なし、公開アルファを 2024 年 Q4〜2025 年 Q1 に予定"}

@@ -4,7 +4,7 @@ name_ja: ワールドエンジン（Argus）
 aliases: ["World Engine", "Cardinal", "Argus World Engine"]
 kind: engine
 depth: index
-updated: "2026-10-23"
+updated: "2026-10-24"
 links:
   website: https://argus.gg/
   docs: https://world.dev/
@@ -65,7 +65,7 @@ compare:
   information: {t: "未確認（秘匿情報の扱いはゲーム実装次第）。", k: unknown}
   persistence: {t: "ゲームシャードはゲーム開発者が運営するプロセスで、運営停止後に第三者が同じ状態で継続できるかは未確認。", k: unknown}
   extensibility: {t: "開発者向けのプラグイン（data, lobby, physics2d）とクライアント SDK。プレイヤーによる許可不要拡張は設計目標として確認できなかった。第三者解説は「Intergame」として出版者・市場・モッダー間の互換性を掲げると記す。", k: fact, s: [src-argus-repo, src-argus-4pillars]}
-  money_flow: {t: "未確認。公式サイトは投資家として Haun・Robot Ventures・Dispersion Capital・Alchemy・Anagram のロゴと個人投資家を挙げるが額は書かれていない。検索要約では 1000 万ドルのシード（Haun Ventures 主導）とされるが、取得して読めた資料では確認できなかった。", k: unknown, s: [src-argus-argus-site, src-argus-jobs]}
+  money_flow: {t: "未確認。公式サイトは投資家として Haun・Robot Ventures・Dispersion Capital・Alchemy・Anagram のロゴと個人投資家を挙げるが額は書かれていない。2023-06-06 に 1,000 万ドルのシード（Haun Ventures 主導）が報じられた（CoinDesk、取得済み）。ゲームの収益モデルや開発者からの手数料の有無は未確認。", k: unknown, s: [src-argus-argus-site, src-argus-coindesk-seed]}
   entry_barrier: {t: "開発者は Go と ECS、ゲームシャードの運用を扱う必要がある。プレイヤー側の障壁はゲーム次第。", k: analysis, s: [src-argus-repo]}
 
 concepts: [c-own-chain, c-ecs-engine, c-onchain-rules]
@@ -98,6 +98,52 @@ article:
   counter_evidence:
     - {t: "「ゲーム専用の実行環境を検証可能にしてチェーンにつなぐ」という位置付けは v1 の設計資料（2023 年の第三者解説）に基づく。2024-12 以降のコードはチェーン側の部品を外しており、参照日の World Engine は実装上はティック駆動の ECS ゲームサーバーフレームワークに近い。オンチェーンゲーム基盤の代表例として扱うには、v2 で検証の仕組みが実装されるかの確認が必要。", k: analysis, s: [src-argus-commits, src-argus-repo, src-argus-snapshots-doc]}
 
+metrics:
+  - {id: m-argus-seed-2023, type: funding, value: 10000000, unit: USD, period: "2023-06-06 発表", definition: "Haun Ventures 主導のシード・ラウンド（報道）", nature: reported, s: [src-argus-coindesk-seed]}
+  - {id: m-argus-df-playtest-prize, type: other, value: 7500, value_text: "約 7,500", unit: USD, period: "2023-12（Dark Frontier 最初のプレイテスト 2 週間）", definition: "リーダーボード上位 10 人で分ける賞金プール（第三者ニュースレターの記載）", nature: reported, s: [src-argus-vamient-aw5]}
+  - {id: m-argus-df-tx, type: transactions, value: 700000, value_text: "70 万件超", unit: tx, period: "Dark Frontier 稼働期間（期間の定義なし。求人票は「1 週間」と記す）", definition: "Dark Frontier が処理した本番のプレイヤー取引数（運営の主張、計測方法の記載なし）", nature: reported, s: [src-argus-df-repo]}
+  - {id: m-argus-celestia-stipend, type: grants, value: 3000, unit: USD, period: "2022-10 開始の 3 か月（月額）", definition: "Celestia Modular Fellows 第 1 期の月額奨励金（創業者 Scott Sunarto が参加）", nature: reported, s: [src-argus-celestia-fellows]}
+
+acquisition:
+  audience: [developers, players]
+  summary: {t: "最初の「利用者」は Argus 自身で、自社の Dark Forest 系タイトル Dark Frontier を World Engine 上で動かして負荷を見せ、外部の開発者は 2023-06 の招待制プライベートベータと 2024-02 のオープンソース化で募った。Dark Frontier の初期プレイヤーは Dark Forest 系の層とプレイテスト賞金に引かれた層とみられるが、外部スタジオが実際に何本採用したかは確認できない。", k: analysis, s: [src-argus-blog-intro, src-argus-blog-launch, src-argus-vamient-aw5, src-argus-4pillars]}
+  steps:
+    - {phase: pre, date: "2022-10-06", t: "創業者 Scott Sunarto が Celestia の Modular Fellows 第 1 期に選ばれた（Argus Labs は「crypto gaming skunkworks」と紹介）。期間 3 か月・月額 3,000 ドルの奨励金とエンジニアリング支援がある制度で、World Engine の名前はまだ出ていない。", k: fact, s: [src-argus-celestia-fellows]}
+    - {phase: pre, date: "2023-05", t: "World Engine のシャード構成を DBA Research Day で初めて公開講演した（「How I Learned to Stop Worrying & Love Execution Sharding」）。", k: fact, s: [src-argus-blog-launch, src-argus-blog-intro]}
+    - {phase: pre, date: "2023-06-06", t: "1,000 万ドルのシード（Haun Ventures 主導）の発表と同日に紹介記事を出し、少数のチームを選んでプライベートベータに受け入れると告知した。ベータ参加者にはコアチームとの直接のサポート窓口（技術・ゲームデザイン・GTM）を約束した。", k: fact, s: [src-argus-blog-intro, src-argus-coindesk-seed], q: "we are accepting a select few teams to the World Engine private beta to give it a spin."}
+    - {phase: pre, date: "2023-10-26", t: "Four Pillars は自ら Interchain Hackathon で starter-game-template をフォークし、Cardinal・Nakama で GPT-4 を使う多人数ビジュアルノベルを作った事例を書き、World Engine を使って開発中のゲームは約 3 本と見られると記した。", k: fact, s: [src-argus-4pillars]}
+    - {phase: launch, date: "2023-12-05", t: "Argus の Dark Frontier（Dark Forest に着想を得た宇宙征服 MMORTS）がゲームキーの配布を予定した（同日の第三者ニュースレター。登録はサイト経由、当時の X フォロワーは 1,899）。", k: fact, s: [src-argus-bolt-radar]}
+    - {phase: launch, date: "2023-12", t: "Dark Frontier は「World Engine Devnet で動く最初の本番ゲーム」として 2 週間の最初のプレイテストを行い、上位 10 人に約 7,500 ドルの賞金プールを配った（2023-12-26 の第三者ニュースレター）。同時期に創業者が 0xResearch ポッドキャストで World Engine と Dark Frontier を説明した。", k: fact, s: [src-argus-vamient-aw5, src-argus-0xresearch]}
+    - {phase: launch, date: "2024-02-29", t: "「Now Live」としてオープンソース化を発表し、Quickstart で 15 分以内に始められると述べた。Dark Frontier を稼働実績として挙げ、技術・資金・ネットワーク面で支援するビルダープログラムを数日内に発表すると予告した。", k: fact, s: [src-argus-blog-launch]}
+    - {phase: growth, date: "2024-12-10", t: "EVM 依存を削除し、2025-10 からはゼロからの書き直し（v2）に入った。ベータ期・オープン化期に参加した開発者にとっては基盤構成そのものが変わった。", k: fact, s: [src-argus-commits, src-argus-repo]}
+  channels:
+    - {id: existing-community, t: "Dark Forest 共同制作の系譜を前面に出し（紹介記事が Gubsheep・Alan Luo らとの共同制作に言及）、自社タイトル Dark Frontier も Dark Forest に着想を得た作品として出した。", k: fact, s: [src-argus-blog-intro, src-argus-df-repo]}
+    - {id: invite-gating, t: "2023-06 に応募制のプライベートベータで「少数のチーム」を選び、直接サポートと引き換えにフィードバックを求めた。Dark Frontier もゲームキー配布で参加者を絞った。", k: fact, s: [src-argus-blog-intro, src-argus-bolt-radar]}
+    - {id: content-research, t: "DBA Research Day の講演、技術ブログ、0xResearch ポッドキャスト、Four Pillars の解説など、シャード設計の技術的議論で開発者・研究者の注目を集めた。", k: fact, s: [src-argus-blog-launch, src-argus-0xresearch, src-argus-4pillars]}
+    - {id: press, t: "シード調達の報道（CoinDesk 等）と World Engine の発表が同日だった。", k: fact, s: [src-argus-coindesk-seed, src-argus-blog-intro]}
+    - {id: prize-competition, t: "Dark Frontier の最初のプレイテストで上位 10 人に約 7,500 ドルの賞金プールを設けた。", k: fact, s: [src-argus-vamient-aw5]}
+    - {id: hackathon, t: "第三者（Four Pillars）が Interchain Hackathon でテンプレートをフォークして Cardinal 上のゲームを作った。Argus がこのハッカソンで賞やトラックを出したかは確認できなかった。", k: fact, s: [src-argus-4pillars]}
+  cost:
+    - {t: "獲得の原資は主に VC 資金とみられる: 2023-06 のシード 1,000 万ドルの用途は「チームの拡大とスタジオ・ツール基盤の構築」と報じられた。開発者向けの賞金・助成の額は確認できなかった。", k: fact, s: [src-argus-coindesk-seed]}
+    - {t: "Dark Frontier のプレイテスト賞金（約 7,500 ドル）を誰が負担したかは出典に書かれていない（運営の負担である可能性が高いが未確認）。", k: unknown, s: [src-argus-vamient-aw5]}
+    - {t: "創業期には Celestia の Modular Fellows（月額 3,000 ドル × 3 か月）という他社エコシステムの助成を受けていた。", k: fact, s: [src-argus-celestia-fellows]}
+  after:
+    - {t: "外部の開発者・ゲームの数は公表されていない。参照日の Argus-Labs 組織で「ゲーム」と明示されたリポジトリは自社の dark-frontier だけで、最終更新は 2024-03-18。Godot の cinco-paus も 2024-04 にアーカイブされた。", k: fact, s: [src-argus-github-org]}
+    - {t: "Dark Frontier の README は「70 万件超の取引」を処理したと述べるが、プレイヤー数・継続率は示していない。", k: fact, s: [src-argus-df-repo]}
+    - {t: "予告されたビルダープログラムの中身（参加チーム数・資金額・成果）は、取得できた一次資料では確認できなかった。", k: unknown}
+  counter:
+    - {t: "World Engine の最初の本格的な利用者は Argus 自身であり、「エンジンが外部開発者を集めた」証拠ではない。紹介記事自身が Argus を「ゲーム開発・パブリッシャー」と位置づけ、ツール企業ではないと述べている。", k: analysis, s: [src-argus-blog-intro, src-argus-4pillars]}
+    - {t: "Dark Frontier の初期参加は、Dark Forest 系の既存の関心層と賞金プールに支えられた可能性があり、エンジンの性能が人を呼んだとは切り分けられない。", k: analysis, s: [src-argus-vamient-aw5, src-argus-bolt-radar]}
+    - {t: "Four Pillars の事例はリサーチ企業による独立の実験で、本人たちも最適な使い方ではないかもしれないと述べており、スタジオの採用例とは言えない。", k: analysis, s: [src-argus-4pillars]}
+  lessons:
+    - {t: "自社タイトルを先にエンジンへ載せる（dogfooding）: エンジンの信用を「本番で何件処理したか」で示せ、ゲームキー配布と賞金で負荷試験の参加者も集められる。効く条件は自社タイトルに既存の関心層（ここでは Dark Forest 系）がいること。破綻条件は自社タイトルが止まったとき、エンジン側に外部の稼働例が残らず実績の根拠が古くなること。", k: analysis}
+    - {t: "少数招待のベータ＋直接サポート: 未成熟な基盤で初期チームを深く支援できる。破綻条件は基盤の構成を大きく変える場合（ここでは EVM 削除と v2 の全面書き直し）で、初期参加者ほど移行コストを負い、外部採用が積み上がりにくい。", k: analysis}
+  unknowns:
+    - "プライベートベータに参加したチームの数と名前。"
+    - "2024-02 に予告されたビルダープログラムの実施内容。検索要約では 2024-03 に「World Builders Fellowship」（2 か月、Celestia と共同、奨励金あり）の募集があったとされるが、X の投稿を取得できず未確認。"
+    - "Dark Frontier のプレイヤー数と、プレイテスト賞金の負担者。"
+    - "World Engine で本番稼働した外部スタジオのゲーム。"
+
 sources:
   - {id: src-argus-repo, title: "Argus-Labs/world-engine", url: "https://github.com/Argus-Labs/world-engine", publisher: "GitHub", type: code, primary: true, published: "2026-10-20", accessed: "2026-10-23", access: fetched, lang: en, note: "git clone。README（書き直し中）、docs/introduction（ティック駆動、コミュニティプラグイン）、LGPL-3.0、pkg/plugin"}
   - {id: src-argus-commits, title: "Argus-Labs/world-engine commit history", url: "https://github.com/Argus-Labs/world-engine/commits/main", publisher: "GitHub", type: code, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "blobless clone で git log を確認。2019 年のコミットは Cosmos 系コードの取り込みとみられる"}
@@ -106,3 +152,12 @@ sources:
   - {id: src-argus-argus-site, title: "Argus Labs", url: "https://argus.gg", publisher: "Argus Labs", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "World Engine の説明、Dark Frontier、投資家・顧問一覧"}
   - {id: src-argus-jobs, title: "Argus Labs is hiring (web3.career)", url: "https://web3.career/software-engineer-arguslabs/77490", publisher: "web3.career", type: news, primary: false, accessed: "2026-10-23", access: snippet, lang: en, note: "検索要約のみ。1000 万ドルのシード、Dark Frontier で 70 万件超のトランザクション"}
   - {id: src-argus-snapshots-doc, title: "Snapshots & Durability (docs/cardinal/snapshots.mdx)", url: "https://github.com/Argus-Labs/world-engine/blob/main/docs/cardinal/snapshots.mdx", publisher: "GitHub", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "検証時に git clone で確認。世界はメモリ上、SnapshotRate ごとに NOP／JETSTREAM／S3 へ非同期・ベストエフォートで保存"}
+  - {id: src-argus-blog-intro, title: "Introducing World Engine by Argus", url: "https://blog.argus.gg/world-engine", publisher: "Argus Labs blog", author: "Scott Sunarto", type: official-blog, primary: true, published: "2023-06-06", accessed: "2026-10-24", access: fetched, lang: en, note: "プライベートベータ（少数チーム、argus.gg/we-beta は参照日に 404）、Dark Forest 共同制作の系譜、ゲーム開発・パブリッシャーとしての自己規定、DBA Research Day の講演"}
+  - {id: src-argus-blog-launch, title: "World Engine — The First Gamechain SDK, Now Live.", url: "https://blog.argus.gg/world-engine-launch", publisher: "Argus Labs blog", author: "Scott Sunarto", type: official-blog, primary: true, published: "2024-02-29", accessed: "2026-10-24", access: fetched, lang: en, note: "オープンソース化、Quickstart 15 分、Dark Frontier（2023-12 稼働）、ビルダープログラムの予告、2023-05 の DBA Research Day で初公開"}
+  - {id: src-argus-celestia-fellows, title: "Meet Cohort One of Modular Fellows", url: "https://blog.celestia.org/meet-cohort-one-of-modular-fellows/", publisher: "Celestia blog", type: official-blog, primary: true, published: "2022-10-06", accessed: "2026-10-24", access: fetched, lang: en, note: "Scott Sunarto（Argus Labs 創業者）が第 1 期フェロー。3 か月・月額 3,000 ドル・マイルストーンとデモデー"}
+  - {id: src-argus-coindesk-seed, title: "Haun Ventures Leads $10M Seed Round for Web3 Gaming Studio Argus", url: "https://www.coindesk.com/web3/2023/06/06/haun-ventures-leads-10m-seed-round-for-web3-gaming-studio-argus", publisher: "CoinDesk", author: "Cam Thompson", type: news, primary: false, published: "2023-06-06", accessed: "2026-10-24", access: fetched, lang: en, note: "1,000 万ドルのシード、資金用途（チーム拡大とスタジオ・ツール基盤）、World Engine の発表"}
+  - {id: src-argus-bolt-radar, title: "Bolt Radar: chain games next big thing", url: "https://itzbolt.beehiiv.com/p/chain-games-next-big-thing", publisher: "Bolt Radar (beehiiv)", type: news, primary: false, published: "2023-12-05", accessed: "2026-10-24", access: fetched, lang: en, note: "Dark Frontier のゲームキーを 12/5 に配布予定、X フォロワー 1,899、Argus の最初のゲームになる見込み"}
+  - {id: src-argus-vamient-aw5, title: "AW Weekly #5", url: "https://paragraph.com/@vamient-labs/aw-weekly-5", publisher: "Vamient Labs (Paragraph)", type: news, primary: false, published: "2023-12-26", accessed: "2026-10-24", access: fetched, lang: en, note: "Dark Frontier の 2 週間の最初のプレイテスト終了、上位 10 人に約 7,500 ドル、World Engine Devnet 上の最初の本番ゲーム"}
+  - {id: src-argus-0xresearch, title: "Argus: The World Engine for Scalable Onchain Games | Scott Sunarto (0xResearch)", url: "https://blockworks.com/podcast/0xresearch/62e9d7ce-9ee7-11ee-be92-a7485f659556", publisher: "Blockworks", type: interview, primary: true, published: "2023-12-20", accessed: "2026-10-24", access: fetched, lang: en, note: "エピソードページの説明文のみ確認（音声・書き起こしは未確認）。Dark Frontier の稼働とオープンソースでのコンテンツ創出の狙い"}
+  - {id: src-argus-github-org, title: "Argus-Labs (GitHub organization repositories)", url: "https://github.com/orgs/Argus-Labs/repositories", publisher: "GitHub", type: code, primary: true, accessed: "2026-10-24", access: fetched, lang: en, note: "公開 15 リポジトリ。ゲームは dark-frontier（最終更新 2024-03-18）のみ、cinco-paus はアーカイブ、starter-game-template／starter-templates"}
+  - {id: src-argus-df-repo, title: "Argus-Labs/dark-frontier", url: "https://github.com/Argus-Labs/dark-frontier", publisher: "GitHub", type: code, primary: true, accessed: "2026-10-24", access: fetched, lang: en, note: "README: Dark Forest に着想を得た ZK 宇宙征服 MMORTS、Unity クライアント＋Cardinal、「70 万件超の取引」、MIT"}

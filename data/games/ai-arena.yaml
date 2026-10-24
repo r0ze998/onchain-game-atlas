@@ -3,7 +3,7 @@ name: AI Arena
 aliases: ["AI Arena - Gaming Competition"]
 kind: game
 depth: deep
-updated: "2026-10-23"
+updated: "2026-10-24"
 links:
   website: https://www.aiarena.io/
   x: https://x.com/aiarena_
@@ -134,6 +134,41 @@ article:
     - {t: "loop・training・ranking の記述の根拠とした Notion 文書は 2022-08〜09 に最終編集されたもので、2024 年の Arbitrum 版の実際の仕様（対戦相手プールの大きさ等。文書自体が「ローンチ前に確定」と書く）と一致するかは確認できない。", k: fact, s: [src-aiarena-notion-intro, src-aiarena-notion-training, src-aiarena-notion-ranking]}
     - {t: "報酬経済をオンチェーンにしたことで透明性は増したが、監査では High 8 件が見つかった。複雑な報酬規則をコントラクトに載せることは、検証可能性と同時に新しい失敗点を作った。", k: fact, s: [src-aiarena-c4-report]}
 
+acquisition:
+  audience: [players, holders]
+  summary: {t: "確認できた最初のまとまった参加者は、2024 年初めのテストネット施策「Gateway to the Arena」に集まった約 8000 人で、暗号資産ゲーム界隈のインフルエンサー 8 人を隊長とするチーム制と、NRN エアドロップの配分倍率によって集められた。それ以前（2021 年の資金調達発表〜2023 年）の初期プレイヤーや NFT 保有者の規模は確認できなかった。", k: analysis, s: [src-aiarena-decrypt-airdrop-team, src-aiarena-gtarena-snippet, src-aiarena-coindesk-seed]}
+  steps:
+    - {phase: pre, date: "2021-10-27", t: "Paradigm 主導の 500 万ドルのシードを発表。CoinDesk は Ethereum 上の対戦ゲームとして紹介し、公開は 2022 年 Q1 末〜Q2 初めの見込みと報じた（確認できたプレリリース施策は 2024 年初め、NRN の請求開始は 2024-06 で、見込みより大きく遅れた）。", k: fact, s: [src-aiarena-coindesk-seed, src-aiarena-decrypt-tge]}
+    - {phase: pre, date: "2024-01-12", t: "Framework Ventures 主導で 600 万ドルの調達を発表。", k: fact, s: [src-aiarena-betakit-2024]}
+    - {phase: pre, t: "公式の Gateway to the Arena ページ（参照日には 404、検索要約のみで確認）は、テストネットで 4000 万 NRN を配るプレイ・トゥ・エアドロップを 2024 年 Q1 に行い誰でも参加できるとし、Discord での事前登録・紹介リンク経由の登録・2024-01 中旬のスナップショット時点の AI Arena NFT 保有がアクセス倍率に効くと記していた。", k: claim, who: "AI Arena 公式ページ（検索要約のみ）", s: [src-aiarena-gtarena-snippet]}
+    - {phase: launch, date: "2024-03", t: "Gateway to the Arena は YellowPanther・Wale ら 8 人のインフルエンサーがそれぞれ約 1000 人のチームを率いる形で約 8000 人が参加し、3 サイクルの最終ラウンドが 2024-03 中旬に終わった。フォロワーの多い隊長や事前に勧誘した隊長ほどチームが早く埋まったと報じられた。", k: fact, s: [src-aiarena-decrypt-airdrop-team]}
+    - {phase: launch, date: "2024-03", t: "運営は競技期間中に 70 万回超の試合があったと X で報告した（Decrypt の記事に埋め込まれた投稿。独立の計測ではない）。", k: claim, who: "AI Arena（X 投稿）", s: [src-aiarena-decrypt-airdrop-team]}
+    - {phase: growth, date: "2024-06-24", t: "NRN の請求を開始。エアドロップ 8000 万 NRN のうち半分がプレイ施策、半分がコミュニティ参加に紐づく NRN Boxes で、請求開始の約 1 時間後に中央集権取引所への上場が予定された。", k: fact, s: [src-aiarena-decrypt-tge, src-aiarena-decrypt-airdrop-team]}
+  channels:
+    - {id: creator-stream, t: "暗号資産ゲーム界隈のインフルエンサー・コンテンツ制作者 8 人を隊長に据え、各自が約 1000 人のチームを集めた。隊長には成績連動の別の報酬プールがあった。", k: fact, s: [src-aiarena-decrypt-airdrop-team]}
+    - {id: token-incentive, t: "将来の NRN エアドロップ（プレイ施策分は 4000 万 NRN）を、個人の AI ファイターの成績とチーム成績の倍率で配分した。", k: fact, s: [src-aiarena-decrypt-airdrop-team, src-aiarena-decrypt-tge]}
+    - {id: prize-competition, t: "3 サイクルのチーム対抗戦で、チームの順位が個人の配分倍率を大きく左右した。", k: fact, s: [src-aiarena-decrypt-airdrop-team]}
+    - {id: community-server, t: "Discord サーバーでのウォレット事前登録がアクセス倍率の条件の一つとされた（検索要約のみ）。", k: claim, who: "AI Arena 公式ページ（検索要約のみ）", s: [src-aiarena-gtarena-snippet]}
+    - {id: referral, t: "限定の紹介リンク経由の登録がアクセス倍率の条件の一つとされた（検索要約のみ）。", k: claim, who: "AI Arena 公式ページ（検索要約のみ）", s: [src-aiarena-gtarena-snippet]}
+    - {id: existing-community, t: "2024-01 中旬のスナップショット時点で AI Arena の NFT を保有していたウォレットを優遇した（検索要約のみ）。保有者の人数は不明。", k: claim, who: "AI Arena 公式ページ（検索要約のみ）", s: [src-aiarena-gtarena-snippet]}
+  cost:
+    - {t: "参加の原資は NRN の発行（エアドロップ総量 8000 万 NRN、隊長向けの別プール）と、開発・運営を支えた VC 資金（シード 500 万ドルと 2024-01 の 600 万ドル、いずれも報道）。エアドロップの金額換算は確認できなかった。", k: fact, s: [src-aiarena-decrypt-tge, src-aiarena-decrypt-airdrop-team, src-aiarena-coindesk-seed, src-aiarena-betakit-2024]}
+  after:
+    - {t: "エアドロップ配布後のアクティブ数、Ranked Battle の試合数、施策参加者の継続率は公表資料で確認できなかった。示されているのは施策期間中の参加者数（約 8000 人）と運営申告の試合数だけである。", k: unknown}
+    - {t: "2025-01 にプロジェクトは NRN Agents に改名し、AI Arena は NRN エコシステムの一製品と位置付けられた。参照日時点で運営会社のサイトはロボティクス・強化学習の評価基盤を掲げる。", k: fact, s: [src-aiarena-notion-nrn-primer, src-aiarena-arenax-site]}
+  counter:
+    - {t: "約 8000 人という数字は 8 チーム×約 1000 人というチーム定員と一致しており、需要の大きさではなく枠の上限を示している可能性がある。", k: analysis, s: [src-aiarena-decrypt-airdrop-team]}
+    - {t: "参加の動機はエアドロップの配分であり、運営自身がボット農場（多重ウォレット）を抑える設計を語っている。参加者がゲームそのものに惹かれたのか、トークン目当ての一時流入かは区別できない。", k: analysis, s: [src-aiarena-decrypt-airdrop-team]}
+    - {t: "施策は誰でも遊べる無料版と NFT が必要な Arbitrum 版の 2 本立てで行われており、8000 人のうちオンチェーンの資産を持った人数は分からない。", k: analysis, s: [src-aiarena-decrypt-airdrop-team]}
+  lessons:
+    - {t: "インフルエンサー隊長制のチーム型エアドロップ: 隊長ごとに定員付きのチームを作り、チーム成績を個人の配分倍率にすると、隊長が自分のフォロワーを勧誘する動機を持つ。効く条件は隊長に独自の報酬があり、チームの勝敗が配分を大きく動かすこと。破綻条件は配布が終わった時点で勧誘の動機も消えることで、配布後の定着を示す数字はこの例でも示されていない。", k: analysis}
+    - {t: "倍率を大きく振って多重アカウントの割を悪くする: 少数のアカウントに集中した方が得になるよう倍率を設計すると、ボット農場の採算を下げられると運営は説明した。効く条件は倍率の差がアカウント数の効果を上回ること。破綻条件は倍率の算定基準（成績・チーム）自体が自動化で稼げる場合。", k: analysis}
+  metrics: [m-aiarena-gateway-players, m-aiarena-airdrop, m-aiarena-seed, m-aiarena-round-2024]
+  unknowns:
+    - "Gateway to the Arena の参加条件の一次資料（公式ページは参照日に 404 で、検索要約しか確認できなかった）。"
+    - "2022〜2023 年の初期 NFT（Champions・Mint Pass）の販売時期・数量・購入者数と、彼らが施策参加者に占める割合。"
+    - "隊長への報酬額、エアドロップの金額換算、配布後の参加者の残存率。"
+
 metrics:
   - {id: m-aiarena-seed, type: funding, value: 5000000, unit: USD, period: "2024-01 以前（時期未確認）", definition: "Paradigm 主導のシードラウンド（報道による）", nature: reported, s: [src-aiarena-betakit-2024]}
   - {id: m-aiarena-round-2024, type: funding, value: 6000000, unit: USD, period: "2024-01", definition: "Framework Ventures 主導の資金調達（報道による）", nature: reported, s: [src-aiarena-betakit-2024]}
@@ -186,3 +221,5 @@ sources:
   - {id: src-aiarena-nero-aiide, title: "The NERO Video Game", url: "https://ojs.aaai.org/index.php/AIIDE/article/view/18771", publisher: "AAAI (AIIDE 2006 Demonstration)", author: "Kenneth O. Stanley, Igor Karpov, Risto Miikkulainen, Aliza Gold", type: paper, primary: true, published: "2006", accessed: "2026-10-23", access: fetched, lang: en, note: "検証役が追加。プレイヤーがロボット部隊を訓練し他プレイヤーのチームと戦わせる研究ゲーム、2005-06 公開、5 万ダウンロード超"}
   - {id: src-aiarena-decrypt-tge, title: "Ethereum Fighting Game 'AI Arena' Sets NRN Token Launch", url: "https://decrypt.co/236491/ethereum-fighting-game-ai-arena-token-launch", publisher: "Decrypt", type: news, primary: false, published: "2024-06-21", accessed: "2026-10-23", access: fetched, lang: en, note: "2024-06-24 請求開始、8000 万 NRN エアドロップ、Arbitrum"}
   - {id: src-aiarena-gamesbeat-arc, title: "ArenaX Labs launches ARC AI game infrastructure and SAI research platform", url: "https://gamesbeat.com/arenax-labs-launches-arc-ai-game-infrastructure-and-sai-research-platform/", publisher: "GamesBeat", type: news, primary: false, published: "2024-04-15", accessed: "2026-10-23", access: fetched, lang: en, note: "ARC（模倣学習のホワイトラベル SDK）と SAI（研究競技プラットフォーム）。2025-06-17 更新。NRN Agents への改名やロボティクスには触れていない"}
+  - {id: src-aiarena-coindesk-seed, title: "Paradigm Leads $5M Seed Funding Round for Play-to-Earn Game AI Arena", url: "https://malaysia.news.yahoo.com/paradigm-leads-5m-seed-round-160000711.html", publisher: "CoinDesk（Yahoo News Malaysia 転載）", author: "Brandy Betz", type: news, primary: false, published: "2021-10-27", accessed: "2026-10-24", access: fetched, lang: en, note: "Paradigm 主導 500 万ドル、Ethereum 上の対戦ゲーム、2022 年 Q1 末〜Q2 初めの公開見込み、模倣学習と自己対戦"}
+  - {id: src-aiarena-gtarena-snippet, title: "Gateway to the Arena（検索結果の要約）", url: "https://gtarena.super.site", publisher: "AI Arena", type: official-docs, primary: true, accessed: "2026-10-24", access: snippet, lang: en, note: "参照日に HTTP 404。検索要約で、テストネットのプレイ・トゥ・エアドロップ（4000 万 NRN）、2024 年 Q1、誰でも参加可、Discord 事前登録・紹介リンク・NFT 保有スナップショットによるアクセス倍率を確認。公開日は未確認"}

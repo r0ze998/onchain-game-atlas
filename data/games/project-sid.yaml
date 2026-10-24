@@ -3,7 +3,7 @@ name: "Project Sid: Many-agent simulations toward AI civilization"
 aliases: ["Project Sid", "PIANO"]
 kind: research
 depth: index
-updated: "2026-10-23"
+updated: "2026-10-24"
 links:
   website: https://arxiv.org/abs/2411.00114
   github: https://github.com/altera-al/project-sid
@@ -71,6 +71,8 @@ article:
     - {t: "税法の実験は 25 人の有権者に賛成・反対の影響力エージェント 3 人と選挙管理エージェント 1 人を配置した設計で、税の時期も信号で知らされた。報告自身が、エージェントは基盤モデルの既存知識に基づくため民主制や貨幣のような制度の de novo な発生はシミュレートできないと限界に書いている。", k: fact, s: [src-sid-paper]}
     - {t: "報告は、視覚と空間推論の欠如により建築などの協働が制限されると述べる。生産・建設が中心の文明ゲームにそのまま当てはめられる証拠ではない。", k: fact, s: [src-sid-paper]}
     - {t: "チェーンを一切使わずに、多数エージェントの社会実験（統治・分業・文化伝播）を実施できた。エージェント文明にブロックチェーンが必要だという主張への反証になる一方、所有や第三者の拡張を扱っていないため、チェーンが役立つ部分を否定する証拠でもない。", k: analysis, s: [src-sid-paper]}
+
+acquisition: {applies: false, note: "技術報告（arXiv）と動画の公開であり、利用者獲得の対象ではない。報告の 10〜1000 人超は研究者が配置した LLM エージェントで、人間の参加者ではない。コードは非公開で一般参加の経路もなく、人間のプレイヤーを集めた記録は確認できなかった（報告は人間との実時間交流を可能にする設計と述べるのみ）。"}
 
 events:
   - {id: ev-sid-paper, date: "2024-10-31", type: paper, title: "技術報告を arXiv と GitHub で公開", s: [src-sid-arxiv, src-sid-github]}

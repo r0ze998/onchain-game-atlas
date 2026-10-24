@@ -4,7 +4,7 @@ name_ja: ダーク・フォレスト
 aliases: [DF, "Dark Forest v0.6"]
 kind: game
 depth: deep
-updated: "2026-10-23"
+updated: "2026-10-24"
 links:
   website: https://zkga.me/
   x: https://x.com/darkforest_eth
@@ -165,6 +165,60 @@ article:
     - {t: "拡張文化は当初からの設計方針ではなかった可能性がある。コア貢献者 Ivan Chub は、ゲームがフォークされたとき当初は腹を立てたが、それを強みとして受け入れることにしたと講演で述べた（第三者記事内の引用）。", k: claim, who: "Ivan Chub（Hard Mode First の記事内引用）", s: [src-df-hardmode]}
     - {t: "ZK による霧が遊びの中心だったかどうかについては、上位争いが探索 GPU・自動化・集団協調で決まっていた記述が多く、プレイヤー体験の中心が「霧の駆け引き」より「計算とツールの競争」だった可能性がある。", k: analysis, s: [src-df-r1-wrapup, src-df-r3-wrapup]}
 
+acquisition:
+  audience: [players, developers]
+  summary: {t: "最初のプレイヤーは、開発者 Brian Gu（gubsheep）が 2019 年から関わっていた Ethereum Foundation のワークショップや Semaphore 周辺の ZK 研究者と、内部 alpha プレイテストの参加者だった。v0.3 は「Ethereum と ZK のコミュニティ」へ招待鍵を配る半非公開ベータとして始まり、以後も鍵の供給量（待機リストへの約 1000 本、v0.6 の数千本、得点者への次ラウンド鍵）で参加者数を段階的に増やした。", k: analysis, s: [src-df-zkpodcast-141, src-df-v3-rules, src-df-v05, src-df-announce-v6, src-df-r1-wrapup]}
+  steps:
+    - {phase: pre, date: "2019", t: "Dark Forest は MIT の学部生 Brian Gu のプロジェクトとして始まり、2019 年の最初の版の盤面は 1 次元の輪だった（第三者分析）。", k: fact, s: [src-df-naavik]}
+    - {phase: pre, date: "2019", t: "Brian Gu は Ethereum Foundation のワークショップで Wei Jie・Kobi・Barry と知り合い、2019 年秋に Dark Forest と並行して Semaphore の trusted setup 用ツールを調べたと語った。学部生を EF のワークショップに連れて行っているとも述べている。", k: claim, who: "Brian Gu（ZK Podcast 141）", s: [src-df-zkpodcast-141], q: "I met Wei Jie and Kobi and Barry at some of these workshops as well"}
+    - {phase: pre, date: "2020-08", t: "公開前に 1 回のプレイテストと内部 alpha プレイテストを行い、参加者の Kobi が MiMC ハッシュを並列計算するコードを書いて誰よりも速く惑星を見つけたと開発者は語った（収録は公開の約 2 週間前）。", k: claim, who: "Brian Gu（ZK Podcast 141）", s: [src-df-zkpodcast-141], q: "We did run one play test earlier in, and we've been running some like more like alpha kind of like internal play tests as well."}
+    - {phase: pre, date: "2020-08-02", t: "公式ブログで v0.3 を「ホワイトリスト制・半非公開」のベータとして告知し、賞金 1024 DAI を用意した。更新はブログ購読と Twitter で知らせるとした。", k: fact, s: [src-df-announce], q: "This beta will be whitelisted and semi-private, and includes only a limited featureset."}
+    - {phase: pre, date: "2020-08-03", t: "ルール記事で、招待鍵を Ethereum と ZK のコミュニティのプレイヤーに開始前から期間中にかけて配ると説明した。鍵は譲渡でき、複数の鍵を自分で使ってもよく、追加の鍵を公開配布することもあり、欲しい人はメーリングリスト登録か Twitter のフォローを求められた。", k: fact, s: [src-df-v3-rules], q: "We’ll be distributing invite keys to players in the Ethereum and ZK communities"}
+    - {phase: pre, date: "2020-08-05", t: "ZK 研究者向けポッドキャスト Zero Knowledge の回「ZK & Games: Dark Forest with Brian Gu」が公開され、ZK による戦場の霧と 8 月 7 日の開始予定が紹介された。", k: fact, s: [src-df-zkpodcast-141]}
+    - {phase: launch, date: "2020-08", t: "v0.3 を Ropsten テストネットで 1 週間実施し、約 300 人で Ropsten をほぼ破綻させたと運営は振り返った。", k: fact, s: [src-df-v3-rules, src-df-v4-recap]}
+    - {phase: launch, date: "2020-10", t: "v0.4 を xDai で実施し、参加者は約 600 人。公開 RPC の過負荷で週の途中に追加の招待送付を止めた。質問対応は Telegram で行われた。", k: fact, s: [src-df-v4-recap], q: "we had to put a pause on sending out additional invitations midway through the week"}
+    - {phase: growth, date: "2020-12-25", t: "v0.5 で約 1000 本の招待鍵を待機リストへ送り、プラグイン機構を導入した。2021-02 にはプラグインコンテストの受賞作を発表した。", k: fact, s: [src-df-v05, src-df-plugins-contest], q: "We’re sending out about 1000 invite keys to the waitlist."}
+    - {phase: growth, date: "2021-05-21", t: "v0.6 では開始数日で数千本の招待鍵を Ethereum コミュニティの人々に送り、メーリングリストと Twitter・Discord・Twitch での無作為な鍵配布も続け、R1 で得点 1 以上の人に次ラウンドの鍵を与えるとした。道具を作るプレイヤー向けに Developer Grants も予告した。", k: fact, s: [src-df-announce-v6], q: "Several thousand invite keys will be sent out to Ethereum community members over the first few days of the round."}
+    - {phase: growth, date: "2021-06", t: "R1 のホワイトリスト登録は 1700 強で、700 人がシルバーを 1 以上引き出して次ラウンドの鍵を得た。以後 R2 約 1900、R3 2500 超と運営は発表した。", k: fact, s: [src-df-r1-wrapup, src-df-r2-wrapup, src-df-r3-wrapup]}
+    - {phase: growth, date: "2021-12", t: "運営は Discord が 8000 人超、直近の Gitcoin Grants で 1 万人超から約 17.5 万ドルを集めたと述べ、ギルド・DAO の急拡大に触れた。", k: fact, s: [src-df-holiday]}
+    - {phase: growth, date: "2022-03", t: "Lobbies とコミュニティラウンドの指針を公開し、宇宙を開いて人を集める役割を dfdao・277DAO・MarrowDAO などプレイヤー集団にも開いた。", k: fact, s: [src-df-lobbies, src-df-community-round]}
+  channels:
+    - {id: existing-community, t: "v0.3 の招待鍵は Ethereum と ZK のコミュニティに、v0.6 の数千本は Ethereum コミュニティの人々に配られ、開発者自身も EF のワークショップや Semaphore 周辺の研究者とつながっていた。", k: fact, s: [src-df-v3-rules, src-df-announce-v6, src-df-zkpodcast-141]}
+    - {id: invite-gating, t: "全ラウンドがホワイトリスト制で、待機リストへの約 1000 本（v0.5）や得点者への次ラウンド鍵（v0.6）のように鍵の配り方で参加者の数と顔ぶれを決めた。v0.4 では負荷のため送付を止めた。", k: fact, s: [src-df-announce, src-df-v05, src-df-announce-v6, src-df-r1-wrapup, src-df-v4-recap]}
+    - {id: prize-competition, t: "v0.3 と v0.5 は 1024 DAI の賞金、v0.6 は上位 63 名に Ethereum mainnet の惑星 NFT を賞品にした期間限定ラウンドとして開催した。", k: fact, s: [src-df-v3-rules, src-df-v05, src-df-announce-v6]}
+    - {id: builder-grants, t: "v0.6 で道具を作るプレイヤー向けの Developer Grants を予告し、各ラウンドでプラグイン・第三者コントラクト・ツールの作者に特別賞の NFT を授与した。", k: fact, s: [src-df-announce-v6, src-df-r1-wrapup, src-df-r3-wrapup]}
+    - {id: crypto-social, t: "鍵の入手方法としてメーリングリストと Twitter のフォローを案内し、v0.6 では Twitter・Discord・Twitch で無作為に鍵を配った。", k: fact, s: [src-df-v3-rules, src-df-announce-v6]}
+    - {id: content-research, t: "ZK 回路のエンジニア向け解説記事を公開し、開始直前には ZK 研究者向けポッドキャストに開発者が出演した。", k: fact, s: [src-df-init-circuit, src-df-zkpodcast-141]}
+    - {id: community-server, t: "v0.4 では Telegram で質問対応とコード共有が行われ、2021-12 には Discord が 8000 人超になった。", k: fact, s: [src-df-v4-recap, src-df-holiday]}
+    - {id: composability, t: "v0.5 のプラグイン機構とプラグインコンテスト以後、プレイヤーがプラグイン・市場・マイナーなどを作って配る場ができ、gubsheep は Dark Forest で暗号資産や ZK を知った参加者が ZK の生態系に貢献するようになったと述べた。", k: claim, who: "gubsheep（ZK Podcast 225）", s: [src-df-plugins-contest, src-df-r3-wrapup, src-df-zkpodcast-225], q: "a number of our community members who have discovered either crypto or specifically ZK through Dark Forest"}
+  cost:
+    - {t: "賞金・賞品は運営側が用意した（v0.3/v0.5 は 1024 DAI、v0.6 は mainnet の惑星 NFT）。告知記事は出資者を明記していないが、v0.6 告知は「これまで完全にコミュニティの寄付で支えられてきた」と述べる。", k: fact, s: [src-df-v3-rules, src-df-v05, src-df-announce-v6], q: "So far, Dark Forest has been entirely supported by community contributions."}
+    - {t: "開発と運営の原資は Gitcoin Grants の寄付（2021 年末の直近ラウンドで 1 万人超から約 17.5 万ドル）と 0xPARC（主な資金源）で、0xPARC は寄付と助成だけで運営されていると gubsheep は述べた。", k: fact, s: [src-df-holiday, src-df-zkpodcast-225]}
+    - {t: "参加者はバーナーウォレットに少額の xDai を配られて最初の手を打てたため、ガス代の一部も運営負担だった。代替可能トークンはなく、後から来た参加者が先行者に払う構造はない。", k: fact, s: [src-df-df04-faq, src-df-df05-faq, src-df-announce-v6]}
+  after:
+    - {t: "運営発表の参加者数は v0.3 約 300 → v0.4 約 600 → v0.6 R1 1700 強 → R3 2500 超 → R5 約 2000 と推移した。ただし定義は回ごとに異なり、一意ウォレット単位の継続率は公表されていない。", k: fact, s: [src-df-v4-recap, src-df-r1-wrapup, src-df-r3-wrapup, src-df-r5-wrapup]}
+    - {t: "次ラウンドの鍵を得た人数（R1 700、R2 800、R3 約 1000、R4 750 超）は再参加の「資格」を示すだけで、実際に戻った人数は示されていない。", k: fact, s: [src-df-r1-wrapup, src-df-r2-wrapup, src-df-r3-wrapup, src-df-r4-wrapup]}
+    - {t: "残った層は上位プレイヤーの集団化として見える。dfdao の Will Robinson はリーダーボード上位者に Twitter の DM で声をかけて DAO を作り、orden_gg 系の集団は R2〜R5 で上位を続けた。", k: fact, s: [src-df-hardmode, src-df-r5-wrapup]}
+    - {t: "初期の参加者から開発側に移った例がある。gubsheep は v0.4 で上位 2 人の一人だった Blaine が ZK の生態系に大きく貢献したと述べ、Blaine Bublitz は後に公式ブログに Diamond 移行の記事を書いた。", k: claim, who: "gubsheep（ZK Podcast 225）", s: [src-df-zkpodcast-225, src-df-diamond]}
+    - {t: "2022-07 に公式のラウンド駆動開発が休止し、集まった参加者を公式ラウンドで受け止める場はなくなった。その後はコミュニティラウンドに移った。", k: fact, s: [src-df-summer-break, src-df-fgw-dfdao]}
+  counter:
+    - {t: "参加者数の伸びは、配った鍵の量（v0.5 約 1000、v0.6 数千）と負荷の上限（v0.4 で送付停止）に強く縛られており、「何人が遊びたかったか」ではなく「運営が何人入れたか」を表す。告知・コンテンツの効果と鍵の供給増の効果は切り分けられない。", k: analysis, s: [src-df-v05, src-df-announce-v6, src-df-v4-recap]}
+    - {t: "v0.3 のルールは複数の鍵を自分で使うことを認めており、v0.6 は自動化を公認していた。発表された参加者数には複数アカウントやボットが含まれ得る。", k: analysis, s: [src-df-v3-rules, src-df-gameplay-policy]}
+    - {t: "Gitcoin の 1 万人超の寄付者や Discord 8000 人はプレイヤー数ではなく、ZK・公共財への関心で集まった層を含む。寄付の数字を「ゲームの利用者を集めた」証拠として読むことはできない。", k: analysis, s: [src-df-holiday]}
+    - {t: "v0.6（2021-05〜2022-02）は Axie Infinity などブロックチェーンゲーム全般が伸びた時期と重なっており、参加者の増加を Dark Forest 固有の施策だけで説明することはできない（市況との切り分けはしていない）。", k: analysis}
+    - {t: "第三者分析は、14 日間のラウンドの総アクティブ数が Axie Infinity の毎秒の数より少ないと述べており、伸びは界隈内の小規模なものだった。", k: claim, who: "Naavik (Anthony Pecorella)", s: [src-df-naavik]}
+  lessons:
+    - {t: "研究コミュニティへの招待鍵配布: 新しい暗号技術そのものが見どころなら、最初の数百人はその技術の研究者・開発者コミュニティに鍵を配るだけで集まり、ハッシュ計算の並列化のような「技術で勝つ」遊びを最初から持ち込んでくれる。効く条件は技術的な新規性が研究者にとって触る理由になること。破綻条件は一般プレイヤーへの拡大で、上位が計算資源とスクリプト力を持つ層に固定され、新規参加者の勝ち目が見えなくなる。", k: analysis}
+    - {t: "得点を次ラウンドの鍵に変える段階的開放: 「得点 1 以上で次の鍵」のように最低限遊んだ人に優先権を与えると、ラウンド間で一定数の経験者を残しつつ、空いた枠を新しい鍵で埋められる。効く条件は需要が供給（鍵・チェーン容量）を上回っていること。破綻条件は鍵が譲渡・複数利用でき、得点条件が自動化で容易に満たせる場合で、鍵が人ではなくアカウントに配られる。", k: analysis}
+    - {t: "道具の作者への特別賞: 賞金ラウンドの順位とは別に、プラグイン・市場・マイナーの作者に賞を出すと、プレイヤーの一部が開発者として残り、後から来る人の参入障壁（UI・自動化）を下げる道具が増える。効く条件はクライアントとコントラクトが公開されていること。破綻条件は道具が秘密鍵に触れる設計で信頼の経路がない場合と、道具が上位集団の内部にとどまり共有されない場合。", k: analysis}
+  metrics: [m-df-v03-players, m-df-v04-players, m-df-v05-invites, m-df-v06r1-whitelisted, m-df-v06r3-players, m-df-v06r5-players, m-df-invite-keys-earned, m-df-gitcoin-2021, m-df-discord-2021-12, m-df-prize-v03]
+  unknowns:
+    - "v0.3 で配った招待鍵の数と、内部 alpha プレイテストの参加人数。"
+    - "待機リストの登録者数（需要の大きさ）と、鍵を受け取った人のうち実際に参加した割合。"
+    - "v0.3・v0.5 の賞金 1024 DAI を誰が拠出したか（告知記事には記載がない）。"
+    - "各ラウンドの参加者のうち新規と再参加の内訳。"
+    - "ZK Podcast 出演や Twitter での告知が参加申込みにどれだけ寄与したか。"
+
 metrics:
   - {id: m-df-v03-players, type: players, value: 300, value_text: "約 300", unit: players, period: "2020-08（v0.3）", definition: "運営が v0.4 振り返りで述べた v0.3 の参加者数（定義不明）", nature: reported, s: [src-df-v4-recap]}
   - {id: m-df-v04-players, type: players, value: 600, value_text: "約 600（Nearly 600）", unit: players, period: "2020-10（v0.4）", definition: "運営発表の参加者数（定義不明）", nature: reported, s: [src-df-v4-recap]}
@@ -262,3 +316,5 @@ sources:
   - {id: src-df-naavik, title: "Dark Forest: A Beacon of Light for Blockchain Games", url: "https://naavik.co/deep-dives/dark-forest-beacon-of-light/", publisher: "Naavik", author: "Anthony Pecorella", type: analysis, primary: false, published: "2022-06-20", accessed: "2026-10-23", access: fetched, lang: en, note: "起源、0xPARC、遅延・証明コスト・アーティファクト非互換などの批判"}
   - {id: src-df-hardmode, title: "Dark Forest Community Synopsis", url: "https://hardmodefirst.xyz/dark-forest-community-synopsis.md", publisher: "Hard Mode First", type: analysis, primary: false, published: "2022-08-16", accessed: "2026-10-23", access: fetched, lang: en, note: "dfdao の形成、2022-02 ラウンド約 1800 人、55 プラグイン、関係者の発言"}
   - {id: src-df-fgw-dfdao, title: "Dark Forest DAO: Games as mediums of technological experimentation and exploration", url: "https://frontiergamingwatch.substack.com/p/dark-forest-dao-games-as-mediums", publisher: "Frontier Gaming Watch", type: interview, primary: false, published: "2022-07-26", accessed: "2026-10-23", access: fetched, lang: en, note: "dfdao の Arena / Grand Prix（5 週間）/ Galactic League"}
+  - {id: src-df-zkpodcast-141, title: "ZK & Games: Dark Forest with Brian Gu (Zero Knowledge Podcast, Episode 141)", url: "https://github.com/ZeroKnowledgefm/episode-transcripts/blob/main/episodes/Episode%20141.txt", publisher: "Zero Knowledge Podcast", author: "Anna Rose（ホスト）, Brian Gu（ゲスト）", type: interview, primary: true, published: "2020-08-05", accessed: "2026-10-24", access: fetched, lang: en, note: "書き起こし全文を取得（raw）。公開日は番組ページ zeroknowledge.fm/?p=19915 の表記 05.08.2020（日.月.年）。EF ワークショップでの出会い、公開前のプレイテストと内部 alpha、Kobi の並列ハッシュ、8/7 開始予定、Twitter での告知予定"}
+  - {id: src-df-zkpodcast-225, title: "Dark Forest and 0xPARC with Gubsheep (Zero Knowledge Podcast, Episode 225)", url: "https://github.com/ZeroKnowledgefm/episode-transcripts/blob/main/episodes/Episode%20225.txt", publisher: "Zero Knowledge Podcast", author: "Anna Rose（ホスト）, gubsheep（ゲスト）", type: interview, primary: true, published: "2022-04-13", accessed: "2026-10-24", access: fetched, lang: en, note: "書き起こし全文を取得（raw）。公開日は zeroknowledge.fm/225 の表記 13.04.2022。初期は単独プレイヤーが主、DAO・ギルドの登場、Dark Forest で ZK を知った参加者の貢献、ludens が DF を知って連絡してきた経緯、0xPARC は寄付と助成で運営"}

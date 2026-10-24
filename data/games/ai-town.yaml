@@ -3,7 +3,7 @@ name: AI Town
 aliases: ["a16z-infra/ai-town"]
 kind: engine
 depth: index
-updated: "2026-10-23"
+updated: "2026-10-24"
 links:
   play: https://www.convex.dev/ai-town
   discord: https://discord.gg/PQUmTBTGmT
@@ -67,6 +67,40 @@ article:
     - {t: "「共有状態・決定的なステップ実行をデータベースで実現できる」という見方には限界がある。参加者は状態遷移の正しさを独立に検証できず、デプロイした者は状態を任意に書き換え・停止できる（testing:stop、5 分放置で停止する cron）。チェーンが提供する第三者検証・運営からの独立性は AI Town では扱われていない。", k: analysis, s: [src-aitown-repo]}
     - {t: "人間とエージェントが同じ入力経路で行動できる設計は確認できるが、人間とエージェントが混在する町で長期的な遊びが生まれたことを示す資料は見つからなかった。「人間と AI が同じ世界で遊ぶ基盤」が実際に使われた規模は不明。", k: unknown}
 
+acquisition:
+  audience: [developers, players]
+  summary: {t: "最初の利用者は、a16z の名義と「Generative Agents 論文を JS/TS で動かせるスターターキット」という打ち出しで知った開発者と、ブラウザのデモ（convex.dev/ai-town）を見に来た人の二層だった。公開から数週間で GitHub のスターが 5000 を超えたと Convex は書くが、デモの利用者数は公表されていない。", k: analysis, s: [src-aitown-repo, src-aitown-cryptoslate, src-aitown-convex-v2]}
+  steps:
+    - {phase: pre, date: "2023-07-15", t: "リポジトリでの開発がこの日のコミットから始まった。", k: fact, s: [src-aitown-repo]}
+    - {phase: launch, date: "2023-08", t: "a16z がポートフォリオ企業 Convex と協業したコードを MIT ライセンスで公開し、Stanford の Generative Agents 論文に着想を得たものとして報じられた（CryptoSlate、2023-08-16）。README は「デプロイ可能なスターターキット」と位置付け、ライブデモへのリンクを置く。", k: fact, s: [src-aitown-cryptoslate, src-aitown-repo]}
+    - {phase: growth, t: "Convex は、実験として公開してから数週間で GitHub のスターが 5000 を超え、AI Silicon Valley・Cat Town・Zaranova などのクローンが生まれたと書き、v2 で人間が町を歩いてエージェントと会話できるようにし、地図エディタを加えた。", k: claim, who: "Convex（stack.convex.dev の AI Town v2 記事）", s: [src-aitown-convex-v2], q: "we were surprised at how much attention the project gained"}
+    - {phase: growth, date: "2026-10-24", t: "参照日時点のリポジトリはスター 10.7k・フォーク 1.2k を表示し、README は Pinokio でワンクリック導入できるコミュニティフォークに言及する。", k: fact, s: [src-aitown-repo]}
+  channels:
+    - {id: content-research, t: "話題の研究論文 Generative Agents（Smallville）を、Python の研究コードではなく JS/TS で自分の町を作れる形に再構成したことを README と報道が前面に出した。", k: fact, s: [src-aitown-repo, src-aitown-cryptoslate]}
+    - {id: ip-brand, t: "Andreessen Horowitz（a16z）のインフラ系 GitHub 組織から公開され、報道の見出しも「VC firm a16z releases」と a16z を主語にした。", k: fact, s: [src-aitown-cryptoslate]}
+    - {id: composability, t: "MIT ライセンスのフォークで自分の町を作れることが利用の中心で、Convex は AI Silicon Valley・Cat Town・Zaranova などのクローンを挙げた。", k: claim, who: "Convex（AI Town v2 記事）", s: [src-aitown-convex-v2, src-aitown-repo]}
+    - {id: community-server, t: "開発者向け Discord「AI Stack Devs」に #ai-town-dev チャンネルを置いた。", k: fact, s: [src-aitown-convex-v2, src-aitown-repo]}
+    - {id: press, t: "暗号資産メディアの CryptoSlate が、ブロックチェーン要素のない AI プロジェクトとして公開を報じた。", k: fact, s: [src-aitown-cryptoslate]}
+  cost:
+    - {t: "デモのホスティングと LLM の費用は運営側（a16z / Convex）、フォークした町の費用はデプロイした者が負担する。集客のための支出の記録は見つからなかった。", k: analysis, s: [src-aitown-repo]}
+  after:
+    - {t: "GitHub のスター・フォークは参照日まで増え続けた（v2 記事時点で 5000 超、参照日 10.7k・1.2k）が、これは開発者の関心の指標であり、デモや派生した町の利用者数・継続率は公表されていない。", k: fact, s: [src-aitown-convex-v2, src-aitown-repo]}
+  counter:
+    - {t: "スター数は関心の指標で、実際にデプロイした人数や遊んだ人数ではない。人間がエージェントと同じ町で継続的に遊んだ証拠は見つからなかった。", k: analysis, s: [src-aitown-repo]}
+    - {t: "公開は Generative Agents 論文の話題の直後で、関心の多くは論文と LLM エージェントへの注目に由来した可能性がある。a16z の名義と論文の話題性のどちらが効いたかは区別できない。", k: analysis, s: [src-aitown-cryptoslate, src-ga-arxiv]}
+    - {t: "参加者のうち人間とエージェントは区別して数えられておらず、町の「住人」の大半は LLM エージェントである。", k: analysis, s: [src-aitown-repo]}
+  lessons:
+    - {t: "話題の研究をフォーク可能なスターターキットにする: 論文で注目された仕組みを、扱いやすい言語・ホスティング込みで再構成し、ライブデモを添えると、開発者を短期間で集められる。効く条件は元の研究が既に広く知られ、元のコードが動かしにくいこと。破綻条件はフォークが増えても運営側に利用者が残らないことで、この例でも集まったのは開発者の関心（スター・フォーク）で、町の利用者ではない。", k: analysis}
+  metrics: [m-aitown-stars-v2, m-aitown-github-2026]
+  unknowns:
+    - "デモ（convex.dev/ai-town）の訪問者数・利用者数。"
+    - "AI Town v2 記事の正確な公開日（ページに表示なし）。"
+    - "派生した町（Cat Town 等）の利用規模。"
+
+metrics:
+  - {id: m-aitown-stars-v2, type: other, value: 5000, value_text: "5000 超", unit: stars, period: "公開から数週間（v2 記事時点、2023 年）", definition: "a16z-infra/ai-town の GitHub スター数（Convex の記事による）", nature: reported, s: [src-aitown-convex-v2]}
+  - {id: m-aitown-github-2026, type: other, value_text: "スター 10.7k・フォーク 1.2k", unit: stars, period: "2026-10-24 時点", definition: "a16z-infra/ai-town の GitHub ページ表示", nature: measured, s: [src-aitown-repo]}
+
 events:
   - {id: ev-aitown-release, date: "2023-08", type: release, title: "AI Town を公開", detail: "2023-08-16 の報道で公開済み。Convex との協業で作られたと報じられた", s: [src-aitown-repo, src-aitown-cryptoslate]}
 
@@ -76,9 +110,10 @@ relations:
   - {to: project-sid, type: similar-to, basis: analytic, note: "オフチェーンのエージェント社会。AI Town は小規模・公開コード、Sid は大規模・非公開"}
 
 unknowns:
-  - "公開日の正確な日付、フォーク数や派生プロジェクトの実数（GitHub API に到達できず未確認）。"
+  - "公開日の正確な日付、派生プロジェクトの実数（フォーク数は 2026-10-24 にリポジトリページで 1.2k と確認）。"
   - "人間とエージェントが混在する町で、実際にどのような遊びや長期利用が生まれたか。"
 
 sources:
-  - {id: src-aitown-repo, title: "a16z-infra/ai-town", url: "https://github.com/a16z-infra/ai-town", publisher: "GitHub (a16z-infra)", type: code, primary: true, published: "2023-08", accessed: "2026-10-23", access: fetched, lang: en, note: "git clone で README・ARCHITECTURE.md・LICENSE を確認。最新コミット 2026-08-25"}
+  - {id: src-aitown-repo, title: "a16z-infra/ai-town", url: "https://github.com/a16z-infra/ai-town", publisher: "GitHub (a16z-infra)", type: code, primary: true, published: "2023-08", accessed: "2026-10-23", access: fetched, lang: en, note: "git clone で README・ARCHITECTURE.md・LICENSE を確認。最新コミット 2026-08-25。2026-10-24 に WebFetch でリポジトリページを再取得し、スター 10.7k・フォーク 1.2k の表示を確認"}
   - {id: src-aitown-cryptoslate, title: "VC firm a16z releases open-source microverse packed with generative AI NPCs in AI Town", url: "https://cryptoslate.com/vc-firm-a16z-releases-open-source-microverse-packed-with-generative-ai-npcs-in-ai-town/", publisher: "CryptoSlate", author: "Liam 'Akiba' Wright", type: news, primary: false, published: "2023-08-16", accessed: "2026-10-23", access: fetched, lang: en, note: "a16z がコードを公開、Convex Dev と協業、Stanford の Generative Agents 論文に着想。当時の構成は Convex・Pinecone・Clerk・OpenAI・Fly。ブロックチェーン要素への言及なし"}
+  - {id: src-aitown-convex-v2, title: "AI Town v2", url: "https://stack.convex.dev/ai-town-v2", publisher: "Convex (Stack)", type: official-blog, primary: true, accessed: "2026-10-24", access: fetched, lang: en, note: "公開から数週間で 5000 超のスター、AI Silicon Valley・Cat Town・Zaranova などのクローン、v2 で人間が歩いて会話、地図エディタ、AI Stack Devs の #ai-town-dev。ページに著者・日付の表示なし（検索結果では Ian Macartney の名が表示）"}

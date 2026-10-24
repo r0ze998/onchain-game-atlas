@@ -3,7 +3,7 @@ name: Daydreams
 aliases: ["Daydreams agent framework", "daydreamsai/daydreams", "dojoengine/daydreams"]
 kind: platform
 depth: index
-updated: "2026-10-23"
+updated: "2026-10-24"
 links:
   website: https://www.daydreams.systems/
   x: https://x.com/daydreamsagents
@@ -74,6 +74,41 @@ article:
     - {t: "「AI が人間と同じルールで遊ぶ」実験は、継続的なプレイ実績を確認できないまま形を変えた。ただし Eternum は 2026-09 から Daydreams を使わない別の「雇われたエージェント」ランナー（apps/agent-runner）を開発中で、構想自体は放棄されていない。", k: analysis, s: [src-daydreams-eternum-hired-agents, src-daydreams-eternum-history]}
     - {t: "未確認: S1 のエージェント軍が実際に LLM（Daydreams）で意思決定したのか、何体出現し、どれだけ倒されたか、エージェント用の 25 万 LORDS がどれだけ払い出されたか。", k: unknown}
 
+acquisition:
+  audience: [developers, holders]
+  summary: {t: "最初の開発者は作者 Loaf（ponderingdemocritus）自身と、彼が関わる Realms / Eternum・Dojo（Starknet のオンチェーンゲーム圏）と Eliza 系 AI エージェントの界隈だった。2025-01 初めの X 投稿と Bankless の記事の後、1 月中旬から外部のコミット作者が加わった。人間の開発者・利用者と、枠組みで動く AI エージェントは別に数える必要があるが、どちらの実数も公表されていない。", k: analysis, s: [src-daydreams-repo, src-daydreams-bankless-eliza]}
+  steps:
+    - {phase: pre, date: "2024-12-21", t: "リポジトリを開始。初期 README は対応ゲームを Eternum のみとし、Dojo との統合を掲げた。2025-01-13 までのコミットはすべて作者 1 人（ponderingdemocritus）による。", k: fact, s: [src-daydreams-repo]}
+    - {phase: launch, date: "2025-01-03", t: "Loaf は X で、次の Eternum シーズンに 1,000 のエージェントを投入すると投稿した。Bankless（2025-01-06）はこれを埋め込みで引用し、Daydreams を Dojo スタックの一部として、Loaf を Eliza リポジトリの主要コントリビュータとして紹介した。", k: fact, s: [src-daydreams-bankless-eliza]}
+    - {phase: growth, date: "2025-01-14", t: "この日以降、作者以外のコミット作者が加わり始め、2025-02-28 までにボットを除くコミット作者名は 21 種（同一人物の別名を含む）、コミットは 619 件になった。", k: fact, s: [src-daydreams-repo]}
+    - {phase: growth, date: "2025-05-09", t: "Bankless は、2,000 DREAMS（当時約 7 ドル）の保有を条件とする起動器 play.dreams.fun と、最初の対応ゲーム Gigaverse（Abstract）を紹介した。", k: fact, s: [src-daydreams-bankless-may]}
+    - {phase: growth, date: "2025-06", t: "外部チーム（RuneLabsxyz）が Ponziland のゲーム例を PR で追加した。", k: fact, s: [src-daydreams-repo]}
+  channels:
+    - {id: existing-community, t: "作者が開発する Eternum を最初の唯一の対応ゲームにし、Starknet の Dojo スタックと結び付けて、その開発者・プレイヤー圏から始めた。", k: fact, s: [src-daydreams-repo, src-daydreams-bankless-eliza]}
+    - {id: crypto-social, t: "Loaf の X 投稿（1,000 エージェントの目標、Eliza との関係を説明するスレッド）で発信した。", k: fact, s: [src-daydreams-bankless-eliza]}
+    - {id: press, t: "暗号資産メディア Bankless が 2025-01 と 2025-05 に Daydreams を取り上げた。", k: fact, s: [src-daydreams-bankless-eliza, src-daydreams-bankless-may]}
+    - {id: invite-gating, t: "エージェント起動器の利用に DREAMS トークンの保有（2,000 DREAMS）を条件にした。", k: fact, s: [src-daydreams-bankless-may]}
+    - {id: composability, t: "MIT ライセンスで、外部チームが自分のゲームの例（Ponziland）を追加できた。", k: fact, s: [src-daydreams-repo]}
+  cost:
+    - {t: "開発は作者と少数のコントリビュータが担い、助成金・懸賞・VC 資金の記録は見つからなかった。DREAMS トークンの発行経緯（発行日・方式）は検索要約で資料ごとに食い違い、確認できなかった。", k: unknown}
+  after:
+    - {t: "ゲーム例は 2025-08-17 に main から削除され、2026-02-06 に README は枠組みを「機能はすでに陳腐化」として主軸から外した。", k: fact, s: [src-daydreams-repo]}
+    - {t: "参照日時点の README は「Join 1,000+ Developers Building Better AI」と掲げるが、リポジトリページの表示はスター 622・フォーク 137 で、1,000 人超の開発者を裏付ける資料は見つからなかった。", k: fact, s: [src-daydreams-repo]}
+  counter:
+    - {t: "「1,000 のエージェント」の主張は AI エージェントの数であり、人間の利用者や開発者の数ではない。しかも Eternum S1 のエージェントは管理者設定の単一 controller が操作する NPC 軍で、Daydreams のコードが使われたかは未確認である。", k: analysis, s: [src-daydreams-bankless-eliza, src-daydreams-eternum-s1-contracts, src-daydreams-bankless-s1]}
+    - {t: "2025-01 の外部コントリビュータの流入は、Bankless の記事や X 投稿だけでなく、同時期の AI エージェント枠組み（Eliza 等）への関心の高まりや DREAMS トークンの話題でも説明でき、どれが効いたかは区別できない。", k: analysis, s: [src-daydreams-repo, src-daydreams-bankless-eliza]}
+  lessons:
+    - {t: "自作ゲームを最初の対応先にして枠組みを出す: 自分が運営するゲームを唯一の対応ゲームにすると、文脈（アドレス・資源 ID）を用意でき、最初のデモを早く作れる。効く条件は母体のゲームが継続し、外部のゲームにも対応を広げられること。破綻条件は母体のゲームの仕様変更やゲーム例の保守が追いつかない場合で、この例では 2025-08 にゲーム例が一括削除された。", k: analysis}
+    - {t: "トークン保有を利用条件にする起動器: ツールの利用に少額のトークン保有を求めると、保有者に使い道を与えられる。効く条件はツール自体に継続的な価値があること。破綻条件は対象ゲームの例が削除されるなどツールの価値が先に消える場合。", k: analysis}
+  metrics: [m-daydreams-early-authors, m-daydreams-github-2026]
+  unknowns:
+    - "DREAMS トークンの発行日・方式・配分（検索要約では pump.fun 経由、2025-01-19 発行とする資料があるが本文は未確認）。"
+    - "外部開発者がどこから来たか（Eternum・Dojo・Eliza のどの界隈か）、起動器の利用者数。"
+
+metrics:
+  - {id: m-daydreams-early-authors, type: other, value: 21, unit: commit-authors, period: "2024-12-21〜2025-02-28", definition: "daydreamsai/daydreams の git 履歴でボットを除くコミット作者名の数（同一人物の別名を含む）。同期間のコミットは 619 件", nature: measured, s: [src-daydreams-repo]}
+  - {id: m-daydreams-github-2026, type: other, value_text: "スター 622・フォーク 137", unit: stars, period: "2026-10-24 時点", definition: "daydreamsai/daydreams の GitHub ページ表示", nature: measured, s: [src-daydreams-repo]}
+
 events:
   - {id: ev-daydreams-start, date: "2024-12-21", type: release, title: "Daydreams リポジトリ公開（Eternum のみサポート）", s: [src-daydreams-repo]}
   - {id: ev-daydreams-1000-claim, date: "2025-01-03", type: announce, title: "次の Eternum シーズンに 1,000 エージェントを目指すと表明", detail: "Loaf の X 投稿。Bankless（2025-01-06）が引用", s: [src-daydreams-bankless-eliza]}
@@ -98,7 +133,7 @@ contradictions:
   - {t: "Bankless（2025-01）は 1,000 のエージェントを NPC ではない能動的プレイヤーと紹介したが、Bankless（2025-04）は S1 のエージェントを地図上の軍として現れる NPC と説明した。", s: [src-daydreams-bankless-eliza, src-daydreams-bankless-s1]}
 
 sources:
-  - {id: src-daydreams-repo, title: "daydreamsai/daydreams", url: "https://github.com/daydreamsai/daydreams", publisher: "GitHub", type: code, primary: true, published: "2026-10-09", accessed: "2026-10-23", access: fetched, lang: en, note: "git clone と履歴取得。2024-12 の初期 README（Eternum のみ対応）、2025-08-17 のゲーム例削除、2026-02-06 の陳腐化告知、MIT（Copyright 2025 Loaf）、dojoengine/daydreams からのマージ（2025-01〜09）"}
+  - {id: src-daydreams-repo, title: "daydreamsai/daydreams", url: "https://github.com/daydreamsai/daydreams", publisher: "GitHub", type: code, primary: true, published: "2026-10-09", accessed: "2026-10-23", access: fetched, lang: en, note: "git clone と履歴取得。2024-12 の初期 README（Eternum のみ対応）、2025-08-17 のゲーム例削除、2026-02-06 の陳腐化告知、MIT（Copyright 2025 Loaf）、dojoengine/daydreams からのマージ（2025-01〜09）。2026-10-24 に再 clone してコミット作者の推移を集計し、WebFetch でページのスター 622・フォーク 137 と README の「Join 1,000+ Developers」を確認"}
   - {id: src-daydreams-eternum-context, title: "daydreams examples/tasks/eternum.ts (commit 40fdb4a)", url: "https://github.com/daydreamsai/daydreams/blob/40fdb4aa4ebf6f590d3cc754ed9be9b3a3f8d972/examples/tasks/eternum.ts", publisher: "GitHub", type: code, primary: true, published: "2025-05", accessed: "2026-10-23", access: fetched, lang: en, note: "Eternum の文脈プロンプト。trade_systems のアドレスはプレースホルダ"}
   - {id: src-daydreams-bankless-eliza, title: "Eliza Daydreams: A New Blueprint for Onchain Gaming Agents", url: "https://www.bankless.com/read/eliza-daydreams-onchain-gaming", publisher: "Bankless", author: "William M. Peaster", type: news, primary: false, published: "2025-01-06", accessed: "2026-10-23", access: fetched, lang: en, note: "Loaf の 1,000 エージェント発言、階層タスクネットワーク、ベクトル記憶"}
   - {id: src-daydreams-bankless-may, title: "LLMs Meet Loot: How Daydreams Is Rewriting Onchain Play", url: "https://www.bankless.com/read/daydreams-ai-agents-gaming", publisher: "Bankless", author: "William M. Peaster", type: news, primary: false, published: "2025-05-09", accessed: "2026-10-23", access: fetched, lang: en, note: "起動器に 2,000 DREAMS、Gigaverse が最初の対応ゲーム、システムプロンプトで振る舞いを変える"}
