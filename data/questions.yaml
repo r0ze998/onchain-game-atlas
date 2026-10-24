@@ -139,3 +139,47 @@
     - {game: loot-survivor, stance: counter, note: "予知できる乱数窓をパズルとして公認した。", s: [src-ls-commit-pragma-vrf]}
   insights: [ins-public-state-automation, ins-ordering-fairness]
   hypotheses: [hyp-automation-league]
+
+- id: q-acq-first-100
+  topic: acquisition
+  q: 最初の 100 人をどこから連れてくるか
+  why: 試合が成立し経済が回るには最低限の人数が要る。最初の 100 人の出どころは、その後の指標が何を測るか（遊びの需要か、報酬か、手元の資産の利得か）まで決める。
+  labels: {support: 既存の集まりや少人数の招待で最初の集団を作れた, counter: 集め方の効果を確認できない・集まった人が遊ばなかった}
+  answer: >-
+    acquisition 節のある 52 件のうち 35 件で、最初の利用者は既存の集まり（前作・同じチームの保有者、トークン・NFT の保有者、研究者、チェーンの利用者）から借りられた。100 人規模の具体例は、
+    Sky Strife（2 週間で 100 人の目標を 2 日目に達成し最終 355 人、運営発表）、Dark Forest v0.3（Ethereum・ZK のコミュニティへの招待鍵で約 300 人）、Primodium（WASD の参加を伴い 6 日間で 300 人超）、
+    Words3（自前のコミュニティと X で Base 版 124 人、自己申告）、Freysa（参加費が積み上がる懸賞で 195 人、経路は不明）。一方、Topology はパズルで 50 人を選んだが遊んだのは約 13 人、Etherization は開始した 28 アドレスの半数がデプロイ者の資金に連なっていた。
+    どの事例も人数はアカウント・アドレス単位で、最初の 100 人のうち何人が残ったかは示されていない。
+  cases:
+    - {game: sky-strife, stance: support, note: "2 週間の公開プレイテストで 100 ユニークユーザーを目標にし、2 日目に達成、最終的に 355 人（運営発表。単位は不明）。1 日 3 回の無料試合を運営が用意し、ggQuest などのコミュニティが大会を開いた。", s: [src-sky-strife-orbs-blog, src-sky-strife-playtest]}
+    - {game: dark-forest, stance: support, note: "v0.3 は Ethereum と ZK のコミュニティに招待鍵を配る半非公開ベータとして約 300 人で始まり、v0.4 は約 600 人だった。", s: [src-df-v3-rules, src-df-v4-recap]}
+    - {game: primodium, stance: support, note: "WASD が公式ウォレットで参加し、プレイヤーの記事は v0.7.1 が 6 日間で 300 人超を集めたと書いた。", s: [src-primodium-wasd]}
+    - {game: words3, stance: support, note: "チームは Base 版のユニークプレイヤーを 124 人とし、利用者の 8 割超が初めて OP 系チェーンへブリッジしたと申告した（自己申告で、124 はアドレス数とみられる）。", s: [src-words3-rpgf3]}
+    - {game: freysa, stance: context, note: "初報の時点で既に 181 人が参加し（最終 195 人・482 回）、報道が最初の参加者を集めたわけではないが、最初の参加者がどこで知ったかを示す資料はない。", s: [src-freysa-theblock-pre, src-freysa-theblock-win]}
+    - {game: topology-isaac, stance: counter, note: "契約コードを読むパズルで 50 人（シビルなしの仮定）を選抜したが、実際にアルファで遊んだのは約 13 人で、時間帯の異なる匿名の少人数では協調が成立しにくかった。", s: [src-isaac-what-happened]}
+    - {game: etherization, stance: counter, note: "r/ethereum と bitcointalk への告知の後、開始条件を満たした 28 アドレスのうち 14 はデプロイ者自身かデプロイ者の資金に連なっていた。", s: [src-etherization-blockscout-funding, src-etherization-blockscout-txlist]}
+    - {game: downstream, stance: counter, note: "最初の作り手は許可リストの 52 アドレスと投資家・提携先のチームで、CEO は「100 人が遊んでくれれば満足」と語ったが、プレイヤー数はどこにも公表されていない。", s: [src-downstream-allowlist, src-downstream-bcg-amor-2024]}
+  insights: [ins-acq-borrowed-crowd, ins-acq-invite-throttle, ins-acq-round-reacquire, ins-acq-borrowed-distribution]
+  open: "最初の 100 人のうち何人が 1 か月後に残ったかを人単位（アカウントではなく）で示した事例は見つからなかった。獲得経路別の継続率を比べた公開データもない。"
+
+- id: q-acq-paid-stay
+  topic: acquisition
+  q: お金の誘因で集めた人は残るか
+  why: トークン・ポイント・エアドロップ期待・紹介報酬は最初の流入を最も速く作れるが、ボットと多重アカウントを呼ぶ。誘因が終わったときに何が残るかが分からなければ、獲得の成否を判断できない。
+  labels: {support: 誘因の終了・縮小後も一定の集団が残った, counter: 誘因が終わると大きく縮んだ}
+  answer: >-
+    確認できた事例では、誘因で起きた急増は誘因の終了・縮小後に数分の一以下に縮み、運営自身がボット・多重アカウントを認めた例が多い（Hamster Kombat、Pixels、Conquest.eth、Sunflower Farmers）。
+    残った例は、入口を絞って作り直した Sunflower Land（2026 年まで継続、運営は累計 60 万超の農場）と、報酬対象を絞った後に日次 4 万超で「安定」とした Pixels で、どちらもピークよりずっと小さい集団だった。
+    残った人が誘因で来た人と同じ人かは、どの事例でも示されていない。
+  cases:
+    - {game: sunflower-land, stance: support, note: "ボットで止まった後、ホワイトリストと 1 Discord＝1 アドレスで再開し、開発は 2026 年まで続いた（運営は累計 60 万超の農場と述べる）。", s: [src-sunflower-land-code-beta-2022, src-sunflower-land-docs-about]}
+    - {game: pixels, stance: support, note: "報酬対象を絞った後の急落を経て、2025-06 に日次 4 万超で「安定」と自社ブログが伝えた。", s: [src-pixels-post-stabilized]}
+    - {game: hamster-kombat, stance: counter, note: "配布前に 230 万超を BAN し、配布後の月間利用者は 1 億超から 2025-02 に 1,168 万とされた。", s: [src-hamster-kombat-decrypt-purge, src-hamster-kombat-decrypt-alltime-low, src-hamster-kombat-bitpinas-s2]}
+    - {game: pixels, stance: counter, note: "1 週間で 75 万アカウントの BAN を発表し、報酬対象を絞った Chapter 2 の直後に日次ウォレットは約 7 割減った。", s: [src-pixels-ct-bots, src-pixels-bg-ch2-drop]}
+    - {game: stepn, stance: counter, note: "第三者集計の MAU は 2022-05 の 70 万超から 2022-12 に 4.5 万弱へ減った。", s: [src-stepn-decrypt-2023]}
+    - {game: pirate-nation, stance: counter, note: "ポイント・トークン配布期の後、日次アクティブウォレットはピーク 10 万超から約 1 万へ減り、2025-09 に終了した。", s: [src-pn-bcg-kill]}
+    - {game: defi-kingdoms, stance: counter, note: "高 APR の流動性マイニングで集めた TVL は 2022-01 の約 9.0 億ドルから 2022-06 に約 4,400 万ドルへ 95% 減った（価格効果を含む）。", s: [src-defi-kingdoms-llama]}
+    - {game: conquest-eth, stance: counter, note: "過去最多のトークンを配った Faction 版で複数アカウントが多発し、2025-1 版のイベントログは開始直後に集中した後ほぼゼロになった。", s: [src-conquest-future-2026, src-conquest-gnosis-logs]}
+    - {game: loot-survivor, stance: context, note: "LS2 は約 8 万アドレスに計約 50 万回の無料ゲームを用意したが、2026-10 の直近 7 日のアクティブアドレスは 411（growthepie）。配布先のうち何割が遊んだかは示されていない。", s: [src-ls-docs-token, src-ls-growthepie]}
+  insights: [ins-acq-paid-surge, ins-acq-invite-throttle, ins-reward-metrics-misread]
+  open: "誘因で入ったコホートを誘因の終了後まで人単位で追い、ボットと人間を分けて残存率を示した公開データはない。"

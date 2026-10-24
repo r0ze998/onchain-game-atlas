@@ -385,3 +385,264 @@
     kill: 別ランキングを入れても新規の離脱率が変わらなければ、問題は順位ではなく序盤の体験にある。
     cost: 小
   hypotheses: [hyp-short-season-civ, hyp-automation-league]
+
+# ---- ゼロイチ（最初のユーザー獲得）: 各エントリの acquisition 節を横断したもの ----
+
+- id: ins-acq-borrowed-crowd
+  topic: acquisition
+  title: 最初の集団は「ゼロ」から作られず、暗号資産側の既存の集まりから借りられた。Web2 の前作の利用者を移せた証拠はない
+  gap_type: unsolved-gap
+  claim: >-
+    acquisition 節のある 52 件のうち 35 件で、最初の利用者の出どころとして既存コミュニティ（前作・同じチームの保有者、特定のトークン・NFT の保有者、研究者、チェーンの利用者）からの移入が確認または主張された。
+    借りられた集まりはほとんどが暗号資産側のものだった（CryptoKitties の収集層→Axie Infinity、PoWH3D の保有者→Fomo3D、Loot の保有者→Realms、Ethereum・ZK のコミュニティ→Dark Forest、Dark Forest・0xPARC の開発者→MUD）。
+    一方、Web2 側の大きな前作・既存作の利用者基盤を当て込んだ例（The Sandbox のモバイル版 4000 万ダウンロード、Spells of Genesis の前作 Moonga 25 万ダウンロード、Ubisoft Quartz の Ghost Recon Breakpoint の PC プレイヤー）では、その利用者が移ったことを示す資料は見つからず、
+    Quartz では開始から約 11 日間に第三者マーケットで売れた Digit は 15 個だった。暗号資産の外から人が来たと当事者が述べた例（Axie のフィリピン、Gods Unchained の Blitzchung 騒動、STEPN）は、前作の移転ではなく外部の出来事や現金価値のある報酬と同時だった。
+  conditions: >-
+    既存の集まりから借りるのが効いたのは、相手がすでにウォレットと資産を持ち、新作に参加すると手元の資産や前作のトークンに利得が返る場合（Fomo3D の P3D への還流、Loot 保有者だけの安い先行ミント、Axie の保有者限定の Alpha）。
+    Web2 の利用者には、ウォレット・購入の障壁に加え既存作への後付けへの反発（Quartz）があり、前作の規模は獲得の見込みにならなかった。出どころ不明の事例（Conquest.eth、Curio、Sorare、Sunflower Land）は 35 件に入っていない。
+  evidence:
+    - {game: axie-infinity, stance: support, note: "共同創業者によれば最初の Axie コミュニティは CryptoKitties のコミュニティから来た（ポッドキャスト要約。プレセール購入者とのオンチェーン照合はない）。", s: [src-axie-zimared-psycheout]}
+    - {game: fomo3d, stance: support, note: "同じ Team JUST の P3D 保有者が、キー購入額の一部と紹介者のいない購入の紹介料分を受け取る設計で、P3D の利用者が最初の参加者・宣伝者になる動機を持っていた。", s: [src-fomo3d-source, src-fomo3d-financemagnates]}
+    - {game: realms-eternum, stance: support, note: "Loot 公開 4 日後の Realms は Loot 保有者だけが同じ番号の Realm を 0.03 ETH（一般は初期値 0.15 ETH）で先行ミントでき、Eternum では Realms 保有者が Season Pass を無料で発行できた。", s: [src-realms-eternum-lootrealms-sourcify, src-realms-eternum-key-concepts]}
+    - {game: dark-forest, stance: support, note: "v0.3 の招待鍵は Ethereum と ZK のコミュニティのプレイヤーに配られ、開発者自身も EF のワークショップや Semaphore 周辺の研究者とつながっていた。", s: [src-df-v3-rules, src-df-zkpodcast-141]}
+    - {game: mud, stance: support, note: "Lattice は Dark Forest を中心とするコミュニティから生まれたと述べ、最初の利用者は社内作品と Dark Forest／0xPARC 周辺の開発者だった。", s: [src-mud-winding-down, src-mud-devcon6-talk]}
+    - {game: the-sandbox, stance: support, note: "前身のモバイル版シリーズは累計 4000 万ダウンロードとされるが、そのプレイヤーが Web3 版の初期利用者になったことを示す資料はなく、初期の参加者は LAND の投資家・ブランドと制作者だった。", s: [src-tsb-whitepaper, src-tsb-decrypt-2020-presale]}
+    - {game: spells-of-genesis, stance: support, note: "前作 Moonga の 25 万ダウンロードは前作の数字で、Moonga のプレイヤーが SoG に移ったという直接のデータはない。", s: [src-sog-btcmag-2015]}
+    - {game: ubisoft-quartz, stance: support, note: "Breakpoint の PC プレイヤー（9 か国・18 歳以上・XP レベル 5 以上）に無料の Digit を配ったが、2021-12-20 までに 2 つの第三者マーケットで売れた Digit は計 15 個（後の GamesBeat は転売の成立を計 96 件とする）。", s: [src-ubisoft-quartz-pr-2021, src-ubisoft-quartz-nme-2021, src-ubisoft-quartz-gamesbeat-end]}
+    - {game: gods-unchained, stance: counter, note: "CEO は Blitzchung 処分への対応で登録が約 3 万から 6 万へ一晩で倍増し、新規層は主に暗号資産に関心のないゲーマーだったと述べた（登録の定義は示されていない）。", s: [src-gu-unchained-2019]}
+    - {game: axie-infinity, stance: counter, note: "2020 年のフィリピンでは、既存保有者が Axie を地域の人々に貸し出し、友人・家族の間で教え合って広がった（当事者の説明）。暗号資産の外の層への拡大だが、前作の移転ではない。", s: [src-axie-unchained-leah, src-axie-a16z-ygg]}
+    - {game: stepn, stance: counter, note: "CMO は利用者の 3 分の 1 が暗号資産の新規参入者だと述べた（Decrypt。計測方法は示されていない）。", s: [src-stepn-decrypt-2022-06]}
+    - {game: hamster-kombat, stance: counter, note: "最初のユーザーは特定の前作や保有者ではなく Telegram の利用者そのもので、配信網と紹介の仕組みで集まった。", s: [src-hamster-kombat-decrypt-durov, src-hamster-kombat-sherwood]}
+    - {game: wolf-game, stance: counter, note: "事前のホワイトリストや告知期間なしの「ステルス」発売で Gen0 1 万体が売り切れ、特定の既存集団を介さずに買い手が集まった（ただし 2021-11 の NFT 熱狂期で、一意の購入アドレス数は不明）。", s: [src-wolf-defiant-1123, src-wolf-sourcify-woolf]}
+    - {game: loot-survivor, stance: context, note: "初期プレイヤーが既存コミュニティから来たことを示す直接のデータ（参加者のうち LORDS / Realms 保有者の割合）はなく、運営が示したのは Starknet 上の LORDS 保有者 1.9 万という母集団だけだった。", s: [src-ls-x-realms-2023-09]}
+  confidence: medium
+  confidence_reason: >-
+    35 件は各エントリの channels の分類を数えたもので、その多くは共同創業者の回想や運営の告知（claim・analysis）に基づき、参加者の何割が既存集団から来たかを計測した事例は一つもない。
+    Web2 の利用者が移らなかったことは「移った証拠がない」ことによる推論である。
+    数え方: node で scripts/lib.mjs の loadAll() を読み、acquisition.applies が false でない 52 件のうち channels に id: existing-community を含むものを数えた（35 件。applies: false は 3 件）。
+  alternative: >-
+    既存集団からの移入が多く見えるのは、獲得経路を資料で辿れるのが告知先のはっきりした事例に偏るためかもしれない。出どころ不明の事例が多ければ、「借りる」以外の経路が過小に数えられている。
+  experiment:
+    design: >-
+      試作の最初の 100 人を 2 つの経路から同数募る。A: 関連する NFT・トークン保有者の Discord に、手元の資産で得をする導線（保有者先行枠・資産の持ち込み）付きで告知。
+      B: 同じジャンルの Web2 ゲームのコミュニティに、ウォレット不要版で告知。
+    signal: 経路別の登録→初回プレイ→D7 の継続率と、1 人あたりのアカウント数。
+    kill: A の D7 継続が B の半分未満なら、既存の暗号資産の集まりは「集める近道」ではあっても「残る近道」ではないと判断し、最初の母集団を遊びの需要で選び直す。
+    cost: 小
+
+- id: ins-acq-ownership-first
+  topic: acquisition
+  title: 遊べる前に所有権を売ると資金と最初の集団は得られたが、来たのは保有者で、公開時にプレイヤーを集め直した
+  gap_type: established
+  claim: >-
+    Decentraland（2017 年の ICO と LAND 入札、ブラウザ版の一般公開は 2020-02）、Influence（小惑星の販売 2021、mainnet 2024-06）、The Sandbox（LAND 先行販売 2019-12、Alpha 2021-11）、Gods Unchained（予約販売 2018-07、ベータ一般公開 2019-07）、
+    Illuvium（ILV ステーキング 2021、土地 7200 万ドル超 2022-06、公開 2024-07）、Dope Wars（DOPE 2021-09、Roll Your Own は約 2 年後）は、遊べるものより先に所有権やトークンを売り、開発資金と最初の集団を得た。
+    しかし保有者がプレイヤーに転じた割合を示す数値はどこにもなく、手がかりは逆向きだった: Gods Unchained は 100 万枚のカードを売った時期に日次ウォレットが数百、Eternum S0 は最大 8,000 枚の Season Pass に対して登録が約 800。
+    公開時には、Starter Pack とトークン配布（Influence）、現金で入れる Village（Eternum S1）、play-to-airdrop（Illuvium）でプレイヤーを別に集め直した。
+  conditions: >-
+    販売から遊べるまでの期間が年単位で、保有者に遊ぶ以外の得（値上がり・転売・ステーキング）があるとき強く成り立つ。期間が数週間で、遊びの先行公開を保有者に限った例（Axie の Community Alpha、DeFi Kingdoms の DEX→Gen0 販売）では、
+    保有者が最初のプレイヤー・勧誘者になったと運営は述べる。入場券を二次市場で売れる形にすると、保有者は遊ぶ人ではなく「入場券の売り手」になり得る（Eternum の Season Pass）。
+  evidence:
+    - {game: decentraland, stance: support, note: "最初の参加者の多くは土地と MANA の値上がりを期待する保有者で、遊べる世界ができる 2 年以上前に支払っていた。公開時の日次一意ウォレットの山（675）は賞品受け取りに取引が要る宝探しの期間だった。", s: [src-dcl-criptonoticias-2018, src-dcl-decrypt-2020-open, src-dcl-criptonoticias-2020-dappradar]}
+    - {game: influence, stance: support, note: "2021 年の小惑星購入から遊べるまで 3 年以上かかり、購入者のうち遊んだ割合は公表されていない。2024-06 の公開時には 30 ドルからの Starter Pack と SWAY を稼げるローンチイベントで新規プレイヤーを募った。", s: [src-influence-p2e-2021, src-influence-starknet-launch, src-influence-bankless]}
+    - {game: gods-unchained, stance: support, note: "74 日でカード 100 万枚、Genesis 完売 33,333 ETH に対し、同時期の日次ウォレットは最大 700（DappRadar）。販売は収集・投機の需要で、遊ぶ人数は示さない。", s: [src-gu-bgb-1m-cards, src-gu-bgb-genesis]}
+    - {game: realms-eternum, stance: support, note: "S0 の登録は約 800 で、Realms 保有者向けの Season Pass 枠（最大 8,000）の 1 割程度。Pass は二次市場で LORDS 建て約 6 ドル相当で手に入り、S1 では NFT なしで入れる Village を加えた。", s: [src-realms-eternum-bankless-s1, src-realms-eternum-key-concepts, src-realms-eternum-bankless-s0-guide]}
+    - {game: the-sandbox, stance: support, note: "遊べる版がない段階の LAND 先行販売で、購入者は保有者・ブランド・他の NFT ゲームの運営だった。Alpha の参加枠の一部（1,000 枚）は LAND 所有者への抽選で配られた。", s: [src-tsb-decrypt-2020-presale, src-tsb-forklog-alpha]}
+    - {game: illuvium, stance: support, note: "遊べる前の土地 NFT のダッチオークションで 7,200 万ドル超を売り、2024 年のベータでは遊ぶとエアドロップのポイントがたまる施策（2500 万ドル超相当とされる）を加えた。", s: [src-illuvium-decrypt-land, src-illuvium-decrypt-preview]}
+    - {game: dope-wars-roll-your-own, stance: support, note: "開発者自身が DOPE は「無料で面白半分に」ミントされたと述べ、RYO が遊べるようになったのは約 2 年後だった。", s: [src-dope-wars-roll-your-own-vice, src-dope-wars-roll-your-own-op-forum]}
+    - {game: axie-infinity, stance: counter, note: "Community Alpha を Axie 3 体以上の保有者に限って公開すると最安値が 1 週間で倍になり、運営によれば 2020 年に Alpha の週間アクティブテスターは 523 から 23,224 に増えた（保有者が遊び、勧誘した例。運営の発表）。", s: [src-axie-blog-community-alpha, src-axie-blog-nation-2020]}
+    - {game: defi-kingdoms, stance: counter, note: "ゲームより先に DEX と流動性マイニングで DeFi 利用者を集め、数週間後の Gen0 ヒーロー 2,000 体は 11 分で売り切れ、召喚は累計約 5.5 万に達したと運営幹部は述べた。販売から遊べるまでの間隔が短い例。", s: [src-defi-kingdoms-docs-realms, src-defi-kingdoms-dreamer-2021]}
+    - {game: influence, stance: context, note: "運営は 2 回の小惑星販売で開発費を 100% 賄い、購入者の 50% がブロックチェーン初利用だったと主張した（計測方法は示されていない）。", s: [src-influence-gamespress-2022]}
+  confidence: medium
+  confidence_reason: >-
+    「先に売った」ことは各事例の一次資料と報道で確認できるが、保有者のうち何割が遊んだかを示す数値はどの事例にもなく、Eternum の約 800 登録と Gods Unchained の日次ウォレット数百が間接的な手がかりにとどまる。
+    反例の Axie・DeFi Kingdoms も運営の発表に依拠する。
+  alternative: >-
+    保有者が遊ばなかったのは先行販売の型のせいではなく、公開までの遅れの間に相場全体が冷えたため（Influence・Illuvium・Realms は 2021 年の高値期に販売）かもしれない。
+  experiment:
+    design: >-
+      所有物（区画・入場券）を売る前に、その所有物で何ができるかを試せる無料の試作（オフチェーン可）を出し、試作で 3 回以上遊んだ人にだけ先行購入枠を開く。比較として、別の募集では誰でも先行購入できる枠を少数出す。
+    signal: 両方の購入者について、公開後 2 週間で 1 回以上遊んだ割合と、転売した割合。
+    kill: 誰でも買える枠の購入者で遊んだ割合が 50% 未満なら、先行販売は資金調達としてだけ扱い、最初のプレイヤーの獲得は別の施策として計画する。
+    cost: 小〜中
+
+- id: ins-acq-paid-surge
+  topic: acquisition
+  title: お金の誘因で起きた急増はボット・多重アカウントを含み、誘因が止まると数分の一以下に縮んだ。続いたのは入口を絞って作り直した小さな集団だった
+  gap_type: established
+  claim: >-
+    Hamster Kombat（配布前に 230 万超を BAN、月間利用者は 9 月下旬の 1 億超から 2025-02 に 1,168 万）、Pixels（1 週間で 75 万アカウントの BAN を発表、報酬対象を絞った Chapter 2 の直後に日次ウォレットが約 7 割減）、
+    Sunflower Farmers（2022-01 に日次 351,286 のピーク、大半はコントラクトを悪用するボット）、Conquest.eth の Faction 版（過去最多のトークン配布で想定外の複数アカウント）、Pirate Nation（日次アクティブウォレット 10 万超から約 1 万で終了）、
+    STEPN（第三者集計の MAU 70 万超から 4.5 万弱）では、トークン・ポイント・エアドロップ期待で起きた急増に、運営自身が認めたボット・多重アカウントが含まれるか、誘因の終了・縮小とともに数分の一以下に縮んだ。
+    縮んだ後に続いたのは、ホワイトリストと 1 Discord＝1 アドレスで再開した Sunflower Land（2026 年まで継続）と、2025-06 に日次 4 万超で「安定」とした Pixels のように、入口や報酬対象を絞った後の、ピークよりずっと小さい集団だった。
+  conditions: >-
+    アカウントを増やす費用（Sunflower Farmers の 0.1 MATIC の寄付、無料のタップ、運営負担のガス）が 1 アカウントあたりの期待報酬より小さいときに強く成り立つ。
+    報酬を保有ステークに線形比例させる（Conquest.eth の旧版）、紹介を相手の進行度で成立させる（Pirate Nation）、倍率を大きく振る（AI Arena）といった対策は事例にあるが、効果を測った公開データはない。
+  evidence:
+    - {game: hamster-kombat, stance: support, note: "配布前に 230 万超のチーターを BAN し、1 人が 400 超のアカウントを 1 つの取引所アドレスにつないだ例も公表された。配布後、月間利用者は 1 億超から 11 月初めに 4,400 万未満、2025-02 に 1,168 万とされた。", s: [src-hamster-kombat-decrypt-purge, src-hamster-kombat-decrypt-alltime-low, src-hamster-kombat-bitpinas-s2]}
+    - {game: pixels, stance: support, note: "Pixels は X で 1 週間に 75 万アカウントを BAN したと発表し、報酬の対象を絞った Chapter 2（2024-06）の直後に日次ウォレットは約 7 割減った（急落の大半がボット除去かは推定にとどまる）。", s: [src-pixels-ct-bots, src-pixels-bg-ch2-drop]}
+    - {game: sunflower-land, stance: support, note: "前身 Sunflower Farmers は、運営によれば 2 週間で日次 100 人から 5 万人超・35 万アカウントへ広がり、Naavik によれば日次 351,286 でピークを付けたが、その大半はボットだった。", s: [src-sunflower-land-polygon-grant, src-sunflower-land-naavik]}
+    - {game: conquest-eth, stance: support, note: "運営は Faction 版で過去最多のトークンを配ったが、固定の参加費にしたことで想定していなかった複数アカウントの問題が多発したと振り返った。", s: [src-conquest-future-2026]}
+    - {game: pirate-nation, stance: support, note: "ポイント・トークン配布とガス無料の環境で日次アクティブウォレットはピーク 10 万超に達したが、2025-08 に約 1 万へ減り、運営は利用者が足りないとして 2025-09 に終了した。", s: [src-pn-bcg-kill]}
+    - {game: stepn, stance: support, note: "Dune に基づく第三者集計の MAU は 2022-05 の 70 万超から 2022-12 に 4.5 万弱へ減った。", s: [src-stepn-decrypt-2023]}
+    - {game: sunflower-land, stance: counter, note: "作り直し版はホワイトリストと Discord OAuth による 1 Discord＝1 アドレスで再開し、2022 年にも DAU 代理指標が 83% 減ったが、開発とリリースは 2026 年まで続き、運営は累計 60 万超の農場が作られたと述べる。", s: [src-sunflower-land-code-beta-2022, src-sunflower-land-naavik, src-sunflower-land-docs-about]}
+    - {game: pixels, stance: counter, note: "急落の後、自社ブログは 2025-06 に日次 4 万超で「安定」と伝えた（ボットを除いた人数は示されていない）。", s: [src-pixels-post-stabilized]}
+    - {game: the-sandbox, stance: counter, note: "SAND 報酬を得られるのは最大 5,000 枚の Alpha Pass の保有者で、運営の言う 20 万超の訪問者の大半は報酬対象外だった。流入の規模をお金の誘因だけでは説明できない例。", s: [src-tsb-forklog-alpha, src-tsb-pocketgamer-2022]}
+    - {game: conquest-eth, stance: context, note: "運営は、ステーク量に比例する報酬の設計がそれ以前の版では複数アカウントへの耐性になっていたと述べる（効果の計測はない）。", s: [src-conquest-future-2026, src-conquest-back-2025]}
+  confidence: high
+  confidence_reason: >-
+    ボット・多重アカウントの存在は Hamster Kombat・Pixels・Conquest.eth・Sunflower Farmers で運営自身が認め（BAN 数の公表を含む）、縮小は 6 事例で報道・第三者集計・運営発表から確認できる。
+    ただし人間とボットを分けた数値はどの事例にもなく、縮小が「ボットの除去」か「人間の離脱」かは区別できない。指標の定義（DAU、日次ウォレット、MAU）も事例ごとに異なる。既存の ins-reward-metrics-misread が指標の読み方を扱うのに対し、ここでは獲得施策の結果として扱う。
+  alternative: >-
+    縮小の主因は誘因の停止ではなく、同時期のトークン価格の下落や市場全体の冷え込みで（STEPN の GST、Sunflower Farmers の SFF の急落）、価格が保たれていれば残った可能性がある。
+  experiment:
+    design: >-
+      最初の 2 週間、同じ招待元からの参加者を 3 群に分ける（各 50〜100 人）: 誘因なし、換金不能ポイント、将来のトークン配布の期待（小額）。3 週目に全群の誘因を止める。
+    signal: 群ごとの 1 人あたりアカウントの推定数（同一端末・同一資金元）と、誘因停止の前後での週次アクティブの比。
+    kill: 期待群だけ停止後の比が他群の半分未満なら、最初の獲得にお金の誘因を使わない。
+    cost: 中（不正検知の仕組みが要る）
+
+- id: ins-acq-invite-throttle
+  topic: acquisition
+  title: 招待制・選抜は希少性の演出より、容量・質・不正の管理に使われた。招待が譲渡・報酬化されたり、強制されなかったりすると、管理の役目は崩れた
+  gap_type: established
+  claim: >-
+    Dark Forest は公開 RPC の過負荷で v0.4 の途中に招待の送付を止め、以後も鍵の供給量で参加者数を決めた。STEPN では招待制の導入前から登録が殺到して 1 日の登録数に上限を設けており、CMO は招待コードを新規が古参の「出口流動性」にならないよう流入を絞るためと説明した。
+    Sunflower Land はボットで止まった後の再開で、ホワイトリストと 1 Discord＝1 アドレスの制限を使った。NBA Top Shot は段階招待で最初の 500 人から 1.7 万人へ広げ、Illuvium は 200 万超とされる登録者から 3 万→7.5 万人へ段階的に開き、
+    Topology は契約コードを読むパズルで 50 人を選んだ。一方、招待そのものに価値が付くか、招待が強制されないと管理は効かなかった: Fren Pet は招待コードに生涯 10% の紹介報酬を組み合わせて勧誘の道具にし、Dark Forest の鍵は譲渡と複数利用が許され、
+    Eternum の Season Pass は二次市場で約 6 ドル相当で手に入り、Downstream の許可リストには約 9 か月間、誰でも自分を追加できる public の関数があった。
+  conditions: >-
+    招待制が容量・質の管理として働くのは、需要が供給（鍵・サーバー・チェーン容量）を上回り、招待を人に結び付けて強制できる場合。招待が譲渡できる・紹介報酬が付く場合は獲得の道具になって選別の役目が弱まり、需要が枠を下回ると招待制はそもそも拘束しない。
+    選抜しても遊ぶとは限らない（Topology は資格者 50 人のうち実際に遊んだのは約 13 人）。
+  evidence:
+    - {game: dark-forest, stance: support, note: "v0.4 は公開 RPC の過負荷で週の途中に追加の招待送付を止めた。v0.5 は待機リストへ約 1000 本、v0.6 は数千本と鍵の量で参加者を段階的に増やし、運営発表の参加者数は「運営が何人入れたか」を表す。", s: [src-df-v4-recap, src-df-v05, src-df-announce-v6]}
+    - {game: stepn, stance: support, note: "公開時には広告なしに登録が殺到して数週間で 1 日の登録数に上限を設け、その後 Activation Code を導入した。CMO は招待コードを流入を絞るためと説明した。", s: [src-stepn-techcrunch-2022-05, src-stepn-wp-changelog, src-stepn-decrypt-2022-06]}
+    - {game: sunflower-land, stance: support, note: "作り直し版はアーティスト・開発者・ベータテスターを手作業でホワイトリストに入れ、Discord OAuth で 1 Discord アカウントに 1 アドレスだけを結び付けた（「ベータ中は 1 アドレスのみ」）。", s: [src-sunflower-land-code-beta-2022]}
+    - {game: nba-top-shot, stance: support, note: "閉じたベータは更新通知の登録者に招待を段階的に送り、最初の 500 人から 1.7 万人へ広げた。2021-02 には Dapper がボット対策を理由にパック販売を 1 日延期した。", s: [src-nbats-gamesbeat-2020, src-nbats-pr-2020-10, src-nbats-thelogic-2021]}
+    - {game: illuvium, stance: support, note: "200 万超とされる登録者のうち、非公開ベータの参加枠を 3 万人から 7.5 万人へ段階的に広げた（選び方は非公表）。", s: [src-illuvium-techbullion-2022, src-illuvium-dailycoin-2023]}
+    - {game: topology-isaac, stance: support, note: "契約コードのコメントを読まないと解けない 50 問のパズルを参加資格にし、ロビー契約は解答記録か運営の招待を持つアカウントだけをキューに入れた。", s: [src-isaac-what-happened, src-isaac-lobby-code]}
+    - {game: frenpet, stance: counter, note: "V2 は新規ユーザー 1 人に招待コード 3 つを配る招待制に、紹介相手の支出の 10% を生涯受け取れる紹介報酬を組み合わせ、招待を勧誘の道具にした。", s: [src-frenpet-v2, src-frenpet-bankless]}
+    - {game: dark-forest, stance: counter, note: "v0.3 の招待鍵は譲渡でき、複数の鍵を自分で使ってもよいとされ、鍵は人ではなくアカウントに配られた。", s: [src-df-v3-rules]}
+    - {game: realms-eternum, stance: counter, note: "S0 は最大 8,000 枚の Season Pass を持つ人だけが参加できたが、Pass は Discord の部族経由で無料で配られ、市場でも約 6 ドル相当で手に入り、枠は参加の制約になっていなかった。", s: [src-realms-eternum-bankless-s0-guide, src-realms-eternum-key-concepts]}
+    - {game: downstream, stance: counter, note: "許可リストを持つ NewPlayerRule には 2023-07-05〜2024-04-12 に権限チェックのない public の allow(address) があり、コード上は誰でも自分を追加できた。許可リストは強制された選抜ではなく、知っている人だけが入れる緩い入口だったとみられる。", s: [src-downstream-newplayerrule, src-downstream-allowlist]}
+    - {game: stepn, stance: counter, note: "招待コードが希少なほど入手競争と話題を生み、投機的な期待を強めた可能性がある（分析）。招待制で投機を抑えられた証拠は示されていない。", s: [src-stepn-decrypt-2022-06, src-stepn-coinpost-2022-06]}
+    - {game: topology-isaac, stance: context, note: "パズルで資格を得た 50 人（シビルなしの仮定）のうち、実際にアルファで遊んだのは約 13 人だった。", s: [src-isaac-what-happened]}
+  confidence: medium
+  confidence_reason: >-
+    運営が招待制の目的・効果を容量・流入制限・ボット対策と結び付けた一次資料（Dark Forest の振り返り、STEPN の CMO の発言、Sunflower Land のコード、NBA Top Shot の販売延期）がある。
+    ただし「希少性の演出として使われなかった」ことは直接は示せず、STEPN・Fren Pet では招待の希少さが話題づくりを兼ねた可能性を否定できない。招待制が実際に不正をどれだけ減らしたかはどの事例でも測られていない。
+  alternative: >-
+    運営が「容量・不正対策」と説明するのは事後の正当化で、実際には希少性による話題づくりも同時に狙っていた可能性がある。
+  experiment:
+    design: >-
+      招待枠を 2 方式で各 100 枠配る。A: 招待はアカウントに結び付き譲渡不可、紹介報酬なし、コントラクト側で強制する。B: 招待は譲渡可で紹介報酬あり。
+    signal: 招待の使用率、招待経由アカウントの D7 継続率、同一資金元・同一端末のアカウントの割合。
+    kill: B の多重アカウント率が A の 2 倍を超えて継続率が上がらないなら、招待を獲得の道具に使わず容量・質の管理だけに使う。
+    cost: 小
+
+- id: ins-acq-borrowed-distribution
+  topic: acquisition
+  title: 他者の配信網に乗った流入は、大きさも質も存続も配信網側の利用者・報酬・基盤に左右された
+  gap_type: established
+  claim: >-
+    Telegram のミニアプリとして配られた Hamster Kombat（Durov 本人の称賛、Telegram のミニアプリ用 UI の追加）と、Ronin に移った Pixels（Ronin ウォレットでのログイン、Ronin の景品クエスト、Axie の利用者層の取り込み）は、配信・移転の後に大きな流入を得たが、
+    その中身には配信網側の報酬目的のアカウントが多く含まれ、配信網の運営者自身がその数字を宣伝に使った（「Ronin Effect」、ミニアプリ利用者 5 億人超）。
+    一方、Lattice の Redstone の公開に乗った Downstream・Sky Strife、Solana Seeker 保有者に限った Parallel Colony のアルファ、Optimism と同時発表した OPCraft では流入の規模を示す数字はほとんど出ず、露出の日程はチェーン側が決め
+    （Downstream の CEO は 2024-01 に 2024 年の公開を否定していた）、Redstone の停止とともに Downstream・Sky Strife の世界は失われたとみられる（移行記録がないことからの推論）。DeFi Kingdoms はチェーン側の資金で王国を増やしたが、TVL は約 5 か月で 95% 減った。
+  conditions: >-
+    配信網が既に大きな利用者基盤と配信網側の報酬（景品クエスト、エアドロップ期待）を持つときに流入は大きく、その分だけ報酬目的のアカウントが混ざる。配信網側の施策が自分の製品の宣伝を兼ねる場合、数字は双方の利害で膨らみやすい。
+    配信網やホストチェーンが止まると、獲得した集団の居場所も消える。逆に、ゲームが配信網へ人を連れてくる向きの関係（Words3 の OP 系チェーンへの初ブリッジ、自己申告）もある。
+  evidence:
+    - {game: hamster-kombat, stance: support, note: "Telegram はミニアプリを下部バーに畳める機能を出してミニアプリ利用者を 5 億人超とし、Durov は Hamster Kombat を最も急成長しているデジタルサービスと呼んだ。配信面の後押しと Telegram の宣伝の利害は一致していた。", s: [src-hamster-kombat-decrypt-minibar, src-hamster-kombat-decrypt-durov, src-hamster-kombat-sherwood]}
+    - {game: pixels, stance: support, note: "Ronin 移転の発表時の日次アクティブは 2,000〜3,000 で、移転後の 2023-11-15 からの数日で 4,000 から 111,000 に増えたと報じられた（DappRadar のデータ）。Sky Mavis はこれを「Ronin Effect」と呼んだが、CEO は報酬を配り始めたときの最大の問題をボットと sybil 攻撃と述べた。", s: [src-pixels-bg-move-ronin, src-pixels-bg-100k, src-pixels-dawn-of-ronin, src-pixels-bg-stacked]}
+    - {game: downstream, stance: support, note: "2024-05 の露出は Redstone の公開と多数のゲームの同時公開に依存し、2024-01 の時点で CEO は 2024 年の公開を否定していた。唯一の展開先 Redstone は 2026-05-15 に停止した。", s: [src-downstream-bcg-amor-2024, src-downstream-race-to-mainnet, src-downstream-l2beat-redstone]}
+    - {game: sky-strife, stance: support, note: "mainnet シーズンは Redstone の一般公開と同日に始まり、この時期の流入はチェーン公開の話題性による可能性があって単独の集客力は測れない。Redstone は 2026-05-15 に停止した。", s: [src-sky-strife-redstone-live, src-sky-strife-winding-down]}
+    - {game: parallel-colony, stance: support, note: "アルファを約 500 ドルの Solana Seeker 端末の保有者に限ったが、参加者数は公表されず、Seeker 保有者には端末上の活動で SKR トークンのエアドロップを得る別の動機があった。", s: [src-colony-egamers-alpha, src-colony-decrypt-skr]}
+    - {game: defi-kingdoms, stance: support, note: "Harmony の助成、Avalanche の Multiverse で確保された 1,500 万ドル、Klaytn の対価といったチェーン側の資金で新しい王国を開いたが、TVL は 2022-01 の約 9.0 億ドルから 2022-06 に約 4,400 万ドルへ減った。", s: [src-defi-kingdoms-theblock-multiverse, src-defi-kingdoms-theblock-leave, src-defi-kingdoms-llama]}
+    - {game: aavegotchi, stance: counter, note: "Polygon への移行では Matic が移行インセンティブに同額の MATIC を出し、2025 年には Base アプリの配布力を理由に Base へ移った。配信網を乗り換えながら続いた例（利用者数は公表されていない）。", s: [src-aavegotchi-substack-matic-incentives, src-aavegotchi-blog-base]}
+    - {game: biomes, stance: counter, note: "同じ Redstone 上の作品でも、DUST は運営が Redstone 停止前に別チェーンへ移した（ただし移行先の DUST Chain も 2026-12-31 の停止を告知している）。", s: [src-biomes-migration-2026, src-biomes-dust-site]}
+    - {game: words3, stance: counter, note: "チームはユーザーインタビューを根拠に、利用者の 8 割超がこのゲームのために初めて OP 系チェーンへブリッジしたと申告した。配信網から人をもらうのではなく、ゲームがチェーンへ人を連れてきた向きの主張（自己申告）。", s: [src-words3-rpgf3]}
+    - {game: pixels, stance: context, note: "ChainArgos は、同時期の Ronin ではエアドロップ目的の取引が多く、Ronin 全体の活動の主因は Pixels ではないと反論した。配信網と作品のどちらが流入を生んだかは双方の主張が食い違う。", s: [src-pixels-ct-bots]}
+  confidence: medium
+  confidence_reason: >-
+    配信・移転と流入の時期の一致、配信網の運営者が宣伝に使ったこと、Redstone の停止は一次資料・報道で確認できる。しかし流入のうち配信網経由の割合を測った資料はなく（Pixels では移転とトークン配布の期待が重なる）、
+    Redstone 系の作品の流入規模は不明なので、「流入の大きさが配信網側で決まる」は主に Telegram と Ronin の 2 事例に依拠する。Downstream・Sky Strife の世界の喪失は移行記録がないことからの推論。
+  alternative: >-
+    Hamster Kombat・Pixels の流入は配信網ではなく同時期のエアドロップ熱（Notcoin の配布、PIXEL の上場前）で説明でき、配信網は経路にすぎなかった可能性がある。
+  experiment:
+    design: >-
+      同じ試作を、自前の告知（Discord・X）経由と 1 つの配信網（チェーンのエコシステム特集、ウォレットのアプリ一覧など）経由の 2 経路で 2 週間公開し、流入元を区別して記録する。配信網側の報酬の有無も記録する。
+    signal: 経路別の D7・D30 継続率と 1 人あたりアカウント数、配信網の特集終了前後の新規数の比。
+    kill: 配信網経由の D30 継続が自前経路の半分未満なら、配信網は露出としてだけ使い、最初の 100 人は自前経路で集める。
+    cost: 小
+
+- id: ins-acq-engine-dogfood
+  topic: acquisition
+  title: エンジン・基盤の最初の利用者は自社と隣接チームのゲームで、ハッカソン・助成で集めた外部作品が本番で積み上がった証拠は乏しい
+  gap_type: unsolved-gap
+  claim: >-
+    World Engine の最初の本格的な利用者は Argus 自身の Dark Frontier で、参照日の組織で「ゲーム」と明示されたリポジトリはそれだけだった。Dojo は Cartridge（Roll Your Own）と Realms（Eternum）が自分たちのゲームを作る道具として始まり、旗艦の Eternum は 2026 年に Dojo を離れた。
+    MUD は社内作品（OPCraft・Sky Strife）で実証し、Daydreams は作者の Eternum を唯一の対応ゲームにした（2025-02 までのボット以外のコミットの約 75% が作者の名義）。外部の開発者はハッカソン・ゲームジャム・助成で集められたが（MUD の Autonomous Worlds ハッカソン、Dojo のジャム、MagicBlock の Speedrun、PixeLAW の懸賞部門）、
+    最初の Dojo Game Jam の提出は 8 作品、PixeLAW の 1,000 ドル部門には応募が確認できず、MagicBlock は事例をゲームから取引・決済へ移してゲーム向けの BOLT を非推奨にした。採用数の公表は「24 の常勤プロジェクト」「69 のハッカソン作品」のような自己申告しかない。
+  conditions: >-
+    自社タイトルを先に載せるのは、エンジンの欠陥を本番で見つけ、事例を宣伝に使える点で効く。外部採用が積み上がりにくかったのは、賞金目当ての一回限りの参加が多い、基盤の作り直し（World Engine の EVM 削除と v2）で初期参加者が移行費用を負う、
+    旗艦が離脱する、エンジンの母数となる開発者圏（Starknet・Dojo）が小さい、のいずれかが重なる場合だった。
+  evidence:
+    - {game: argus-world-engine, stance: support, note: "World Engine の最初の本格的な利用者は Argus 自身で、参照日の Argus-Labs 組織で「ゲーム」と明示されたリポジトリは自社の dark-frontier（最終更新 2024-03）だけ。外部スタジオの採用数は公表されていない。", s: [src-argus-blog-intro, src-argus-github-org]}
+    - {game: dojo, stance: support, note: "Dope Wars 出身の Tarrence（Cartridge）が始め、Realms が初期から提携・利用した。最初のジャムの提出は 8 作品で、旗艦の Eternum は 2026-08〜09 に Dojo から離れた。", s: [src-dojo-cartridge-interview, src-dojo-jam1, src-dojo-eternum-history]}
+    - {game: daydreams, stance: support, note: "初期 README の対応ゲームは作者の Eternum のみで、2025-02-28 までのボットを除く 600 件のコミットのうち 447 件が作者の 2 つの名義だった。ゲーム例は 2025-08 に main から削除された。", s: [src-daydreams-repo]}
+    - {game: mud, stance: support, note: "社内作品の OPCraft・Sky Strife を実証と見本に使い、Lattice の申告では常勤プロジェクト 24・ハッカソン作品 69（いずれも定義不明の自己申告）。早期採用チームの多くは 2026 年までに運営を終え、Lattice も解散した。", s: [src-mud-rpgf3-lattice, src-mud-winding-down]}
+    - {game: pixelaw, stance: support, note: "Dojo Game Jam #4 に 1,000 ドルの PixeLAW 部門を出したが、以後の提出に PixeLAW への言及はなく、公開例のアプリは主に中核メンバーの作だった。", s: [src-pixelaw-dojo-gj4, src-pixelaw-examples]}
+    - {game: magicblock, stance: support, note: "公式ブログの事例はゲーム（2024 年）からデリバティブ取引・決済（2025〜2026 年）へ移り、ゲーム向け ECS の BOLT は 2026-05 に非推奨・保守停止になった。", s: [src-mb-blog-index, src-mb-bolt-repo]}
+    - {game: dojo, stance: counter, note: "2024-08 の Starknet 公式ブログは Dojo 製として Dope Wars・Loot Survivor・Paved・Blobert Arena・Eternum・Force Prime Heroes・Starkane を挙げ、ジャム #4 の 1・2 位（zKlash、Blob Arena）は Realms DAO の助成ラウンドの上位候補になった。", s: [src-dojo-starknet-lessons, src-dojo-lootherald-jam4]}
+    - {game: mud, stance: counter, note: "v2 安定版の告知は CCP Games の Project Awakening などを早期採用者として挙げ、Lattice は MUD が Ethereum で最も広く使われたオンチェーンゲームフレームワークになったと総括した（採用数の集計は公表されていない）。", s: [src-mud-v2-ready, src-mud-winding-down]}
+    - {game: ai-town, stance: counter, note: "公開から数週間で GitHub のスターが 5000 を超え、AI Silicon Valley・Cat Town などのクローンが生まれたと Convex は書く（スター・フォークは開発者の関心の指標で、利用者数ではない）。", s: [src-aitown-convex-v2, src-aitown-repo]}
+    - {game: magicblock, stance: context, note: "代表例の Supersize はハッカソン開始前に作るものを決め devnet で MVP を動かしており、ハッカソンは獲得の場ではなく検証と露出の場だった。", s: [src-mb-blog-supersize-hackathon]}
+  confidence: medium
+  confidence_reason: >-
+    自社・隣接チームが最初の利用者だったことは、6 つのエンジン・基盤でコミット履歴・公式記事から確認できる。外部採用が「積み上がらなかった」ことは、採用数の独立した集計がどの事例にもないことと、旗艦の離脱・製品の非推奨化からの推論で、
+    Dojo の対応作品一覧や MUD の CCP Games のような反例もあるため「高」にはしない。
+  alternative: >-
+    外部採用が小さく見えるのは、2023〜2026 年のオンチェーンゲーム全体の資金と需要の縮小によるもので、エンジンの獲得施策の問題ではないかもしれない（Lattice 自身の解散、Starknet 圏の縮小）。
+  experiment:
+    design: >-
+      エンジンや SDK を公開する前に、外部の 3 チームに「自社ゲームと同じ API だけで 2 週間で小さなゲームを 1 本作る」依頼を有償で出し、詰まった箇所を記録する（ハッカソンの代わり）。
+    signal: 3 チームのうち公開まで到達した数、公開 1 か月後も更新している数、自社チームへの質問の数と内容。
+    kill: 1 チームも 1 か月後に更新していなければ、外部開発者の獲得より自社タイトルに集中する。
+    cost: 中（委託費）
+
+- id: ins-acq-round-reacquire
+  topic: acquisition
+  title: 期間限定の賞金ラウンド・世界のリセットは小さな集団を何度も集めたが、回ごとに獲得をやり直し、再参加の実数は示されなかった
+  gap_type: unsolved-gap
+  claim: >-
+    Dark Forest は各ラウンドを招待鍵の配布から始め直し（運営発表で v0.3 約 300 → v0.6 R3 2500 超）、「得点 1 以上で次の鍵」の再参加資格（R1 700 人など）は出したが、実際に戻った人数は示していない。
+    Primodium は版（v0.7〜v0.11）ごとに世界をリセットし、公開直後の 300 人超・平均 DAU 330 といった数字だけを出した。Freysa は一度破られると終わる Act を続け、Act II・III の賞金は Act I を下回った（Act II は参加費の上限を下げている）。
+    Fomo3D の勝者賞金は 10,469 → 3,264 → 376 ETH と回ごとに縮んだ。Realms: Eternum の S0・S1 は数週間で決着し、長期シーズンは再開されず 60 分の Blitz と日替わりの Frontier に移った。Conquest.eth の 2025 年版は 1 か月のセッションの後にイベントログが大きく減った。
+    どの事例でも、前回の参加者が次の回に何割戻ったかは公表されていない。
+  conditions: >-
+    ラウンド制は各回に告知の機会・公平な出発点・賞金の山を作るため、少人数の熱心な層を毎回集めやすい。賞金の原資が参加者の支払い（Fomo3D・Freysa）だと、参加が減るほど賞金も減って次の回の誘因が弱まる。
+    回をまたいで持ち越せるもの（次ラウンドの鍵、集団・DAO、自作のツール、後継の世界）があるときだけ、前回の集団が次の回の母集団になり得る。
+  evidence:
+    - {game: dark-forest, stance: support, note: "次ラウンドの鍵を得た人数（R1 700、R2 800、R3 約 1000、R4 750 超）は再参加の資格を示すだけで、実際に戻った人数は示されていない。参加者数の定義も回ごとに異なる。", s: [src-df-r1-wrapup, src-df-r2-wrapup, src-df-r3-wrapup, src-df-r4-wrapup]}
+    - {game: primodium, stance: support, note: "示された数値は v0.7.1 公開後 6 日間の 300 人超（プレイヤーの記事）と v0.9 公開後 5 日間の平均 DAU 330（チーム側の投稿）だけで、版ごとのリセットのため同じ世界に残った人数は構造的に測れない。", s: [src-primodium-wasd, src-primodium-awweekly5]}
+    - {game: fomo3d, stance: support, note: "ラウンドごとの勝者賞金は 10,469 ETH → 3,264 ETH → 376 ETH と急減し、第 3 ラウンド以後の公式な活動は確認できない。再参加率の一次集計はない。", s: [src-fomo3d-solmaz, src-fomo3d-etherscan-win-tx, src-fomo3d-secbit-solution]}
+    - {game: freysa, stance: support, note: "Act II・III の賞金は 12,920.08 ドル・20,843.04 ドルで Act I の 47,316.05 ドルを下回り、Act 間で同じ参加者が戻ったかは公表されていない。", s: [src-freysa-theblock-reflects, src-freysa-site-act2]}
+    - {game: realms-eternum, stance: support, note: "S0 は約 2 週間、S1 は約 3 週間で終わったとみられ、長期形式は再開されず、無料・日替わりの Frontier と参加料つきの 60 分 Blitz に移った。S0→S1 の継続率は公表されていない。", s: [src-realms-eternum-x-s0-champions, src-realms-eternum-git-history, src-realms-eternum-frontier]}
+    - {game: conquest-eth, stance: support, note: "2025 年版は 1 か月のセッションの後に続けたい人だけが無期限モードに移る設計で、イベントログは開始後約 5 週間に 14,157 件、その後の約 4 か月ごとに 1,859・66・27 件と減った（一部は予定どおりのセッション終了で説明できる）。", s: [src-conquest-back-2025, src-conquest-gnosis-logs]}
+    - {game: dark-forest, stance: counter, note: "上位プレイヤーは DAO・ギルドとして回をまたいで残り（dfdao、R5 時点で 1 位 4 回の orden_gg）、Lobbies とコミュニティラウンドで宇宙を開いて人を集める側に回った。ラウンドをまたいで集団が持ち越された例。", s: [src-df-hardmode, src-df-r5-wrapup, src-df-lobbies, src-df-community-round]}
+    - {game: freysa, stance: counter, note: "Act II の賞金の小ささは参加者の減少ではなく、参加費の上限を 20 ドルに下げた設計変更で説明できる可能性がある。", s: [src-freysa-site-act2, src-freysa-theblock-reflects]}
+    - {game: biomes, stance: context, note: "2 週間で凍結された OPCraft の後継は「OPCraft fans」のチームが作ったと Lattice は紹介したが、OPCraft のプレイヤーが Biomes に移ったことは確認できない。持ち越されたのは作り手で、プレイヤーではなかった可能性がある。", s: [src-biomes-race-to-mainnet, src-biomes-winding-down]}
+    - {game: sky-strife, stance: context, note: "運営が 1 日 3 回の無料試合を用意したプレイテストでは大半が 2 試合以上遊び、ユーザー作成の試合が管理者作成を上回ったと運営は報告したが、無料試合とシーズンをやめた後は試合を何時間も待つ不満が出た。", s: [src-sky-strife-orbs-blog, src-sky-strife-autonomous]}
+  confidence: medium
+  confidence_reason: >-
+    ラウンドごとの開始・終了と各回の数字は 6 事例で一次資料・運営発表から確認でき、再参加の実数がどこにも示されていないことも確認した。ただし「回ごとにやり直した」ことが獲得の費用をどれだけ増やしたかは測られておらず、
+    縮小（Fomo3D・Eternum・Conquest.eth）はラウンド制以外の要因（相場、運営の資金、設計変更）とも重なる。
+  alternative: >-
+    回ごとの縮小はラウンド制の性質ではなく相場の下落や運営資金の縮小と同時期のもので、ラウンド制はむしろ少ない費用で小さな集団を保つ手段だった可能性がある（Dark Forest は回を追って参加者が増えた）。
+  experiment:
+    design: >-
+      2 回のラウンドを続けて開き、前回の参加者を「持ち越し要素あり（称号・次回の先行枠・自作ツールの引き継ぎ）」と「なし」の 2 群に分けて同じ通知を送る。新規向けの告知は別に出す。
+    signal: 群ごとの再参加率（アカウントではなく連絡先で照合）、2 回目の参加者に占める再参加者の割合。
+    kill: 持ち越し要素ありでも再参加率が 30% 未満なら、ラウンド制は「毎回新規を集める」前提で設計し、獲得の費用を回ごとに見積もる。
+    cost: 小
