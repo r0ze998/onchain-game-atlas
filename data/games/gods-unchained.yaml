@@ -71,32 +71,37 @@ article:
 
 acquisition:
   audience: [holders, players]
-  summary: {t: "最初の参加者は、遊べる版がない 2018-07 からの予約販売で ETH を払ってカードパックを買った暗号資産の保有者・収集家で、一点物の Mythic カードの抽選・競売と、予約販売の売上から積み立てる世界大会の賞金が呼び水になった。対戦するプレイヤーとしての流入は、数か月の非公開テストを経た 2019-07 のベータ一般公開以降である。", k: analysis, s: [src-gu-cryptoslate-2018, src-gu-bgb-1m-cards, src-gu-mittr-2019]}
+  summary: {t: "最初の参加者は、遊べる版がない 2018-07 からの予約販売で ETH を払ってカードパックを買った暗号資産の保有者・収集家で、一点物の Mythic カードの抽選・競売と、予約販売の売上から積み立てる世界大会の賞金が呼び水になった。対戦するプレイヤーとしての流入は、数か月の非公開テストを経た 2019-07 のベータ一般公開以降で、運営によれば 2019-10 の Hearthstone の Blitzchung 処分への対応で暗号資産の外のゲーマーの登録が倍増した。", k: analysis, s: [src-gu-cryptoslate-2018, src-gu-bgb-1m-cards, src-gu-mittr-2019, src-gu-unchained-2019]}
   steps:
     - {phase: pre, date: "2018-07", t: "Fuel Games が予約販売を始めた。", k: fact, s: [src-gu-wikipedia-immutable]}
     - {phase: pre, date: "2018-08", t: "予約販売のデッキは 0.012・0.075・0.112・1 ETH の 4 段階で、どのパックにも年 4 枚しか作られない一点物の Mythic カード（残り 3 枚のうち 2 枚）が入る可能性があった。3 枚目の Mythic「Hyperion」は別に競売にかけられ、入札額は 137.84 ETH（約 6.9 万ドル）に達していた。予約販売の売上の 10% を 2019 年第 1 四半期予定の世界大会の賞金に充て、目標は 160 万ドル（当時の積立は 26 万ドル余り）とされた。", k: fact, s: [src-gu-cryptoslate-2018]}
+    - {phase: pre, date: "2018-08", t: "最初のカード販売で約 4,402 ETH（約 120 万ドル）を集め、50 万枚超のカードを売った。大会の参加パス 2 万枚は Legendary セットとパックに同梱する形で配られ、すべて配布済みとなった。賞金の積立は 29 万ドル超（目標 130 万ドル）と報じられた。", k: fact, s: [src-gu-bgb-1-2m-2018]}
     - {phase: pre, date: "2018-10", t: "74 日でカード 100 万枚を売った（記事は 3 か月未満とし、起点は明記していない）。", k: fact, s: [src-gu-bgb-1m-cards]}
     - {phase: launch, date: "2019-07", t: "数か月の非公開テストを経てベータ版を一般公開した。この時点で予約販売の収入は 400 万ドルとされた。", k: fact, s: [src-gu-mittr-2019]}
+    - {phase: growth, date: "2019-10", t: "Blizzard が Hearthstone の大会で香港の抗議を支持した Blitzchung の賞金を没収し出場停止にしたことに対し、Gods Unchained は没収分の賞金を補填すると申し出た。CEO はこれで登録が約 3 万から 6 万へ「一晩で」倍増し、新規層は主に暗号資産に関心のないゲーマーだったと述べた（登録の定義は示していない）。", k: claim, who: "James Ferguson（Immutable CEO、Unchained ポッドキャスト 2019-10-25）", s: [src-gu-unchained-2019], q: "we doubled our signup rate and our player base essentially overnight"}
     - {phase: growth, date: "2019-10", t: "1 年以上続いた Genesis パックの販売が 33,333 ETH（当時 600 万ドル超）で完売した。DappRadar の数える日次ウォレットは 2019-10 中旬に 700 でピークだった。", k: fact, s: [src-gu-bgb-genesis]}
   channels:
     - {id: prize-competition, t: "予約販売の売上の 10% を世界大会の賞金（目標 160 万ドル）に積み立てると告知した。", k: fact, s: [src-gu-cryptoslate-2018]}
     - {id: invite-gating, t: "ベータの一般公開（2019-07）の前に、数か月の非公開テストを行った（参加者数・選び方は未確認）。", k: fact, s: [src-gu-mittr-2019]}
-    - {id: viral-mechanic, t: "一点物の Mythic カードをパックに混ぜ、別の Mythic を公開の競売にかけて高額入札を話題にした。", k: fact, s: [src-gu-cryptoslate-2018]}
+    - {id: press, t: "2019-10、Hearthstone の Blitzchung 処分への対抗として賞金の補填を申し出たことが話題となり、運営によれば登録が倍増した（報道量は本調査で計測していない）。", k: claim, who: "James Ferguson（Unchained ポッドキャスト）", s: [src-gu-unchained-2019]}
   cost:
     - {t: "最初の参加者自身がパック代を払い、それが開発資金になった（予約販売 400 万ドル、Genesis 販売の総額 33,333 ETH）。2018 年に 240 万ドルのシード調達もあった。世界大会の賞金は予約販売の売上の 10% から出す設計で、パック購入者の支払いの一部が一部の上位プレイヤーへの賞金に回る構造だった。", k: fact, s: [src-gu-mittr-2019, src-gu-bgb-genesis, src-gu-wikipedia-immutable, src-gu-cryptoslate-2018]}
   after:
     - {t: "Genesis 完売時（2019-10）の日次ウォレットは最大 700（DappRadar）で、プレイヤー数ではない。その後 NFT 売上の累計は約 3.5 億ドル（2024-02、CryptoSlam）に達し、2024-02 にモバイル版の早期アクセスを出した。プレイヤー数・継続率は公表されていない。", k: fact, s: [src-gu-bgb-genesis, src-gu-decrypt-mobile-2024]}
   counter:
+    - {t: "Genesis 完売と DappRadar の日次ウォレットのピーク（いずれも 2019-10 中旬〜下旬）は、Blitzchung をめぐる騒動で登録が倍増したと CEO が述べた時期と重なる。予約販売の仕掛け（Mythic・賞金積立）ではなく、外部の話題による一時的な流入が 2019-10 の山を作った可能性があり、両者を分ける資料はない。", k: analysis, s: [src-gu-bgb-genesis, src-gu-unchained-2019]}
     - {t: "100 万枚の販売や 400 万ドルの予約販売は、カードの将来価値を見込んだ収集・投機の需要を示すもので、遊ぶプレイヤーの数は示さない。同じ時期の日次ウォレットは数百規模だった。", k: analysis, s: [src-gu-bgb-1m-cards, src-gu-bgb-genesis]}
   lessons:
     - {t: "予約販売の一部を大会賞金に積み立てる: 先行購入に「競技で取り返せる」意味を与えられるが、賞金は後続の購入に依存するため、販売が止まると賞金の約束も弱まる。", k: analysis}
     - {t: "一点物カードの抽選と公開競売: 少数の高額入札で話題を作れるが、集まるのは収集家で、対戦の需要とは別に測る必要がある。", k: analysis}
-  metrics: [m-gu-presale-revenue-2019, m-gu-cards-1m-2018, m-gu-prize-goal-2018, m-gu-genesis-sale, m-gu-daily-wallets-2019-10, m-gu-seed-2018]
+  metrics: [m-gu-presale-revenue-2019, m-gu-cards-1m-2018, m-gu-prize-goal-2018, m-gu-genesis-sale, m-gu-daily-wallets-2019-10, m-gu-seed-2018, m-gu-initial-sales-2018-08, m-gu-signups-2019-10]
   unknowns: ["予約販売の購入者数（ウォレット数）", "非公開テスト（2018〜2019）の参加者数と選び方（公式タイムライン記事は 403 で読めず、検索要約では 2018-11-09 に少数が閉じたベータに参加）", "世界大会の賞金が実際にいくら支払われたか"]
 
 metrics:
   - {id: m-gu-presale-revenue-2019, type: revenue, value: 4000000, unit: USD, period: "〜2019-07", definition: "予約販売による収入（Fuel Games の発表、MIT TR の記事）", nature: reported, s: [src-gu-mittr-2019]}
-  - {id: m-gu-genesis-sale, type: revenue, value: 6200000, value_text: "33,333 ETH（約 620 万ドル）", unit: USD, period: "2019-10 終了", definition: "Genesis 販売の総額（Business Wire の配信は検索要約のみ。BlockchainGamer.biz で 33,333 ETH・600 万ドル超を確認）", nature: reported, s: [src-gu-genesis-sale, src-gu-bgb-genesis]}
+  - {id: m-gu-genesis-sale, type: revenue, value: 33333, value_text: "33,333 ETH（記事執筆時点で 600 万ドル超）", unit: ETH, period: "2018-07〜2019-10（1 年以上の販売の累計、2019-10 に完売）", definition: "Genesis カードパック販売の累計額（Immutable の発表、BlockchainGamer.biz で確認）。Business Wire の配信が示す「620 万ドル」は検索要約でしか見ておらず、この値の根拠にしない", nature: reported, s: [src-gu-bgb-genesis, src-gu-genesis-sale]}
+  - {id: m-gu-initial-sales-2018-08, type: revenue, value: 4402, value_text: "約 4,402 ETH（約 120 万ドル）", unit: ETH, period: "2018-07 中旬の発表〜2018-08", definition: "最初のカード販売の売上（BlockchainGamer.biz）", nature: reported, s: [src-gu-bgb-1-2m-2018]}
+  - {id: m-gu-signups-2019-10, type: players, value_text: "約 3 万 → 6 万", unit: signups, period: "2019-10（Blitzchung 騒動の前後）", definition: "CEO が述べた登録（signups）数。定義は示されていない", nature: reported, s: [src-gu-unchained-2019]}
   - {id: m-gu-seed-2018, type: funding, value: 2400000, unit: USD, period: "2018", definition: "シード調達（Continue Capital・Nirvana Capital 主導、Wikipedia）", nature: reported, s: [src-gu-wikipedia-immutable]}
   - {id: m-gu-nft-sales-2024, type: nft_sales, value: 350000000, value_text: "約 3.5 億ドル", unit: USD, period: "〜2024-02 累計", definition: "NFT 売上累計（CryptoSlam、Decrypt の引用）", nature: measured, s: [src-gu-decrypt-mobile-2024]}
   - {id: m-gu-trading-fee, type: other, value: 9, unit: "%", period: "2025-04", definition: "マーケットの取引手数料（公式 FAQ）", nature: reported, s: [src-gu-zkevm-faq]}
@@ -120,6 +125,7 @@ unknowns:
   - "第三者による拡張（デッキツール・トーナメント運営等）の範囲。コントラクトの管理権限。"
   - "公式ブログ（portal.godsunchained.com）の大半は 403 で取得できず、タイムライン記事は未読。"
 contradictions:
+  - {t: "世界大会の賞金: CryptoSlate（2018-08-02）は積立 26 万ドル余り・目標 160 万ドル、BlockchainGamer.biz（2018-08-21 更新）は 29 万ドル超・目標 130 万ドル、2019-10 のポッドキャストでは翌年の世界大会の賞金を 50 万ドルとしている。時点の違いだけでは目標額の引き下げを説明できない。", s: [src-gu-cryptoslate-2018, src-gu-bgb-1-2m-2018, src-gu-unchained-2019]}
   - {t: "公開年: Wikipedia（Immutable）は 2019 年公開、Decrypt（2024）は 2018 年に Ethereum で公開と記載（2018 年は予約販売開始）。MIT TR は 2019-07 にベータ版が一般公開されたとし、正式公開はその後。", s: [src-gu-wikipedia-immutable, src-gu-decrypt-mobile-2024, src-gu-mittr-2019]}
 
 sources:
@@ -131,3 +137,5 @@ sources:
   - {id: src-gu-cryptoslate-2018, title: "World's First Blockchain-Based eSport, 'Gods Unchained' Starts Presale", url: "https://cryptoslate.com/worlds-first-blockchain-based-esport-gods-unchained-starts-presale/", publisher: "CryptoSlate", type: news, primary: false, published: "2018-08-02", accessed: "2026-10-24", access: fetched, lang: en, note: "予約販売の 4 段階の価格、Mythic カード、Hyperion の入札 137.84 ETH、売上の 10% を世界大会賞金（目標 160 万ドル、積立 26 万ドル余り）"}
   - {id: src-gu-bgb-1m-cards, title: "Gods Unchained sells over 1 million cards in less than 3 months", url: "https://www.blockchaingamer.biz/news/6510/gods-unchained-sells-over-1-million-cards-in-less-than-3-months/", publisher: "BlockchainGamer.biz", author: "James McQuillan", type: news, primary: false, published: "2018-10-02", accessed: "2026-10-24", access: fetched, lang: en, note: "74 日でカード 100 万枚"}
   - {id: src-gu-bgb-genesis, title: "Immutable sells out of Gods Unchained genesis card packs", url: "https://www.blockchaingamer.biz/?p=13162", publisher: "BlockchainGamer.biz", author: "Jon Jordan", type: news, primary: false, published: "2019-10-30", accessed: "2026-10-24", access: fetched, lang: en, note: "Genesis パック完売、総額 33,333 ETH（600 万ドル超）、DappRadar の日次ウォレットのピーク 700（2019-10 中旬）、自社マーケットの計画"}
+  - {id: src-gu-bgb-1-2m-2018, title: "Gods Unchained successfully raises $1.2 million including $300k esports prize pot", url: "https://www.blockchaingamer.biz/news/5592/gods-unchained-successfully-raised-1-2-million-among-other-achievements/", publisher: "BlockchainGamer.biz", author: "James McQuillan", type: news, primary: false, published: "2018-08-21", accessed: "2026-10-24", access: fetched, lang: en, note: "最初のカード販売で約 4,402 ETH（約 120 万ドル）、50 万枚超、大会パス 2 万枚を Legendary セットとパックに同梱して配布済み、賞金積立 29 万ドル超・目標 130 万ドル（published は最終更新表記）"}
+  - {id: src-gu-unchained-2019, title: "How the Hong Kong Protests Gave a Boost to Gods Unchained - Ep.96", url: "https://rosetta.to/u/unchainedcrypto/how-the-hong-kong-protests-gave-a-boost-to-gods-unchained-ep-96", publisher: "Unchained podcast（rosetta.to の書き起こし）", author: "Laura Shin（聞き手）", type: interview, primary: true, published: "2019-10-25", accessed: "2026-10-24", access: fetched, lang: en, note: "James Ferguson: Blitzchung の賞金補填の申し出、登録が約 3 万から 6 万へ倍増、新規層は主にゲーマー、前週の対戦約 10 万、翌年の世界大会賞金 50 万ドル。第三者サイトの書き起こしで誤記の可能性あり"}

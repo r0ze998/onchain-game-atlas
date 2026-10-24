@@ -81,19 +81,20 @@ acquisition:
     - {phase: pre, date: "2021", t: "2021 年に 2 回の alpha、2022 年に beta と DEFCON 版を実施した。運営は、このうち設計どおり許可不要・永続の形で始めたのは DEFCON 版だけだったと振り返る。", k: claim, who: "Etherplay", s: [src-conquest-back-2025], q: "Conquest had 4 versions prior to this one. 2 alphas in 2021, plus 1 beta and the \"DEFCON\" edition in 2022."}
     - {phase: pre, date: "2021-11", t: "第三者メディアは、第 2 alpha を 12 月 7 日に開き、誰でも参加でき、少なくとも 2000 ドルの賞品があると報じた（開発ログの告知に基づく記事。賞品の拠出者は記載なし）。同じ版で同盟と、不在時に艦隊を操作する雇える代行が加わった。", k: fact, s: [src-conquest-p2e-alpha2], q: "There will be at least $2000 in prizes up for grabs."}
     - {phase: launch, date: "2022-04", t: "DEFCON 版を Gnosis Chain で開始した（作者のブログが「4 月に Defcon で開始」と記載）。", k: fact, s: [src-conquest-infinite-games]}
-    - {phase: growth, date: "2025-01-21", t: "2025-02-03 の再開を告知した。期限も人数上限もない世界として、1 惑星あたり 1〜12 xDai のステークで参加する形にし、ランダムな惑星に提携先の賞品（Blockscout が計 200 ドル、Xaya の Soccerverse が 500 ドル相当のサッカークラブ）を置き、運営が 1000 ドルをポイント上位の報酬に出すとした。参加方法はニュースレター登録・アンケート・Discord 参加を案内した。", k: fact, s: [src-conquest-back-2025]}
+    - {phase: growth, date: "2025-01-21", t: "2025-02-03 の再開を告知した。期限も人数上限もないゲームと説明しつつ、まず 1 か月のセッションを行い、続ける参加者は以後の無期限モードに移るとした。1 惑星あたり 1〜12 xDai のステークで参加する形にし、ランダムな惑星に提携先の賞品（Blockscout が計 200 ドル、Xaya の Soccerverse が 500 ドル相当のサッカークラブ）を置き、運営が 1000 ドルをポイント上位の報酬に出すとした。参加方法はニュースレター登録・アンケート・Discord 参加を案内した。", k: fact, s: [src-conquest-back-2025]}
     - {phase: growth, date: "2025-05", t: "Faction 版を公開した。運営は翌年、この版では過去のどの版よりも多くのトークンを配布したが、固定の参加費にしたことで想定していなかった複数アカウントの問題が多発したと振り返った。", k: claim, who: "Etherplay", s: [src-conquest-future-2026], q: "We also had a lot of multi-accounting issues that we did not plan for."}
   channels:
-    - {id: prize-competition, t: "2021 年の alpha テストは賞品付きで（第 2 alpha は 2000 ドル以上と報道）、2025 年の再開でも運営の 1000 ドルを上位報酬に充てた。", k: fact, s: [src-conquest-p2e-alpha2, src-conquest-back-2025]}
+    - {id: prize-competition, t: "2021 年の alpha テストは賞品付きで（第 2 alpha は 2000 ドル以上と報道）、2025 年の再開でも運営の 1000 ドルを上位報酬に充てた。2025 年版では Blockscout（計 200 ドル）と Xaya の Soccerverse（500 ドル相当のサッカークラブ）がランダムな惑星に賞品を置くスポンサーになり、運営はさらにスポンサーを募った（提携先が自らの配信網・告知で参加者を送ったことを示す記述はない）。", k: fact, s: [src-conquest-p2e-alpha2, src-conquest-back-2025]}
     - {id: token-incentive, t: "2025 年版ではステークの保有量と期間で決まるポイントに応じて報酬を配り、運営は合算しても有利にならない線形の配分にしたと説明した。Faction 版では過去最多のトークンを配布した。", k: claim, who: "Etherplay", s: [src-conquest-back-2025, src-conquest-future-2026]}
-    - {id: platform-distribution, t: "2025 年版では Blockscout と Xaya（Soccerverse）がランダムな惑星に賞品を置くスポンサーになり、運営はさらにスポンサーを募った。", k: fact, s: [src-conquest-back-2025]}
-    - {id: community-server, t: "参加方法として Discord への参加とニュースレター登録、アンケート回答を案内した。", k: fact, s: [src-conquest-back-2025, src-conquest-future-2026]}
+    - {id: community-server, t: "2025 年の再開告知と 2026 年の振り返りで、参加・情報入手の方法として Discord への参加とニュースレター登録（2025 年はアンケート回答も）を案内した。Discord 経由で何人が参加したかは示されていない。", k: fact, s: [src-conquest-back-2025, src-conquest-future-2026]}
   cost:
-    - {t: "獲得の原資は、運営の賞金（2025 年版で 1000 ドル）と提携先の賞品（計 700 ドル相当）、そしてプレイヤー自身のステーク（1 惑星 1〜12 xDai）である。ステークは他プレイヤーに奪われ得るため、後から来た参加者の資金が先行者に移る構造がある。2021 年 alpha の 2000 ドル以上の賞品を誰が出したかは未確認。", k: fact, s: [src-conquest-back-2025, src-conquest-p2e-alpha2, src-conquest-handbook]}
+    - {t: "獲得の原資は、運営の賞金（2025 年版で 1000 ドル）と提携先の賞品（計 700 ドル相当）、そしてプレイヤー自身のステーク（1 惑星 1〜12 xDai）である。2021 年 alpha の 2000 ドル以上の賞品を誰が出したかは未確認（報道は第三者が報酬を置くスポンサー惑星を受け付けるとだけ記す）。", k: fact, s: [src-conquest-back-2025, src-conquest-p2e-alpha2]}
+    - {t: "ハンドブックは、攻略した惑星のステークを exit で回収できると説明しており、プレイヤー間で資金が移る構造がある。移る方向は攻略の成否で決まり、後から来た参加者が先行者に払う仕組みとは限らない。", k: analysis, s: [src-conquest-handbook]}
   after:
-    - {t: "2025-1 版の OuterSpace のイベントログは 2024-11〜2025-03 の約 4 か月に 14,157 件、その後の約 4 か月ごとに 1,859 件、66 件、27 件と減り、再開直後の流入は続かなかった。プレイヤー数・継続率の公表値はない。", k: fact, s: [src-conquest-gnosis-logs]}
+    - {t: "2025-1 版の OuterSpace のイベントログは、最初のログが 2025-01-31（ブロック 38,326,402）で、そこから 2025-03 上旬までの区間に 14,157 件、その後の約 4 か月ごとに 1,859 件、66 件、27 件と減り、再開直後の流入は続かなかった（2026-10-24 の再計測でも、区切りをずらして 14,250 / 1,772 / 60 / 27 / 0 / 1 件と同じ形）。プレイヤー数・継続率の公表値はない。", k: fact, s: [src-conquest-gnosis-logs]}
   counter:
     - {t: "報酬を厚くした Faction 版では、固定の参加費が複数アカウントを有利にしたと運営自身が認めており、報酬による「参加者」の増加には同一人物の複数口座が含まれ得る。ステーク量に比例する設計は、それ以前の版では複数アカウントへの耐性になっていたと運営は述べる。", k: claim, who: "Etherplay", s: [src-conquest-future-2026], q: "This was due to the fixed entry price, a big departure from what made Conquest.eth immune to it prior to that."}
+    - {t: "再開告知は最初に 1 か月のセッションを置き、その後は続けたい参加者だけが無期限モードに移る設計だった。ログが開始後約 5 週間に集中して減ったことの一部は、関心の喪失ではなく予定どおりのセッション終了で説明できる。", k: analysis, s: [src-conquest-back-2025, src-conquest-gnosis-logs]}
     - {t: "イベントログの集中は報酬の告知と開始の時期に一致するが、ログ件数は行動数であって人数ではなく、少数の活発なプレイヤーやボットでも同じ形になり得る。", k: analysis, s: [src-conquest-gnosis-logs]}
   lessons:
     - {t: "ステーク比例の報酬で複数アカウントを無意味にする: 報酬を「保有ステーク量×期間」に線形に比例させると、口座を分けても合算しても受け取りが変わらず、賞金で人を呼んでも多重アカウントの動機が生まれにくい。効く条件は参加単位の価格が自由（1〜12 xDai のように可変）であること。破綻条件は固定の参加費や 1 口座あたりの固定報酬を入れた場合で、Conquest の Faction 版のように報酬が口座数に比例してしまう。", k: analysis, s: [src-conquest-back-2025, src-conquest-future-2026]}

@@ -81,12 +81,12 @@ acquisition:
     - {phase: pre, date: "2024-03-18", t: "Decrypt は、発表後に PRIME が史上最高値 28.00 ドルに達したと報じ、無料版も用意するが無料版では PRIME 報酬を得られず所持品も保持できないこと、公開アルファを 2024 年 Q4〜2025 年 Q1 に予定していることを伝えた。", k: fact, s: [src-colony-decrypt-2024]}
     - {phase: pre, date: "2024-12", t: "Solana の X 投稿（検索要約のみ）は、AI エージェントが Solana 上で自律的に取引するとしてアルファを 2025 年 Q1 と予告した。", k: claim, who: "Solana（X 投稿、検索要約のみ）", s: [src-colony-solana-x-2024]}
     - {phase: pre, date: "2025-09", t: "Parallel Studios は Solana Seeker 端末の保有者を主要なテスト対象にし、Avatar NFT の保有者もこの版をモバイルか PC で遊べるとした（BlockchainGamer.biz の報道）。", k: claim, who: "Parallel Studios（BlockchainGamer.biz の報道）", s: [src-colony-bcg-tcg-2025]}
-    - {phase: launch, date: "2025-09-22", t: "Seeker 端末（約 500 ドル）の保有者に限定したアーリーアルファを開始。公式サイトで無料登録を受け付け、1 個 10 ドルのクレート（ペット・スキン等、限定コンテンツの抽選付き）を販売した。", k: fact, s: [src-colony-egamers-alpha]}
-    - {phase: growth, date: "2026-09-03", t: "約 1 年の限定テストの後、「Colony: Survival」として App Store と Google Play で世界公開した。報道は NFT の購入やウォレットの操作なしに始められると書き、MobileGamer.biz は「silent launch」と表現した。", k: fact, s: [src-colony-bcg-launch, src-colony-mobilegamer]}
+    - {phase: launch, date: "2025-09-22", t: "Seeker 端末（約 500 ドル）の保有者に限定したアーリーアルファをこの日に開始すると報じられた（記事は開始当日付けの予告）。公式サイトで無料登録を受け付け、1 個 10 ドルのクレート（ペット・スキン等、限定コンテンツの抽選付き）を販売するとされた。", k: fact, s: [src-colony-egamers-alpha]}
+    - {phase: growth, date: "2026-09-03", t: "約 1 年の限定テストの後、「Colony: Survival」として App Store と Google Play で世界公開した。報道は NFT の購入やウォレットの操作なしに始められると書き、MobileGamer.biz は「silent launch」で、マーケティングの本格化はこれからと書いた。", k: fact, s: [src-colony-bcg-launch, src-colony-mobilegamer]}
   channels:
     - {id: existing-community, t: "既存の Parallel Avatar NFT（11,001 体）を AI アバターの土台にし、保有者もアルファ版を遊べるとした。保有者が実際に何人参加したかは不明。", k: claim, who: "Parallel Studios（報道経由）", s: [src-colony-bcg-2024, src-colony-bcg-tcg-2025]}
     - {id: platform-distribution, t: "アルファを Solana Seeker 端末の保有者に限定して配り、世界公開では App Store と Google Play を使った。", k: fact, s: [src-colony-egamers-alpha, src-colony-bcg-launch]}
-    - {id: invite-gating, t: "約 500 ドルの Seeker 端末の保有をアルファ参加の条件にし、公式サイトでの事前登録を経て段階的に開放した。", k: fact, s: [src-colony-egamers-alpha]}
+    - {id: invite-gating, t: "約 500 ドルの Seeker 端末の保有をアルファ参加の条件にし、公式サイトでの無料登録を受け付けた（その後の段階的な開放の経過は資料で確認できない）。", k: fact, s: [src-colony-egamers-alpha]}
   cost:
     - {t: "アルファでは 10 ドルのクレートを参加者に販売しており、獲得の原資を参加者が一部払う形だった。世界公開版は基本無料でアプリ内課金・サブスクリプションで収益化する。集客に使った広告費やトークン報酬の額は確認できなかった。", k: fact, s: [src-colony-egamers-alpha, src-colony-official]}
   after:
@@ -95,6 +95,7 @@ acquisition:
     - {t: "2024-03 の発表直後に PRIME が史上最高値を付けており、発表への反応はプレイヤーとしての関心ではなく、トークン価格への期待だった可能性がある。", k: analysis, s: [src-colony-decrypt-2024]}
     - {t: "Seeker 限定のアルファは、端末保有者という狭い層に絞ることで、需要を測るより Solana Mobile との提携の宣伝になっていた可能性がある。参加者数が公表されていないため、限定の効果は検証できない。", k: analysis, s: [src-colony-egamers-alpha, src-colony-bcg-tcg-2025]}
     - {t: "世界公開版は NFT・ウォレット不要で、公式ページもチェーン要素に触れない。一般層の獲得は Web3 の既存コミュニティではなく通常のモバイル配信に頼っており、初期の保有者層とは別の集団になった可能性がある。", k: analysis, s: [src-colony-bcg-launch, src-colony-official]}
+    - {t: "アルファの対象になった Seeker 保有者には別の動機があった。Seeker は 2025-08 に世界出荷が始まり、Solana Mobile は端末上の活動（Seeker Season 1）のスナップショットを取って SKR トークンを端末保有者と開発者にエアドロップした（2026-01）。Seeker 限定アルファの参加者には、ゲームへの関心ではなく端末上の活動実績を積む目的の人が含まれていた可能性がある。", k: analysis, s: [src-colony-decrypt-skr, src-colony-egamers-alpha]}
   lessons:
     - {t: "端末やトークンの保有者に限ったアルファから一般モバイル公開へ: 高価な端末や NFT の保有を条件にすると、少数の熱心な層でテストできる。効く条件は限定期間の学びを一般版に生かせ、保有者に固有の特典が残ること。破綻条件は一般版でチェーン要素を外した場合で、最初の保有者層に提供した価値と一般層の体験が切り離される。", k: analysis}
   metrics: []
@@ -137,3 +138,4 @@ sources:
   - {id: src-colony-panews, title: "Web3 Games Begin to Embrace AI, Perhaps Not Just About Chasing Trends or Changing Narratives", url: "https://panews.io/articles/01a0af2c-c3b6-7219-8ebb-61df6e43938e", publisher: "PANews", author: "Zen", type: analysis, primary: false, accessed: "2026-10-23", access: fetched, lang: en, note: "PRIME・NFT・ブロックチェーン・ウォレットが製品ホームページから「quietly removed」と記す。公開日の表示なし"}
   - {id: src-colony-bcg-tcg-2025, title: "Parallel Studios prepares for Parallel TCG’s mobile and Steam launches in Q4", url: "https://www.blockchaingamer.biz/?p=40463", publisher: "BlockchainGamer.biz", author: "Jon Jordan", type: news, primary: false, published: "2025-09-23", accessed: "2026-10-24", access: fetched, lang: en, note: "ページ表示は最終更新日。Colony のアーリーアルファを 9 月に予定、Seeker 保有者を主要なテスト対象、Avatar NFT 保有者もモバイル・PC で遊べる"}
   - {id: src-colony-decrypt-2024, title: "Creador de Parallel Detalla Juego de IA 'Colony' en Solana: PRIME Marca ATH", url: "https://decrypt.co/es/222124/creador-de-parallel-detalla-juego-de-ia-colony-en-solana-prime-marca-ath/", publisher: "Decrypt (スペイン語版)", author: "Andrew Hayward", type: news, primary: false, published: "2024-03-18", accessed: "2026-10-24", access: fetched, lang: es, note: "PRIME が史上最高値 28.00 ドル、既存 Avatar NFT を基にする、無料版は PRIME 報酬なし、公開アルファを 2024 年 Q4〜2025 年 Q1 に予定"}
+  - {id: src-colony-decrypt-skr, title: "Solana Mobile Gears Up to Airdrop SKR Token to Seeker Phone Users—But Not Saga Owners", url: "https://decrypt.co/353912", publisher: "Decrypt", type: news, primary: false, published: "2026-01-07", accessed: "2026-10-24", access: fetched, lang: en, note: "検証役が追加。Seeker は 2025-08 に世界出荷、Seeker Season 1 の端末活動のスナップショット、SKR を端末保有者と開発者へ配布（Saga 保有者は対象外）。Colony への言及なし"}

@@ -34,3 +34,16 @@
 
 ## 総合判定
 修正済み — 事実誤り 1 件（領域の決まり方）、コード照合での過大表現 1 件（whitelist の範囲）、推測の fact 扱い 1 件を修正し、反証 3 件と矛盾 2 件を追加。数値・日付・引用に捏造は見つからなかった。
+
+## ゼロイチ節の検証（2026-10-24）
+- 確認した出典: 12 / 25（新出典の ZK Podcast 141・225 の書き起こしを raw で全文取得、announce、v3-rules、v4-recap、v05、announce-v6、r1-wrapup、r5-wrapup、holiday、df04-faq、df05-faq、naavik、hardmode を取り直し）
+- 新出典（書き起こし 2 本）: 実在し内容も一致。引用 4 件（"I met Wei Jie and Kobi and Barry…"、"We did run one play test earlier in, …"、"a number of our community members who have discovered either crypto or specifically ZK through Dark Forest"、他）は逐語一致。Kobi の並列ハッシュ、8/7 開始予定、Twitter 告知、学部生を EF ワークショップに連れて行く話、0xPARC は "fully funded by donations and grants"、Blaine が v0.4 上位 2 人の一人も一致。番組ページの公開日表記は再確認していない
+- 直したこと:
+  - steps（内部 alpha の pre）: date "2020-08" → 削除。2020-08 はポッドキャストの公開月で、プレイテストの日付ではない
+  - channels community-server: Telegram の質問対応と Discord 8000 人超を獲得チャネルとして挙げていた → 獲得経路として確認できるのは v0.6 の Discord での無作為な鍵配布だけと書き直し、規模の数字は参加後の場と明記（出典に announce-v6 を追加）
+  - cost: バーナーウォレットへの xDAI 送付の出典に announce-v6 が入っていた（同記事に記載なし）→ v0.4/v0.5 FAQ に限定し、約 0.05 ドル分と具体化。「後から来た参加者が先行者に払う構造はない」は出典に書かれていないため別項にして k: analysis に格下げ
+  - after: 「orden_gg 系の集団は R2〜R5 で上位を続けた」→ R5 振り返りの記述どおり「R5 時点で 1 位 4 回（同点 1 回を含む）」に。どのラウンドで勝ったかは記事に書かれていない
+- 追加した反証: gubsheep（ZK Podcast 225）が参加者の正体は運営も完全には把握していないと述べ（"No one knows if you're a bot or if you're a smart contract…"）、初期は単独プレイヤーが主で後に DAO・コントラクト口座が加わったとしている。「players」の数は人数ではなく口座数に近く、構成も版ごとに変わる（claim）
+- 確認できなかったこと: v0.3 で配った鍵の数、待機リストの規模、賞金の拠出者。範囲外の注記として、acquisition 外の article（135 行目付近）にも「orden_gg 系が R2〜R5 で上位」の同じ表現が残っている（担当範囲外のため未修正）
+- 判定: 修正済み（軽微な修正 4 件）。数値・引用の捏造はなし
+- 統合時の追補（2026-10-24）: article・questions・insights に残っていた「R2〜R5 で上位」も、R5 振り返りの記述（1 位 4 回、同点 1 回を含む）に合わせて修正

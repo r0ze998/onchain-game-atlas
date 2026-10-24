@@ -370,11 +370,11 @@
   title: 公開された競争世界では、同じ熟練集団が回をまたいで勝ち続けやすい
   gap_type: unsolved-gap
   claim: >-
-    Dark Forest では同一集団（orden_gg 系）が v0.6 の R2〜R5 で上位を占め続けた。Realms: Eternum S0 の優勝部族も公式発表で X アカウント @orden_gg とされた（同じ名前だが同一集団かは未検証）。
+    Dark Forest では orden_gg が v0.6 の R5 時点で 1 位を 4 回（同点 1 回を含む）重ねていた。Realms: Eternum S0 の優勝部族も公式発表で X アカウント @orden_gg とされた（同じ名前だが同一集団かは未検証）。
     状態とコードが公開され、ツールと知識が蓄積する世界では、規則変更やリセットだけでは新規参加者の勝ち目を保ちにくい。
   conditions: ツール・データ・協調の蓄積が回をまたいで持ち越せるとき成り立つ。勝利の報酬が小さいか、新規参加者向けの別部門・ハンデがある場合は弱まる。
   evidence:
-    - {game: dark-forest, stance: support, note: "R2〜R5 で同一集団が上位を繰り返し占めた。", s: [src-df-r3-wrapup, src-df-r5-wrapup]}
+    - {game: dark-forest, stance: support, note: "orden_gg が R5 時点で 1 位を 4 回（同点 1 回を含む）重ねていた。", s: [src-df-r3-wrapup, src-df-r5-wrapup]}
     - {game: realms-eternum, stance: support, note: "S0 の公式発表（2024-12-27、X 記事本文を検証時に取得）は優勝部族を @orden_gg とした。Dark Forest の orden_gg と同一集団かは未検証。", s: [src-realms-eternum-x-s0-champions]}
     - {game: dark-forest, stance: counter, note: "運営はラウンドごとに得点規則を変え、既存の最適化を陳腐化させようとした。", s: [src-df-gameplay-policy]}
   confidence: low

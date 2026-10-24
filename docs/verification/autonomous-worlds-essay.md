@@ -22,3 +22,11 @@
 
 ## 総合判定
 修正済み（軽微）。作者・日付・引用は正しい。影響範囲の表現が根拠より強かったため弱めた。
+
+## ゼロイチ節の検証（2026-10-24）
+- 確認した出典: 7 / 9（0xparc-part1、aw-residency、aw-hackathon、aw-network の 4 本は 0xparc.org の JS バンドル内の base64 の Markdown を独自に復号して確認。zkpodcast-225 の書き起こし、metalabel、ethglobal-aw は取り直し。lattice-x と l2beat は acquisition 節では使っていないため対象外）
+- 照合: 謝辞（gubsheep、Will Robinson、Arthur Röing Baer ほか）、引用 "we recommend reading both links before applying"、"Ludens on Twitter, who is now building Lattice"、確定参加者、経験不要、30 人超、Words3・Asphodel・Primodium、日程（5/18〜26）、賞金 5 万ドル超とスポンサー、AW Network の役割、Devconnect での再版配布、印刷 1000 部（第 2 版 333 部）は一致
+- 直したこと: なし
+- 追加した反証: 開発者の集団は論考より前からあった。2022-04 の ZK Podcast 225 で gubsheep は、ludens が Dark Forest の実験的機能を作った後に Lattice で実験を進め、Devconnect で発表予定だと述べている。論考は既存の集団に名前を与えた面が強い。Residency の募集も、論考を読むことは推奨にとどめ、経験は不要とした
+- 確認できなかったこと: 論考の閲覧数、Residency の応募者数、ハッカソンの提出数
+- 判定: 重大な問題なし

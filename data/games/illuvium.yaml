@@ -75,12 +75,12 @@ acquisition:
     - {phase: pre, date: "2022-12-12", t: "Overworld の非公開ベータを 3 万人のコミュニティ参加者に公開し、その後 Discord コミュニティへ段階的に広げると発表した。登録者は 200 万超とされた。Arena の非公開ベータ（PB2）の参加者は Overworld にも入れた。", k: claim, who: "Illuvium（プレスリリース）/ PlayToEarn", s: [src-illuvium-techbullion-2022, src-illuvium-playtoearn-2022, src-illuvium-theblock-2022]}
     - {phase: pre, date: "2023-05-18", t: "Overworld Beta 2 で参加上限を 3 万人から 7.5 万人に広げた。ベータの進行・アイテムは引き継がれない可能性があると告知された。", k: fact, s: [src-illuvium-dailycoin-2023]}
     - {phase: pre, date: "2023-11", t: "Overworld と Arena を Epic Games Store に掲載した。土地で資源を採る Zero のアルファ版は土地 NFT の所有者だけが遊べた。", k: fact, s: [src-illuvium-decrypt-preview]}
-    - {phase: pre, date: "2024-04-30", t: "Private Beta 4 の期間（4/30〜5/28）に、遊ぶと「airdrop points」がたまる play-to-airdrop キャンペーンを始め、その後のテストネットのオープンベータに続けた。運営の発表によればコミュニティエアドロップは 2500 万ドル超相当のトークンとされた。", k: fact, s: [src-illuvium-decrypt-preview]}
+    - {phase: pre, date: "2024-04-30", t: "Private Beta 4 の期間（4/30〜5/28）に、遊ぶと「airdrop points」がたまる play-to-airdrop キャンペーンを始め、その後のテストネットのオープンベータに続けた。Decrypt はプレス発表によるとしてコミュニティエアドロップを 2500 万ドル超相当のトークンと記した（発表元の明記なし）。", k: fact, s: [src-illuvium-decrypt-preview]}
     - {phase: launch, date: "2024-07-25", t: "Epic Games Store で公開した（運営は「正式ローンチ」と呼んだ）。", k: fact, s: [src-illuvium-decrypt-launch, src-illuvium-bg-openbeta]}
   channels:
-    - {id: token-incentive, t: "ゲームの公開前から ILV のステーキングに年 40〜80%、流動性提供に数百 % の利回りを付けて保有者を集め、2024 年のベータでは遊ぶとエアドロップのポイントがたまる仕組み（2500 万ドル超相当とされる）を加えた。", k: fact, s: [src-illuvium-cointelegraph-2021]}
+    - {id: token-incentive, t: "ゲームの公開前から ILV のステーキングに年 40〜80%、流動性提供に数百 % の利回りを付けて保有者を集め、2024 年のベータでは遊ぶとエアドロップのポイントがたまる仕組み（2500 万ドル超相当とされる）を加えた。", k: fact, s: [src-illuvium-cointelegraph-2021, src-illuvium-decrypt-preview]}
     - {id: existing-community, t: "AXS・SNX など他プロジェクトのトークンを預けられる flash pool を開き、それらの保有者を呼び込んだ。", k: fact, s: [src-illuvium-cointelegraph-2021]}
-    - {id: invite-gating, t: "200 万超の登録者から非公開ベータの参加者を段階的に選び、3 万人から 7.5 万人へ広げた。", k: fact, s: [src-illuvium-techbullion-2022, src-illuvium-dailycoin-2023]}
+    - {id: invite-gating, t: "200 万超とされる登録者のうち、非公開ベータの参加枠を 3 万人から 7.5 万人へ段階的に広げた（選び方は公表されていない）。", k: fact, s: [src-illuvium-techbullion-2022, src-illuvium-dailycoin-2023]}
     - {id: community-server, t: "非公開ベータは最初の 3 万人の後、Discord コミュニティに段階的に開放すると告知した。", k: claim, who: "Illuvium（プレスリリース）", s: [src-illuvium-techbullion-2022]}
     - {id: platform-distribution, t: "2023-11 に Epic Games Store へ掲載し、2024-07 の公開も同ストアで行った。", k: fact, s: [src-illuvium-decrypt-preview, src-illuvium-decrypt-launch]}
     - {id: creator-stream, t: "2021 年に影響力のある人物向けの特製 NFT を作り、予告映像とともに期待を高めたと報じられた。", k: fact, s: [src-illuvium-cointelegraph-2021]}
@@ -90,6 +90,7 @@ acquisition:
     - {t: "公開後の利用者数・継続率は公表されていない。2024-12 時点で ILV は高値から 98% 下落し、運営は支出削減と Overworld への集中を発表、2026 年には縮小した MMO が主な賭けになった。", k: fact, s: [src-illuvium-bg-2025, src-illuvium-cryptoslate-2026]}
   counter:
     - {t: "200 万超の「登録」は、報酬や将来のエアドロップを期待した登録を含む可能性があり、遊ぶ意思のある人数を示さない。非公開ベータの 3 万〜7.5 万人の実際のプレイ人数も公表されていない。", k: analysis, s: [src-illuvium-techbullion-2022, src-illuvium-dailycoin-2023]}
+    - {t: "「200 万超」は 2022-12 のプレスリリース（「gamers registered」）と 2023-05 の DailyCoin（「registered for the beta」）で同じ値のまま、表現も一致しない。5 か月間更新されない概数で、登録の定義（メール登録か、ウォレット接続か、重複の扱い）も示されていないため、事前登録の規模を獲得の成果として比較に使うのは危うい。", k: analysis, s: [src-illuvium-techbullion-2022, src-illuvium-dailycoin-2023]}
     - {t: "2024 年のベータ参加は 2500 万ドル超相当とされるエアドロップのポイント付与と結びついており、その期間の参加者数はエアドロップ目当ての一時流入を含みうる。", k: analysis, s: [src-illuvium-decrypt-preview]}
     - {t: "2021 年の ILV 保有者の急増は NFT・ゲーム系トークン全体の上昇期と重なり、記事自身も市場全体の好調を要因に挙げる。ステーキング施策の効果だけを取り出せない。", k: analysis, s: [src-illuvium-cointelegraph-2021]}
   lessons:

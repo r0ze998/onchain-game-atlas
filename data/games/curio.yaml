@@ -87,7 +87,7 @@ acquisition:
   audience: [players, developers]
   summary: {t: "最初のプレイヤーがどの既存集団から来たかを示す資料は見つからなかった。確認できたのは、2022 年夏の 2 つのデモを curio.gg で公開して運営発表で 500 人超に遊ばれ、その後 Discord とニュースレターに集めた「中核コミュニティ」へ先行アクセスを約束し、Treaty の公開時には Discord での条約アイデアコンテスト（現金と NFT）でプレイヤーにルールを書かせる側へ誘ったことである。", k: analysis, s: [src-curio-tech-tricks, src-curio-community-sept, src-curio-diplomat]}
   steps:
-    - {phase: pre, date: "2022-08-11", t: "運営は最初の 2 つのデモについて 500 人超が試したと述べ、ブログから curio.gg のゲームへ誘導した。", k: claim, who: "Curio", s: [src-curio-tech-tricks], q: "Thank you to the 500+ players who tried it out!"}
+    - {phase: pre, date: "2022-08-11", t: "運営は最初の 2 つのデモのフィードバックを集めていると述べ、「試した」500 人超に謝意を示して、ブログから curio.gg のゲームへ誘導した（500 人超が 2 つのデモの合計か、どちらか一方かは書かれていない）。", k: claim, who: "Curio", s: [src-curio-tech-tricks], q: "Thank you to the 500+ players who tried it out!"}
     - {phase: pre, date: "2022-10-13", t: "中核コミュニティのメンバーを先行アクセスに迎えてフィードバックをもらい、近くコミュニティを遊びに招くと告知した。", k: fact, s: [src-curio-community-sept], q: "we will soon onboard a group of core community members that will get early access into what we're building"}
     - {phase: pre, date: "2022-10-24", t: "Phase 1 の完了を告知し、プレイテストが間近であるとして Discord 参加とニュースレター登録を呼びかけた。", k: fact, s: [src-curio-phase1]}
     - {phase: pre, date: "2022-12-22", t: "Treaty を告知し、2023-01 の公開予定を示した。続けて技術解説（2023-01-02）とユーザー生成ロジックの設計論（2023-01-18）を公開した。", k: fact, s: [src-curio-treaty-intro, src-curio-tech-overview, src-curio-ugl]}
@@ -107,6 +107,7 @@ acquisition:
     - {t: "Treaty の公開後の参加者数・継続率・展開された条約の数は公表されておらず、treaty-contracts の main は 2023-02-06 が最終コミットで、2023-11 には運営自身が EVM 中心の設計から Keystone に移った。集めたプレイヤーが Duper に移ったかは確認できない。", k: fact, s: [src-curio-treaty-repo, src-curio-keystone, src-curio-theblock-2024]}
   counter:
     - {t: "初期の人数は資料ごとに 500 人超（2022-08、運営ブログ）、200〜300 人（2023-02、報道）、数千人（2023-11、運営の振り返り）と食い違い、定義（デモを開いた人か、試遊に参加した人か）も示されていない。後の振り返りほど数字が大きく、どの施策で何人集まったかは判断できない。", k: analysis, s: [src-curio-tech-tricks, src-curio-theblock-seed, src-curio-keystone]}
+    - {t: "数字が指す対象も違う可能性がある。The Block の 200〜300 人は Treaty を「最初のゲーム」と呼ぶ記事の中の数字、Keystone 告知の「数千人」は 2022 年夏に専用のアプリチェーンで公開した海戦 RTS についての記述であり、2022-08 の 500 人超とは別のゲーム・期間を数えている可能性がある。「数千人」は新しいエンジン（Keystone）への転換を告げる記事の中での運営の振り返りで、独立の計測はない。", k: analysis, s: [src-curio-theblock-seed, src-curio-keystone, src-curio-tech-tricks]}
   lessons:
     - {t: "公開前のルール提案コンテスト: プレイヤーが書く条約（ルール）が遊びの中心なら、公開前後に「どんな条約を作るか」を少額の賞金で募ると、コードを書ける参加者を早く見つけ、ゲームの使い方の見本も集まる。効く条件は提案をそのまま実装できる仕組み（許可不要の条約登録）があること。破綻条件は提案が実装・展開されないまま終わる場合と、ゲーム本体の運営が続かない場合で、Treaty では展開された条約の数が確認できず、運営は 1 年以内に設計を変えた。", k: analysis, s: [src-curio-diplomat, src-curio-treaty-repo, src-curio-keystone]}
   metrics: [m-curio-demo-players-2022, m-curio-trial-players-2023, m-curio-seed-2023]
@@ -116,8 +117,8 @@ acquisition:
     - "Treaty の参加条件（ウォレット、ガス、招待）と参加者数。"
 
 metrics:
-  - {id: m-curio-demo-players-2022, type: players, value: 500, value_text: "500 人超", unit: players, period: "2022 年夏（最初の 2 つのデモ）", definition: "運営がブログで述べた「試した」プレイヤー数（定義不明）", nature: reported, s: [src-curio-tech-tricks]}
-  - {id: m-curio-trial-players-2023, type: players, value_text: "200〜300 人", unit: players, period: "2023-02 時点までの累計", definition: "報道（The Block）が伝えた、ゲームを試したプレイヤー数（Curio の情報とみられる。定義不明）", nature: reported, s: [src-curio-theblock-seed]}
+  - {id: m-curio-demo-players-2022, type: players, value: 500, value_text: "500 人超", unit: players, period: "2022 年夏（最初の 2 つのデモ）", definition: "運営がブログで述べた「試した」プレイヤー数（定義不明。同じ記事は最初の 2 つのデモに触れるが、500 人超がどのデモの数かは明示しない）", nature: reported, s: [src-curio-tech-tricks]}
+  - {id: m-curio-trial-players-2023, type: players, value_text: "200〜300 人", unit: players, period: "2023-02 時点までの累計", definition: "報道（The Block）が伝えた、ゲームを試したプレイヤー数（Curio の情報とみられる。定義不明。記事はゲーム名を明示しないが、同じ記事で Treaty を「最初のゲーム」と呼んでおり、Treaty の数である可能性がある）", nature: reported, s: [src-curio-theblock-seed]}
   - {id: m-curio-seed-2023, type: funding, value: 2900000, value_text: "290 万ドル", unit: USD, period: "2023-02 発表", definition: "シード資金（Bain Capital Crypto 主導）", nature: reported, s: [src-curio-seed, src-curio-theblock-seed]}
 
 events:

@@ -27,7 +27,7 @@
   cases:
     - {game: sunflower-land, stance: support, note: "勝利条件のない農業世界として 2021 年から 2026 年まで継続。", s: [src-sunflower-land-git-history]}
     - {game: dark-forest, stance: support, note: "ラウンドごとに世界と得点規則をリセットした。", s: [src-df-gameplay-policy]}
-    - {game: dark-forest, stance: counter, note: "それでも同一集団が R2〜R5 の上位を占めた。", s: [src-df-r5-wrapup]}
+    - {game: dark-forest, stance: counter, note: "それでも orden_gg は R5 時点で 1 位を 4 回（同点 1 回を含む）重ねていた。", s: [src-df-r5-wrapup]}
     - {game: realms-eternum, stance: counter, note: "到達型の勝利条件で S0 は 2 週間余り、S1 も数週間で決着したとみられ（S1 はコミット履歴からの推定）、後発の遊ぶ期間が短くなった。", s: [src-realms-eternum-x-s0-champions, src-realms-eternum-git-history]}
     - {game: primodium, stance: counter, note: "プレイヤー記事（WASD）では、首位に立った直後に宣戦され一晩で 18 回襲撃されて 50 位前後に落ちた。全公開の世界では目立つ・不在のプレイヤーが狙われやすい。", s: [src-primodium-wasd]}
     - {game: sunflower-land, stance: context, note: "新規アカウントの資源売却手数料を 100% にし、進行で下げる。新規を守るのではなく使い捨てアカウントを防ぐ設計。", s: [src-sunflower-land-docs-marketplace]}

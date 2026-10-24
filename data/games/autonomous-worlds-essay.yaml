@@ -85,6 +85,7 @@ acquisition:
     - {t: "Residency から育ったとされる Primodium などのプロジェクトや、AW Network・論集 N1・AW Assembly の継続が確認できる。一方、AW を名乗った世界のいくつかはホストチェーンの停止に直面した（counter_evidence 参照）。読者数や参加者の継続は数値で示されていない。", k: fact, s: [src-awe-aw-hackathon, src-awe-aw-network, src-awe-n1-metalabel]}
   counter:
     - {t: "開発者を集めたのは論考の文章だけではなく、0xPARC の資金（滞在補助・助成）と、ハッカソン告知自身が「AW を作るのが大幅に容易になった」と述べる MUD という道具の登場である。Residency の募集も gubsheep の記事を並べて挙げており、AW の語の広がりを本論考単独の効果とは言えない。", k: analysis, s: [src-awe-aw-residency, src-awe-aw-hackathon]}
+    - {t: "開発者の集団は論考より前からあった。論考公開の約 4 か月前（2022-04）に gubsheep は、ludens が Dark Forest の実験的機能を作った後に Lattice で暗号資産ゲームの実験を進めており、Devconnect（アムステルダム）で発表予定だと述べている。論考は既存の 0xPARC・Lattice 周辺の集団に名前を与えた面が強く、論考が新しい開発者を呼んだ量は分からない。Residency の募集も AW やオンチェーンゲームの経験を不要とし、論考を読むことは推奨にとどまる。", k: analysis, s: [src-awe-zkpodcast-225, src-awe-aw-residency]}
   lessons:
     - {t: "定義の論考＋資金付きの集まり: 新しい分野の名前を論考で定め、直後に「応募前にこれを読め」と指定した資金付きレジデンシーを開くと、語彙を共有した少人数の開発者集団を短期間で作れ、その後のハッカソンで外へ広げられる。効く条件は、資金提供者と既存のチーム（ここでは Dark Forest・Lattice）がすでにいて、道具（MUD）が試作の速度を上げていること。破綻条件は、語だけが広がって論考の前提（誰でも合意に参加できる基盤）を満たさない世界まで同じ名前を名乗る場合で、看板と実態の乖離が起きる。", k: analysis}
   unknowns:

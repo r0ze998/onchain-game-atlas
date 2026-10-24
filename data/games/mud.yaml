@@ -119,17 +119,17 @@ acquisition:
   audience: [developers]
   summary: {t: "最初の開発者は、Lattice 自身が育った Dark Forest／0xPARC のオンチェーンゲーム開発者コミュニティと、Lattice の社内作品（OPCraft・Sky Strife）だった。Devcon 6（2022-10）の講演と OPCraft の公開デモで存在を示し、2023-05 の ETHGlobal Autonomous Worlds ハッカソン（賞金は Optimism・0xPARC・Lattice 等が拠出）と 2024-05 の Redstone 公開時の開発者施策で外部チームを集めた。", k: analysis, s: [src-mud-winding-down, src-mud-devcon6-talk, src-mud-ethglobal-aw, src-mud-rpgf3-lattice]}
   steps:
-    - {phase: pre, date: "2021", t: "Lattice は Dark Forest を中心とするコミュニティ（後の 0xPARC）から生まれ、Dark Forest 型の手作りの構造で zkDungeon を作った経験が MUD の出発点になったと述べる。", k: claim, who: "Lattice (ludens, alvarius)", s: [src-mud-winding-down, src-mud-zero-to-v2], q: "Lattice initially grew out of the community around Dark Forest, which was the original inspiration for zkDungeon."}
+    - {phase: pre, date: "2021", t: "Lattice は Dark Forest を中心とするコミュニティから生まれ、Dark Forest 型の手作りの構造で zkDungeon を作った経験が MUD の出発点になったと述べる。", k: claim, who: "Lattice (ludens, alvarius)", s: [src-mud-winding-down, src-mud-zero-to-v2], q: "Lattice initially grew out of the community around Dark Forest, which was the original inspiration for zkDungeon."}
     - {phase: launch, date: "2022-10", t: "Devcon 6（Bogotá）で Lattice の 2 人と Optimism の Kelvin Fichter が「MUD: an Engine for On-chain Games」を講演し、0xPARC と Lattice が 1 年半かけて MUD を作ってきたと紹介した。同じ週の Autonomous Worlds 自主セッションでも MUD が紹介された。", k: fact, s: [src-mud-devcon6-talk, src-mud-devcon6-sls, src-mud-op-bogota]}
     - {phase: launch, date: "2022-10-18", t: "MUD v1 の実証として、社内作品 OPCraft を Optimism の発表とともに OP Stack のテストネットで 2 週間公開した。Lattice は約 2000 人が遊んだと述べ、OPCraft が OP Stack のゲーム用途の可能性を開発者に示したと主張した。", k: claim, who: "Lattice", s: [src-mud-opcraft-announce, src-mud-zero-to-v2, src-mud-rpgf3-lattice]}
     - {phase: growth, date: "2023-05-18", t: "0xPARC・Lattice・ETHGlobal が初のオンライン Autonomous Worlds ハッカソン（2023-05-18〜26）を開き、MUD を使った作品を募った。部門賞は Optimism 1 万ドル、0xPARC・Lattice・NFT.Storage 各 5000 ドル。Lattice は後に MUD のハッカソン作品を 69 件と申告した。", k: fact, s: [src-mud-ethglobal-aw, src-mud-rpgf3-lattice]}
     - {phase: growth, date: "2023-10", t: "Optimism RetroPGF 3 の申請で、Lattice は MUD を使う常勤プロジェクトを 24 件（Words3・Primodium・Sky Strife・Kamigotchi 等）とし、開発資金は非営利財団からの研究開発助成 210 万 9200 ドルと RetroPGF 2 の 18 万 3348 OP だと記した。", k: claim, who: "Lattice", s: [src-mud-rpgf3-lattice]}
     - {phase: growth, date: "2024-03", t: "MUD v2 安定版の告知で、Project Awakening（CCP Games）・Sky Strife・Biomes・Primodium・Moving Castles・Small Brain Games・DEAR・Gaul を早期採用者として挙げ、そのフィードバックに謝意を示した。", k: fact, s: [src-mud-v2-ready]}
-    - {phase: growth, date: "2024-04", t: "自社 L2 の Redstone で 4 週間の開発者プレビューを行い、Small Brain Games・Moving Castles・Playmint・Biomes・ARPA（DEAR）・DF Ares・GG Quest などが公開前に mainnet へ展開した。公開後の 2024-05 には各ゲームが改造のアイデアと開発者 Discord を並べた「Composability Day」のハッカソンを案内した。", k: fact, s: [src-mud-race-to-mainnet, src-mud-redstone-live, src-mud-composability-wiki]}
+    - {phase: growth, date: "2024-04", t: "自社 L2 の Redstone で 4 週間の開発者プレビューを行い、Small Brain Games・Moving Castles・Playmint・Biomes・ARPA（DEAR）・DF Ares・GG Quest などを「5 月に Redstone に来る」作品として挙げた（各チームが公開前に展開したとは書かれていない）。公開後の 2024-05 には各ゲームが改造のアイデアと開発者 Discord を並べた Composability Day の Wiki を公開し、Downstream の欄は週末の Composability Hackathon を案内した。", k: fact, s: [src-mud-race-to-mainnet, src-mud-redstone-live, src-mud-composability-wiki]}
   channels:
     - {id: existing-community, t: "Dark Forest／0xPARC 周辺のオンチェーンゲーム開発者の輪から生まれ、0xPARC と共同で開発した経緯を講演で前面に出した。", k: claim, who: "Lattice", s: [src-mud-winding-down, src-mud-devcon6-talk]}
     - {id: content-research, t: "Devcon 6 の講演・自主セッション、技術ブログ（MUD: An engine for Autonomous Worlds、MUD from zero to v2）で設計思想と実証結果を公開した。", k: fact, s: [src-mud-devcon6-talk, src-mud-devcon6-sls, src-mud-engine-blog, src-mud-zero-to-v2]}
-    - {id: hackathon, t: "ETHGlobal と組んだオンライン Autonomous Worlds ハッカソン（2023-05）で MUD を指定フレームワークにし、2024-05 には Redstone 上のゲームが Composability Day のハッカソンを案内した。", k: fact, s: [src-mud-ethglobal-aw, src-mud-composability-wiki, src-mud-rpgf3-lattice]}
+    - {id: hackathon, t: "ETHGlobal と組んだオンライン Autonomous Worlds ハッカソン（2023-05）で MUD の利用を前面に出し（告知ページは MUD を参加要件とはしていないが、Optimism と Lattice の部門賞は名称に MUD を掲げた）、2024-05 には Redstone 上のゲームが Composability Day の Wiki で改造を募り、Downstream が Composability Hackathon を案内した。", k: fact, s: [src-mud-ethglobal-aw, src-mud-composability-wiki, src-mud-rpgf3-lattice]}
     - {id: platform-distribution, t: "Optimism との協業（OPCraft の OP Stack 上での公開、ハッカソンの OP Stack 部門賞）と、自社 L2 の Redstone の開発者プレビューを採用の入口にした。", k: fact, s: [src-mud-op-bogota, src-mud-opcraft-announce, src-mud-ethglobal-aw, src-mud-race-to-mainnet]}
     - {id: composability, t: "社内作品 OPCraft・Sky Strife を「拡張できる世界」の見本として公開し、第三者の改造・プラグインの例を開発者向けの宣伝材料にした。", k: fact, s: [src-mud-zero-to-v2, src-mud-composability-wiki]}
   cost:
@@ -141,13 +141,14 @@ acquisition:
   counter:
     - {t: "採用の伸びはハッカソン賞金・助成・Redstone の開発者プレビューなど Lattice と Optimism 側の資金で支えられており、開発者が MUD の技術的利点だけで集まったとは言い切れない。賞金・助成が尽きた後の採用の持続は示されていない。", k: analysis, s: [src-mud-ethglobal-aw, src-mud-rpgf3-lattice, src-mud-winding-down]}
     - {t: "「24 の常勤プロジェクト」「69 のハッカソン作品」は助成を申請する当事者の自己申告で、定義（常勤とは何か）や重複の有無は確認できない。", k: analysis, s: [src-mud-rpgf3-lattice]}
+    - {t: "ETHGlobal の作品一覧には Autonomous Worlds ハッカソンの作品が 100 件を超えて並ぶ（検証役が 4 ページを数えた）が、Mud Todo・Scroll-ToDo-List・Just Some Mud Examples・mud_demo のような学習用デモや非ゲームも多い。Lattice 申告の「69 のハッカソン作品」とは定義が一致せず、提出数をそのまま獲得した開発者数とは読めない。", k: analysis, s: [src-mud-ethglobal-aw-showcase, src-mud-rpgf3-lattice]}
     - {t: "2022〜2023 年は他にオンチェーンゲーム用の汎用フレームワークの選択肢が少なく、Dark Forest 系の開発者が自然に移った可能性もある。施策の効果と、競合の不在による選択を分けられない。", k: analysis}
   lessons:
     - {t: "自社ゲームを公開デモにしてエンジンを売る: エンジンの開発元が、短期間（2 週間）の公開デモを主要カンファレンスの期間中に提携チェーンと同時発表すると、技術の実証と開発者への露出を一度に得られる。効く条件はデモが未経験者にも見える成果（建築物・制度の出現）を生むこと。破綻条件はデモの負荷でエンジンの欠陥が露呈し（OPCraft の状態肥大）、作り直しの期間に開発者を待たせること。", k: analysis}
-    - {t: "チェーン側の賞金でフレームワーク指定のハッカソンを開く: L2 の運営者が部門賞を出し、フレームワーク開発元がメンターと審査をすると、双方の費用で初期作品を数十件規模で集められる。効く条件は作品を本番に載せる受け皿（テストネット・開発者プレビュー）が直後にあること。破綻条件は作品が賞金目当ての一回限りで終わり、継続開発への助成や受け皿がないこと。", k: analysis}
+    - {t: "チェーン側の賞金でフレームワーク推奨のハッカソンを開く: L2 の運営者が部門賞を出し、フレームワーク開発元がメンターと審査をすると、双方の費用で初期作品を数十件規模で集められる。効く条件は作品を本番に載せる受け皿（テストネット・開発者プレビュー）が直後にあること。破綻条件は作品が賞金目当ての一回限りで終わり、継続開発への助成や受け皿がないこと。", k: analysis}
   metrics: [m-mud-fulltime-projects-2023, m-mud-hackathon-projects-2023, m-mud-rd-grants-2023, m-mud-ethglobal-aw-prizes]
   unknowns:
-    - "ETHGlobal Autonomous Worlds ハッカソンの参加者数・提出数の公式値（Lattice は 69 件と申告、出典の表計算シートは未取得）。"
+    - "ETHGlobal Autonomous Worlds ハッカソンの参加者数と提出数の公式値（作品一覧には 100 件超、Lattice は 69 件と申告、出典の表計算シートは未取得）。"
     - "MUD の開発者 Discord の規模と、最初の外部採用チームが MUD を知った経路。"
     - "Composability Day の参加数・成果物・賞金の有無。"
 
@@ -177,3 +178,4 @@ sources:
   - {id: src-mud-opcraft-announce, title: "Announcing OPCraft: an Autonomous World built on the OP Stack", url: "https://optimism.io/blog/announcing-opcraft-an-autonomous-world-built-on-the-op-stack", publisher: "Optimism blog", author: "Nick Balestra", type: official-blog, primary: true, published: "2022-10-18", accessed: "2026-10-24", access: fetched, lang: en, note: "OPCraft の公式発表。約 2 週間公開し、ハロウィンに世界とチェーンを凍結"}
   - {id: src-mud-race-to-mainnet, title: "The Race to Mainnet", url: "https://lattice.xyz/blog/race-to-mainnet", publisher: "Lattice blog", author: "Lattice", type: official-blog, primary: true, published: "2024-04", accessed: "2026-10-24", access: fetched, lang: en, note: "Redstone mainnet の 4 週間の開発者プレビュー、参加チームの列挙。ページに日付表記なし（5/1 公開の前の 4 週間と記述）"}
   - {id: src-mud-composability-wiki, title: "Redstone Community - Composability Day Wiki", url: "https://latticexyz.notion.site/Redstone-Community-Composability-Day-Wiki-a041c3a8e1484147900e450353ff86af", publisher: "Lattice (Notion)", type: official-docs, primary: true, published: "2024-05", accessed: "2026-10-24", access: fetched, lang: en, note: "Notion 公開 API で本文取得。Biomes・DF Ares・Downstream・Sky Strife・This Cursed Machine の改造案と開発者 Discord。DF Ares の Round 3 が 5/12 まで、Downstream の Office Hours が Thu 9th/Fri 10th とあり 2024-05 と判断"}
+  - {id: src-mud-ethglobal-aw-showcase, title: "ETHGlobal Showcase: Autonomous Worlds", url: "https://ethglobal.com/showcase?events=autonomous", publisher: "ETHGlobal", type: official-docs, primary: true, published: "2023-05", accessed: "2026-10-24", access: fetched, lang: en, note: "page=1〜4 を取得。各ページ 33・33・33・12 件（ページ境界で 1 件ずつ重複）で 100 件超。学習用デモ・ToDo アプリ等を含む。検証役が追加"}
