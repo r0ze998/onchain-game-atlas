@@ -72,7 +72,7 @@ acquisition:
     - {phase: pre, date: "2015-02-16", t: "EverdreamSoft が Counterparty フォーラムで、カードを Counterparty 資産にする計画と BitCrystals のトークンセールを公表した。前作 Moonga では、規約で禁じられていたのにプレイヤーがレアカードを 1000 ドル超で取引していたと書き、トークンセール前にサイトに登録した初期の支持者には BitCrystals を無料で配ると告知した。", k: fact, s: [src-sog-counterparty-forum], q: "We saw some of our players trading rare cards for more than 1000 USD, even if it was not allowed by the terms of service."}
     - {phase: pre, date: "2015-03-11", t: "最初のオンチェーンカード（FDCARD）を発行した。", k: fact, s: [src-sog-site]}
     - {phase: pre, date: "2015-05-09", t: "Bitcoin Magazine が Moonga シリーズのブロックチェーン利用を報じ、前作 Moonga を 25 万ダウンロード超と紹介した。", k: fact, s: [src-sog-btcmag-2015]}
-    - {phase: pre, date: "2015-08-04", t: "BitCrystals のトークンセールを ShapeShift 経由で開始した（当初予定の Swarm は技術的問題で断念）。出資額に応じて限定カード（SATOSHICARD、GENESISCARD）や専用ストアへのアクセスを付け、開始 2 時間で 240 BTC が集まったと Brave New Coin は報じた。", k: fact, s: [src-sog-btcmag-sale, src-sog-bnc-sale-2015]}
+    - {phase: pre, date: "2015-08-04", t: "BitCrystals のトークンセールを、ShapeShift と提携して自社の BitCrystals サイトで開始した（当初予定の Swarm は技術的問題で断念。開始日は Bitcoin Magazine と Brave New Coin の 08-05 記事が 08-04、同誌 09-15 記事は 08-03 と記す）。出資額に応じて限定カード（SATOSHICARD、GENESISCARD）や専用ストアへのアクセスを付け、開始 2 時間で 240 BTC が集まったと Brave New Coin は報じた。", k: fact, s: [src-sog-btcmag-sale, src-sog-bnc-sale-2015]}
     - {phase: pre, date: "2015-09", t: "セールは 2015-09-03 に終わり、934 BTC・約 1360 万 BitCrystals の配布、プレイヤー向け終身会員 181 件・パートナー向け 39 件と報じられた。試遊できる Alpha 0.1 も出ており、Counterparty の開発者（CoinDaddy の Jeremy Johnson）が試していると述べた。", k: fact, s: [src-sog-bnc-milestone-2015]}
     - {phase: pre, date: "2016-02", t: "iOS と Android でベータを始めた。Android 版は公式サイトから無料で入手でき、iOS 版はトークンセールの出資者に自動で配られ、それ以外は申請制だった。", k: fact, s: [src-sog-siliconangle-2016]}
     - {phase: launch, date: "2017-04-20", t: "ゲームを公開し、第 2 カードコレクションを始めた。", k: fact, s: [src-sog-site]}
@@ -90,6 +90,7 @@ acquisition:
     - {t: "公式サイトは 2023 年からの月額 NFT ルートボックスと BitCrystals のステーキングを掲載しており、運営は続いているが、利用者数は示されていない。", k: fact, s: [src-sog-site]}
   counter:
     - {t: "トークンセールで集まったのは主に BitCrystals の買い手で、プレイヤーになったかどうかは分からない。開始 2 時間の 240 BTC は、ゲームへの期待より、新しいトークンへの投機的な需要を反映している可能性がある。", k: analysis, s: [src-sog-bnc-sale-2015]}
+    - {t: "セールの出資者数は公表されていない。人数が分かるのは終身会員（プレイヤー 181・パートナー 39）だけで、934 BTC が少数の大口出資者に偏っていた可能性を否定できない。また開始直後の 1 時間は DNS 障害で bitcrystals.com が米国からしか見えなかったと報じられており、「2 時間で 240 BTC」は地域的にも偏った初動である。", k: analysis, s: [src-sog-bnc-milestone-2015, src-sog-bnc-sale-2015]}
     - {t: "Moonga のプレイヤーが SoG に移ったという直接のデータはない。Moonga の 25 万ダウンロードは前作の数字であり、SoG の利用者数ではない。", k: analysis, s: [src-sog-btcmag-2015]}
   lessons:
     - {t: "前作の闇取引を根拠にした資産化: 前作のプレイヤーが規約違反を承知でアイテムを高額取引していたという観察は、「所有と取引を公式化すれば需要がある」という仮説の根拠になる。効く条件は、前作に取引需要の証拠があること。破綻条件は、取引需要がゲームの継続的なプレイを意味しないことで、公開が 2 年遅れる間にトークン保有者とプレイヤーが分かれてしまう。", k: analysis}

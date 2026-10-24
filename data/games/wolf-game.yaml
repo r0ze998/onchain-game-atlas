@@ -4,7 +4,7 @@ name_ja: ウルフ・ゲーム
 aliases: [Woolf, "$WOOL", "Wolf Game 2.0"]
 kind: game
 depth: index
-updated: "2026-10-23"
+updated: "2026-10-24"
 links:
   website: https://wolf.game/
   docs: https://wolf-game.gitbook.io/getting-started
@@ -84,7 +84,37 @@ article:
     - {t: "「再入可能性バグで停止・移行した」という説明は検索要約（medium.com、この環境で取得不可）にしか依拠しておらず、運営告知や報告本文で確認できていない。コード上は Barn の引き揚げが safeTransferFrom の後にステーク記録を削除し、claim 系関数に EOA 制限がない（コントラクトから呼べば乱数の結果を見て revert できる）ことまでは確認できるが、移行の直接の原因がどれかは特定できない。", k: analysis, s: [src-wolf-sourcify-woolf, src-wolf-herdsman]}
     - {t: "2025 年の 2.0 は既存の羊・狼・土地を燃やして別の資産に替える設計で、評議会（Farmhands Council）も 1 週間前まで内容を知らなかったと報じられ、数日で停止した。オンチェーン資産の所有は、運営が経済を作り替えることを防がなかった。", k: fact, s: [src-wolf-decrypt-2025]}
 
+acquisition:
+  audience: [players, holders]
+  summary: {t: "事前のホワイトリストや告知期間なしに「ステルス」で Gen0 1 万体を 0.06942 ETH で売り出し、2021-11 の NFT 市場の熱狂期に Crypto Twitter と NFT 収集層から買い手が集まった。羊が WOOL を稼ぎ狼が奪うという仕組みと、WOOL で次世代を作る連鎖が話題と二次流通を生んだ。", k: analysis, s: [src-wolf-defiant-1123, src-wolf-sourcify-woolf, src-wolf-brydisanto]}
+  steps:
+    - {phase: launch, date: "2021-11-18", t: "Woolf・Barn・WOOL を展開し、Gen0 1 万体（羊 90%・狼 10%）を 0.06942 ETH で「ステルス」発売、すぐに売り切れた。公式 X（@wolfdotgame）が同日に発売を告知した。", k: fact, s: [src-wolf-defiant-1123, src-wolf-sourcify-woolf, src-wolf-rpc]}
+    - {phase: growth, date: "2021-11-23", t: "The Defiant は発売 5 日で 5,200 万ドルの販売と報じた（一次販売と二次流通の区別は不明）。後の回想によれば、羊の最安値は数日で 10 ETH 近くに達し、Post Malone や Marshmello、GaryVee らが目立って関わった。", k: claim, who: "The Defiant / brydisanto（コミュニティの回想）", s: [src-wolf-defiant-1123, src-wolf-brydisanto]}
+    - {phase: growth, date: "2021-11", t: "WOOL による次世代の mint は狼を確実に引く不具合とステーキングの脆弱性で止まり、計画 5 万体のうち 13,809 体（Gen0 1 万＋WOOL 由来 3,809）で発行が止まった。初期コントラクトの totalSupply は 13,809 を返す。", k: fact, s: [src-wolf-brydisanto, src-wolf-rpc-supply]}
+    - {phase: growth, date: "2021-11-28", t: "新しい NFT コントラクト（アップグレード可能なプロキシ）を展開して移行した。回想記事によれば、初期段階の停止から 3 日以内に、4 年かけて WOOL を解放する WOOL Pouch で報酬を配る形に変えた。", k: fact, s: [src-wolf-sourcify-proxy, src-wolf-rpc, src-wolf-brydisanto]}
+  channels:
+    - {id: crypto-social, t: "発売は公式 X の告知とステルス発売で行われ、匿名の「The Shepherd」が謎めいたツイートで物語を作った。", k: fact, s: [src-wolf-defiant-1123, src-wolf-brydisanto]}
+    - {id: viral-mechanic, t: "羊の WOOL への 20% の税、引き揚げ時 50% の全没収、新規 mint の 10% 横取りという奪い合いが、いつ請求・引き揚げるかを巡る議論と二次流通を生んだ。", k: analysis, s: [src-wolf-sourcify-woolf, src-wolf-brydisanto]}
+    - {id: token-incentive, t: "羊 1 体あたり 1 日 1 万 WOOL を発生させ、WOOL を燃やして次世代を mint させた。", k: fact, s: [src-wolf-sourcify-woolf]}
+    - {id: creator-stream, t: "回想記事は Post Malone、Marshmello、Amanda Cerny、GaryVee、GMoney が目立って関わったと記す（購入時期と影響の大きさは不明）。", k: claim, who: "brydisanto", s: [src-wolf-brydisanto]}
+    - {id: community-server, t: "Discord と毎週の Twitter Spaces、私的な Discord での同盟・対立が遊びの一部になった（2022 年の回想）。", k: claim, who: "brydisanto", s: [src-wolf-brydisanto]}
+  cost:
+    - {t: "原資は Gen0 購入者の ETH（最大 1 万 × 0.06942 ETH）と、その後の WOOL 焼却による mint。外部資金・広告費は確認できなかった。", k: fact, s: [src-wolf-sourcify-woolf]}
+  after:
+    - {t: "発行は計画の約 28%（13,809 / 50,000）で止まり、初期コントラクトは参照日に paused。2025 年の Solana 版は反発で数日で停止した。保有者・プレイヤー数の推移は確認できない。", k: fact, s: [src-wolf-rpc-supply, src-wolf-rpc, src-wolf-decrypt-2025]}
+  counter:
+    - {t: "発売は 2021-11 の NFT 市場の高揚期で、売上の多くは仕組みより相場と著名人の関与による短期の転売需要で説明できる可能性がある。回想記事も、熱狂期に入ってすぐ売り抜けた層がいたと記す。", k: analysis, s: [src-wolf-brydisanto, src-wolf-defiant-1123]}
+    - {t: "「5 日で 5,200 万ドル」は見出しの数字で、一次販売の上限（約 694 ETH）を大きく超えるため、ほぼ二次流通の取引額と見られる。参加者数の指標ではない。", k: analysis, s: [src-wolf-defiant-1123, src-wolf-sourcify-woolf]}
+  lessons:
+    - {t: "【ステルス発売＋奪い合いのステーキング】告知期間なしに低価格で売り出し、保有後すぐに稼ぐ・奪う行動が始まる設計は、発売直後から話題と二次需要を作る。効く条件: NFT 市場に資金が流れ込んでいる時期で、規則が単純で公開されている。破綻条件: 乱数や再入可能性の欠陥が残ったまま公開すると、次世代の mint を止めざるを得ず、成長の連鎖（WOOL→mint）が途中で切れる。", k: analysis, s: [src-wolf-sourcify-woolf, src-wolf-brydisanto]}
+  metrics: [m-wolf-mint-price, m-wolf-sales-5d, m-wolf-minted-total]
+  unknowns:
+    - "Gen0 が売り切れるまでの時間と、一意の購入アドレス数"
+    - "著名人が買った時期（発売直後か、二次流通で後から買ったか）"
+    - "Discord の参加者数の推移"
+
 metrics:
+  - {id: m-wolf-minted-total, type: other, value: 13809, value_text: "13,809 体（計画 5 万体）", unit: NFTs, period: "初期 Woolf コントラクト（参照日 2026-10-24）", definition: "初期 Woolf コントラクトの totalSupply()（eth_call）。Gen0 有料枠 1 万を含む", nature: measured, s: [src-wolf-rpc-supply, src-wolf-brydisanto]}
   - {id: m-wolf-mint-price, type: other, value: 0.06942, unit: ETH, period: "2021-11", definition: "Gen 0 の mint 価格（MINT_PRICE 定数）", nature: measured, s: [src-wolf-sourcify-woolf]}
   - {id: m-wolf-wool-cap, type: other, value: 2400000000, unit: WOOL, period: "初期 Barn", definition: "ステーキングによる WOOL 発行の総上限（MAXIMUM_GLOBAL_WOOL）。総供給 50 億は二次資料の記載", nature: measured, s: [src-wolf-sourcify-woolf, src-wolf-nobumei]}
   - {id: m-wolf-supply, type: other, value: 50000, value_text: "Gen 0 1 万＋WOOL で mint 4 万", unit: NFTs, period: "2021-11", definition: "NFT の最大供給（二次資料。コード上は MAX_TOKENS をコンストラクタで設定し、有料枠は 20%）", nature: reported, s: [src-wolf-nobumei]}
@@ -121,3 +151,6 @@ sources:
   - {id: src-wolf-defiant, title: "Wolf Game NFTs (The Defiant, slug: wolf-game-nfts-play-to-earn)", url: "https://thedefiant.io/wolf-game-nfts-play-to-earn/", publisher: "The Defiant", author: "yyctrader", type: news, primary: false, accessed: "2026-10-23", access: fetched, lang: en, note: "見出しと副題のみ取得（本文・日付は取得できず）。見出しに 5 日間で 5,200 万ドルの販売"}
   - {id: src-wolf-herdsman, title: "Wolf Game Herdsman's report", url: "https://muellerberndt.medium.com/wolf-game-herdsmans-report-5802c9d477bd", publisher: "Medium", type: retrospective, primary: true, accessed: "2026-10-23", access: snippet, lang: en, note: "WebFetch は 403、Wayback Machine も接続失敗で本文未取得。検索要約では 2021-11-22 の再入可能性報告、Barn の停止、rescue 関数の問題、ブロック由来の乱数の指摘"}
   - {id: src-wolf-rpc, title: "Ethereum mainnet JSON-RPC queries (eth_getBlockByNumber, eth_call, eth_getStorageAt) via public endpoint", url: "https://eth.drpc.org", publisher: "dRPC public Ethereum endpoint", type: onchain-data, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "検証役が照会。ブロック 13,638,578 / 13,638,597 / 13,699,765 の時刻、0x7f36…be2f の name()=Wolf Game・EIP-1967 実装 0x2211…5e93・管理者 0x9d84…a329（owner()=0x2502…8DEF）、初期 Woolf の paused()=true"}
+  - {id: src-wolf-defiant-1123, title: "Wolf Game NFTs Spark Frenzy with Sales of $52M in Five Days", url: "https://thedefiant.substack.com/p/-wolf-game-nfts-spark-frenzy-with", publisher: "The Defiant (newsletter)", type: news, primary: false, published: "2021-11-23", accessed: "2026-10-24", access: fetched, lang: en, note: "11-18 に 0.06942 ETH で 1 万体を「stealth」発売しすぐ完売、@wolfdotgame の告知へのリンク。ニュースレター版で本文を取得"}
+  - {id: src-wolf-brydisanto, title: "Wolf Game Summer Is Upon Us", url: "https://brydisanto.substack.com/p/wolf-game-summer-is-upon-us", publisher: "Substack", author: "brydisanto", type: retrospective, primary: false, published: "2022-06-07", accessed: "2026-10-24", access: fetched, lang: en, note: "コミュニティによる回想。ステルス発売、The Shepherd、羊の最安値 10 ETH 近く、13,809 体で停止、WOOL Pouch、著名人の関与、Discord と Twitter Spaces"}
+  - {id: src-wolf-rpc-supply, title: "eth_call totalSupply() on Woolf 0xEB834ae72B30866af20a6ce5440Fa598BfAd3a42", url: "https://eth.drpc.org", publisher: "dRPC public Ethereum endpoint", type: onchain-data, primary: true, accessed: "2026-10-24", access: fetched, lang: en, note: "返り値 0x35f1 = 13,809"}

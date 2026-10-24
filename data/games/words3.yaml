@@ -74,7 +74,7 @@ article:
     - {t: "土台への報酬（ビルドオン・ロイヤリティ）: 他人の成果物（単語）を使って得点するたびに、元の作者へ支払いの一部が自動で流れると、早く大きな土台を作る誘因が生まれる。適用条件は「使った」ことがコントラクト上で判定でき、支払いが行動と同時に起きること。破綻条件は、報酬目当ての土台が乱立し得点効率の悪い手が増える場合や、参加者が少なく土台が使われない場合。", k: analysis, s: [src-words3-wiki]}
   counter_evidence:
     - {t: "Base 版は 2023-08 から 2024-02 にかけて少なくとも 3 つの World アドレスで展開し直されており、ゲームの状態（盤面・賞金庫）が版ごとに分断されていた可能性がある。「他人の単語の上に積み上げる」長期的な累積は、再展開のたびに途切れ得る。", k: analysis, s: [src-words3-contracts]}
-    - {t: "参加規模・継続を示す一次資料は見つからなかった（検索結果の断片に「100 人超・2 万ドル超」という記述があるが出典ページを取得できていない）。", k: unknown}
+    - {t: "参加規模を示す資料は、Small Brain Games 自身の RetroPGF 3 申請（「100 人超・2 万ドル超」、Base 版 124 人）だけで、助成申請のための自己申告である。継続を示す資料は見つからなかった。", k: claim, who: "Small Brain Games", s: [src-words3-rpgf3]}
 
 events:
   - {id: ev-words3-optimism, date: "2022-11-23", type: launch, title: "初期版コントラクトを Optimism に展開", detail: "wiki は「2 週間で作った未監査の実験的ゲーム」と明記", s: [src-words3-onchain, src-words3-wiki]}
@@ -97,6 +97,43 @@ unknowns:
 contradictions:
   - {t: "手数料: 初期版 wiki は「手数料を取らない」と明記するが、v2 コントラクトには賞金交換時の手数料（feeBps と受取人）がある（版の違い）。また wiki 内で土台への報酬を 1/4 と書く箇所と、複数作者への分割について 1/3 と書く箇所がある。", s: [src-words3-wiki, src-words3-contracts]}
 
+acquisition:
+  audience: [players]
+  summary: {t: "最初のプレイヤーは Small Brain Games の X（ローンチスレッド）とコミュニティから来た暗号資産利用者で、本物の ETH を賞金庫に積む賭けの構造が参加の動機だった。チームは、Optimism 版・Base 版のプレイヤーの 8 割超がこのゲームのために初めて OP 系チェーンへブリッジしたと申告している。", k: analysis, s: [src-words3-rpgf3, src-words3-wiki]}
+  steps:
+    - {phase: launch, date: "2022-11-23", t: "2 週間で作った未監査の初期版を Optimism（OP Mainnet）に展開。チームはこれを MUD のスマートコントラクトの初めての mainnet 展開と位置づけ、X でローンチスレッドを出した。", k: claim, who: "Small Brain Games", s: [src-words3-rpgf3, src-words3-onchain, src-words3-wiki]}
+    - {phase: pre, date: "2023-08", t: "2023-08-11 付の参加者の体験記によれば、Words3 の「最終プレイテスト」が行われ、参加者のウォレットには Lattice テストネットの ETH があらかじめ入れられていた（実施日は未記載）。", k: fact, s: [src-words3-coreloop]}
+    - {phase: launch, date: "2023-08-06", t: "改良版を Base mainnet に展開（チームは MUD v2 の初の mainnet 展開と申告）。Base 版のユニークプレイヤーは 124 人、Base へのブリッジ額は約 2 万ドルとチームは示した。", k: claim, who: "Small Brain Games", s: [src-words3-rpgf3, src-words3-contracts]}
+    - {phase: growth, date: "2023-10", t: "Optimism RetroPGF 3 の申請で、Words3 の展開が OP 系チェーンに数百人を連れてきたとし、他のオンチェーンゲーム（Gaul・Dark Seas・Underverse）のプレイテストを自分たちのコミュニティで行ったと記した。", k: claim, who: "Small Brain Games", s: [src-words3-rpgf3], q: "From user interviews, >80% of these users bridged to & made their first transaction on OP chains because of Words3."}
+    - {phase: growth, date: "2024-05-15", t: "Redstone mainnet の公開期間（Worlds Expo）に合わせて Redstone に展開し、2024-05-21 には CSV の宛先へ文字を一括転送（エアドロップ）するスクリプトを追加した。", k: fact, s: [src-words3-contracts, src-words3-redstone-live]}
+  channels:
+    - {id: crypto-social, t: "X の @0xsmallbrain でローンチスレッドを出した（スレッド本文は未取得）。", k: claim, who: "Small Brain Games", s: [src-words3-rpgf3]}
+    - {id: prize-competition, t: "支払いの大半が得点比例で分配される賞金庫に入る構造で、ゲーム自体が賞金付きの競争だった（賞金はプレイヤーの支払いが原資）。", k: fact, s: [src-words3-wiki, src-words3-contracts]}
+    - {id: existing-community, t: "Small Brain Games のコミュニティ（他作品 Ape's Gambit・Network States 等のプレイヤー）を持ち、他チームのゲームのプレイテストにも使った。", k: claim, who: "Small Brain Games", s: [src-words3-rpgf3]}
+    - {id: platform-distribution, t: "Lattice が Redstone の紹介・公開記事で Words3 を MUD 作品・公開予定作として挙げ、Redstone の公開期間に展開した。", k: fact, s: [src-words3-intro-redstone, src-words3-redstone-live]}
+    - {id: free-mint, t: "Redstone 版では文字（ゲーム内アイテム）を指定アドレスへ一括転送するエアドロップ用スクリプトを用意した（実際の配布先・数量は未確認）。", k: fact, s: [src-words3-contracts]}
+  cost:
+    - {t: "賞金庫はプレイヤーが文字を買う支払いが原資で、運営は賞金を出していない（初期版は運営手数料もなし）。後から入った人の支払いの一部が、土台にされた単語の作者（先に入った人）へ流れる構造だった。", k: fact, s: [src-words3-wiki]}
+    - {t: "開発の原資として、Small Brain Games は RetroPGF 2 で 28 万 2670 OP（申請時点で未請求）を得たと申告し、それまでゲームから収益を得ていないとした。", k: claim, who: "Small Brain Games", s: [src-words3-rpgf3]}
+  after:
+    - {t: "チームは「100 人超・2 万ドル超」と要約し、Base 版のユニークプレイヤー 124 人、Optimism 版へのブリッジ約 1 万ドル・Base 版へ約 2 万ドルを示した。継続率・再訪率は示されていない。", k: claim, who: "Small Brain Games", s: [src-words3-rpgf3]}
+    - {t: "Base では少なくとも 3 回 World を展開し直し、2024-05 に Redstone へ移った。各版の盤面・賞金庫はつながっておらず、同じプレイヤーが版をまたいで残ったかを示す資料はない。", k: analysis, s: [src-words3-contracts]}
+  counter:
+    - {t: "人数・金額・「8 割超が初めてのブリッジ」はいずれも助成を申請する当事者の自己申告で、ユーザーインタビューの規模は不明。ブリッジ額は賞金庫への賭け金を含み、人数の多さではなく少数の高額参加者を示す可能性がある。", k: analysis, s: [src-words3-rpgf3]}
+    - {t: "参加の動機が単語ゲームの面白さなのか、賞金庫の分配（賭け）なのか、OP 系チェーンのエアドロップ期待なのかは区別できない。", k: analysis}
+  lessons:
+    - {t: "プレイヤーの支払いで賞金庫を作る小規模の実資産ゲーム: 運営が賞金を出さず、参加費の大半を得点比例の賞金庫に入れると、100 人規模でも本物の ETH が動き、新しい L2 にブリッジさせる動機になる。効く条件は参加者が既にウォレットと資産を持つ暗号資産利用者であること。破綻条件は参加者が少なく賞金庫が小さいときに動機が消えること、再展開で賞金庫と盤面が分断されること。", k: analysis}
+  metrics: [m-words3-base-players, m-words3-bridged-base, m-words3-bridged-op, m-words3-rpgf2]
+  unknowns:
+    - "ローンチスレッドの本文と、Optimism 版の参加者数。"
+    - "Redstone 版のエアドロップの配布先・数量と参加者数。"
+
+metrics:
+  - {id: m-words3-base-players, type: players, value: 124, unit: players, period: "2023-08〜2023-10（Base 版、申請時点）", definition: "チームが RetroPGF 3 申請で示した Base 版のユニークプレイヤー数（根拠は Dune のダッシュボード。本文は未取得）", nature: reported, s: [src-words3-rpgf3]}
+  - {id: m-words3-bridged-base, type: other, value: 20000, value_text: "約 2 万ドル", unit: USD, period: "〜2023-10", definition: "チームが示した「Words3 を遊ぶために Base へブリッジされた USD 額」（算定方法不明）", nature: reported, s: [src-words3-rpgf3]}
+  - {id: m-words3-bridged-op, type: other, value: 10000, value_text: "約 1 万ドル", unit: USD, period: "2022-11〜（Optimism 版）", definition: "チームが示した「Words3 のために OP Mainnet へブリッジされた USD 額」（算定方法不明）", nature: reported, s: [src-words3-rpgf3]}
+  - {id: m-words3-rpgf2, type: grants, value: 282670, value_text: "28 万 2670 OP", unit: OP, period: "RetroPGF 2（2023）", definition: "Small Brain Games が申告した RetroPGF 2 の受領額（申請時点で未請求）。Words3 単独ではなく開発組織への助成", nature: reported, s: [src-words3-rpgf3]}
+
 sources:
   - {id: src-words3-wiki, title: "Words3 Wiki", url: "https://smallbrain.notion.site/Words3-Wiki-792bd1f257fe4ef9acf81ef1e140cc4d", publisher: "Small Brain Games (Notion)", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "Notion 公開 API で本文取得。Optimism 版の規則、VRGDA、報酬 1/4 と賞金庫 3/4、未監査・2 週間で作成"}
   - {id: src-words3-contracts, title: "smallbraingames/words3-contracts", url: "https://github.com/smallbraingames/words3-contracts", publisher: "GitHub", type: code, primary: true, published: "2024-05", accessed: "2026-10-23", access: fetched, lang: en, note: "git clone で確認。Play/Draw/Claim/Start/SetFeeConfig システム、worlds.json（8453・690 等）、141 コミット"}
@@ -104,3 +141,5 @@ sources:
   - {id: src-words3-redstone-live, title: "Start Your Engines: Redstone is Live", url: "https://lattice.xyz/blog/start-your-engines-redstone-live", publisher: "Lattice blog", author: "Lattice", type: official-blog, primary: true, published: "2024-05", accessed: "2026-10-23", access: fetched, lang: en, note: "5 月に Redstone で words3 を公開予定と記述"}
   - {id: src-words3-lattice-winding-down, title: "Winding Down Lattice", url: "https://lattice.xyz/winding-down", publisher: "Lattice", author: "Ludens & Alvarius", type: retrospective, primary: true, published: "2026-04", accessed: "2026-10-23", access: fetched, lang: en, note: "Redstone 2026-05-15 停止の告知（words3 への言及はない。words3.xyz へのリンクは lattice.xyz トップの作品一覧に残ることを検証役が別途確認）"}
   - {id: src-words3-onchain, title: "Optimism / Base RPC (eth_getCode, eth_getBlockByNumber)", url: "https://mainnet.optimism.io", publisher: "Optimism / Base 公式 RPC", type: onchain-data, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "検証役が実測。Optimism の 0x1b16b25dbdc8ae5775290101332a5e7379eecf9f はブロック 41072050（2022-11-23）で初めてコードが存在。Base の block 2283039 は 2023-08-06、10010490 は 2024-02-01、現行 World 0x227a…49bf に参照日もコードあり（mainnet.base.org）"}
+  - {id: src-words3-rpgf3, title: "Small Brain Games — Optimism RetroPGF 3 application metadata", url: "https://content.optimism.io/rpgf3Application/v0/metadata/10/0xa4eC807A15f389A2b9aC985eCcF4b08ddDDB6f9d.json", publisher: "Optimism (RetroPGF 3)", author: "Small Brain Games", type: forum, primary: true, published: "2023-10", accessed: "2026-10-24", access: fetched, lang: en, note: "EAS の申請アテステーション（2023-10-22）が指す申請本文 JSON。OP Mainnet 版が MUD 初の mainnet 展開、Base 版 124 人、ブリッジ額（Base 2 万・OP 1 万ドル）、8 割超が初ブリッジ、RetroPGF 2 で 282,670 OP、収益ゼロ"}
+  - {id: src-words3-coreloop, title: "My On-Chain Gaming Odyssey: A Personal Tale of Triumph and Defeat", url: "https://thecoreloop.substack.com/p/my-on-chain-gaming-odyssey-a-personal", publisher: "The Core Loop (Substack)", type: retrospective, primary: false, published: "2023-08-11", accessed: "2026-10-24", access: fetched, lang: en, note: "Words3 の最終プレイテストへの参加記。ウォレットに Lattice テストネット ETH が事前に入っていた"}

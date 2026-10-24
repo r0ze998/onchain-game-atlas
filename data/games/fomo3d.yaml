@@ -4,7 +4,7 @@ name_ja: フォモ・スリーディー
 aliases: [FoMo3D, "FOMO3D Long", "FoMo3D Long Official", F3D, exitscam.me]
 kind: game
 depth: deep
-updated: "2026-10-23"
+updated: "2026-10-24"
 links:
   website: https://exitscam.me/
   discord: https://discord.gg/DbapvnH
@@ -142,7 +142,45 @@ article:
     - {t: "ラウンドの急縮小を攻撃のせいだけにはできない。INSIDE は第 1 ラウンド中（7 月末の短期版公開後）に、多くの参加者が倍以上の利益は難しいと気付いて売りが出て、P3D 側の ETH 残高が約 8 万から約 5.5 万 ETH に減ったと記しており、ポンジ型の構造自体が成長の天井を持っていた。", k: claim, who: "INSIDE", s: [src-fomo3d-inside]}
     - {t: "ethresear.ch の議論では、プールが拡大し続けると Ethereum の流動性を吸い上げるという懸念が出た（同じスレッドで DaveyZ は分配規則を根拠に反論）。実際にはプールは第 1 ラウンドの約 2 万 ETH 台が頂点で、以後のラウンドは縮小しており、懸念は現実化しなかったと見られる。", k: analysis, s: [src-fomo3d-ethresearch, src-fomo3d-vice, src-fomo3d-solmaz]}
 
+acquisition:
+  audience: [players]
+  summary: {t: "最初の参加者の土台は同じ Team JUST の PoWH3D（P3D）の保有者・紹介者で、購入額の一部が P3D 側へ流れる設計と 10% の紹介料が既存の参加者に勧誘の動機を与えた。そこへ、プールが膨らむ公開タイマーそのものの話題性（ethresear.ch・報道）が 2018-07 下旬の急増を重ねたと見られる。", k: analysis, s: [src-fomo3d-source, src-fomo3d-financemagnates, src-fomo3d-ethresearch, src-fomo3d-btcecho-0724]}
+  steps:
+    - {phase: pre, t: "Team JUST は先に PoWH3D（P3D、コード上は Hourglass）を運営しており、P3D には紹介者（masternode）の経由で入った購入者の配当手数料の一部を紹介者に回す仕組みがあった。Fomo3D はキー購入額の一部と、紹介者のいない購入の紹介料分を P3D 保有者に流す設計で始まった。", k: fact, s: [src-fomo3d-source, src-fomo3d-financemagnates]}
+    - {phase: launch, date: "2018-07-06", t: "FoMo3D Long をデプロイ。最初の 100 ETH が集まるまでは 1 人あたり累計 1 ETH までしか買えない反クジラ規則があり、初期の少数の大口が独占しないようにしていた。", k: fact, s: [src-fomo3d-etherscan-deploy, src-fomo3d-source]}
+    - {phase: growth, date: "2018-07-21", t: "ethresear.ch で「Fomo3D は Ethereum を破壊するか」が議論され、プールは 17,000 ETH 超とされた。SECBIT によれば参加は 2018-07-20〜21 に頂点を迎えた。", k: fact, s: [src-fomo3d-ethresearch, src-fomo3d-secbit-solution]}
+    - {phase: growth, date: "2018-07-24", t: "BTC-Echo は直近 24 時間のアクティブユーザーを 5,200 超、取引額を 2,700 ETH と報じ（同じ 24 時間の CryptoKitties は 22.17 ETH）、Finance Magnates はプールを 21,515 ETH と報じた。Hackernoon の消耗戦の分析（07-23）も同時期に出ている。", k: fact, s: [src-fomo3d-btcecho-0724, src-fomo3d-financemagnates, src-fomo3d-hackernoon-attrition]}
+    - {phase: growth, date: "2018-07-28", t: "Team JUST は短期版（Quick / SOON）を公開し、INSIDE によれば 10 分で 9,800 ETH が流入した。長期版の参加者に別の入口を用意した形になる。", k: claim, who: "INSIDE", s: [src-fomo3d-inside, src-fomo3d-exitscam-site]}
+    - {phase: growth, date: "2018-08-22", t: "第 1 ラウンドがブロック詰めで決着し、Vice・TNW などが勝者と賞金を報じた。報道の山は流入の山（7 月下旬）より後で、以後のラウンドは縮小した。", k: fact, s: [src-fomo3d-vice, src-fomo3d-tnw, src-fomo3d-solmaz]}
+  channels:
+    - {id: existing-community, t: "同じチームの P3D 保有者が、購入額の一部（チームにより 0〜10%）と紹介者なし購入の紹介料分を受け取る立場にあり、P3D の利用者が最初の参加者・宣伝者になる動機を持っていた。", k: fact, s: [src-fomo3d-source, src-fomo3d-financemagnates]}
+    - {id: referral, t: "購入額の 10% が紹介者に入るが、紹介者が PlayerBook で名前を登録（0.01 ETH）していなければその分は P3D へ回る。紹介リンクを配る人は少額を払って登録した参加者に限られた。", k: fact, s: [src-fomo3d-source]}
+    - {id: viral-mechanic, t: "購入ごとに 30 秒延びる公開タイマーと膨らむプール、既存保有者への即時配当という仕組みそのものが話題を生み、残り時間の消耗戦を観戦・議論の対象にした。", k: analysis, s: [src-fomo3d-hackernoon-attrition, src-fomo3d-ethresearch]}
+    - {id: prize-competition, t: "最後の購入者がプールの 48% を得る賞金そのものが参加理由になった。賞金の原資は参加者自身の購入額である。", k: fact, s: [src-fomo3d-source]}
+    - {id: crypto-social, t: "2018-07-21 に ethresear.ch で Ethereum 全体への影響が議論され、Justin Drake らが参加した。", k: fact, s: [src-fomo3d-ethresearch]}
+    - {id: press, t: "2018-07-23〜24 に Hackernoon・Finance Magnates・BTC-Echo が「公然のねずみ講」「最も成功している dApp」として取り上げた。", k: fact, s: [src-fomo3d-hackernoon-attrition, src-fomo3d-financemagnates, src-fomo3d-btcecho-0724]}
+  cost:
+    - {t: "獲得の原資はすべて参加者の ETH で、紹介料（10%）・配当・エアドロップ（1%）・賞金は後から入った人の購入額から支払われる。運営が外部資金で報酬を出した形跡はない。", k: fact, s: [src-fomo3d-source]}
+    - {t: "運営はコミュニティ分（購入時 2%、ラウンド終了時 2%）を受け取り、P3D 側の流れも同じチームの製品に向かう。広告費・VC 資金の有無は確認できなかった。", k: fact, s: [src-fomo3d-source]}
+  after:
+    - {t: "ラウンドごとの勝者賞金は 10,469 ETH → 3,264 ETH → 376 ETH と急減し、第 3 ラウンド（2018-10）以後の公式な活動は確認できない。", k: fact, s: [src-fomo3d-solmaz, src-fomo3d-etherscan-win-tx, src-fomo3d-secbit-solution]}
+    - {t: "示されていない指標: 一意の参加アドレス数、ラウンドをまたいだ再参加率、紹介経由の購入の割合は一次集計が見つからない（Etherscan の累計取引数 246,135 件のみ）。", k: fact, s: [src-fomo3d-etherscan-contract]}
+  counter:
+    - {t: "急増の時期（07-20〜21）は ethresear.ch の議論と重なるが、どちらが先かは日単位では判別できない。報道（07-23 以降）は頂点の後であり、報道が最初の流入を生んだとは言いにくい。", k: analysis, s: [src-fomo3d-ethresearch, src-fomo3d-secbit-solution, src-fomo3d-financemagnates]}
+    - {t: "BTC-Echo の 5,200 は「アクティブユーザー」とされるがアドレス単位の可能性が高く、紹介料目当ての自己紹介アカウントや攻撃コントラクトを含み得る。SECBIT の 18,000 超の「参加」も一意アドレスか取引数か不明で、人数の根拠としては弱い。", k: analysis, s: [src-fomo3d-btcecho-0724, src-fomo3d-secbit-solution]}
+    - {t: "紹介制度の効果は直接測れない。紹介料は名前登録者にしか入らないため、紹介経由の購入の比率は PlayerBook とイベントログを集計しなければ分からず、本調査では行っていない。", k: unknown}
+  lessons:
+    - {t: "【有料登録の紹介リンク＋既存トークンへの還流】紹介料を名前登録（少額の支払い）した参加者だけに払い、紹介のない購入分を前作のトークン保有者に回すと、前作の保有者全員が新作の勧誘者になる。効く条件: 前作に配当目当ての保有者層があり、新作の流入がそのまま彼らの収入になる。破綻条件: 流入が鈍ると紹介料も配当も同時に止まり、勧誘の動機が一斉に消える（Fomo3D ではラウンドごとに規模が約 3 分の 1 以下に縮んだ）。", k: analysis}
+    - {t: "【参加初期の上限】最初の一定額（100 ETH）までは 1 人の購入額に上限を置く規則は、開始直後に少数の大口が配当の最上位を独占するのを防ぎ、初期の小口参加者を増やす狙いを持つ。効く条件: アドレスを多数作るコストが上限による損失より高い。破綻条件: 上限はアドレス単位なので、複数アドレスを使えば回避できる。", k: analysis, s: [src-fomo3d-source]}
+  metrics: [m-fomo3d-r1-prize, m-fomo3d-r2-prize, m-fomo3d-r3-prize, m-fomo3d-r1-participations, m-fomo3d-pot-0721, m-fomo3d-pot-0724, m-fomo3d-active-0724, m-fomo3d-volume-0724, m-fomo3d-tx-count]
+  unknowns:
+    - "中国語圏の SNS・チャットでの拡散の時期と規模（INSIDE 以外の一次資料。台湾の暗号資産メディアが 2018-07-21 前後に中国の SNS で拡散したと報じたことは検索要約でのみ確認）"
+    - "紹介経由の購入の比率、P3D 保有者のうち Fomo3D に参加した割合"
+    - "Team JUST の Discord の規模と、そこでの告知の内容（Discord は取得不可）"
+
 metrics:
+  - {id: m-fomo3d-active-0724, type: dau, value: 5200, value_text: "5,200 超", unit: users, period: "2018-07-24 時点の直近 24 時間", definition: "BTC-Echo が報じた「aktive Nutzer」（DappRadar の文脈で記載。アドレス単位と見られ、定義は不明）", nature: estimated, s: [src-fomo3d-btcecho-0724]}
+  - {id: m-fomo3d-volume-0724, type: volume, value: 2700, value_text: "2,700 ETH（同時期の CryptoKitties は 22.17 ETH）", unit: ETH, period: "2018-07-24 時点の直近 24 時間", definition: "BTC-Echo が報じた 24 時間の取引額（集計元は明記なし）", nature: estimated, s: [src-fomo3d-btcecho-0724]}
   - {id: m-fomo3d-r1-prize, type: other, value: 10469.66, value_text: "10,469.66 ETH", unit: ETH, period: "2018-08-22（第 1 ラウンド）", definition: "勝者が withdraw() で引き出した額（Etherscan の内部送金）", nature: measured, s: [src-fomo3d-etherscan-win-tx]}
   - {id: m-fomo3d-r1-pot, type: other, value: 21811, value_text: "約 21,811 ETH", unit: ETH, period: "2018-08-22（第 1 ラウンド終了時）", definition: "Vice が記した総プール（勝者分は半分弱）", nature: reported, s: [src-fomo3d-vice]}
   - {id: m-fomo3d-r1-inflow, type: volume, value: 40000, value_text: "40,000 ETH 超", unit: ETH, period: "第 1 ラウンド（2018-07〜08）", definition: "SECBIT による投入資金の総額（集計方法の詳細は不明）", nature: estimated, s: [src-fomo3d-secbit-solution, src-fomo3d-secbit-odaily]}
@@ -215,3 +253,4 @@ sources:
   - {id: src-fomo3d-yacn, title: "Front Running Ethereum（節「The Tale of Fomo3D」）", url: "https://yacn.substack.com/p/front-running-ethereum", publisher: "Yet Another Crypto Newsletter", author: "Jeremy Clark", type: analysis, primary: false, published: "2024-12-24", accessed: "2026-10-23", access: fetched, lang: en, note: "前回り攻撃の説明。勝者を仮名 Mallory で語る。初期タイマー 5 分と記載"}
   - {id: src-fomo3d-btcecho, title: "Fomo3D: Wie ein Hacker das Schneeballsystem überlistete", url: "https://www.btc-echo.de/news/fomo3d-wie-ein-hacker-das-schneeballsystem-ueberlistete-56842/", publisher: "BTC-Echo", author: "Philipp Giese", type: news, primary: false, published: "2018-09-04", accessed: "2026-10-23", access: fetched, lang: de, note: "検証役が追加。ブロック 6191898〜6191908 は平均 14 取引と小さく、SparPool・BitClubPool・Nanopool・Ethermine など複数のプールが採掘"}
   - {id: src-fomo3d-rpc-blocks, title: "Ethereum mainnet eth_getBlockByNumber / eth_getBalance（ブロック 5915466・6191896・6191909・6391548・6507761・6507774）", url: "https://eth.drpc.org", publisher: "dRPC（公開 RPC）", type: onchain-data, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "検証役が JSON-RPC で取得。6191909 = 2018-08-22 06:51:17 UTC、6391548 = 2018-09-24 15:35:45 UTC、6507774 = 2018-10-13 14:12:45 UTC。コントラクト残高 1094.46 ETH"}
+  - {id: src-fomo3d-btcecho-0724, title: "Fomo3D: Lotterie, Schneeballsystem, Rekord-dApp", url: "https://www.btc-echo.de/news/fomo3d-lotterie-schneeballsystem-rekord-dapp-52453", publisher: "BTC-Echo", author: "Christopher Klee", type: news, primary: false, published: "2018-07-24", accessed: "2026-10-24", access: fetched, lang: de, note: "直近 24 時間のアクティブユーザー 5,200 超、取引額 2,700 ETH（CryptoKitties 22.17 ETH・350 人と比較）、FOMO を狙った新規勧誘、DappRadar で最も成功した dApp"}

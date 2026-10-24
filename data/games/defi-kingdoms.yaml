@@ -4,7 +4,7 @@ name_ja: デファイ・キングダムズ
 aliases: [DFK, Serendale, Crystalvale, "DFK Chain"]
 kind: game
 depth: index
-updated: "2026-10-23"
+updated: "2026-10-24"
 links:
   website: https://defikingdoms.com/
   play: https://game.defikingdoms.com/
@@ -92,7 +92,44 @@ relations:
   - {to: axie-infinity, type: similar-to, basis: analytic, note: "ゲーム専用チェーン（Ronin / DFK Chain）を持った P2E"}
   - {to: c-own-chain, type: similar-to, basis: analytic, note: "Avalanche Subnet でゲーム専用チェーンを運用"}
 
+acquisition:
+  audience: [players, holders]
+  summary: {t: "最初の利用者は Harmony 上で利回りを探していた DeFi 利用者で、DEX と高 APR の流動性マイニング（Gardens、報酬の 95% をロック）で集め、数週間後の Gen0 ヒーロー 2,000 体の販売でゲーム側の参加者を作った。その後の拡大は Harmony・Avalanche・Klaytn というチェーン側の資金提供と、JEWEL 価格の上昇期に重なる。", k: analysis, s: [src-defi-kingdoms-docs-realms, src-defi-kingdoms-docs-gardens, src-defi-kingdoms-dreamer-2021]}
+  steps:
+    - {phase: launch, date: "2021-08-22", t: "Serendale 1.0 を Harmony で、ゲームより先に DEX と流動性マイニング（Gardens）として開始した。初期エポックでは請求した報酬の 95% がロックされ、ロック分は後の期間に解放される設計だった。", k: fact, s: [src-defi-kingdoms-docs-realms, src-defi-kingdoms-docs-gardens]}
+    - {phase: launch, t: "運営幹部 Dreamer によれば、創業者 Frisky Fox と 4 人の初期チームで最初の段階を公開し、数週間後に Gen0 ヒーロー 2,000 体を販売、11 分で売り切れて約 450 万ドルを得た。DEX は 19 の報酬付きプールで、Harmony に初めて AVAX と FTM の流動性を持ち込んだとする。", k: claim, who: "Dreamer（Kingdom Studios、2021-11 の Harmony 向け発表資料）", s: [src-defi-kingdoms-dreamer-2021], q: "Hero sale - 2000 in 11 minutes, $4.5mm, ~55k summoned since, with in-game marketplace active."}
+    - {phase: growth, date: "2021-10", t: "2021-10-07〜11 に TVL が 7,000 万ドルから 1.15 億ドルへ増え、Discord は 8,000 人超、10-11 の週次 AMA には 350 人超が参加したと第三者の分析は記す。", k: claim, who: "Jason Pagoulatos（Substack の分析）", s: [src-defi-kingdoms-jpags-2021-11]}
+    - {phase: growth, date: "2021-11", t: "Dreamer は、Gardens の APR が 500%〜約 1,000%、ヒーローの召喚は累計約 5.5 万、チームは 32 人＋コミュニティの協力者 26 人に増えたと発表した。", k: claim, who: "Dreamer（Kingdom Studios）", s: [src-defi-kingdoms-dreamer-2021]}
+    - {phase: growth, date: "2021-12", t: "Harmony のエコシステム基金が 2021-12 に承認した助成の一覧に DeFi Kingdoms が含まれる（第三者の分析は 100 万ドルとする）。", k: fact, s: [src-defi-kingdoms-m6-harmony-grants, src-defi-kingdoms-0xgregh]}
+    - {phase: growth, date: "2022-01-14", t: "DefiLlama の TVL が約 9.0 億ドルで頂点に達した。Discord は 2021-12 の 3 万人から 2022-04 に 9.1 万人、X のフォロワーは 2021-10 の約 2 万から 12.3 万へ増えたと第三者は記す。", k: fact, s: [src-defi-kingdoms-llama, src-defi-kingdoms-0xgregh]}
+    - {phase: growth, date: "2022-03-08", t: "Avalanche Foundation の Multiverse 計画の最初の Subnet 受給先として、AVAX と新トークン CRYSTAL で最大 1,500 万ドルの報酬が DFK に割り当てられ、2022-03-30 に Crystalvale を開いた。", k: fact, s: [src-defi-kingdoms-theblock-multiverse, src-defi-kingdoms-docs-realms]}
+  channels:
+    - {id: token-incentive, t: "Gardens の流動性マイニングで JEWEL を高い APR（2021-11 に 500〜1,000%）で配り、報酬の大半をロックして長期滞在を促した。", k: fact, s: [src-defi-kingdoms-docs-gardens, src-defi-kingdoms-dreamer-2021]}
+    - {id: existing-community, t: "Harmony 上の DeFi 利用者と流動性を最初の利用者とし、運営は AVAX・FTM の流動性を初めて Harmony に持ち込んだと主張した。", k: claim, who: "Dreamer（Kingdom Studios）", s: [src-defi-kingdoms-dreamer-2021]}
+    - {id: community-server, t: "Discord（2021-10 に 8,000 人超）で週次 AMA を開いた。", k: claim, who: "Jason Pagoulatos", s: [src-defi-kingdoms-jpags-2021-11]}
+    - {id: builder-grants, t: "Harmony エコシステム基金の助成（2021-12 承認）を受けた。", k: fact, s: [src-defi-kingdoms-m6-harmony-grants]}
+    - {id: platform-distribution, t: "チェーン側の誘致施策（Avalanche Multiverse の最大 1,500 万ドル、Klaytn による協業の対価）を受けて新しい王国を開いた。", k: fact, s: [src-defi-kingdoms-theblock-multiverse, src-defi-kingdoms-theblock-leave]}
+  cost:
+    - {t: "初期の報酬は JEWEL の新規発行で賄い、Gen0 ヒーロー販売（約 450 万ドル、運営発表）の収益は報酬・開発・マーケティングの基金に配分された。", k: claim, who: "Dreamer / Jason Pagoulatos", s: [src-defi-kingdoms-docs-gardens, src-defi-kingdoms-dreamer-2021, src-defi-kingdoms-jpags-2021-11]}
+    - {t: "チェーン側の資金（Harmony の助成、Avalanche の最大 1,500 万ドル、Klaytn の対価）が拡大期の報酬と開発を補った。", k: fact, s: [src-defi-kingdoms-m6-harmony-grants, src-defi-kingdoms-theblock-multiverse, src-defi-kingdoms-theblock-leave]}
+  after:
+    - {t: "TVL は 2022-01 の約 9.0 億ドルから 2022-06 には約 4,400 万ドルへ 95% 減り、第三者は 2022-04 時点でアクティブユーザーが約 2.3 万から急落したと記す。継続率やウォレット単位のコホートは公開されていない。", k: fact, s: [src-defi-kingdoms-llama, src-defi-kingdoms-0xgregh]}
+  counter:
+    - {t: "500〜1,000% の APR は流動性を集める一方、報酬目的の資金は利回りが下がれば離れる。TVL の頂点（2022-01）と減少は暗号資産市場全体の転換とも重なり、ゲーム設計による定着とは区別できない。", k: analysis, s: [src-defi-kingdoms-dreamer-2021, src-defi-kingdoms-llama]}
+    - {t: "Discord・X のフォロワー数や「アクティブユーザー」は第三者の記事に依存し、ボットや多重アカウントを除いた人数ではない。", k: analysis, s: [src-defi-kingdoms-0xgregh, src-defi-kingdoms-jpags-2021-11]}
+  lessons:
+    - {t: "【ゲームより先に DEX と流動性マイニングを開く】最初に DeFi 機能だけで利用者と流動性を集め、数週間後にゲーム資産（Gen0）を限定数販売すると、すでにトークンを持つ利用者が最初の購入者になる。効く条件: 載せるチェーンに利回りを探す資金があり、報酬トークンの価格が保たれる。破綻条件: 報酬の大半が発行による限り、価格下落で APR の魅力と資産価値が同時に下がる（TVL は約 5 か月で 95% 減）。", k: analysis, s: [src-defi-kingdoms-docs-realms, src-defi-kingdoms-dreamer-2021, src-defi-kingdoms-llama]}
+    - {t: "【報酬ロックによる滞在の引き延ばし】請求報酬の 95% をロックすると短期の売り圧を遅らせられる。破綻条件: ロック解除時期に売りが集中し、ロック中の利用者はチェーン移転や価格下落のリスクを抱えたまま抜けられない。", k: analysis, s: [src-defi-kingdoms-docs-gardens, src-defi-kingdoms-jpags-2021-11]}
+  metrics: [m-dfk-gen0-sale-2021, m-dfk-discord-2021-10, m-dfk-tvl-peak-2022-01, m-dfk-tvl-2022-06]
+  unknowns:
+    - "Gen0 ヒーロー販売の正確な日付（第三者の DappRadar は 2021-09-30 とするが、取得不可で検索要約のみ）"
+    - "初期の JEWEL エアドロップの有無と規模（DappRadar の記事は検索要約のみで確認）"
+    - "Harmony の助成額の一次資料"
+    - "初期のアクティブウォレット数のオンチェーン集計"
+
 metrics:
+  - {id: m-dfk-gen0-sale-2021, type: nft_sales, value: 4500000, value_text: "2,000 体・11 分・約 450 万ドル", unit: USD, period: "2021（公開の数週間後）", definition: "Gen0 ヒーロー販売の総額（運営幹部の発表資料）", nature: reported, s: [src-defi-kingdoms-dreamer-2021]}
+  - {id: m-dfk-discord-2021-10, type: other, value: 8000, value_text: "8,000 超（2021-12 に 3 万、2022-04 に 9.1 万）", unit: members, period: "2021-10〜2022-04", definition: "Discord の参加者数（第三者の分析記事の記載。アカウント数）", nature: estimated, s: [src-defi-kingdoms-jpags-2021-11, src-defi-kingdoms-0xgregh]}
   - {id: m-dfk-tvl-peak-2022-01, type: tvl, value: 901428760, value_text: "約 9.0 億ドル", unit: USD, period: "2022-01-14", definition: "DefiLlama の Defi Kingdoms（Harmony・Klaytn の合計）TVL の最大値", nature: measured, s: [src-defi-kingdoms-llama]}
   - {id: m-dfk-tvl-2022-06, type: tvl, value: 44160520, value_text: "約 4,400 万ドル", unit: USD, period: "2022-06-01", definition: "同上（Horizon 攻撃前）", nature: measured, s: [src-defi-kingdoms-llama]}
   - {id: m-dfk-chain-tvl-2026-07, type: tvl, value: 630000, value_text: "約 63 万ドル → 2026-09 以降ほぼ 0", unit: USD, period: "2026-07 下旬", definition: "DefiLlama の DFK Chain のチェーン TVL（ピークは 2022-04-04 の約 4.1 億ドル）", nature: measured, s: [src-defi-kingdoms-llama]}
@@ -113,3 +150,8 @@ sources:
   - {id: src-defi-kingdoms-x-sunset, title: "DFK Chain Sunset & The Road Ahead (X thread, via Thread Reader)", url: "https://threadreaderapp.com/thread/2083238250311725278", publisher: "DeFi Kingdoms (@DeFiKingdoms) / Thread Reader App", type: social, primary: true, published: "2026-07-31", accessed: "2026-10-23", access: fetched, lang: en, note: "公式スレッドの転載。2026-08-28 に DFK Chain 終了、Avalanche C-Chain へ移行、SDK 公開予定"}
   - {id: src-defi-kingdoms-egamers-sunset, title: "DeFi Kingdoms Pulls the Plug on DFK Chain, Heads Back to Avalanche C-Chain August 28", url: "https://egamers.io/defi-kingdoms-pulls-the-plug-on-dfk-chain-heads-back-to-avalanche-c-chain-august-28/", publisher: "EGamers.io", author: "George Tsagkarakis", type: news, primary: false, published: "2026-08-04", accessed: "2026-10-23", access: fetched, lang: en, note: "インフラ費用の削減が目的、ブリッジ資産は自分で移す必要"}
   - {id: src-defi-kingdoms-llama, title: "DefiLlama API: protocol/defi-kingdoms and historicalChainTvl/DFK", url: "https://api.llama.fi/protocol/defi-kingdoms", publisher: "DefiLlama", type: onchain-data, primary: false, accessed: "2026-10-23", access: fetched, lang: en, note: "検証役が取得。プロトコル TVL（Harmony・Klaytn）と DFK Chain のチェーン TVL（https://api.llama.fi/v2/historicalChainTvl/DFK）の日次系列"}
+  - {id: src-defi-kingdoms-dreamer-2021, title: "@DreamerDFK (DeFi Kingdoms): Play-to-Earn Cross DeFi — Project & Ecosystem 2021 Highlights", url: "https://harmonyone.notion.site/DreamerDFK-DeFi-Kingdoms-Play-to-Earn-Cross-DeFi-7a30e46686ba469b94a90bd11196716a", publisher: "Harmony (Notion)", author: "Dreamer (Kingdom Studios)", type: talk, primary: true, published: "2021-11-30", accessed: "2026-10-24", access: fetched, lang: en, note: "Notion の公開 API で本文取得（作成 2021-11-30、最終編集 2021-12-11）。4 人の初期チーム、Gen0 2,000 体 11 分 450 万ドル、19 プール、APR 500〜1,000%、AVAX・FTM の流動性"}
+  - {id: src-defi-kingdoms-jpags-2021-11, title: "DeFi Kingdoms ($JEWEL) on Harmony One Network", url: "https://jpags.substack.com/p/defi-kingdoms-jewel-on-harmony-one", publisher: "Substack", author: "Jason Pagoulatos", type: analysis, primary: false, published: "2021-11-16", accessed: "2026-10-24", access: fetched, lang: en, note: "TVL 7,000 万→1.15 億ドル（10/7〜11）、Discord 8,000 超、AMA 350 人超、Gen0 2,000 体、販売収益の配分、Harmony の 3 億ドルの誘致施策"}
+  - {id: src-defi-kingdoms-0xgregh, title: "DeFi Kingdoms ($JEWEL) Deep Dive", url: "https://0xgregh.substack.com/p/dfk-deepdive", publisher: "Substack", author: "0xGregH", type: analysis, primary: false, published: "2022-04-29", accessed: "2026-10-24", access: fetched, lang: en, note: "Harmony から 100 万ドルの助成（2021-12）、Discord 3 万→9.1 万、X 約 2 万→12.3 万、アクティブ約 2.3 万から急落、TVL ピーク 12.6 億ドル（DefiLlama と定義差）"}
+  - {id: src-defi-kingdoms-m6-harmony-grants, title: "Harmony Ecosystem Fund Approved 17 New Grants in December 2021", url: "https://momentum6.substack.com/p/harmony-ecosystem-fund-approved-17-new-grants-in-december-2021-c0300b8b747c", publisher: "M6 Labs (Substack)", author: "Momentum 6, Kadeem Clarke", type: analysis, primary: false, published: "2022-02-16", accessed: "2026-10-24", access: fetched, lang: en, note: "2021-12 承認の助成一覧の NFT 部門に DeFi Kingdoms。金額の記載なし"}
+  - {id: src-defi-kingdoms-theblock-multiverse, title: "Avalanche Foundation unveils $290 million incentive program to spur on growth of subnets", url: "https://www.theblock.co/post/136691/avalanche-subnet-incentive-program", publisher: "The Block", author: "Ryan Weeks", type: news, primary: false, published: "2022-03-08", accessed: "2026-10-24", access: fetched, lang: en, note: "Avalanche Multiverse、最初の Subnet 受給先 DFK に AVAX と CRYSTAL で 1,500 万ドル"}
