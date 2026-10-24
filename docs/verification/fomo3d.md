@@ -29,3 +29,16 @@
 
 ## 総合判定
 修正済み。重大な捏造はなく、数値・日付・ブロック番号はオンチェーンと一致した。ただし反証欄に、出典に無い内容（The Button、流動性懸念の帰結を fact 扱い）と独立性の過大評価があり、修正した。
+
+## ゼロイチ節の検証（2026-10-24）
+- 確認した出典: 9 / 11（acquisition から参照される出典）。reedhong/fomo3d_clone を再 clone して FoMo3Dlong.sol の distributeExternal（紹介料 `_eth / 10`、名前未登録・自己紹介なら P3D へ）、PlayerBook の registrationFee_ = 10 finney、buyCore の「early round eth limiter」（round eth < 100 ETH の間、1 人 1 ETH）、Hourglass の masternode（100 トークン保有、配当手数料の 1/3）を確認。BTC-Echo 07-24（5,200 超・2,700 ETH・22.17 ETH）、ethresear.ch、SECBIT（Hackernoon）、Finance Magnates、Hackernoon 07-23、exitscam.me を再取得。INSIDE は 403 で再確認不可、Etherscan・Vice・TNW・Solmaz は前回検証済みのため今回は開き直していない。
+- 直したこと:
+  - summary: 「ethresear.ch・報道が 2018-07 下旬の急増を重ねたと見られる」→ 急増（07-19〜21）は議論・報道より前で、両者は急増への反応だった可能性が高い、急増の原因は特定できない、に変更。
+  - counter[0]: 「議論と重なるがどちらが先か判別できない」→ ethresear.ch の初投稿自体が「mostly in last two days」と書いており議論は急増の後、と修正（逐語 q 付き）。
+  - steps launch: 「最初の 100 ETH まで 1 人 1 ETH、大口独占を防ぐ」→ コードどおり「各ラウンドで」100 ETH まで、超過分は本人残高に戻る、狙いはコードに書かれていない、に修正（狙いは lessons の analysis にのみ残す）。
+  - channels referral: 出典に exitscam.me（逐語 q「Clever players can recruit others.」）と Finance Magnates（shill kit への言及）を追加。
+  - channels prize-competition: 「賞金そのものが参加理由になった」(fact) → 賞金があった事実のみ fact とし、動機は測れないと明記。
+  - metric m-fomo3d-r1-participations の definition: Hackernoon 版の「18,000 persons and 40,000 ethers」の表現と、日次か累計かも不明である点を追記。
+- 追加した反証: ethresear.ch 初投稿の「mostly in last two days」により、議論が流入を起こしたという説明は否定される（counter に統合）。BTC-Echo は勧誘・紹介の仕組みを書いておらず、Finance Magnates も紹介制度の効果を示していない。紹介制度の寄与は依然 unknown。
+- 確認できなかったこと: INSIDE（403）の 07-28 短期版 9,800 ETH（claim のまま）、中国語圏 SNS での拡散時期、紹介経由購入の比率。
+- 判定: 修正済み（調査役のコード確認は正しい。因果の表現を analysis 側に寄せ、ethresear.ch との前後関係を原文で確定した）。

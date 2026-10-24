@@ -147,7 +147,7 @@ acquisition:
   summary: {t: "最初の参加者の土台は同じ Team JUST の PoWH3D（P3D）の保有者・紹介者で、購入額の一部が P3D 側へ流れる設計と 10% の紹介料が既存の参加者に勧誘の動機を与えた。2018-07-19〜21 の急増は ethresear.ch の議論（07-21）と報道（07-23 以降）より前に起きており、議論と報道は急増への反応だった可能性が高い。急増そのものを何が起こしたかは一次資料で特定できない。", k: analysis, s: [src-fomo3d-source, src-fomo3d-financemagnates, src-fomo3d-ethresearch, src-fomo3d-btcecho-0724]}
   steps:
     - {phase: pre, t: "Team JUST は先に PoWH3D（P3D、コード上は Hourglass）を運営しており、P3D には紹介者（masternode）の経由で入った購入者の配当手数料の一部を紹介者に回す仕組みがあった。Fomo3D はキー購入額の一部と、紹介者のいない購入の紹介料分を P3D 保有者に流す設計で始まった。", k: fact, s: [src-fomo3d-source, src-fomo3d-financemagnates]}
-    - {phase: launch, date: "2018-07-06", t: "FoMo3D Long をデプロイ。最初の 100 ETH が集まるまでは 1 人あたり累計 1 ETH までしか買えない反クジラ規則があり、初期の少数の大口が独占しないようにしていた。", k: fact, s: [src-fomo3d-etherscan-deploy, src-fomo3d-source]}
+    - {phase: launch, date: "2018-07-06", t: "FoMo3D Long をデプロイ。各ラウンドで投入額が 100 ETH に達するまでは 1 人あたりそのラウンドの累計 1 ETH までしか買えない規則があった（超過分は購入されず本人の未引き出し残高に戻る）。コード上の注記は「early round eth limiter」で、狙いの説明はない。", k: fact, s: [src-fomo3d-etherscan-deploy, src-fomo3d-source]}
     - {phase: growth, date: "2018-07-21", t: "ethresear.ch で「Fomo3D は Ethereum を破壊するか」が議論され、プールは 17,000 ETH 超とされた。SECBIT によれば参加は 2018-07-20〜21 に頂点を迎えた。", k: fact, s: [src-fomo3d-ethresearch, src-fomo3d-secbit-solution]}
     - {phase: growth, date: "2018-07-24", t: "BTC-Echo は直近 24 時間のアクティブユーザーを 5,200 超、取引額を 2,700 ETH と報じ（同じ 24 時間の CryptoKitties は 22.17 ETH）、Finance Magnates はプールを 21,515 ETH と報じた。Hackernoon の消耗戦の分析（07-23）も同時期に出ている。", k: fact, s: [src-fomo3d-btcecho-0724, src-fomo3d-financemagnates, src-fomo3d-hackernoon-attrition]}
     - {phase: growth, date: "2018-07-28", t: "Team JUST は短期版（Quick / SOON）を公開し、INSIDE によれば 10 分で 9,800 ETH が流入した。長期版の参加者に別の入口を用意した形になる。", k: claim, who: "INSIDE", s: [src-fomo3d-inside, src-fomo3d-exitscam-site]}
@@ -156,7 +156,7 @@ acquisition:
     - {id: existing-community, t: "同じチームの P3D 保有者が、購入額の一部（チームにより 0〜10%）と紹介者なし購入の紹介料分を受け取る立場にあり、P3D の利用者が最初の参加者・宣伝者になる動機を持っていた。", k: fact, s: [src-fomo3d-source, src-fomo3d-financemagnates]}
     - {id: referral, t: "購入額の 10% が紹介者に入るが、紹介者が PlayerBook で名前を登録（0.01 ETH）していなければその分は P3D へ回る。紹介リンクを配る人は少額を払って登録した参加者に限られた。公式サイトも勧誘を参加者の戦略として示し、Finance Magnates は画面上部の「shill kit」に触れている。", k: fact, s: [src-fomo3d-source, src-fomo3d-exitscam-site, src-fomo3d-financemagnates], q: "Clever players can recruit others."}
     - {id: viral-mechanic, t: "購入ごとに 30 秒延びる公開タイマーと膨らむプール、既存保有者への即時配当という仕組みそのものが話題を生み、残り時間の消耗戦を観戦・議論の対象にした。", k: analysis, s: [src-fomo3d-hackernoon-attrition, src-fomo3d-ethresearch]}
-    - {id: prize-competition, t: "最後の購入者がプールの 48% を得る賞金そのものが参加理由になった。賞金の原資は参加者自身の購入額である。", k: fact, s: [src-fomo3d-source]}
+    - {id: prize-competition, t: "最後の購入者がプールの 48% を得る賞金が用意された（これが参加理由になった割合は測れない）。賞金の原資は参加者自身の購入額である。", k: fact, s: [src-fomo3d-source]}
     - {id: crypto-social, t: "2018-07-21 に ethresear.ch で Ethereum 全体への影響が議論され、Justin Drake らが参加した。", k: fact, s: [src-fomo3d-ethresearch]}
     - {id: press, t: "2018-07-23〜24 に Hackernoon・Finance Magnates・BTC-Echo が「公然のねずみ講」「最も成功している dApp」として取り上げた。", k: fact, s: [src-fomo3d-hackernoon-attrition, src-fomo3d-financemagnates, src-fomo3d-btcecho-0724]}
   cost:
