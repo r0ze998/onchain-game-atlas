@@ -35,3 +35,16 @@
 
 ## 総合判定
 修正済み — 分配比率の期間区切りの誤り、ガス代の性質の誤分類、LS2 公開月の根拠不足、2023-11 の停止の性質（UI 側・プレリリース終了）を直した。重大な捏造は見つからなかった。
+
+## ゼロイチ節の検証（2026-10-24）
+- 確認した出典: 13 / 15（Realms 公式 X 2 件を api.fxtwitter.com の JSON で本文取得、Provable-Games/loot-survivor を clone して deploy_mainnet.sh・lib.cairo・コミット履歴、Provable-Games/docs を clone して token/index・airdrop・eligible-collections・tokenomics・wanted-beasts・golden-token、Starknet 公式ブログ 2023-11-07、The Loot Herald 2023-10-20、Bankless 2025-10-14、growthepie）。src-ls-hist-v1-lib・src-ls-code-lib15 の分配ロジックは既存検証で確認済みのため、本節では launch_tournament 関連の定義のみ再確認。
+- 直したこと:
+  - LS2 の無料ゲーム: 「計約 50 万回を配った」→ 公式文書は「~500k free games available to ~80k addresses」で、用意数であり請求・使用数ではない旨に修正（steps・channels free-mint・after・m-ls-free-games-airdrop の definition）。
+  - Wanted Beast の 10 万 STRK: 「Starkware・Cartridge が拠出した」（fact）→ 公式文書は「partnered with Starkware and Cartridge」とだけ書き拠出者を明記しない。Bankless の「Starknet and Cartridge have put 100k STRK on the line」を出典に追加し、両者の書き方を併記。
+  - 2023-08-07 の step と channels crypto-social: 「大口の暗号資産インフルエンサー」→ 出典に規模の記述がないため「@blknoiz06 の投稿への返信」に。Arcade Account の「テストネット限定」は Loot Herald には書かれていないため、根拠をコミット（2023-08-06 "disable arcade account deployment on mainnet"）と明記。
+  - src-ls-deploy-mainnet-15 の published: 2025-05-06 → 2024-09-10（ファイル自体の最終変更。2025-05-06 はリポジトリ全体の最終コミット）。
+- 確認した（変更なし）: X の q 引用 2 件は逐語（"It's an immutable arcade machine, available to playtest now - on Starknet."、"'Loot Survivor' will be the first game on mainnet to utilise Lords."）。2023-03-29 開始・2023-04-29 Goerli 更新・2023-10-31 mainnet スタックのマージ・2023-11-08 新規ゲーム停止・11-09 新コントラクト。deploy_mainnet.sh の 8 集合（Bloberts 1・Influence 1・Ducks 6・Everai 2・Pixel Banners 1・Realms 1・Focus Tree 1・Syndicate 1）、30 日、1,600 回、VRF 無料 1 週間。55 集合・1 アドレス 50 回・Loot 5 回・スナップショット 2025-08-18。Golden Token V1 160 枚・2023-10-31・3 週間のオープンエディション。SURVIVOR 4 倍（第 2〜4 週）・LS1 Beast 2,306・LS1.5 上位 1,000 人。Loot Herald の 6 か月のプレイテスト・25 LORDS・ガス 5〜10 ドル。Starknet ブログの「available on testnet」。
+- 調査役メモについて: LS1.5 の 8 集合と LS2 の 55 集合は版の違いで矛盾ではなく、contradictions にも当該項目は入っていない（既存の「7 チェーン vs 一覧 6 チェーン」は妥当なので維持）。
+- 追加した反証: 「約 8 万アドレス」は人数ではない。無料回数は NFT ごとに付き上限はアドレス単位（50 回）なので、保有を複数アドレスに分けるほど多く受け取れ、対象アドレス数は保有者・プレイヤー数を上回りうる（src-ls-docs-airdrop）。
+- 確認できなかったこと: growthepie の 2026-10-23 時点の値 411（参照時点で 459・6.93 万件に更新されており、過去値は再現不可）。LS2 無料ゲームの実使用数。Starknet ブログが mainnet に触れない理由。
+- 判定: 修正済み（「配った」「拠出した」の断定を出典の表現に合わせた。数値の誤りはなし）。

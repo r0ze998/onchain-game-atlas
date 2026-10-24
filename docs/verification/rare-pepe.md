@@ -19,3 +19,13 @@
 
 ## 総合判定
 重大な問題なし。
+
+## ゼロイチ節の検証（2026-10-24）
+- 確認した出典: 7 / 11（Directory の PepeCash ページ（WebFetch は空のため curl で本文確認）と投稿ページ、TokenScan の RAREPEPE・PEPECASH 発行記録、Daily Dot、Wikipedia、CriptoNoticias。nft now の Looney インタビューは 403 で snippet のまま。acquisition は Looney インタビューを根拠に使っていないことを確認）
+- 照合: PEPECASH 配布の q 逐語一致、約 3 億焼却、FoldingCoin、Twitter・Telegram での配布。RAREPEPE はブロック 428919（2016-09-09 01:46 UTC）に 300 枚、PEPECASH はブロック 430263（2016-09-17）に 10 億。Daily Dot（2017-02-21、Jay Hathaway）の 500 超・4,000 PEPECASH（約 13 ドル）・「Rare Pepe Traders」・q（Django Bates の発言）一致。Directory の「over 1700 rares」、Series 1〜36 一致。Wikipedia の 2018-01-13・38,500 ドル・MoMA / Met 関係者の来場一致
+- 直したこと:
+  - steps（2015）: Peppening が「ミームの希少性を壊す目的」の放出だったことを追記（Daily Dot）
+  - src-rarepepe-tokenscan-issuances note: 発行アドレスと説明欄を追記
+- 追加した反証: RAREPEPE と PEPECASH は同じアドレス 1GQhaWqejcGJ4GhQar7SjcCfadxvf5DNBD から発行されており、PEPECASH の初期配布は最初のカードの発行者側が自分の買い手に配ったものと読める（自然発生的な共同体形成という説明への対抗仮説。k: analysis）
+- 確認できなかったこと: 「Mike」の身元、最初の 3 種の販売方法と買い手数、Telegram グループの開設日と参加者数（Wikipedia は「shortly after」とのみ）
+- 判定: 修正済み（重大な問題なし）

@@ -62,11 +62,11 @@ article:
 
 acquisition:
   audience: [players]
-  summary: {t: "最初の利用者として狙われたのは、既に Ghost Recon Breakpoint を PC（Ubisoft Connect）で遊んでいる対象 9 か国の成人プレイヤーで、XP レベル 5 以上という条件を満たす人に無料の Digit を 3 回配って「早期採用者」を作ろうとした。第三者の集計では最初の約 2 週間の売買は 15 件にとどまった。", k: analysis, s: [src-ubisoft-quartz-pr-2021, src-ubisoft-quartz-nme-2021]}
+  summary: {t: "最初の利用者として狙われたのは、既に Ghost Recon Breakpoint を PC（Ubisoft Connect）で遊んでいる対象 9 か国の成人プレイヤーで、XP レベル 5 以上という条件を満たす人に無料の Digit を 3 回配って「早期採用者」を作ろうとした。第三者の集計では、開始から 2021-12-20 までの約 11 日間に、サイトがリンクする 2 つの第三者マーケットで売れた Digit は 15 個にとどまった。", k: analysis, s: [src-ubisoft-quartz-pr-2021, src-ubisoft-quartz-nme-2021]}
   steps:
     - {phase: pre, date: "2021-12-07", t: "Ubisoft Quartz をベータとして発表した。参加条件は Ubisoft Connect の PC 版で Breakpoint を遊ぶこと、XP レベル 5 以上、18 歳以上で、対象は米・加・西・仏・独・伊・白・豪・伯の 9 か国だった。", k: fact, s: [src-ubisoft-quartz-pr-2021]}
     - {phase: launch, date: "2021-12-09", t: "ベータを 12-09 の 18 時（UTC）に開始し、12-09・12-12・12-15 の 3 回、無料の Digit を配った。追加の Digit は 2022 年初めに予定され、Digit は Ubisoft の外の第三者マーケットで他の対象プレイヤーに売れるとされた。", k: claim, who: "Ubisoft（プレスリリース）", s: [src-ubisoft-quartz-pr-2021], q: "to reward the early adopters among players"}
-    - {phase: growth, date: "2021-12-22", t: "Apex Legends のアーティスト Liz Edwards は、Quartz サイトからリンクされた 2 つの第三者マーケットで売れた Digit は 15 個で、作られた約 2,256 個の 1% 未満だと集計した。", k: fact, s: [src-ubisoft-quartz-nme-2021]}
+    - {phase: growth, date: "2021-12-20", t: "Apex Legends のアーティスト Liz Edwards は 2021-12-20 の投稿で、Quartz サイトからリンクされた 2 つの第三者マーケットで売れた Digit は計 15 個（前日は片方のサイトで 0）で、作られた約 2,256 個の 1% 未満だと集計した（NME、2021-12-22）。一次販売か転売かの区別は記事にない。", k: fact, s: [src-ubisoft-quartz-nme-2021]}
     - {phase: growth, date: "2022-03-17", t: "Breakpoint の最後の Digit を出した。Quartz のサイトは「最初の Digit を受け取った」Breakpoint のプレイヤーに感謝を述べ、他作で続けるとした。", k: fact, s: [src-ubisoft-quartz-vgc-2022, src-ubisoft-quartz-gamesbeat-end]}
   channels:
     - {id: existing-community, t: "既存作 Ghost Recon Breakpoint の PC プレイヤーだけを対象にし、XP レベル 5 以上を条件にした。", k: fact, s: [src-ubisoft-quartz-pr-2021]}
@@ -79,6 +79,7 @@ acquisition:
     - {t: "2022-03-17 を最後に Breakpoint での Digit は終わり、2022-04 には同作の追加コンテンツ自体が終了した。Ubisoft の Nicolas Pouard は、プレイヤーはデジタルの二次市場の利点を理解していないと述べた。2026-08 の報道は Quartz が重要な利用者基盤を得られなかったとする。", k: claim, who: "Nicolas Pouard（VGC の記事内）/ KitGuru", s: [src-ubisoft-quartz-vgc-2022, src-ubisoft-quartz-destructoid-end, src-ubisoft-quartz-kitguru-2026], q: "I think gamers don't get what a digital secondary market can bring to them."}
     - {t: "示されていない指標: 無料 Digit を受け取ったプレイヤー数、参加条件を満たしたプレイヤー数。", k: unknown}
   counter:
+    - {t: "低調さの評価は数え方に依存する。2021-12-20 時点の 15 件（Liz Edwards、2 つのマーケット）に対し、2022-04 の GamesBeat は Ars Technica を引いて転売の成立を計 96 件とする。どちらも数千個の発行に比べ小さいが、期間・対象マーケット・一次販売を含むかが異なり、「最初の 2 週間で約 15 個」を全期間の需要と読むのは誤り。また GamesBeat は対象を「600 時間以上遊んだプレイヤー」への報酬と書き、プレスリリースの XP レベル 5 条件と食い違う（後の配布で条件が厳しくなった可能性があるが確認できない）。", k: analysis, s: [src-ubisoft-quartz-nme-2021, src-ubisoft-quartz-gamesbeat-end, src-ubisoft-quartz-pr-2021]}
     - {t: "利用が少なかった理由は「NFT が不要だったから」だけでなく、参加条件（PC・9 か国・18 歳以上・XP レベル 5）で売買できる相手を自社の一作品のプレイヤーに限ったことでも説明できる。二次市場の流動性を意図的に狭める設計だった。", k: analysis, s: [src-ubisoft-quartz-pr-2021, src-ubisoft-quartz-nme-2021]}
     - {t: "Breakpoint 自体の評価の低さと、発表直後の強い反発（VGC は「圧倒的な反発」と書く）が重なっており、無料配布という施策の効果を単独で評価できない。", k: analysis, s: [src-ubisoft-quartz-vgc-2022, src-ubisoft-quartz-destructoid-end]}
   lessons:
@@ -88,7 +89,7 @@ acquisition:
   unknowns: ["無料 Digit の受取人数と、参加条件を満たしたプレイヤー数", "有料 Digit の販売方法と売上", "Quartz サイト自体の終了日"]
 
 metrics:
-  - {id: m-ubisoft-quartz-sales-2021-12, type: nft_sales, value: 15, unit: items, period: "2021-12-09〜12-22 頃", definition: "Quartz サイトからリンクされた 2 つの第三者マーケットで売れた Digit の数（Liz Edwards の集計、NME の記事）", nature: estimated, s: [src-ubisoft-quartz-nme-2021]}
+  - {id: m-ubisoft-quartz-sales-2021-12, type: nft_sales, value: 15, unit: items, period: "2021-12-09〜12-20", definition: "Quartz サイトからリンクされた 2 つの第三者マーケットで売れた Digit の数（Liz Edwards の 2021-12-20 の投稿、NME の記事。一次・転売の区別なし）", nature: estimated, s: [src-ubisoft-quartz-nme-2021]}
   - {id: m-ubisoft-quartz-minted-2021-12, type: other, value: 2256, value_text: "約 2,256", unit: items, period: "2021-12", definition: "Quartz 用に作られた Digit の推定数（Liz Edwards の推定、NME の記事）", nature: estimated, s: [src-ubisoft-quartz-nme-2021]}
 
 events:
@@ -101,6 +102,7 @@ relations:
   - {to: dark-forest, type: contrasts-with, basis: analytic, note: "ルール自体をオンチェーンにした例との対照"}
 
 contradictions:
+  - {t: "参加条件: Ubisoft のプレスリリース（2021-12-07）は XP レベル 5 以上・18 歳以上とし、GamesBeat（2022-04）は「600 時間以上遊んだプレイヤー」への報酬と書く。配布回ごとに条件が違ったのか、記事の誤りかは確認できなかった。", s: [src-ubisoft-quartz-pr-2021, src-ubisoft-quartz-gamesbeat-end]}
   - {t: "KitGuru（2026-08）は Quartz が Rainbow Six Siege と統合したと書くが、2022 年の Destructoid は Breakpoint の Digits を Rainbow Six Siege 等の他作へ持ち込む予定はないとし、Quartz の配布先として確認できるのは Breakpoint のみ", s: [src-ubisoft-quartz-kitguru-2026, src-ubisoft-quartz-destructoid-end]}
 
 unknowns:

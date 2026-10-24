@@ -30,3 +30,22 @@
 
 ## 総合判定
 修正済み。数値（eth_call）は再現でき重大な誤りはなかったが、TechCrunch に関する矛盾の誤記と ownerCut の「更新」表現、EIP 草案の Rare Pepe の扱いを修正した。
+
+## ゼロイチ節の検証（2026-10-24）
+- 確認した出典: 7 / 9（CNW プレスリリース、ConsenSys、Wikipedia、Frontiers、Fortune を WebFetch で再読。新たに BetaKit 2 本と Bitcoin Magazine 2018-01-10 を取得。TechCrunch・MIT TR は 10-23 確認済み、Bloomberg は snippet のまま）
+- 照合: プレスリリースの q 逐語一致（"Each ETHWaterloo participant who signed up was gifted two "CryptoKitties,""）。50 匹 → 「By Monday」に 1,500 匹超、副題「36 Hours」。テストネットへの言及はプレスリリースになく、Rinkeby は Bladon の ConsenSys 内発言のみ。Dan Finlay の q 一致。Frontiers の 11-23 リリース、12-10 ピーク（日次関与アドレス数による区分）、2018 年初めにピークの 10% 未満、104,517 アドレス一致。Fortune の q 一致（Diar が引いた Greylock の推計）
+- ETHWaterloo の日付の矛盾（プレスリリース 10-17 vs Wikipedia 10-19）: BetaKit の事前告知（2017-08-02）が会期を 2017-10-13〜15 とし、事後記事（2017-10-16）は「this weekend」開催・参加者 400 人・32 か国超と記す。プレスリリースの「over the weekend」「By Monday」と整合し、Wikipedia の 10-19 は誤りと判断（同文の出典は IEEE Spectrum 2022）。contradictions の該当項目に追記
+- 直したこと:
+  - steps（2017-10）: 会期 10-13〜15・参加者 400 人を追記し、「36 時間」の表現差を併記。出典 3 件追加（src-ck-betakit-ethwaterloo-pre / -attend, src-ck-btcmag-origin-2018）
+  - steps（2017-11-28）: 「運営は全員を MetaMask に誘導し、アルファの段階から MetaMask と連絡を取っていた」→ 誘導は Infura の Wuehler の説明、Bladon の発言は「MetaMask をツールとして使っていた」（"working with MetaMask as a tool since the Alpha"）で、「連絡」ではない
+  - steps（2017-12-10）と m-ck-infura-requests: 「12 月第 1 週だけで Infura 20 億→40 億件超」→ 記事の「12 月第 1 週」はネットワーク全体の要求 6 倍についての地の文で、Wuehler の 20 億→40 億件超は「overnight」とだけあり日付なし
+  - channels: Dan Finlay の紹介を creator-stream → crypto-social（配信者・インフルエンサーではなく業界の開発者のツイート）
+  - channels platform-distribution: 上記の発言者の区別を反映
+  - channels viral-mechanic: k fact → analysis（「動機を与えた」は因果の推定）
+  - cost: ハッカソン配布の「費用はほぼかからない」を分離して k: analysis に
+  - lessons: 「中央値はピーク時の 41 ドル」→ Fortune は「数か月前の 41 ドル」でピーク時とは書いていない
+- 追加した反証:
+  - Frontiers は 12-02 から大量流入としており、TechCrunch（12-03）・MIT TR / Bloomberg（12-04）の報道は流入開始の後。報道が最初の波を起こしたのではない可能性
+  - 開始時の配布 50 匹は 2 匹ずつなら約 25 人分で、参加者 400 人のごく一部
+- 確認できなかったこと: ETHWaterloo で猫を受け取った人数の総数、クローズドベータの参加者、Steph Curry 提携の一次資料
+- 判定: 修正済み（発言者の取り違えと期間の誤帰属を訂正。重大な問題は解消）

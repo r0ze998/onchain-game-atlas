@@ -80,7 +80,7 @@ acquisition:
   steps:
     - {phase: pre, date: "2024-12-21", t: "リポジトリを開始。初期 README は対応ゲームを Eternum のみとし、Dojo との統合を掲げた。2025-01-13 までのコミットはすべて作者 1 人（ponderingdemocritus）による。", k: fact, s: [src-daydreams-repo]}
     - {phase: launch, date: "2025-01-03", t: "Loaf は X で、次の Eternum シーズンに 1,000 のエージェントを投入すると投稿した。Bankless（2025-01-06）はこれを埋め込みで引用し、Daydreams を Dojo スタックの一部として、Loaf を Eliza リポジトリの主要コントリビュータとして紹介した。", k: fact, s: [src-daydreams-bankless-eliza]}
-    - {phase: growth, date: "2025-01-14", t: "この日以降、作者以外のコミット作者が加わり始め、2025-02-28 までにボットを除くコミット作者名は 21 種（同一人物の別名を含む）、コミットは 619 件になった。", k: fact, s: [src-daydreams-repo]}
+    - {phase: growth, date: "2025-01-14", t: "この日以降、作者以外のコミット作者が加わり始め、2025-02-28 までにボットを除くコミット作者名は 21 種（同一人物の別名を含む）、コミットは 620 件（うち dependabot 20 件、ボットを除くと 600 件）になった。", k: fact, s: [src-daydreams-repo]}
     - {phase: growth, date: "2025-05-09", t: "Bankless は、2,000 DREAMS（当時約 7 ドル）の保有を条件とする起動器 play.dreams.fun と、最初の対応ゲーム Gigaverse（Abstract）を紹介した。", k: fact, s: [src-daydreams-bankless-may]}
     - {phase: growth, date: "2025-06", t: "外部チーム（RuneLabsxyz）が Ponziland のゲーム例を PR で追加した。", k: fact, s: [src-daydreams-repo]}
   channels:
@@ -97,6 +97,7 @@ acquisition:
   counter:
     - {t: "「1,000 のエージェント」の主張は AI エージェントの数であり、人間の利用者や開発者の数ではない。しかも Eternum S1 のエージェントは管理者設定の単一 controller が操作する NPC 軍で、Daydreams のコードが使われたかは未確認である。", k: analysis, s: [src-daydreams-bankless-eliza, src-daydreams-eternum-s1-contracts, src-daydreams-bankless-s1]}
     - {t: "2025-01 の外部コントリビュータの流入は、Bankless の記事や X 投稿だけでなく、同時期の AI エージェント枠組み（Eliza 等）への関心の高まりや DREAMS トークンの話題でも説明でき、どれが効いたかは区別できない。", k: analysis, s: [src-daydreams-repo, src-daydreams-bankless-eliza]}
+    - {t: "「21 種のコミット作者」は広がりを過大に見せる。2025-02-28 までのボットを除く 600 件のうち 447 件（約 75%）は作者の 2 つの名義（ponderingdemocritus 363 件、Loaf 84 件）で、外部からのマージ元には z-korp・underware-gg など Starknet のゲーム開発チームや milancermak が含まれる。初期の外部協力者は X 投稿や Bankless で新たに来た人より、作者が既にいた Starknet / Dojo 圏の開発者だった可能性があり、報道の効果は切り分けられない。", k: analysis, s: [src-daydreams-repo]}
   lessons:
     - {t: "自作ゲームを最初の対応先にして枠組みを出す: 自分が運営するゲームを唯一の対応ゲームにすると、文脈（アドレス・資源 ID）を用意でき、最初のデモを早く作れる。効く条件は母体のゲームが継続し、外部のゲームにも対応を広げられること。破綻条件は母体のゲームの仕様変更やゲーム例の保守が追いつかない場合で、この例では 2025-08 にゲーム例が一括削除された。", k: analysis}
     - {t: "トークン保有を利用条件にする起動器: ツールの利用に少額のトークン保有を求めると、保有者に使い道を与えられる。効く条件はツール自体に継続的な価値があること。破綻条件は対象ゲームの例が削除されるなどツールの価値が先に消える場合。", k: analysis}
@@ -106,7 +107,7 @@ acquisition:
     - "外部開発者がどこから来たか（Eternum・Dojo・Eliza のどの界隈か）、起動器の利用者数。"
 
 metrics:
-  - {id: m-daydreams-early-authors, type: other, value: 21, unit: commit-authors, period: "2024-12-21〜2025-02-28", definition: "daydreamsai/daydreams の git 履歴でボットを除くコミット作者名の数（同一人物の別名を含む）。同期間のコミットは 619 件", nature: measured, s: [src-daydreams-repo]}
+  - {id: m-daydreams-early-authors, type: other, value: 21, unit: commit-authors, period: "2024-12-21〜2025-02-28", definition: "daydreamsai/daydreams の git 履歴でボットを除くコミット作者名の数（同一人物の別名を含む）。同期間のコミットは 620 件（うち dependabot 20 件）", nature: measured, s: [src-daydreams-repo]}
   - {id: m-daydreams-github-2026, type: other, value_text: "スター 622・フォーク 137", unit: stars, period: "2026-10-24 時点", definition: "daydreamsai/daydreams の GitHub ページ表示", nature: measured, s: [src-daydreams-repo]}
 
 events:

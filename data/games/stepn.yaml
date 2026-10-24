@@ -31,7 +31,7 @@ status:
   note: "ホワイトペーパーの変更履歴は 2026-07-13 まで更新され、アプリの配布リンクも有効。ホワイトペーパー自体は「Public Beta」段階と記す。"
   s: [src-stepn-wp-changelog, src-stepn-wp-overview]
 dates:
-  launched: {date: "2021-12-20", s: [src-stepn-bw-public-beta, src-stepn-wp-overview], note: "公開ベータの発表日（公式プレスリリース、当初はスニーカー NFT 保有者に限定）。それ以前に Solana Ignition Hackathon 2021 で 4 位"}
+  launched: {date: "2021-12-20", s: [src-stepn-bw-public-beta, src-stepn-wp-overview], note: "公開ベータの発表日（公式プレスリリース、当初はスニーカー NFT 保有者に限定）。それ以前に Solana Ignition Hackathon 2021 で 4 位で、TechCrunch によればその露出で最初のベータ利用者を得ており、公開ベータ前にもベータ利用者がいた"}
 
 architecture:
   onchain:
@@ -80,7 +80,7 @@ article:
 
 acquisition:
   audience: [players]
-  summary: {t: "最初の利用者は Solana Ignition Hackathon（2021-08〜10）での露出で集まったベータ参加者と、Magic Eden でスニーカー NFT を買った Solana の暗号資産利用者だった。2022-01 からは既存利用者がアプリ内の招待コード（Activation Code）を配る招待制で広がり、2022-03 の GMT の Binance Launchpad 販売と 2022-04 の Crypto Twitter での流行で急拡大した。", k: analysis, s: [src-stepn-techcrunch-2022-05, src-stepn-bw-public-beta, src-stepn-wp-changelog, src-stepn-decrypt-2022-06]}
+  summary: {t: "最初の利用者は Solana Ignition Hackathon（2021-08〜10）での露出で集まったベータ参加者と、Magic Eden でスニーカー NFT を買った Solana の暗号資産利用者だった。2022-01 からは既存利用者がアプリ内の招待コード（Activation Code）を配る招待制に移った（招待制は需要を生んだというより、すでにあった登録の殺到を絞る役割だった可能性がある）。その後、2022-03 の GMT の Binance Launchpad 販売と 2022-04 の Crypto Twitter での流行で急拡大した。", k: analysis, s: [src-stepn-techcrunch-2022-05, src-stepn-bw-public-beta, src-stepn-wp-changelog, src-stepn-decrypt-2022-06]}
   steps:
     - {phase: pre, date: "2021", t: "Solana Ignition Hackathon（2021-08-31〜10-15、最終提出 568 件）の Gaming 部門で 4 位になった。TechCrunch によれば、この露出が最初のベータ利用者の獲得につながった。", k: fact, s: [src-stepn-solana-ignition, src-stepn-wp-overview, src-stepn-techcrunch-2022-05], q: "After coming in fourth, its exposure at the event helped land its first batch of beta users."}
     - {phase: pre, date: "2021-11", t: "創業者は当初自己資金で開発し、2021-11 に Sequoia Capital などから 500 万ドルのシードを調達した。", k: fact, s: [src-stepn-techcrunch-2022-05]}
@@ -89,7 +89,7 @@ acquisition:
     - {phase: growth, t: "TechCrunch によれば、公開時にはすでに暗号資産コミュニティで評判が広がっており、大規模な広告なしに登録が殺到し、数週間で 1 日の登録数に上限を設けた。", k: claim, who: "TechCrunch（Rita Liao）", s: [src-stepn-techcrunch-2022-05]}
     - {phase: growth, date: "2022-03-09", t: "GMT を 60 億枚発行（TGE）。第三者の集計では同日 Binance Launchpad で供給の 7%（4.2 億 GMT）を 1 GMT 0.01 ドルで販売し 420 万ドルを集めた。", k: fact, s: [src-stepn-wp-gmt-vesting, src-stepn-coincodex-ieo]}
     - {phase: growth, date: "2022-04", t: "Decrypt によれば 2022-04 に Crypto Twitter と Web3 界隈で大流行し、運営は同月「300k DAU」を投稿した。GMT は 2022-04-27 に最高値 4.11 ドルを付けた。", k: fact, s: [src-stepn-decrypt-2022-06, src-stepn-forklog-2022-04, src-stepn-coingecko-gmt]}
-    - {phase: growth, date: "2022-06", t: "CMO の Shiti Manghani は月間アクティブ 300 万人、利用者の 3 分の 1 が暗号資産の新規参入者だとし、招待コードは新規利用者が古参の「出口流動性」にならないよう流入を絞るためだと説明した。", k: claim, who: "STEPN CMO Shiti Manghani（Decrypt）", s: [src-stepn-decrypt-2022-06], q: "funnel the inflow of users so that the new users don't end up becoming the exit liquidity for the older users"}
+    - {phase: growth, date: "2022-06", t: "Decrypt は月間アクティブ 300 万人と書き（発言者・出典の明示なし）、CMO の Shiti Manghani は利用者の 3 分の 1 が暗号資産の新規参入者（non-crypto natives）だとし、招待コードは新規利用者が古参の「出口流動性」にならないよう流入を絞るためだと説明した。", k: claim, who: "STEPN CMO Shiti Manghani（Decrypt）", s: [src-stepn-decrypt-2022-06], q: "funnel the inflow of users so that the new users don't end up becoming the exit liquidity for the older users"}
   channels:
     - {id: hackathon, t: "Solana Ignition Hackathon の Gaming 部門 4 位（568 件中）で露出し、最初のベータ利用者を得た。", k: fact, s: [src-stepn-solana-ignition, src-stepn-techcrunch-2022-05]}
     - {id: platform-distribution, t: "公開ベータは Magic Eden で売られるスニーカー NFT の保有者に限定して始まり、GMT は Binance Launchpad で販売された。", k: fact, s: [src-stepn-bw-public-beta, src-stepn-coincodex-ieo]}
@@ -104,7 +104,8 @@ acquisition:
   counter:
     - {t: "急拡大の時期（2022-03〜04）は GMT の Launchpad 販売と最高値（04-27）に重なり、招待制や運動の魅力より、トークン価格の上昇が流入を説明する可能性がある。", k: analysis, s: [src-stepn-coincodex-ieo, src-stepn-coingecko-gmt, src-stepn-decrypt-2022-06]}
     - {t: "招待制は流入を絞るためと運営は説明するが、コードが希少なほど入手競争と話題を生み、むしろ投機的な期待を強めた可能性もある。招待制で投機を抑えられた証拠は示されていない。", k: analysis, s: [src-stepn-decrypt-2022-06, src-stepn-coinpost-2022-06]}
-    - {t: "CMO の「月間 300 万人」と Dune 集計の 2022-05 の 70 万超は 4 倍以上離れており、利用者数の定義（登録・アプリ起動・オンチェーン活動）が異なる。", k: analysis, s: [src-stepn-decrypt-2022-06, src-stepn-decrypt-2023]}
+    - {t: "Decrypt 記事の「月間 300 万人」（記事地の文で出所不明）と Dune 集計の 2022-05 の 70 万超は 4 倍以上離れており、利用者数の定義（登録・アプリ起動・オンチェーン活動）が異なる。", k: analysis, s: [src-stepn-decrypt-2022-06, src-stepn-decrypt-2023]}
+    - {t: "招待制が獲得の仕組みだったという読みには限界がある。TechCrunch は公開前から評判が暗号資産界隈に広がり、広告なしで登録が殺到して数週間で 1 日の登録数に上限を設けたと書いており、需要は招待制（2022-01-09 導入）より先にあった。招待コードは獲得より流入の制限として働いた可能性がある（CMO の説明もこの方向）。", k: analysis, s: [src-stepn-techcrunch-2022-05, src-stepn-wp-changelog, src-stepn-decrypt-2022-06], q: "In weeks, StepN was growing so fast that the team needed to cap the number of daily registrations."}
   lessons:
     - {t: "【活動量に比例する招待枠】招待コードを一定の活動（10 エネルギー消費）ごとに 1 つ生成させると、実際に使っている利用者だけが勧誘者になり、招待枠が利用量とともに増える。効く条件: 報酬や話題性で招待コード自体に需要がある。破綻条件: コードが転売・配布サイトで流通すると選別の機能が消え、報酬目的の流入を止められない。", k: analysis, s: [src-stepn-wp-activation, src-stepn-wp-changelog]}
     - {t: "【NFT 保有者限定の公開ベータ】最初の利用者を NFT の購入者に限ると、初期から資金を払った層だけで経済を回せる一方、参加費が新規流入の壁になる（2022-04 の最安スニーカーは 1,000 ドル超）。破綻条件: 報酬トークン価格が下がると、参加費を回収できない新規参加者が来なくなる。", k: analysis, s: [src-stepn-bw-public-beta, src-stepn-forklog-2022-04, src-stepn-blockcrunch]}
@@ -118,7 +119,7 @@ acquisition:
 metrics:
   - {id: m-stepn-seed-2021-11, type: funding, value: 5000000, unit: USD, period: "2021-11", definition: "Sequoia Capital などからのシード調達（TechCrunch 報道）", nature: reported, s: [src-stepn-techcrunch-2022-05]}
   - {id: m-stepn-gmt-launchpad, type: funding, value: 4200000, value_text: "4.2 億 GMT（供給の 7%）× 0.01 ドル = 420 万ドル", unit: USD, period: "2022-03-09", definition: "Binance Launchpad での GMT 販売額（第三者の IEO 集計サイトの記載）", nature: estimated, s: [src-stepn-coincodex-ieo]}
-  - {id: m-stepn-mau-2022-06-cmo, type: mau, value: 3000000, value_text: "300 万（うち 3 分の 1 が暗号資産の新規参入者）", unit: players, period: "2022-06", definition: "CMO が Decrypt に述べた月間アクティブ利用者（定義非公開）", nature: reported, s: [src-stepn-decrypt-2022-06]}
+  - {id: m-stepn-mau-2022-06-cmo, type: mau, value: 3000000, value_text: "300 万（うち 3 分の 1 が暗号資産の新規参入者）", unit: players, period: "2022-06", definition: "Decrypt 記事の導入部の記載（has amassed 3 million monthly active users）。CMO の発言としては引かれておらず、出所・定義は不明。3 分の 1 が non-crypto natives は CMO の発言", nature: reported, s: [src-stepn-decrypt-2022-06]}
   # --- 運営発表（reported）---
   - {id: m-stepn-dau-2022-04-reported, type: dau, value: 300000, value_text: "30 万", unit: players, period: "2022-04（運営の 2022-04-17 の投稿で「this week」）", definition: "運営の X 投稿「We have also achieved 300k DAU this week.」を ForkLog が引用（定義非公開）", nature: reported, s: [src-stepn-forklog-2022-04]}
   - {id: m-stepn-dau-mau-twitter-reported, type: mau, value: 1700000, value_text: "MAU 約 170 万・DAU 約 40 万", unit: players, period: "2022-06-30 以前のピーク（日付不明）", definition: "Blockcrunch が「peak record」として記載し、画像キャプションで StepN の Twitter 投稿のスクリーンショットとした値（元投稿は未確認、定義非公開）", nature: reported, s: [src-stepn-blockcrunch]}

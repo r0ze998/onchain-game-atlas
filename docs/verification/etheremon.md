@@ -20,3 +20,16 @@
 
 ## 総合判定
 重大な問題なし（管理者権限の記述を補強）。
+
+## ゼロイチ節の検証（2026-10-24）
+- 確認した出典: 7 / 11（etheremon/smartcontract を clone して最初のコミット e537095 を読み、CriptoNoticias、emchat、CoinDesk、BlockchainGamer、TechNews を WebFetch で再読。Medium は遮断で snippet のまま、eGamers・arXiv・現サイトは再読せず）
+- 「同種購入時に以前の所有者へ ETH 還元」をコントラクトで確認したという調査役の記述について: 部分的にのみ確認できた。リポジトリの最初のコミット（2017-12-24、v.beta.0.02）の EtheremonWorld.sol は、gen0 の 24 クラスに「Gen0 has return price & no longer can be caught when this contract is deployed」とコメントし、価格・returnPrice（多くは元の価格の 1%）・捕獲済み総数（計 8,479 体）を定数で固定している。保有者は自分の後に捕獲された数 × returnPrice を cashOut で引き出せ、移転時も清算される（EtheremonTrade.sol）。つまり確認できるのは、払い戻しを固定した数で清算する後継コントラクトであり、12-18〜12-24 に実際に動いていた最初のコントラクトはリポジトリになく、捕獲のたびの積み上げは直接確認していない。仕組みの存在は CriptoNoticias（12-23）の開発者説明とも一致する
+- 直したこと:
+  - summary: 「買われるほど上がる価格が早く買う動機になった」→ 価格上昇（0.1% / 体）はリポジトリ版の gen0 以外のクラスの規則なので外し、払い戻しの根拠（報道とコントラクト）を明記
+  - steps（2017-12-24）: 「各モンスターは同じクラスで後から捕獲された数 × returnPrice の残高を受け取れる」→ gen0 の固定値での清算であることを具体的に記述し q を追加。価格上昇と 1 アドレス 500 体の上限を別の step に分離
+  - channels viral-mechanic: k fact → analysis、拡散を示す資料がないことを明記
+  - metrics 追加: m-etheremon-gen0-caught-2017-12（8,479 体。人数ではない、nature: reported）
+  - unknowns: Medium snippet の gen0 9,516 体とコントラクト定数 8,479 体の不一致、最初のコントラクトのアドレスとソースを追加
+- 追加した反証: 8,479 体はモンスターの数で、1 アドレス最大 500 体、早い捕獲ほど払い戻しが大きい（クラス 1 の最初の捕獲者は約 1.12 ETH、代金の約 3.7 倍）ため、少数アドレスのまとめ買いの可能性があり、人気を人数と読めない（src-etheremon-code）
+- 確認できなかったこと: ベータ期のプレイヤー数・アドレス数、CriptoNoticias の「1 種 22 体」の規則がコントラクトのどこに当たるか（e537095 の定数には見当たらない）
+- 判定: 修正済み（調査役のコントラクト確認は範囲が過大だったため記述を限定）

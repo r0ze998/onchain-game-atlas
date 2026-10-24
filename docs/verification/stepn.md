@@ -31,3 +31,16 @@
 
 ## 総合判定
 修正済み — 運営発表・Dune 推定・市場価格は分離されていたが、性質不明の数値の分類、期間の誤り、仕様変更の過大な要約、半減再導入の見落としを直した。
+
+## ゼロイチ節の検証（2026-10-24）
+- 確認した出典: 9 / 15（acquisition から参照される出典）。公開ベータのプレスリリース（2021-12-20、SYDNEY）、TechCrunch（2022-05-22）、Solana Ignition 結果、Whitepaper Change Log、Decrypt 2022-06 と 2023-03、ForkLog、CoinCodex を開き直した。Activation Code・Energy・GMT Vesting・CoinGecko・Blockcrunch・CoinPost は前回までの取得に依拠。
+- dates.launched の変更（"2021" → "2021-12-20"）: プレスリリースの日付 12/20/2021 と「public beta launch」の文言、TechCrunch の「Since its launch in December」で裏付けられ、妥当。ただしハッカソン（〜2021-10-15）の後に最初のベータ利用者がいたことを note に追記した。
+- 直したこと:
+  - steps 2022-06「CMO は月間アクティブ 300 万人…とし」→ 300 万は Decrypt 記事の地の文で発言者・出典の明示がない。CMO の発言は「3 分の 1 が non-crypto natives」と招待コードの説明のみ、に分けた。
+  - metric m-stepn-mau-2022-06-cmo の definition を同様に修正（id は参照維持のため据え置き）。
+  - counter「CMO の月間 300 万人」→「Decrypt 記事の 300 万（出所不明）」。
+  - summary「招待制で広がり」→ 招待制に移った（需要を生んだというより流入を絞った可能性）に。
+- 確認できたこと: q「After coming in fourth…first batch of beta users.」と「funnel the inflow of users so that the new users don't end up…」は逐語一致。568 件・Gaming 4 位・8/31〜10/15、500 万ドル・11 月・Sequoia、2022-01-09 の Activation Code、ForkLog の運営投稿「We have also achieved 300k DAU this week.」（2022-04-17）、CoinCodex の 4.2 億 GMT・0.01 ドル（Raised 欄は n/a、本文は 420 万ドル）、Dune 経由の 70 万超・4.5 万弱。
+- 追加した反証: TechCrunch によれば、公開前から評判が広がり広告なしで登録が殺到し、数週間で 1 日の登録数に上限を設けた。需要は招待制（2022-01-09）より先にあり、招待コードは獲得チャネルというより流入制限として働いた可能性がある（counter に追加、逐語 q 付き）。
+- 確認できなかったこと: Binance Launchpad の一次告知、ベータ利用者の初期人数、Dune ダッシュボード本体（遮断）。
+- 判定: 修正済み（数値の発言者の取り違え 1 件を是正。dates.launched の変更は妥当）。
