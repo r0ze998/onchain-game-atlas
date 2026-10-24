@@ -86,7 +86,7 @@ acquisition:
     - {phase: growth, date: "2024-01-23", t: "Ethereum Research フォーラムの投稿が、平原・ジャングルの仕組みと潜在位置集合を例として説明した。", k: fact, s: [src-zkhunt-ethresearch]}
     - {phase: growth, t: "ETHOnline 2024 の提出作品が ZK Hunt をフォークし、新しい移動規則の回路を作った。", k: fact, s: [src-zkhunt-ethglobal]}
   channels:
-    - {id: existing-community, t: "0xPARC と Lattice が主催した AW Residency の参加者の中で作られ、Lattice の Justin（justinglibert）や Arb などがレビューに協力した。", k: fact, s: [src-zkhunt-0xparc-blog, src-zkhunt-aw-residency]}
+    - {id: existing-community, t: "0xPARC が主催した（作者は 0xPARC と Lattice に主催の謝意を示す）AW Residency の参加者の中で作られ、ブログ記事の謝辞では Justin（justinglibert）、lermchair、cha0sg0d、Yonada、Arb の 5 人がレビューとフィードバックに協力した。", k: fact, s: [src-zkhunt-0xparc-blog, src-zkhunt-aw-residency]}
     - {id: content-research, t: "デモ動画付きの README 解説と 0xPARC ブログの技術解説、Residency のデモ録画で、回路とコントラクトの作り方を開発者向けに公開した。", k: fact, s: [src-zkhunt-readme-2023-05, src-zkhunt-0xparc-blog]}
   cost:
     - {t: "作者は 0xPARC の支援と、Residency を主催した 0xPARC と Lattice に謝意を示している。支援の金額は不明。募集要項は交通費 £600、宿泊費月 £1,500 までの補助と、案件ごとの裁量助成を掲げていた。", k: fact, s: [src-zkhunt-0xparc-blog, src-zkhunt-aw-residency]}
@@ -94,6 +94,7 @@ acquisition:
     - {t: "確認できた後続の利用は、ETHOnline 2024 のフォーク 1 件、Ethereum Research フォーラムの投稿での紹介、EZKL の文書で Dark Forest と並ぶ先駆例として挙げられたこと。スター数・フォーク数・読者数は記録していない。", k: fact, s: [src-zkhunt-ethglobal, src-zkhunt-ethresearch, src-zkhunt-ezkl-hackmd]}
   counter:
     - {t: "プレイヤー獲得は試みられておらず、「技術解説で開発者を集めた」と言える数値はない。参照例は数件で、ZK ゲームの関心層に届いたのが ZK Hunt の解説のおかげか、Dark Forest や 0xPARC の知名度のおかげかは区別できない。", k: analysis, s: [src-zkhunt-ethglobal, src-zkhunt-ezkl-hackmd]}
+    - {t: "0xPARC ブログの記事は front matter で hidden: true とされ、検証時（2026-10-24）のサイトのコードは /blog の一覧から hidden の記事を除外して表示する。記事は一覧や「NEW!」欄に出ず、README などの直接リンクからしか辿れない可能性が高く、「0xPARC ブログの読者経路に乗った」とは言い切れない（2023 年当時の一覧の表示は未確認）。", k: analysis, s: [src-zkhunt-0xparc-blog, src-zkhunt-repo]}
   lessons:
     - {t: "研究レジデンシーの中で試作して教材として出す: 遊べる完成品を目指さず、仕組みごとのデモ動画と回路の解説を公開すると、少人数の開発者には届きフォークもされる。効く条件は、主催団体のブログや参加チームなど、すでに同じ問題を追う読者の経路があること。破綻条件はプレイヤー獲得を目標にする場合で、公開ネットワークで遊べないため、仕組みが遊びとして成り立つかの検証材料（プレイ記録）が残らない。", k: analysis}
   unknowns:

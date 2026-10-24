@@ -170,7 +170,7 @@ acquisition:
   counter:
     - {t: "Hofmann は Vine の共同創業者として既に知名度があり、初期の請求者は「設計（無料・最小プリミティブ）」より作者の知名度と 2021-08 の NFT 高騰期に引かれた可能性がある。CoinDesk は記者自身が初日にミントして転売したと書いており、初期参加には転売目的が含まれていた。", k: analysis, s: [src-loot-coindesk-2021-09, src-loot-theblock-2021-09]}
     - {t: "4 時間で 7777 袋が請求された一方、2022-01 の保有ウォレットは 2541 で、NonFungible は 1 ウォレットあたり平均 3 袋と書く。これは 5 か月の転売・集約を経た分布で初日の請求分布そのものではないが、初期の請求が多重請求に偏っていた可能性は残る。Platformer の「数千人」は計測方法の記載がない記者の表現で、人数とアドレス数のどちらとも確認できない。", k: analysis, s: [src-loot-faq, src-loot-nonfungible-2022, src-loot-platformer-2021-09]}
-    - {t: "相場要因の反論への留保: The Block（2021-09-10）は CryptoPunks・BAYC・Art Blocks の週次取引高が 8 月末のピークから落ちる中で「Loot を除いて」と書き、Loot の取引急増は 9 月初めの単独の動きだった。NFT 市場全体の上昇だけでは初期の熱を説明しきれず、作者の知名度・無料請求・派生の連鎖を合わせて見る必要がある。", k: analysis, s: [src-loot-theblock-2021-09], q: "bar Loot, which took off at the start of this month"}
+    - {t: "相場要因の反論への留保: The Block（2021-09-10、CryptoSlam データ）は、上位 5 集合のうち Loot・CryptoPunks・BAYC・Art Blocks の取引高が 44〜82% 減ったとしたうえで、他の 3 つが 8 月末にピークを付けたのに対し Loot は 9 月初めに急増した例外だと書く。Loot の初期の熱は市場全体のピークより後に来ており、市場全体の上昇だけでは説明しきれない（ただし 2021-09-10 時点の比較では Loot も減少側に入っている）。作者の知名度・無料請求・派生の連鎖を合わせて見る必要がある。", k: analysis, s: [src-loot-theblock-2021-09], q: "bar Loot, which took off at the start of this month"}
     - {t: "派生の多くは保有者向けの告知・ミントに留まり（1 年後も Realms: Eternum はテスト前、Loot 2 は提案段階）、派生作者が得たのは「利用者」より「買い手」だった可能性がある。", k: analysis, s: [src-loot-decrypt-2022]}
   lessons:
     - {t: "保有者ゲートの派生（例: Realms の privateSale）: 既存 NFT の所有をコントラクトで確認し、同じ番号の派生資産を保有者だけに安く先行販売すると、親コミュニティを初日の顧客にできる。効く条件は親資産の所有が許可なく読めること・親コミュニティの関心が高い時期であること。破綻条件は親の熱が数週間で冷める場合で、先行販売の需要は投機と区別できず、派生の継続利用は保証されない。", k: analysis}

@@ -72,10 +72,10 @@ acquisition:
   steps:
     - {phase: pre, date: "2019-03", t: "2019-03 にプラットフォーム（ベータ）を公開した。Cryptoast は、コレクターとサッカー選手・ファンのコミュニティの中で成長を続けていると書いた。", k: fact, s: [src-sorare-cryptoast-2020, src-sorare-intel-2021]}
     - {phase: pre, date: "2019-05", t: "Xavier Niel らが参加する 55 万ユーロのプレシード調達を発表した（Cryptoast は Kima Ventures からの 50 万ユーロのシードと記載）。", k: fact, s: [src-sorare-wikipedia, src-sorare-cryptoast-2020]}
-    - {phase: launch, date: "2019-12", t: "正式公開。この時点のカードを 1 枚以上持つ有料利用者は約 500 人で、月間の売上は 3 万ドルだった。", k: fact, s: [src-sorare-intel-2021, src-sorare-cryptoast-2020]}
-    - {phase: growth, date: "2020-06", t: "月間売上は 2020-06 に 35 万ドルへ伸び、2020-07 時点で欧州・米国・アジアの 90 超のクラブと提携していた。2020-04 には基盤を Loom から Ethereum へ移した。", k: fact, s: [src-sorare-cryptoast-2020, src-sorare-intel-2021]}
-    - {phase: growth, date: "2021-02", t: "Benchmark 主導で 4000 万ユーロのシリーズ A を発表した。2021-01 の月間カード販売額は 350 万ユーロ超（120 か国）、130 超のクラブがカードを出しており、過去 12 か月にわたり前月比 52% で成長したと述べた。同時期に Ramp の統合でクレジットカードでのカード購入が可能になったことが急伸の要因と第三者分析は書く。", k: claim, who: "Partech（出資者の発表）/ Sorare Intelligence", s: [src-sorare-partech-2021, src-sorare-intel-2021], q: "Sorare can count on one of the most vibrant communities of early adopters we've ever seen."}
-    - {phase: growth, date: "2021-11", t: "正式公開以降、有料利用者は 500 から 5.5 万へ増えたと第三者分析は数えた。", k: claim, who: "Sorare Intelligence（第三者のニュースレター）", s: [src-sorare-intel-2021]}
+    - {phase: launch, date: "2019-12", t: "正式公開。第三者ニュースレターは、正式公開後の有料利用者（カードを 1 枚以上持つ人）の出発点を 500 人とする（算出方法の記載なし）。Cryptoast は 2019-12 の月間売上を 3 万ドルとし、共同創業者 Nicolas Julia はポッドキャストで「オープンベータの最初の月」の売上を 3 万と述べた。", k: claim, who: "Sorare Intelligence（有料利用者数）/ Cryptoast・Nicolas Julia（売上）", s: [src-sorare-intel-2021, src-sorare-cryptoast-2020, src-sorare-omr-2021]}
+    - {phase: growth, date: "2020-06", t: "月間売上は 2020-06 に 35 万ドルへ伸び、2020-07 時点で欧州・米国・アジアの 90 超のクラブと提携していた。2020-04 には基盤を Loom から Ethereum へ移した（同じ第三者記事の別の箇所は 2020-05 とする）。", k: fact, s: [src-sorare-cryptoast-2020, src-sorare-intel-2021]}
+    - {phase: growth, date: "2021-02", t: "Benchmark 主導で 4000 万ユーロのシリーズ A を発表した。2021-01 の月間カード販売額は 350 万ユーロ超（120 か国）、130 超のクラブがカードを出しており、過去 12 か月にわたり前月比 52% で成長したと述べた。第三者分析は 2021-02〜09 の段階の出来事として、クレジットカードでカードを買える Ramp の統合を挙げる（統合の正確な月は記載なし）。", k: claim, who: "Partech（出資者の発表）/ Sorare Intelligence", s: [src-sorare-partech-2021, src-sorare-intel-2021], q: "Sorare can count on one of the most vibrant communities of early adopters we've ever seen."}
+    - {phase: growth, date: "2021-11", t: "正式公開以降、有料利用者は 500 から 5.5 万へ増え、うち 2021-02 の 5,000 未満から 2021-09 の 3 万へ増えたと第三者分析は数えた。", k: claim, who: "Sorare Intelligence（第三者のニュースレター）", s: [src-sorare-intel-2021]}
   channels:
     - {id: ip-brand, t: "公式ライセンスを受けたクラブの選手カードを売り、提携クラブを 2020-07 の 90 超から 2021-02 の 130 超へ増やした。", k: fact, s: [src-sorare-cryptoast-2020, src-sorare-partech-2021]}
     - {id: community-server, t: "プレイヤー・アンバサダー・運営が Discord で直接やり取りする形で運営された。", k: claim, who: "Sorare Intelligence", s: [src-sorare-intel-2021]}
@@ -85,9 +85,11 @@ acquisition:
     - {t: "獲得の原資は主に利用者自身のカード購入（一次販売）と VC 資金だった。2019 年のプレシード 55 万ユーロ、2020-07 の 400 万ドル、2021-02 の 4000 万ユーロ、2021-09 の 6.8 億ドルと調達を重ねた。無料の Common カードは売買できず、配布は運営の負担で換金価値を生まない。", k: fact, s: [src-sorare-wikipedia, src-sorare-cryptoast-2020, src-sorare-partech-2021, src-sorare-decrypt-guide-2021]}
   after:
     - {t: "2023-01 の月間一意購入者は 3 競技合計で 5 万超（The First Mint）、2025-10 に会社は利用者 500 万人と述べた（定義不明）。フロア価格は 2022-04 の 91.25 ドルから 2025-10 の 2.21 ドルへ下がった。", k: fact, s: [src-sorare-firstmint-2023, src-sorare-cointelegraph-2025]}
+    - {t: "共同創業者は、初期に高いエンゲージメントと低い解約（churn）を見て手応えを得たと述べたが、数値は示していない。", k: claim, who: "Nicolas Julia（OMR Podcast の記事）", s: [src-sorare-omr-2021], q: "high user engagement and low churn"}
     - {t: "示されていない指標: 無料カードで始めた人が有料カードを買う割合、有料利用者の年ごとの継続率。", k: unknown}
   counter:
     - {t: "2021-02 以降の急伸は、カード決済の導入・大型調達・NFT 相場の最初の熱狂が同時期に起きたため、どれが効いたかを分けられない（第三者分析も 5000 万ドルの調達が NFT 業界の最初の熱狂と同時だったと書く）。", k: analysis, s: [src-sorare-intel-2021, src-sorare-partech-2021]}
+    - {t: "有料利用者 500→5.5 万の定義は同じ記事内で「カードを 1 枚以上持つ人」と「1 枚以上買った人」が混在する。無料 Common カードは売買できないが、紹介報酬や贈与で得たカードの保有者を含むかどうかで出発点の 500 人の意味が変わり、獲得の規模を比較する根拠としては弱い。", k: analysis, s: [src-sorare-intel-2021]}
     - {t: "初期の成長数値（前月比 52% 成長、有料利用者 500→5.5 万）は出資者の発表と第三者のニュースレターによるもので、独立に計測された値ではない。", k: analysis, s: [src-sorare-partech-2021, src-sorare-intel-2021]}
   lessons:
     - {t: "クラブ単位のライセンスを積み上げる: 公式の選手名・写真が既存のファンを呼ぶが、ライセンスの更新と規制（英国の賭博該当性の訴追）に事業が依存し、ライセンスが切れればカードの意味も変わる。", k: analysis}
@@ -135,3 +137,4 @@ sources:
   - {id: src-sorare-intel-2021, title: "Sorare is not your usual startup", url: "https://sorareintelligence.substack.com/p/sorare-is-not-your-usual-startup", publisher: "Sorare Intelligence (Substack)", author: "tecomah", type: analysis, primary: false, published: "2021-11-08", accessed: "2026-10-24", access: fetched, lang: en, note: "ベータ 2019-03・正式公開 2019-12、有料利用者 500→5.5 万、2020-04 に Loom から Ethereum、Discord での直接対話、紹介制度、無料 Common 11 枚、2021-02 の Ramp 統合"}
   - {id: src-sorare-partech-2021, title: "Sorare raises a €40m Series A to help fans own their football passion online", url: "https://partechpartners.com/news/sorare-raises-a-40m-series-a-to-help-fans-own-their-football-passion-online", publisher: "Partech", type: official-blog, primary: true, published: "2021-02-25", accessed: "2026-10-24", access: fetched, lang: en, note: "出資者の発表。4000 万ユーロ（Benchmark 主導）、2021-01 の月間販売 350 万ユーロ超・120 か国、130 超のクラブ、月 52% 成長、黒字、e.ventures の Christian Miele の発言"}
   - {id: src-sorare-decrypt-guide-2021, title: "Sorare: A Beginner's Guide To The NFT Fantasy Soccer Game", url: "https://decrypt.co/63369/sorare-beginners-guide-2021/", publisher: "Decrypt", type: news, primary: false, published: "2021-09-27", accessed: "2026-10-24", access: fetched, lang: en, note: "登録時に最大 12 枚の無料 Common カード（売却不可）、100 超のチームの選手ライセンス"}
+  - {id: src-sorare-omr-2021, title: "“We are building an entertainment giant,” Sorare CEO Nicolas Julia in the OMR Podcast", url: "https://omr.com/en/daily/omr-podcast-international-sorare-ceo-nicolas-julia", publisher: "OMR", type: interview, primary: false, published: "2021-02-23", accessed: "2026-10-24", access: fetched, lang: en, note: "Nicolas Julia の発言の要約: 初期の高エンゲージメントと低い解約、オープンベータ最初の月の売上 3 万。最初の利用者の出どころは書かれていない"}
