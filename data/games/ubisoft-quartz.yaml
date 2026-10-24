@@ -60,6 +60,37 @@ article:
     - {t: "「短期間で撤退した」という読みは Quartz の Breakpoint 展開には当てはまるが、Ubisoft のブロックチェーン事業全体ではない。KitGuru（2026-08）によれば、Ubisoft は後続の NFT 系タイトル Champions Tactics を 2026 年まで運営し、ブロックチェーン要素の支援をやめたうえで 2026-10 末にサーバーを停止するとした。", k: claim, who: "KitGuru（VGC の報道を引用）", s: [src-ubisoft-quartz-kitguru-2026]}
     - {t: "Quartz の失敗はブロックチェーンの限界ではなく、評価の低い既存作（Breakpoint）を選んだこと、装飾品だけで遊びに影響しないこと、利用者の反発による、という別の説明もありうる。撤退が「オンチェーン資産一般の不要」を証明するわけではない。", k: analysis, s: [src-ubisoft-quartz-destructoid-end]}
 
+acquisition:
+  audience: [players]
+  summary: {t: "最初の利用者として狙われたのは、既に Ghost Recon Breakpoint を PC（Ubisoft Connect）で遊んでいる対象 9 か国の成人プレイヤーで、XP レベル 5 以上という条件を満たす人に無料の Digit を 3 回配って「早期採用者」を作ろうとした。第三者の集計では最初の約 2 週間の売買は 15 件にとどまった。", k: analysis, s: [src-ubisoft-quartz-pr-2021, src-ubisoft-quartz-nme-2021]}
+  steps:
+    - {phase: pre, date: "2021-12-07", t: "Ubisoft Quartz をベータとして発表した。参加条件は Ubisoft Connect の PC 版で Breakpoint を遊ぶこと、XP レベル 5 以上、18 歳以上で、対象は米・加・西・仏・独・伊・白・豪・伯の 9 か国だった。", k: fact, s: [src-ubisoft-quartz-pr-2021]}
+    - {phase: launch, date: "2021-12-09", t: "ベータを 12-09 の 18 時（UTC）に開始し、12-09・12-12・12-15 の 3 回、無料の Digit を配った。追加の Digit は 2022 年初めに予定され、Digit は Ubisoft の外の第三者マーケットで他の対象プレイヤーに売れるとされた。", k: claim, who: "Ubisoft（プレスリリース）", s: [src-ubisoft-quartz-pr-2021], q: "to reward the early adopters among players"}
+    - {phase: growth, date: "2021-12-22", t: "Apex Legends のアーティスト Liz Edwards は、Quartz サイトからリンクされた 2 つの第三者マーケットで売れた Digit は 15 個で、作られた約 2,256 個の 1% 未満だと集計した。", k: fact, s: [src-ubisoft-quartz-nme-2021]}
+    - {phase: growth, date: "2022-03-17", t: "Breakpoint の最後の Digit を出した。Quartz のサイトは「最初の Digit を受け取った」Breakpoint のプレイヤーに感謝を述べ、他作で続けるとした。", k: fact, s: [src-ubisoft-quartz-vgc-2022, src-ubisoft-quartz-gamesbeat-end]}
+  channels:
+    - {id: existing-community, t: "既存作 Ghost Recon Breakpoint の PC プレイヤーだけを対象にし、XP レベル 5 以上を条件にした。", k: fact, s: [src-ubisoft-quartz-pr-2021]}
+    - {id: free-mint, t: "最初の 1 週間に 3 回、条件を満たしたプレイヤーへ無料の Digit を配った。", k: fact, s: [src-ubisoft-quartz-pr-2021]}
+    - {id: platform-distribution, t: "自社の配信・アカウント基盤 Ubisoft Connect（PC）を経由してのみ参加できた。", k: fact, s: [src-ubisoft-quartz-pr-2021]}
+    - {id: ip-brand, t: "Ubisoft と Tom Clancy's Ghost Recon のブランドで告知した。", k: fact, s: [src-ubisoft-quartz-pr-2021]}
+  cost:
+    - {t: "無料配布の Digit と開発の費用は Ubisoft が負担した。Ubisoft の Quartz 全体の費用・売上は公表されていない。", k: fact, s: [src-ubisoft-quartz-pr-2021]}
+  after:
+    - {t: "2022-03-17 を最後に Breakpoint での Digit は終わり、2022-04 には同作の追加コンテンツ自体が終了した。Ubisoft の Nicolas Pouard は、プレイヤーはデジタルの二次市場の利点を理解していないと述べた。2026-08 の報道は Quartz が重要な利用者基盤を得られなかったとする。", k: claim, who: "Nicolas Pouard（VGC の記事内）/ KitGuru", s: [src-ubisoft-quartz-vgc-2022, src-ubisoft-quartz-destructoid-end, src-ubisoft-quartz-kitguru-2026], q: "I think gamers don't get what a digital secondary market can bring to them."}
+    - {t: "示されていない指標: 無料 Digit を受け取ったプレイヤー数、参加条件を満たしたプレイヤー数。", k: unknown}
+  counter:
+    - {t: "利用が少なかった理由は「NFT が不要だったから」だけでなく、参加条件（PC・9 か国・18 歳以上・XP レベル 5）で売買できる相手を自社の一作品のプレイヤーに限ったことでも説明できる。二次市場の流動性を意図的に狭める設計だった。", k: analysis, s: [src-ubisoft-quartz-pr-2021, src-ubisoft-quartz-nme-2021]}
+    - {t: "Breakpoint 自体の評価の低さと、発表直後の強い反発（VGC は「圧倒的な反発」と書く）が重なっており、無料配布という施策の効果を単独で評価できない。", k: analysis, s: [src-ubisoft-quartz-vgc-2022, src-ubisoft-quartz-destructoid-end]}
+  lessons:
+    - {t: "既存作プレイヤー限定の無料 NFT 配布: 獲得費用を抑えて既存利用者に配れるが、売買相手も同じ作品のプレイヤーに限ると二次市場が育たず、装飾品が遊びを変えない場合は配っても使われない。", k: analysis}
+    - {t: "既存のヒット作ではない作品への後付け: 既存コミュニティの反発が強いと、獲得の母集団そのものが縮む。導入前に既存プレイヤーの受容を測らないと、配布で取り返せない。", k: analysis}
+  metrics: [m-ubisoft-quartz-sales-2021-12, m-ubisoft-quartz-minted-2021-12]
+  unknowns: ["無料 Digit の受取人数と、参加条件を満たしたプレイヤー数", "有料 Digit の販売方法と売上", "Quartz サイト自体の終了日"]
+
+metrics:
+  - {id: m-ubisoft-quartz-sales-2021-12, type: nft_sales, value: 15, unit: items, period: "2021-12-09〜12-22 頃", definition: "Quartz サイトからリンクされた 2 つの第三者マーケットで売れた Digit の数（Liz Edwards の集計、NME の記事）", nature: estimated, s: [src-ubisoft-quartz-nme-2021]}
+  - {id: m-ubisoft-quartz-minted-2021-12, type: other, value: 2256, value_text: "約 2,256", unit: items, period: "2021-12", definition: "Quartz 用に作られた Digit の推定数（Liz Edwards の推定、NME の記事）", nature: estimated, s: [src-ubisoft-quartz-nme-2021]}
+
 events:
   - {id: ev-ubisoft-quartz-announce, date: "2021-12-07", type: announce, title: "Ubisoft Quartz（Tezos、Ghost Recon Breakpoint の PC ベータ）を発表", s: [src-ubisoft-quartz-sixthaxis]}
   - {id: ev-ubisoft-quartz-last-digit, date: "2022-03-17", type: end, title: "Ghost Recon Breakpoint の最後の Digit", s: [src-ubisoft-quartz-gamesbeat-end, src-ubisoft-quartz-decrypt-end]}
@@ -83,3 +114,6 @@ sources:
   - {id: src-ubisoft-quartz-gamesbeat-end, title: "Ubisoft ends making NFTs and other updates for Ghost Recon: Breakpoint", url: "https://gamesbeat.com/?p=209522", publisher: "GamesBeat", type: news, primary: false, published: "2022-04-07", accessed: "2026-10-23", access: fetched, lang: en, note: "3/17 が最後の Digit、Quartz は他で継続との説明、Ars Technica を引いた転売 96 件。2025-06-19 更新表記"}
   - {id: src-ubisoft-quartz-decrypt-end, title: "Ubisoft Will Bring Tezos NFTs to Other Games as Ghost Recon Support Ends", url: "https://decrypt.co/97090/ubisoft-tezos-nfts-other-games-ghost-recon-support-ends", publisher: "Decrypt", type: news, primary: false, accessed: "2026-10-23", access: fetched, lang: en, note: "Quartz サイトによれば 3/17 が最後、他作で継続予定"}
   - {id: src-ubisoft-quartz-kitguru-2026, title: "Ubisoft is shutting down another NFT-based game project", url: "https://www.kitguru.net/?p=743254", publisher: "KitGuru", type: news, primary: false, published: "2026-08-03", accessed: "2026-10-23", access: fetched, lang: en, note: "Quartz は重要な利用者基盤を得られなかった、Champions Tactics のブロックチェーン要素終了・10 月末にサーバー停止。Quartz を Rainbow Six Siege と結びつける記述は他資料と矛盾"}
+  - {id: src-ubisoft-quartz-pr-2021, title: "INTRODUCING UBISOFT QUARTZ, THE FIRST PLATFORM FOR PLAYABLE AND ENERGY-EFFICIENT NFTS IN AAA GAMES", url: "https://www.gamedeveloper.com/press-release/introducing-ubisoft-quartz-the-first-platform-for-playable-and-energy-efficient-nfts-in-aaa-games", publisher: "Ubisoft (via Game Developer)", type: news, primary: true, published: "2021-12-07", accessed: "2026-10-24", access: fetched, lang: en, note: "プレスリリース。参加条件（PC・Ubisoft Connect、XP レベル 5、18 歳以上）、9 か国、12-09 開始、無料 Digit を 12-09・12-12・12-15 に配布、第三者マーケットでの再販、Pouard と Genevois の発言"}
+  - {id: src-ubisoft-quartz-nme-2021, title: "Ubisoft doubles down on NFTs for some reason", url: "https://www.nme.com/news/ubisoft-doubles-down-on-nfts-for-some-reason-3125043", publisher: "NME", author: "Jordan Middler", type: news, primary: false, published: "2021-12-22", accessed: "2026-10-24", access: fetched, lang: en, note: "Liz Edwards の集計: 2 つの第三者マーケットで 15 個販売、作成約 2,256 個の 1% 未満。Genevois の発言"}
+  - {id: src-ubisoft-quartz-vgc-2022, title: "Ubisoft says more of its games will be getting NFTs, despite the initial backlash", url: "https://www.videogameschronicle.com/news/ubisoft-says-more-of-its-games-will-be-getting-nfts-despite-the-initial-backlash", publisher: "Video Games Chronicle", author: "Chris Scullion", type: news, primary: false, published: "2022-04-06", accessed: "2026-10-24", access: fetched, lang: en, note: "最後の Digit 2022-03-17、Quartz サイトの感謝文、Nicolas Pouard の発言、発表直後の反発"}
