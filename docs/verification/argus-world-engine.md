@@ -23,3 +23,14 @@
 
 ## 総合判定
 修正済み — 「オンチェーン」の水準が v1 の資料に依存し、現行コードと食い違っていたため unknown に変更し矛盾を明記。
+
+## ゼロイチ節の検証（2026-10-24）
+- 確認できた出典: 9 / 12（コミット履歴・リポジトリ・GitHub 組織ページは今回未再取得）
+- 調査役メモの確認（CoinDesk の 1,000 万ドルシードと compare.money_flow）: CoinDesk（2023-06-06、Cam Thompson）を再取得した。「$10 million seed round」、Haun Ventures 主導、Robot Ventures・Anagram・Dispersion Capital・Alchemy が参加、資金の用途「scale the team and build out its studio and tooling infrastructure」、同日の World Engine の発表はすべて原文と一致する。money_flow の書き換えは妥当。ただし冒頭の「未確認。」は調達額も未確認のように読めるので、「収益の流れは未確認。」に直した（k: unknown はそのまま）
+- 直したこと:
+  - pre の step（2023-10-26）: 「World Engine を使って開発中のゲームは約 3 本と見られる」→「Argus のサイトの記載として "about three" と記した（外部スタジオの採用数ではない）」。Four Pillars は Argus のサイトを出典にしているため
+  - compare.money_flow: 上記の言い回し
+- 追加した反証: Dark Frontier の「70 万件超の取引」は期間も人数も示さない取引件数で、上位 10 人に賞金が出るプレイテストで少数が大量に送った場合も同じ数字になる。プレイヤーの規模の根拠にはならない
+- 照合済み: Modular Fellows（2022-10-06、3 か月・月額 3,000 ドル、「crypto gaming skunkworks」）、private beta の q（原文どおり）、直接のサポート窓口（技術・ゲームデザイン・GTM）、Gubsheep・Alan Luo、DBA Research Day、2024-02-29 の「under 15 minutes」とビルダープログラムの予告、Dark Frontier の 2023-12 稼働、ゲームキー 12/5・X フォロワー 1,899、2 週間のプレイテストと上位 10 人で約 7,500 ドル、「first on-production game running on World Engine Devnet」、0xResearch（2023-12-20、エピソード説明のみ）
+- 確認できなかったこと: プライベートベータの参加チーム、ビルダープログラムの実施、プレイテスト賞金を誰が払ったか
+- 判定: 修正済み（軽微。CoinDesk の件は問題なし）

@@ -31,3 +31,14 @@
 
 ## 総合判定
 修正済み。研究者のセキュリティ上の疑いはコード上で裏付けられたが、実行確認はしていないため analysis のまま保守的に表現した。他の重大な事実誤りはなかった。
+
+## ゼロイチ節の検証（2026-10-24）
+- 確認できた出典: 9 / 18（構想記事・開発記事・ETHGlobal・Starknet 週報・Holiday Game Jam 3・gj4 README（dojoengine/game-jams を clone）・Propulsion 2024・The Herald・p_war。コード系の出典と demo（到達不能）は今回未再取得）
+- 調査役メモの確認（1,000 ドルの部門に応募があったか）: 未確認のままだが、今回は確認の範囲を広げた。game-jams リポジトリで「pixelaw」を含むのは gj4/README.md の部門表だけ。gj4 の提出ファイル 10 件、itch.io のジャムページの提出 3 件（Degen Battleground・AbyssX・moving-mountains-with-yu）のどれにも PixeLAW への言及はない。issue #1「Game Jam Win Pixelaw」（2024-03-27、本文 1 行、即日クローズ）はジャム開始前のもので、応募の証拠にはならない
+- 直したこと:
+  - growth の step（Game Jam #4）: itch.io のページは懸賞部門を「$16.5K」と表示していることを追記し、contradictions に README（$36.5K）との食い違いを追加した（新しい出典 src-pixelaw-itch-gj4 を追加）
+  - channels.existing-community: 構想記事の「follow dojo's cultures」はチャンネル名（wakusei）の由来の説明で、開発者を集める文脈ではない。引用での根拠付けをやめ、「Dojo の上に作り、Dojo のジャムへの参加を呼びかけた（何人来たかは不明）」に書き直した
+- 追加した反証: Game Jam #4 は賞金総額 3.65〜5.65 万ドルに対して提出が 3〜10 件で、ジャム全体の参加が少なかった。PixeLAW 部門に応募がないのは、PixeLAW の設計より Dojo 圏の開発者が少なかったことで説明できる可能性がある
+- 照合済み: ETHGlobal Paris の「Starknet — Best Use」と 3 アプリ、構想記事の q（原文どおり）・資金調達しない・借金で暮らしている、という記述、Stark Cafe の X スペースと Discord 開設（2023-07-31 号）、非公開テストの 1 週間で 3 本・環境構築とデプロイ各約 1 分、Holiday Game Jam 3 の 250 ドルと PixeLAW2048、Propulsion（「A $20M initiative」と配分先の一覧、6/18 発表、20 件・最大 100 万ドルをガス使用量に応じて）、p_war の目的
+- 確認できなかったこと: Devconnect でデモを実施したか、PixeLAW 部門の受賞者、Propulsion で受け取った額
+- 判定: 修正済み（引用の文脈の誤用を 1 件直し、矛盾を 1 件追加）
