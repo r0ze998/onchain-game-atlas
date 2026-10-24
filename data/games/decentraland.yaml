@@ -87,29 +87,32 @@ acquisition:
   summary: {t: "最初に集まったのは遊ぶ人ではなく、2017 年の ICO で MANA を買い、その MANA を焼却して LAND を入札した保有者だった。訪問者として遊べる世界は 2020-02 の一般公開まで存在せず、その間は MANA 保有者向けの閉じたベータと、土地なしで使える制作ツールで制作者を集めた。", k: analysis, s: [src-dcl-wikipedia, src-dcl-criptonoticias-2018, src-dcl-nonfungible-history, src-dcl-decrypt-2020-open]}
   steps:
     - {phase: pre, date: "2017-08", t: "ICO で 2600 万ドルを調達した（NonFungible の沿革は 8 月 18 日とする）。", k: fact, s: [src-dcl-wikipedia, src-dcl-nonfungible-history]}
-    - {phase: pre, date: "2017-12-15", t: "最初の土地オークション Terraform Event が 2017-12-15 に始まり 2018-01 に終わった。34,000 超の LAND が 1 億 6100 万 MANA 超で売れた。NonFungible の沿革は、全 90,000 区画のうち 34,356 区画が「最初の LAND 先行販売」で売れ（1 時間足らずで終了）、残りは道路や共有地に充てられたとする。LAND は MANA を焼却して得る設計である。", k: fact, s: [src-dcl-criptonoticias-2018, src-dcl-whitepaper]}
+    - {phase: pre, date: "2017-12-15", t: "最初の土地オークション Terraform Event が 2017-12-15 に始まり 2018-01 に終わった。34,000 超の LAND が 1 億 6100 万 MANA 超で売れた。NonFungible の沿革は、全 90,000 区画のうち 34,356 区画が「最初の LAND 先行販売」で売れ（1 時間足らずで終了、土地の引き渡しは数か月後と約束）、残りは運営チームの共有インフラ（道路や Genesis Plaza 等）に充てられたとする。LAND は MANA を焼却して得る設計である。", k: fact, s: [src-dcl-criptonoticias-2018, src-dcl-nonfungible-history, src-dcl-whitepaper]}
     - {phase: pre, date: "2018-12", t: "2 回目のオークションは残る 9,300 区画を対象に 12 月 10 日から約 2 週間、価格が 1,000 MANA まで徐々に下がるダッチオークションで行われ、支払われた MANA はすべて焼却された（事前予想は 2.5〜3 億 MANA の焼却）。開始時期はコミュニティの投票で決まったと報じられた。", k: fact, s: [src-dcl-nonfungible-auction2, src-dcl-criptonoticias-2018]}
-    - {phase: pre, date: "2019", t: "2019-03 に LAND を持たなくても既成の 3D 部品でシーンを組める Builder を公開した。2019 年の閉じたベータでは招待を順に送り、参加にはアバターに 100 MANA を払って名前を付ける必要があった。", k: fact, s: [src-dcl-nonfungible-history]}
+    - {phase: pre, date: "2019", t: "2019-03 に LAND を持たなくても既成の 3D 部品でシーンを組める Builder を公開した。2019 年の閉じたベータでは 7 月を通じて多くの招待を送り、参加にはアバターを作り 100 MANA を払って名前を付ける必要があった。", k: fact, s: [src-dcl-nonfungible-history]}
     - {phase: launch, date: "2020-02-20", t: "ブラウザ版を一般公開した。公開に合わせ、Genesis City で 4 日間の宝探しを行い、125 万 MANA、他のトークン、ゲーム内アイテム、LAND、スマートフォンなど 10 万ドル超相当の賞品を配った。前日には方針変更を扱う DAO の設立を告知した。", k: fact, s: [src-dcl-decrypt-2020-open]}
-    - {phase: growth, date: "2021-12", t: "共同創業者は 2021-12 に DAU 18,000、MAU 30 万と述べた（Naavik が引用）。これが公開後の最大規模の運営発表として残っている数字である。", k: claim, who: "Decentraland 共同創業者（Naavik の記事内）", s: [src-dcl-naavik]}
+    - {phase: launch, date: "2020-02-21", t: "DappRadar は、公開後 7 日間で日次の一意アクティブウォレットが 800% 増えて 675 に達したと投稿し、理由を一般公開と 4 日間の宝探しとした。宝探しの賞品の受け取りには少額の ETH が必要で（Ryan Schultz）、賞品請求が取引を伴った。", k: fact, s: [src-dcl-criptonoticias-2020-dappradar, src-dcl-ryanschultz-2020], q: "has increased its user base by 800%, reaching 675 daily active unique wallets"}
+    - {phase: launch, date: "2020-02-24", t: "運営が提供した統計として、公開後に 1 万人超の新規利用者（「複数の場所を訪れた人」と定義）を集めたと報じられた。宝探しは 2020-02-25 まで延長された。", k: claim, who: "Decentraland（Ryan Schultz のブログに提供した統計）", s: [src-dcl-ryanschultz-2020], q: "has attracted over 10,000 new users, according to statistics shared with me by the company"}
+    - {phase: growth, date: "2021-12", t: "共同創業者は 2021-12 に DAU 18,000、MAU 30 万と述べた（Naavik が引用）。", k: claim, who: "Decentraland 共同創業者（Naavik の記事内）", s: [src-dcl-naavik]}
   channels:
     - {id: existing-community, t: "LAND は MANA でしか入札できず、最初の土地所有者は ICO と二次市場で MANA を得た保有者に限られた（入札者数は未確認）。", k: analysis, s: [src-dcl-whitepaper, src-dcl-criptonoticias-2018]}
     - {id: invite-gating, t: "2019 年の閉じたベータは招待制で、参加にはアバター名の取得に 100 MANA が必要だった。", k: fact, s: [src-dcl-nonfungible-history]}
     - {id: prize-competition, t: "一般公開の 4 日間に Genesis City の宝探しで 10 万ドル超相当（125 万 MANA、LAND 等）を配った。", k: fact, s: [src-dcl-decrypt-2020-open]}
-    - {id: token-incentive, t: "宝探しの賞品の中心は MANA と他のトークンで、訪問の動機づけにトークンを使った。", k: fact, s: [src-dcl-decrypt-2020-open]}
+    - {id: token-incentive, t: "宝探しの賞品には 125 万 MANA と他のトークンが含まれ、公開時の訪問の動機づけにトークンを使った。", k: fact, s: [src-dcl-decrypt-2020-open]}
   cost:
     - {t: "最初の資金は ICO の購入者が出した（2600 万ドル）。LAND の購入代金は MANA の焼却で、運営の収入ではなく MANA の供給減として残りの保有者に価値を移す仕組みだった。", k: fact, s: [src-dcl-wikipedia, src-dcl-whitepaper, src-dcl-nonfungible-auction2]}
-    - {t: "一般公開時の宝探しの賞品（10 万ドル超相当）は Decentraland 自身が出した。", k: fact, s: [src-dcl-decrypt-2020-open]}
+    - {t: "一般公開時の宝探しの賞品（10 万ドル超相当）は Decentraland による配布と報じられた。賞品の原資（財団の保有分か、提携先の提供か）の内訳は記事に書かれていない。", k: fact, s: [src-dcl-decrypt-2020-open]}
   after:
-    - {t: "2022-10 時点で、コントラクトと取引したウォレットは 1 日 38（DappRadar）、運営発表の 1 日平均は 8000 人、2022-09 の MAU は 56,697（運営の定義）だった。2021-12 の運営発言（DAU 18,000）と比べ、どの定義でも縮小している。", k: fact, s: [src-dcl-coindesk-2022, src-dcl-naavik]}
+    - {t: "2022-10 時点で、コントラクトと取引したウォレットは 1 日 38（DappRadar）、運営発表の 1 日平均は 8000 人、2022-09 の MAU は 56,697（運営の定義）だった。2021-12 の運営発言（DAU 18,000）より小さいが、運営発表どうしでも定義が揃っていない可能性があり、縮小の幅は定義次第である。", k: analysis, s: [src-dcl-coindesk-2022, src-dcl-naavik]}
     - {t: "示されていない指標: Terraform Event の入札者数、閉じたベータの招待数、一般公開初日の訪問者数、土地所有者のうち実際にシーンを公開した人の割合。", k: unknown}
   counter:
     - {t: "最初の参加者の多くは土地と MANA の値上がりを期待する保有者で、遊べる世界ができる 2 年以上前に支払っていた。初期の資金と「土地の需要」は利用者の需要を示さない。", k: analysis, s: [src-dcl-criptonoticias-2018, src-dcl-decrypt-2020-open]}
+    - {t: "DappRadar の日次一意ウォレットは公開直後の宝探し期間に 675 に達し、2022-10 の CoinDesk はこの指標の過去最高を 675 と報じた。オンチェーン上の最大の山は、賞品の受け取りに ETH の取引が要る宝探しの期間に生じた可能性が高く、賞品目当ての一時的な取引であって継続的な利用者の獲得を示さない（同じ数値が同じ時点を指すかは CoinDesk に明記がない）。", k: analysis, s: [src-dcl-criptonoticias-2020-dappradar, src-dcl-ryanschultz-2020, src-dcl-coindesk-2022]}
     - {t: "2021 年後半の利用者の山は、Decentraland 自身の施策より暗号資産・メタバース相場全体の上昇期と重なる。LAND 価格と取引高が 2022 年に大きく下がると利用者数も縮んだ（Naavik）。", k: analysis, s: [src-dcl-naavik]}
   lessons:
     - {t: "先行土地販売（トークン焼却型オークション）: 世界が完成する前に資金と「持ち主」を集められるが、集まるのは投資目的の保有者で、彼らがシーンを作り人を呼ぶ保証はない。土地の価格が下がると、持ち主が作り続ける動機も消える。", k: analysis}
     - {t: "公開日の賞品付きイベント（トークンでの宝探し）: 初日の訪問を作るには効くが、継続的に訪れる理由（シーンの中身）が無い区画が多いと、賞品が終わった後の利用は残らない。", k: analysis}
-  metrics: [m-dcl-ico-2017, m-dcl-terraform-2017, m-dcl-launch-prizes-2020, m-dcl-dau-claim-2022, m-dcl-dappradar-2022-10, m-dcl-mau-2022-09]
+  metrics: [m-dcl-ico-2017, m-dcl-terraform-2017, m-dcl-launch-prizes-2020, m-dcl-dappradar-launch-2020, m-dcl-new-users-launch-2020, m-dcl-dau-claim-2022, m-dcl-dappradar-2022-10, m-dcl-mau-2022-09]
   unknowns: ["Terraform Event と 2 回目のオークションの入札者数・焼却された MANA の確定値", "閉じたベータの招待数と、一般公開初日・初月の訪問者数", "2017 年の LAND 先行販売の日付"]
 
 metrics:
@@ -123,6 +126,8 @@ metrics:
   - {id: m-dcl-dau-dclmetrics-2022, type: dau, value_text: "12,304 → 7,800", unit: players, period: "2022-07〜09 頃（直近 90 日）", definition: "DCL Metrics の DAU（Naavik の引用）", nature: reported, s: [src-dcl-naavik]}
   - {id: m-dcl-ico-2017, type: funding, value: 26000000, unit: USD, period: "2017", definition: "ICO による調達額（Wikipedia）", nature: reported, s: [src-dcl-wikipedia]}
   - {id: m-dcl-terraform-2017, type: nft_sales, value_text: "34,000 超の LAND、1 億 6100 万 MANA 超", unit: MANA, period: "2017-12-15〜2018-01", definition: "最初の土地オークション Terraform Event で売れた LAND の数と支払われた（焼却された）MANA（CriptoNoticias）", nature: reported, s: [src-dcl-criptonoticias-2018]}
+  - {id: m-dcl-dappradar-launch-2020, type: wallets, value: 675, unit: wallets, period: "2020-02-21 時点（公開後 7 日間で 800% 増）", definition: "DappRadar: 日次の一意アクティブウォレット（コントラクトと取引したウォレット。訪問者数ではない）", nature: measured, s: [src-dcl-criptonoticias-2020-dappradar]}
+  - {id: m-dcl-new-users-launch-2020, type: players, value: 10000, value_text: "1 万人超", unit: players, period: "2020-02-20〜02-24", definition: "運営がブログ筆者に提供した新規利用者数。「複数の場所を訪れた人」と定義", nature: reported, s: [src-dcl-ryanschultz-2020]}
   - {id: m-dcl-launch-prizes-2020, type: other, value: 100000, value_text: "10 万ドル超相当", unit: USD, period: "2020-02-20〜4 日間", definition: "一般公開時の宝探しの賞品総額（125 万 MANA、LAND 等を含む。Decrypt）", nature: reported, s: [src-dcl-decrypt-2020-open]}
 
 events:
@@ -142,6 +147,7 @@ unknowns:
 contradictions:
   - {t: "利用者数: DappRadar 38（取引ウォレット/24 時間）、Dapp.com 312、運営 8000（1 日平均）、ダッシュボード 6999（一意訪問者）、Naavik の DCL Metrics 7800。定義が全て異なる。", s: [src-dcl-coindesk-2022, src-dcl-cryptoslate-2022, src-dcl-naavik]}
   - {t: "公開時期: Wikipedia は 2020-02 に一般公開、Naavik は 2017 年に最初に公開と記載（2017 年は土地販売・初期版を指す可能性）。", s: [src-dcl-wikipedia, src-dcl-naavik]}
+  - {t: "ICO 調達額: Wikipedia と NonFungible は 2600 万ドル、Decrypt（2020-02-20）は 2000 万ドルと記載。", s: [src-dcl-wikipedia, src-dcl-nonfungible-history, src-dcl-decrypt-2020-open]}
   - {t: "最初の土地販売: CriptoNoticias は Terraform Event を 2017-12-15〜2018-01 とし 34,000 超の LAND が売れたとする。NonFungible の沿革は 34,356 区画が売れた最初の先行販売が 1 時間足らずで終わったとする。同じ販売を指すのか、期間の記述が食い違うのかは確認できなかった。", s: [src-dcl-criptonoticias-2018, src-dcl-nonfungible-history]}
 
 sources:
@@ -155,3 +161,5 @@ sources:
   - {id: src-dcl-nonfungible-auction2, title: "Get ready for Decentraland second auction!", url: "https://nonfungible.com/news/metaverse/get-ready-for-decentraland-second-auction", publisher: "NonFungible.com", author: "zoup", type: news, primary: false, published: "2018-12", accessed: "2026-10-24", access: fetched, lang: en, note: "9,300 区画、12 月 10 日開始・約 2 週間、1,000 MANA まで下がるダッチオークション、支払われた MANA は全て焼却、焼却の事前予想 2.5〜3 億 MANA（ページの日付表記は 2018-12-12）"}
   - {id: src-dcl-nonfungible-history, title: "The History of Decentraland", url: "https://www.nonfungible.com/news/metaverse/discovery-of-decentraland", publisher: "NonFungible.com", author: "besancia", type: analysis, primary: false, published: "2021-09-13", accessed: "2026-10-24", access: fetched, lang: en, note: "ICO 2600 万ドル（8 月 18 日）、最初の LAND 先行販売は 1 時間未満、34,356 / 90,000 区画、2019-03 の Builder、2019 年の閉じたベータ（招待制、アバター名 100 MANA）、2020-02 のオープンベータ"}
   - {id: src-dcl-decrypt-2020-open, title: "Ethereum-powered Decentraland opens its doors with $100K giveaway", url: "https://decrypt.co/20119/ethereum-powered-decentraland-opens-its-doors-100k-giveaway", publisher: "Decrypt", author: "Andrew Hayward", type: news, primary: false, published: "2020-02-20", accessed: "2026-10-24", access: fetched, lang: en, note: "一般公開、4 日間の宝探しで 10 万ドル超相当（125 万 MANA、LAND、HTC Exodus 1 等）、前日の DAO 設立告知"}
+  - {id: src-dcl-criptonoticias-2020-dappradar, title: "Usuarios de Decentraland aumentan 800% y token MANA (título según URL; ver página)", url: "https://www.criptonoticias.com/comunidad/entretenimiento/usuarios-decentraland-800-token-mana", publisher: "CriptoNoticias", author: "Marianella Vanci", type: news, primary: false, published: "2020-02-21", accessed: "2026-10-24", access: fetched, lang: es, note: "DappRadar の 2020-02-21 の投稿を引用: 7 日間で 800% 増、日次一意アクティブウォレット 675、理由は一般公開と 4 日間の宝探し。MANA 0.0662 ドル"}
+  - {id: src-dcl-ryanschultz-2020, title: "UPDATED: Decentraland Attracts Over 10,000 New Users Since Its Public Launch", url: "https://ryanschultz.com/2020/02/24/decentraland-attracts-over-10000-new-users-since-its-public-launch/", publisher: "Ryan Schultz（個人ブログ）", author: "Ryan Schultz", type: news, primary: false, published: "2020-02-24", accessed: "2026-10-24", access: fetched, lang: en, note: "運営提供の統計で新規利用者 1 万人超（複数の場所を訪れた人）、宝探しを 2020-02-25 まで延長、賞品請求に少額の ETH が必要"}
