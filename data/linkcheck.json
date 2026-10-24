@@ -1,9 +1,14 @@
 {
-  "checked": "2026-10-23T08:29:22.519Z",
-  "summary": "2026-10-23 に 696 件の URL を検査: 到達 473、サイトがボットを拒否 (403/429) 35、接続エラー 7、http-401 1、この検査環境のプロキシで遮断（調査時は別経路で参照） 14、GitHub リポジトリの存在を git で確認 160、GitHub リポジトリが見つからない 1、http-405 2、404/410 3",
+  "checked": "2026-10-24T14:37:42.034Z",
+  "summary": "2026-10-24 に 904 件の URL を検査: 到達 643、サイトがボットを拒否 (403/429) 54、接続エラー 6、http-401 1、この検査環境のプロキシで遮断（調査時は別経路で参照） 16、GitHub リポジトリの存在を git で確認 173、GitHub リポジトリが見つからない 1、404/410 8、http-405 2",
   "results": [
     {
       "url": "http://archive.org/wayback/available?url=lattice.xyz/blog/sky-strife-autonomous-mode&timestamp=20240101",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://0xgregh.substack.com/p/dfk-deepdive",
       "code": 200,
       "status": "ok"
     },
@@ -13,7 +18,17 @@
       "status": "ok"
     },
     {
+      "url": "https://0xparc.org/blog/autonomous-worlds-hackathon",
+      "code": 200,
+      "status": "ok"
+    },
+    {
       "url": "https://0xparc.org/blog/autonomous-worlds-network",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://0xparc.org/blog/aw-residency",
       "code": 200,
       "status": "ok"
     },
@@ -41,6 +56,26 @@
       "url": "https://99bitcoins.com/half-of-all-bitcoin-transactions-might-come-from-online-gambling/",
       "code": 403,
       "status": "refused"
+    },
+    {
+      "url": "https://a16z.com/announcement/investing-in-yield-guild-games/",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://aavegotchi.medium.com/aavegotchi-raffles-a-frenly-guide-66f624c9bc60",
+      "code": 403,
+      "status": "refused"
+    },
+    {
+      "url": "https://aavegotchi.substack.com/p/100k-usd-liquidity-migration-incentives",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://aavegotchi.substack.com/p/aavegotchi-monthly-highlights-january",
+      "code": 200,
+      "status": "ok"
     },
     {
       "url": "https://aavegotchi.substack.com/p/the-aavegotchi-launch-is-imminent",
@@ -88,6 +123,11 @@
       "status": "ok"
     },
     {
+      "url": "https://api.coingecko.com/api/v3/coins/defi-kingdoms",
+      "code": 200,
+      "status": "ok"
+    },
+    {
       "url": "https://api.coingecko.com/api/v3/coins/green-satoshi-token",
       "code": 200,
       "status": "ok"
@@ -104,9 +144,13 @@
     },
     {
       "url": "https://api.llama.fi/protocol/defi-kingdoms",
-      "code": 0,
-      "status": "network-error",
-      "err": "curl: (28) Operation timed out after 25002 milliseconds with 0 bytes received"
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://api.pullpush.io/reddit/search/comment/?link_id=4pnvcu&size=100",
+      "code": 429,
+      "status": "refused"
     },
     {
       "url": "https://api.roninchain.com/rpc",
@@ -114,9 +158,20 @@
       "status": "ok"
     },
     {
-      "url": "https://archive.devcon.org/devcon-7/growing-the-biomes-gdp-using-digital-matter-and-smart-items",
+      "url": "https://archive.devcon.org/devcon-6/autonomous-worlds-self-led-session",
       "code": 200,
       "status": "ok"
+    },
+    {
+      "url": "https://archive.devcon.org/devcon-6/mud-an-engine-for-on-chain-games",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://archive.devcon.org/devcon-7/growing-the-biomes-gdp-using-digital-matter-and-smart-items",
+      "code": 0,
+      "status": "network-error",
+      "err": "curl: (35) Recv failure: Connection reset by peer"
     },
     {
       "url": "https://argus.gg",
@@ -184,6 +239,11 @@
       "status": "http-401"
     },
     {
+      "url": "https://betakit.com/?p=115993",
+      "code": 200,
+      "status": "ok"
+    },
+    {
       "url": "https://betakit.com/arenax-labs-closes-6-million-to-develop-ai-powered-battle-game/",
       "code": 200,
       "status": "ok"
@@ -194,7 +254,17 @@
       "status": "ok"
     },
     {
+      "url": "https://betakit.com/ethwaterloo-announces-ethereum-focused-hackathon-aimed-at-building-the-future-of-the-decentralized-internet/",
+      "code": 200,
+      "status": "ok"
+    },
+    {
       "url": "https://bitcoin.org/en/release/v0.8.2",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://bitcoinmagazine.com/articles/how-hackathon-birthed-cryptokitties-origin-story1/",
       "code": 200,
       "status": "ok"
     },
@@ -214,6 +284,11 @@
       "status": "ok"
     },
     {
+      "url": "https://bitcointalk.org/index.php?topic=101902.0",
+      "code": 200,
+      "status": "ok"
+    },
+    {
       "url": "https://bitcointalk.org/index.php?topic=1525827.0",
       "code": 200,
       "status": "ok"
@@ -224,12 +299,42 @@
       "status": "ok"
     },
     {
+      "url": "https://bitcointalk.org/index.php?topic=330533.0",
+      "code": 200,
+      "status": "ok"
+    },
+    {
       "url": "https://bitcointalk.org/index.php?topic=435170.0",
       "code": 200,
       "status": "ok"
     },
     {
       "url": "https://bitcointalk.org/index.php?topic=548421.0",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://bitcointalk.org/index.php?topic=77870.0",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://bitcointalk.org/index.php?topic=79285.0",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://bitcointalk.org/index.php?topic=80245.0",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://bitpinas.com/?p=22232",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://bitpinas.com/business/pirate-nation-token-launched/",
       "code": 200,
       "status": "ok"
     },
@@ -259,12 +364,32 @@
       "status": "ok"
     },
     {
+      "url": "https://blockworks.com/podcast/0xresearch/62e9d7ce-9ee7-11ee-be92-a7485f659556",
+      "code": 200,
+      "status": "ok"
+    },
+    {
       "url": "https://blog.aavegotchi.com/aavegotchi-has-migrated-to-base/",
       "code": 200,
       "status": "ok"
     },
     {
+      "url": "https://blog.argus.gg/world-engine",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://blog.argus.gg/world-engine-launch",
+      "code": 200,
+      "status": "ok"
+    },
+    {
       "url": "https://blog.axieinfinity.com/p/aip-004-is-live-on-appaxie",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://blog.axieinfinity.com/p/announcing-pvp-arena-season-1-with",
       "code": 200,
       "status": "ok"
     },
@@ -280,6 +405,26 @@
     },
     {
       "url": "https://blog.axieinfinity.com/p/axie-classic-is-back",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://blog.axieinfinity.com/p/axie-infinity-community-alpha-is",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://blog.axieinfinity.com/p/axie-infinity-funding-secured",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://blog.axieinfinity.com/p/axie-infinity-the-lunacian-issue",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://blog.axieinfinity.com/p/axie-infinity-year-end-review",
       "code": 200,
       "status": "ok"
     },
@@ -334,6 +479,11 @@
       "status": "ok"
     },
     {
+      "url": "https://blog.axieinfinity.com/p/how-to-get-your-friends-and-family",
+      "code": 200,
+      "status": "ok"
+    },
+    {
       "url": "https://blog.axieinfinity.com/p/katana",
       "code": 200,
       "status": "ok"
@@ -349,12 +499,22 @@
       "status": "ok"
     },
     {
+      "url": "https://blog.axieinfinity.com/p/nation",
+      "code": 200,
+      "status": "ok"
+    },
+    {
       "url": "https://blog.axieinfinity.com/p/october",
       "code": 200,
       "status": "ok"
     },
     {
       "url": "https://blog.axieinfinity.com/p/origins-s19-is-live",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://blog.axieinfinity.com/p/play-axie-earn-dai",
       "code": 200,
       "status": "ok"
     },
@@ -375,6 +535,11 @@
     },
     {
       "url": "https://blog.axieinfinity.com/p/securing-ronin",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://blog.axieinfinity.com/p/seriesa",
       "code": 200,
       "status": "ok"
     },
@@ -429,6 +594,21 @@
       "status": "ok"
     },
     {
+      "url": "https://blog.celestia.org/meet-cohort-one-of-modular-fellows/",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://blog.colosseum.com/accelerator-demo-day-tensor-api-game-jam/",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://blog.curio.gg/coming-soon/",
+      "code": 200,
+      "status": "ok"
+    },
+    {
       "url": "https://blog.curio.gg/how-we-built-this-treaty-technical-overview/",
       "code": 200,
       "status": "ok"
@@ -459,6 +639,16 @@
       "status": "ok"
     },
     {
+      "url": "https://blog.curio.gg/technical-tricks-aug-2022-2/",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://blog.curio.gg/untitled/",
+      "code": 200,
+      "status": "ok"
+    },
+    {
       "url": "https://blog.curio.gg/whos-the-best-on-chain-diplomat/",
       "code": 200,
       "status": "ok"
@@ -475,6 +665,11 @@
     },
     {
       "url": "https://blog.roninchain.com/p/the-dawn-of-ronin",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://blog.superteam.fun/p/inside-solana-speedrun",
       "code": 200,
       "status": "ok"
     },
@@ -614,6 +809,21 @@
       "status": "ok"
     },
     {
+      "url": "https://bravenewcoin.com/insights/spells-of-genesis-first-milestone-reached-following-successful-token-sale/",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://bravenewcoin.com/insights/spells-of-genesis-raises-over-240-bitcoin-in-2-hours",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://brydisanto.substack.com/p/wolf-game-summer-is-upon-us",
+      "code": 200,
+      "status": "ok"
+    },
+    {
       "url": "https://buidlguidl.com/grants-archive/cohorts/jessys-hacker-house",
       "code": 200,
       "status": "ok"
@@ -624,7 +834,32 @@
       "status": "ok"
     },
     {
+      "url": "https://coincodex.com/ieo/stepn/",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://coinpost.jp/?p=354556",
+      "code": 200,
+      "status": "ok"
+    },
+    {
       "url": "https://cointelegraph.com/magazine/bots-airdrops-push-ronin-to-no-2-blockchain-for-daily-users-not-pixels-fans/",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://cointelegraph.com/markets/illuvium-hits-new-highs-as-interest-in-nft-based-blockchain-gaming-skyrockets",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://cointelegraph.com/news/aavegotchi-bonding-curve-closes-on-exact-day-of-dai-depeg",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://cointelegraph.com/news/crypto-user-convinced-ai-bot-transfer-47k",
       "code": 200,
       "status": "ok"
     },
@@ -635,6 +870,11 @@
     },
     {
       "url": "https://cointelegraph.com/news/hamster-kombat-airdrop-131-million-users-qualified",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://cointelegraph.com/news/hamster-kombat-guinness-world-record-200m-users",
       "code": 200,
       "status": "ok"
     },
@@ -659,6 +899,31 @@
       "status": "ok"
     },
     {
+      "url": "https://content.optimism.io/rpgf3Application/v0/metadata/10/0x5cd05578760FAA29d7a00C1840c05a5B0C16f196.json",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://content.optimism.io/rpgf3Application/v0/metadata/10/0xa4eC807A15f389A2b9aC985eCcF4b08ddDDB6f9d.json",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://content.optimism.io/rpgf3Application/v0/metadata/10/0xc640Dd8933f12FC788C56ab121ACa4cdBb7d7FC2.json",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://criptonoticias.com/criptopedia/que-son-rare-pepes-primeros-nft-bitcoin",
+      "code": 403,
+      "status": "refused"
+    },
+    {
+      "url": "https://cryptoast.fr/?p=33963",
+      "code": 200,
+      "status": "ok"
+    },
+    {
       "url": "https://cryptonews.com/news/gaming-token-adventure-gold-listed-amid-loot-nft-buzz/",
       "code": 403,
       "status": "refused"
@@ -675,6 +940,16 @@
     },
     {
       "url": "https://cryptoslate.com/vc-firm-a16z-releases-open-source-microverse-packed-with-generative-ai-npcs-in-ai-town/",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://cryptoslate.com/worlds-first-blockchain-based-esport-gods-unchained-starts-presale/",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://dailycoin.com/illuvium-update-adds-exciting-features-and-nfts-to-flagship-game/",
       "code": 200,
       "status": "ok"
     },
@@ -704,6 +979,11 @@
       "status": "ok"
     },
     {
+      "url": "https://decrypt.co/103666/strava-meets-pokemon-go-stepn-3-million-users",
+      "code": 200,
+      "status": "ok"
+    },
+    {
       "url": "https://decrypt.co/108354/loot-one-year-later-nft-hype-dead-lootverse-hope-lives-on",
       "code": 200,
       "status": "ok"
@@ -720,6 +1000,31 @@
     },
     {
       "url": "https://decrypt.co/124969/why-pirate-nation-leaving-polygon-setting-sail-towards-arbitrum-nova",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://decrypt.co/19711/ethereum-based-sandbox-sells-out-another-virtual-land-presale",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://decrypt.co/198093/pirate-nation-studio-raises-33-million-build-fully-on-chain-games",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://decrypt.co/20119/ethereum-powered-decentraland-opens-its-doors-100k-giveaway",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://decrypt.co/207455/illuvium-preview-everything-need-know-about-nft-games",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://decrypt.co/217109/why-crypto-game-pixels-launching-token-video-interview",
       "code": 200,
       "status": "ok"
     },
@@ -754,6 +1059,21 @@
       "status": "ok"
     },
     {
+      "url": "https://decrypt.co/237629/hamster-kombat-keeps-demanding-more-friends-enough-already",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://decrypt.co/238242/telegram-easier-farm-crypto-games-hamster-kombat",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://decrypt.co/238702/telegram-ceo-hamster-kombat-worlds-fastest-growing",
+      "code": 200,
+      "status": "ok"
+    },
+    {
       "url": "https://decrypt.co/241678/long-awaited-illuvium-ethereum-games-launch-epic-store",
       "code": 200,
       "status": "ok"
@@ -779,7 +1099,22 @@
       "status": "ok"
     },
     {
+      "url": "https://decrypt.co/30199/nba-top-shot-launches-beta-tokenized-collectible-highlights",
+      "code": 200,
+      "status": "ok"
+    },
+    {
       "url": "https://decrypt.co/314859/wolf-game-halted-solana-relaunch-backlash",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://decrypt.co/353912",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://decrypt.co/63369/sorare-beginners-guide-2021/",
       "code": 200,
       "status": "ok"
     },
@@ -790,6 +1125,11 @@
     },
     {
       "url": "https://decrypt.co/97090/ubisoft-tezos-nfts-other-games-ghost-recon-support-ends",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://decrypt.co/es/222124/creador-de-parallel-detalla-juego-de-ia-colony-en-solana-prime-marca-ath/",
       "code": 200,
       "status": "ok"
     },
@@ -871,6 +1211,11 @@
     },
     {
       "url": "https://docs.aavegotchi.com/own/game-items/gotchiverse",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://docs.aavegotchi.com/own/tokens/ghst-token",
       "code": 200,
       "status": "ok"
     },
@@ -1066,6 +1411,11 @@
       "status": "ok"
     },
     {
+      "url": "https://egamers.io/pixels-the-small-farm-game-which-became-a-global-success/",
+      "code": 200,
+      "status": "ok"
+    },
+    {
       "url": "https://eips.ethereum.org/EIPS/eip-721",
       "code": 200,
       "status": "ok"
@@ -1126,6 +1476,16 @@
       "status": "ok"
     },
     {
+      "url": "https://eth.blockscout.com/api?module=account&action=txlist&address=0x060b2d8c504324299247f591d1b3dfeceb59283f&sort=asc",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://eth.blockscout.com/api?module=account&action=txlist&address=0xb40d0312BaC389AE0a05053020Aac80c9237358B&sort=asc",
+      "code": 429,
+      "status": "refused"
+    },
+    {
       "url": "https://eth.drpc.org",
       "code": 200,
       "status": "ok"
@@ -1161,6 +1521,11 @@
       "status": "refused"
     },
     {
+      "url": "https://etherscan.io/token/0x6e4c6d9b0930073e958abd2aba516b885260b8ff",
+      "code": 403,
+      "status": "refused"
+    },
+    {
       "url": "https://etherscan.io/token/0xff9c1b15b16263c61d017ee9f65c50e4ae0113d7",
       "code": 403,
       "status": "refused"
@@ -1176,6 +1541,11 @@
       "status": "refused"
     },
     {
+      "url": "https://etherscan.io/tx/0xea51eb47a9c8f7a597d74f6f86c8e82e9d3d34f2cac7c0b6d58c7f07d4e87872",
+      "code": 403,
+      "status": "refused"
+    },
+    {
       "url": "https://etherscan.io/tx/0xf63e775e10b0f662574ab49cd4c080ddcda8ca7d0012b5f0fbf0b03ad1c977ac",
       "code": 403,
       "status": "refused"
@@ -1184,6 +1554,16 @@
       "url": "https://etherscan.io/txs?a=0x06012c8cf97bead5deae237070f9587f8e7a266d",
       "code": 403,
       "status": "refused"
+    },
+    {
+      "url": "https://ethglobal.com/events/autonomous",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://ethglobal.com/showcase?events=autonomous",
+      "code": 200,
+      "status": "ok"
     },
     {
       "url": "https://ethglobal.com/showcase/p-dash-f20tg",
@@ -1241,7 +1621,27 @@
       "status": "ok"
     },
     {
+      "url": "https://forklog.com/en/hamster-kombat-team-announces-second-airdrop/",
+      "code": 200,
+      "status": "ok"
+    },
+    {
       "url": "https://forklog.com/en/investors-money-funds-stepn-how-the-move-to-earn-app-monetises-running/",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://forklog.com/en/the-sandbox-to-launch-alpha-version-of-its-metaverse/amp",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://fortune.com/2018/06/18/cryptokitties/",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://fortune.com/crypto/2023/09/21/web3-gaming-proof-of-play-33-million-a16z-chris-dixon-greenoaks",
       "code": 200,
       "status": "ok"
     },
@@ -1316,12 +1716,22 @@
       "status": "ok"
     },
     {
+      "url": "https://gamesbeat.com/?p=190595",
+      "code": 200,
+      "status": "ok"
+    },
+    {
       "url": "https://gamesbeat.com/?p=209522",
       "code": 200,
       "status": "ok"
     },
     {
       "url": "https://gamesbeat.com/arenax-labs-launches-arc-ai-game-infrastructure-and-sai-research-platform/",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://gamesbeat.com/proof-of-play-raises-33m-for-web3-rpg-adds-ex-twitch-ceo-to-board-emmett-shear/",
       "code": 200,
       "status": "ok"
     },
@@ -1366,6 +1776,11 @@
       "status": "repo-ok"
     },
     {
+      "url": "https://github.com/a16z-infra",
+      "code": 0,
+      "status": "env-blocked"
+    },
+    {
       "url": "https://github.com/a16z-infra/ai-town",
       "code": 0,
       "status": "repo-ok"
@@ -1389,6 +1804,11 @@
       "url": "https://github.com/ArenaX-Labs",
       "code": 0,
       "status": "env-blocked"
+    },
+    {
+      "url": "https://github.com/Argus-Labs/dark-frontier",
+      "code": 0,
+      "status": "repo-ok"
     },
     {
       "url": "https://github.com/Argus-Labs/world-engine",
@@ -1631,6 +2051,16 @@
       "status": "repo-ok"
     },
     {
+      "url": "https://github.com/dojoengine/dojo/commits/main",
+      "code": 0,
+      "status": "repo-ok"
+    },
+    {
+      "url": "https://github.com/dojoengine/game-jams/blob/main/gj4/README.md",
+      "code": 0,
+      "status": "repo-ok"
+    },
+    {
       "url": "https://github.com/dojoengine/katana",
       "code": 0,
       "status": "repo-ok"
@@ -1781,6 +2211,11 @@
       "status": "repo-ok"
     },
     {
+      "url": "https://github.com/guiltygyoza/isaac/blob/main/isaac/core/contracts/lobby/lobby.cairo",
+      "code": 0,
+      "status": "repo-ok"
+    },
+    {
       "url": "https://github.com/influenceth",
       "code": 0,
       "status": "env-blocked"
@@ -1797,6 +2232,11 @@
     },
     {
       "url": "https://github.com/latticexyz/mud",
+      "code": 0,
+      "status": "repo-ok"
+    },
+    {
+      "url": "https://github.com/latticexyz/mud/blob/v1/packages/services/pkg/grpc/faucet.go",
       "code": 0,
       "status": "repo-ok"
     },
@@ -1834,6 +2274,11 @@
       "url": "https://github.com/magicblock-labs/magicblock-validator",
       "code": 0,
       "status": "repo-ok"
+    },
+    {
+      "url": "https://github.com/orgs/Argus-Labs/repositories",
+      "code": 0,
+      "status": "env-blocked"
     },
     {
       "url": "https://github.com/orgs/axieinfinity/repositories",
@@ -1981,6 +2426,16 @@
       "status": "repo-ok"
     },
     {
+      "url": "https://github.com/playmint/ds/commits/main/contracts/src/fixtures/allowlist.json",
+      "code": 0,
+      "status": "repo-ok"
+    },
+    {
+      "url": "https://github.com/playmint/ds/commits/main/contracts/src/rules/NewPlayerRule.sol",
+      "code": 0,
+      "status": "repo-ok"
+    },
+    {
       "url": "https://github.com/primodiumxyz/empires",
       "code": 0,
       "status": "repo-ok"
@@ -2086,6 +2541,11 @@
       "status": "repo-ok"
     },
     {
+      "url": "https://github.com/Provable-Games/docs/blob/main/src/pages/lootsurvivor/token/eligible-collections.mdx",
+      "code": 0,
+      "status": "repo-ok"
+    },
+    {
       "url": "https://github.com/Provable-Games/docs/blob/main/src/pages/lootsurvivor/token/index.mdx",
       "code": 0,
       "status": "repo-ok"
@@ -2112,6 +2572,11 @@
     },
     {
       "url": "https://github.com/Provable-Games/loot-survivor/blob/main/contracts/game/src/lib.cairo",
+      "code": 0,
+      "status": "repo-ok"
+    },
+    {
+      "url": "https://github.com/Provable-Games/loot-survivor/blob/main/scripts/deploy_mainnet.sh",
       "code": 0,
       "status": "repo-ok"
     },
@@ -2151,6 +2616,11 @@
       "status": "repo-ok"
     },
     {
+      "url": "https://github.com/sunflower-land/sunflower-land/blob/d1b786d983cb0f87097e2ae88c2269048245ac41/src/contracts/Farm.sol",
+      "code": 0,
+      "status": "repo-ok"
+    },
+    {
       "url": "https://github.com/sunflower-land/sunflower-land/blob/main/docs/CODE_CONTRIBUTING.md",
       "code": 0,
       "status": "repo-ok"
@@ -2172,6 +2642,11 @@
     },
     {
       "url": "https://github.com/sunflower-land/sunflower-land/blob/main/src/lib/network.ts",
+      "code": 0,
+      "status": "repo-ok"
+    },
+    {
+      "url": "https://github.com/sunflower-land/sunflower-land/commit/6513b18dde16c54dd8d9f0ff8e21545ce9261a56",
       "code": 0,
       "status": "repo-ok"
     },
@@ -2216,6 +2691,16 @@
       "status": "repo-ok"
     },
     {
+      "url": "https://github.com/ZeroKnowledgefm/episode-transcripts/blob/main/episodes/Episode%20141.txt",
+      "code": 0,
+      "status": "repo-ok"
+    },
+    {
+      "url": "https://github.com/ZeroKnowledgefm/episode-transcripts/blob/main/episodes/Episode%20225.txt",
+      "code": 0,
+      "status": "repo-ok"
+    },
+    {
       "url": "https://gov.optimism.io/t/dope-wars-accountability-feedback-thread/5390/6",
       "code": 200,
       "status": "ok"
@@ -2231,15 +2716,29 @@
       "status": "ok"
     },
     {
+      "url": "https://grenade.tw/blog/fren-pet/",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://gtarena.super.site",
+      "code": 404,
+      "status": "missing"
+    },
+    {
       "url": "https://gulfnews.com/business/markets/stung-by-losses-filipino-players-ditch-axie-infinity-crypto-game-1.1682588424494",
       "code": 200,
       "status": "ok"
     },
     {
       "url": "https://habr.com/en/articles/187196",
-      "code": 0,
-      "status": "network-error",
-      "err": "curl: (35) Recv failure: Connection reset by peer"
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://hackathon.magicblock.app/",
+      "code": 200,
+      "status": "ok"
     },
     {
       "url": "https://hackernoon.com/a-comprehensive-solution-to-bugs-in-fomo3d-like-games-ab3b054f3cc5",
@@ -2257,7 +2756,17 @@
       "status": "ok"
     },
     {
+      "url": "https://hackmd.io/@dantecamuto/B19GaGLXp",
+      "code": 200,
+      "status": "ok"
+    },
+    {
       "url": "https://hardmodefirst.xyz/dark-forest-community-synopsis.md",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://harmonyone.notion.site/DreamerDFK-DeFi-Kingdoms-Play-to-Earn-Cross-DeFi-7a30e46686ba469b94a90bd11196716a",
       "code": 200,
       "status": "ok"
     },
@@ -2317,14 +2826,24 @@
       "status": "ok"
     },
     {
+      "url": "https://influenceth.substack.com/p/early-community-sway",
+      "code": 404,
+      "status": "missing"
+    },
+    {
       "url": "https://influenceth.substack.com/p/influence-tokenomics-overview",
-      "code": 200,
-      "status": "ok"
+      "code": 404,
+      "status": "missing"
+    },
+    {
+      "url": "https://influenceth.substack.com/p/prepare-for-launch-sale-starts-now",
+      "code": 404,
+      "status": "missing"
     },
     {
       "url": "https://influenceth.substack.com/p/starkware-invests-in-influence",
-      "code": 200,
-      "status": "ok"
+      "code": 404,
+      "status": "missing"
     },
     {
       "url": "https://informationsecurity.uibk.ac.at/theses/satoshi-dice/",
@@ -2342,7 +2861,42 @@
       "status": "ok"
     },
     {
+      "url": "https://itch.io/jam/dojo-game-jam",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://itch.io/jam/dojo-game-jam-4",
+      "code": 200,
+      "status": "ok"
+    },
+    {
       "url": "https://itch.io/jam/dojo-holiday-game-jam-3",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://itch.io/jam/solana-speedrun-3",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://itch.io/jam/speedrun-gamejam",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://itzbolt.beehiiv.com/p/chain-games-next-big-thing",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://jpags.substack.com/p/defi-kingdoms-jewel-on-harmony-one",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://k33.com/research/articles/ai-memecoins-next-gen-memes-or-next-grift",
       "code": 200,
       "status": "ok"
     },
@@ -2477,6 +3031,11 @@
       "status": "ok"
     },
     {
+      "url": "https://latticexyz.notion.site/Redstone-Community-Composability-Day-Wiki-a041c3a8e1484147900e450353ff86af",
+      "code": 200,
+      "status": "ok"
+    },
+    {
       "url": "https://ledger.pitt.edu/ojs/ledger/article/view/15",
       "code": 0,
       "status": "network-error",
@@ -2528,12 +3087,37 @@
       "status": "ok"
     },
     {
+      "url": "https://luma.com/j9zvspbs",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://luma.com/real-time-hackathon",
+      "code": 200,
+      "status": "ok"
+    },
+    {
       "url": "https://mainnet.optimism.io",
       "code": 405,
       "status": "http-405"
     },
     {
+      "url": "https://malaysia.news.yahoo.com/paradigm-leads-5m-seed-round-160000711.html",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://medium.com/etheremon/etheremon-2018-a-look-back-464272ebf151",
+      "code": 403,
+      "status": "refused"
+    },
+    {
       "url": "https://mobilegamer.biz/new-game-digest-saints-row-overwatch-palworld-bleach-colony-and-more/",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://momentum6.substack.com/p/harmony-ecosystem-fund-approved-17-new-grants-in-december-2021-c0300b8b747c",
       "code": 200,
       "status": "ok"
     },
@@ -2578,6 +3162,11 @@
       "status": "ok"
     },
     {
+      "url": "https://nftnow.com/podcasts/rare-pepes-joe-looney-interview/",
+      "code": 403,
+      "status": "refused"
+    },
+    {
       "url": "https://nobumei.substack.com/p/wolf-gametokenized-minting",
       "code": 200,
       "status": "ok"
@@ -2588,7 +3177,17 @@
       "status": "ok"
     },
     {
+      "url": "https://nonfungible.com/news/metaverse/get-ready-for-decentraland-second-auction",
+      "code": 200,
+      "status": "ok"
+    },
+    {
       "url": "https://nurstardeepdive.substack.com/p/interview-with-tarrence-from-cartridge",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://nurstardeepdive.substack.com/p/interview-with-the-realms-metaverse",
       "code": 200,
       "status": "ok"
     },
@@ -2598,7 +3197,17 @@
       "status": "ok"
     },
     {
+      "url": "https://omr.com/en/daily/omr-podcast-international-sorare-ceo-nicolas-julia",
+      "code": 200,
+      "status": "ok"
+    },
+    {
       "url": "https://opensea.io/blog/articles/in-conversation-with-alan-carr-of-cryptokitties",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://optimism.io/blog/announcing-opcraft-an-autonomous-world-built-on-the-op-stack",
       "code": 200,
       "status": "ok"
     },
@@ -2613,7 +3222,32 @@
       "status": "ok"
     },
     {
+      "url": "https://paragraph.com/@aw-research/iLDUd22l4WsGkVPIAN8b",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://paragraph.com/@aw-research/t1kXKaZAqP1Hd0OpYI6E",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://paragraph.com/@etherplay/conquest-is-back",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://paragraph.com/@etherplay/help-us-shape-the-future-of-conquest",
+      "code": 200,
+      "status": "ok"
+    },
+    {
       "url": "https://paragraph.com/@frenpet/i46u16XdtviEvGsJ0DYo",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://paragraph.com/@vamient-labs/aw-weekly-5",
       "code": 200,
       "status": "ok"
     },
@@ -2629,6 +3263,11 @@
     },
     {
       "url": "https://parallel.life/colony/game-guide/gameplay",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://partechpartners.com/news/sorare-raises-a-40m-series-a-to-help-fans-own-their-football-passion-online",
       "code": 200,
       "status": "ok"
     },
@@ -2653,7 +3292,27 @@
       "status": "ok"
     },
     {
+      "url": "https://platformer.news/how-a-viral-nft-project-survived",
+      "code": 200,
+      "status": "ok"
+    },
+    {
       "url": "https://play.skystrife.xyz/",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://playtoearn.com/news/conquest-eth-preparing-for-second-alpha-test",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://playtoearn.com/news/illuvium-launches-overworld-private-beta",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://playtoearn.com/news/influence-selling-asteroids-for-open-space-economy",
       "code": 200,
       "status": "ok"
     },
@@ -2663,12 +3322,32 @@
       "status": "ok"
     },
     {
+      "url": "https://podscripts.co/podcasts/unchained/unconfirmed-axie-infinitys-july-revenue-tops-200-million-heres-how-filipinos-drove-it-ep259",
+      "code": 200,
+      "status": "ok"
+    },
+    {
       "url": "https://portal.godsunchained.com/blog/gods-unchained-immutable-zkevm-migration-faq",
       "code": 200,
       "status": "ok"
     },
     {
+      "url": "https://pressreleases.triplepointpr.com/2024/08/05/cartridge-raises-series-a-funding-round-led-by-bitkraft-ventures-to-accelerate-onchain-game-development/",
+      "code": 200,
+      "status": "ok"
+    },
+    {
       "url": "https://prnewswire.co.uk/news-releases/huntercoin-the-online-game-that-earns-you-money-246237241.html",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://propulsion.starknet.io/",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://propulsion.starknet.org/",
       "code": 200,
       "status": "ok"
     },
@@ -2739,6 +3418,11 @@
       "status": "ok"
     },
     {
+      "url": "https://rosetta.to/u/unchainedcrypto/how-the-hong-kong-protests-gave-a-boost-to-gods-unchained-ep-96",
+      "code": 200,
+      "status": "ok"
+    },
+    {
       "url": "https://rpc.dustproject.org",
       "code": 405,
       "status": "http-405"
@@ -2747,6 +3431,21 @@
       "url": "https://rpc.gnosischain.com",
       "code": 404,
       "status": "missing"
+    },
+    {
+      "url": "https://ryanschultz.com/2020/02/24/decentraland-attracts-over-10000-new-users-since-its-public-launch/",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://sherwood.news/crypto/hamster-kombat-crypto-game-youtube-social-media-growth-hack",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://siliconangle.com/?p=266400",
+      "code": 200,
+      "status": "ok"
     },
     {
       "url": "https://skystrife.xyz/",
@@ -2759,7 +3458,27 @@
       "status": "ok"
     },
     {
+      "url": "https://solana.com/news/solana-ignition-hackathon-winners",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://solana.com/news/solana-radar-winners",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://solanaspeedrun.com/",
+      "code": 200,
+      "status": "ok"
+    },
+    {
       "url": "https://solmaz.io/2018/10/18/anatomy-block-stuffing/",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://sorareintelligence.substack.com/p/sorare-is-not-your-usual-startup",
       "code": 200,
       "status": "ok"
     },
@@ -2770,6 +3489,11 @@
     },
     {
       "url": "https://sourcify.dev/server/v2/contract/1/0x32353A6C91143bfd6C7d363B546e62a9A2489A20?fields=sources",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://sourcify.dev/server/v2/contract/1/0x7AFe30cB3E53dba6801aa0EA647A0EcEA7cBe18d?fields=sources",
       "code": 200,
       "status": "ok"
     },
@@ -2809,7 +3533,32 @@
       "status": "ok"
     },
     {
+      "url": "https://stack.convex.dev/ai-town-v2",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://starknetresearch.substack.com/p/starknet-roundup-76",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://techbullion.com/aaa-nft-game-illuvium-set-to-release-highly-anticipated-illuvium-overworld-beta-on-december-12-at-1900-utc/",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://techcrunch.com/?p=2321496",
+      "code": 200,
+      "status": "ok"
+    },
+    {
       "url": "https://techcrunch.com/2017/12/03/people-have-spent-over-1m-buying-virtual-cats-on-the-ethereum-blockchain/",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://technews.tw/2018/03/07/blockchain-game-etheremon-enter-decentraland-vr-world/",
       "code": 200,
       "status": "ok"
     },
@@ -2819,7 +3568,22 @@
       "status": "ok"
     },
     {
+      "url": "https://thecoreloop.substack.com/p/my-on-chain-gaming-odyssey-a-personal",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://thedefiant.io/news/nfts-and-web3/crypto-game-pirate-nation-s-activity-soars-ahead-of-token-launch",
+      "code": 403,
+      "status": "refused"
+    },
+    {
       "url": "https://thedefiant.io/news/nfts-and-web3/loot-nft-keys",
+      "code": 403,
+      "status": "refused"
+    },
+    {
+      "url": "https://thedefiant.io/tomagotchi-like-frenpet-is-crushing-it-on-coinbase-s-base-network",
       "code": 403,
       "status": "refused"
     },
@@ -2829,7 +3593,17 @@
       "status": "refused"
     },
     {
+      "url": "https://thedefiant.substack.com/p/-wolf-game-nfts-spark-frenzy-with",
+      "code": 200,
+      "status": "ok"
+    },
+    {
       "url": "https://thefirstmint.substack.com/p/the-state-of-nft-sports",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://thelogic.co/briefing/more-than-200000-users-line-up-for-latest-nba-top-shot-pack-drop-after-rollout-pains/",
       "code": 200,
       "status": "ok"
     },
@@ -2839,7 +3613,22 @@
       "status": "ok"
     },
     {
+      "url": "https://thelootherald.substack.com/p/summer-update-realms-leveling-up",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://thelootherald.substack.com/p/zkorp-and-grugs-lair-rule-dojo-game",
+      "code": 200,
+      "status": "ok"
+    },
+    {
       "url": "https://thenextweb.com/news/exit-scam-ethereum-jackpot",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://thereadingape.substack.com/p/zima-red-ep-78-aleksander-psycheout",
       "code": 200,
       "status": "ok"
     },
@@ -2890,6 +3679,11 @@
     },
     {
       "url": "https://topology.substack.com/p/what-happened-to-isaac",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://tpan.substack.com/p/299-12-features-from-pirate-nations",
       "code": 200,
       "status": "ok"
     },
@@ -3009,6 +3803,21 @@
       "status": "ok"
     },
     {
+      "url": "https://whitepaper.stepn.com/social-module/activation-code-system.md",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://wiki.aavegotchi.com/en/haunt",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://wiki.aavegotchi.com/en/tickets",
+      "code": 200,
+      "status": "ok"
+    },
+    {
       "url": "https://wolf.game/",
       "code": 200,
       "status": "ok"
@@ -3020,6 +3829,11 @@
     },
     {
       "url": "https://www.bankless.com/biomes-autonomous-world",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://www.bankless.com/optimistic-on-opcraft",
       "code": 200,
       "status": "ok"
     },
@@ -3069,6 +3883,11 @@
       "status": "ok"
     },
     {
+      "url": "https://www.blockchaingamer.biz/?p=13162",
+      "code": 200,
+      "status": "ok"
+    },
+    {
       "url": "https://www.blockchaingamer.biz/?p=18188",
       "code": 200,
       "status": "ok"
@@ -3085,6 +3904,16 @@
     },
     {
       "url": "https://www.blockchaingamer.biz/?p=27010",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://www.blockchaingamer.biz/?p=27874",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://www.blockchaingamer.biz/?p=30062",
       "code": 200,
       "status": "ok"
     },
@@ -3124,12 +3953,27 @@
       "status": "ok"
     },
     {
+      "url": "https://www.blockchaingamer.biz/?p=40463",
+      "code": 200,
+      "status": "ok"
+    },
+    {
       "url": "https://www.blockchaingamer.biz/?p=42740",
       "code": 200,
       "status": "ok"
     },
     {
+      "url": "https://www.blockchaingamer.biz/?p=42809",
+      "code": 200,
+      "status": "ok"
+    },
+    {
       "url": "https://www.blockchaingamer.biz/?p=42884",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://www.blockchaingamer.biz/?p=5508",
       "code": 200,
       "status": "ok"
     },
@@ -3145,6 +3989,11 @@
     },
     {
       "url": "https://www.blockchaingamer.biz/features/interviews/34142/fully-onchain-games-cartridge-starknet-dev-tools-tarrence-van-as/",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://www.blockchaingamer.biz/news/16095/influence-announces-games-launch-on-starknet/",
       "code": 200,
       "status": "ok"
     },
@@ -3174,12 +4023,32 @@
       "status": "ok"
     },
     {
+      "url": "https://www.blockchaingamer.biz/news/5592/gods-unchained-successfully-raised-1-2-million-among-other-achievements/",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://www.blockchaingamer.biz/news/6510/gods-unchained-sells-over-1-million-cards-in-less-than-3-months/",
+      "code": 200,
+      "status": "ok"
+    },
+    {
       "url": "https://www.bloomberg.com/news/articles/2017-12-04/cryptokitties-quickly-becomes-most-widely-used-ethereum-app",
       "code": 403,
       "status": "refused"
     },
     {
+      "url": "https://www.btc-echo.de/news/fomo3d-lotterie-schneeballsystem-rekord-dapp-52453",
+      "code": 200,
+      "status": "ok"
+    },
+    {
       "url": "https://www.btc-echo.de/news/fomo3d-wie-ein-hacker-das-schneeballsystem-ueberlistete-56842/",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://www.cgmagonline.com/newswire/stepn-announces-public-beta-launch-of-first-move2earn-mobile-nft-gaming-platform",
       "code": 200,
       "status": "ok"
     },
@@ -3194,6 +4063,11 @@
       "status": "ok"
     },
     {
+      "url": "https://www.coindesk.com/markets/2018/07/19/these-digital-monsters-live-on-ethereum-but-theyll-fight-on-zilliqa",
+      "code": 200,
+      "status": "ok"
+    },
+    {
       "url": "https://www.coindesk.com/tech/2021/09/01/the-latest-nft-fad-is-a-text-based-fantasy-game-building-block/",
       "code": 200,
       "status": "ok"
@@ -3202,6 +4076,26 @@
       "url": "https://www.coindesk.com/web3/2022/10/07/its-lonely-in-the-metaverse-decentralands-38-daily-active-users-in-a-13b-ecosystem/",
       "code": 200,
       "status": "ok"
+    },
+    {
+      "url": "https://www.coindesk.com/web3/2023/06/06/haun-ventures-leads-10m-seed-round-for-web3-gaming-studio-argus",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://www.criptonoticias.com/comunidad/entretenimiento/usuarios-decentraland-800-token-mana",
+      "code": 403,
+      "status": "refused"
+    },
+    {
+      "url": "https://www.criptonoticias.com/mercado-valores/subasta-decentraland-diciembre-ethereum/",
+      "code": 403,
+      "status": "refused"
+    },
+    {
+      "url": "https://www.criptonoticias.com/negocios/monstruos-criptograficos-apoderan-ethereum-etheremon",
+      "code": 403,
+      "status": "refused"
     },
     {
       "url": "https://www.crowdfundinsider.com/2018/04/132607-you-can-now-race-your-cryptokitty/",
@@ -3220,6 +4114,11 @@
     },
     {
       "url": "https://www.dopewars.gg/",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://www.emchat.net/emchat/2017/12/26/etheremon-vs-cryptokitties-gaming-platform",
       "code": 200,
       "status": "ok"
     },
@@ -3249,14 +4148,24 @@
       "status": "ok"
     },
     {
+      "url": "https://www.gamedeveloper.com/press-release/introducing-ubisoft-quartz-the-first-platform-for-playable-and-energy-efficient-nfts-in-aaa-games",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://www.gamespress.com/Unstoppable-Games-Awards-Community-Grants-of-20k-for-the-Best-User-Cre",
+      "code": 200,
+      "status": "ok"
+    },
+    {
       "url": "https://www.growthepie.com/applications/lootsurvivor-provable-games",
       "code": 200,
       "status": "ok"
     },
     {
       "url": "https://www.inside.com.tw/article/13789-revelation-of-fomo3d",
-      "code": 200,
-      "status": "ok"
+      "code": 403,
+      "status": "refused"
     },
     {
       "url": "https://www.kitguru.net/?p=743254",
@@ -3284,6 +4193,46 @@
       "status": "ok"
     },
     {
+      "url": "https://www.magicblock.xyz/blog",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://www.magicblock.xyz/blog/bolt-v0-1",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://www.magicblock.xyz/blog/enable-real-time-onchain-games-and-applications",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://www.magicblock.xyz/blog/magic-incubator",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://www.magicblock.xyz/blog/session-keys",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://www.magicblock.xyz/blog/solana-unity-sdk",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://www.magicblock.xyz/blog/supersize",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://www.magicblock.xyz/blog/supersize-hackathon",
+      "code": 200,
+      "status": "ok"
+    },
+    {
       "url": "https://www.news4jax.com/business/2021/03/30/dapper-labs-creators-of-nba-top-shot-get-305m-in-funding/",
       "code": 200,
       "status": "ok"
@@ -3294,7 +4243,32 @@
       "status": "ok"
     },
     {
+      "url": "https://www.newswire.ca/news-releases/cats-invade-worlds-largest-ethereum-hackathon-651263343.html",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://www.newswire.ca/news-releases/dapper-labs-opens-nba-top-shot-beta-to-all-fans-836002108.html",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://www.nme.com/news/ubisoft-doubles-down-on-nfts-for-some-reason-3125043",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://www.nonfungible.com/news/metaverse/discovery-of-decentraland",
+      "code": 200,
+      "status": "ok"
+    },
+    {
       "url": "https://www.odaily.news/en/post/5133892",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://www.optimism.io/blog/op-in-bogota-rollup-recap",
       "code": 200,
       "status": "ok"
     },
@@ -3308,6 +4282,16 @@
       "url": "https://www.platformer.news/loot-is-a-viral-social-network-that/",
       "code": 200,
       "status": "ok"
+    },
+    {
+      "url": "https://www.pocketgamer.biz/the-sandbox-passes-2-million-registered-users-in-13-months/",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://www.publish0x.com/news-from-the-scenes/influence-asteroid-sale-sep-12th-xrnxjnj",
+      "code": 403,
+      "status": "refused"
     },
     {
       "url": "https://www.samoaobserver.ws/category/article/52530",
@@ -3340,12 +4324,22 @@
       "status": "ok"
     },
     {
+      "url": "https://www.starknet.io/blog/lessons-from-the-dojo-a-striking-conversation-with-cartridge/",
+      "code": 200,
+      "status": "ok"
+    },
+    {
       "url": "https://www.starknet.io/blog/onchain-gaming/loot-survivor-and-influence-fully-onchain-games-on-starknet/",
       "code": 200,
       "status": "ok"
     },
     {
       "url": "https://www.super-fren-pet.xyz/",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://www.techflowpost.com/en-US/article/14596",
       "code": 200,
       "status": "ok"
     },
@@ -3370,6 +4364,11 @@
       "status": "refused"
     },
     {
+      "url": "https://www.theblock.co/news/deals/2024-08-06-web3-game-studio-curio-raises-5-7-million-in-seed-funding-309587",
+      "code": 403,
+      "status": "refused"
+    },
+    {
       "url": "https://www.theblock.co/news/regulation/2022-05-29-stepn-to-block-mainland-china-users-in-compliance-with-regulators-scmp-says-149289",
       "code": 403,
       "status": "refused"
@@ -3385,6 +4384,11 @@
       "status": "refused"
     },
     {
+      "url": "https://www.theblock.co/post/136691/avalanche-subnet-incentive-program",
+      "code": 403,
+      "status": "refused"
+    },
+    {
       "url": "https://www.theblock.co/post/154590/axie-infinitys-ronin-ethereum-bridge-officially-reopens-following-hack",
       "code": 403,
       "status": "refused"
@@ -3395,12 +4399,27 @@
       "status": "refused"
     },
     {
+      "url": "https://www.theblock.co/post/194026/illuvium-releases-overworld-as-it-attempts-to-bring-aaa-quality-to-web3-gaming",
+      "code": 403,
+      "status": "refused"
+    },
+    {
+      "url": "https://www.theblock.co/post/209815/bain-capital-crypto-backs-curio-research",
+      "code": 200,
+      "status": "ok"
+    },
+    {
       "url": "https://www.theblock.co/post/294058/crypto-video-game-pixels-says-it-hit-1-million-daily-active-users",
       "code": 403,
       "status": "refused"
     },
     {
       "url": "https://www.theblock.co/post/298286/dapper-labs-settles-nba-top-shot-moments-lawsuit-for-4-million",
+      "code": 403,
+      "status": "refused"
+    },
+    {
+      "url": "https://www.theblock.co/post/304606/hamster-kombat-founders-reveal-games-origins-plans-for-a-second-airdrop",
       "code": 403,
       "status": "refused"
     },
@@ -3435,6 +4454,11 @@
       "status": "ok"
     },
     {
+      "url": "https://www.thewrap.com/nft-market-surges-2100-to-2-billion-in-q1-sales/",
+      "code": 200,
+      "status": "ok"
+    },
+    {
       "url": "https://www.trysignalbase.com/news/acquisitions/playmint-acquired-by-cartridge-acquisition",
       "code": 200,
       "status": "ok"
@@ -3450,7 +4474,22 @@
       "status": "ok"
     },
     {
+      "url": "https://www.videogameschronicle.com/news/ubisoft-says-more-of-its-games-will-be-getting-nfts-despite-the-initial-backlash",
+      "code": 200,
+      "status": "ok"
+    },
+    {
       "url": "https://x.com/latticexyz/status/2044103611072835744",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://x.com/LootRealms/status/1688581348196335616",
+      "code": 200,
+      "status": "ok"
+    },
+    {
+      "url": "https://x.com/LootRealms/status/1699041247350898936",
       "code": 200,
       "status": "ok"
     },

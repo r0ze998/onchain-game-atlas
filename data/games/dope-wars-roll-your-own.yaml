@@ -8,7 +8,7 @@ links:
   website: https://dopewars.gg/
   play: https://rollyourown.preview.cartridge.gg/
   x: https://x.com/TheDopeWars
-  github: https://github.com/cartridge-gg/rollyourown
+  github: {url: "https://github.com/cartridge-gg/rollyourown", status: defunct}
 chains: [Ethereum mainnet（DOPE NFT、2021）, Optimism（Hustler・Gear）, Starknet Goerli（Cairo 0 版 RYO の展開記録）, Starknet（Dojo 版）]
 team: "Dope Wars DAO / Cartridge（Tarrence van As ほか）。Cairo 0 版は perama-v が主に執筆し Tarrence van As・guiltygyoza らが参加"
 summary: >-
