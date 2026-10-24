@@ -171,6 +171,7 @@ unknowns:
   - "資金源（助成金の有無と額）。"
   - "p/war の開催実績（日時・参加者）。"
 contradictions:
+  - {t: "Dojo Game Jam #4 の懸賞部門の総額: dojoengine/game-jams の gj4/README.md は「$20K General + $36.5K Bounty Tracks」、itch.io のジャムページは「$20K General + $16.5K Bounty Tracks」と表示。", s: [src-pixelaw-dojo-gj4, src-pixelaw-itch-gj4]}
   - {t: "ETHGlobal Paris の時期: shora の記事は 2023-07 と記載、ChainCatcher は 2023-09 と記載。", s: [src-pixelaw-shora-vision, src-pixelaw-chaincatcher]}
   - {t: "版表記: core の README は「PixeLAW Core 0.8.0-dev / Dojo 1.8.5」と書くが、contracts/Scarb.toml の package version は 0.7.9、依存は dojo = \"1.8.0\"。", s: [src-pixelaw-core-repo]}
   - {t: "Book の相互運用ページ（2024 年時点）のフックは戻り値なしの型だが、現行 core の on_pre_update は Option<PixelUpdate> を返し、None で拒否する。仕様が変わったと見られる。", s: [src-pixelaw-book-interop, src-pixelaw-core-pixel]}
@@ -189,13 +190,13 @@ acquisition:
     - {phase: pre, date: "2023-09-12", t: "創設者 shora の構想記事が、2023-11 のテストネット展開と Devconnect（イスタンブール）での最初のデモを予告し、最初に遊びたい人を会場に招いた。Discord の「wakusei」チャンネルでの議論と、助成金・寄付を募った。", k: claim, who: "shora（PixeLAW）", s: [src-pixelaw-shora-vision], q: "Anyone who wants to be among the first to play PixeLAW is warmly invited to come to Istanbul."}
     - {phase: launch, date: "2023-11", t: "現行の core・examples リポジトリが作られ、非公開テストプレイの 1 週間で新作 3 本が作られ公開されたと創設者は述べた。", k: claim, who: "shora（PixeLAW）", s: [src-pixelaw-core-repo, src-pixelaw-shora-easiest]}
     - {phase: launch, date: "2023-12-14", t: "「最も簡単にフルオンチェーンゲームを作る方法」として環境構築・デプロイ各約 1 分を訴え、Dojo のホリデー・ゲームジャム（2023-12-15 開始）への参加とチーム探しを Discord に誘導した。PixeLAW はこのジャムに 250 ドルの賞を出し、応募作に PixeLAW2048 がある。", k: fact, s: [src-pixelaw-shora-easiest, src-pixelaw-itch-jam]}
-    - {phase: growth, date: "2024-04-05", t: "Dojo Game Jam #4（72 時間、賞金総額 2 万ドル＋懸賞部門 3.65 万ドル）に PixeLAW 部門（1,000 ドル）を出し、既存アプリの相互運用化か、既存アプリと相互作用する新アプリを課題にした。", k: fact, s: [src-pixelaw-dojo-gj4]}
+    - {phase: growth, date: "2024-04-05", t: "Dojo Game Jam #4（72 時間、賞金総額 2 万ドル＋懸賞部門 3.65 万ドル。itch.io のジャムページは懸賞部門を 1.65 万ドルと表示）に PixeLAW 部門（1,000 ドル）を出し、既存アプリの相互運用化か、既存アプリと相互作用する新アプリを課題にした。", k: fact, s: [src-pixelaw-dojo-gj4]}
     - {phase: growth, date: "2024-06", t: "Starknet Foundation の Propulsion Program 2024（総額 2,000 万ドル、ゲームのユーザー手数料を補填）の配分先一覧に PixeLAW が載った。発表は 2024-06-18 と Realms 側のニュースレターは記す。", k: fact, s: [src-pixelaw-propulsion-2024, src-pixelaw-herald-propulsion]}
     - {phase: growth, t: "ETHGlobal StarkHack で第三者が PixeLAW 上のアプリ p/dash を作った（ページに日付なし）。", k: fact, s: [src-pixelaw-pdash]}
     - {phase: growth, date: "2025-06", t: "「ユーザーと開発者に魅力的な体験を作るため PixeLAW でゲームイベントを開く」ことを目的とする p_war リポジトリが更新された。開催実績は確認できなかった。", k: fact, s: [src-pixelaw-pwar]}
   channels:
     - {id: hackathon, t: "ETHGlobal Paris で生まれ、Dojo のゲームジャム（Holiday Game Jam 3、Game Jam #4）に懸賞部門を出し、StarkHack でも第三者アプリが作られた。", k: fact, s: [src-pixelaw-ethglobal, src-pixelaw-itch-jam, src-pixelaw-dojo-gj4, src-pixelaw-pdash]}
-    - {id: existing-community, t: "Dojo・Starknet の AW 界隈（「dojo の文化に倣う」と構想記事が述べる）から開発者を集め、Dojo のジャム参加者を自分の部門に誘った。", k: fact, s: [src-pixelaw-shora-vision, src-pixelaw-shora-easiest, src-pixelaw-dojo-gj4]}
+    - {id: existing-community, t: "Dojo（Starknet）の上に作り、構想記事・開発記事で Dojo のジャムへの参加を呼びかけ、Dojo のジャム参加者を自分の懸賞部門に誘った（Dojo 圏から実際に何人が来たかは不明）。", k: fact, s: [src-pixelaw-shora-vision, src-pixelaw-shora-easiest, src-pixelaw-dojo-gj4]}
     - {id: community-server, t: "2023-07 に Discord を開き、設計議論（wakusei チャンネル）とジャムのチーム探しの場にした。", k: fact, s: [src-pixelaw-starknet-roundup76, src-pixelaw-shora-vision, src-pixelaw-shora-easiest]}
     - {id: crypto-social, t: "Starknet 界隈の X スペース（Stark Cafe）に出演し、X アカウントのフォローを呼びかけた。", k: fact, s: [src-pixelaw-starknet-roundup76, src-pixelaw-shora-vision]}
     - {id: content-research, t: "創設者の Substack で AW の構想（rules for rules）と開発の速さを説明し、Book でアプリの作り方を公開した。", k: fact, s: [src-pixelaw-shora-vision, src-pixelaw-shora-easiest, src-pixelaw-book]}
@@ -213,6 +214,7 @@ acquisition:
     - {t: "ハッカソンの受賞や「1 週間で新作 3 本」は審査員・開発者側の評価で、遊ぶ人が集まったことの証拠ではない。3 本の作者が中核メンバーだった可能性も排除できない（作品名・作者は非公開）。", k: analysis, s: [src-pixelaw-shora-easiest, src-pixelaw-examples]}
     - {t: "Propulsion の配分先に載ったことは、手数料を生む利用が後に生じたことを意味しない。補填は利用量に比例するため、受給額が分からない限り利用の証拠にならない。", k: analysis, s: [src-pixelaw-propulsion-2024, src-pixelaw-propulsion-v2]}
     - {t: "外部作品が少ないのは集客施策ではなく設計の問題とも説明できる: 既存アプリの多くが他アプリからの書き込みを既定で拒否し、相互作用には相手アプリ側の改修が要るため、72 時間のジャムで「既存アプリとの相互運用」を課題にしても応じにくい。", k: analysis, s: [src-pixelaw-paint-app, src-pixelaw-examples, src-pixelaw-dojo-gj4]}
+    - {t: "PixeLAW 部門に応募が見当たらないのは PixeLAW 固有の問題とは限らない。Game Jam #4 は賞金総額 3.65〜5.65 万ドルに対し、itch.io の提出は 3 件、game-jams リポジトリの gj4 の提出ファイルは 10 件で、ジャム全体の参加者が少なかった。Dojo 圏の開発者の母数が小さく、どの懸賞部門にも応募が集まりにくかったという別の説明がありうる。", k: analysis, s: [src-pixelaw-itch-gj4, src-pixelaw-dojo-gj4]}
   lessons:
     - {t: "汎用エンジンのジャムに「自分の世界の上で作る」部門を出す: エンジンの参加者をそのまま自分の上に誘導でき、費用は数百〜千ドルで済む。効く条件は既存アプリを改修せずに乗れる拡張点があり、72 時間で動くものが作れること。破綻条件は相互作用が相手アプリ側の許可リストに依存する場合で、懸賞を出しても応募が出ない（Game Jam #4 では確認できなかった）。", k: analysis}
     - {t: "開発者向けの速さ（環境構築・デプロイ約 1 分）を訴える集客は、作った後に遊ぶ人がいる場（常時稼働の公開世界とイベント）があってはじめて残る。破綻条件は公開世界の運営（シーケンサ・キュー実行者）が止まる場合で、作り手が成果を見せる場を失う。", k: analysis}
@@ -253,6 +255,7 @@ sources:
   - {id: src-pixelaw-ryo-cairo0, title: "dopedao/RYO (Roll Your Own, Cairo 0)", url: "https://github.com/dopedao/RYO", publisher: "GitHub", type: code, primary: true, published: "2022-04", accessed: "2026-10-23", access: fetched, lang: en, note: "git clone で README と system_architecture.md を確認。ModuleController・Arbiter によるモジュール間の読み書き許可"}
   - {id: src-pixelaw-starknet-roundup76, title: "Starknet roundup #76", url: "https://starknetresearch.substack.com/p/starknet-roundup-76", publisher: "Starknet research hub (Substack)", author: "Lyskey", type: news, primary: false, published: "2023-07-31", accessed: "2026-10-24", access: fetched, lang: en, note: "Stark Cafe の X スペース「Shaping the future of AW - With PixeLAW」、PixeLAW の Discord 開設"}
   - {id: src-pixelaw-dojo-gj4, title: "dojoengine/game-jams gj4/README.md (Dojo Game Jam #4)", url: "https://github.com/dojoengine/game-jams/blob/main/gj4/README.md", publisher: "GitHub", type: official-docs, primary: true, published: "2024-04", accessed: "2026-10-24", access: fetched, lang: en, note: "git clone で確認。2024-04-05〜07、$20K General + $36.5K Bounty、PixeLAW 部門 1,000 ドル。gj4〜gj8 の提出ファイルに PixeLAW への言及なし（itch.io のジャムページは 2024-04-05〜08 と表示）"}
+  - {id: src-pixelaw-itch-gj4, title: "Dojo Game Jam #4 (itch.io)", url: "https://itch.io/jam/dojo-game-jam-4", publisher: itch.io, type: news, primary: true, accessed: "2026-10-24", access: fetched, lang: en, note: "検証役が追加。2024-04-05 04:00〜04-08 03:59、「$20K General + $16.5K Bounty Tracks!」、提出 3 件（Degen Battleground・AbyssX・moving-mountains-with-yu、いずれも PixeLAW への言及なし）"}
   - {id: src-pixelaw-propulsion-2024, title: "Allocation Announcement | Propulsion Program 2024", url: "https://propulsion.starknet.io/", publisher: "Starknet Foundation", type: official-docs, primary: true, published: "2024", accessed: "2026-10-24", access: fetched, lang: en, note: "「A $20M initiative」、配分先のゲーム一覧に PixeLAW（説明文: programmable pixel canvas）。個別の額・発表日の記載なし"}
   - {id: src-pixelaw-propulsion-v2, title: "Propulsion Program | Starknet Foundation", url: "https://propulsion.starknet.org/", publisher: "Starknet Foundation", type: official-docs, primary: true, accessed: "2026-10-24", access: fetched, lang: en, note: "V2 の説明（利用者の手数料に応じて月ごとに最大 100 万ドルを補填）。参加プロジェクト一覧の Gaming Round 1 に PixeLAW"}
   - {id: src-pixelaw-herald-propulsion, title: "Summer Update: Realms Leveling Up", url: "https://thelootherald.substack.com/p/summer-update-realms-leveling-up", publisher: "The Herald (Substack)", author: "O_Excess", type: news, primary: false, published: "2024-06-27", accessed: "2026-10-24", access: fetched, lang: en, note: "Propulsion Pilot Program は 6/18 発表、20 件を選び各最大 100 万ドルをメインネットのガス使用量に応じて"}

@@ -112,13 +112,13 @@ acquisition:
     - {phase: pre, date: "2023-02-27", t: "MagicBlock 製の Solana SDK for Unity が Unity Asset Store の「検証済み分散技術」カテゴリに載った。MagicBlock は、この SDK がすでに数十のゲームスタジオに使われていると主張した。", k: claim, who: "MagicBlock", s: [src-mb-blog-unity-sdk], q: "The SDK is already being used by dozens of game studios"}
     - {phase: pre, date: "2023-06-13", t: "Gum と組んで Session Keys を Unity SDK に統合したと発表し、同じ記事で「Solana 初のゲームジャム」Speedrun の開催と、Gum による Session Keys 統合賞を告知した。", k: fact, s: [src-mb-blog-session-keys]}
     - {phase: pre, date: "2023-07-26", t: "第 1 回 Solana Speedrun（オンライン、2023-07-26〜30）を開催。完全オンチェーンと Solana 統合の 2 部門で、賞金は総額 2.5 万ドル相当。Superteam のブログによれば主催は MagicBlock と LamportDAO、提出は 22 件。", k: fact, s: [src-mb-luma-speedrun1, src-mb-itch-speedrun1, src-mb-superteam-speedrun]}
-    - {phase: pre, date: "2023-11-05", t: "論文「Ephemeral Rollups are All you Need」を arXiv に公開し、フルオンチェーンゲームの拡張という問題設定で技術的な関心を集めた。", k: fact, s: [src-mb-arxiv]}
+    - {phase: pre, date: "2023-11-05", t: "論文「Ephemeral Rollups are All you Need」を arXiv に公開し、フルオンチェーンゲームの拡張を問題設定とした（論文が開発者を呼んだことを示す資料はない）。", k: fact, s: [src-mb-arxiv]}
     - {phase: launch, date: "2024-03-01", t: "BOLT v0.1（Anchor を拡張した CLI と ECS）を公開し、ブログでチュートリアルを出した。", k: fact, s: [src-mb-blog-bolt-v01]}
-    - {phase: growth, date: "2024-06-29", t: "第 3 回 Speedrun（2024-06-29〜07-05、テーマ「Last Forever」）。メイン部門の賞金 1 万 USDC を得るには公式サイトの「unstoppable games」の作り方に沿う必要があり、MagicBlock は特別部門としてアクセラレーター枠を出した。itch.io の提出は 29 件で、1 位は Echoes of Eldoria。", k: fact, s: [src-mb-speedrun-site, src-mb-itch-speedrun3, src-mb-colosseum-gamejam]}
+    - {phase: growth, date: "2024-06-29", t: "第 3 回 Speedrun（2024-06-29〜07-05、テーマ「Last Forever」）。メイン部門の賞金 1 万 USDC を得るには、公式サイトがリンクする MagicBlock のドキュメント（docs.magicblock.gg）の「unstoppable games」の作り方に沿う必要があり、MagicBlock は特別部門としてアクセラレーター枠を出した。itch.io の提出は 29 件で、1 位は Echoes of Eldoria。", k: fact, s: [src-mb-speedrun-site, src-mb-itch-speedrun3, src-mb-colosseum-gamejam]}
     - {phase: growth, date: "2024-09-17", t: "a16z CSX（2024 春期）に参加したうえでプレシード総額 300 万ドルを発表し、資金の用途に開発者アウトリーチを挙げた。", k: fact, s: [src-mb-blog-preseed]}
     - {phase: growth, date: "2024-10-04", t: "Supersize（agar.io 風の実マネー対戦）を BOLT と Ephemeral Rollups の採用事例として紹介した。Supersize は 2024-11-12 発表の Solana Radar ハッカソン（MagicBlock もスポンサー）でゲーム部門 1 位・3 万 USDC を得た。", k: fact, s: [src-mb-blog-supersize, src-mb-radar-winners]}
     - {phase: growth, date: "2025-03-27", t: "Supersize の創業者インタビューを載せ、同時に自前の Real-Time Hackathon（4/1〜5/16、目立った 1 件に 1 万ドルの助成、Colosseum への足がかり）を告知した。4 部門のうちゲームは 1 部門で、残りは取引系（CLOB・オプション・シグナル）だった。", k: fact, s: [src-mb-blog-supersize-hackathon, src-mb-luma-realtime]}
-    - {phase: growth, date: "2025-09-16", t: "Magic Incubator の第 1 期（2025-09-25〜12-10、ハッカソン参加者の受け皿、ドバイのハッカーハウス）を募集した。参照日の公式ハッカソンサイトでは週末ハッカソン Solana Blitz（賞金 1,000 USDC、ER の統合が応募条件）と、後継の Forge プログラムを案内している。", k: fact, s: [src-mb-blog-incubator, src-mb-blitz-site]}
+    - {phase: growth, date: "2025-09-16", t: "Magic Incubator の第 1 期（2025-09-25〜12-10、ハッカソン参加者の受け皿、ドバイのハッカーハウス）を募集した。参照日の公式ハッカソンサイトでは短期ハッカソン Solana Blitz（V7 は 8/3〜9、ページは week-long とも weekend とも書く。賞金 1,000 USDC、ER の統合が応募条件）と、後継の Forge プログラムを案内している。", k: fact, s: [src-mb-blog-incubator, src-mb-blitz-site]}
   channels:
     - {id: existing-community, t: "MagicBlock が保守する Solana 向け Unity SDK の利用者（同社は「数十のスタジオ」と主張）に、Session Keys などの機能追加を通じて自社の後続製品を届けた。", k: claim, who: "MagicBlock", s: [src-mb-blog-unity-sdk, src-mb-blog-session-keys]}
     - {id: platform-distribution, t: "Unity Asset Store の検証済みカテゴリに SDK が掲載され、Unity のゲーム開発者が Solana 連携を見つける経路になった。", k: fact, s: [src-mb-blog-unity-sdk]}
@@ -126,7 +126,7 @@ acquisition:
     - {id: builder-grants, t: "Speedrun 3 の特別部門としてアクセラレーター枠、Real-Time Hackathon で 1 万ドルの助成、Magic Incubator でメンタリング・資金調達支援・ハッカーハウスを提供した。", k: fact, s: [src-mb-speedrun-site, src-mb-luma-realtime, src-mb-blog-incubator]}
     - {id: content-research, t: "arXiv 論文、BOLT のチュートリアル、ブログでの事例紹介（Supersize など）で技術的な関心層に訴えた。", k: fact, s: [src-mb-arxiv, src-mb-blog-bolt-v01, src-mb-blog-supersize]}
   cost:
-    - {t: "第 1 回 Speedrun の賞金 2.5 万ドルの出し手は出典に明記されていない。一部は Cubik のマッチングプール（記事時点で 1,000 USDC＋100 万 RAIN、計 8,000 ドル相当）で管理された。", k: fact, s: [src-mb-superteam-speedrun]}
+    - {t: "第 1 回 Speedrun の賞金 2.5 万ドルの出し手は出典に明記されていない。賞金の一部と提出物は Cubik で管理され、コミュニティからの寄付には記事時点で 8,000 ドル相当（1,000 USDC＋100 万 RAIN）のプールからマッチングが付いた（このプールが 2.5 万ドルに含まれるかは記事から判断できない）。", k: fact, s: [src-mb-superteam-speedrun]}
     - {t: "第 3 回 Speedrun のメイン賞金は 1 万 USDC で、特別部門は Gameshift・Metaplex・Sonic・Solana Foundation など多数のスポンサーが出した。Radar のゲーム部門賞金 3 万 USDC は Colosseum・Solana Foundation 主催のハッカソンの賞金で、MagicBlock 単独の負担ではない。", k: fact, s: [src-mb-speedrun-site, src-mb-radar-winners]}
     - {t: "会社側の原資は VC 資金: 2024-09 のプレシード総額 300 万ドル（a16z CSX）と 2025-04 の 750 万ドルのシード。", k: fact, s: [src-mb-blog-preseed, src-mb-pulse2]}
   after:
@@ -134,8 +134,9 @@ acquisition:
     - {t: "ゲーム向け ECS の BOLT は 2026-05 に非推奨・保守停止となった。BOLT で集めた初期のゲーム開発者がその後どう移行したかは不明。", k: fact, s: [src-mb-bolt-repo]}
     - {t: "Supersize は創業者インタビューで、ハッカソン終了頃にメインネットへ出し初期ユーザーが試したと述べたが、利用者数は示していない。", k: claim, who: "Lewis Arnsten（Supersize）", s: [src-mb-blog-supersize-hackathon]}
   counter:
-    - {t: "Speedrun は「Solana 統合」部門を含み、第 3 回のメインも「unstoppable games」であることが条件で MagicBlock の利用は必須ではなかった。ジャムの参加者数を MagicBlock の開発者獲得とみなすことはできない。", k: analysis, s: [src-mb-luma-speedrun1, src-mb-speedrun-site]}
-    - {t: "Supersize の創業者はハッカソン前から MagicBlock を選び devnet で MVP を動かしていたと述べており、ハッカソンは獲得の場ではなく検証と露出の場だった。Radar は応募 1,359 件・参加 1 万人超の Solana 全体のハッカソンで、その集客は MagicBlock の施策ではない。", k: analysis, s: [src-mb-blog-supersize-hackathon, src-mb-radar-winners]}
+    - {t: "Speedrun は「Solana 統合」部門を含み、第 3 回のメインは MagicBlock のドキュメントにある「unstoppable games」の作り方に沿うことが条件だったが、リンク先は参照日に現行ドキュメントへ置き換わっており、MagicBlock の技術の利用が必須だったかは確認できない。ジャムの参加者数を MagicBlock の開発者獲得とみなすことはできない。", k: analysis, s: [src-mb-luma-speedrun1, src-mb-speedrun-site]}
+    - {t: "Supersize の創業者はハッカソン開始前に作るものを決め、devnet で MVP を動かしていたと述べており（MagicBlock の採用時期は記事に明記がないが、MagicBlock は Radar の結果発表前の 2024-10-04 に採用事例として紹介済み）、ハッカソンは獲得の場ではなく検証と露出の場だった。Radar は応募 1,359 件・参加 1 万人超の Solana 全体のハッカソンで、その集客は MagicBlock の施策ではない。", k: analysis, s: [src-mb-blog-supersize-hackathon, src-mb-radar-winners]}
+    - {t: "第 3 回 Speedrun では特別部門の賞金（Gameshift 4 万ドル相当、Metaplex 5 万 MPLX、Sonic 6,000 USDC、Solana Foundation 1,700 USDC）がメイン部門の 1 万 USDC を上回り、MagicBlock 自身の特別部門はアクセラレーター枠 1 件だった。参加者を引き付けたのは他社の賞金だった可能性があり、ジャム参加を MagicBlock の獲得施策の効果とみなすのは難しい。", k: analysis, s: [src-mb-speedrun-site, src-mb-itch-speedrun3]}
     - {t: "「Unity SDK が数十のスタジオに使われている」は運営の主張で、Unity SDK の利用者が ER・BOLT の利用者になった証拠は見つからなかった。", k: analysis, s: [src-mb-blog-unity-sdk]}
   lessons:
     - {t: "既存エンジン向け SDK を先に配る: Unity のような主流エンジンの SDK を無償で保守すると、チェーンに来たばかりのゲーム開発者の名簿と信頼が先にでき、後続の基盤製品の告知先になる。効く条件は対象チェーンに公式の同等ツールがないこと。破綻条件は後続製品が別のプログラミングモデル（BOLT・委任）を要求する場合で、SDK 利用者がそのまま移るとは限らない。", k: analysis}

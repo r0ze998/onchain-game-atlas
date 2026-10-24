@@ -35,3 +35,18 @@
 
 ## 総合判定
 修正済み — 数値・日付・RORS・収益の捏造や取り違えはなく、Ronin RPC の自前計測も完全に再現できた。引用符の逐語性 2 件、自己申告の時制 1 件、出典 note の再現性・性質の補足を修正し、反証 1 件・矛盾 2 件を追加。
+
+## ゼロイチ節の検証（2026-10-24）
+- 確認した出典: 14 / 16（WebFetch で再取得。src-pixels-wp-pixel・src-pixels-wp-lessons は再取得せず。供給 50 億は Decrypt で照合）
+- 直したこと:
+  - steps 2021: 「オンラインイベント事業からの転換」を CEO の発言扱い → CEO の発言は「Axie を見て会社ごと方向転換」まで。事業転換の中身と開始年は Decrypt の地の文と明記
+  - steps 2023-10-31: 「Ronin 側の Gacha Quest」 → Ronin ブログが告知、参加は Moku のアカウント経由。景品の個数（Farm Land 10・Genesis Pet 3・Mystic Axie 1・通常 Axie 500）を原文どおりに
+  - channels platform-distribution: 「Ronin 主催」 → 「Ronin のブログが告知（Moku 経由）」（主催者は原文に書かれていない）
+  - steps 2023-11: DAUW と断定 → BG 記事が見出し DAUW・本文 daily active users と揺れることを明記。VIP 11,247 は CEO の X 投稿（11/19）と出どころを明記
+  - steps 2024-05: 「同時期に 1 週間で 75 万 BAN」 → Pixels の X 発表を Cointelegraph が伝えたもので、その 1 週間の時期は不明
+  - channels token-incentive: 「参加の誘因になった」（因果を fact） → 「誘因として置いた」
+  - cost: 「ゲーム内報酬は月 2,000 万 PIXEL の報酬プールから出る」 → 2025 年の改定（Key Changes の Phase 1）の値で、獲得期（2023〜24）の値ではないと明記
+  - after: 「移転と報酬で集まった層の大部分は残らなかった」（fact） → analysis に分け、BG も急落の大半をボット除去と「推定」しているだけと明記
+- 追加した反証: Cointelegraph（2024-05-27）の記事で Eldarune CEO が約 70% をボットと推定し、ChainArgos が PIXEL 受取者の伸びは「滑らかすぎる」と指摘（claim、第三者推定）
+- 確認できなかったこと: Gacha Quest の景品を誰が負担したか（原文に記載なし）、75 万 BAN の週がいつか、Pixel Beasts・Play-to-Mint の一次資料（eGamers の 2021-11-09 は出典なしのまま claim）
+- 判定: 修正済み（捏造はない。主催者の書き過ぎ、時期の取り違え 1 件、因果を fact にしていた 2 件を直した）

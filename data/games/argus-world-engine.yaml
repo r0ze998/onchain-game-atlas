@@ -65,7 +65,7 @@ compare:
   information: {t: "未確認（秘匿情報の扱いはゲーム実装次第）。", k: unknown}
   persistence: {t: "ゲームシャードはゲーム開発者が運営するプロセスで、運営停止後に第三者が同じ状態で継続できるかは未確認。", k: unknown}
   extensibility: {t: "開発者向けのプラグイン（data, lobby, physics2d）とクライアント SDK。プレイヤーによる許可不要拡張は設計目標として確認できなかった。第三者解説は「Intergame」として出版者・市場・モッダー間の互換性を掲げると記す。", k: fact, s: [src-argus-repo, src-argus-4pillars]}
-  money_flow: {t: "未確認。公式サイトは投資家として Haun・Robot Ventures・Dispersion Capital・Alchemy・Anagram のロゴと個人投資家を挙げるが額は書かれていない。2023-06-06 に 1,000 万ドルのシード（Haun Ventures 主導）が報じられた（CoinDesk、取得済み）。ゲームの収益モデルや開発者からの手数料の有無は未確認。", k: unknown, s: [src-argus-argus-site, src-argus-coindesk-seed]}
+  money_flow: {t: "収益の流れは未確認。公式サイトは投資家として Haun・Robot Ventures・Dispersion Capital・Alchemy・Anagram のロゴと個人投資家を挙げるが額は書かれていない。2023-06-06 に 1,000 万ドルのシード（Haun Ventures 主導）が報じられた（CoinDesk、取得済み）。ゲームの収益モデルや開発者からの手数料の有無は未確認。", k: unknown, s: [src-argus-argus-site, src-argus-coindesk-seed]}
   entry_barrier: {t: "開発者は Go と ECS、ゲームシャードの運用を扱う必要がある。プレイヤー側の障壁はゲーム次第。", k: analysis, s: [src-argus-repo]}
 
 concepts: [c-own-chain, c-ecs-engine, c-onchain-rules]
@@ -111,7 +111,7 @@ acquisition:
     - {phase: pre, date: "2022-10-06", t: "創業者 Scott Sunarto が Celestia の Modular Fellows 第 1 期に選ばれた（Argus Labs は「crypto gaming skunkworks」と紹介）。期間 3 か月・月額 3,000 ドルの奨励金とエンジニアリング支援がある制度で、World Engine の名前はまだ出ていない。", k: fact, s: [src-argus-celestia-fellows]}
     - {phase: pre, date: "2023-05", t: "World Engine のシャード構成を DBA Research Day で初めて公開講演した（「How I Learned to Stop Worrying & Love Execution Sharding」）。", k: fact, s: [src-argus-blog-launch, src-argus-blog-intro]}
     - {phase: pre, date: "2023-06-06", t: "1,000 万ドルのシード（Haun Ventures 主導）の発表と同日に紹介記事を出し、少数のチームを選んでプライベートベータに受け入れると告知した。ベータ参加者にはコアチームとの直接のサポート窓口（技術・ゲームデザイン・GTM）を約束した。", k: fact, s: [src-argus-blog-intro, src-argus-coindesk-seed], q: "we are accepting a select few teams to the World Engine private beta to give it a spin."}
-    - {phase: pre, date: "2023-10-26", t: "Four Pillars は自ら Interchain Hackathon で starter-game-template をフォークし、Cardinal・Nakama で GPT-4 を使う多人数ビジュアルノベルを作った事例を書き、World Engine を使って開発中のゲームは約 3 本と見られると記した。", k: fact, s: [src-argus-4pillars]}
+    - {phase: pre, date: "2023-10-26", t: "Four Pillars は自ら Interchain Hackathon で starter-game-template をフォークし、Cardinal・Nakama で GPT-4 を使う多人数ビジュアルノベルを作った事例を書き、Argus のサイトの記載として World Engine を使って開発中のゲームは「about three」と記した（外部スタジオの採用数ではない）。", k: fact, s: [src-argus-4pillars]}
     - {phase: launch, date: "2023-12-05", t: "Argus の Dark Frontier（Dark Forest に着想を得た宇宙征服 MMORTS）がゲームキーの配布を予定した（同日の第三者ニュースレター。登録はサイト経由、当時の X フォロワーは 1,899）。", k: fact, s: [src-argus-bolt-radar]}
     - {phase: launch, date: "2023-12", t: "Dark Frontier は「World Engine Devnet で動く最初の本番ゲーム」として 2 週間の最初のプレイテストを行い、上位 10 人に約 7,500 ドルの賞金プールを配った（2023-12-26 の第三者ニュースレター）。同時期に創業者が 0xResearch ポッドキャストで World Engine と Dark Frontier を説明した。", k: fact, s: [src-argus-vamient-aw5, src-argus-0xresearch]}
     - {phase: launch, date: "2024-02-29", t: "「Now Live」としてオープンソース化を発表し、Quickstart で 15 分以内に始められると述べた。Dark Frontier を稼働実績として挙げ、技術・資金・ネットワーク面で支援するビルダープログラムを数日内に発表すると予告した。", k: fact, s: [src-argus-blog-launch]}
@@ -134,6 +134,7 @@ acquisition:
   counter:
     - {t: "World Engine の最初の本格的な利用者は Argus 自身であり、「エンジンが外部開発者を集めた」証拠ではない。紹介記事自身が Argus を「ゲーム開発・パブリッシャー」と位置づけ、ツール企業ではないと述べている。", k: analysis, s: [src-argus-blog-intro, src-argus-4pillars]}
     - {t: "Dark Frontier の初期参加は、Dark Forest 系の既存の関心層と賞金プールに支えられた可能性があり、エンジンの性能が人を呼んだとは切り分けられない。", k: analysis, s: [src-argus-vamient-aw5, src-argus-bolt-radar]}
+    - {t: "Dark Frontier の README の「70 万件超の取引」は期間も人数も示さない取引件数で、上位 10 人に賞金が出る 2 週間のプレイテストの最中に上位を狙う少数のプレイヤーが多数の取引を送った場合でも同じ数字になり得る。エンジンの稼働実績にはなっても、集まったプレイヤーの規模の根拠にはならない。", k: analysis, s: [src-argus-df-repo, src-argus-vamient-aw5]}
     - {t: "Four Pillars の事例はリサーチ企業による独立の実験で、本人たちも最適な使い方ではないかもしれないと述べており、スタジオの採用例とは言えない。", k: analysis, s: [src-argus-4pillars]}
   lessons:
     - {t: "自社タイトルを先にエンジンへ載せる（dogfooding）: エンジンの信用を「本番で何件処理したか」で示せ、ゲームキー配布と賞金で負荷試験の参加者も集められる。効く条件は自社タイトルに既存の関心層（ここでは Dark Forest 系）がいること。破綻条件は自社タイトルが止まったとき、エンジン側に外部の稼働例が残らず実績の根拠が古くなること。", k: analysis}

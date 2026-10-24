@@ -117,7 +117,7 @@ acquisition:
   counter:
     - {t: "500〜1,000% の APR は流動性を集める一方、報酬目的の資金は利回りが下がれば離れる。TVL の頂点（2022-01）と減少は暗号資産市場全体の転換とも重なり、ゲーム設計による定着とは区別できない。", k: analysis, s: [src-defi-kingdoms-dreamer-2021, src-defi-kingdoms-llama]}
     - {t: "Discord・X のフォロワー数や「アクティブユーザー」は第三者の記事に依存し、ボットや多重アカウントを除いた人数ではない。", k: analysis, s: [src-defi-kingdoms-0xgregh, src-defi-kingdoms-jpags-2021-11]}
-    - {t: "TVL の伸びは利用者の伸びと同じではない。DFK の流動性ペアの多くは JEWEL を含むため、ドル建て TVL は JEWEL 価格に連動する。CoinGecko の JEWEL 最高値（22.52 ドル）は 2022-01-05 で、TVL の頂点（2022-01-14）の 9 日前にあたり、頂点前後の TVL の増減の一部は価格効果と見られる。", k: analysis, s: [src-defi-kingdoms-coingecko-jewel, src-defi-kingdoms-llama]}
+    - {t: "TVL の伸びは利用者の伸びと同じではない。ドル建て TVL は預けられたトークンの価格で動き、CoinGecko の JEWEL 最高値（22.52 ドル）は 2022-01-05 と TVL の頂点（2022-01-14）の 9 日前にあたる。プールの JEWEL 比率は確認できていないが、頂点前後の TVL の増減の一部は新規利用者ではなく価格効果である可能性がある。", k: analysis, s: [src-defi-kingdoms-coingecko-jewel, src-defi-kingdoms-llama]}
   lessons:
     - {t: "【ゲームより先に DEX と流動性マイニングを開く】最初に DeFi 機能だけで利用者と流動性を集め、数週間後にゲーム資産（Gen0）を限定数販売すると、すでにトークンを持つ利用者が最初の購入者になる。効く条件: 載せるチェーンに利回りを探す資金があり、報酬トークンの価格が保たれる。破綻条件: 報酬の大半が発行による限り、価格下落で APR の魅力と資産価値が同時に下がる（TVL は約 5 か月で 95% 減）。", k: analysis, s: [src-defi-kingdoms-docs-realms, src-defi-kingdoms-dreamer-2021, src-defi-kingdoms-llama]}
     - {t: "【報酬ロックによる滞在の引き延ばし】請求報酬の 95% をロックすると短期の売り圧を遅らせられる。破綻条件: ロック解除時期に売りが集中し、ロック中の利用者はチェーン移転や価格下落のリスクを抱えたまま抜けられない。", k: analysis, s: [src-defi-kingdoms-docs-gardens, src-defi-kingdoms-jpags-2021-11]}

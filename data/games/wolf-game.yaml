@@ -88,16 +88,16 @@ acquisition:
   audience: [players, holders]
   summary: {t: "事前のホワイトリストや告知期間なしに「ステルス」で Gen0 1 万体を 0.06942 ETH で売り出し、2021-11 の NFT 市場の熱狂期に Crypto Twitter と NFT 収集層から買い手が集まった。羊が WOOL を稼ぎ狼が奪うという仕組みと、WOOL で次世代を作る連鎖が話題と二次流通を生んだ。", k: analysis, s: [src-wolf-defiant-1123, src-wolf-sourcify-woolf, src-wolf-brydisanto]}
   steps:
-    - {phase: launch, date: "2021-11-18", t: "Woolf・Barn・WOOL を展開し、Gen0 1 万体（羊 90%・狼 10%）を 0.06942 ETH で「ステルス」発売、すぐに売り切れた。公式 X（@wolfdotgame）が同日に発売を告知した。", k: fact, s: [src-wolf-defiant-1123, src-wolf-sourcify-woolf, src-wolf-rpc]}
+    - {phase: launch, date: "2021-11-18", t: "Woolf・Barn・WOOL を展開し、Gen0 1 万体（羊 90%・狼 10%）を 0.06942 ETH で「ステルス」発売、すぐに売り切れた。The Defiant は発売の根拠として @wolfdotgame の投稿にリンクしている（投稿本文と時刻は未確認）。初期 Woolf コントラクトの展開はブロック 13,638,597（2021-11-18 09:44 UTC）。", k: fact, s: [src-wolf-defiant-1123, src-wolf-sourcify-woolf, src-wolf-rpc]}
     - {phase: growth, date: "2021-11-23", t: "The Defiant は発売 5 日で 5,200 万ドルの販売と報じた（一次販売と二次流通の区別は不明）。後の回想によれば、羊の最安値は数日で 10 ETH 近くに達し、Post Malone や Marshmello、GaryVee らが目立って関わった。", k: claim, who: "The Defiant / brydisanto（コミュニティの回想）", s: [src-wolf-defiant-1123, src-wolf-brydisanto]}
     - {phase: growth, date: "2021-11", t: "WOOL による次世代の mint は狼を確実に引く不具合とステーキングの脆弱性で止まり、計画 5 万体のうち 13,809 体（Gen0 1 万＋WOOL 由来 3,809）で発行が止まった。初期コントラクトの totalSupply は 13,809 を返す。", k: fact, s: [src-wolf-brydisanto, src-wolf-rpc-supply]}
-    - {phase: growth, date: "2021-11-28", t: "新しい NFT コントラクト（アップグレード可能なプロキシ）を展開して移行した。回想記事によれば、初期段階の停止から 3 日以内に、4 年かけて WOOL を解放する WOOL Pouch で報酬を配る形に変えた。", k: fact, s: [src-wolf-sourcify-proxy, src-wolf-rpc, src-wolf-brydisanto]}
+    - {phase: growth, date: "2021-11-28", t: "新しい NFT コントラクト（アップグレード可能なプロキシ）を展開して移行した。回想記事によれば、悪用の後 3 日以内に運営（Shepherd）が救済計画を作り、報酬は 4 年かけて WOOL を解放する WOOL Pouch で配る形になった。", k: fact, s: [src-wolf-sourcify-proxy, src-wolf-rpc, src-wolf-brydisanto]}
   channels:
-    - {id: crypto-social, t: "発売は公式 X の告知とステルス発売で行われ、匿名の「The Shepherd」が謎めいたツイートで物語を作った。", k: fact, s: [src-wolf-defiant-1123, src-wolf-brydisanto]}
+    - {id: crypto-social, t: "発売は事前告知のないステルス発売で、The Defiant は @wolfdotgame の投稿にリンクしている。回想記事は、匿名の運営者「The Shepherd」がツイートで物語を作り（原文は eloquent Tweets）、コミュニティに謎めいた物語への傾倒があったと記す。", k: claim, who: "The Defiant / brydisanto（コミュニティの回想）", s: [src-wolf-defiant-1123, src-wolf-brydisanto], q: "builds narrative through eloquent Tweets"}
     - {id: viral-mechanic, t: "羊の WOOL への 20% の税、引き揚げ時 50% の全没収、新規 mint の 10% 横取りという奪い合いが、いつ請求・引き揚げるかを巡る議論と二次流通を生んだ。", k: analysis, s: [src-wolf-sourcify-woolf, src-wolf-brydisanto]}
     - {id: token-incentive, t: "羊 1 体あたり 1 日 1 万 WOOL を発生させ、WOOL を燃やして次世代を mint させた。", k: fact, s: [src-wolf-sourcify-woolf]}
     - {id: creator-stream, t: "回想記事は Post Malone、Marshmello、Amanda Cerny、GaryVee、GMoney が目立って関わったと記す（購入時期と影響の大きさは不明）。", k: claim, who: "brydisanto", s: [src-wolf-brydisanto]}
-    - {id: community-server, t: "Discord と毎週の Twitter Spaces、私的な Discord での同盟・対立が遊びの一部になった（2022 年の回想）。", k: claim, who: "brydisanto", s: [src-wolf-brydisanto]}
+    - {id: community-server, t: "私的な Discord が派生して同盟・対立が生まれ、Twitter Spaces で大口と「snake」の言い争いが起きるなど、コミュニティ内の駆け引きが遊びの一部になった（2022 年の回想）。", k: claim, who: "brydisanto", s: [src-wolf-brydisanto]}
   cost:
     - {t: "原資は Gen0 購入者の ETH（最大 1 万 × 0.06942 ETH）と、その後の WOOL 焼却による mint。外部資金・広告費は確認できなかった。", k: fact, s: [src-wolf-sourcify-woolf]}
   after:
@@ -105,6 +105,7 @@ acquisition:
   counter:
     - {t: "発売は 2021-11 の NFT 市場の高揚期で、売上の多くは仕組みより相場と著名人の関与による短期の転売需要で説明できる可能性がある。回想記事も、熱狂期に入ってすぐ売り抜けた層がいたと記す。", k: analysis, s: [src-wolf-brydisanto, src-wolf-defiant-1123]}
     - {t: "「5 日で 5,200 万ドル」は見出しの数字で、一次販売の上限（約 694 ETH）を大きく超えるため、ほぼ二次流通の取引額と見られる。参加者数の指標ではない。", k: analysis, s: [src-wolf-defiant-1123, src-wolf-sourcify-woolf]}
+    - {t: "「1 万体が売り切れた」は 1 万人の初期参加者を意味しない。Gen0 の mint はホワイトリストもアドレス単位の上限もなく、1 取引 10 体まで・EOA 限定の制限しかないため、同じアドレスが繰り返し mint できた。告知のないステルス発売は、コントラクトを監視していた層や転売目的の買い手に有利に働いた可能性があり、一意の購入アドレス数を集計しない限り初期の買い手の広がりは分からない。", k: analysis, s: [src-wolf-sourcify-woolf]}
   lessons:
     - {t: "【ステルス発売＋奪い合いのステーキング】告知期間なしに低価格で売り出し、保有後すぐに稼ぐ・奪う行動が始まる設計は、発売直後から話題と二次需要を作る。効く条件: NFT 市場に資金が流れ込んでいる時期で、規則が単純で公開されている。破綻条件: 乱数や再入可能性の欠陥が残ったまま公開すると、次世代の mint を止めざるを得ず、成長の連鎖（WOOL→mint）が途中で切れる。", k: analysis, s: [src-wolf-sourcify-woolf, src-wolf-brydisanto]}
   metrics: [m-wolf-mint-price, m-wolf-sales-5d, m-wolf-minted-total]

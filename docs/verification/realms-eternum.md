@@ -40,3 +40,15 @@
 
 ## 総合判定
 修正済み。内部文書・コミットは実在し、内容も記述どおりだった。日付誤り（Frontier）、出典にない記述（「数百人」、Starknet 告知）、運営発言の fact 表記が数件あり修正した。
+
+## ゼロイチ節の検証（2026-10-24）
+- 確認した出典: 12 / 14（LootRealms の Sourcify ソース、展開 tx、Realms コントラクトの eth_call、eternum リポジトリを partial clone して key-concepts.mdx・frontier/introduction.mdx・コミット履歴、Bankless S0 ガイド・S1 記事、Nurstar 2023、Sovereign Frontier、docs.realms.world の S1 prize-pool、S0 優勝告知（api.fxtwitter.com）。bankless-returns と changelog 2 件は既存検証で確認済みのため本節では再取得せず）。github.com/BibliothecaDAO/eternum/blob/main/... の URL は WebFetch で 404 を返したが、既定ブランチが next で clone では同じパスにファイルがあるため access は維持。
+- 直したこと:
+  - 2021-08-31 の step と cost: 「保有者 0.03 ETH / 一般 0.15 ETH」→ どちらもコントラクトの初期値で onlyOwner が変更可能。eth_call で publicPrice が 0.1 ETH に変わっていることを確認し、変更時期と実売価格は未確認と明記。新出典 src-realms-eternum-lootrealms-rpc を追加。
+  - Nurstar の step と cost（claim）: 「コミュニティ向け資金調達（BIP7）」→ 原文どおり「BIP7 で可決した LORDS トークン販売、コミュニティラウンドで完売・6 倍超」。資金の用途（Eternum と Adventurers の次の開発段階）と「創業以来コミュニティ資金」の主張、調達額の記載なしを追記。
+  - Season Pass の step: 「二次市場で売買されたため保有者以外は保有者から買って参加した」→ S0 ガイドの入手経路（Discord で部族に入ると無料／Realms Market で約 6 ドル相当）を追加し、逐語の q を付けた。「保有者から買って参加した」は人数の裏付けがないため「参加できた」に。
+  - channels: community-server を追加（S0 では Discord の部族が無料 Pass の配り手だった、と S0 ガイドが明記）。press の S0 ガイドの署名は Guest Author（heynejc・OExcess が協力）と正確化。
+- 追加した反証: S0 開始翌日に Season Pass のフロアが約 6 ドル相当で、Discord 経由でも無料配布されていた。8,000 枠が制約になっていなかったことを示唆し、「Realms 保有者が最初のプレイヤー」という説明を弱める（S0 の約 800 登録とも整合）。
+- 確認した（変更なし）: Season Pass の mainnet 展開コミット 2024-12-02（Credence「season pass: mainnet deployment」、PR #2181）、S0 開始 12-11、100 万 LORDS の 4 区分と 28 資源トークンの TGE、Loaf の「about 800 sign-ups」、「almost 36% of transactions on Starknet」（出典の記載なし）、S1 の 4 区分と手動配布、10 万 STRK の拠出者が prize-pool に書かれていないこと、S1 の Village は NFT なしで現金・ステーブルコイン参加、Nurstar の q は逐語、優勝部族 @orden_gg と「mainnet preview」、Frontier の free to play・2026-09-22 追加。
+- 確認できなかったこと: Realms 先行販売の販売数と publicPrice 変更の時期（publicnode がアーカイブの getLogs を拒否）。S0 の Pass のうち Discord 経由で無料配布された枚数。BIP7 の調達額。
+- 判定: 修正済み（初期値を実売価格として断定していた点、資金調達の性格の書き換え、配布経路の欠落を修正）。

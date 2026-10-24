@@ -94,22 +94,21 @@ acquisition:
     - {phase: launch, date: "2023-09-01", t: "公式ブログで公開を告知した（本文はアプリのダウンロードを促す 1 文のみ）。", k: fact, s: [src-frenpet-hello]}
     - {phase: growth, date: "2023-11-09", t: "V2 を公開し、V1 の全ペットを V2 にエアドロップしたうえで、新規参加を招待制（新規ユーザー 1 人に招待コード 3 つ）にした。紹介した相手がアプリ内で使った $FP の 10% を生涯受け取れる紹介制度、TikTok ログイン、次の鋳造者から 100 $FP が返る鋳造リベートも入れた。", k: fact, s: [src-frenpet-v2], q: "FrenPet v2 is invite only for now, each new user gets 3 invite codes to share"}
     - {phase: growth, date: "2023-11-18", t: "TechFlow は、公開から 2 か月以上ほとんど注目されなかった Fren Pet が、11/18 の Coinbase Wallet の X 投稿で急に注目を集め、$FP の価格が 0.1 から 1.4 へ 10 倍超になったと書いた（投稿自体は未確認）。", k: claim, who: "TechFlow（深潮）", s: [src-frenpet-techflow]}
-    - {phase: growth, date: "2023-11-21", t: "Foresight News の記事は、Base 公式と Coinbase Wallet 公式アカウントの言及、招待による「社交裂変」（紹介による拡散）、遊びやすさを急伸の理由に挙げ、NFT 収集家 Pranksy の参加で順位表 2 位になったこと、BaseScan 上の $FP 保有アドレス 7,220 を伝えた。", k: claim, who: "Foresight News（Karen）", s: [src-frenpet-foresight]}
+    - {phase: growth, date: "2023-11-21", t: "Foresight News の記事は、Base 公式と Coinbase Wallet 公式の X アカウントの「關注」（注目・言及。原文「Base 官推和 Coinbase Wallet 官推的關注」）、招待による「社交裂変」（紹介による拡散）、遊びやすさを急伸の理由に挙げ、NFT 収集家 Pranksy の参加で順位表 2 位になったこと、BaseScan 上の $FP 保有アドレス 7,220 を伝えた。", k: claim, who: "Foresight News（Karen）", s: [src-frenpet-foresight]}
     - {phase: growth, date: "2023-12", t: "12/1 に譲渡不可ポイント pGOLD と Season 1（3 か月で 1,000 万 pGOLD を毎週配布）を告知し、12/12 には Bankless が始め方の解説記事を出した（招待コードが必要、Base へ ETH をブリッジ）。", k: fact, s: [src-frenpet-next-steps, src-frenpet-bankless]}
   channels:
     - {id: invite-gating, t: "V2 は招待制で、各新規ユーザーに招待コードを 3 つ配り、既存ユーザーが新規ユーザーを連れてくる形でしか入れなかった。", k: fact, s: [src-frenpet-v2, src-frenpet-bankless]}
     - {id: referral, t: "紹介した相手がアプリ内で使う $FP の 10% を、相手の取引のたびに紹介者のウォレットへ直接送る生涯型の紹介報酬。", k: fact, s: [src-frenpet-v2, src-frenpet-bankless]}
-    - {id: platform-distribution, t: "Coinbase Wallet と Base の公式アカウントによる言及が急伸のきっかけだったと中国語圏の報道は伝える（言及の本文は確認できていない）。", k: claim, who: "TechFlow / Foresight News", s: [src-frenpet-techflow, src-frenpet-foresight]}
+    - {id: crypto-social, t: "Coinbase Wallet と Base の公式 X アカウントによる言及が急伸のきっかけで、NFT 収集家 Pranksy の参加と順位表 2 位入りも話題になったと中国語圏の報道は伝える（公式アカウントの投稿の本文は確認できず、掲載・特集のような配信面の施策だった証拠もない）。", k: claim, who: "TechFlow / Foresight News", s: [src-frenpet-techflow, src-frenpet-foresight]}
     - {id: token-incentive, t: "得点を $FP 取引税由来の ETH と交換でき、Season 1 では譲渡不可の pGOLD を配った。", k: fact, s: [src-frenpet-docs-rewards, src-frenpet-next-steps]}
-    - {id: crypto-social, t: "NFT 収集家 Pranksy の参加と順位表上位入りが話題になった。", k: claim, who: "Foresight News", s: [src-frenpet-foresight]}
     - {id: press, t: "Bankless が 2023-12 に始め方の解説記事を出した。", k: fact, s: [src-frenpet-bankless]}
   cost:
-    - {t: "報酬の原資は $FP 売買の税（ドキュメント時点で 4%、うち 2% をプレイヤー報酬）で、紹介報酬は紹介された人がゲーム内で使った $FP の 10%（残り 90% は燃焼）から出る。運営が報酬を新規発行していない。", k: fact, s: [src-frenpet-docs-rewards, src-frenpet-v2, src-frenpet-bankless]}
+    - {t: "ETH 報酬の原資は $FP 売買の税（現行ドキュメントでは Uniswap で 4%、うち 2% をプレイヤー報酬。2023-11 の Foresight News は BaseSwap で 5%、うちプレイヤー 2% と記す）で、紹介報酬は紹介された人がゲーム内で使った $FP の 10%（残り 90% は燃焼）から出る。ETH 報酬は新規発行ではなく取引税の再分配だが、Season 1 の pGOLD は運営が新たに配るポイントである。", k: fact, s: [src-frenpet-docs-rewards, src-frenpet-v2, src-frenpet-bankless]}
     - {t: "運営は 2 人の自己資金チームで、VC 資金による広告は確認できない。現行は 1 日 10 トランザクションまでガスを運営が負担している。", k: claim, who: "Fren Pet 運営", s: [src-frenpet-next-steps, src-frenpet-docs-overview]}
   after:
     - {t: "参照日時点でもコントラクトは稼働しているが、プレイヤー数・継続率は公開されていない。運営は V2 告知時点で、取引量の 2% の収入では自分たちを支えるのに安定していないと書いていた。", k: claim, who: "Fren Pet 運営", s: [src-frenpet-onchain, src-frenpet-v2]}
   counter:
-    - {t: "急伸は $FP の価格高騰（TechFlow は 0.1→1.4、初期流動性からは約 7,000 倍と記す）と同時期で、参加の誘因がゲームよりトークンの値上がりだった可能性がある。招待・紹介制度の効果と価格上昇の効果は分けられない。", k: analysis, s: [src-frenpet-techflow]}
+    - {t: "急伸は $FP の価格高騰（TechFlow は 0.1→1.4、初期流動性からは約 7,000 倍と記す。The Defiant の記事は検索要約のみの確認だが、11/17 の約 0.05 ドルから 11/20 の最高 1.9 ドルまで週末で 38 倍超とする）と同時期で、参加の誘因がゲームよりトークンの値上がりだった可能性がある。招待・紹介制度の効果と価格上昇の効果は分けられない。", k: analysis, s: [src-frenpet-techflow, src-frenpet-defiant]}
     - {t: "Coinbase Wallet・Base 公式の言及がきっかけだったという説明は中国語圏の二次報道によるもので、元の投稿と、それによる流入の規模は確認できていない。", k: analysis, s: [src-frenpet-techflow, src-frenpet-foresight]}
     - {t: "$FP 保有アドレス 7,220 はトークン保有者数であり、プレイヤー数ではない。ボット・多重ペット保有の規模も分からない。", k: analysis, s: [src-frenpet-foresight]}
   lessons:
@@ -137,6 +136,7 @@ unknowns:
   - "プレイヤー数・継続率・報酬プールの総額。"
 contradictions:
   - {t: "ペットの鋳造費用: V2 告知は 100 $FP（次の鋳造者から返金）とし、Bankless の記事（2023-12-12）は 10 $FP と記載。時期による変更の可能性。", s: [src-frenpet-v2, src-frenpet-bankless]}
+  - {t: "取引税の率: 2023-11 の Foresight News は BaseSwap での 5%（プレイヤー 2%・開発者 2%・流動性 1%）、現行ドキュメントは Uniswap での 4%（2%・1%・1%）とする（時期による変更の可能性）。", s: [src-frenpet-foresight, src-frenpet-docs-rewards]}
   - {t: "取引税: V2 告知では開発者の取り分を取引量の 2% と書き、現行ドキュメントは税 4% のうち開発者 1% と記載（時期による変更の可能性）。", s: [src-frenpet-v2, src-frenpet-docs-rewards]}
 
 sources:
@@ -155,3 +155,4 @@ sources:
   - {id: src-frenpet-onchain, title: "Base RPC eth_getLogs sample (FrenPet V2 Diamond)", url: "https://base-mainnet.public.blastapi.io", publisher: "Base 公開 RPC（Blast API）", type: onchain-data, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "検証役が実測。ブロック 52976392〜52976691（2026-10-23 08:05 UTC 時点の直近 300 ブロック）で Diamond 0x0e22b5f3e11944578b37ed04f5312dfc246f443c のログ 324 件"}
   - {id: src-frenpet-techflow, title: "How to Maximize Returns with Fren Pet: The Digital Pet on Base Chain", url: "https://www.techflowpost.com/en-US/article/14596", publisher: "TechFlow (深潮)", type: news, primary: false, published: "2023-11-20", accessed: "2026-10-24", access: fetched, lang: en, note: "8/31 公開、2 か月以上注目されず、11/18 の Coinbase Wallet の投稿で注目、招待コードが必要、紹介 10%、$FP 0.1→1.4"}
   - {id: src-frenpet-foresight, title: "寵物養成遊戲 Fren Pet 玩法和獎勵機制速讀，能否接棒 friend.tech？", url: "https://grenade.tw/blog/fren-pet/", publisher: "Grenade（Foresight News からの転載）", author: "Karen", type: news, primary: false, published: "2023-11-21", accessed: "2026-10-24", access: fetched, lang: zh, note: "Base 公式・Coinbase Wallet 公式の言及と社交裂変、Pranksy の参加、friend.tech に着想、招待コード 3 つ、保有アドレス 7,220"}
+  - {id: src-frenpet-defiant, title: "Tomagotchi-Like Fren Pet is Crushing it on Coinbase's Base Network", url: "https://thedefiant.io/tomagotchi-like-frenpet-is-crushing-it-on-coinbase-s-base-network", publisher: "The Defiant", author: "Camila Russo", type: news, primary: false, accessed: "2026-10-24", access: snippet, lang: en, note: "WebFetch では見出し・副題・署名しか描画されず本文未取得。価格（11/17 約 0.05 ドル→11/20 最高 1.9 ドル、DEX Screener）・初期流動性・5% 税は検索結果の要約のみ。公開日も未確認"}

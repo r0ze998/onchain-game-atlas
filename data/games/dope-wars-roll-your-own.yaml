@@ -74,20 +74,20 @@ article:
 
 acquisition:
   audience: [holders, players, developers]
-  summary: {t: "最初の参加者は Loot 熱の直後にガス代だけで DOPE をミントした NFT 利用者で、約 5,000 人規模の Discord に「ゲームを作る人・描く人」を呼び込む形で始まった。Roll Your Own 自体の最初のプレイヤーは、この Dope Wars 保有者コミュニティと、Cartridge / Dojo 周辺の Starknet 開発者・利用者だったとみられるが、人数の資料はない。", k: analysis, s: [src-dope-wars-roll-your-own-vice, src-dope-wars-roll-your-own-site, src-dope-wars-roll-your-own-cartridge-interview]}
+  summary: {t: "最初の参加者は Loot 熱の直後にガス代だけで DOPE をミントした NFT 利用者で、5,000 人近い Discord に「ゲームを作る人・描く人」を呼びかける形で始まった。Roll Your Own 自体の最初のプレイヤーは、この Dope Wars 保有者コミュニティと、Cartridge / Dojo 周辺の Starknet 開発者・利用者だったとみられるが、人数の資料はない。", k: analysis, s: [src-dope-wars-roll-your-own-vice, src-dope-wars-roll-your-own-site, src-dope-wars-roll-your-own-cartridge-interview]}
   steps:
     - {phase: pre, date: "2021-09", t: "Loot 派生の DOPE 8,000 個をガス代のみのミントで配布し、1 DOPE あたり 125,000 PAPER を一度だけ請求できるようにした。Vice は 4 日で約 900 万ドルが DOPE に費やされたと報じた。", k: fact, s: [src-dope-wars-roll-your-own-site, src-dope-wars-roll-your-own-vice]}
-    - {phase: pre, date: "2021-09", t: "Dope Wars の X アカウントは「ゲーム開発者とアーティスト」に Discord への参加を呼びかける投稿をリツイートし、Discord は約 5,000 人に達していた（Vice 2021-09-09）。開発者 Tarrence は、ゲームは保証されず、コミュニティが上に作っていると述べた。", k: fact, s: [src-dope-wars-roll-your-own-vice], q: "I think the community is working on various games on top of it."}
+    - {phase: pre, date: "2021-09", t: "Dope Wars の X アカウントは「game builders and artists」に Discord への参加を呼びかける投稿をリツイートし、Discord の参加者は 5,000 人近く（nearly 5,000）だった（Vice 2021-09-09）。開発者 Tarrence は、ゲームは保証されず、コミュニティが上に作っていると述べた。", k: fact, s: [src-dope-wars-roll-your-own-vice], q: "I think the community is working on various games on top of it."}
     - {phase: pre, date: "2021-09-15", t: "Cairo 0 版 RYO のリポジトリが始まり、DopeDAO と StarkWare が 2021-09 に部分的に資金を出したと DopeLabs 関係者は述べる。", k: claim, who: "Butterbum（DopeLabs、Optimism フォーラムへの代理投稿）", s: [src-dope-wars-roll-your-own-cairo0, src-dope-wars-roll-your-own-op-forum]}
     - {phase: pre, date: "2023-04-06", t: "Cartridge の Tarrence は、Dojo と Controller の開発と並行して自社ゲーム RYO の開発を始めると述べ、標準ツールで Starknet に開発チームを呼び込む狙いを語った。", k: claim, who: "Tarrence van As（Cartridge、Nurstar の取材）", s: [src-dope-wars-roll-your-own-cartridge-interview]}
     - {phase: pre, date: "2023-06", t: "第三者の解説は、Dojo 版 RYO の計画をテストネットでの Alpha（Web UI）→ Beta（Web とモバイル）→ mainnet と紹介し、PAPER でラウンドに参加し賞金プールを持ち帰る形を掲げたと記す。", k: fact, s: [src-dope-wars-roll-your-own-awresearch-2023], q: "Buy in to rounds with PAPER, use your hustler and items to win the streets, and take home the prize pool."}
     - {phase: launch, date: "2023-10", t: "DopeLabs 関係者は 2023-10-03 の投稿で、RYO が Starknet の更新を待って「最近」ローンチしたと書いた。第三者記事によればバーナーウォレットで署名なしに遊べた。", k: claim, who: "Butterbum（DopeLabs、Optimism フォーラムへの代理投稿）", s: [src-dope-wars-roll-your-own-op-forum, src-dope-wars-roll-your-own-chaincatcher]}
-    - {phase: growth, date: "2023-12", t: "Dojo Holiday Game Jam #3 に Dope Wars のトラック（5,000 ドル＋優勝者に DOPE NFT 2 個）が設けられ、開発者向けに生態系を露出させた。", k: fact, s: [src-dope-wars-roll-your-own-dojo-jam3]}
+    - {phase: growth, date: "2023-12", t: "Dojo Holiday Game Jam #3 に Dope Wars のトラック（5,000 ドル＋優勝者に DOPE NFT 2 個、準優勝にも 2 個）が設けられ、開発者向けに生態系を露出させた。", k: fact, s: [src-dope-wars-roll-your-own-dojo-jam3]}
   channels:
     - {id: existing-community, t: "Loot 派生として Loot 熱の直後に始まり、DOPE 保有者・PAPER 保有者の集団が RYO を含む後続作の母集団になった。", k: fact, s: [src-dope-wars-roll-your-own-vice, src-dope-wars-roll-your-own-op-proposal, src-dope-wars-roll-your-own-site]}
     - {id: free-mint, t: "DOPE 8,000 個をガス代のみでミントし、PAPER を保有者に無料で請求させた。", k: fact, s: [src-dope-wars-roll-your-own-site]}
-    - {id: community-server, t: "Discord（2021-09 に約 5,000 人）にゲーム開発者とアーティストを集めた。", k: fact, s: [src-dope-wars-roll-your-own-vice]}
-    - {id: crypto-social, t: "X でのリツイートとアーティストの投稿で拡散した。", k: fact, s: [src-dope-wars-roll-your-own-vice]}
+    - {id: community-server, t: "Discord（2021-09 に 5,000 人近く）への参加をゲームを作る人とアーティストに呼びかけた。呼びかけで何人の作り手が加わったかは資料がない。", k: fact, s: [src-dope-wars-roll-your-own-vice]}
+    - {id: crypto-social, t: "X で Discord への参加呼びかけをリツイートした（拡散の規模を示す資料はない）。", k: fact, s: [src-dope-wars-roll-your-own-vice]}
     - {id: hackathon, t: "Dojo のゲームジャムに Dope Wars の賞金トラックを出した。", k: fact, s: [src-dope-wars-roll-your-own-dojo-jam3]}
   cost:
     - {t: "DOPE は一次販売の代金を取らず（ガス代のみ）、初期の金額は二次流通で生じた。RYO の開発は DopeDAO と StarkWare の部分的な出資、のちに Cartridge の自社負担で進んだとされる。", k: claim, who: "DopeLabs 関係者 / Tarrence van As", s: [src-dope-wars-roll-your-own-site, src-dope-wars-roll-your-own-op-forum, src-dope-wars-roll-your-own-cartridge-interview]}
@@ -96,6 +96,7 @@ acquisition:
   counter:
     - {t: "2021-09 の DOPE 購入は「ゲームのない段階のアート」への支出で、RYO が実際に遊べるようになったのは約 2 年後だった。初期の集客は投機と Loot 熱によるもので、RYO の最初のプレイヤーと同じ人たちだったかは確認できない。", k: analysis, s: [src-dope-wars-roll-your-own-vice, src-dope-wars-roll-your-own-op-forum]}
     - {t: "Dojo 版 RYO は Cartridge の自社タイトルでツールの実証を兼ねていたため、初期プレイヤーは Dope Wars 保有者より Starknet / Dojo の開発者・利用者だった可能性もある（人数の内訳の資料はない）。", k: analysis, s: [src-dope-wars-roll-your-own-cartridge-interview, src-dope-wars-roll-your-own-chaincatcher]}
+    - {t: "初期のミント参加者はゲームを求めて来たわけではないと開発者自身が述べている。DOPE の初期分布は「無料で面白半分に」取った人たちで、後のゲームの最初のプレイヤーを集めた施策とは言いにくい。", k: analysis, s: [src-dope-wars-roll-your-own-vice], q: "People minted it for free and for fun without any expectations of the future."}
   lessons:
     - {t: "保有者コミュニティの Discord に「作り手」を呼ぶ: ガス代のみで資産を配り、ゲームは後からコミュニティが作ると明言すると、開発者・アーティストが集まり派生が生まれる。効く条件は資産の熱が高い時期に開発者を確保できること。破綻条件は実際に遊べるものが出るまでの時間（RYO は約 2 年）で、その間に関心と資金が冷める。", k: analysis}
   unknowns:
@@ -122,6 +123,7 @@ unknowns:
 contradictions:
   - {t: "DOPE の公開日: AW Research（2023-06）は 2021-08-31 に Ethereum mainnet で始まったと書き、本文の別箇所は 2021-09 に無料ミントされたと書く。", s: [src-dope-wars-roll-your-own-awresearch-2023]}
   - {t: "DOPE NFT の公開時期: 公式サイトは「released September 2021」、Tarrence（BlockchainGamer.biz、2024）は Loot の「the next day」（Loot は 2021-08-27 公開なので 2021-08-28）と述べる。", s: [src-dope-wars-roll-your-own-site, src-dope-wars-roll-your-own-bgb]}
+  - {t: "PAPER の配り方: 公式サイトは 1 DOPE あたり 125,000 を「一度だけ請求できる（one-time claimable）」と書き、AW Research（2023-06）は 2021-09-04 に各保有者へエアドロップしたと書く。", s: [src-dope-wars-roll-your-own-site, src-dope-wars-roll-your-own-awresearch-2023]}
   - {t: "Optimism フォーラムの提案（2022-06）は Optimism を生態系の本拠とし、2023-10 の投稿は Starknet の RYO を語る。本拠のチェーンが時期により変わった。", s: [src-dope-wars-roll-your-own-op-proposal, src-dope-wars-roll-your-own-op-forum]}
 
 sources:

@@ -186,19 +186,19 @@ contradictions:
 
 acquisition:
   audience: [players, developers]
-  summary: {t: "最初のプレイヤーは、WASD など既存のオンチェーンゲーム系コミュニティと Primodium の Discord・X の利用者で、ウォレット不要のゲストログインと自前テストネットの自動ガス配布で参加の手間をなくし、版（v0.7〜v0.11）ごとに世界をリセットする期間限定ラウンドで再訪を促した。賞品はログイン利用者に限られた。", k: analysis, s: [src-primodium-wasd, src-primodium-repo, src-primodium-bcg-top10]}
+  summary: {t: "最初のプレイヤーは、WASD など既存のオンチェーンゲーム系コミュニティと Primodium の Discord・X の利用者で、ウォレット不要の参加（2023 年はブラウザ内で自動生成するバーナーウォレット、2024-02 以降は「ゲストログイン」）と自前テストネットの自動ガス配布で参加の手間をなくし、版（v0.7〜v0.11）ごとに世界をリセットする期間限定ラウンドで再訪を促した。2024-02 以降のクライアントはゲストでは賞品を得られないと警告した。", k: analysis, s: [src-primodium-wasd, src-primodium-repo, src-primodium-bcg-top10]}
   steps:
     - {phase: pre, date: "2022-11-27", t: "MUD v1 でリポジトリを開始し、2023-05 には Lattice の Sky Strife 用テストネットへ接続を切り替えるコミットがある（Lattice の基盤上で開発）。", k: fact, s: [src-primodium-repo]}
-    - {phase: launch, date: "2023-09-29", t: "v0.7.1 を 4 週間の予定で公開。WASD の FaultProofBen は WASD の公式ウォレットで参加し、6 日間で 300 人超が集まったと書いた。記事は Primodium の Discord と X、WASD 側の Discord・Telegram を案内している。", k: claim, who: "FaultProofBen（WASD）", s: [src-primodium-wasd], q: "It’s already attracted 300+ players over the past six days!"}
+    - {phase: launch, date: "2023-09-29", t: "v0.7.1 を 4 週間の予定で公開。WASD の FaultProofBen は WASD の公式ウォレットで参加し、6 日間で 300 人超が集まったと書いた。記事は Primodium の Discord と、WASD 側の Discord（WASD Republic）・X・Guild.xyz のページを案内している。", k: claim, who: "FaultProofBen（WASD）", s: [src-primodium-wasd], q: "It’s already attracted 300+ players over the past six days!"}
     - {phase: growth, t: "2023 年に Lattice が Redstone の紹介記事で、Redstone テストネットに近く参加する MUD 作品として Primodium を挙げた（実際の展開先は Caldera の専用テストネット）。", k: fact, s: [src-primodium-intro-redstone, src-primodium-repo]}
-    - {phase: growth, date: "2023-12-21", t: "v0.9（資源の売買・海賊の襲撃・チャット等）の公開から 5 日間で平均 DAU 330 と、チームが X で「どの更新よりも多い」と発表したとニュースレターが伝える。v0.9 は Goerli の不調で約 1 週間で止まり、v0.9.1 で再開した。", k: claim, who: "運営 (Primodium)（AWWeekly #5 経由）", s: [src-primodium-awweekly5]}
+    - {phase: growth, date: "2023-12-21", t: "v0.9（資源の売買・海賊の襲撃・チャット等）の公開から 5 日間で平均 DAU 330 で「どの更新よりも多い」とする X 投稿（@tax_cuts、文面は「we」でチーム側の発言）をニュースレターが引用している。v0.9 は Goerli の不調で約 1 週間で止まり、v0.9.1 で再開した。", k: claim, who: "Primodium チーム側（X の @tax_cuts、AWWeekly #5 経由）", s: [src-primodium-awweekly5]}
     - {phase: growth, date: "2024-03", t: "MUD v2 安定版の告知で、Lattice は Primodium の開発者ドキュメントに従って Primodium に「コードをアップロード」できる例として紹介し、World Extension の開発者向け文書と作例を公開した。", k: fact, s: [src-primodium-mud-v2-ready, src-primodium-world-ext, src-primodium-bounty-example]}
     - {phase: growth, date: "2024-05", t: "BlockchainGamer.biz の「フルオンチェーンゲーム 10 選」が、ブラウザで遊べ NFT もログインも不要（進行はブラウザに保存）な作品として紹介した。", k: fact, s: [src-primodium-bcg-top10]}
   channels:
     - {id: existing-community, t: "WASD（オンチェーンゲームのメディア兼コミュニティ）が公式ウォレットで参加し、「WASD Republic」として同盟・戦争の記録を発信した。", k: claim, who: "FaultProofBen（WASD）", s: [src-primodium-wasd]}
     - {id: community-server, t: "クライアントの設定画面と「フォロー」画面から Primodium の Discord と X へ誘導した。", k: fact, s: [src-primodium-repo]}
-    - {id: free-mint, t: "Caldera 上の自前テストネットで蛇口（faucet）がプレイヤーとセッション鍵にテスト用 ETH を自動で送り、ウォレットなしのゲストログインでも遊べた（ガス・初期費用ゼロ）。", k: fact, s: [src-primodium-repo, src-primodium-bcg-top10]}
-    - {id: prize-competition, t: "版ごとのラウンドに賞品があり、ゲストログインでは賞品を得られないとクライアントが警告した。同盟チュートリアルも「Champion バッジ（と他の賞品）」に触れる。賞品の内容・原資は確認できなかった。", k: fact, s: [src-primodium-repo], q: "Are you sure you want to login as guest? You will not be able to win prizes or play across devices."}
+    - {id: free-mint, t: "Caldera 上の自前テストネットで蛇口（faucet）がテスト用 ETH を自動で送り（v0.7.1 公開時点のクライアントで、起動時と定期の dripDev 呼び出しを確認。後の版はセッション鍵にも配布）、外部ウォレットがなければブラウザ内にバーナーウォレットを自動生成して遊べた（ガス・初期費用ゼロ。2024-02 に「ゲストログイン」として画面を整理）。", k: fact, s: [src-primodium-repo, src-primodium-bcg-top10]}
+    - {id: prize-competition, t: "版ごとのラウンドに賞品があり、2024-02-06 のコミット以降のクライアントはゲストログインでは賞品を得られないと警告した（v0.7〜v0.9 の時点で賞品があったかはコードからは確認できない）。同盟チュートリアルも「Champion バッジ（と他の賞品）」に触れる。賞品の内容・原資は確認できなかった。", k: fact, s: [src-primodium-repo], q: "Are you sure you want to login as guest? You will not be able to win prizes or play across devices."}
     - {id: composability, t: "World Extension（別名前空間のシステムと委任による代行）の文書・作例を公開し、拡張開発者を呼び込もうとした。", k: fact, s: [src-primodium-world-ext, src-primodium-bounty-example, src-primodium-mud-v2-ready]}
     - {id: press, t: "BlockchainGamer.biz の「10 選」や、オンチェーンゲームのニュースレター（AWWeekly）で紹介された。", k: fact, s: [src-primodium-bcg-top10, src-primodium-awweekly5]}
   cost:
@@ -209,6 +209,7 @@ acquisition:
     - {t: "最終公式版 v0.11.1（2024-06）の後、チームは Base 上の別作品 Primodium: Empires と Solana の取引アプリへ移り、Primodium は公式デプロイとしては利用できなくなった。", k: fact, s: [src-primodium-latest, src-primodium-empires-docs, src-primodium-tub]}
   counter:
     - {t: "ゲストログイン・自動ガス配布では 1 人が多数のアカウントを作れる。WASD の記事自体がスクリプトによる連続襲撃を疑っており、300 人超・DAU 330 がそのまま人数を示すとは限らない。", k: analysis, s: [src-primodium-wasd, src-primodium-repo]}
+    - {t: "「300 人超」は v0.7.1 公開後 6 日間の累計プレイヤー（プレイヤーの記事）、「330」は v0.9 公開後 5 日間の平均 DAU（チーム側の投稿）で、別の指標であり伸びの比較には使えない。330 はリセット直後の公開初週の値で、同じ投稿が Goerli の不調で勢いが落ちたと書いており、定着を示す数字ではない。", k: analysis, s: [src-primodium-wasd, src-primodium-awweekly5]}
     - {t: "300 人超・DAU 330 はいずれも運営またはプレイヤーの発信を二次資料経由で見たもので、定義・計測方法は不明。賞品目当ての短期流入と、ゲームそのものの魅力による定着を区別できる資料はない。", k: analysis, s: [src-primodium-wasd, src-primodium-awweekly5]}
   lessons:
     - {t: "自前テストネットの自動ガス配布＋ゲストログイン: アプリ専用チェーンで蛇口を自動化し、ウォレットなしで遊び始められるようにすると、初回の離脱要因（ウォレット作成・ブリッジ・ガス購入）を消せる。賞品はウォレット接続者だけに限ると、本気の参加者を識別できる。効く条件はチェーンのガスが無価値で、運営が蛇口を管理できること。破綻条件は本番チェーンへ移るとガス負担が戻り、ゲスト利用者が移行しないこと、および多重アカウントでの賞品の取り合い。", k: analysis}

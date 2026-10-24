@@ -31,3 +31,13 @@
 
 ## 総合判定
 修正済み — 既存の記述に誤りはなかったが、2026-07 の DFK Chain 終了告知が反映されておらず status・chains が古かった。オンチェーン TVL の計測値と反証 2 件を追加。
+
+## ゼロイチ節の検証（2026-10-24）
+- 確認した出典: 8 / 10（acquisition から参照される出典）。Dreamer の Notion 資料（WebFetch では本文が空のため Notion の公開 API loadCachedPageChunk で本文を取得）、Jason Pagoulatos、0xGregH、M6 Labs の助成一覧、The Block（Multiverse）、Docs の Realms・Gardens を開き直した。DefiLlama・The Block（Klaytn 移転）は前回検証分に依拠。
+- 確認できたこと: q「Hero sale - 2000 in 11 minutes, $4.5mm, ~55k summoned since, with in-game marketplace active.」は逐語一致。初期チーム 4 人・数週間後に Gen0 2,000 体、19 プール、AVAX/FTM の流動性、APR 500%〜約 1,000%、32 人＋26 人、Serendale 2021-08-22・Crystalvale 2022-03-30、Epoch 1 から 95% ロック、TVL 70M→115M（10/7〜11）・Discord 8K 超・AMA 350 人超（10/11）、Discord 3 万→9.1 万。
+- 直したこと:
+  - steps 2021-12「第三者の分析は 100 万ドルとする」→ M6 の一覧には金額がなく、0xGregH が運営の 2021-12-20 の投稿「approved for a $1MM grant」を引いている、と出所を明記（逐語 q 付き）。
+  - steps・channels・cost「最大 1,500 万ドル」→ The Block の原文は「$15 million in incentives has been set aside」で「最大」ではない。確保額であり実際の支払額は未確認と明記。
+- 追加した反証: CoinGecko の JEWEL 最高値（22.52 ドル、2022-01-05）は TVL の頂点（2022-01-14）の 9 日前で、ドル建て TVL の伸びの一部は価格効果の可能性がある（新出典 src-defi-kingdoms-coingecko-jewel、counter に追加）。プールの JEWEL 比率は Docs に記載がなく未確認。
+- 確認できなかったこと: Gen0 販売の日付（どの取得資料にもない）、初期エアドロップの有無、0xGregH が引く X フォロワー「2 万→12.3 万」のツイートの日付、Harmony 助成の一次資料（運営の投稿本文は未取得）。
+- 判定: 修正済み（金額表現の誇張 2 件を是正。捏造なし）。

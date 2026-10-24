@@ -30,3 +30,15 @@
 
 ## 総合判定
 修正済み — スニペットだけに依拠した「再入バグによる停止・移行」が要約・選定理由で事実寄りに書かれていたため格下げし、日付をオンチェーンの時刻で確定させた。
+
+## ゼロイチ節の検証（2026-10-24）
+- 確認した出典: 5 / 7（acquisition から参照される出典）。The Defiant ニュースレター（2021-11-23）、brydisanto（2022-06-07）を再取得。Sourcify API で Woolf のソースを再取得し MINT_PRICE = .069420 ether、isSheep = %10 != 0、WOOL_CLAIM_TAX_PERCENTAGE = 20、DAILY_WOOL_RATE = 10000、MINIMUM_TO_EXIT = 2 days、mint() の制限（EOA 限定・1 取引 10 体・アドレス上限なし）を確認。公開 RPC で totalSupply() = 0x35f1 = 13,809、paused() = true、ブロック 13,638,578 = 2021-11-18 09:41:18 UTC を確認。Decrypt 2025・プロキシの Sourcify は前回検証分に依拠。
+- 調査役の「RPC で 13,809 体」は再現した。
+- 直したこと:
+  - steps launch「公式 X が同日に発売を告知した」→ The Defiant は @wolfdotgame の投稿にリンクしているだけで本文・時刻は取得できないため、その旨に変更し、展開ブロックの時刻を併記。
+  - steps 2021-11-28「停止から 3 日以内に WOOL Pouch で配る形に変えた」→ 原文は「Within 3 days … Shep developed a rescue plan」で、3 日以内なのは救済計画の作成。表現を合わせた。
+  - channels crypto-social「The Shepherd が謎めいたツイートで物語を作った」(fact) → 原文は「eloquent Tweets」で、cryptic はコミュニティの嗜好について。k: claim（who 付き）にし逐語 q を付けた。
+  - channels community-server「毎週の Twitter Spaces」→ 「毎週」は原文にない。原文どおり私的 Discord の派生と Spaces での言い争いに。
+- 追加した反証: Gen0 mint はホワイトリストもアドレス単位の上限もなく（1 取引 10 体・EOA 限定のみ）、1 万体の完売は 1 万人の参加を意味しない。ステルス発売はコントラクトを監視する層・転売目的の買い手に有利だった可能性がある（counter に追加、コード根拠）。
+- 確認できなかったこと: 一意の購入アドレス数と完売までの時間（イベントログ未集計）、@wolfdotgame の発売投稿の本文、著名人の購入時期、「5,200 万ドル」の集計元（The Defiant 本文にも定義なし）。
+- 判定: 修正済み（出典にない修飾 3 件を除去。数値は再現した）。
