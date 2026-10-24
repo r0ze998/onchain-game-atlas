@@ -182,14 +182,14 @@ acquisition:
   steps:
     - {phase: pre, t: "Lattice によれば、Zuse と Dhvani が Lattice の手を離れた OPCraft を引き継いで Biomes にした。Lattice は Redstone 公開前の記事で Biomes を「デジタル物理の愛好家と OPCraft ファンのチーム」の作品と紹介した。", k: claim, who: "Lattice", s: [src-biomes-winding-down, src-biomes-race-to-mainnet], q: "by a team of digital physics aficionados and OPCraft fans"}
     - {phase: pre, date: "2024-03", t: "開発者 2 名が BuidlGuidl の助成コホートの作業記録に、テストネット版（biomes.everlon.xyz）でのプレイテストを記した。", k: fact, s: [src-biomes-buidlguidl]}
-    - {phase: pre, date: "2024-04", t: "Redstone mainnet の 4 週間の開発者プレビューに Biomes チームが参加し、5/1 の公開に向けて準備した。", k: fact, s: [src-biomes-race-to-mainnet, src-biomes-buidlguidl]}
-    - {phase: launch, date: "2024-05", t: "Redstone の公開期間（Worlds Expo）に Biome-1 を、scaffold-eth 製テンプレートで作った 4 つのエクスペリエンス（デスマッチ等の時間限定イベント）とともに公開した。", k: fact, s: [src-biomes-buidlguidl, src-biomes-redstone-live, src-biomes-scaffold-prs]}
+    - {phase: pre, date: "2024-04", t: "Redstone mainnet の 4 週間の開発者プレビュー期間に、開発者 2 名は「5/1 の mainnet 公開に向けた準備」を BuidlGuidl の作業記録に書き、Lattice はプレビュー告知の記事で Biomes を「5 月に Redstone に来る」作品に挙げた（プレビュー期間中の展開自体は記事に書かれていない）。", k: fact, s: [src-biomes-race-to-mainnet, src-biomes-buidlguidl]}
+    - {phase: launch, date: "2024-05", t: "Redstone の公開月（Worlds Expo は 5/1〜15、Biomes の特集日は未確認）に Biome-1 を、scaffold-eth 製テンプレートで作った 4 つのエクスペリエンス（デスマッチ等の時間限定イベント）とともに公開した。", k: fact, s: [src-biomes-buidlguidl, src-biomes-redstone-live, src-biomes-scaffold-prs]}
     - {phase: launch, date: "2024-05", t: "Redstone の Composability Day Wiki で、誰でもスマートコントラクトで競技・報酬・賞金稼ぎなどを作れると紹介し、プラグイン文書と開発者 Discord（💻 の反応で developer ロール付与）を案内した。", k: fact, s: [src-biomes-composability-wiki]}
     - {phase: growth, date: "2024-10", t: "アルファを開始。Bankless の紹介記事は、入場すると専用ウォレットに ETH を入れて遊ぶこと、最初のクエストはプレイヤーが作った組織 Settlers Union が出していることを伝えた。", k: fact, s: [src-biomes-bankless]}
     - {phase: growth, date: "2024-11", t: "Devcon 7 で開発者 2 名が「Growing the Biomes GDP」を講演した。", k: fact, s: [src-biomes-devcon-gdp]}
   channels:
-    - {id: existing-community, t: "OPCraft の世界とファン（開発者自身を含む）を出発点にした。", k: claim, who: "Lattice", s: [src-biomes-winding-down, src-biomes-race-to-mainnet]}
-    - {id: platform-distribution, t: "Lattice の Redstone の開発者プレビューと公開時の初期タイトル枠（Worlds Expo、報道でも初期タイトルとして紹介）を利用した（チェーン側の施策）。", k: fact, s: [src-biomes-race-to-mainnet, src-biomes-redstone-live, src-biomes-decrypt-redstone]}
+    - {id: existing-community, t: "OPCraft を引き継いだ開発者自身（Lattice は「OPCraft fans」のチームと紹介）を出発点にした。OPCraft のプレイヤーが移ったことは確認できない。", k: claim, who: "Lattice", s: [src-biomes-winding-down, src-biomes-race-to-mainnet]}
+    - {id: platform-distribution, t: "Lattice の Redstone の開発者プレビュー告知と公開時の初期タイトル紹介に載り、報道でも初期タイトルとして紹介された（チェーン側の施策）。Worlds Expo で特集された日は確認できない。", k: fact, s: [src-biomes-race-to-mainnet, src-biomes-redstone-live, src-biomes-decrypt-redstone]}
     - {id: hackathon, t: "Redstone の Composability Day で、Biome-1 上で作れるイベント案（旗取り、金の奪い合い、清掃に ETH を払う報酬など）を開発者向けに示した。", k: fact, s: [src-biomes-composability-wiki]}
     - {id: community-server, t: "開発者 Discord（#dev-help、developer ロール）を開発者の受け皿にした。", k: fact, s: [src-biomes-composability-wiki]}
     - {id: composability, t: "時間限定のエクスペリエンスやチップ付きのチェスト・店など、第三者コントラクトで作るイベントと、プレイヤー組織 Settlers Union の新規向けクエストを入口にした。", k: fact, s: [src-biomes-scaffold-prs, src-biomes-bankless, src-biomes-experience-prs]}
@@ -201,6 +201,7 @@ acquisition:
     - {t: "プレイヤー数・DAU は公表されていない。エクスペリエンス用リポジトリの PR は全て開発者本人のもので、外部の作り手が増えた形跡は薄い。", k: fact, s: [src-biomes-experience-prs]}
     - {t: "Biomes 期の世界は 2025 年に DUST として作り直され、2026 年に DUST Chain へ移った後、DUST Chain も 2026-12-31 停止と告知された。最初期の参加者が DUST に残ったかを示す資料はない。", k: fact, s: [src-biomes-worlds-json, src-biomes-migration-2026, src-biomes-dust-site]}
   counter:
+    - {t: "「OPCraft fans」は開発者チームを指す Lattice の紹介で、OPCraft のプレイヤー（約 2000 人、2022-10 に凍結）が 1 年半後の Biomes に移ったことを示す資料はない。既存コミュニティからの移入は開発者側に限って確認でき、プレイヤーの引き継ぎは裏付けがない。", k: analysis, s: [src-biomes-race-to-mainnet, src-biomes-winding-down]}
     - {t: "Redstone 公開時の流入は、多数の作品が同時に特集されたチェーン全体の話題によるもので、Biomes 固有の施策の効果とは分けられない。", k: analysis, s: [src-biomes-redstone-live]}
     - {t: "Settlers Union は「プレイヤーが作った組織」と紹介されるが、開発者がプレイヤー集団名のチェストを自ら書いていた形跡があり、新規向けクエストがどこまで自発的なプレイヤー活動だったかは確認できない。", k: analysis, s: [src-biomes-bankless, src-biomes-experience-prs]}
   lessons:

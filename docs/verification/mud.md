@@ -23,3 +23,16 @@
 
 ## 総合判定
 修正済み — 日付・数値は正確。リポジトリ活動の記述と出典の付け違い 1 件を修正。
+
+## ゼロイチ節の検証（2026-10-24）
+- 確認した出典: 11 / 14（ETHGlobal 告知・prizes、Lattice RetroPGF 3 申請 JSON、Winding Down、MUD from zero to v2、Devcon 6 講演概要、OP in Bogotá、OPCraft 発表、Race to Mainnet、MUD v2 is ready、Redstone is Live、Composability Day Wiki を Notion API で再取得。engine-blog・devcon6-sls・リポジトリは今回再確認せず）
+- 直したこと:
+  - steps（pre）: 「Dark Forest を中心とするコミュニティ（後の 0xPARC）」→ 括弧を削除（出典は 0xPARC と同一視していない）
+  - steps（2024-04）: 「Small Brain Games…GG Quest などが公開前に mainnet へ展開した」→ 「5 月に Redstone に来る」作品として挙げた（記事は各チームの事前展開を書いていない）。Composability Day は「ハッカソン」ではなく Wiki で、ハッカソンの案内は Downstream の欄のみと明記
+  - channels.hackathon: 「MUD を指定フレームワークにし」→ 告知は MUD を参加要件にしておらず、Optimism・Lattice の部門賞が名称に MUD を掲げた
+  - lessons: 「フレームワーク指定のハッカソン」→「フレームワーク推奨のハッカソン」
+  - unknowns: 作品一覧に 100 件超がある旨を追記
+  - 調査役の contradictions（総額 5 万ドル vs 部門賞合計 2.5 万ドル、RetroPGF 申請のスポンサー表記）は原資料どおり。維持
+- 追加した反証: ETHGlobal の作品一覧（新出典 src-mud-ethglobal-aw-showcase、4 ページ取得）には 100 件超が並び、ToDo アプリ・学習用デモ・非ゲームが多い。Lattice 申告の「69 作品」と定義が合わず、提出数を獲得した開発者数として読めない
+- 確認できなかったこと: 69 件の根拠の表計算シート、作品一覧の正確な件数（ページ境界の重複があり 108〜111 件程度）、Devcon 講演動画本編
+- 判定: 修正済み（強い表現 2 件と出典の読み違い 1 件を訂正。数値の誤りなし）

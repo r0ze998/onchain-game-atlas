@@ -34,3 +34,13 @@
 
 ## 総合判定
 修正済み — 事実誤りは小さいが、status「ended」の根拠が推論である点の明示、autonomous mode の日付範囲の絞り込み、検証役の実測による根拠強化を行った。
+
+## ゼロイチ節の検証（2026-10-24）
+- 確認した出典: 9 / 12（Winding Down、Two Week Playtest、Brother Can You Spare a 🔮、Patching a World、Season 0、Sky Strife is Coming to Mainnet、Redstone is Live、Composability Day Wiki、skystrife-public を clone。Orbs Wiki・BCG・Autonomous Mode は今回再取得せず）
+- 直したこと:
+  - steps（2024-05-01）・channels.platform-distribution・event ev-sky-strife-mainnet・src-sky-strife-redstone-live の note: 「Worlds Expo の初日の作品として」→ Lattice は「Sky Strife は今日、他は 15 日で公開」と書いただけで、Expo の何日目に特集されたかは記載なし
+  - counter: 「同時に多数のゲームが特集された」→ 続く 15 日間に他の作品も順次公開・特集
+  - 100 人目標・2 日目達成・355 人・307/178/129 試合・ggQuest の 1000 ドル・FaultProofBen の NFT・1 日 3 回（GMT+1 の 3/11/19 時）はいずれも原文どおり。目標と 355 人は claim のまま
+- 追加した反証: 公開リポジトリの headless-client に、資金を入れたウォレット群で参加制限のない未開始試合をボットで埋める findAndFillMatches.ts / start_bots.sh がある。本番で使ったかは不明だが、ユニーク人数・試合数にボットが含まれ得る（リポジトリは 2024-07 のスナップショットで、2023 年時点の有無は不明）
+- 確認できなかったこと: 2 週間プレイテストの暦日（記事に日付なし。「2023」は前後関係からの推定）、ggQuest 大会の独立した記録
+- 判定: 修正済み（Worlds Expo の初日特集という記述に根拠がなかった。数値は原文どおり）

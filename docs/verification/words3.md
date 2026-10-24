@@ -21,3 +21,15 @@
 
 ## 総合判定
 修正済み — 公開日と展開時期の誤り（Base への展開を約 9 か月遅く記載）を実測で訂正。
+
+## ゼロイチ節の検証（2026-10-24）
+- 確認した出典: 5 / 7（Small Brain Games の RetroPGF 3 申請 JSON、The Core Loop の体験記、Introducing Redstone、words3-contracts を clone、Redstone is Live。Wiki・オンチェーン RPC は前回検証で確認済みのため再取得せず）
+- 直したこと:
+  - summary: 「賭けの構造が参加の動機だった」→「動機の一つだったとみられる」。「8 割超が初めて OP 系チェーンへブリッジ」はユーザーインタビューに基づく運営の自己申告（規模不明）と明記
+  - channels.existing-community: 「他作品 Ape's Gambit・Network States 等のプレイヤー」→ 申請はコミュニティの構成を書いていない。チームが両作を公開したことと、Gaul・Dark Seas・Underverse のプレイテストに使ったことだけを残した
+  - channels.free-mint を削除: エアドロップ（後に transfer と改名）用スクリプトは 2024-05-21 にあるが、配布先の CSV も実行の記録もなく、「使ったチャネル」と確認できない（steps の記述は維持）
+  - after: 「Base では少なくとも 3 回 World を展開し直し」→「少なくとも 3 つの World アドレスで」（前回の検証の記述に合わせた）
+  - article.counter_evidence（調査役の置き換え）: 本文は申請書の内容どおりだが、k: claim / who: Small Brain Games → k: analysis（自己申告であることを指摘する当方の評価文のため）
+- 追加した反証: 申請書自身が「プレイヤーがスクリプトを書いた」と記し、Base 版 124 人の根拠は第三者の Dune ダッシュボード（この環境で再確認不可）。124 はアドレス数で、人数としては上限
+- 確認できなかったこと: ローンチスレッド本文、Dune ダッシュボード、ユーザーインタビューの件数
+- 判定: 修正済み（「80% 超」は claim として扱われていることを確認。チャネル 1 件を削除）

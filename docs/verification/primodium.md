@@ -24,3 +24,13 @@
 
 ## 総合判定
 修正済み — MUD のバージョンに関する事実誤り（v0.7 系は MUD v1）と、出典にない「Factorio」表現を訂正。
+
+## ゼロイチ節の検証（2026-10-24）
+- 確認した出典: 5 / 11（WASD の記事、AWWeekly #5、BCG 10 選、Introducing Redstone、primodium リポジトリを全履歴で clone。developer.primodium.com の 4 ページと MUD v2 is ready の Primodium の記述は今回再取得せず）
+- 直したこと:
+  - summary・channels.free-mint・channels.prize-competition: 「ゲストログイン」「ゲストは賞品を得られない」は 2024-02-06 のコミット（488fafa81）以降の機能。v0.7.1（2023-09）時点はブラウザ内でバーナーウォレットを自動生成し、起動時と定期の dripDev で自動配布していた（2023-10-01 時点のコードで確認）。v0.7〜v0.9 に賞品があったかはコードからは確認できないと明記
+  - steps（2023-09-29）: 記事が案内するのは「Primodium の Discord と X、WASD の Discord・Telegram」→ Primodium の Discord と WASD の Discord・X・Guild.xyz（X は WASD のもの、Telegram とされたリンクは Guild.xyz）
+  - steps（2023-12-21）: who「運営 (Primodium)」→ 投稿者は X の @tax_cuts（文面は「we」でチーム側）。DAU 330 は運営側の発表で reported のまま
+- 追加した反証: 「300 人超」は 6 日間の累計プレイヤー、「330」は 5 日間の平均 DAU で別の指標。330 はリセット直後の初週の値で、同じ投稿が Goerli の不調で勢いが落ちたと書いており、定着を示さない
+- 確認できなかったこと: @tax_cuts の役職、各ラウンドの賞品
+- 判定: 修正済み（後年の機能を初期の獲得手段として書いていた時代錯誤を訂正）

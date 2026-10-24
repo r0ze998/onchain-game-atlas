@@ -25,3 +25,14 @@
 
 ## 総合判定
 修正済み。主要な事実（Redstone 停止日、owner 権限、外部作例の作者）は一次資料で裏付けられた。告知日・引用の性質・保存則の範囲・投資関係の表現に誤りや過剰な一般化があり訂正した。
+
+## ゼロイチ節の検証（2026-10-24）
+- 確認した出典: 6 / 15（Downstream の RetroPGF 3 申請 JSON、Race to Mainnet、Redstone is Live、Composability Day Wiki、playmint/ds を blobless clone して allowlist.json と NewPlayerRule.sol の履歴・hackathon バナーのコミットを確認。1kx・GamesTX・BCG 3 本・Decrypt・外部作例リポジトリは今回再取得せず）
+- 直したこと:
+  - steps（2023-10）: 2023-10-01 の「Disable Allow list for tech test ** do not merge**」は main に入らない technical-test-base ブランチのコミットと明記。2023-10-24 の「許可リストなしで動かせる」変更を追記。出典に src-downstream-newplayerrule を追加
+  - steps（2024-04）・channels.platform-distribution・src-downstream-race-to-mainnet の note: 「4 週間の開発者プレビューに参加し」→ 記事はプレビュー告知の中で Downstream を「5 月に来る」作品に挙げただけ。Worlds Expo での特集日も確認できない
+  - 52 アドレス（初回 16、2023-10-10 の時点で 52、10-27 に空）は git 履歴で実測し一致
+  - 調査役の置き換え（article.retention_evidence の RetroPGF 3 の項、unknowns の「受領額（申請本文は取得済み）」）: 申請 JSON の逐語引用（"permissionlessy" の綴りも原文どおり）と内容を確認。妥当として維持
+- 追加した反証: (1) NewPlayerRule には 2023-07-05〜2024-04-12 の間、権限チェックのない public の allow(address) があり、コード上は誰でも自分を許可リストに加えられた。許可リストは強制された選抜ではなく、52 は選抜ではなく参加の少なさを表す可能性がある。(2) RetroPGF 3 申請の影響指標は CEO の X 投稿閲覧数 1 万 3800 だけで、「十数組」は自己申告で数え方も名前もない
+- 確認できなかったこと: 本番チェーンで第三者が allow を呼んだか、技術テストの参加者名
+- 判定: 修正済み（Redstone プレビュー参加の過剰な記述を訂正。許可リストの性質についての重要な反証を追加）

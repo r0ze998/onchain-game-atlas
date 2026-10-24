@@ -23,3 +23,14 @@
 
 ## 総合判定
 修正済み。DUST Chain の停止日は一次資料で確認。ワールドアドレスの経緯に事実誤認があり、README の約束との矛盾の書き方を実データに合わせて訂正した。
+
+## ゼロイチ節の検証（2026-10-24）
+- 確認した出典: 6 / 15（BuidlGuidl の作業記録、Bankless、Race to Mainnet、Redstone is Live、Winding Down、Composability Day Wiki。PR 一覧・Devcon 7・DUST 関連・報道は今回再取得せず）
+- 直したこと:
+  - steps（2024-04）: 「開発者プレビューに Biomes チームが参加し」→ 開発者が「5/1 の mainnet 公開に向けた準備」を作業記録に書き、Lattice は Biomes を「5 月に来る」作品に挙げた（プレビュー中の展開は明記なし）
+  - steps（2024-05）・channels.platform-distribution: 「Worlds Expo に公開／初期タイトル枠（Worlds Expo）」→ 2024-05 に公開。Expo での特集日は未確認。作業記録の「Launched Biome-1 to Redstone mainnet with 4 experiences」は 2024-05-22 付
+  - channels.existing-community: 「OPCraft の世界とファン（開発者自身を含む）」→ OPCraft を引き継いだ開発者自身（OPCraft プレイヤーの移入は未確認）
+  - 15 ETH（8＋7、17 回・14 回）、Bankless の 0.01 ETH・Settlers Union・2024-10 アルファは原文どおり
+- 追加した反証: 「OPCraft fans」は開発者チームを指し、OPCraft の約 2000 人が 1 年半後の Biomes に移った資料はない。既存コミュニティからの移入は開発者側でしか確認できない
+- 確認できなかったこと: 2024-03 のプレイテスト参加者数、Settlers Union の作り手
+- 判定: 修正済み（Redstone 関連の過剰な記述と、既存コミュニティの範囲を訂正）
