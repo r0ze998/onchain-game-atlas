@@ -66,12 +66,46 @@ article:
     - {t: "英国賭博委員会は 2024-09-26 に、運営免許なしで賭博の機会を提供した（Gambling Act 2005 第 33 条 (1)(4)・第 36 条 (3)(3A)）として Sorare を起訴した（告知は法人名を明記せず「Sorare」「Sorare.com」とする）。審理は Birmingham Magistrates' Court で、2025-07-01 更新で公判が 2026-06-15 に設定され、2026-05-18 更新で 2027-06-07 へ延期された（理由の記載なし）。起訴は有罪の認定ではない。換金可能な資産を報酬にする設計は、ゲームの外側の法的分類によって制約される。", k: fact, s: [src-sorare-ukgc]}
     - {t: "Sorare NFT のフロア価格は 2022-04 初旬の 91.25 ドルから 2025-10-12 の 2.21 ドルへ下がった（DappRadar、Cointelegraph の引用）。一方で 1 日の NFT 売買件数は 5000〜30000 件で 2022 年並みとされ、価格の下落と取引件数の維持が並存している。", k: fact, s: [src-sorare-cointelegraph-2025]}
 
+acquisition:
+  audience: [players, holders]
+  summary: {t: "最初の利用者は、2019-03 のベータから集まったサッカーファンとデジタル収集品の愛好者の小さな集団（2019-12 の正式公開時の有料利用者は約 500 人とされる）で、Discord で運営と直接やり取りしていた。拡大はクラブのライセンスを増やしながら 2020 年に緩やかに進み、2021-02 のカード決済の導入と大型調達、NFT 相場の熱狂期に一気に起きた。", k: analysis, s: [src-sorare-cryptoast-2020, src-sorare-intel-2021, src-sorare-partech-2021]}
+  steps:
+    - {phase: pre, date: "2019-03", t: "2019-03 にプラットフォーム（ベータ）を公開した。Cryptoast は、コレクターとサッカー選手・ファンのコミュニティの中で成長を続けていると書いた。", k: fact, s: [src-sorare-cryptoast-2020, src-sorare-intel-2021]}
+    - {phase: pre, date: "2019-05", t: "Xavier Niel らが参加する 55 万ユーロのプレシード調達を発表した（Cryptoast は Kima Ventures からの 50 万ユーロのシードと記載）。", k: fact, s: [src-sorare-wikipedia, src-sorare-cryptoast-2020]}
+    - {phase: launch, date: "2019-12", t: "正式公開。この時点のカードを 1 枚以上持つ有料利用者は約 500 人で、月間の売上は 3 万ドルだった。", k: fact, s: [src-sorare-intel-2021, src-sorare-cryptoast-2020]}
+    - {phase: growth, date: "2020-06", t: "月間売上は 2020-06 に 35 万ドルへ伸び、2020-07 時点で欧州・米国・アジアの 90 超のクラブと提携していた。2020-04 には基盤を Loom から Ethereum へ移した。", k: fact, s: [src-sorare-cryptoast-2020, src-sorare-intel-2021]}
+    - {phase: growth, date: "2021-02", t: "Benchmark 主導で 4000 万ユーロのシリーズ A を発表した。2021-01 の月間カード販売額は 350 万ユーロ超（120 か国）、130 超のクラブがカードを出しており、過去 12 か月にわたり前月比 52% で成長したと述べた。同時期に Ramp の統合でクレジットカードでのカード購入が可能になったことが急伸の要因と第三者分析は書く。", k: claim, who: "Partech（出資者の発表）/ Sorare Intelligence", s: [src-sorare-partech-2021, src-sorare-intel-2021], q: "Sorare can count on one of the most vibrant communities of early adopters we've ever seen."}
+    - {phase: growth, date: "2021-11", t: "正式公開以降、有料利用者は 500 から 5.5 万へ増えたと第三者分析は数えた。", k: claim, who: "Sorare Intelligence（第三者のニュースレター）", s: [src-sorare-intel-2021]}
+  channels:
+    - {id: ip-brand, t: "公式ライセンスを受けたクラブの選手カードを売り、提携クラブを 2020-07 の 90 超から 2021-02 の 130 超へ増やした。", k: fact, s: [src-sorare-cryptoast-2020, src-sorare-partech-2021]}
+    - {id: community-server, t: "プレイヤー・アンバサダー・運営が Discord で直接やり取りする形で運営された。", k: claim, who: "Sorare Intelligence", s: [src-sorare-intel-2021]}
+    - {id: free-mint, t: "新規登録者には売買できない無料の Common カード（11〜12 枚）を配り、すぐにリーグに参加できるようにした（2021 年時点の説明。開始時期は未確認）。", k: fact, s: [src-sorare-decrypt-guide-2021, src-sorare-intel-2021]}
+    - {id: referral, t: "紹介者と被紹介者が、被紹介者の一次市場での 5 回の購入後にそれぞれカードを 1 枚得る紹介制度があった（導入時期は未確認）。", k: claim, who: "Sorare Intelligence", s: [src-sorare-intel-2021]}
+  cost:
+    - {t: "獲得の原資は主に利用者自身のカード購入（一次販売）と VC 資金だった。2019 年のプレシード 55 万ユーロ、2020-07 の 400 万ドル、2021-02 の 4000 万ユーロ、2021-09 の 6.8 億ドルと調達を重ねた。無料の Common カードは売買できず、配布は運営の負担で換金価値を生まない。", k: fact, s: [src-sorare-wikipedia, src-sorare-cryptoast-2020, src-sorare-partech-2021, src-sorare-decrypt-guide-2021]}
+  after:
+    - {t: "2023-01 の月間一意購入者は 3 競技合計で 5 万超（The First Mint）、2025-10 に会社は利用者 500 万人と述べた（定義不明）。フロア価格は 2022-04 の 91.25 ドルから 2025-10 の 2.21 ドルへ下がった。", k: fact, s: [src-sorare-firstmint-2023, src-sorare-cointelegraph-2025]}
+    - {t: "示されていない指標: 無料カードで始めた人が有料カードを買う割合、有料利用者の年ごとの継続率。", k: unknown}
+  counter:
+    - {t: "2021-02 以降の急伸は、カード決済の導入・大型調達・NFT 相場の最初の熱狂が同時期に起きたため、どれが効いたかを分けられない（第三者分析も 5000 万ドルの調達が NFT 業界の最初の熱狂と同時だったと書く）。", k: analysis, s: [src-sorare-intel-2021, src-sorare-partech-2021]}
+    - {t: "初期の成長数値（前月比 52% 成長、有料利用者 500→5.5 万）は出資者の発表と第三者のニュースレターによるもので、独立に計測された値ではない。", k: analysis, s: [src-sorare-partech-2021, src-sorare-intel-2021]}
+  lessons:
+    - {t: "クラブ単位のライセンスを積み上げる: 公式の選手名・写真が既存のファンを呼ぶが、ライセンスの更新と規制（英国の賭博該当性の訴追）に事業が依存し、ライセンスが切れればカードの意味も変わる。", k: analysis}
+    - {t: "売買不可の無料カードで始めさせる二層構造: 新規参加の摩擦を下げつつ、配布しても換金圧力が生まれない。ただし有料カードとの格差が大きいと、無料層が競技で勝てず離れる。", k: analysis}
+  metrics: [m-sorare-sales-2019-12, m-sorare-sales-2020-06, m-sorare-sales-2021-01, m-sorare-paying-users-2021, m-sorare-seriesa-2021, m-sorare-buyers-2023-01, m-sorare-users-2025]
+  unknowns: ["2019 年のベータ参加者の出どころ（どのコミュニティから来たか）を示す一次資料", "無料 Common カードの配布と紹介制度の導入時期", "初期の Discord 参加者数"]
+
 metrics:
   - {id: m-sorare-seriesb-2021, type: funding, value: 680000000, unit: USD, period: "2021-09", definition: "Series B 調達額（評価額 43 億ドル、Wikipedia）", nature: reported, s: [src-sorare-wikipedia]}
   - {id: m-sorare-users-2025, type: players, value: 5000000, unit: users, period: "2025-10 時点", definition: "会社が述べた利用者数（定義不明、Cointelegraph の記事）", nature: reported, s: [src-sorare-cointelegraph-2025]}
   - {id: m-sorare-daily-sales-2025, type: transactions, value_text: "1 日 5,000〜30,000 件", unit: sales/day, period: "2025-10 頃", definition: "Sorare NFT の日次売買件数（Cointelegraph の記述、出典不明確）", nature: estimated, s: [src-sorare-cointelegraph-2025]}
   - {id: m-sorare-floor, type: other, value_text: "91.25 ドル（2022-04）→ 2.21 ドル（2025-10-12）", unit: USD, period: "2022-04〜2025-10", definition: "NFT のフロア価格（DappRadar、Cointelegraph の引用）", nature: measured, s: [src-sorare-cointelegraph-2025]}
   - {id: m-sorare-buyers-2023-01, type: wallets, value: 50000, value_text: "5 万超", unit: buyers, period: "2023-01", definition: "月間一意購入者（サッカー・NBA・MLB 合計、The First Mint、出典の明示なし）", nature: estimated, s: [src-sorare-firstmint-2023]}
+  - {id: m-sorare-sales-2019-12, type: revenue, value: 30000, unit: USD/month, period: "2019-12", definition: "月間売上（Cryptoast。一次・二次の内訳不明）", nature: reported, s: [src-sorare-cryptoast-2020]}
+  - {id: m-sorare-sales-2020-06, type: revenue, value: 350000, unit: USD/month, period: "2020-06", definition: "月間売上（Cryptoast。一次・二次の内訳不明）", nature: reported, s: [src-sorare-cryptoast-2020]}
+  - {id: m-sorare-sales-2021-01, type: nft_sales, value_text: "350 万ユーロ超（120 か国）", unit: EUR/month, period: "2021-01", definition: "月間のカード販売額（出資者 Partech の発表）", nature: reported, s: [src-sorare-partech-2021]}
+  - {id: m-sorare-paying-users-2021, type: players, value_text: "500 → 5.5 万", unit: users, period: "2019-12〜2021-11", definition: "カードを 1 枚以上持つ有料利用者（第三者ニュースレター Sorare Intelligence の集計、算出方法の記載なし）", nature: estimated, s: [src-sorare-intel-2021]}
+  - {id: m-sorare-seriesa-2021, type: funding, value_text: "4000 万ユーロ", unit: EUR, period: "2021-02", definition: "シリーズ A 調達額（Benchmark 主導、Partech の発表。報道ではドル換算 5000 万ドル）", nature: reported, s: [src-sorare-partech-2021]}
 
 events:
   - {id: ev-sorare-starkex, date: "2021-07", type: spec-change, title: "取引の大半を StarkEx（L2）へ移行", s: [src-sorare-wikipedia]}
@@ -97,3 +131,7 @@ sources:
   - {id: src-sorare-ukgc, title: "Consumer information notice: Sorare.com prosecution", url: "https://www.gamblingcommission.gov.uk/news/article/consumer-information-notice-sorare-com-prosecution", publisher: "Gambling Commission (UK)", type: official-docs, primary: true, published: "2024-09-26", accessed: "2026-10-23", access: fetched, lang: en, note: "Gambling Act 2005 第 33 条 (1)(4)・第 36 条 (3)(3A) で起訴、初回審理 2024-10-04（Birmingham Magistrates' Court）、2025-06 の手続審理、2025-07-01 更新で公判 2026-06-15、2026-05-18 更新で 2027-06-07 に延期"}
   - {id: src-sorare-cointelegraph-2025, title: "Sorare CEO still bullish on Ethereum despite 'upgrading' to Solana", url: "https://cointelegraph.com/news/sorare-hypes-ethereum-despite-migrating-to-solana", publisher: "Cointelegraph", author: "Brayden Lindrea", type: news, primary: false, published: "2025-10-15", accessed: "2026-10-23", access: fetched, lang: en, note: "10 超のゲームとカードを Solana へ、Base 統合、500 万利用者、フロア価格の推移"}
   - {id: src-sorare-firstmint-2023, title: "The State of NFT Sports", url: "https://thefirstmint.substack.com/p/the-state-of-nft-sports", publisher: "The First Mint (Substack)", type: analysis, primary: false, published: "2023-02-07", accessed: "2026-10-23", access: fetched, lang: en, note: "Sorare 2023-01 の一意購入者 5 万超、NBA Top Shot の購入者減少"}
+  - {id: src-sorare-cryptoast-2020, title: "Le jeu de fantasy football blockchain Sorare lève 4 millions de dollars", url: "https://cryptoast.fr/?p=33963", publisher: "Cryptoast", type: news, primary: false, published: "2020-07-16", accessed: "2026-10-24", access: fetched, lang: fr, note: "400 万ドル調達（e.ventures 主導）、月間売上 3 万ドル（2019-12）→35 万ドル（2020-06）、90 超のクラブ、Kima Ventures の 50 万ユーロ、2019-03 公開"}
+  - {id: src-sorare-intel-2021, title: "Sorare is not your usual startup", url: "https://sorareintelligence.substack.com/p/sorare-is-not-your-usual-startup", publisher: "Sorare Intelligence (Substack)", author: "tecomah", type: analysis, primary: false, published: "2021-11-08", accessed: "2026-10-24", access: fetched, lang: en, note: "ベータ 2019-03・正式公開 2019-12、有料利用者 500→5.5 万、2020-04 に Loom から Ethereum、Discord での直接対話、紹介制度、無料 Common 11 枚、2021-02 の Ramp 統合"}
+  - {id: src-sorare-partech-2021, title: "Sorare raises a €40M Series A to help fans own their football passion online", url: "https://partechpartners.com/news/sorare-raises-a-40m-series-a-to-help-fans-own-their-football-passion-online", publisher: "Partech", type: official-blog, primary: true, published: "2021-02-25", accessed: "2026-10-24", access: fetched, lang: en, note: "出資者の発表。4000 万ユーロ（Benchmark 主導）、2021-01 の月間販売 350 万ユーロ超・120 か国、130 超のクラブ、月 52% 成長、黒字、e.ventures の Christian Miele の発言"}
+  - {id: src-sorare-decrypt-guide-2021, title: "Sorare: A Beginner's Guide To The NFT Fantasy Soccer Game", url: "https://decrypt.co/63369/sorare-beginners-guide-2021/", publisher: "Decrypt", type: news, primary: false, published: "2021-09-27", accessed: "2026-10-24", access: fetched, lang: en, note: "登録時に最大 12 枚の無料 Common カード（売却不可）、100 超のチームの選手ライセンス"}

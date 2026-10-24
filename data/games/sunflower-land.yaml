@@ -4,7 +4,7 @@ name_ja: サンフラワー・ランド
 aliases: ["Sunflower Farmers", "SFF", "Bumpkins"]
 kind: game
 depth: deep
-updated: "2026-10-23"
+updated: "2026-10-24"
 links:
   website: https://sunflower-land.com/
   play: https://sunflower-land.com/play/
@@ -160,6 +160,47 @@ metrics:
   - {id: m-sunflower-land-farms-2026, type: players, value: 600000, value_text: "60 万超", unit: farms, period: "2026（ドキュメント参照時点）", definition: "累計作成農場数（運営）", nature: reported, s: [src-sunflower-land-docs-about]}
   - {id: m-sunflower-land-commits-2026, type: other, value: 11326, value_text: "11,326 コミット・作者名 148", unit: commits, period: "2021-02-01〜2026-10-23", definition: "GitHub main ブランチの全コミット数と一意な作者名の数（git log で集計。同一人物の別名を含む）", nature: measured, s: [src-sunflower-land-git-history]}
   - {id: m-sunflower-land-flower-supply, type: other, value: 20000000, value_text: "流通 2,000 万 / 総供給 2.56 億", unit: FLOWER, period: "2026（ドキュメント参照時点）", definition: "運営が示す FLOWER の流通量と総供給", nature: reported, s: [src-sunflower-land-docs-tokenomics]}
+  - {id: m-sunflower-land-dau-peak-2022-01, type: dau, value: 351286, value_text: "351,286（2021-12-31 に 2 万超え、その 5 日後）", unit: players, period: "2022-01 初め", definition: "Naavik が示した Sunflower Farmers の日次アクティブユーザーのピーク（大半はボットと記載）", nature: measured, s: [src-sunflower-land-naavik], note: "Naavik は大半の活動をコントラクトを悪用するボットに帰している"}
+  - {id: m-sunflower-land-discord-2022-01, type: players, value: 60000, value_text: "6 万", unit: members, period: "2022-01-12", definition: "運営が助成申請で述べた Discord コミュニティの人数", nature: reported, s: [src-sunflower-land-polygon-grant]}
+
+acquisition:
+  audience: [players, developers]
+  summary: {t: "前身 Sunflower Farmers（2021）は個人開発に近い Polygon の P2E で、農場作成時に 0.1 MATIC 以上を慈善団体へ寄付させ、発行量が増えるほど報酬が減る設計だった。2021 年末の「早いほど多く稼げる」報酬が報酬目的の利用者とボットを急激に呼び込み、作り直しの Sunflower Land は Discord（6 万人）で待たせたうえで、ホワイトリスト制ベータと Discord 連携による 1 人 1 アドレス制から再開した。", k: analysis, s: [src-sunflower-land-code-farm-2021, src-sunflower-land-naavik, src-sunflower-land-polygon-grant, src-sunflower-land-code-beta-2022]}
+  steps:
+    - {phase: pre, date: "2021-05", t: "リポジトリのゲーム本体のコミットは 2021-05 に Adam Hannigan が始め、需要と供給で市場価格が動く仕組み・植え付けと収穫・土地拡張のコントラクトのコミットが続く（この時期の作者名は starter code を除き Adam Hannigan のみ）。2021-05-30 に Ropsten、2021-06-07 に Matic（Polygon）テストネットへ接続した。", k: fact, s: [src-sunflower-land-git-history]}
+    - {phase: pre, date: "2021-06", t: "2021-06 に慈善寄付の機能が入り、2021 年の Farm コントラクトでは農場作成（createFarm）に 0.1 MATIC 以上の寄付を必須とし、送金先を The Water Project・Heifer・Cool Earth のいずれかに限定していた。寄付は運営ではなく慈善団体に直接送られた。", k: fact, s: [src-sunflower-land-code-farm-2021, src-sunflower-land-git-history]}
+    - {phase: launch, date: "2021-08", t: "公式は 2021 年 8 月に開始したと記す。同月にオンボーディング用の試用版（2021-08-20）とゲームツアー（2021-08-23）のコミットがある。", k: fact, s: [src-sunflower-land-docs-vision, src-sunflower-land-git-history]}
+    - {phase: growth, date: "2021-10", t: "報酬のトークン換算率はトークンの総供給量の段階に応じて下がる設計で（コード上は供給 10 万未満、50 万未満…で段階的に変化）、2021-10 以降「halvening」の時期表示や 2021-12-30 の告知バナーが追加された。Naavik は、この設計で初期参加者ほど大きな報酬を得られたと書いた。", k: fact, s: [src-sunflower-land-code-farm-2021, src-sunflower-land-git-history, src-sunflower-land-naavik]}
+    - {phase: growth, date: "2021-12", t: "運営は 2 週間で日次 100 人から 5 万人超・35 万のブロックチェーンアカウントへ「バイラルに」広がったと述べた。Naavik によれば 2021-12-31 に目標の日次 2 万人を超え、5 日後に日次 351,286 でピークを付けたが、その大半はコントラクトを悪用するボットによるものだった。", k: claim, who: "Sunflower Land チーム / Naavik", s: [src-sunflower-land-polygon-grant, src-sunflower-land-naavik], q: "We went from 100 daily players to over 50,000 and 350K Blockchain accounts."}
+    - {phase: pre, date: "2022-01-12", t: "Polygon への助成申請で、運営は「マーケティングは今は問題ではない」とし、6 万人の Discord コミュニティが Sunflower Land の公開を待っていると書いた。", k: claim, who: "Sunflower Land チーム", s: [src-sunflower-land-polygon-grant], q: "Our Discord community of 60K is patiently waiting for the release of Sunflower Land"}
+    - {phase: pre, date: "2022-02-14", t: "作り直し版にホワイトリストを実装し、未登録のアドレスには「Beta testers only!」と表示して Discord への参加を促した。2022-02-16〜03 にかけてアーティスト・開発者・ベータテスターを順次ホワイトリストに追加している。", k: fact, s: [src-sunflower-land-code-beta-2022, src-sunflower-land-git-history], q: "We are launching soon. Join us on Discord so you don't miss the launch!"}
+    - {phase: pre, date: "2022-03-13", t: "Discord OAuth を導入し、1 つの Discord アカウントに 1 アドレスだけを結び付けるようにした（別アドレスでの登録には「ベータ中は 1 アドレスのみ」と表示）。農場作成は「Donate to play」として最低 1 MATIC の慈善寄付を求めた。", k: fact, s: [src-sunflower-land-code-beta-2022], q: "Only one address can be used during beta testing."}
+    - {phase: launch, date: "2022-04-07", t: "Naavik によれば 2022-04-07 から段階的に再開し、2022-05-22 に SFL トークンを開始した。", k: claim, who: "Naavik", s: [src-sunflower-land-naavik]}
+    - {phase: growth, date: "2023-12-05", t: "外部開発者向けに賞金 42,000 SFL の Portal Builder Competition を開いた（開発者の獲得）。", k: fact, s: [src-sunflower-land-docs-portal-competition]}
+    - {phase: growth, date: "2025-02-19", t: "Ronin 向けの Welcome Pack を実装し、のち FLOWER を Base・Ronin で入出金できるようにした。チェーン側の利用者層に向けた入口を追加した形になる。", k: fact, s: [src-sunflower-land-git-history, src-sunflower-land-docs-collectibles]}
+  channels:
+    - {id: token-incentive, t: "収穫物を売ると新規発行の SFF が得られ、総供給が増えるほど換算率が下がるため、早く始めた人ほど多く稼げる設計だった。", k: fact, s: [src-sunflower-land-code-farm-2021, src-sunflower-land-naavik]}
+    - {id: community-server, t: "Discord を待機場所にし、2022-01 時点で 6 万人がいたと運営は述べた。作り直し版の未登録者には Discord への参加を促す画面を出した。", k: claim, who: "Sunflower Land チーム", s: [src-sunflower-land-polygon-grant, src-sunflower-land-code-beta-2022]}
+    - {id: invite-gating, t: "2022-02〜03 の作り直し版ベータは、アーティスト・開発者・ベータテスターのアドレスを手作業でホワイトリストに入れ、Discord 1 アカウントあたり 1 アドレスに制限した。", k: fact, s: [src-sunflower-land-code-beta-2022, src-sunflower-land-git-history]}
+    - {id: hackathon, t: "2023-12 に Portals のミニゲームを作る外部開発者向け競技会（賞金 42,000 SFL）を開いた。", k: fact, s: [src-sunflower-land-docs-portal-competition]}
+    - {id: platform-distribution, t: "2025 年に Ronin 向け Welcome Pack を入れ、FLOWER を Base と Ronin で流通させた。", k: fact, s: [src-sunflower-land-git-history, src-sunflower-land-docs-collectibles]}
+  cost:
+    - {t: "参加費（0.1 MATIC 以上、作り直し版では 1 MATIC 以上）は慈善団体へ直接送られ、運営の収入にはならなかった。プレイヤーへの報酬はコントラクトによる SFF の新規発行で、原資は後から入る買い手が支える構造だった。", k: analysis, s: [src-sunflower-land-code-farm-2021, src-sunflower-land-code-beta-2022]}
+    - {t: "運営は VC 資金を受けていないとし、Naavik もトークンの事前発行・大規模な NFT 販売をしていないと書いた。2022-01 の Polygon 助成申請（改訂版で 8,000 ドル）が支払われたかは確認できない。", k: claim, who: "運営 (Thought Farm) / Naavik", s: [src-sunflower-land-docs-vision, src-sunflower-land-naavik, src-sunflower-land-polygon-grant]}
+  after:
+    - {t: "作り直し後の 2022 年、DAU の代理指標はピーク 42,999 から 7,209（83% 減）、月間は 112,183 から 49,362 に減り、1.5 万超の農場 NFT が恒久 BAN された。", k: claim, who: "Naavik", s: [src-sunflower-land-naavik]}
+    - {t: "一方で開発とリリースは 2026 年まで続き、累計 60 万超の農場が作られたと運営は述べる。現在の DAU・コホート継続率は公開されていない。", k: claim, who: "運営 (Thought Farm)", s: [src-sunflower-land-docs-about, src-sunflower-land-git-history]}
+  counter:
+    - {t: "「2 週間でバイラルに広がった」急増は、Naavik によれば大半がコントラクトを悪用するボットで、人間のプレイヤーの獲得としては数えられない。農場作成が 0.1 MATIC の寄付だけでできたことは、多重アカウントの単価を極めて低くした。", k: analysis, s: [src-sunflower-land-naavik, src-sunflower-land-code-farm-2021]}
+    - {t: "急増は報酬トークン SFF の価格上昇と同時期で、SFF は 1/4 の高値から 89% 下落した。参加の誘因がゲームではなくトークン価格だった可能性を否定できない。", k: fact, s: [src-sunflower-land-decrypt-polygon]}
+  lessons:
+    - {t: "発行量に応じて報酬が減る設計（halvening）は、初期参加者を強く引き付けるが、早く大量に参加するほど得になるため、ボットと多重アカウントに最も有利に働く。効く条件は参加単価が高い（本人確認・高い参加費）こと。破綻条件は Sunflower Farmers のように参加費が 0.1 MATIC 程度で、自動化に追加費用がかからない場合。", k: analysis}
+    - {t: "待機列としての Discord と 1 Discord＝1 アドレスのベータ: 急増で止まったゲームを再開するとき、Discord を待機場所にし、ホワイトリストと OAuth の紐付けで段階的に戻すと、ボットの再流入を抑えながら既存の関心を保てる。破綻条件は Discord アカウント自体が大量に作られる場合で、Sunflower Land はのちにキャプチャ・評判・顔認証を重ねた。", k: analysis}
+  metrics: [m-sunflower-land-dau-peak-2022-01, m-sunflower-land-daily-2022-01, m-sunflower-land-users-2022-01, m-sunflower-land-discord-2022-01, m-sunflower-land-dau-2022, m-sunflower-land-mau-2022, m-sunflower-land-bans-2022, m-sunflower-land-farms-2026]
+  unknowns:
+    - "2021-08〜12 の最初のプレイヤーがどこから来たか（特定のコミュニティ・配信者・ギルドの関与）。検索では DoraHacks のハッカソン発祥とする二次情報があったが、一次資料で確認できなかった"
+    - "Discord 6 万人のうち、ベータのホワイトリストに入った人数"
+    - "急増期のボットと人間の比率"
 
 events:
   - {id: ev-sunflower-land-polygon-congestion, date: "2022-01", type: incident, title: "Sunflower Farmers のボット・取引急増で Polygon が混雑", detail: "1/3〜1/6 頃。ガス価格が数十 gwei から数百〜1,000 gwei 超へ", s: [src-sunflower-land-w3igg, src-sunflower-land-decrypt-polygon]}
@@ -222,3 +263,5 @@ sources:
   - {id: src-sunflower-land-decrypt-polygon, title: "This NFT Farming Game Is Clogging Up Ethereum Scaling Solution Polygon", url: "https://decrypt.co/89913/nft-farming-game-clogging-up-ethereum-scaling-solution-polygon", publisher: "Decrypt", author: "Andrew Hayward", type: news, primary: false, published: "2022-01-06", accessed: "2026-10-23", access: fetched, lang: en, note: "43.4 万ユーザー、764 gwei、ガス使用の 3 分の 2、SFF 下落"}
   - {id: src-sunflower-land-w3igg, title: "The Sunflower Farmers blockchain game DDoSes the Polygon blockchain for several days", url: "https://web3isgoinggreat.com/single/2022-01-03-3", publisher: "Web3 is Going Just Great", type: analysis, primary: false, published: "2022-01-03", accessed: "2026-10-23", access: fetched, lang: en, note: "ほぼ全行動がオンチェーン取引、ボット、ガス 30→1,000 gwei 超"}
   - {id: src-sunflower-land-naavik, title: "Sunflower Land and its Rise on Polygon", url: "https://naavik.co/digest/sunflower-land/", publisher: "Naavik", type: analysis, primary: false, published: "2022-08-22", accessed: "2026-10-23", access: fetched, lang: en, note: "同期方式、BAN 数、DAU・MAU 減少、SFL の半減期・出金税"}
+  - {id: src-sunflower-land-code-farm-2021, title: "src/contracts/Farm.sol (Sunflower Farmers, commit d1b786d, 2021-12)", url: "https://github.com/sunflower-land/sunflower-land/blob/d1b786d983cb0f87097e2ae88c2269048245ac41/src/contracts/Farm.sol", publisher: "GitHub (sunflower-land)", type: code, primary: true, published: "2021-12", accessed: "2026-10-24", access: fetched, lang: en, note: "blobless clone で取得。createFarm は 0.1 MATIC 以上の慈善寄付（3 団体に限定）を要求、getMarketRate は総供給の段階で換算率を変える"}
+  - {id: src-sunflower-land-code-beta-2022, title: "Sunflower Land beta access commits: [FEAT] Whitelist (031e099) and [FEAT] Discord OAuth (#366, 6513b18)", url: "https://github.com/sunflower-land/sunflower-land/commit/6513b18dde16c54dd8d9f0ff8e21545ce9261a56", publisher: "GitHub (sunflower-land)", type: code, primary: true, published: "2022-03-13", accessed: "2026-10-24", access: fetched, lang: en, note: "git show で確認。Blocked.tsx の「Beta testers only!」、DuplicateUser.tsx の 1 アドレス制、CreateFarm.tsx の「Donate to play」「Minumum of 1 MATIC」。Whitelist コミットは 2022-02-14"}

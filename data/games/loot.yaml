@@ -143,6 +143,44 @@ article:
     - {t: "取引高の急減は Loot 固有の現象とは限らない。The Block（2021-09-10、CryptoSlam データ）は、Loot・CryptoPunks・BAYC・Art Blocks の取引高が前週比 44〜82% 減ったと報じており、2021-09 の NFT 市場全体の冷え込みと重なる。95% 減を「意味の合意がない設計」の帰結とする解釈には、市場全体の要因という別の説明がある。", k: fact, s: [src-loot-theblock-2021-09, src-loot-decrypt-2022]}
     - {t: "Hofmann は「教会」を作らないために鍵の焼却を議論したが、参照日でも所有権は残り、統治は派生トークン側に移った。運営不在の設計が、別の中心（AGLD の管理者・DAO）を生んだ。", k: fact, s: [src-loot-defiant-keys, src-loot-rpc-state, src-loot-kohli-2021-09]}
 
+acquisition:
+  audience: [holders, creators]
+  summary: {t: "最初の参加者は、Vine 共同創業者 Dom Hofmann のツイートを見てコントラクトを直接呼んだ暗号資産界隈の NFT 利用者で、無料（ガス代のみ）の請求に「数千人」が集まり 4 時間以内に全袋が請求された。その後の拡大は、保有者を初期ユーザーとして当て込んだ第三者の派生（Realms の保有者向け先行販売、AGLD のエアドロップ等）と報道が担った。", k: analysis, s: [src-loot-coindesk-2021-09, src-loot-platformer-2021-09, src-loot-faq, src-loot-realms-sourcify]}
+  steps:
+    - {phase: launch, date: "2021-08-27", t: "Hofmann がツイート 1 本で公開。フロントエンドなし・手数料なし（ガス代のみ）・未監査で、Etherscan と OpenSea へのリンクだけを示した。", k: fact, s: [src-loot-coindesk-2021-09, src-loot-platformer-2021-09], q: "no fee, just gas"}
+    - {phase: launch, date: "2021-08-27", t: "公開請求枠 7777 袋は 4 時間以内に請求された。Platformer は「数千人」が袋を得たと書く。", k: fact, s: [src-loot-faq, src-loot-platformer-2021-09], q: "a couple thousand people"}
+    - {phase: launch, date: "2021-08", t: "公開から数時間のうちに専用 Discord、X アカウント、特定アイテム（Divine Robe 等）の保有者だけが入れるコミュニティが生まれた。Hofmann は Discord の運営に加わった。", k: fact, s: [src-loot-coindesk-2021-09, src-loot-platformer-2021-09], q: "Within hours there was a dedicated Discord channel, Twitter handle and even token-gated communities around certain items"}
+    - {phase: growth, date: "2021-08-31", t: "Realms (for Adventurers) のコントラクトが公開 4 日後に展開された。先行販売（privateSale）は Loot 保有者だけが自分の袋と同じ番号の Realm を 0.03 ETH でミントでき、一般販売は 0.15 ETH だった。Loot 保有者が派生の初期利用者として直接取り込まれた最初期の例。", k: fact, s: [src-loot-realms-sourcify, src-loot-realms-deploy-tx]}
+    - {phase: growth, date: "2021-09", t: "Synthetic Loot（アドレスごとの無料・譲渡不可の仮想袋）と Adventure Gold（1 袋 10,000 AGLD の請求）が登場し、袋を持たない人の参加口と、保有者への無料配布の両方が派生側から用意された。", k: fact, s: [src-loot-platformer-2021-09, src-loot-agld-source]}
+    - {phase: growth, date: "2021-09-02", t: "公開 5 日で二次流通 4600 万ドル、時価総額 1.8 億ドル超と CoinDesk が報じ、Platformer・Vice などの一般テック媒体が続いた。", k: fact, s: [src-loot-coindesk-2021-09, src-loot-platformer-2021-09]}
+  channels:
+    - {id: crypto-social, t: "Hofmann の X 投稿 1 本で告知し、拡散も X 上で起きた。", k: fact, s: [src-loot-coindesk-2021-09, src-loot-platformer-2021-09]}
+    - {id: free-mint, t: "7777 袋をガス代のみで誰でも請求できた（手数料・ロイヤリティなし）。", k: fact, s: [src-loot-coindesk-2021-09, src-loot-sourcify]}
+    - {id: community-server, t: "数時間で専用 Discord と、アイテム保有者限定のトークンゲート型コミュニティが作られた。", k: fact, s: [src-loot-coindesk-2021-09]}
+    - {id: composability, t: "保有者を初期ユーザーとして当て込む派生（Realms の保有者先行販売、AGLD のエアドロップ、Ability Score 等）が許可なく作られ、派生ごとに新しい告知と参加理由が生まれた。", k: fact, s: [src-loot-realms-sourcify, src-loot-agld-source, src-loot-resources]}
+    - {id: press, t: "公開 5 日目には CoinDesk・Platformer が取引額と派生を報じた。", k: fact, s: [src-loot-coindesk-2021-09, src-loot-platformer-2021-09]}
+  cost:
+    - {t: "Hofmann はミント手数料もロイヤリティも取らず、獲得の原資は請求者自身のガス代だけだった。派生の AGLD は第三者が新規発行したトークンの無料配布で、現金の拠出者はいない。", k: fact, s: [src-loot-coindesk-2021-09, src-loot-agld-source]}
+    - {t: "Realms の先行販売では Loot 保有者が 1 区画 0.03 ETH を Realms のデプロイヤに支払う構造で、Loot の注目が派生作者の資金調達に転化した。", k: fact, s: [src-loot-realms-sourcify]}
+  after:
+    - {t: "保有ウォレット数は 2022-01 に 2541、2026-10 に 2326 で大きく減っていない一方、月間取引高は 2021-09 の 2.21 億ドルから翌月 1200 万ドル未満へ 95% 減った。", k: fact, s: [src-loot-nonfungible-2022, src-loot-etherscan-token, src-loot-decrypt-2022]}
+    - {t: "公開 1 年後、Hofmann は約 200 人の開発者が何らかの形で関わっていると見積もった（本人の推計）。", k: claim, who: "Dom Hofmann（Platformer の取材）", s: [src-loot-platformer-2022], q: "Hofmann estimates Loot has about 200 developers currently involved in some capacity."}
+    - {t: "Loot 保有者は 4 年後も派生側の獲得対象であり続けた: LS2（2025）の無料ゲーム配布は Loot 1 袋あたり 5 ゲームを割り当て、Genesis Adventurers・Crypts and Caverns・Hyperloot・Dope Wars・Realms など Loot 系の集合も対象に含めた。", k: fact, s: [src-loot-ls-eligible]}
+    - {t: "請求者「数千人」のうち何人が派生で実際に遊んだか、派生間を移動したかの数値は見つからなかった。", k: unknown}
+  counter:
+    - {t: "Hofmann は Vine の共同創業者として既に知名度があり、初期の請求者は「設計（無料・最小プリミティブ）」より作者の知名度と 2021-08 の NFT 高騰期に引かれた可能性がある。CoinDesk は記者自身が初日にミントして転売したと書いており、初期参加には転売目的が含まれていた。", k: analysis, s: [src-loot-coindesk-2021-09, src-loot-theblock-2021-09]}
+    - {t: "4 時間で 7777 袋が請求された一方、2022-01 の保有ウォレットは 2541 で、1 ウォレットあたり平均 3 袋程度を持つ。初期の請求が少数の多重請求に偏っていた可能性があり、「数千人」は人数ではなくアドレス数に近い推定である。", k: analysis, s: [src-loot-faq, src-loot-nonfungible-2022, src-loot-platformer-2021-09]}
+    - {t: "派生の多くは保有者向けの告知・ミントに留まり（1 年後も Realms: Eternum はテスト前、Loot 2 は提案段階）、派生作者が得たのは「利用者」より「買い手」だった可能性がある。", k: analysis, s: [src-loot-decrypt-2022]}
+  lessons:
+    - {t: "保有者ゲートの派生（例: Realms の privateSale）: 既存 NFT の所有をコントラクトで確認し、同じ番号の派生資産を保有者だけに安く先行販売すると、親コミュニティを初日の顧客にできる。効く条件は親資産の所有が許可なく読めること・親コミュニティの関心が高い時期であること。破綻条件は親の熱が数週間で冷める場合で、先行販売の需要は投機と区別できず、派生の継続利用は保証されない。", k: analysis}
+    - {t: "無料請求＋告知 1 本: 手数料ゼロ・事前登録なしで全量を請求可能にすると、告知者のフォロワーと NFT 利用者が数時間で全量を取り尽くし、配布が完了したこと自体が話題になる。効く条件は告知者に既存の到達力があることと、請求が数分でできること。破綻条件は事前計算可能な内容や多重請求を防げない場合で、初期分布がボット・大口に偏り、「最初のユーザー」が遊ぶ人ではなく転売者になる。", k: analysis}
+  metrics: [m-loot-claimers-2021, m-loot-sales-5d, m-loot-holders-2022, m-loot-holders-2026, m-loot-volume-2021-09, m-loot-volume-2021-10, m-loot-devs-2022]
+  unknowns:
+    - "Hofmann の公開ツイートの到達数（表示・リポスト）と、Blitmap など前作の保有者が初期請求者にどれだけ含まれたか。"
+    - "初日の請求アドレス数と 1 アドレスあたりの請求数の分布（オンチェーンの Transfer ログを全件取得していない）。"
+    - "Realms の Loot 保有者先行販売で何区画が売れ、いつ一般販売に移ったか（現在の privateSale 状態とミント時期の分布は未取得）。"
+    - "Discord の参加者数の推移。"
+
 metrics:
   - {id: m-loot-supply-2026, type: other, value: 7779, unit: bags, period: "2026-10-23 時点", definition: "Loot.totalSupply() の eth_call 結果（筆者取得）。公開請求枠 7777 ＋所有者枠 2", nature: measured, s: [src-loot-rpc-state]}
   - {id: m-loot-holders-2026, type: wallets, value: 2326, unit: addresses, period: "2026-10-23 時点", definition: "Etherscan が表示する保有アドレス数", nature: measured, s: [src-loot-etherscan-token]}
@@ -158,6 +196,9 @@ metrics:
   - {id: m-loot-agld-supply, type: other, value: 92840001, value_text: "約 9284 万 AGLD", unit: AGLD, period: "2026-10-23 時点", definition: "AdventureGold.totalSupply() の eth_call（筆者取得）。袋 8000×10,000 = 8000 万が請求上限で、差分は daoMint 等による", nature: measured, s: [src-loot-rpc-state]}
   - {id: m-loot-royalty-dao-2022, type: other, value: 144, unit: ETH, period: "2022-01", definition: "Loot Royalty DAO の保有額（NonFungible）", nature: reported, s: [src-loot-nonfungible-2022]}
   - {id: m-loot-gitcoin-2022, type: grants, value: 130000, unit: USD, period: "2022-06", definition: "Gitcoin の Lootverse Round（Loot プロジェクト資金、Decrypt）", nature: reported, s: [src-loot-decrypt-2022]}
+  - {id: m-loot-claimers-2021, type: players, value_text: "数千人（a couple thousand people）", unit: people, period: "2021-08-27〜2021-09-02", definition: "袋を入手した人の数についての Platformer の記述（計測方法の記載なし）", nature: estimated, s: [src-loot-platformer-2021-09]}
+  - {id: m-loot-sales-5d, type: nft_sales, value: 46000000, value_text: "4600 万ドル", unit: USD, period: "2021-08-27〜2021-09-01（公開後 5 日）", definition: "二次流通の売上（CoinDesk の記述。集計元・ウォッシュトレード除外の有無は記載なし）", nature: reported, s: [src-loot-coindesk-2021-09]}
+  - {id: m-loot-devs-2022, type: other, value: 200, value_text: "約 200 人", unit: developers, period: "2022-08", definition: "何らかの形で Loot に関わる開発者数についての Hofmann の推計", nature: estimated, s: [src-loot-platformer-2022]}
 
 events:
   - {id: ev-loot-launch, date: "2021-08-27", type: launch, title: "Loot をツイートで公開", detail: "no fee, just gas。8000 袋、コントラクト直接操作のみ", s: [src-loot-coindesk-2021-09, src-loot-platformer-2021-09]}
@@ -206,3 +247,7 @@ sources:
   - {id: src-loot-decrypt-2022, title: "Loot, One Year Later: The NFT Hype Is Dead—But 'Lootverse' Hope Lives On", url: "https://decrypt.co/108354/loot-one-year-later-nft-hype-dead-lootverse-hope-lives-on", publisher: "Decrypt", author: "Andrew Hayward", type: retrospective, primary: false, published: "2022-08-26", accessed: "2026-10-23", access: fetched, lang: en, note: "取引高 95% 減（CryptoSlam）、フロア 0.93 ETH、Hofmann の発言、Eternum・Loot MMO・Loot 2 の状況、5% ロイヤリティ、Gitcoin"}
   - {id: src-loot-theblock-2021-09, title: "NFT collectibles see significant drop in sales volumes", url: "https://www.theblock.co/post/117342/nft-collectibles-see-significant-drop-in-sales-volumes", publisher: "The Block", type: news, primary: false, published: "2021-09-10", accessed: "2026-10-23", access: fetched, lang: en, note: "CryptoSlam データ。Loot・CryptoPunks・BAYC・Art Blocks の週次取引高が 44〜82% 減（個別の値はなし）"}
   - {id: src-loot-survivor-repo, title: "BibliothecaDAO/loot-survivor", url: "https://github.com/BibliothecaDAO/loot-survivor", publisher: "GitHub (BibliothecaDAO)", type: code, primary: true, published: "2024-08", accessed: "2026-10-23", access: fetched, lang: en, note: "git clone。検証役の再確認では main の最終コミットは 2024-08-08 で、全ブランチ中でも最新（初版の「2025-05-06」は再現せず）。README: OG loot に基づく装備、onchain arcade、Starknet、Apibara、LORDS。Pragma の乱数（VRF）は README ではなくコード（contracts/game/src/lib.cairo の pragma_lib）で確認"}
+  - {id: src-loot-realms-sourcify, title: "LootRealms verified source (Realms (for Adventurers), 0x7AFe30cB3E53dba6801aa0EA647A0EcEA7cBe18d)", url: "https://sourcify.dev/server/v2/contract/1/0x7AFe30cB3E53dba6801aa0EA647A0EcEA7cBe18d?fields=sources", publisher: "Sourcify", type: code, primary: true, published: "2021-08", accessed: "2026-10-24", access: fetched, lang: en, note: "mintWithLoot（privateSale 中、Loot の ownerOf で保有者を確認、lootersPrice 0.03 ETH）、mint（一般販売 0.15 ETH）、価格変更・withdraw は onlyOwner"}
+  - {id: src-loot-realms-deploy-tx, title: "Realms (for Adventurers) contract creation transaction", url: "https://etherscan.io/tx/0xea51eb47a9c8f7a597d74f6f86c8e82e9d3d34f2cac7c0b6d58c7f07d4e87872", publisher: "Etherscan", type: onchain-data, primary: true, published: "2021-08-31", accessed: "2026-10-24", access: fetched, lang: en, note: "2021-08-31 17:29:17 UTC、ブロック 13134698 で展開"}
+  - {id: src-loot-platformer-2022, title: "How a viral NFT project survived the crypto crash", url: "https://platformer.news/how-a-viral-nft-project-survived", publisher: "Platformer", author: "Casey Newton", type: retrospective, primary: false, published: "2022-08-18", accessed: "2026-10-24", access: fetched, lang: en, note: "約 200 人の開発者（Hofmann の推計）、時価総額 600 万ドル弱、HyperLoot・Corruptions 等"}
+  - {id: src-loot-ls-eligible, title: "Eligible Collections (Loot Survivor free games airdrop)", url: "https://github.com/Provable-Games/docs/blob/main/src/pages/lootsurvivor/token/eligible-collections.mdx", publisher: "Provable Games docs (GitHub)", type: official-docs, primary: true, accessed: "2026-10-24", access: fetched, lang: en, note: "55 集合。Loot 5・Genesis Adventurers 5・Dope Wars 3・Realms 3・Crypts and Caverns 2・Hyperloot 2 ゲーム/NFT など"}

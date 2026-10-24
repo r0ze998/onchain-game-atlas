@@ -151,6 +151,49 @@ article:
     - {t: "コントラクトが今も動くことは永続性の証拠だが、外見・画像・UI はサーバー依存で、遺伝子計算も差し替えられている。「オンチェーンだから残る」の範囲は所有記録と交配制約に限られる。", k: analysis, s: [src-ck-etherscan-genescience-current, src-ck-hackernoon-genome]}
     - {t: "ネットワーク占有率は資料によって 11〜25% と幅があり、報道は測定方法を明示していない。検証役がアーカイブ RPC で 2017-12 の各日 200 ブロックを抽出して数えた直接呼び出しの比率は日によって約 6〜21% で、報道の 11〜15% とは整合するが、Wikipedia の「約 25%」はこの抽出では再現しなかった（抽出・内部呼び出し除外による過小評価の可能性あり）。「Ethereum を止めた」という定番の語りは、程度について報道に依存している。", k: analysis, s: [src-ck-techcrunch-2017-12, src-ck-mittr-2017-12, src-ck-wikipedia, src-ck-decrypt-2024-zen, src-ck-rpc-share-sample]}
 
+acquisition:
+  audience: [players, developers]
+  summary: {t: "最初のユーザーは Ethereum の開発者コミュニティで、2017-10 の ETHWaterloo ハッカソンの参加者に猫を 2 匹ずつ配ったテストネットのアルファ版から始まった。MetaMask の開発者などの業界の当事者が SNS で広め、2017-11-28 のメインネット公開後は、交配で猫を増やして売れる仕組みと相場上昇期の報道が、Ethereum の外の人まで呼び込んだ。", k: analysis, s: [src-ck-newswire-ethwaterloo, src-ck-consensys-2018, src-ck-techcrunch-2017-12]}
+  steps:
+    - {phase: pre, date: "2017-10", t: "Axiom Zen は ETHWaterloo でアルファ版を予告なしに公開した。登録した参加者全員に猫を 2 匹ずつ配り、開始時に配った 50 匹から、週明けまでに 1,500 匹超が交配で生まれたとプレスリリースで発表した。", k: claim, who: "Axiom Zen（プレスリリース、2017-10-17）", s: [src-ck-newswire-ethwaterloo], q: "Each ETHWaterloo participant who signed up was gifted two 'CryptoKitties,'"}
+    - {phase: pre, date: "2017-10", t: "共同創業者 Bryce Bladon は、ETHWaterloo で Rinkeby テストネットに最小限の版をソフトローンチしたと振り返った。MetaMask の Dan Finlay は、同じ会場でチームに会い、猫の命名権と引き換えに Twitter でプロジェクトを紹介したと述べた。", k: claim, who: "Bryce Bladon / Dan Finlay（ConsenSys の記事内）", s: [src-ck-consensys-2018], q: "I was into CryptoKitties, and tweeted about the project in exchange for naming a cat."}
+    - {phase: pre, date: "2017-11-16", t: "Rinkeby でバグバウンティを始め（11/20 まで）、KittyCore などのコントラクトのソースを公開した。", k: fact, s: [src-ck-bounty-repo]}
+    - {phase: launch, date: "2017-11-28", t: "5 日間のクローズドベータの後、Ethereum メインネットで公開した（Frontiers 論文はデータを 11-23 から数えている）。運営は全員を MetaMask のブラウザ拡張に誘導し、アルファの段階から MetaMask と連絡を取っていたと述べている。", k: fact, s: [src-ck-wikipedia, src-ck-frontiers-2021, src-ck-consensys-2018]}
+    - {phase: growth, date: "2017-12-03", t: "TechCrunch は猫の取引総額が約 130 万ドルに達し、Ethereum のトラフィックの約 15% を占めると報じた。翌日には MIT Technology Review と Bloomberg も報じた。", k: fact, s: [src-ck-techcrunch-2017-12, src-ck-mittr-2017-12, src-ck-bloomberg-2017-12]}
+    - {phase: growth, date: "2017-12-10", t: "Frontiers 論文の区分では、日次の関与アドレス数がこの日に最大になった。Infura への要求は 12 月第 1 週だけで 1 日 20 億件から 40 億件超に増えた。", k: fact, s: [src-ck-frontiers-2021, src-ck-consensys-2018]}
+    - {phase: growth, date: "2018-03", t: "Dapper Labs として分社し、Union Square Ventures と Andreessen Horowitz の主導で 1200 万ドルを調達した。この時点で利用者数はすでにピークを大きく下回っていた。", k: fact, s: [src-ck-wikipedia, src-ck-frontiers-2021]}
+  channels:
+    - {id: hackathon, t: "ETHWaterloo でテストネットのアルファ版を公開し、登録した参加者全員に猫を 2 匹ずつ配って交配させた。", k: fact, s: [src-ck-newswire-ethwaterloo, src-ck-consensys-2018]}
+    - {id: free-mint, t: "ハッカソンの参加者には猫を無料で配った（テストネット上）。メインネットでは gen0 猫をオークションで売っており、無料配布ではない。", k: fact, s: [src-ck-newswire-ethwaterloo, src-ck-sourcify-kittycore]}
+    - {id: creator-stream, t: "MetaMask の Dan Finlay が猫の命名権と引き換えに Twitter でプロジェクトを紹介した。業界の発信力のある人物に資産そのものを報酬として渡した例である。", k: claim, who: "Dan Finlay（MetaMask）", s: [src-ck-consensys-2018]}
+    - {id: invite-gating, t: "メインネットでの公開の前に、5 日間のクローズドベータを行った。", k: fact, s: [src-ck-wikipedia]}
+    - {id: builder-grants, t: "公開前に Rinkeby でバグバウンティを行い、コントラクトのソースを公開した。", k: fact, s: [src-ck-bounty-repo]}
+    - {id: platform-distribution, t: "利用者を MetaMask のブラウザ拡張に誘導し、アルファの段階から MetaMask と調整していた。", k: claim, who: "Michael Wuehler（Infura）/ Bryce Bladon", s: [src-ck-consensys-2018]}
+    - {id: viral-mechanic, t: "2 匹から子を生ませて売れる交配と、他人に種付け役を貸す種付けオークションが、保有者に新しい猫を作って売り込む動機を与えた。", k: fact, s: [src-ck-bounty-repo, src-ck-sourcify-kittycore]}
+    - {id: press, t: "公開 1 週間ほどで TechCrunch・MIT Technology Review・Bloomberg が「Ethereum を詰まらせた猫」として報じた。", k: fact, s: [src-ck-techcrunch-2017-12, src-ck-mittr-2017-12, src-ck-bloomberg-2017-12]}
+  cost:
+    - {t: "ハッカソンで配った猫は運営がテストネットで作ったもので、費用はほぼかからない。メインネットでは、プレイヤーが gen0 オークションの代金、二次市場の手数料、出産代行の手数料、ガス代を払い、運営の収入になった。", k: fact, s: [src-ck-newswire-ethwaterloo, src-ck-sourcify-kittycore]}
+    - {t: "交配で生まれた猫を後から来た人が買う構造で、初期の保有者の利益は後から来た買い手が払った。", k: analysis, s: [src-ck-sourcify-kittycore, src-ck-frontiers-2021]}
+    - {t: "公開前の獲得費用（広告・配信者への報酬）は公表されていない。VC 資金（1200 万ドル）は公開後の 2018-03 で、初期の獲得には使われていない。", k: fact, s: [src-ck-wikipedia]}
+  after:
+    - {t: "Frontiers 論文によれば、2018 年初めには人気がピークの 10% 未満に落ちた。", k: fact, s: [src-ck-frontiers-2021]}
+    - {t: "Fortune は、Greylock Partners の推計としてピーク時でも 1 日約 1 万 4000 人だったと報じ、2018-05 までに猫の価格の中央値は約 5 ドル、取引数は 12 月の 130 万件から 11.5 万件に落ちたと記した。", k: fact, s: [src-ck-fortune-2018], q: "even at its peak, CryptoKitties only had about 14,000 daily users."}
+    - {t: "2020-05 までに猫の移転に関わったアドレスは約 10.4 万。人単位の継続率は公表されていない。", k: fact, s: [src-ck-frontiers-2021]}
+  counter:
+    - {t: "流入の時期は 2017 年末の暗号資産相場の急上昇と重なっており、交配の仕組みや報道ではなく、相場全体の盛り上がりが人を呼んだ可能性がある。本調査では両者を切り分けた資料を見つけていない。", k: analysis}
+    - {t: "「Ethereum のトラフィックの 15%」は取引数の割合で、利用者数ではない。Greylock の推計ではピークでも 1 日約 1 万 4000 人で、1 人あたりの取引数が多かったことになる。giveBirth を呼ぶボットの取引も含まれる。", k: analysis, s: [src-ck-techcrunch-2017-12, src-ck-fortune-2018, src-ck-sourcify-genescience]}
+    - {t: "ETHWaterloo の 1,500 匹超はテストネット上の数字で、運営の発表であり、参加者数は示されていない。ハッカソンでの配布がメインネットの利用者につながったという直接のデータはない。", k: analysis, s: [src-ck-newswire-ethwaterloo]}
+  lessons:
+    - {t: "ハッカソンでの資産配布: 開発者が集まる場で、登録者全員に交配できる資産を配ると、その場で使い方が広まり、第三者の分析ツールや拡張を作る人も最初から入ってくる。効く条件は、資産同士を組み合わせる遊び（交配）が配った単位で完結すること。破綻条件は、開発者の参加がテストネット上に限られ、一般のプレイヤーの継続にはつながらないこと。", k: analysis}
+    - {t: "資産の命名権を宣伝の報酬にする: 業界の発信者に資産そのもの（猫の命名権）を渡すと、金銭の報酬なしで紹介を得られる。効く条件は、資産に個性があり、所有を見せられること。", k: analysis}
+    - {t: "交配による供給増と後続の買い手: 保有者が新しい資産を作って売れる設計は、急速な流入を生むが、後から来た買い手が初期の保有者の利益を払う構造になる。新しい買い手の流入が止まると価格が下がる（Fortune によれば中央値はピーク時の 41 ドルから 2018-05 には約 5 ドル）。", k: analysis, s: [src-ck-fortune-2018]}
+  metrics: [m-ck-ethwaterloo-bred, m-ck-volume-2017-12-03, m-ck-share-tc-2017-12, m-ck-infura-requests, m-ck-greylock-peak-dau, m-ck-addresses-2020]
+  unknowns:
+    - "ETHWaterloo の参加者数と、そこで猫を受け取った人がメインネットで遊んだか。"
+    - "5 日間のクローズドベータの参加者の選び方と人数。"
+    - "公開前後の宣伝費用、配信者・著名人への報酬の有無（Steph Curry との提携は 2018 年とされるが本調査では一次資料を確認していない）。"
+    - "公開初週の一意の利用者数（アドレスではなく人）。"
+
 metrics:
   - {id: m-ck-share-tc-2017-12, type: transactions, value: 15, value_text: "約 15%", unit: "%", period: "2017-12-03 時点", definition: "Ethereum ネットワークのトラフィックに占める割合（TechCrunch の記述。算出方法・元データは記事に明示なし）", nature: estimated, s: [src-ck-techcrunch-2017-12]}
   - {id: m-ck-share-mittr-2017-12, type: transactions, value: 12, value_text: "12%", unit: "%", period: "2017-12-04 時点", definition: "Ethereum 全トランザクションに占める割合（MIT Technology Review の記述。出典名なし）", nature: estimated, s: [src-ck-mittr-2017-12]}
@@ -167,6 +210,8 @@ metrics:
   - {id: m-ck-txcount-2026, type: transactions, value: 5042215, unit: tx, period: "2026-10-23 時点の累計", definition: "Etherscan が表示する KittyCore への累計トランザクション数", nature: measured, s: [src-ck-etherscan-txs]}
   - {id: m-ck-funding-2018-03, type: funding, value: 12000000, unit: USD, period: "2018-03", definition: "Dapper Labs 分社時の調達額（Union Square Ventures・Andreessen Horowitz 主導、Wikipedia 記載）", nature: reported, s: [src-ck-wikipedia]}
   - {id: m-ck-funding-2018-11, type: funding, value: 15000000, unit: USD, period: "2018-11", definition: "Venrock 主導の調達額（Wikipedia 記載）", nature: reported, s: [src-ck-wikipedia]}
+  - {id: m-ck-ethwaterloo-bred, type: other, value: 1500, value_text: "1,500 匹超（開始時の配布 50 匹から）", unit: kitties, period: "2017-10（ETHWaterloo 会期中、テストネット）", definition: "ハッカソン会期中に交配で生まれた猫の数（Axiom Zen のプレスリリース）", nature: reported, s: [src-ck-newswire-ethwaterloo]}
+  - {id: m-ck-greylock-peak-dau, type: dau, value: 14000, value_text: "約 1 万 4000 人", unit: users, period: "ピーク時（2017-12 と見られる）", definition: "Greylock Partners の推計による日次利用者数（Fortune の報道。算出方法不明）", nature: estimated, s: [src-ck-fortune-2018]}
 
 events:
   - {id: ev-ck-erc721-draft, date: "2017-09-22", type: other, title: "ERC-721 草案の議論スレッド（#721）が開かれる", detail: "起草者 Dieter Shirley（dete@axiomzen.co）", s: [src-ck-eip721-issue]}
@@ -201,6 +246,7 @@ contradictions:
   - {t: "Flow 移行の発表時期: Cointelegraph・Decrypt は 2020-05-21 に Flow での提供を報じたが、Wikipedia は「2021-03 に近い将来 Flow へ切り替える計画を発表」と記す。", s: [src-ck-cointelegraph-flow-2020, src-ck-decrypt-flow-2020, src-ck-wikipedia]}
   - {t: "gen0 上限: KittyCore のコメントは gen0 の上限を 5 万匹と書くが、定数は GEN0_CREATION_LIMIT = 45000 と PROMO_CREATION_LIMIT = 5000（合計で 5 万）。", s: [src-ck-sourcify-kittycore]}
   - {t: "Flow 移行: 2020 年の報道は「Ethereum から移行する」とし、CEO は Ethereum 版も並行させたいと述べた。2026 年時点で Ethereum 版は動き続け、Flow 版の提供は確認できない。", s: [src-ck-decrypt-flow-2020, src-ck-cointelegraph-flow-2020, src-ck-etherscan-txs]}
+  - {t: "ETHWaterloo での公開日: Wikipedia は 2017-10-19 にテスト版を披露したとするが、Axiom Zen のプレスリリースは 2017-10-17 付けで、すでにハッカソン会期中の配布と 1,500 匹超の交配を報告している。披露は 10-17 より前だったことになる。", s: [src-ck-wikipedia, src-ck-newswire-ethwaterloo]}
 
 sources:
   - {id: src-ck-bounty-repo, title: "dapperlabs/cryptokitties-bounty", url: "https://github.com/dapperlabs/cryptokitties-bounty", publisher: "GitHub (Axiom Zen / Dapper Labs)", type: code, primary: true, published: "2017-11", accessed: "2026-10-23", access: fetched, lang: en, note: "git clone で README・CryptoKitty Basics・コントラクトを確認。Rinkeby バウンティ（2017-11-16〜20）、役割、クールダウン表、閲覧・教育目的のみのライセンス"}
@@ -229,3 +275,5 @@ sources:
   - {id: src-ck-decrypt-flow-2020, title: "CryptoKitties scratch Ethereum, find new life on Flow blockchain", url: "https://decrypt.co/29694/cryptokitties-scratch-ethereum-find-new-life-flow-blockchain", publisher: "Decrypt", type: news, primary: false, published: "2020-05-21", accessed: "2026-10-23", access: fetched, lang: en, note: "Ethereum から Flow へ移行、Ethereum の猫も持ち込めると CEO"}
   - {id: src-ck-decrypt-2024-zen, title: "CryptoKitties Are Back—As a Telegram Crypto Game", url: "https://decrypt.co/284116/cryptokitties-back-telegram-crypto-game", publisher: "Decrypt", author: "Ryan S. Gladwin", type: news, primary: false, published: "2024-10-01", accessed: "2026-10-23", access: fetched, lang: en, note: "All the ZEN、2017 年以来最初の公式製品、Flow での再始動予告、ピーク時 13%"}
   - {id: src-ck-opensea-carr-2025, title: "In Conversation With Alan Carr of CryptoKitties", url: "https://opensea.io/blog/articles/in-conversation-with-alan-carr-of-cryptokitties", publisher: "OpenSea", type: interview, primary: true, published: "2025-04-15", accessed: "2026-10-23", access: fetched, lang: en, note: "KittyCalc、Red Dot District、ミームコイン構想、All the ZEN の 25 万人"}
+  - {id: src-ck-newswire-ethwaterloo, title: "CryptoKitties Breeds Hundreds of Cats in 36 Hours to Promote Blockchain Product", url: "https://www.newswire.ca/news-releases/cats-invade-worlds-largest-ethereum-hackathon-651263343.html", publisher: "Cision (CNW)", author: "Axiom Zen", type: official-blog, primary: true, published: "2017-10-17", accessed: "2026-10-24", access: fetched, lang: en, note: "ETHWaterloo でのアルファ公開、登録参加者全員に 2 匹配布、開始時 50 匹から 1,500 匹超の交配、Rufflet の受賞（1,000 ドル相当のトークン）、catifesto の引用"}
+  - {id: src-ck-fortune-2018, title: "The Blockchain Bubble's Latest Victim: Digital Cats", url: "https://fortune.com/2018/06/18/cryptokitties/", publisher: "Fortune", author: "Jeff John Roberts", type: news, primary: false, published: "2018-06-18", accessed: "2026-10-24", access: fetched, lang: en, note: "Greylock 推計のピーク時 1 日約 1 万 4000 人、中央値価格 41 ドル→約 5 ドル、取引数 12 月 130 万件→5 月 11.5 万件"}

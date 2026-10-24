@@ -4,7 +4,7 @@ name_ja: コンクエスト・イーエス
 aliases: ["conquest", "Conquest DEFCON edition", "Conquest 2025-1"]
 kind: game
 depth: index
-updated: "2026-10-23"
+updated: "2026-10-24"
 links:
   website: https://conquest.game/
   x: https://x.com/conquest_eth
@@ -74,6 +74,39 @@ article:
     - {t: "第三者ツール（bugout-dev のボット・分析、地図）の多くは 2022 年に作られ、その後更新が止まっている（地図 2022-05、bugout-dev 2022-09）。統計サイト yonadaa/conquest.eth-stats は 2025-02 まで更新があり、2025-1 版の活動期と重なる。「拡張はゲームと同じだけ生きる」という主張に対し、第三者拡張の多くは短命で、続いたものも版の活動期間に連動していた。", k: fact, s: [src-conquest-third-party]}
     - {t: "「終わらない一つの世界」を掲げながら、実際の 2025-1 版のオンチェーン活動は 2024-11〜2025-03 に集中し、2025-10 以降はほぼ途絶えた（イベントログ計測）。無期限の設計でも、参加は版の公開直後の短期間に集中する点で期間制ラウンドと大差ない可能性がある。", k: analysis, s: [src-conquest-gnosis-logs]}
 
+acquisition:
+  audience: [players]
+  summary: {t: "最初の参加者がどの集団から来たかを示す一次資料は見つからなかった。確認できたのは、2021 年に誰でも参加できる賞金付き alpha テストを 2 回行い、2022 年の beta・DEFCON 版を経て、2025 年の再開では運営と提携先が出す賞品・ポイント報酬とニュースレター・Discord で参加者を呼び込んだことである。", k: analysis, s: [src-conquest-p2e-alpha2, src-conquest-back-2025]}
+  steps:
+    - {phase: pre, date: "2021", t: "2021 年に 2 回の alpha、2022 年に beta と DEFCON 版を実施した。運営は、このうち設計どおり許可不要・永続の形で始めたのは DEFCON 版だけだったと振り返る。", k: claim, who: "Etherplay", s: [src-conquest-back-2025], q: "Conquest had 4 versions prior to this one. 2 alphas in 2021, plus 1 beta and the \"DEFCON\" edition in 2022."}
+    - {phase: pre, date: "2021-11", t: "第三者メディアは、第 2 alpha を 12 月 7 日に開き、誰でも参加でき、少なくとも 2000 ドルの賞品があると報じた（開発ログの告知に基づく記事。賞品の拠出者は記載なし）。同じ版で同盟と、不在時に艦隊を操作する雇える代行が加わった。", k: fact, s: [src-conquest-p2e-alpha2], q: "There will be at least $2000 in prizes up for grabs."}
+    - {phase: launch, date: "2022-04", t: "DEFCON 版を Gnosis Chain で開始した（作者のブログが「4 月に Defcon で開始」と記載）。", k: fact, s: [src-conquest-infinite-games]}
+    - {phase: growth, date: "2025-01-21", t: "2025-02-03 の再開を告知した。期限も人数上限もない世界として、1 惑星あたり 1〜12 xDai のステークで参加する形にし、ランダムな惑星に提携先の賞品（Blockscout が計 200 ドル、Xaya の Soccerverse が 500 ドル相当のサッカークラブ）を置き、運営が 1000 ドルをポイント上位の報酬に出すとした。参加方法はニュースレター登録・アンケート・Discord 参加を案内した。", k: fact, s: [src-conquest-back-2025]}
+    - {phase: growth, date: "2025-05", t: "Faction 版を公開した。運営は翌年、この版では過去のどの版よりも多くのトークンを配布したが、固定の参加費にしたことで想定していなかった複数アカウントの問題が多発したと振り返った。", k: claim, who: "Etherplay", s: [src-conquest-future-2026], q: "We also had a lot of multi-accounting issues that we did not plan for."}
+  channels:
+    - {id: prize-competition, t: "2021 年の alpha テストは賞品付きで（第 2 alpha は 2000 ドル以上と報道）、2025 年の再開でも運営の 1000 ドルを上位報酬に充てた。", k: fact, s: [src-conquest-p2e-alpha2, src-conquest-back-2025]}
+    - {id: token-incentive, t: "2025 年版ではステークの保有量と期間で決まるポイントに応じて報酬を配り、運営は合算しても有利にならない線形の配分にしたと説明した。Faction 版では過去最多のトークンを配布した。", k: claim, who: "Etherplay", s: [src-conquest-back-2025, src-conquest-future-2026]}
+    - {id: platform-distribution, t: "2025 年版では Blockscout と Xaya（Soccerverse）がランダムな惑星に賞品を置くスポンサーになり、運営はさらにスポンサーを募った。", k: fact, s: [src-conquest-back-2025]}
+    - {id: community-server, t: "参加方法として Discord への参加とニュースレター登録、アンケート回答を案内した。", k: fact, s: [src-conquest-back-2025, src-conquest-future-2026]}
+  cost:
+    - {t: "獲得の原資は、運営の賞金（2025 年版で 1000 ドル）と提携先の賞品（計 700 ドル相当）、そしてプレイヤー自身のステーク（1 惑星 1〜12 xDai）である。ステークは他プレイヤーに奪われ得るため、後から来た参加者の資金が先行者に移る構造がある。2021 年 alpha の 2000 ドル以上の賞品を誰が出したかは未確認。", k: fact, s: [src-conquest-back-2025, src-conquest-p2e-alpha2, src-conquest-handbook]}
+  after:
+    - {t: "2025-1 版の OuterSpace のイベントログは 2024-11〜2025-03 の約 4 か月に 14,157 件、その後の約 4 か月ごとに 1,859 件、66 件、27 件と減り、再開直後の流入は続かなかった。プレイヤー数・継続率の公表値はない。", k: fact, s: [src-conquest-gnosis-logs]}
+  counter:
+    - {t: "報酬を厚くした Faction 版では、固定の参加費が複数アカウントを有利にしたと運営自身が認めており、報酬による「参加者」の増加には同一人物の複数口座が含まれ得る。ステーク量に比例する設計は、それ以前の版では複数アカウントへの耐性になっていたと運営は述べる。", k: claim, who: "Etherplay", s: [src-conquest-future-2026], q: "This was due to the fixed entry price, a big departure from what made Conquest.eth immune to it prior to that."}
+    - {t: "イベントログの集中は報酬の告知と開始の時期に一致するが、ログ件数は行動数であって人数ではなく、少数の活発なプレイヤーやボットでも同じ形になり得る。", k: analysis, s: [src-conquest-gnosis-logs]}
+  lessons:
+    - {t: "ステーク比例の報酬で複数アカウントを無意味にする: 報酬を「保有ステーク量×期間」に線形に比例させると、口座を分けても合算しても受け取りが変わらず、賞金で人を呼んでも多重アカウントの動機が生まれにくい。効く条件は参加単位の価格が自由（1〜12 xDai のように可変）であること。破綻条件は固定の参加費や 1 口座あたりの固定報酬を入れた場合で、Conquest の Faction 版のように報酬が口座数に比例してしまう。", k: analysis, s: [src-conquest-back-2025, src-conquest-future-2026]}
+    - {t: "スポンサー賞品をマップ上に置く: 提携先の賞品をランダムな惑星に置くと、少額でも探索と奪い合いの目標になり、提携先の告知経路も使える。破綻条件は賞品額が小さく（2025 年版で計 700 ドル相当）、開始直後の流入が数か月で消える場合で、獲得はできても継続の理由にはならない。", k: analysis, s: [src-conquest-back-2025, src-conquest-gnosis-logs]}
+  metrics: [m-conquest-2025-1-logs]
+  unknowns:
+    - "2021 年の alpha の参加者がどこから来たか（作者の既存の開発者コミュニティ、Gnosis/xDai の利用者など）を示す一次資料。開発ログ conquest.eth.limo/devlog/ は参照日に 504 で読めなかった。"
+    - "各版の参加者数、alpha の賞品の拠出者、DEFCON 版の参加条件と報酬。"
+    - "Faction 版（2025-05）が 2025-1 版と同じコントラクトか別の展開か。"
+
+metrics:
+  - {id: m-conquest-2025-1-logs, type: other, value: 14157, value_text: "14,157 件", unit: events, period: "2024-11〜2025-03（約 200 万ブロック）", definition: "2025-1 版 OuterSpace（Gnosis Chain、0xD833…）が出したイベントログの件数。続く約 200 万ブロックごとに 1,859 / 66 / 27 件。人数ではなく行動数", nature: measured, s: [src-conquest-gnosis-logs]}
+
 events:
   - {id: ev-conquest-defcon, date: "2022-04", type: launch, title: "DEFCON 版を Gnosis Chain で開始", s: [src-conquest-infinite-games]}
   - {id: ev-conquest-infinite-games, date: "2022-08-19", type: other, title: "作者が「Infinite Games」を公開", detail: "相互運用可能・許可不要・永続（persistent）・不変の 4 性質による無限ゲームの定義（プログラム可能性は基盤のブロックチェーンの性質として別に述べる）", s: [src-conquest-infinite-games]}
@@ -100,3 +133,6 @@ sources:
   - {id: src-conquest-third-party, title: "GitHub repository search: conquest-eth", url: "https://github.com/search?q=conquest-eth&type=repositories", publisher: "GitHub", type: code, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "GitHub 検索で確認。bugout-dev/conquest-eth（分析・ボット、更新 2022-09）、yonadaa/conquest.eth-stats（更新 2025-02-17）、kompotkot/conquest-eth-map（2022-05）。日付は GitHub の Updated 表示"}
   - {id: src-conquest-gnosis-logs, title: "Gnosis Chain eth_getLogs for OuterSpace 2025-1 (0xD833d4dBBb0C19aF1EEf76540d66E2076a5e9D72)", url: "https://rpc.gnosischain.com", publisher: "Gnosis Chain public RPC", type: onchain-data, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "検証役が 2026-10-23 に最新ブロック 48,898,162 から 200 万ブロックずつ遡ってログ件数を計測。アドレスは deployments/2025_1/OuterSpace.json（chainId 100）"}
   - {id: src-conquest-site, title: "CONQUEST", url: "https://conquest.game", publisher: "Etherplay", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "ローンチ待ちの告知ページ"}
+  - {id: src-conquest-p2e-alpha2, title: "Conquest.eth Preparing for Second Alpha Test", url: "https://playtoearn.com/news/conquest-eth-preparing-for-second-alpha-test", publisher: "PlayToEarn", author: "Phil Hall", type: news, primary: false, published: "2021-11-16", accessed: "2026-10-24", access: fetched, lang: en, note: "第 2 alpha を 12/7 に開催、誰でも参加可、2000 ドル以上の賞品、同盟・代行の追加。出典として conquest.eth.limo/devlog/ を挙げる"}
+  - {id: src-conquest-back-2025, title: "We are back on Conquest!", url: "https://paragraph.com/@etherplay/conquest-is-back", publisher: "Etherplay News (Paragraph)", type: official-blog, primary: true, published: "2025-01-21", accessed: "2026-10-24", access: fetched, lang: en, note: "過去 4 版（2021 alpha×2、2022 beta・DEFCON）、2/3 再開、ステーク 1〜12 xDai、Blockscout・Soccerverse の賞品、運営の 1000 ドル、ポイントの線形配分、参加方法"}
+  - {id: src-conquest-future-2026, title: "Help us shape the future of Conquest.eth", url: "https://paragraph.com/@etherplay/help-us-shape-the-future-of-conquest", publisher: "Etherplay News (Paragraph)", type: retrospective, primary: true, published: "2026-04-01", accessed: "2026-10-24", access: fetched, lang: en, note: "2025-05 の Faction 版、過去最多のトークン配布、固定参加費による複数アカウント問題、次版の構想、Discord・ニュースレター"}

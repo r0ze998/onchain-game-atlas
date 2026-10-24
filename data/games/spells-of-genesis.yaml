@@ -65,10 +65,47 @@ compare:
 
 concepts: [c-nft-asset, c-fungible-ingame-token, m-collectible-cards]
 
+acquisition:
+  audience: [players, holders]
+  summary: {t: "最初の支持者は、前作 Moonga のプレイヤーと、Counterparty / Bitcoin の利用者だった。ゲーム公開（2017-04）の約 2 年前に、BitCrystals のトークンセール（2015-08）とオンチェーンのカード発行でこの人たちを集めた。最初の利用者はプレイヤーである前に、出資者でありカード保有者だった。", k: analysis, s: [src-sog-counterparty-forum, src-sog-bnc-sale-2015, src-sog-btcmag-2015]}
+  steps:
+    - {phase: pre, date: "2015-02-16", t: "EverdreamSoft が Counterparty フォーラムで、カードを Counterparty 資産にする計画と BitCrystals のトークンセールを公表した。前作 Moonga では、規約で禁じられていたのにプレイヤーがレアカードを 1000 ドル超で取引していたと書き、トークンセール前にサイトに登録した初期の支持者には BitCrystals を無料で配ると告知した。", k: fact, s: [src-sog-counterparty-forum], q: "We saw some of our players trading rare cards for more than 1000 USD, even if it was not allowed by the terms of service."}
+    - {phase: pre, date: "2015-03-11", t: "最初のオンチェーンカード（FDCARD）を発行した。", k: fact, s: [src-sog-site]}
+    - {phase: pre, date: "2015-05-09", t: "Bitcoin Magazine が Moonga シリーズのブロックチェーン利用を報じ、前作 Moonga を 25 万ダウンロード超と紹介した。", k: fact, s: [src-sog-btcmag-2015]}
+    - {phase: pre, date: "2015-08-04", t: "BitCrystals のトークンセールを ShapeShift 経由で開始した（当初予定の Swarm は技術的問題で断念）。出資額に応じて限定カード（SATOSHICARD、GENESISCARD）や専用ストアへのアクセスを付け、開始 2 時間で 240 BTC が集まったと Brave New Coin は報じた。", k: fact, s: [src-sog-btcmag-sale, src-sog-bnc-sale-2015]}
+    - {phase: pre, date: "2015-09", t: "セールは 2015-09-03 に終わり、934 BTC・約 1360 万 BitCrystals の配布、プレイヤー向け終身会員 181 件・パートナー向け 39 件と報じられた。試遊できる Alpha 0.1 も出ており、Counterparty の開発者（CoinDaddy の Jeremy Johnson）が試していると述べた。", k: fact, s: [src-sog-bnc-milestone-2015]}
+    - {phase: pre, date: "2016-02", t: "iOS と Android でベータを始めた。Android 版は公式サイトから無料で入手でき、iOS 版はトークンセールの出資者に自動で配られ、それ以外は申請制だった。", k: fact, s: [src-sog-siliconangle-2016]}
+    - {phase: launch, date: "2017-04-20", t: "ゲームを公開し、第 2 カードコレクションを始めた。", k: fact, s: [src-sog-site]}
+  channels:
+    - {id: existing-community, t: "前作 Moonga のプレイヤー（運営はカードの闇取引を観察していた）と、Counterparty の利用者・開発者を最初の層にした。", k: fact, s: [src-sog-counterparty-forum, src-sog-bnc-milestone-2015]}
+    - {id: crypto-social, t: "計画の公表は Counterparty の公式フォーラムで行った。", k: fact, s: [src-sog-counterparty-forum]}
+    - {id: token-incentive, t: "トークンセール前に公式サイトに登録した支持者に、BitCrystals を無料で配ると告知した。", k: fact, s: [src-sog-counterparty-forum]}
+    - {id: invite-gating, t: "2016-02 のベータでは、iOS 版をトークンセールの出資者に自動で配り、それ以外の人は申請制にした。", k: fact, s: [src-sog-siliconangle-2016]}
+    - {id: press, t: "Bitcoin Magazine、Brave New Coin、SiliconANGLE など暗号資産・テック系の媒体が、トークンセールとベータを報じた。", k: fact, s: [src-sog-btcmag-2015, src-sog-btcmag-sale, src-sog-bnc-sale-2015, src-sog-siliconangle-2016]}
+  cost:
+    - {t: "初期の資金は、トークンセールで BitCrystals を買った出資者が出した（Brave New Coin は 934 BTC、SiliconANGLE は 930 BTC 超・約 34.6 万ドルと記す）。資金はマルチシグで保管され、25% ずつ 4 段階で開発に充てるとされた。", k: fact, s: [src-sog-bnc-milestone-2015, src-sog-bnc-sale-2015, src-sog-siliconangle-2016]}
+    - {t: "登録者への無料 BitCrystals や出資特典のカードは、運営が新規に発行したトークンとカードでまかなった。配布量は確認できなかった。", k: fact, s: [src-sog-counterparty-forum, src-sog-bnc-sale-2015]}
+  after:
+    - {t: "セール時に CEO が示した「公開後数か月で MAU 5 万」は見込みで、ゲームの公開は約 2 年後（2017-04-20）だった。実績の MAU・継続率は公表されていない。", k: fact, s: [src-sog-btcmag-sale, src-sog-site]}
+    - {t: "公式サイトは 2023 年からの月額 NFT ルートボックスと BitCrystals のステーキングを掲載しており、運営は続いているが、利用者数は示されていない。", k: fact, s: [src-sog-site]}
+  counter:
+    - {t: "トークンセールで集まったのは主に BitCrystals の買い手で、プレイヤーになったかどうかは分からない。開始 2 時間の 240 BTC は、ゲームへの期待より、新しいトークンへの投機的な需要を反映している可能性がある。", k: analysis, s: [src-sog-bnc-sale-2015]}
+    - {t: "Moonga のプレイヤーが SoG に移ったという直接のデータはない。Moonga の 25 万ダウンロードは前作の数字であり、SoG の利用者数ではない。", k: analysis, s: [src-sog-btcmag-2015]}
+  lessons:
+    - {t: "前作の闇取引を根拠にした資産化: 前作のプレイヤーが規約違反を承知でアイテムを高額取引していたという観察は、「所有と取引を公式化すれば需要がある」という仮説の根拠になる。効く条件は、前作に取引需要の証拠があること。破綻条件は、取引需要がゲームの継続的なプレイを意味しないことで、公開が 2 年遅れる間にトークン保有者とプレイヤーが分かれてしまう。", k: analysis}
+    - {t: "出資者へのベータ優先配布: トークンセールの出資者にベータを自動で配ると、最初のテスターを確保できる。ただし、テスターが出資者に偏るので、ゲームの評価がトークン価格への関心と混ざる。", k: analysis}
+  metrics: [m-sog-bcy-raise-2015, m-sog-bcy-sale, m-sog-mau-projection-2015, m-sog-moonga-downloads]
+  unknowns:
+    - "トークンセール前の登録者数と、無料で配った BitCrystals の量。"
+    - "トークンセールの参加者数（終身会員の数は分かるが、出資者の総数は不明）。"
+    - "2016-02 のベータと 2017-04 の公開時のプレイヤー数。"
+    - "Moonga のプレイヤーのうち SoG に移った人の割合。"
+
 metrics:
   - {id: m-sog-bcy-sale, type: other, value: 70000000, value_text: "7000 万 BCY（総発行予定 1 億）", unit: BCY, period: "2015-08（トークンセール）", definition: "トークンセールで販売予定とされた BitCrystals の数（調達額ではない）", nature: reported, s: [src-sog-btcmag-2015, src-sog-counterparty-forum]}
   - {id: m-sog-mau-projection-2015, type: mau, value: 50000, unit: players, period: "2015-08 時点の見込み（公開後数か月）", definition: "CEO Shaban Shaame がトークンセール時に示した MAU の見込み（有料 2,500 人×月 40 ドルで月 10 万ドル相当の BCY 需要とする試算）。実績ではない", nature: estimated, s: [src-sog-btcmag-sale]}
   - {id: m-sog-moonga-downloads, type: other, value: 250000, value_text: "25 万超", unit: downloads, period: "2015-05 時点", definition: "前作 Moonga のダウンロード数（SoG ではない）", nature: reported, s: [src-sog-btcmag-2015]}
+  - {id: m-sog-bcy-raise-2015, type: funding, value: 934, value_text: "934 BTC（SiliconANGLE は 930 BTC 超・約 34.6 万ドル）", unit: BTC, period: "2015-08-04〜2015-09-03", definition: "BitCrystals トークンセールで集まった BTC（Brave New Coin の報道。運営発表に基づくと見られる）", nature: reported, s: [src-sog-bnc-milestone-2015, src-sog-siliconangle-2016]}
 
 events:
   - {id: ev-sog-counterparty-plan, date: "2015-02-16", type: announce, title: "Counterparty でのカード資産化と BitCrystals を公表", s: [src-sog-counterparty-forum]}
@@ -90,9 +127,13 @@ unknowns:
 contradictions:
   - {t: "BCY トークンセール時の需要試算（MAU 5 万・有料 2,500 人）はゲーム公開（2017-04）の約 2 年前に示された見込みで、実績値は公表されていない。", s: [src-sog-btcmag-sale]}
   - {t: "「最初の NFT モバイルゲーム」とする公式の主張に対し、独立した検証は見つからない。2015 年の最初のカード発行とゲームの公開（2017-04-20）には 2 年の差がある。", s: [src-sog-site]}
+  - {t: "トークンセール序盤の額: Brave New Coin（2015-08-05）は開始 72 時間未満で「630 BTC 弱」、SiliconANGLE（2016-02）は 3 日未満で目標の 90%（約 730 BTC）と記す。最終額も 934 BTC と「930 BTC 超」で表現が異なる。", s: [src-sog-bnc-sale-2015, src-sog-siliconangle-2016, src-sog-bnc-milestone-2015]}
 
 sources:
   - {id: src-sog-site, title: "Spells of Genesis", url: "https://www.spellsofgenesis.com", publisher: "EverdreamSoft", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "2015-03-11 の最初のカード、2017-04-20 公開、2023 年の ChainChronicles、対応プラットフォーム"}
   - {id: src-sog-counterparty-forum, title: "Spells of Genesis - Using Counterparty to Innovate Game Economy", url: "https://forums.counterparty.io/t/spells-of-genesis-using-counterparty-to-innovate-game-economy/924", publisher: "Counterparty Forum", author: "edshnin", type: forum, primary: true, published: "2015-02-16", accessed: "2026-10-23", access: fetched, lang: en, note: "カードへの Counterparty トークン割当、ロック、BitCrystals、7000 万枚の販売（総発行 1 億の記載はこの投稿にはなく Bitcoin Magazine による）"}
   - {id: src-sog-btcmag-2015, title: "Moonga Game Series to Utilize Blockchain for In-game Assets and Crowdfunding", url: "https://bitcoinmagazine.com/articles/moonga-game-series-utilize-blockchain-game-assets-crowdfunding-1431120521", publisher: "Bitcoin Magazine", author: "Andrew Wagner", type: news, primary: false, published: "2015-05-09", accessed: "2026-10-23", access: fetched, lang: en, note: "EverdreamSoft、Moonga、1 億 BCY、焼却と再利用"}
   - {id: src-sog-btcmag-sale, title: "Popular Arcade Game Launches Token Sale with Shapeshift", url: "https://bitcoinmagazine.com/articles/popular-arcade-game-launches-token-sale-shapeshift-1438641359", publisher: "Bitcoin Magazine", author: "Joseph Young", type: news, primary: false, published: "2015-08-04", accessed: "2026-10-23", access: fetched, lang: en, note: "2015-08-04 のセール開始、Swarm から移行、ShapeShift、MAU 5 万・有料 2,500 人の見込み"}
+  - {id: src-sog-bnc-sale-2015, title: "Spells of Genesis raises over 240 bitcoin in 2 hours", url: "https://bravenewcoin.com/insights/spells-of-genesis-raises-over-240-bitcoin-in-2-hours", publisher: "Brave New Coin", type: news, primary: false, published: "2015-08-05", accessed: "2026-10-24", access: fetched, lang: en, note: "開始 2 時間で 240 BTC、72 時間以内に約 630 BTC、マルチシグと 4 段階の払い出し、出資特典カード（SATOSHICARD、GENESISCARD）、一部地域で DNS 障害"}
+  - {id: src-sog-bnc-milestone-2015, title: "Spells of Genesis first milestone reached following successful token sale", url: "https://bravenewcoin.com/insights/spells-of-genesis-first-milestone-reached-following-successful-token-sale/", publisher: "Brave New Coin", type: news, primary: false, published: "2015-09-15", accessed: "2026-10-24", access: fetched, lang: en, note: "2015-09-03 終了、934 BTC、約 13,603,000 BitCrystals、終身会員（プレイヤー 181・パートナー 39）、Alpha 0.1、CoinDaddy の Jeremy Johnson のコメント"}
+  - {id: src-sog-siliconangle-2016, title: "Blockchain-based tradable card game Spells of Genesis enters beta", url: "https://siliconangle.com/?p=266400", publisher: "SiliconANGLE", author: "Kyt Dotson", type: news, primary: false, published: "2016-02-02", accessed: "2026-10-24", access: fetched, lang: en, note: "iOS・Android でベータ、Android は無料配布・iOS は出資者に自動配布で他は申請制、3 日未満で約 730 BTC・1 か月で 930 BTC 超（約 34.6 万ドル）"}

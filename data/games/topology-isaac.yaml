@@ -4,7 +4,7 @@ name_ja: アイザック（Topology）
 aliases: [Isaac, "Isaac Alpha"]
 kind: game
 depth: index
-updated: "2026-10-23"
+updated: "2026-10-24"
 links:
   github: https://github.com/guiltygyoza/isaac
   blog: https://topology.substack.com/
@@ -96,6 +96,37 @@ unknowns:
   - "アルファ各ラウンドの公式な開始・終了日（コミットからは 2022-08〜09 としか言えない）。"
 contradictions: []
 
+acquisition:
+  audience: [players]
+  summary: {t: "最初のプレイヤーは StarkNet のオンチェーン愛好家で、契約コードのコメントを読んで解くオンチェーン・パズル Solve2Mint 2.0 を参加資格に使い、50 人を選抜した。実際にアルファで遊んだのは約 13 人で、協調は Discord で行われた。", k: analysis, s: [src-isaac-what-happened, src-isaac-lobby-code]}
+  steps:
+    - {phase: pre, date: "2022-03-29", t: "StarkNet のコミュニティコール #11 で GuiltyGyoza が、StarkNet 上で検証するパズルで NFT を配る「Solve to Mint」（資本ではなく知識で配布）を発表した。", k: fact, s: [src-isaac-community-call]}
+    - {phase: pre, date: "2022-05-01", t: "DEFCON '22 での発表をまとめた記事で Isaac を公開し、詳細は Isaac の Discord で告知するとした。", k: fact, s: [src-isaac-presents]}
+    - {phase: pre, date: "2022-07", t: "アルファの参加資格として Solve2Mint 2.0（S2M2）を出した。50 問のオンチェーン・パズルで、解答はチェーン上で規則と照合され、規則は契約コードのコメントを読まないと分からない。告知ツイートから 48 時間以内に全問が解かれ、シビルがなければ 50 人が資格を得た。", k: claim, who: "Topology", s: [src-isaac-what-happened, src-isaac-repo]}
+    - {phase: launch, date: "2022-08", t: "ロビー契約は、S2M2 の解答記録（チケット）か、運営アドレス GYOZA が与える招待のどちらかを持つアカウントだけをキューに入れる仕組みで、人数がそろうと宇宙（ラウンド）へ送り出した。", k: fact, s: [src-isaac-lobby-code]}
+    - {phase: launch, date: "2022-08", t: "2 回のアルファ（2022-08-02 にクローズド・アルファ用パラメータ、2022-08-19 にオープン・アルファの展開をコミット）に約 13 人の一意プレイヤーが参加した。ゲーム内の連絡手段がなく、協調は Discord で行われた。", k: fact, s: [src-isaac-what-happened, src-isaac-repo]}
+  channels:
+    - {id: invite-gating, t: "S2M2 を解いた人だけにチケットを与え、加えて運営が個別に招待を配れるロビー契約で参加者を絞った。", k: fact, s: [src-isaac-what-happened, src-isaac-lobby-code]}
+    - {id: existing-community, t: "StarkNet の開発者コミュニティ（公式のコミュニティコール）で Solve to Mint を紹介し、オンチェーン愛好家を狙った。", k: fact, s: [src-isaac-community-call, src-isaac-what-happened]}
+    - {id: content-research, t: "DEFCON '22 の発表と Topology のニュースレターで、三体問題＋工場という設計思想を説明した。", k: fact, s: [src-isaac-presents]}
+    - {id: crypto-social, t: "S2M2 は告知ツイートで公開され、48 時間以内に全問が解かれた。", k: fact, s: [src-isaac-what-happened]}
+    - {id: community-server, t: "Isaac の Discord を告知・協調の場にし、プレイテスターは Discord ハンドルで謝辞に列挙された。", k: fact, s: [src-isaac-presents, src-isaac-what-happened]}
+  cost:
+    - {t: "賞金・トークン報酬の記述は見つからなかった。パズルとアルファはテストネットで行われ、参加者の金銭的負担はほぼなかったとみられるが、運営の費用は不明。", k: unknown, s: [src-isaac-what-happened]}
+  after:
+    - {t: "資格を得た 50 人のうち実際に遊んだのは約 13 人。両ラウンドとも惑星がブロック 574 で太陽に衝突して終わり、Isaac は棚上げされた。", k: fact, s: [src-isaac-what-happened]}
+    - {t: "チームは Shoshin、続いて MuMu へ移り、Isaac の参加者がそこへ移ったかは不明。", k: fact, s: [src-isaac-after]}
+  counter:
+    - {t: "48 時間で全問が解かれたのは関心の高さを示すが、運営自身がシビルなしの仮定は楽観的すぎるかもしれないと書いており、50 人という数は上限とみるべき。", k: analysis, s: [src-isaac-what-happened]}
+    - {t: "パズルによる選抜は熱心な技術層を集めたが、匿名で時間帯の違う少人数は、全員の協調を前提とするゲームに向かなかった。参加者が少なかったのは獲得の失敗というより、ゲームの中核が魅力的でなかったと運営は総括している。", k: claim, who: "Topology", s: [src-isaac-what-happened]}
+  lessons:
+    - {t: "コードを読むパズルを参加資格にする: 契約のコメントを読ませるパズルは、テストに耐える技術的な愛好家を少数・無料で選べる。効く条件は初期テストが目的で参加者の技術的な忍耐が必要な段階。破綻条件は多人数の同時協調を前提にするゲームで、選抜した少人数（約 13 人）では協調そのものが成立しない。", k: analysis}
+  metrics: [m-isaac-s2m2-solvers, m-isaac-alpha-players]
+  unknowns:
+    - "S2M2 の告知ツイートの日付と到達数（X を取得できず未確認）。"
+    - "運営が個別に配った招待の数。"
+    - "Solve to Mint（第 1 版）で NFT を得た人と、Isaac 参加者の重なり。"
+
 sources:
   - {id: src-isaac-presents, title: "Topology presents Isaac", url: "https://topology.substack.com/p/topology-presents-isaac", publisher: "Topology's Newsletter", author: "Topology", type: official-blog, primary: true, published: "2022-05-01", accessed: "2026-10-23", access: fetched, lang: en, note: "三体問題＋工場、NDPE、オンチェーンの物理・形而上法則、RK4、Fiat–Shamir の乱数、クライアント非依存、Isaac Protocol"}
   - {id: src-isaac-what-happened, title: "What happened to Isaac?", url: "https://topology.substack.com/p/what-happened-to-isaac", publisher: "Topology's Newsletter", author: "Topology", type: retrospective, primary: true, published: "2022-12-13", accessed: "2026-10-23", access: fetched, lang: en, note: "S2M2 で 50 人、アルファ 2 ラウンドで約 13 人、ブロック 574 で衝突、ブロック時間、協調ツールの欠如、棚上げ"}
@@ -103,3 +134,4 @@ sources:
   - {id: src-isaac-community-call, title: "Community Call #11 | Presenting MatchboxDAO, OGame, Guiltygyoza presenting Solve 2 Mint", url: "https://www.starknet.io/blog/community-call-11-presenting-matchboxdao-ogame-guiltygyoza-presenting-solve-2-mint-video/", publisher: "Starknet (starknet.io)", type: talk, primary: true, published: "2022-03-29", accessed: "2026-10-23", access: fetched, lang: en, note: "Solve to Mint: オンチェーン検証のパズルで NFT を配布"}
   - {id: src-isaac-github-org, title: "topology-gg (GitHub organization)", url: "https://github.com/topology-gg", publisher: "GitHub", type: code, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "固定表示の isaac リポジトリは説明にトークンのアドレスを含み、clone した中身は 2014 年起点の無関係な技術面接質問集だった"}
   - {id: src-isaac-repo, title: "guiltygyoza/isaac", url: "https://github.com/guiltygyoza/isaac", publisher: "GitHub", author: "guiltygyoza / Topology", type: code, primary: true, published: "2024-07-23", accessed: "2026-10-23", access: fetched, lang: en, note: "検証役が clone（1,370 コミット、2022-02-04〜、Isaac 本体の最終変更 2022-09-10、以後は依存更新のみ）。Cairo コントラクト、proxy.cairo（GYOZA のみ実装差し替え可）、deploy/deployed_isaac.json（alpha-goerli のプロキシ）、CarseDAO、各ビュー、S2M2、Apache 2.0"}
+  - {id: src-isaac-lobby-code, title: "guiltygyoza/isaac isaac/core/contracts/lobby/lobby.cairo", url: "https://github.com/guiltygyoza/isaac/blob/main/isaac/core/contracts/lobby/lobby.cairo", publisher: "GitHub", author: "guiltygyoza / Topology", type: code, primary: true, published: "2022-07", accessed: "2026-10-24", access: fetched, lang: en, note: "blobless clone で確認。S2M2 の read_s2m_solver_record によるチケット、GYOZA だけが呼べる gyoza_give_invitation_to_account、初期招待の一括付与、キューからの宇宙への送り出し"}

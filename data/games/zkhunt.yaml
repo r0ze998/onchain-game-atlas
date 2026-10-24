@@ -4,7 +4,7 @@ name_ja: ZK ハント
 aliases: [zkHunt, ZK-Hunt]
 kind: game
 depth: index
-updated: "2026-10-23"
+updated: "2026-10-24"
 links:
   github: https://github.com/FlynnSC/zk-hunt
 chains: [ローカルの開発チェーン（anvil）のみ確認]
@@ -74,6 +74,33 @@ article:
     - {t: "RESPONSE_PERIOD = 5 秒はローカルの開発チェーン（anvil）でのみ動かされたコードの値であり、公開ネットワーク向けに調整された値とは限らない。「応答期限が短すぎる」という評価をこの定数だけから下すのは早い。", k: analysis, s: [src-zkhunt-liquidation, src-zkhunt-readme-2023-05]}
     - {t: "応答しないと清算される設計は、秘匿情報を持つ側に常時オンラインと証明生成の負担を課す。秘匿の価値が操作負担を上回るかは不明。", k: analysis, s: [src-zkhunt-liquidation]}
 
+acquisition:
+  audience: [developers, researchers]
+  summary: {t: "プレイヤーを集めた記録はなく、最初に届いた相手は 0xPARC の 2022 年 Autonomous Worlds Residency（ロンドン）で同時に制作していたチームとレビュー協力者だった。その後はデモ動画付きの技術解説（README、0xPARC ブログ）を通じて、ZK で秘匿状態を扱うオンチェーンゲームの開発者・研究者に参照される教材になった。", k: analysis, s: [src-zkhunt-0xparc-blog, src-zkhunt-aw-residency, src-zkhunt-readme-2023-05]}
+  steps:
+    - {phase: pre, date: "2022-08-11", t: "0xPARC がロンドンでの 3 か月の Autonomous Worlds Residency（9/19〜12/16）の参加者を募集した。成果物として、プレイヤーが触れる試作、他チームが使える公開リポジトリ、AW Symposium 等での発表を挙げていた。", k: fact, s: [src-zkhunt-aw-residency]}
+    - {phase: pre, date: "2022-09", t: "リポジトリの初回コミットは 2022-09-22。作者は ZK Hunt を Residency の期間中に、他チームと並んで作ったと書いている。", k: fact, s: [src-zkhunt-repo, src-zkhunt-0xparc-blog], q: "The game was built during the 0xPARC 2022 Autonomous Worlds Residency"}
+    - {phase: launch, t: "公開ネットワークでの運営はせず、Residency 参加作のデモ再生リストに作者のデモ録画を載せる形で公開した（録画の日付は未確認）。", k: fact, s: [src-zkhunt-0xparc-blog]}
+    - {phase: growth, date: "2023-05", t: "README に、平原・ジャングル移動や槍・探索を 2〜3 人のクライアント画面で見せる YouTube 動画付きの長文解説を載せた。", k: fact, s: [src-zkhunt-readme-2023-05]}
+    - {phase: growth, date: "2023-10-10", t: "0xPARC ブログに技術解説を公開し、README の解説はブログへの案内に置き換えた。作者は、完成したゲームに広げる構想より、ZK のゲームメカニクスを探る媒体・教材として役立つと考えるようになったと書いている。", k: claim, who: "Flynn Calcutt", s: [src-zkhunt-0xparc-blog, src-zkhunt-repo], q: "I realised the project better served as a medium to explore what kinds of things are possible when it comes to ZK game mechanics, and eventually as an educational resource."}
+    - {phase: growth, date: "2024-01-23", t: "Ethereum Research フォーラムの投稿が、平原・ジャングルの仕組みと潜在位置集合を例として説明した。", k: fact, s: [src-zkhunt-ethresearch]}
+    - {phase: growth, t: "ETHOnline 2024 の提出作品が ZK Hunt をフォークし、新しい移動規則の回路を作った。", k: fact, s: [src-zkhunt-ethglobal]}
+  channels:
+    - {id: existing-community, t: "0xPARC と Lattice が主催した AW Residency の参加者の中で作られ、Lattice の Justin（justinglibert）や Arb などがレビューに協力した。", k: fact, s: [src-zkhunt-0xparc-blog, src-zkhunt-aw-residency]}
+    - {id: content-research, t: "デモ動画付きの README 解説と 0xPARC ブログの技術解説、Residency のデモ録画で、回路とコントラクトの作り方を開発者向けに公開した。", k: fact, s: [src-zkhunt-readme-2023-05, src-zkhunt-0xparc-blog]}
+  cost:
+    - {t: "作者は 0xPARC の支援と、Residency を主催した 0xPARC と Lattice に謝意を示している。支援の金額は不明。募集要項は交通費 £600、宿泊費月 £1,500 までの補助と、案件ごとの裁量助成を掲げていた。", k: fact, s: [src-zkhunt-0xparc-blog, src-zkhunt-aw-residency]}
+  after:
+    - {t: "確認できた後続の利用は、ETHOnline 2024 のフォーク 1 件、Ethereum Research フォーラムの投稿での紹介、EZKL の文書で Dark Forest と並ぶ先駆例として挙げられたこと。スター数・フォーク数・読者数は記録していない。", k: fact, s: [src-zkhunt-ethglobal, src-zkhunt-ethresearch, src-zkhunt-ezkl-hackmd]}
+  counter:
+    - {t: "プレイヤー獲得は試みられておらず、「技術解説で開発者を集めた」と言える数値はない。参照例は数件で、ZK ゲームの関心層に届いたのが ZK Hunt の解説のおかげか、Dark Forest や 0xPARC の知名度のおかげかは区別できない。", k: analysis, s: [src-zkhunt-ethglobal, src-zkhunt-ezkl-hackmd]}
+  lessons:
+    - {t: "研究レジデンシーの中で試作して教材として出す: 遊べる完成品を目指さず、仕組みごとのデモ動画と回路の解説を公開すると、少人数の開発者には届きフォークもされる。効く条件は、主催団体のブログや参加チームなど、すでに同じ問題を追う読者の経路があること。破綻条件はプレイヤー獲得を目標にする場合で、公開ネットワークで遊べないため、仕組みが遊びとして成り立つかの検証材料（プレイ記録）が残らない。", k: analysis}
+  unknowns:
+    - "Residency のデモ録画とデモ動画の公開日・再生数。"
+    - "0xPARC からの支援額。"
+    - "ZK Hunt のコードや解説を参考にしたと明言する後続ゲームが、ETHOnline 2024 のフォーク以外にあるか。"
+
 events:
   - {id: ev-zkhunt-init, date: "2022-09-28", type: release, title: "平原・ジャングル移動の回路・コントラクト・クライアントの初期実装", s: [src-zkhunt-repo]}
   - {id: ev-zkhunt-delay-response, date: "2022-12-30", type: spec-change, title: "秘匿チャレンジへの応答を遅らせる選択肢を追加", s: [src-zkhunt-repo]}
@@ -86,7 +113,7 @@ relations:
   - {to: c-zk-hidden-info, type: built-with, basis: confirmed, note: "circom 回路で秘匿移動を証明", s: [src-zkhunt-circuits]}
 
 unknowns:
-  - "0xPARC ブログの技術解説（0xparc.org/blog/zk-hunt）の本文。JavaScript 描画のため取得できなかった（バンドル内にも本文なし）。公開日も未確認。2023-10-10 に README から削られた長文解説（2023-05-18 版、267 行）が同趣旨と見られ、代替として参照した。"
+  - "0xPARC ブログの技術解説（0xparc.org/blog/zk-hunt）は 2026-10-24 にサイトの JS バンドル（index.d05e47c4.js）に base64 で埋め込まれた本文を取り出して読めた（記事日付 2023-10-10、hidden 扱い）。本文は「デポジットを置く機能は実装していない」と明記しており、README 版との差（contradictions のデポジット）は著者自身が認めている。"
   - "公開テストネット等での展開・プレイテストの有無と参加者数。"
   - "0xPARC からの助成の有無と金額。"
 contradictions:
@@ -97,7 +124,9 @@ sources:
   - {id: src-zkhunt-repo, title: "FlynnSC/zk-hunt", url: "https://github.com/FlynnSC/zk-hunt", publisher: "GitHub", author: "Flynn Calcutt (FlynnSC)", type: code, primary: true, published: "2023-10-10", accessed: "2026-10-23", access: fetched, lang: en, note: "git clone（全履歴 40 コミット、2022-09-22〜2023-10-10）。README、MUD 0.16.4、MIT、ゲーム操作"}
   - {id: src-zkhunt-circuits, title: "zk-hunt packages/circuits/src (jungleMove, hiddenSearch, hiddenSearchResponse, hiddenSearchLiquidation 等)", url: "https://github.com/FlynnSC/zk-hunt/tree/main/packages/circuits/src", publisher: "GitHub", type: code, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "回路のコメント: コミットメントと 1 マス移動、暗号化チャレンジとナリファイア、清算の証明"}
   - {id: src-zkhunt-liquidation, title: "zk-hunt packages/contracts/src/systems/LiquidationSystem.sol", url: "https://github.com/FlynnSC/zk-hunt/blob/main/packages/contracts/src/systems/LiquidationSystem.sol", publisher: "GitHub", type: code, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "応答期間（Constants.sol で RESPONSE_PERIOD = 5 秒）経過後に清算。LiquidationLib は対象の操作者が持つ全ユニットを KillLib で殺す（デポジットの没収はない）"}
-  - {id: src-zkhunt-0xparc-blog, title: "ZK Hunt (0xPARC blog)", url: "https://0xparc.org/blog/zk-hunt", publisher: "0xPARC", type: official-blog, primary: true, accessed: "2026-10-23", access: unreachable, lang: en, note: "README が技術解説の所在として挙げる。ページは JS 描画で本文を取得できなかった"}
+  - {id: src-zkhunt-0xparc-blog, title: "ZK Hunt: an exploration into the unknown", url: "https://0xparc.org/blog/zk-hunt", publisher: "0xPARC blog", author: "Flynn Calcutt", type: official-blog, primary: true, published: "2023-10-10", accessed: "2026-10-24", access: fetched, lang: en, note: "ページは JS 描画。2026-10-24 にサイトの JS バンドル（index.d05e47c4.js）に base64 で埋め込まれた記事本文（front matter: date October 10, 2023, hidden: true）を取り出して読んだ。0xPARC 2022 AW Residency 中に制作、レジデンシーのデモ再生リスト、レビュー協力者、教育資料として位置づけ直した経緯、デポジット未実装の明記、0xPARC と Lattice への謝辞"}
   - {id: src-zkhunt-ethresearch, title: "Completely Recursive SNARK Circuit - The Savior of \"Play to Earn\"", url: "https://ethresear.ch/t/completely-recursive-snark-circuit-the-savior-of-play-to-earn/18439", publisher: "Ethereum Research forum", author: "Mirror (Salus)", type: forum, primary: false, published: "2024-01-23", accessed: "2026-10-23", access: fetched, lang: en, note: "ZK Hunt の平原・ジャングル、潜在位置集合、Poseidon コミットメントの説明"}
   - {id: src-zkhunt-ethglobal, title: "TIL ZK Hunt n Fhenix (ETHGlobal showcase)", url: "https://ethglobal.com/showcase/til-zk-hunt-n-fhenix-dm1qk", publisher: "ETHGlobal", type: forum, primary: false, accessed: "2026-10-23", access: fetched, lang: en, note: "ETHOnline 2024。ZK Hunt（MUD 1.2 と記載）をフォークし新しい移動規則の回路を作成"}
   - {id: src-zkhunt-readme-2023-05, title: "zk-hunt README.md @1c83e32 (pre-2023-10 version with full write-up)", url: "https://github.com/FlynnSC/zk-hunt/blob/1c83e32497f4936d38a8f2606483d660537d0597/README.md", publisher: "GitHub", author: "Flynn Calcutt (FlynnSC)", type: code, primary: true, published: "2023-05-18", accessed: "2026-10-23", access: fetched, lang: en, note: "検証役が git 履歴から取得。動機（秘匿状態と情報非対称性の回復）、平原・ジャングル移動、槍・探索、デポジットと没収による『forced interactivity』の説明。2023-10-10 のコミットで README から削除"}
+  - {id: src-zkhunt-aw-residency, title: "Autonomous Worlds Residency", url: "https://0xparc.org/blog/aw-residency", publisher: "0xPARC blog", type: official-blog, primary: true, published: "2022-08-11", accessed: "2026-10-24", access: fetched, lang: en, note: "JS バンドルに埋め込まれた本文を取り出して読んだ。ロンドン 9/19〜12/16、交通費・宿泊費の補助と裁量助成、成果物（遊べる試作・公開リポジトリ・発表）、確定参加者 Lattice・Dark Forest・DFDAO 等"}
+  - {id: src-zkhunt-ezkl-hackmd, title: "1 pager for aw <> zkml", url: "https://hackmd.io/@dantecamuto/B19GaGLXp", publisher: "HackMD", type: analysis, primary: false, accessed: "2026-10-24", access: fetched, lang: en, note: "EZKL の立場で書かれた文書（日付・著者名の記載なし）。Dark Forest と ZK Hunt を ZK による秘匿情報ゲームの先駆として 0xPARC の記事にリンク"}

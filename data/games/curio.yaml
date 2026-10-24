@@ -3,7 +3,7 @@ name: Curio
 aliases: [Curio Research, Treaty, Keystone]
 kind: game
 depth: index
-updated: "2026-10-23"
+updated: "2026-10-24"
 links:
   website: https://www.curio.gg/
   x: https://x.com/0xcurio
@@ -83,6 +83,43 @@ article:
     - {t: "Keystone の告知は Treaty を「プレイヤーが政治的・社会的な契約を表すスマートコントラクトを展開できた最初のゲーム」と書くが、2022-10 の OPCraft ではプレイヤーが独自のコンポーネントとシステム（ComradeComponent・GovernmentSystem）を展開して共和国の制度を作っており、「最初」は当事者の主張にとどまる。Treaty の新しさは、条約をコア関数の承認フックとして強制する点に限定して評価すべきである。", k: analysis, s: [src-curio-keystone, src-curio-opcraft-part3]}
     - {t: "Phase 1 の振り返りでは、RTS は多数の部隊の操作が「クリック競争」になり確定が即時でないチェーンに不向きで、殲滅型の勝利条件は長期のゲームに向かないとして、SLG（Rise of Kingdoms 型）へ方向転換した。", k: claim, who: "Curio", s: [src-curio-phase1]}
 
+acquisition:
+  audience: [players, developers]
+  summary: {t: "最初のプレイヤーがどの既存集団から来たかを示す資料は見つからなかった。確認できたのは、2022 年夏の 2 つのデモを curio.gg で公開して運営発表で 500 人超に遊ばれ、その後 Discord とニュースレターに集めた「中核コミュニティ」へ先行アクセスを約束し、Treaty の公開時には Discord での条約アイデアコンテスト（現金と NFT）でプレイヤーにルールを書かせる側へ誘ったことである。", k: analysis, s: [src-curio-tech-tricks, src-curio-community-sept, src-curio-diplomat]}
+  steps:
+    - {phase: pre, date: "2022-08-11", t: "運営は最初の 2 つのデモについて 500 人超が試したと述べ、ブログから curio.gg のゲームへ誘導した。", k: claim, who: "Curio", s: [src-curio-tech-tricks], q: "Thank you to the 500+ players who tried it out!"}
+    - {phase: pre, date: "2022-10-13", t: "中核コミュニティのメンバーを先行アクセスに迎えてフィードバックをもらい、近くコミュニティを遊びに招くと告知した。", k: fact, s: [src-curio-community-sept], q: "we will soon onboard a group of core community members that will get early access into what we're building"}
+    - {phase: pre, date: "2022-10-24", t: "Phase 1 の完了を告知し、プレイテストが間近であるとして Discord 参加とニュースレター登録を呼びかけた。", k: fact, s: [src-curio-phase1]}
+    - {phase: pre, date: "2022-12-22", t: "Treaty を告知し、2023-01 の公開予定を示した。続けて技術解説（2023-01-02）とユーザー生成ロジックの設計論（2023-01-18）を公開した。", k: fact, s: [src-curio-treaty-intro, src-curio-tech-overview, src-curio-ugl]}
+    - {phase: launch, date: "2023-01-19", t: "プレイヤー向けガイドで数日内の公開を告げ、最初の段階は地図の内側の層が開いたときに終わり、中央のタイルを争うと説明した。最新情報は Discord で知らせるとした。", k: fact, s: [src-curio-treaty-guide]}
+    - {phase: launch, date: "2023-01-20", t: "Discord の専用チャンネルで条約アイデアコンテストを開き、受賞者に 150 ドル以上の現金と限定 NFT を約束した。開発者にはコードの提出も勧めた。", k: fact, s: [src-curio-diplomat], q: "Winners are guaranteed with $150 USD."}
+    - {phase: growth, date: "2023-02-21", t: "シード 290 万ドルの調達を報じた記事で、これまでに 200〜300 人がゲームを試したと伝えられた。", k: fact, s: [src-curio-theblock-seed, src-curio-seed]}
+    - {phase: growth, date: "2023-11-10", t: "Keystone の告知で、2022 年夏の海戦 RTS には数千人が触れ、Treaty ではコミュニティが多様な条約案を出したと振り返った。", k: claim, who: "Curio", s: [src-curio-keystone], q: "thousands of players interacted with our game"}
+    - {phase: growth, date: "2024-08-06", t: "5 人で共謀と欺瞞を競うオンチェーンの社会的戦略ゲーム Duper Season One を一般公開し、追加で 570 万ドルを調達したと報じられた。", k: fact, s: [src-curio-theblock-2024]}
+  channels:
+    - {id: community-server, t: "デモ以後、プレイテストや公開の案内を Discord とニュースレターに集約し、条約アイデアの提出先も Discord のチャンネルにした。", k: fact, s: [src-curio-phase1, src-curio-treaty-guide, src-curio-diplomat]}
+    - {id: invite-gating, t: "2022-10 に、中核コミュニティのメンバーを先行アクセスに迎えると告知した（選び方と人数は未確認）。", k: fact, s: [src-curio-community-sept]}
+    - {id: prize-competition, t: "Treaty の公開に合わせ、条約アイデアコンテストで 150 ドル以上の現金と限定 NFT を受賞者に約束した。", k: fact, s: [src-curio-diplomat]}
+    - {id: content-research, t: "技術的な工夫、Treaty の設計、ユーザー生成ロジックの解説記事を公開前後に続けて出した。", k: fact, s: [src-curio-tech-tricks, src-curio-tech-overview, src-curio-ugl]}
+  cost:
+    - {t: "確認できた獲得の費用は、条約アイデアコンテストの賞金（受賞者 150 ドル以上）と NFT。開発と運営は 2023-02 発表の 290 万ドルのシード資金（Bain Capital Crypto 主導）と、2024-08 に報じられた 570 万ドルの追加調達で賄われた。ゲーム内でプレイヤー間に資金が移る仕組みは確認できなかった。", k: fact, s: [src-curio-diplomat, src-curio-seed, src-curio-theblock-2024]}
+  after:
+    - {t: "Treaty の公開後の参加者数・継続率・展開された条約の数は公表されておらず、treaty-contracts の main は 2023-02-06 が最終コミットで、2023-11 には運営自身が EVM 中心の設計から Keystone に移った。集めたプレイヤーが Duper に移ったかは確認できない。", k: fact, s: [src-curio-treaty-repo, src-curio-keystone, src-curio-theblock-2024]}
+  counter:
+    - {t: "初期の人数は資料ごとに 500 人超（2022-08、運営ブログ）、200〜300 人（2023-02、報道）、数千人（2023-11、運営の振り返り）と食い違い、定義（デモを開いた人か、試遊に参加した人か）も示されていない。後の振り返りほど数字が大きく、どの施策で何人集まったかは判断できない。", k: analysis, s: [src-curio-tech-tricks, src-curio-theblock-seed, src-curio-keystone]}
+  lessons:
+    - {t: "公開前のルール提案コンテスト: プレイヤーが書く条約（ルール）が遊びの中心なら、公開前後に「どんな条約を作るか」を少額の賞金で募ると、コードを書ける参加者を早く見つけ、ゲームの使い方の見本も集まる。効く条件は提案をそのまま実装できる仕組み（許可不要の条約登録）があること。破綻条件は提案が実装・展開されないまま終わる場合と、ゲーム本体の運営が続かない場合で、Treaty では展開された条約の数が確認できず、運営は 1 年以内に設計を変えた。", k: analysis, s: [src-curio-diplomat, src-curio-treaty-repo, src-curio-keystone]}
+  metrics: [m-curio-demo-players-2022, m-curio-trial-players-2023, m-curio-seed-2023]
+  unknowns:
+    - "最初のデモの参加者がどこから来たか（ハッカソン、既存のゲーム・暗号資産コミュニティなど）。"
+    - "中核コミュニティの先行アクセスの人数と選び方、条約アイデアコンテストの応募数。"
+    - "Treaty の参加条件（ウォレット、ガス、招待）と参加者数。"
+
+metrics:
+  - {id: m-curio-demo-players-2022, type: players, value: 500, value_text: "500 人超", unit: players, period: "2022 年夏（最初の 2 つのデモ）", definition: "運営がブログで述べた「試した」プレイヤー数（定義不明）", nature: reported, s: [src-curio-tech-tricks]}
+  - {id: m-curio-trial-players-2023, type: players, value_text: "200〜300 人", unit: players, period: "2023-02 時点までの累計", definition: "報道（The Block）が伝えた、ゲームを試したプレイヤー数（Curio の情報とみられる。定義不明）", nature: reported, s: [src-curio-theblock-seed]}
+  - {id: m-curio-seed-2023, type: funding, value: 2900000, value_text: "290 万ドル", unit: USD, period: "2023-02 発表", definition: "シード資金（Bain Capital Crypto 主導）", nature: reported, s: [src-curio-seed, src-curio-theblock-seed]}
+
 events:
   - {id: ev-curio-naval-demo, date: "2022", type: testnet, title: "専用アプリチェーンで海戦 RTS デモ（夏）", detail: "運営は数千人が遊んだと記述。デモのコントラクトは 2022-07 のもの", s: [src-curio-keystone, src-curio-github]}
   - {id: ev-curio-phase1, date: "2022-10-24", type: other, title: "Phase 1 完了を発表、SLG 型への方針転換と Treaty 構想", s: [src-curio-phase1]}
@@ -99,9 +136,12 @@ relations:
 unknowns:
   - "「smart objects」という用語・機能（調査依頼にあったが Curio の一次資料では確認できなかった。EVE Frontier の用語との混同の可能性）。"
   - "Treaty の本番展開チェーン、参加者数、展開された条約の数、運営終了時期。"
-  - "Duper が何か、Keystone を使った旗艦ゲームが公開されたか。"
+  - "Keystone を使った旗艦ゲームが公開されたか。Duper は The Block（2024-08-06）によれば 5 人で共謀と欺瞞を競うオンチェーンの社会的戦略ゲーム（Duper Season One）だが、技術構成は未確認。"
   - "海戦 RTS デモの参加者数（「数千人」は運営の記述のみ）。"
 
+contradictions:
+  - {t: "初期の参加者数: 運営ブログ（2022-08）は最初の 2 つのデモに 500 人超、The Block（2023-02）は 200〜300 人が試遊、Keystone 告知（2023-11）は海戦 RTS に数千人が触れたと記す。", s: [src-curio-tech-tricks, src-curio-theblock-seed, src-curio-keystone]}
+  - {t: "シード 290 万ドルの時期: 運営ブログは 2023-02-26 に発表、The Block（2024-08）は「2022 年」の調達と記す（クローズ時期と発表時期の差の可能性）。", s: [src-curio-seed, src-curio-theblock-2024]}
 sources:
   - {id: src-curio-phase1, title: "Announcing: Phase 1 Completion", url: "https://blog.curio.gg/phase-1/", publisher: "Curio blog", type: official-blog, primary: true, published: "2022-10-24", accessed: "2026-10-23", access: fetched, lang: en, note: "オンチェーン ECS エンジン、RTS の問題点と SLG への転換、Treaty 構想"}
   - {id: src-curio-treaty-intro, title: "Introducing Treaty", url: "https://blog.curio.gg/introducing-treaty/", publisher: "Curio blog", type: official-blog, primary: true, published: "2022-12-22", accessed: "2026-10-23", access: fetched, lang: en, note: "条約がコア関数にフック、スマートコントラクトウォレット、委任、2023-01 公開予定"}
@@ -114,3 +154,8 @@ sources:
   - {id: src-curio-opcraft-part3, title: "Making of OPCraft (Part 3): What happened in two weeks of OPCraft", url: "https://lattice.xyz/blog/making-of-opcraft-part-3-what-happened-in-two-weeks-of-opcraft", publisher: "Lattice blog", author: "Lattice", type: retrospective, primary: true, published: "2022", accessed: "2026-10-23", access: fetched, lang: en, note: "2022-10-29 にプレイヤーが独自コントラクト（ComradeComponent・GovernmentSystem）で共和国を作った記録（反証用）"}
   - {id: src-curio-github, title: "Curio (curio-research) GitHub organization", url: "https://github.com/curio-research", publisher: "GitHub", type: code, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "7 リポジトリ、keystone 最終更新 2024-01、demo-contracts はアーカイブ"}
   - {id: src-curio-profile, title: "curio-research/.github (organization profile)", url: "https://github.com/curio-research/.github", publisher: "GitHub", type: code, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "プロフィール README は「Makers of Duper」"}
+  - {id: src-curio-tech-tricks, title: "Technical Tricks, Aug 2022", url: "https://blog.curio.gg/technical-tricks-aug-2022-2/", publisher: "Curio blog", type: official-blog, primary: true, published: "2022-08-11", accessed: "2026-10-24", access: fetched, lang: en, note: "最初の 2 つのデモのフィードバック収集、500 人超への謝辞、curio.gg への誘導"}
+  - {id: src-curio-community-sept, title: "Community Update — September", url: "https://blog.curio.gg/coming-soon/", publisher: "Curio blog", type: official-blog, primary: true, published: "2022-10-13", accessed: "2026-10-24", access: fetched, lang: en, note: "中核コミュニティへの先行アクセス、近くコミュニティを招いて遊ぶ予告"}
+  - {id: src-curio-treaty-guide, title: "Treaty: A Guide for Players", url: "https://blog.curio.gg/untitled/", publisher: "Curio blog", type: official-blog, primary: true, published: "2023-01-19", accessed: "2026-10-24", access: fetched, lang: en, note: "数日内の公開、第 1 段階の終了条件、Discord への案内"}
+  - {id: src-curio-theblock-seed, title: "Bain Capital Crypto backs gaming firm creating on-chain diplomats", url: "https://www.theblock.co/post/209815/bain-capital-crypto-backs-curio-research", publisher: "The Block", author: "Lucy Harley-McKeown", type: news, primary: false, published: "2023-02-21", accessed: "2026-10-24", access: fetched, lang: en, note: "2022 年創業（Kevin Zhang・Yijia Chen）、200〜300 人が試遊、290 万ドルのシード"}
+  - {id: src-curio-theblock-2024, title: "Web3 game studio Curio raises $5.7 million in seed funding", url: "https://www.theblock.co/news/deals/2024-08-06-web3-game-studio-curio-raises-5-7-million-in-seed-funding-309587", publisher: "The Block", type: news, primary: false, published: "2024-08-06", accessed: "2026-10-24", access: fetched, lang: en, note: "Duper Season One（5 人で共謀と欺瞞を競うオンチェーン社会的戦略ゲーム）の一般公開、570 万ドル（Bain Capital Crypto・SevenX 主導）、累計 870 万ドル。前回 290 万ドルを「2022 年」と記載"}

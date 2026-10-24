@@ -73,6 +73,34 @@ article:
     - {t: "「マーケットを運営が独占する」という見方への反証として、2022-03 以降は Dapper 以外の 4 つのマーケットプレイスでも Moment の販売が認められている。ただし発行と Flow の初期運営は Dapper に集中していた。", k: fact, s: [src-nbats-theblock-2024]}
     - {t: "2024 年の和解で Dapper は Moment が証券でないとの立場を維持しつつ 400 万ドルを支払った。運営がチェーンと市場を管理する設計は、所有の「分散性」を主張しにくくし、法的リスクを生む。", k: fact, s: [src-nbats-theblock-2024]}
 
+acquisition:
+  audience: [players, holders]
+  summary: {t: "最初の利用者は、サイトで更新通知に登録し Discord で早期参加を申請した人に段階的に送った招待で選ばれた閉じたベータ参加者（2020-05〜、最初の 500 人、のち 1.7 万人）だった。NBA のライセンスとクレジットカードでのパック購入を入口にして暗号資産の外のバスケットボールファンを狙い、大きな流入は 2020-10 の一般公開後、2021-02 の相場の熱狂期に起きた。", k: analysis, s: [src-nbats-decrypt-2020-beta, src-nbats-gamesbeat-2020, src-nbats-pr-2020-10, src-nbats-decrypt-2022]}
+  steps:
+    - {phase: pre, date: "2020-05-27", t: "CryptoKitties の開発元 Dapper Labs が閉じたベータを翌週に始めると発表した。参加は更新通知に登録した人のうち招待を受けた人に限られ、中身の分からないパックをクレジットカード・Bitcoin・Ethereum で買える設計だった。", k: fact, s: [src-nbats-decrypt-2020-beta]}
+    - {phase: pre, date: "2020-08", t: "閉じたベータの最初の 500 人で 120 万ドル超の売上が出たと発表した。招待は段階的に送られ、希望者はサイトで登録した後に Discord で早期参加を申請する手順だった。同時に発表した 1200 万ドルの調達には NBA 選手（Spencer Dinwiddie、Andre Iguodala、JaVale McGee、Aaron Gordon、Garrett Temple）が参加した。", k: claim, who: "Dapper Labs（GamesBeat の記事内）", s: [src-nbats-gamesbeat-2020]}
+    - {phase: launch, date: "2020-10-01", t: "ベータを全員に開放した。閉じたベータには 1.7 万人が招待され、パック約 4.3 万個の販売、Moment 2.9 万個の配布（gifted）、マーケットでの Moment 1.05 万件の販売があったと発表した。Web に加え、Samsung の Galaxy Store で Android 版を配信した。", k: claim, who: "Dapper Labs（プレスリリース）", s: [src-nbats-pr-2020-10], q: "the NBA Top Shot community is the best I've ever worked with: people are always happy to help."}
+    - {phase: growth, date: "2021-02", t: "月間取引額が 2.24 億ドルに達した（CryptoSlam）。2021-02-26 の 99 ドル・約 1 万個のパック販売にはボットを含む記録的な人数が並び（見出しは 20 万人超）、Dapper はボット対策を理由に販売を 1 日延期していた。", k: fact, s: [src-nbats-decrypt-2022, src-nbats-thelogic-2021]}
+    - {phase: growth, date: "2021-03", t: "公開ベータ以降の登録アカウントが 80 万超、売上が 5 億ドルに達したと Dapper Labs は発表した。2021-05 には登録 100 万超（購入経験は約半数）と述べた。", k: claim, who: "Dapper Labs（AP / Ledger Insights の記事内）", s: [src-nbats-ap-2021, src-nbats-ledger-2021]}
+  channels:
+    - {id: invite-gating, t: "閉じたベータは更新通知の登録者に招待を段階的に送る形で、最初の 500 人から 1.7 万人まで広げた。", k: fact, s: [src-nbats-decrypt-2020-beta, src-nbats-gamesbeat-2020, src-nbats-pr-2020-10]}
+    - {id: community-server, t: "早期参加の申請窓口を Discord に置き、登録後に Discord で招待を求める手順にした。", k: fact, s: [src-nbats-gamesbeat-2020]}
+    - {id: ip-brand, t: "NBA・NBPA のライセンスを受けた試合映像を商品にし、資金調達に現役 NBA 選手を加えた。", k: fact, s: [src-nbats-gamesbeat-2020, src-nbats-site]}
+    - {id: platform-distribution, t: "一般公開時に Samsung の Galaxy Store で Android 版を配信した（ブロックチェーンの収集品として同ストア初とされる）。", k: claim, who: "Dapper Labs（プレスリリース）", s: [src-nbats-pr-2020-10]}
+    - {id: free-mint, t: "閉じたベータ中に Moment 2.9 万個が「gifted」（配布）されたと発表した（誰が誰に配ったかの内訳は不明）。", k: claim, who: "Dapper Labs（プレスリリース）", s: [src-nbats-pr-2020-10]}
+  cost:
+    - {t: "最初の利用者は自分でパックを買っており、閉じたベータの 500 人で 120 万ドル超の売上が出た。獲得の原資は無料配布より利用者自身の購入で、運営側は VC 資金（2020 年 1200 万ドル、2021-03 に 3.05 億ドル）で開発とチェーン Flow を賄った。", k: fact, s: [src-nbats-gamesbeat-2020, src-nbats-ap-2021]}
+  after:
+    - {t: "2022-10 の二次市場の一意購入者は 13,500 未満、月間取引額は約 270 万ドルで、2021-02 のピークから大きく減った（CryptoSlam）。登録 100 万超のうち継続して購入・閲覧する人数は公表されていない。", k: fact, s: [src-nbats-decrypt-2022, src-nbats-ledger-2021]}
+  counter:
+    - {t: "2021-02 の急増は NFT 市場全体の熱狂期と重なり、パック販売の行列にはボットも含まれた。招待制やカード決済といった施策の効果と、転売益を狙う流入を分ける資料はない。", k: analysis, s: [src-nbats-thelogic-2021, src-nbats-decrypt-2022]}
+    - {t: "運営 CEO は 2021-05 にクレジットカードの日次決済額は小さいと述べ、購入の多くは暗号資産によると推測された。「カード決済で一般層を集めた」という説明は弱まる。", k: claim, who: "Ledger Insights（Roham Gharegozlou の発言の要約）", s: [src-nbats-ledger-2021]}
+  lessons:
+    - {t: "段階招待＋Discord 申請（波状の招待）: 熱心な層を先に集め、マーケットの流動性を作ってから開放できる。ただし二次市場の価格上昇が招待の価値を上げるため、相場が下がる局面では待機リストの熱も消える。", k: analysis}
+    - {t: "リーグ・選手のライセンスを入口にする: 暗号資産の外のファンへの訴求は強いが、ライセンスと発行を運営が独占するため、証券性の訴訟や市場停滞の責任も運営に集中する。", k: analysis}
+  metrics: [m-nbats-beta-revenue-2020, m-nbats-beta-invited-2020, m-nbats-beta-packs-2020, m-nbats-volume-2021-02, m-nbats-accounts-2021-03, m-nbats-registered-2021-05, m-nbats-buyers-2022-10]
+  unknowns: ["更新通知の登録者数（待機リストの規模）と招待の選び方", "閉じたベータで配布（gifted）された Moment の配布元と条件", "2021-02-26 の行列の実数（記事本文に数字なし）とボットの割合"]
+
 metrics:
   - {id: m-nbats-accounts-2021-03, type: players, value: 800000, value_text: "80 万超", unit: accounts, period: "2020-10〜2021-03", definition: "公開ベータ以降に登録されたアカウント数（Dapper Labs 発表、AP）", nature: reported, s: [src-nbats-ap-2021]}
   - {id: m-nbats-registered-2021-05, type: players, value: 1000000, value_text: "100 万超（購入経験は約半数）", unit: users, period: "2021-05", definition: "登録ユーザー数（CEO の Consensus 2021 での発言、Ledger Insights）", nature: reported, s: [src-nbats-ledger-2021]}
@@ -83,6 +111,9 @@ metrics:
   - {id: m-nbats-buyers-peak, type: wallets, value: 184000, value_text: "18.4 万", unit: buyers, period: "2021-03", definition: "購入者数のピーク（The First Mint、出典不明・複数アカウント含む可能性）", nature: estimated, s: [src-nbats-firstmint-2023]}
   - {id: m-nbats-funding-2021-03, type: funding, value: 305000000, unit: USD, period: "2021-03", definition: "Dapper Labs の私募調達（Coatue 主導、AP）", nature: reported, s: [src-nbats-ap-2021]}
   - {id: m-nbats-settlement-2024, type: other, value: 4000000, unit: USD, period: "2024-06", definition: "集団訴訟の和解金（The Block）", nature: reported, s: [src-nbats-theblock-2024]}
+  - {id: m-nbats-beta-revenue-2020, type: revenue, value: 1200000, value_text: "120 万ドル超", unit: USD, period: "2020-05〜2020-08（閉じたベータ）", definition: "閉じたベータの最初の 500 人による売上（Dapper Labs の発表、GamesBeat）", nature: reported, s: [src-nbats-gamesbeat-2020]}
+  - {id: m-nbats-beta-invited-2020, type: players, value: 17000, unit: players, period: "2020-05〜2020-10（閉じたベータ）", definition: "閉じたベータに招待されたコレクター数（Dapper Labs のプレスリリース）", nature: reported, s: [src-nbats-pr-2020-10]}
+  - {id: m-nbats-beta-packs-2020, type: nft_sales, value: 43000, value_text: "約 4.3 万個", unit: packs, period: "2020-05〜2020-10（閉じたベータ）", definition: "閉じたベータで販売されたパック数（同時に Moment 2.9 万個の配布、マーケットでの Moment 1.05 万件の販売。Dapper Labs）", nature: reported, s: [src-nbats-pr-2020-10]}
 
 events:
   - {id: ev-nbats-beta, date: "2020-10", type: launch, title: "公開ベータ開始", s: [src-nbats-ap-2021]}
@@ -110,3 +141,7 @@ sources:
   - {id: src-nbats-firstmint-2023, title: "The State of NFT Sports", url: "https://thefirstmint.substack.com/p/the-state-of-nft-sports", publisher: "The First Mint (Substack)", type: analysis, primary: false, published: "2023-02-07", accessed: "2026-10-23", access: fetched, lang: en, note: "購入者ピーク 18.4 万（2021-03）、94% 減、83% 減"}
   - {id: src-nbats-theblock-2024, title: "Dapper Labs settles NBA Top Shot Moments lawsuit for $4 million", url: "https://www.theblock.co/post/298286/dapper-labs-settles-nba-top-shot-moments-lawsuit-for-4-million", publisher: "The Block", author: "RT Watson", type: news, primary: false, published: "2024-06-03", accessed: "2026-10-23", access: fetched, lang: en, note: "400 万ドルの和解、Dapper の声明、Flow は Dapper が作った、出金妨害の主張"}
   - {id: src-nbats-site, title: "NBA Top Shot", url: "https://nbatopshot.com/", publisher: "Dapper Labs", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "2025-26 シーズンのパック・ドロップ・マーケット、Built on Flow"}
+  - {id: src-nbats-decrypt-2020-beta, title: "NBA Top Shot launches beta of tokenized collectible highlights", url: "https://decrypt.co/30199/nba-top-shot-launches-beta-tokenized-collectible-highlights", publisher: "Decrypt", type: news, primary: false, published: "2020-05-27", accessed: "2026-10-24", access: fetched, lang: en, note: "閉じたベータは翌週開始、更新通知の登録者に招待、パックはクレジットカード・Bitcoin・Ethereum で購入、CryptoKitties の開発元"}
+  - {id: src-nbats-gamesbeat-2020, title: "CryptoKitties creator Dapper Labs raises $12 million for consumer-focused Flow blockchain", url: "https://gamesbeat.com/?p=190595", publisher: "GamesBeat", type: news, primary: false, published: "2020-08-06", accessed: "2026-10-24", access: fetched, lang: en, note: "閉じたベータの最初の 500 人で 120 万ドル超、招待は段階的、登録後に Discord で早期参加を申請、NBA 選手の出資（2025-06-18 更新表記）"}
+  - {id: src-nbats-pr-2020-10, title: "Dapper Labs Opens NBA Top Shot Beta to All Fans", url: "https://www.newswire.ca/news-releases/dapper-labs-opens-nba-top-shot-beta-to-all-fans-836002108.html", publisher: "Dapper Labs (via Cision / Newswire.ca)", type: news, primary: true, published: "2020-10-01", accessed: "2026-10-24", access: fetched, lang: en, note: "プレスリリース。閉じたベータの招待 1.7 万人、パック約 4.3 万、Moment 配布 2.9 万、マーケット販売 1.05 万、Samsung Galaxy Store 配信、CEO の発言"}
+  - {id: src-nbats-thelogic-2021, title: "More than 200,000 users line up for latest NBA Top Shot pack drop after rollout pains", url: "https://thelogic.co/briefing/more-than-200000-users-line-up-for-latest-nba-top-shot-pack-drop-after-rollout-pains/", publisher: "The Logic", type: news, primary: false, published: "2021-02-26", accessed: "2026-10-24", access: fetched, lang: en, note: "約 1 万個・99 ドルのパック販売に記録的な行列（ボットを含む）、ボット対策で 1 日延期。20 万人超は見出しのみで本文に数字なし"}

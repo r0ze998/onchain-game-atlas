@@ -71,6 +71,40 @@ article:
   counter_evidence:
     - {t: "流通の中心はウォレット・ディレクトリという特定サイトであり、それが保守中になると一般の利用者は別ドメインに頼るしかない。「運営不在」は資産層についてのみ言える。", k: analysis, s: [src-rarepepe-wallet-site]}
 
+acquisition:
+  audience: [creators, holders]
+  summary: {t: "最初の参加者は、4chan 由来の「Rare Pepe」ミームを知る人たちと、Counterparty / Bitcoin の利用者が重なる小さな集団だった。最初の数種のカードの保有者に PEPECASH を配り、Telegram で売買と申請を回したことで、作家と収集者が自分たちで増えていった。", k: analysis, s: [src-rarepepe-dailydot-2017, src-rarepepe-directory-pepecash, src-rarepepe-criptonoticias]}
+  steps:
+    - {phase: pre, date: "2015", t: "Daily Dot によれば、Rare Pepe の「取引」は 4chan の内輪ネタとして始まり、2015 年には /r9k/ の投稿者が 1,200 枚超の Rare Pepe 画像を放出した（「Peppening」）。チェーン以前から、ミームを「希少なもの」として扱う文化があった。", k: fact, s: [src-rarepepe-dailydot-2017]}
+    - {phase: launch, date: "2016-09-09", t: "最初のカード RAREPEPE が Counterparty 資産として 300 枚発行された。発行者は「Mike」と呼ばれる匿名の Counterparty 利用者とされる（二次資料による）。", k: fact, s: [src-rarepepe-tokenscan-issuances, src-rarepepe-criptonoticias]}
+    - {phase: launch, date: "2016-09-17", t: "PEPECASH を 10 億枚発行した。Directory によれば、RAREPEPE・GOXPEPE・SHITCOINCARD を市場で買った保有者全員に配り、一部を FoldingCoin の採掘者に寄付し、Twitter と Telegram での配布の後、残り約 3 億枚を焼却した。", k: fact, s: [src-rarepepe-tokenscan-pepecash, src-rarepepe-directory-pepecash], q: "After RAREPEPE, GOXPEPE, AND SHITCOINCARD were sold to buyers on the market, PepeCash was distributed to all of those holders."}
+    - {phase: growth, t: "Rare Pepe Wallet（Counterparty ウォレット）と Rare Pepe Directory ができ、作家は自分で資産を発行して Telegram 経由で申請し、認定されたカードがウォレットに並ぶ流れが定着した。", k: fact, s: [src-rarepepe-directory-submit, src-rarepepe-directory-about, src-rarepepe-wikipedia]}
+    - {phase: growth, date: "2017-02-21", t: "Daily Dot が Rare Pepe 経済を報じた。カードは 500 枚超、申請料は 4,000 PEPECASH（約 13 ドル）で、記事は Telegram の「Rare Pepe Traders」で取引する人々の声を紹介した。", k: fact, s: [src-rarepepe-dailydot-2017], q: "But our Rare Pepe trading community is global."}
+    - {phase: growth, date: "2018-01-13", t: "ニューヨークでライブオークションが開かれ、Homer Simpson 風の Rare Pepe が 38,500 ドルで落札された。", k: fact, s: [src-rarepepe-wikipedia]}
+  channels:
+    - {id: existing-community, t: "4chan 発祥の Rare Pepe ミームの文化と、Counterparty の利用者が最初の層になった。PEPECASH の一部は FoldingCoin の採掘者にも配られた。", k: fact, s: [src-rarepepe-dailydot-2017, src-rarepepe-directory-pepecash, src-rarepepe-criptonoticias]}
+    - {id: token-incentive, t: "最初の 3 種のカードの保有者全員に PEPECASH を配り、それが申請料と売買の共通通貨になった。", k: fact, s: [src-rarepepe-directory-pepecash]}
+    - {id: community-server, t: "売買と申請は Telegram のグループで行われ、PEPECASH の配布も Telegram と Twitter で行われた。", k: fact, s: [src-rarepepe-directory-pepecash, src-rarepepe-dailydot-2017, src-rarepepe-wikipedia]}
+    - {id: composability, t: "誰でも規則（ロック・分割不可・枚数範囲）を満たす Counterparty 資産を発行して申請できたので、作家が自分の作品を持ち込むこと自体が供給と参加者を増やした（認定は 36 シリーズ・1700 枚超）。", k: fact, s: [src-rarepepe-directory-submit]}
+    - {id: press, t: "2017-02 に Daily Dot が報じ、2018-01 のニューヨークのライブオークションには美術館関係者が来場したと Wikipedia は記す。", k: fact, s: [src-rarepepe-dailydot-2017, src-rarepepe-wikipedia]}
+  cost:
+    - {t: "獲得の原資は運営の資金ではなく、新規発行した PEPECASH だった。保有者への配布と寄付・SNS での配布にあて、残りは焼却した。作家の発行費（0.5 XCP と BTC 手数料）と申請料は作家が払い、申請料の半分は焼却された。", k: fact, s: [src-rarepepe-directory-pepecash, src-rarepepe-directory-submit]}
+  after:
+    - {t: "認定は 36 シリーズ・1700 枚超まで続いた後、投稿が締め切られ、公式ウォレットは保守中の表示になった。資産は Counterparty 上に残る。", k: fact, s: [src-rarepepe-directory-submit, src-rarepepe-wallet-site]}
+    - {t: "収集者数・作家数・取引額の時系列は公表されておらず、継続率は示されていない。", k: unknown}
+  counter:
+    - {t: "Rare Pepe の参加者が増えたのは、PEPECASH の配布や Telegram のおかげではなく、既存のミームの知名度が大きかった可能性がある。チェーン上の仕組みが新しい人を呼んだのか、ミームの愛好者が既存の場所を移ったのかは、資料から切り分けられない。", k: analysis, s: [src-rarepepe-dailydot-2017]}
+    - {t: "高額のオークション（2018-01）は 2017 年末の暗号資産相場の高騰の直後で、注目は相場全体の上昇とも重なる。", k: analysis, s: [src-rarepepe-wikipedia]}
+  lessons:
+    - {t: "先行保有者への通貨エアドロップ: 最初の数種の資産の保有者に、その後の申請・売買に使う共通通貨を配ると、最初の買い手が次の作品の買い手と申請者になる。効く条件は、配る通貨に申請料という確かな使い道があること。破綻条件は、認定者が投稿を締め切ると通貨の使い道が消えること。", k: analysis}
+    - {t: "許可不要の発行と許可制の掲載: 誰でも発行でき、掲載だけを審査にすると、作家が自分で供給を持ち込む。ただし、新しい参加者が入ってくる場所（ウォレット・ディレクトリ・Telegram）が特定の運営者に依存したままなので、その運営者が去ると流入が止まる。", k: analysis}
+  metrics: [m-rarepepe-first-issuance, m-rarepepe-pepecash-supply, m-rarepepe-cards-2017-02, m-rarepepe-certified]
+  unknowns:
+    - "最初のカードの発行者「Mike」の身元と、RAREPEPE・GOXPEPE・SHITCOINCARD の最初の販売方法・買い手の数。"
+    - "Telegram グループの開設日と参加者数。"
+    - "Rare Pepe Wallet の公開日（コミュニティの年表は 2016-10-03 とするが、一次資料は取得していない）。"
+    - "PEPECASH の配布比率と受け取った保有者数。"
+
 metrics:
   - {id: m-rarepepe-first-issuance, type: other, value: 300, unit: tokens, period: "2016-09-09（ブロック 428919）", definition: "最初のカード RAREPEPE の初回発行数。現在の供給は 298（ロック済み）", nature: measured, s: [src-rarepepe-tokenscan-issuances, src-rarepepe-tokenscan-asset]}
   - {id: m-rarepepe-certified, type: other, value_text: "1700 超（over 1700 rares）", unit: cards, period: "投稿締め切り時点（時期未確認）", definition: "Directory が認定したカード数（Directory の掲示）。Wikipedia は 36 シリーズ 1,774 枚と記載", nature: reported, s: [src-rarepepe-directory-submit]}
@@ -107,3 +141,5 @@ sources:
   - {id: src-rarepepe-wallet-site, title: "Rare Pepe Wallet", url: "https://rarepepewallet.com", publisher: "Rare Pepe Wallet", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "Down for maintenance、別ドメインへの案内"}
   - {id: src-rarepepe-dailydot-2017, title: "The Rare Pepe economy is real, and there's serious money behind it", url: "https://dailydot.com/rare-pepe-frog-meme-economy", publisher: "The Daily Dot", author: "Jay Hathaway", type: news, primary: false, published: "2017-02-21", accessed: "2026-10-23", access: fetched, lang: en, note: "500 超のカード、4,000 PEPECASH の申請料、価格例"}
   - {id: src-rarepepe-wikipedia, title: "Rare Pepe", url: "https://en.wikipedia.org/wiki/Rare_Pepe", publisher: "Wikipedia", type: wiki, primary: false, accessed: "2026-10-23", access: fetched, lang: en, note: "36 シリーズ 1,774 枚、2018-01-13 のオークション（38,500 ドル）"}
+  - {id: src-rarepepe-criptonoticias, title: "¿Qué son los Rare Pepes, los primeros NFT de Bitcoin?", url: "https://criptonoticias.com/criptopedia/que-son-rare-pepes-primeros-nft-bitcoin", publisher: "CriptoNoticias", author: "Andrea Leal", type: analysis, primary: false, accessed: "2026-10-24", access: fetched, lang: es, note: "公開日の表示なし。最初のカードを作ったのは「Mike」と呼ばれる匿名の Counterparty 利用者、Telegram グループでの売買、Rare Pepe Wallet の作成"}
+  - {id: src-rarepepe-nftnow-looney, title: "Rare Pepe Pioneer Joe Looney on Paving the Way for NFTs", url: "https://nftnow.com/podcasts/rare-pepes-joe-looney-interview/", publisher: "nft now", type: interview, primary: true, accessed: "2026-10-24", access: snippet, lang: en, note: "403 で本文取得不可。検索要約: Looney が Rare Pepe Wallet を 2016 年に作った、最初のカードは「Mike」による Satoshi Nakamoto 風のカードで、それを見た人が自分の Rare Pepe を作り始めた"}

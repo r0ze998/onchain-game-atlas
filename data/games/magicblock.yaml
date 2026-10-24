@@ -4,7 +4,7 @@ name_ja: マジックブロック
 aliases: ["Ephemeral Rollups", "MagicBlock Engine", BOLT]
 kind: platform
 depth: index
-updated: "2026-10-23"
+updated: "2026-10-24"
 links:
   website: https://www.magicblock.xyz/
   docs: https://docs.magicblock.gg/
@@ -81,6 +81,10 @@ metrics:
   - {id: m-mb-blocktime-claim, type: other, value: 10, unit: ms, period: "参照日 2026-10-23", definition: "公式ドキュメントが主張する ER の状態遷移・ブロック時間（Solana 既定 400 ms との対比）", nature: reported, s: [src-mb-docs-intro]}
   - {id: m-mb-seed-2025, type: funding, value: 7500000, unit: USD, period: "2025-04-24 発表", definition: "シード・ラウンド（Lightspeed Faction 主導）", nature: reported, s: [src-mb-pulse2]}
   - {id: m-mb-preseed-2024, type: funding, value: 3000000, unit: USD, period: "2024-09", definition: "a16z CSX 主導の前回ラウンド（報道）", nature: reported, s: [src-mb-pulse2]}
+  - {id: m-mb-speedrun1-submissions, type: other, value: 22, unit: submissions, period: "2023-07-26〜30（第 1 回 Solana Speedrun）", definition: "ゲームジャムへの提出数（MagicBlock 技術の利用有無を問わない）", nature: reported, s: [src-mb-superteam-speedrun]}
+  - {id: m-mb-speedrun1-prizes, type: other, value: 25000, unit: USD, period: "2023-07（第 1 回 Solana Speedrun）", definition: "告知された賞金総額（相当額）", nature: reported, s: [src-mb-luma-speedrun1, src-mb-itch-speedrun1]}
+  - {id: m-mb-speedrun3-entries, type: other, value: 29, unit: submissions, period: "2024-06-29〜07-05（第 3 回 Solana Speedrun）", definition: "itch.io のジャムページに表示された提出数", nature: measured, s: [src-mb-itch-speedrun3]}
+  - {id: m-mb-radar-supersize-prize, type: other, value: 30000, unit: USD, period: "2024-11-12 発表（Solana Radar）", definition: "MagicBlock 上の Supersize がゲーム部門 1 位で得た賞金（USDC）", nature: reported, s: [src-mb-radar-winners]}
 
 events:
   - {id: ev-mb-paper, date: "2023-11-05", type: paper, title: "論文「Ephemeral Rollups are All you Need」arXiv 初版", detail: "v4 は 2025-02-14", s: [src-mb-arxiv]}
@@ -101,6 +105,48 @@ unknowns:
   - "MagicBlock の創業時期（報道は 2023-09 と記すが一次資料未確認）。"
 contradictions: []
 
+acquisition:
+  audience: [developers]
+  summary: {t: "最初の開発者は、MagicBlock が先に配っていた Solana 向け Unity SDK の利用者と、自らが LamportDAO と共催した Solana 初のゲームジャム「Speedrun」の参加者だった。Ephemeral Rollups・BOLT の公開後は、Colosseum 等の大型ハッカソンへのスポンサー参加、自前のハッカソン、インキュベーターで開発者を集め、代表例の Supersize もハッカソン経由で知られた。", k: analysis, s: [src-mb-blog-unity-sdk, src-mb-luma-speedrun1, src-mb-radar-winners, src-mb-blog-supersize-hackathon]}
+  steps:
+    - {phase: pre, date: "2023-02-27", t: "MagicBlock 製の Solana SDK for Unity が Unity Asset Store の「検証済み分散技術」カテゴリに載った。MagicBlock は、この SDK がすでに数十のゲームスタジオに使われていると主張した。", k: claim, who: "MagicBlock", s: [src-mb-blog-unity-sdk], q: "The SDK is already being used by dozens of game studios"}
+    - {phase: pre, date: "2023-06-13", t: "Gum と組んで Session Keys を Unity SDK に統合したと発表し、同じ記事で「Solana 初のゲームジャム」Speedrun の開催と、Gum による Session Keys 統合賞を告知した。", k: fact, s: [src-mb-blog-session-keys]}
+    - {phase: pre, date: "2023-07-26", t: "第 1 回 Solana Speedrun（オンライン、2023-07-26〜30）を開催。完全オンチェーンと Solana 統合の 2 部門で、賞金は総額 2.5 万ドル相当。Superteam のブログによれば主催は MagicBlock と LamportDAO、提出は 22 件。", k: fact, s: [src-mb-luma-speedrun1, src-mb-itch-speedrun1, src-mb-superteam-speedrun]}
+    - {phase: pre, date: "2023-11-05", t: "論文「Ephemeral Rollups are All you Need」を arXiv に公開し、フルオンチェーンゲームの拡張という問題設定で技術的な関心を集めた。", k: fact, s: [src-mb-arxiv]}
+    - {phase: launch, date: "2024-03-01", t: "BOLT v0.1（Anchor を拡張した CLI と ECS）を公開し、ブログでチュートリアルを出した。", k: fact, s: [src-mb-blog-bolt-v01]}
+    - {phase: growth, date: "2024-06-29", t: "第 3 回 Speedrun（2024-06-29〜07-05、テーマ「Last Forever」）。メイン部門の賞金 1 万 USDC を得るには公式サイトの「unstoppable games」の作り方に沿う必要があり、MagicBlock は特別部門としてアクセラレーター枠を出した。itch.io の提出は 29 件で、1 位は Echoes of Eldoria。", k: fact, s: [src-mb-speedrun-site, src-mb-itch-speedrun3, src-mb-colosseum-gamejam]}
+    - {phase: growth, date: "2024-09-17", t: "a16z CSX（2024 春期）に参加したうえでプレシード総額 300 万ドルを発表し、資金の用途に開発者アウトリーチを挙げた。", k: fact, s: [src-mb-blog-preseed]}
+    - {phase: growth, date: "2024-10-04", t: "Supersize（agar.io 風の実マネー対戦）を BOLT と Ephemeral Rollups の採用事例として紹介した。Supersize は 2024-11-12 発表の Solana Radar ハッカソン（MagicBlock もスポンサー）でゲーム部門 1 位・3 万 USDC を得た。", k: fact, s: [src-mb-blog-supersize, src-mb-radar-winners]}
+    - {phase: growth, date: "2025-03-27", t: "Supersize の創業者インタビューを載せ、同時に自前の Real-Time Hackathon（4/1〜5/16、目立った 1 件に 1 万ドルの助成、Colosseum への足がかり）を告知した。4 部門のうちゲームは 1 部門で、残りは取引系（CLOB・オプション・シグナル）だった。", k: fact, s: [src-mb-blog-supersize-hackathon, src-mb-luma-realtime]}
+    - {phase: growth, date: "2025-09-16", t: "Magic Incubator の第 1 期（2025-09-25〜12-10、ハッカソン参加者の受け皿、ドバイのハッカーハウス）を募集した。参照日の公式ハッカソンサイトでは週末ハッカソン Solana Blitz（賞金 1,000 USDC、ER の統合が応募条件）と、後継の Forge プログラムを案内している。", k: fact, s: [src-mb-blog-incubator, src-mb-blitz-site]}
+  channels:
+    - {id: existing-community, t: "MagicBlock が保守する Solana 向け Unity SDK の利用者（同社は「数十のスタジオ」と主張）に、Session Keys などの機能追加を通じて自社の後続製品を届けた。", k: claim, who: "MagicBlock", s: [src-mb-blog-unity-sdk, src-mb-blog-session-keys]}
+    - {id: platform-distribution, t: "Unity Asset Store の検証済みカテゴリに SDK が掲載され、Unity のゲーム開発者が Solana 連携を見つける経路になった。", k: fact, s: [src-mb-blog-unity-sdk]}
+    - {id: hackathon, t: "Speedrun ゲームジャム（2023-07 第 1 回、2024-06 第 3 回）の共催、Solana Radar へのスポンサー参加、自前の Real-Time Hackathon と Solana Blitz を続けて開いた。", k: fact, s: [src-mb-superteam-speedrun, src-mb-speedrun-site, src-mb-radar-winners, src-mb-luma-realtime, src-mb-blitz-site]}
+    - {id: builder-grants, t: "Speedrun 3 の特別部門としてアクセラレーター枠、Real-Time Hackathon で 1 万ドルの助成、Magic Incubator でメンタリング・資金調達支援・ハッカーハウスを提供した。", k: fact, s: [src-mb-speedrun-site, src-mb-luma-realtime, src-mb-blog-incubator]}
+    - {id: content-research, t: "arXiv 論文、BOLT のチュートリアル、ブログでの事例紹介（Supersize など）で技術的な関心層に訴えた。", k: fact, s: [src-mb-arxiv, src-mb-blog-bolt-v01, src-mb-blog-supersize]}
+  cost:
+    - {t: "第 1 回 Speedrun の賞金 2.5 万ドルの出し手は出典に明記されていない。一部は Cubik のマッチングプール（記事時点で 1,000 USDC＋100 万 RAIN、計 8,000 ドル相当）で管理された。", k: fact, s: [src-mb-superteam-speedrun]}
+    - {t: "第 3 回 Speedrun のメイン賞金は 1 万 USDC で、特別部門は Gameshift・Metaplex・Sonic・Solana Foundation など多数のスポンサーが出した。Radar のゲーム部門賞金 3 万 USDC は Colosseum・Solana Foundation 主催のハッカソンの賞金で、MagicBlock 単独の負担ではない。", k: fact, s: [src-mb-speedrun-site, src-mb-radar-winners]}
+    - {t: "会社側の原資は VC 資金: 2024-09 のプレシード総額 300 万ドル（a16z CSX）と 2025-04 の 750 万ドルのシード。", k: fact, s: [src-mb-blog-preseed, src-mb-pulse2]}
+  after:
+    - {t: "ER 上で動くゲーム・開発者の数は公表されていない。公式ブログの事例はゲーム（Supersize、Zeebit、2024 年）からデリバティブ取引・通信・価格配信・決済（2025〜2026 年）へ移っている。", k: fact, s: [src-mb-blog-index, src-mb-pulse2]}
+    - {t: "ゲーム向け ECS の BOLT は 2026-05 に非推奨・保守停止となった。BOLT で集めた初期のゲーム開発者がその後どう移行したかは不明。", k: fact, s: [src-mb-bolt-repo]}
+    - {t: "Supersize は創業者インタビューで、ハッカソン終了頃にメインネットへ出し初期ユーザーが試したと述べたが、利用者数は示していない。", k: claim, who: "Lewis Arnsten（Supersize）", s: [src-mb-blog-supersize-hackathon]}
+  counter:
+    - {t: "Speedrun は「Solana 統合」部門を含み、第 3 回のメインも「unstoppable games」であることが条件で MagicBlock の利用は必須ではなかった。ジャムの参加者数を MagicBlock の開発者獲得とみなすことはできない。", k: analysis, s: [src-mb-luma-speedrun1, src-mb-speedrun-site]}
+    - {t: "Supersize の創業者はハッカソン前から MagicBlock を選び devnet で MVP を動かしていたと述べており、ハッカソンは獲得の場ではなく検証と露出の場だった。Radar は応募 1,359 件・参加 1 万人超の Solana 全体のハッカソンで、その集客は MagicBlock の施策ではない。", k: analysis, s: [src-mb-blog-supersize-hackathon, src-mb-radar-winners]}
+    - {t: "「Unity SDK が数十のスタジオに使われている」は運営の主張で、Unity SDK の利用者が ER・BOLT の利用者になった証拠は見つからなかった。", k: analysis, s: [src-mb-blog-unity-sdk]}
+  lessons:
+    - {t: "既存エンジン向け SDK を先に配る: Unity のような主流エンジンの SDK を無償で保守すると、チェーンに来たばかりのゲーム開発者の名簿と信頼が先にでき、後続の基盤製品の告知先になる。効く条件は対象チェーンに公式の同等ツールがないこと。破綻条件は後続製品が別のプログラミングモデル（BOLT・委任）を要求する場合で、SDK 利用者がそのまま移るとは限らない。", k: analysis}
+    - {t: "自前ジャム→大型ハッカソンのスポンサー→インキュベーターの順につなぐ: 小さなジャムで試作者を見つけ、大型ハッカソンで賞と露出を与え、インキュベーターで残す。破綻条件は会社の重点がゲームから取引・決済へ移るときで、ハッカソンの部門構成も変わり、ゲーム開発者の受け皿が細る。", k: analysis}
+  metrics: [m-mb-speedrun1-submissions, m-mb-speedrun1-prizes, m-mb-speedrun3-entries, m-mb-radar-supersize-prize, m-mb-preseed-2024]
+  unknowns:
+    - "第 1 回 Speedrun の受賞作と、そのうち MagicBlock の技術を使った作品の数。"
+    - "第 2 回 Speedrun（検索要約では 2023-12-12〜17、賞金 1 万ドル、LamportDAO と共催）の詳細。X の投稿を取得できず未確認。"
+    - "Ephemeral Rollups・BOLT を使って本番稼働したゲームの総数と利用者数。"
+    - "Magic Incubator・Forge の参加チーム数と成果。"
+
 sources:
   - {id: src-mb-docs-intro, title: "Why MagicBlock? (MagicBlock docs introduction)", url: "https://docs.magicblock.gg/introduction", publisher: "MagicBlock docs", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "ページ名は「Why MagicBlock?」。SVM 互換（「down to the bytecode」）、10 ms、minimal or zero-fee、複数 ER で毎秒数百万取引、TEE。いずれも計測方法の記載なし"}
   - {id: src-mb-docs-er, title: "Ephemeral Rollup (MagicBlock docs)", url: "https://docs.magicblock.gg/pages/ephemeral-rollups-ers/introduction/ephemeral-rollup", publisher: "MagicBlock docs", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "委任・実行・コミット・委任解除の流れ、Delegation Program、公開バリデータ、不正証明と Security Committee"}
@@ -110,3 +156,20 @@ sources:
   - {id: src-mb-validator-repo, title: "magicblock-labs/magicblock-validator", url: "https://github.com/magicblock-labs/magicblock-validator", publisher: "GitHub", type: code, primary: true, published: "2026-10-21", accessed: "2026-10-23", access: fetched, lang: en, note: "git clone。ER 用 SVM バリデータ、Business Source License 1.1"}
   - {id: src-mb-github-org, title: "magicblock-labs (GitHub organization)", url: "https://github.com/magicblock-labs", publisher: "GitHub", type: code, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "delegation-program、ephemeral-rollups-sdk、Session Keys、Solana.Unity-SDK 等"}
   - {id: src-mb-pulse2, title: "MagicBlock: $7.5 Million Seed Funding Raised For Decentralized Solana Game And App Platform", url: "https://pulse2.com/magicblock-7-5-million-seed-raised-for-decentralized-solana-game-and-app-platform/", publisher: "Pulse 2.0", type: news, primary: false, published: "2025-04-24", accessed: "2026-10-23", access: fetched, lang: en, note: "750 万ドル（Lightspeed Faction 主導）、前回 300 万ドル（a16z CSX、2024-09）、Supersize・Flash Trade・dTelecom・Pyth Lazer・Jito"}
+  - {id: src-mb-blog-index, title: "MagicBlock Blog", url: "https://www.magicblock.xyz/blog", publisher: "MagicBlock", type: official-blog, primary: true, accessed: "2026-10-24", access: fetched, lang: en, note: "記事一覧 59 件（2023-02〜2026-10）。2024 年までゲーム事例、2025 年以降は取引・通信・決済・プライバシー"}
+  - {id: src-mb-blog-unity-sdk, title: "The Solana SDK for Unity is available on the Unity Asset Store as a Verified Solution", url: "https://www.magicblock.xyz/blog/solana-unity-sdk", publisher: "MagicBlock", type: official-blog, primary: true, published: "2023-02-27", accessed: "2026-10-24", access: fetched, lang: en, note: "Unity Asset Store の検証済み分散技術カテゴリ、「数十のゲームスタジオ」が利用と主張"}
+  - {id: src-mb-blog-session-keys, title: "Session Keys integrated into the Solana Unity SDK", url: "https://www.magicblock.xyz/blog/session-keys", publisher: "MagicBlock", type: official-blog, primary: true, published: "2023-06-13", accessed: "2026-10-24", access: fetched, lang: en, note: "Gum との提携、Session Keys、Speedrun（Solana 初のゲームジャム）と Gum 賞の告知"}
+  - {id: src-mb-blog-bolt-v01, title: "BOLT engine: unstoppable and composable games", url: "https://www.magicblock.xyz/blog/bolt-v0-1", publisher: "MagicBlock", type: official-blog, primary: true, published: "2024-03-01", accessed: "2026-10-24", access: fetched, lang: en, note: "BOLT v0.1、Anchor 拡張の CLI、ECS のチュートリアル"}
+  - {id: src-mb-blog-preseed, title: "MagicBlock Has Raised $3M to Enable Real-Time Onchain Games and Applications", url: "https://www.magicblock.xyz/blog/enable-real-time-onchain-games-and-applications", publisher: "MagicBlock", type: official-blog, primary: true, published: "2024-09-17", accessed: "2026-10-24", access: fetched, lang: en, note: "プレシード総額 300 万ドル、a16z CSX 2024 春期、用途にチーム拡大・開発者アウトリーチ・技術開発"}
+  - {id: src-mb-blog-supersize, title: "Supersize: a next-gen real-time PvP game on Solana", url: "https://www.magicblock.xyz/blog/supersize", publisher: "MagicBlock", type: official-blog, primary: true, published: "2024-10-04", accessed: "2026-10-24", access: fetched, lang: en, note: "BOLT ECS と ER の採用事例、約 30 ms、創業者・MagicBlock CEO のコメント"}
+  - {id: src-mb-blog-supersize-hackathon, title: "From Hackathon Winner to Fully On-Chain Pioneer – How Lewis Built Supersize", url: "https://www.magicblock.xyz/blog/supersize-hackathon", publisher: "MagicBlock", type: interview, primary: true, published: "2025-03-27", accessed: "2026-10-24", access: fetched, lang: en, note: "ハッカソン前に devnet で MVP、ハッカソン終了頃にメインネットと初期ユーザー、Real-Time Hackathon の告知"}
+  - {id: src-mb-blog-incubator, title: "The Magic Incubator: Be Part of the Next Wave of Real-Time Apps", url: "https://www.magicblock.xyz/blog/magic-incubator", publisher: "MagicBlock", type: official-blog, primary: true, published: "2025-09-16", accessed: "2026-10-24", access: fetched, lang: en, note: "第 1 期 2025-09-25〜12-10、ハッカソン参加者の受け皿、ドバイのハッカーハウス（11/28〜12/7）、RFP"}
+  - {id: src-mb-luma-speedrun1, title: "Solana Speedrun (Luma)", url: "https://luma.com/j9zvspbs", publisher: "Luma", type: official-docs, primary: true, accessed: "2026-10-24", access: fetched, lang: en, note: "2023-07-26〜30 のオンライン・ゲームジャム、完全オンチェーン／Solana 統合の 2 部門、賞金 2.5 万ドル相当、ホスト Andrea（MagicBlock）"}
+  - {id: src-mb-itch-speedrun1, title: "Speedrun (itch.io jam)", url: "https://itch.io/jam/speedrun-gamejam", publisher: "itch.io", type: official-docs, primary: true, accessed: "2026-10-24", access: fetched, lang: en, note: "2023-07-26〜07-30、ホスト GabrielePicco、賞金 2.5 万ドル相当、2 部門"}
+  - {id: src-mb-superteam-speedrun, title: "Inside Solana Speedrun", url: "https://blog.superteam.fun/p/inside-solana-speedrun", publisher: "The Superteam Blog", author: "Aditya Shetty", type: news, primary: false, published: "2023-08-07", accessed: "2026-10-24", access: fetched, lang: en, note: "MagicBlock と LamportDAO の共催、提出 22 件、賞金 2.5 万ドル、Cubik のマッチングプール 8,000 ドル相当（執筆時点）。公式の受賞者一覧ではない"}
+  - {id: src-mb-speedrun-site, title: "Solana Speedrun (solanaspeedrun.com)", url: "https://solanaspeedrun.com/", publisher: "Solana Speedrun", type: official-docs, primary: true, accessed: "2026-10-24", access: fetched, lang: en, note: "参照日には第 3 回（6/29〜7/5、テーマ Last Forever）の内容。メイン賞金 1 万 USDC（unstoppable games が条件）、MagicBlock のアクセラレーター枠など特別部門、IRL 会場"}
+  - {id: src-mb-itch-speedrun3, title: "Solana Speedrun 3 (itch.io jam)", url: "https://itch.io/jam/solana-speedrun-3", publisher: "itch.io", type: official-docs, primary: true, published: "2024-06", accessed: "2026-10-24", access: fetched, lang: en, note: "2024-06-29〜07-05、提出 29 件、ホスト supermarioblock"}
+  - {id: src-mb-colosseum-gamejam, title: "Colosseum Codex: Accelerator Demo Day, Tensor API Migration, Game Jam Winners", url: "https://blog.colosseum.com/accelerator-demo-day-tensor-api-game-jam/", publisher: "Colosseum", type: news, primary: false, published: "2024-08-08", accessed: "2026-10-24", access: fetched, lang: en, note: "第 3 回 Speedrun の受賞（Echoes of Eldoria、Startup、Solana Science）を MagicBlock が発表"}
+  - {id: src-mb-radar-winners, title: "Announcing the Winners of the Solana Radar Hackathon", url: "https://solana.com/news/solana-radar-winners", publisher: "Solana (originally Colosseum)", type: news, primary: true, published: "2024-11-12", accessed: "2026-10-24", access: fetched, lang: en, note: "参加 1 万人超・提出 1,359 件、MagicBlock はスポンサー、ゲーム部門 1 位 Supersize に 3 万 USDC"}
+  - {id: src-mb-luma-realtime, title: "Real-Time Hackathon by MagicBlock (Luma)", url: "https://luma.com/real-time-hackathon", publisher: "Luma", type: official-docs, primary: true, accessed: "2026-10-24", access: fetched, lang: en, note: "4/1〜5/16（年はページに記載なし。2025-03-27 の公式記事が告知）、1 万ドルの助成、4 部門（CLOB・オプション・シグナル・完全オンチェーンゲーム）"}
+  - {id: src-mb-blitz-site, title: "Solana Blitz V7", url: "https://hackathon.magicblock.app/", publisher: "MagicBlock", type: official-docs, primary: true, accessed: "2026-10-24", access: fetched, lang: en, note: "週末ハッカソン、賞金 1,000 USDC、ER 統合が応募条件、後継プログラム MagicBlock Forge。開催年はページに記載なし"}

@@ -4,7 +4,7 @@ name_ja: ピクセルズ
 aliases: ["Pixels Online", "Core Pixels"]
 kind: game
 depth: deep
-updated: "2026-10-23"
+updated: "2026-10-24"
 links:
   website: https://www.pixels.xyz/
   play: https://play.pixels.xyz/
@@ -165,6 +165,46 @@ metrics:
   - {id: m-pixels-dauw-2025-06, type: wallets, value: 40000, value_text: "4 万超", unit: wallets, period: "2025-06 初め", definition: "日次アクティブユニークウォレット（自社ブログが BlockchainGamer.biz を引用）", nature: reported, s: [src-pixels-post-stabilized], note: "元の計測は BlockchainGamer.biz 側（データ源の記載なし）。原記事は未読で、運営ブログ経由の二次引用"}
   - {id: m-pixels-pixel-onchain-2026-05-20, type: transactions, value: 2716, value_text: "Transfer 2,716 件・717 アドレス（送信元 427）", unit: tx, period: "2026-05-20（UTC 1 日）", definition: "Ronin 上の PIXEL（0x7eae20d11ef8c779433eb24503def900b9d28ad7）の ERC-20 Transfer イベント数と関与アドレス数（from と to の和集合）", nature: measured, s: [src-pixels-ronin-rpc], note: "トークン移転であってゲーム DAU ではない。ブロック 55883207〜55926406（UTC 当日 00:00 以降の最初のブロック〜翌日 00:00 直前）。検証役が 2026-10-23 に同手順で再計測し同値を確認"}
   - {id: m-pixels-pixel-onchain-2026-10-15, type: transactions, value: 3677, value_text: "Transfer 3,677 件・606 アドレス（送信元 244）", unit: tx, period: "2026-10-15（UTC 1 日）", definition: "同上", nature: measured, s: [src-pixels-ronin-rpc], note: "トークン移転であってゲーム DAU ではない。ブロック 62276807〜62320006。検証役が 2026-10-23 に同手順で再計測し同値を確認"}
+  - {id: m-pixels-p2a-wallets-2023, type: wallets, value: 28000, value_text: "第 1 回 2 万（2023）＋追加 8,000（2024-01）", unit: wallets, period: "2023〜2024-01", definition: "play-to-airdrop で PIXEL 配布対象に選ばれたウォレット数（Decrypt）", nature: reported, s: [src-pixels-decrypt-airdrop]}
+  - {id: m-pixels-players-2023-10, type: players, value: 900000, value_text: "90 万超", unit: players, period: "2023-10-31", definition: "Ronin のブログが記した Pixels の累計プレイヤー数（定義なし）", nature: reported, s: [src-pixels-ronin-live]}
+
+acquisition:
+  audience: [players, holders]
+  summary: {t: "Polygon 時代の最初の層は、NFT 農場の保有者と、トークン配布の順位表（play-to-airdrop）を目指して遊ぶ暗号資産利用者だった。大きな流入は 2023-10 の Ronin 移転後で、Ronin 側の景品クエスト・Ronin ウォレットでのログイン・Axie の利用者層の取り込みと、BERRY・PIXEL の報酬期待が重なって起きた。移転で増えた日次ウォレットのかなりの部分は報酬目的のボット・多重アカウントだったと運営自身が認めている。", k: analysis, s: [src-pixels-help-updates, src-pixels-decrypt-airdrop, src-pixels-ronin-live, src-pixels-bg-move-ronin, src-pixels-bg-stacked]}
+  steps:
+    - {phase: pre, date: "2021", t: "CEO は、2021 年の Axie Infinity の台頭を見て暗号資産ゲームに向かったと述べ、Pixels はオンラインイベント事業からの転換として始まった。開発は 2021 年に始まり Polygon 上で公開された。", k: claim, who: "Luke Barwikowski (CEO)", s: [src-pixels-decrypt-token-interview, src-pixels-decrypt-airdrop]}
+    - {phase: launch, date: "2021-11", t: "第三者の紹介記事は、Pixels が 2021-11-09 に誕生し、その 8 日後に最初の NFT（Pixel Beasts）と Play-to-Mint のキャンペーンで公開されたとする。記事は出典を示しておらず、一次資料では確認できなかった。", k: claim, who: "eGamers.io", s: [src-pixels-egamers-history]}
+    - {phase: launch, date: "2022-11-16", t: "ヘルプセンターの更新履歴の最古の項目（Chapter 1）で、NFT 土地・家・林業などが入った。以後、季節クエストを週単位で追加している。", k: fact, s: [src-pixels-help-updates]}
+    - {phase: growth, date: "2023-03-07", t: "パッチノートに「play-to-airdrop の順位表で上位 200 に入ったアカウント」限定のアイテムが載り、トークン配布を見込んだ順位競争が Polygon 時代に既に動いていた。Decrypt によれば 2023 年の第 1 回で 2 万ウォレット、2024-01 に追加で 8,000 ウォレットが配布対象に選ばれた。", k: fact, s: [src-pixels-help-updates, src-pixels-decrypt-airdrop], q: "Only applicable for accounts that were in the top 200 on our play-to-airdrop leaderboard"}
+    - {phase: growth, date: "2023-09-12", t: "Ronin への移転を発表した時点の DappRadar の日次アクティブは 2,000〜3,000 で、Sky Mavis は移転で Axie Infinity の既存の利用者層を呼び込めると期待した。", k: fact, s: [src-pixels-bg-move-ronin]}
+    - {phase: growth, date: "2023-10-31", t: "Ronin で稼働し、Ronin ウォレットでログインできるようになった。同時に Ronin 側の「Ronin x Pixels Gacha Quest」（11/5 まで。Farm Land NFT・Genesis Pet・Mystic Axie、5,000 超の当選者に計 1,500 RON などが景品）、200 匹の Genesis Pet を配る Carnival、チュートリアル完了で 10 BERRY の付与が始まった。Ronin のブログは累計プレイヤー 90 万超とした。", k: fact, s: [src-pixels-ronin-live, src-pixels-help-updates]}
+    - {phase: growth, date: "2023-11", t: "DappRadar の日次アクティブウォレットは 11/15 からの数日で 4,000 から 111,000 に増え、VIP 会員は 11,247 人になった。11/29 には Mocaverse の NFT をアバターとして使える連携が入り、BAYC・Pudgy Penguins 等の保有者も自分の PFP をアバターにできる。", k: fact, s: [src-pixels-bg-100k, src-pixels-help-updates, src-pixels-decrypt-airdrop]}
+    - {phase: growth, date: "2024-02", t: "PIXEL を Binance Launchpool（3.5 億枚を BNB・FDUSD のステーカーへ）経由で 2/19 に上場し、初期プレイヤーと RON ステーカー（2,000 万 PIXEL）にも配布した。", k: fact, s: [src-pixels-decrypt-airdrop]}
+    - {phase: growth, date: "2024-05", t: "運営は 100 万 DAU 超を発表し、DappRadar では 5/20 に約 77.9 万のアクティブウォレットだったが、同時期に 1 週間で 75 万アカウントを BAN したと報じられた。", k: fact, s: [src-pixels-theblock-1m, src-pixels-ct-bots]}
+  channels:
+    - {id: platform-distribution, t: "Polygon から Ronin に移り、Ronin ウォレットでのログイン、Ronin 主催の景品付き Gacha Quest、Mavis Market での NFT 売買、さらに Binance Launchpool での PIXEL 配布という、チェーン・取引所側の配信網を使った。", k: fact, s: [src-pixels-ronin-live, src-pixels-dawn-of-ronin, src-pixels-decrypt-airdrop]}
+    - {id: existing-community, t: "Sky Mavis は Axie Infinity の利用者層の取り込みを移転の狙いに挙げ、Mocaverse・BAYC・Pudgy Penguins など既存 NFT コレクションの保有者が自分の PFP をアバターとして持ち込めるようにした。", k: fact, s: [src-pixels-bg-move-ronin, src-pixels-help-updates, src-pixels-decrypt-airdrop]}
+    - {id: token-incentive, t: "play-to-airdrop の順位表（第 1 回 2 万ウォレット、追加 8,000）、DEX で売れる BERRY（チュートリアル完了で 10 BERRY）、のちの PIXEL 報酬が参加の誘因になった。", k: fact, s: [src-pixels-help-updates, src-pixels-decrypt-airdrop, src-pixels-ronin-live]}
+    - {id: prize-competition, t: "Ronin x Pixels Gacha Quest はクエスト達成者に抽選で Farm Land NFT・Genesis Pet・Mystic Axie・RON を配った（期間は 11/5 まで）。", k: fact, s: [src-pixels-ronin-live]}
+  cost:
+    - {t: "獲得の原資の大半はトークン放出である。PIXEL は供給 50 億のうち Launchpool に 3.5 億（7%）、RON ステーカーに 2,000 万、play-to-airdrop 参加者に配られ、ゲーム内報酬は月 2,000 万 PIXEL 規模の報酬プールから出る。", k: fact, s: [src-pixels-decrypt-airdrop, src-pixels-wp-pixel, src-pixels-wp-keychanges]}
+    - {t: "Ronin x Pixels Gacha Quest の景品（NFT・RON）を Pixels と Ronin のどちらがどれだけ負担したかは公開資料で確認できなかった。", k: unknown}
+    - {t: "移転直後の最初の 1 週間に VIP パスへ約 19 万 RON が支払われたと Ronin は述べ、入ってきた層の一部は自ら支払う利用者でもあった（ただし VIP は報酬効率を上げる投資でもある）。", k: claim, who: "Sky Mavis (Ronin Newsletter)", s: [src-pixels-dawn-of-ronin]}
+  after:
+    - {t: "報酬の対象を絞った Chapter 2（2024-06）の直後に日次ウォレットは約 7 割減り、2025-06 には 4 万超で「安定」と自社ブログが伝えた。移転と報酬で集まった層の大部分は残らなかった。", k: fact, s: [src-pixels-bg-ch2-drop, src-pixels-post-stabilized]}
+    - {t: "示されているのは DAU・ウォレット数・VIP 会員数・収益（自己申告）で、Ronin 移転時に入ったコホートの継続率、ボットを除いた人数は示されていない。", k: analysis, s: [src-pixels-theblock-1m, src-pixels-wp-lessons]}
+  counter:
+    - {t: "Ronin 移転の効果を Sky Mavis は「Ronin Effect」と呼ぶが、これはチェーン運営者自身の宣伝である。同じ時期の Ronin では SOUL（Carv）などのエアドロップ目的の取引が多く、Ronin 全体の活動の主因は Pixels ではないとの反論がある。", k: claim, who: "Sky Mavis / ChainArgos (Jonathan Reiter)", s: [src-pixels-dawn-of-ronin, src-pixels-ct-bots]}
+    - {t: "CEO は報酬を配り始めたときの最大の問題を「ボットと sybil 攻撃」と述べ、75 万アカウントの BAN も報じられた。移転後の急増のうち人間のプレイヤーの割合は分からず、「移転で人が集まった」は「移転で報酬受取ウォレットが集まった」と区別できない。", k: claim, who: "Luke Barwikowski (CEO) / Cointelegraph", s: [src-pixels-bg-stacked, src-pixels-ct-bots]}
+    - {t: "急増は play-to-airdrop の第 2 回選定（2024-01）と PIXEL のエアドロップ・上場（2024-02）に向かう時期に重なっており、チェーン移転そのものの効果と、トークン配布期待の効果を分けられない。", k: analysis, s: [src-pixels-bg-100k, src-pixels-decrypt-airdrop]}
+  lessons:
+    - {t: "チェーン移転を獲得施策として使う: 移転先チェーンが自前のウォレット利用者・景品クエスト・マーケットを持つ場合、移転は新規流入の導線になる。効く条件は移転先が既に大きな利用者基盤（Pixels では Axie と Ronin ウォレット）を持ち、移転先側が景品を出すこと。破綻条件は移転先の利用者が報酬目的の多重アカウント中心の場合で、流入の質はチェーン側の指標（日次ウォレット）では判定できない。", k: analysis}
+    - {t: "配布前の順位表（play-to-airdrop）は、トークンがまだない段階で継続プレイの誘因を作れる。効く条件は対象を上位に絞り（上位 200、2 万ウォレット）、順位が実プレイ量で決まること。破綻条件は配布後で、配布が終わると誘因が消え、報酬を絞ると活動が急落する（Chapter 2 で約 7 割減）。", k: analysis}
+  metrics: [m-pixels-dau-polygon-2023, m-pixels-dauw-2023-11, m-pixels-vip-2023-11, m-pixels-p2a-wallets-2023, m-pixels-players-2023-10, m-pixels-dau-2024-05, m-pixels-dauw-2024-05-20, m-pixels-bans-2024, m-pixels-dauw-ch2-drop, m-pixels-dauw-2025-06]
+  unknowns:
+    - "Polygon 時代（2021〜2023）の最初のプレイヤーがどこから来たか（Pixel Beasts・Play-to-Mint の一次資料、初期の Discord 規模、Farm Land NFT の販売時期・価格）"
+    - "Ronin x Pixels Gacha Quest の景品の負担者と参加者数"
+    - "移転直後の流入のうち、Axie 利用者・Ronin ウォレットの新規作成者・既存の Pixels 利用者の内訳"
 
 events:
   - {id: ev-pixels-chapter1, date: "2022-11-16", type: release, title: "Chapter 1（NFT 土地、鶏小屋、風車、家、林業など）", detail: "ヘルプセンターの更新履歴の最古の項目", s: [src-pixels-help-updates]}
@@ -238,3 +278,5 @@ sources:
   - {id: src-pixels-help-vip-tier, title: "VIP Tiering System", url: "https://help.pixels.xyz/en/articles/11782159-vip-tiering-system", publisher: "Pixels Help Desk", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "PIXEL 支出による VIP スコア、「Updated June 2026」の表記（ページの dateModified は 2026-10-05）"}
   - {id: src-pixels-help-renting, title: "Renting Farms", url: "https://help.pixels.xyz/en/articles/10721385-renting-farms", publisher: "Pixels Help Desk", type: official-docs, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "LootRush 経由の土地レンタル"}
   - {id: src-pixels-ronin-rpc, title: "Ronin public RPC: eth_getLogs for PIXEL Transfer events (own measurement)", url: "https://api.roninchain.com/rpc", publisher: "Ronin (Sky Mavis) public RPC", type: onchain-data, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "自前計測。PIXEL 0x7eae20d11ef8c779433eb24503def900b9d28ad7 の Transfer（topic0 0xddf252ad…b3ef）を eth_getLogs で 200 ブロック刻みに UTC 1 日分集計。日境界は eth_getBlockByNumber の timestamp の二分探索。公開 RPC の最古ブロックは 2026-05-13 頃。2026-10-23 に検証役が再実行し両日とも同値"}
+  - {id: src-pixels-decrypt-token-interview, title: "Why Crypto Game Pixels Is Launching a Token: 'Now the Fun Starts'", url: "https://decrypt.co/217109/why-crypto-game-pixels-launching-token-video-interview", publisher: "Decrypt", author: "Andrew Hayward", type: interview, primary: true, published: "2024-02-13", accessed: "2026-10-24", access: fetched, lang: en, note: "CEO インタビュー。Axie の台頭で暗号資産ゲームへ、オンラインイベント事業からの転換、2021 年から開発"}
+  - {id: src-pixels-egamers-history, title: "Pixels: The Small Farm Game Which Became A Global Success", url: "https://egamers.io/pixels-the-small-farm-game-which-became-a-global-success/", publisher: "eGamers.io", author: "George Tsagkarakis", type: analysis, primary: false, published: "2025-11-15", accessed: "2026-10-24", access: fetched, lang: en, note: "2021-11-09 誕生、8 日後に Pixel Beasts と Play-to-Mint、Golden Rakes のエアドロップ。出典の記載なし"}

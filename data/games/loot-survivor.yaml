@@ -159,6 +159,47 @@ article:
     - {t: "Starknet 公式ブログは 2023-11-07 時点でも「テストネットで遊べる」と書いており、mainnet 版の初期の利用規模・公開時期の扱いは資料によって揺れている。", k: fact, s: [src-ls-starknet-blog-2023, src-ls-docs-golden-token]}
     - {t: "README は「immutable and permanently hosted on Starknet」を掲げるが、mainnet 初版は約 9 日で UI から外されて新コントラクトに置き換えられ、コントラクトには展開時に締切（terminal_timestamp）を設定できる引数もあった。個々のコントラクトが不変でも、どのコントラクトを「現行の Loot Survivor」とするかはクライアント運営者が決めていた。", k: analysis, s: [src-ls-repo-pg, src-ls-hist-commits, src-ls-hist-v1-lib]}
 
+acquisition:
+  audience: [players, holders]
+  summary: {t: "最初のプレイヤーは Realms / LORDS の既存コミュニティ（BibliothecaDAO の Discord と X、Starknet 上の LORDS 保有者）から来た。テストネットでの長いプレイテストの後、参加料を上位 3 名に配る賞金構造で mainnet を始め、1.5 と LS2 では他の NFT 集合の保有者に無料ゲームを配って外から人を呼び込んだ。", k: analysis, s: [src-ls-x-realms-2023-08, src-ls-x-realms-2023-09, src-ls-deploy-mainnet-15, src-ls-docs-eligible]}
+  steps:
+    - {phase: pre, date: "2023-04", t: "BibliothecaDAO の GitHub で開発が始まり（2023-03-29）、2023-04-29 には Goerli（テストネット）のコントラクト更新が入っている。コミュニティ記事は公開前に 6 か月のプレイテスト期間を置いたと書く。", k: fact, s: [src-ls-hist-commits, src-ls-lootherald-2023]}
+    - {phase: pre, date: "2023-08-07", t: "Realms の公式 X が大口の暗号資産インフルエンサー（@blknoiz06）の投稿への返信で、テストネットで今すぐ遊べること、上位 3 名が 1 ゲームごとに LORDS を受け取ることを宣伝した。同時期、テストネット限定でガス代と 1 回分の通貨を持つ使い捨ての「Arcade Account」を配った。", k: fact, s: [src-ls-x-realms-2023-08, src-ls-hist-commits, src-ls-lootherald-2023], q: "It's an immutable arcade machine, available to playtest now - on Starknet."}
+    - {phase: pre, date: "2023-09-05", t: "Realms の公式 X は Starknet 上の LORDS 保有者が 1.9 万人いるとし、Loot Survivor が LORDS を使う最初の mainnet ゲームになると告知した。既存トークン保有者を最初の有料プレイヤー候補として名指しした形。", k: claim, who: "Realms.World（@LootRealms）", s: [src-ls-x-realms-2023-09], q: "'Loot Survivor' will be the first game on mainnet to utilise Lords."}
+    - {phase: launch, date: "2023-10-31", t: "mainnet の初版を「プレリリース・トーナメント」として公開し、同日に Golden Token（1 日 1 回無料、160 枚）を 3 週間のオープンエディションで販売した。約 9 日後に新コントラクトへ切り替えた。", k: fact, s: [src-ls-docs-golden-token, src-ls-hist-commits]}
+    - {phase: launch, date: "2023-11-07", t: "Starknet 公式ブログが Loot Survivor と Influence を「フルオンチェーンゲーム」として紹介した（チェーン運営側による露出）。", k: fact, s: [src-ls-starknet-blog-2023]}
+    - {phase: growth, date: "2024-09", t: "LS1.5 の mainnet 展開スクリプトは 30 日間のローンチ・トーナメントを設定し、Starknet 上の 8 つの NFT 集合（Bloberts、Influence、Ducks、Everai、Pixel Banners、Realms、Focus Tree、Syndicate）の保有者に 1 NFT あたり 1〜6 回の無料ゲーム（集合ごとに上限 1,600 回）を与え、VRF 代も最初の 1 週間無料にした。", k: fact, s: [src-ls-deploy-mainnet-15, src-ls-code-lib15]}
+    - {phase: growth, date: "2025-08-18", t: "LS2 の無料ゲーム配布のスナップショット。6 チェーン 55 集合（Loot・Realms・Dope Wars 等の Loot 系に加え BAYC・Pudgy Penguins・Moonbirds など一般の NFT 集合、Discord ロール 1 件）の保有者に、1 アドレス最大 50 回、計約 50 万回を配った。", k: fact, s: [src-ls-docs-airdrop, src-ls-docs-eligible, src-ls-docs-token]}
+    - {phase: growth, t: "LS2（2025）では到達レベルに応じた SURVIVOR 報酬（第 2〜4 週は 4 倍）と、Starkware・Cartridge が出す計 10 万 STRK の Wanted Beast 懸賞を重ねた。", k: fact, s: [src-ls-docs-tokenomics, src-ls-docs-wanted]}
+  channels:
+    - {id: existing-community, t: "Realms / BibliothecaDAO の公式 X と LORDS 保有者に向けて告知し、LS1.5 のローンチ・トーナメントでは Realms を含む Starknet の 8 集合、LS2 では Loot・Realms・Dope Wars など Loot 系集合の保有者を無料ゲームの対象にした。", k: fact, s: [src-ls-x-realms-2023-09, src-ls-deploy-mainnet-15, src-ls-docs-eligible]}
+    - {id: crypto-social, t: "Realms の公式 X が大口インフルエンサーの投稿に返信して、テストネットのプレイテストと LORDS の賞金を宣伝した。", k: fact, s: [src-ls-x-realms-2023-08]}
+    - {id: prize-competition, t: "LS1 から上位 3 名に以後の参加料の一部を自動分配し、mainnet 初版と LS1.5 はトーナメントとして開始した。", k: fact, s: [src-ls-hist-v1-lib, src-ls-deploy-mainnet-15, src-ls-docs-golden-token]}
+    - {id: free-mint, t: "テストネット限定の Arcade Account（ガス代と 1 回分の通貨付き）、NFT 保有者への無料ゲーム（LS1.5 のトーナメント、LS2 の約 50 万回）を配った。", k: fact, s: [src-ls-lootherald-2023, src-ls-deploy-mainnet-15, src-ls-docs-airdrop]}
+    - {id: token-incentive, t: "LS2 で SURVIVOR をレベル到達に応じて配り、序盤の週は 4 倍にした。", k: fact, s: [src-ls-docs-tokenomics]}
+    - {id: platform-distribution, t: "Starknet 公式ブログでの紹介と、Starkware・Cartridge が出資した 10 万 STRK の懸賞。", k: fact, s: [src-ls-starknet-blog-2023, src-ls-docs-wanted]}
+  cost:
+    - {t: "LS1/1.5 の賞金はプレイヤーの参加料が原資で、後から遊ぶ人の参加料が上位者に払われる（3 位のスコアが閾値未満の間は DAO または Provable Games へ）。", k: fact, s: [src-ls-hist-v1-lib, src-ls-code-lib15]}
+    - {t: "LS1.5 の無料ゲームと 1 週間の無料 VRF は運営側の参加料・VRF 代の放棄で賄われ、LS2 の無料ゲーム約 50 万回（ガス込み）の負担者・総額は公表されていない。", k: fact, s: [src-ls-deploy-mainnet-15, src-ls-docs-token]}
+    - {t: "Wanted Beast の 10 万 STRK は Starkware と Cartridge が拠出した。SURVIVOR は総量 1000 万の 75% がコミュニティ枠で、報酬はトークン放出で賄われる。", k: fact, s: [src-ls-docs-wanted, src-ls-docs-tokenomics]}
+  after:
+    - {t: "SURVIVOR 配分表は LS1 の Beast 2,306 体と LS1.5 の上位 1,000 人を記載し、旧版に一定の参加者層があったことを示すが、一意プレイヤー数は公表されていない。", k: fact, s: [src-ls-docs-tokenomics]}
+    - {t: "約 8 万アドレスに配った無料ゲームに対し、2026-10 の直近 7 日のアクティブアドレスは 411（growthepie）。配布先のうち何割が遊び、残ったかは示されていない。", k: fact, s: [src-ls-docs-token, src-ls-growthepie]}
+    - {t: "継続率、版をまたぐ再参加率、配布で来た人と参加料を払った人の比率は公表されていない。", k: unknown}
+  counter:
+    - {t: "初期プレイヤーが「既存コミュニティから来た」ことを示す直接のデータ（参加者のうち LORDS / Realms 保有者の割合）はない。1.9 万人という LORDS 保有者数も運営の投稿で、プレイヤー数ではない。", k: analysis, s: [src-ls-x-realms-2023-09]}
+    - {t: "LS2 の活動は SURVIVOR 報酬（序盤 4 倍）・10 万 STRK の懸賞・無料ゲームと同時期で、ゲーム性による定着とトークン目当ての一時流入を公表データでは分けられない。", k: analysis, s: [src-ls-docs-tokenomics, src-ls-docs-wanted, src-ls-growthepie]}
+    - {t: "Starknet 公式ブログは 2023-11-07 時点で「テストネットで遊べる」と書いており、mainnet 初版（プレリリース・トーナメント）の規模は小さかった可能性がある。", k: analysis, s: [src-ls-starknet-blog-2023, src-ls-hist-commits]}
+  lessons:
+    - {t: "集合単位のローンチ・トーナメント（LS1.5）: 同じチェーン上の複数 NFT 集合の保有者に無料ゲームを割り当て、集合ごとの最高スコアを競わせると、各集合のコミュニティが自分たちで告知する動機を持つ。効く条件は集合の保有をコントラクトで確認でき、無料回数に集合ごとの上限（LS1.5 は 1,600 回）を設けること。破綻条件は大量保有者が無料回数を独占する場合や、無料期間後に有料で続ける理由（賞金・トークン）が弱い場合。", k: analysis}
+    - {t: "保有者エアドロップの対象を親コミュニティの外へ広げる（LS2）: Loot 系だけでなく BAYC・Pudgy Penguins などの保有者に無料回数を配ると、新しい層に試してもらえる。効く条件は 1 回が数分で終わり無料回数でも面白さが分かること、アドレス上限（50 回）があること。破綻条件は配布先が数万アドレスでも週次アクティブが数百にとどまる場合で、配布の規模は定着の指標にならない。", k: analysis}
+  metrics: [m-ls-lords-holders-2023, m-ls-golden-token-v1, m-ls-15-launch-games, m-ls-free-games-airdrop, m-ls-wanted-bounty, m-ls-ls1-beasts, m-ls-growthepie-7d-addr]
+  unknowns:
+    - "テストネット期間（2023-04〜10）の参加者数と、mainnet 初版（2023-10-31〜11-08）のプレイ数。"
+    - "LS1.5 のローンチ・トーナメントで各集合が実際に何回の無料ゲームを使い、どの集合が勝ったか。"
+    - "LS2 の無料ゲーム約 50 万回のうち実際に使われた回数、配布の費用負担者。"
+    - "Discord の参加者数の推移と、Realms / Loot の保有者が最初のプレイヤーに占めた割合。"
+
 metrics:
   - {id: m-ls-cost-v1, type: other, value: 25, unit: LORDS, period: "2023-10-31〜（LS1 mainnet、2023-11-09 時点のソース）", definition: "1 ゲームの参加料の初期値（COST_TO_PLAY 定数）。2023-10-20 以降のコードでは誰でも initiate_price_change → 1 週間後に update_cost_to_play を呼び、1 日あたりゲーム数の変化に応じて改定できたため、実際の参加料の推移は未確認。コミュニティ記事は約 2.5 ドルと換算", nature: measured, s: [src-ls-hist-v1-lib, src-ls-lootherald-2023], note: "コードの定数を検証役も確認。展開済みバイトコードとの一致は未検証"}
   - {id: m-ls-gas-2023, type: other, value_text: "5〜10 ドル", unit: USD, period: "2023-10", definition: "1 ゲームあたりのガス代。開発者 Loothero の発言としてコミュニティ記事が記載（計測方法は不明）", nature: reported, s: [src-ls-lootherald-2023]}
@@ -172,6 +213,8 @@ metrics:
   - {id: m-ls-treasury-seed, type: other, value_text: "SURVIVOR 100 万と約 300 万 LORDS", unit: tokens, period: "2025（genesis 時点）", definition: "Survivor Treasury の初期資金（公式記載）", nature: reported, s: [src-ls-docs-token]}
   - {id: m-ls-wanted-bounty, type: grants, value: 100000, unit: STRK, period: "2025〜（全 3 体が倒されるまで）", definition: "Starkware と Cartridge による Wanted Beast 3 体への懸賞総額", nature: reported, s: [src-ls-docs-wanted, src-ls-bankless-ls2]}
   - {id: m-ls-growthepie-7d-addr, type: wallets, value: 411, unit: wallets, period: "2026-10-23 時点の直近 7 日", definition: "growthepie が Loot Survivor（Provable Games）に帰属させたアクティブアドレス数", nature: measured, s: [src-ls-growthepie], note: "同期間の取引数 4.08 万件、ガス代 32.1 ドル"}
+  - {id: m-ls-lords-holders-2023, type: wallets, value: 19000, value_text: "1.9 万", unit: holders, period: "2023-09-05 時点", definition: "Realms 公式 X が示した Starknet 上の LORDS 保有者数（starkscan のトークンページへのリンク付き。プレイヤー数ではない）", nature: reported, s: [src-ls-x-realms-2023-09]}
+  - {id: m-ls-15-launch-games, type: other, value: 1600, value_text: "8 集合 × 上限 1,600 回", unit: games, period: "LS1.5 ローンチ・トーナメント（30 日間、2024-09 の展開スクリプト）", definition: "launch_tournament_games_per_collection（集合ごとの無料ゲーム上限）。1 NFT あたり 1〜6 回", nature: reported, s: [src-ls-deploy-mainnet-15]}
 
 events:
   - {id: ev-ls-dev-start, date: "2023-03-29", type: other, title: "BibliothecaDAO/loot-survivor リポジトリで開発開始", s: [src-ls-hist-commits]}
@@ -205,6 +248,7 @@ unknowns:
   - "ボット・自動化プレイの規模、AI エージェントが実際に遊んだ記録。"
   - "開発者 Loothero の役割と、BibliothecaDAO から Provable Games への移行の経緯（一次資料未確認）。"
 contradictions:
+  - {t: "無料ゲーム配布の対象チェーン数: SURVIVOR 文書は Abstract を含む 7 チェーンと書くが、Eligible Collections の一覧には Abstract の集合がなく、Ethereum・Starknet・Base・Arbitrum・Linea・Polygon の 6 チェーン 55 集合（うち 1 件は Discord ロール）を挙げる。", s: [src-ls-docs-token, src-ls-docs-eligible]}
   - {t: "公開時期: Golden Token 文書は 2023-10-31 を最初のリリースとし、コミット履歴も同日に mainnet 構成をマージしているが、Starknet 公式ブログ（2023-11-07）は「テストネットで遊べる」と書く。", s: [src-ls-docs-golden-token, src-ls-hist-commits, src-ls-starknet-blog-2023]}
   - {t: "賞金の比率: コミュニティ記事（2023-10-20）は参加料の半分が上位者へ、残りを DAO とクライアント提供者で分けると書くが、2023-11-09 時点のコードは経過週数 12 以下で上位 3 名に 100%（48/32/20%）、13〜24 週で上位 72%・クライアント 28%、25 週以降で上位 56%・クライアント 24%・DAO 20% の段階制（3 位スコアが 200 未満の間は全額 DAO）。記事時点（2023-10-20）のコードも段階はブロック数基準で上位 100%→80%→64% であり、どの版も「半分」とは一致しない。", s: [src-ls-lootherald-2023, src-ls-hist-v1-lib, src-ls-hist-commits]}
   - {t: "LS2 の経済の可変性: SURVIVOR 文書はチケット収入の 80% 買付を「immutable code」が自動で行うと書く一方、Dungeon Tickets 文書は財庫と veLORDS の分配比率（Distribution Ratios）や発行パラメータを SURVIVOR 保有者がガバナンスで変更できると書く。", s: [src-ls-docs-token, src-ls-docs-tickets]}
@@ -248,3 +292,7 @@ sources:
   - {id: src-ls-pg-commits, title: "Provable-Games/loot-survivor commit history", url: "https://github.com/Provable-Games/loot-survivor/commits/main", publisher: "GitHub", author: "Provable Games", type: code, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "検証役が clone して確認。2024-06-27/28 分配変更、2024-09-02 最低スコア 64、2024-09-04 mainnet 有効化、2024-09-10 展開スクリプト・VRF 代 0.5 ドル、最終コミット 2025-05-06"}
   - {id: src-ls-dm-commits, title: "Provable-Games/death-mountain commit history", url: "https://github.com/Provable-Games/death-mountain/commits/main", publisher: "GitHub", author: "Provable Games", type: code, primary: true, accessed: "2026-10-23", access: fetched, lang: en, note: "検証役が clone して確認。2025-04-14 port lootsurvivor1.5 to dojo、2025-09-03 add mainnet configs"}
   - {id: src-ls-bankless-daydreams, title: "LLMs Meet Loot: How Daydreams Is Rewriting Onchain Play", url: "https://www.bankless.com/read/daydreams-ai-agents-gaming", publisher: "Bankless", author: "William M. Peaster", type: news, primary: false, published: "2025-05-09", accessed: "2026-10-23", access: fetched, lang: en, note: "最初の対応は Gigaverse、Loot Survivor 等は近日対応と記載"}
+  - {id: src-ls-x-realms-2023-08, title: "Realms.World (@LootRealms) reply to @blknoiz06: Loot Survivor is a fully onchain roguelike game", url: "https://x.com/LootRealms/status/1688581348196335616", publisher: "X", type: social, primary: true, published: "2023-08-07", accessed: "2026-10-24", access: fetched, lang: en, note: "x.com は 402 のため api.fxtwitter.com 経由で本文を取得。テストネットで今すぐ遊べる、上位 3 名に LORDS の tribute"}
+  - {id: src-ls-x-realms-2023-09, title: "Realms.World (@LootRealms): 19,000 holders of Lords on Starknet", url: "https://x.com/LootRealms/status/1699041247350898936", publisher: "X", type: social, primary: true, published: "2023-09-05", accessed: "2026-10-24", access: fetched, lang: en, note: "api.fxtwitter.com 経由で本文を取得。LORDS 保有者 1.9 万、Loot Survivor が LORDS を使う最初の mainnet ゲーム"}
+  - {id: src-ls-deploy-mainnet-15, title: "loot-survivor scripts/deploy_mainnet.sh", url: "https://github.com/Provable-Games/loot-survivor/blob/main/scripts/deploy_mainnet.sh", publisher: "GitHub", author: "Provable Games", type: code, primary: true, published: "2025-05-06", accessed: "2026-10-24", access: fetched, lang: en, note: "git clone で確認。qualifying_collections 8 集合と 1 NFT あたりの回数、launch_tournament 30 日、集合ごと 1,600 回、VRF 無料 1 週間、開始遅延 4 時間"}
+  - {id: src-ls-docs-eligible, title: "Eligible Collections (Loot Survivor free games airdrop)", url: "https://github.com/Provable-Games/docs/blob/main/src/pages/lootsurvivor/token/eligible-collections.mdx", publisher: "Provable Games docs (GitHub)", type: official-docs, primary: true, accessed: "2026-10-24", access: fetched, lang: en, note: "55 集合（Ethereum 26、Starknet 17、Base 5、Arbitrum 3、Linea 2、Polygon 2）、1 アドレス最大 50 回、Loot 5・Pudgy Penguins 10 回など"}
