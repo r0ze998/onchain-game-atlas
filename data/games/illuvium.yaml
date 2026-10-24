@@ -65,9 +65,44 @@ article:
     - {t: "「資金が尽きて縮小した」という読みへの留保: 2024-12 時点で運営は 7,000 万ドル超相当の ILV を金庫に持つと報じられ、2026-08 には削減で 12 か月超の運転資金を確保したと CEO が述べた。縮小は資金枯渇ではなく、トークン価格下落下での支出抑制の選択とも読める（現金残高は非公開）。", k: claim, who: "BlockchainGamer.biz / Kieran Warwick (CEO)", s: [src-illuvium-bg-2025, src-illuvium-cryptoslate-2026]}
     - {t: "大型予算のゲームであっても、リリース後の利用者数は公表されず、2 年足らずで支出削減と範囲縮小に入った。資金量は定着の代わりにならなかった。一方で、ゲームとしての評価や利用者数の一次データがないため、失敗の原因をオンチェーン要素に帰すこともできない。", k: analysis, s: [src-illuvium-bg-2025, src-illuvium-cryptoslate-2026]}
 
+acquisition:
+  audience: [holders, players]
+  summary: {t: "最初に集まったのはゲームではなく ILV トークンの保有者で、2021 年のステーキング（高い利回り）と AXS・SNX 保有者向けの「flash pool」で他のトークンのコミュニティからも資金と人を呼んだ。プレイヤーとしての最初の参加者は、200 万超の事前登録者から段階的に選ばれた非公開ベータの参加者（2022-12 の 3 万人、2023-05 に 7.5 万人）だった。", k: analysis, s: [src-illuvium-cointelegraph-2021, src-illuvium-techbullion-2022, src-illuvium-dailycoin-2023]}
+  steps:
+    - {phase: pre, date: "2021-06-30", t: "ILV のステーキングを開始した。柔軟型で年 39.77%、52 週ロックで 79.53%、SushiSwap の流動性提供者には 283〜566% の利回りが示された。2021-07-28 に Axie の flash pool を開き、記事時点で AXS・SNX のステーキング枠は埋まっていた。ゲームは開発中だった。", k: fact, s: [src-illuvium-cointelegraph-2021]}
+    - {phase: pre, date: "2021-08", t: "ILV は 2021-06-22 の安値 29.32 ドルから 2021-08-13 の 545.26 ドルへ 1,765% 上昇した。記事は複数資産のステーキング、ゲームの予告映像と影響力のある人物の NFT、NFT 市場全体の好調を要因に挙げた。", k: fact, s: [src-illuvium-cointelegraph-2021]}
+    - {phase: pre, date: "2022-06", t: "土地 NFT のダッチオークションで 7,200 万ドル超を売り上げた（ゲームはまだ遊べなかった）。", k: fact, s: [src-illuvium-decrypt-land]}
+    - {phase: pre, date: "2022-12-12", t: "Overworld の非公開ベータを 3 万人のコミュニティ参加者に公開し、その後 Discord コミュニティへ段階的に広げると発表した。登録者は 200 万超とされた。Arena の非公開ベータ（PB2）の参加者は Overworld にも入れた。", k: claim, who: "Illuvium（プレスリリース）/ PlayToEarn", s: [src-illuvium-techbullion-2022, src-illuvium-playtoearn-2022, src-illuvium-theblock-2022]}
+    - {phase: pre, date: "2023-05-18", t: "Overworld Beta 2 で参加上限を 3 万人から 7.5 万人に広げた。ベータの進行・アイテムは引き継がれない可能性があると告知された。", k: fact, s: [src-illuvium-dailycoin-2023]}
+    - {phase: pre, date: "2023-11", t: "Overworld と Arena を Epic Games Store に掲載した。土地で資源を採る Zero のアルファ版は土地 NFT の所有者だけが遊べた。", k: fact, s: [src-illuvium-decrypt-preview]}
+    - {phase: launch, date: "2024-07-25", t: "Epic Games Store で公開した（運営は「正式ローンチ」と呼んだ）。", k: fact, s: [src-illuvium-decrypt-launch, src-illuvium-bg-openbeta]}
+  channels:
+    - {id: token-incentive, t: "ゲームの公開前から ILV のステーキングに年 40〜80%、流動性提供に数百 % の利回りを付けて保有者を集めた。", k: fact, s: [src-illuvium-cointelegraph-2021]}
+    - {id: existing-community, t: "AXS・SNX など他プロジェクトのトークンを預けられる flash pool を開き、それらの保有者を呼び込んだ。", k: fact, s: [src-illuvium-cointelegraph-2021]}
+    - {id: invite-gating, t: "200 万超の登録者から非公開ベータの参加者を段階的に選び、3 万人から 7.5 万人へ広げた。", k: fact, s: [src-illuvium-techbullion-2022, src-illuvium-dailycoin-2023]}
+    - {id: community-server, t: "非公開ベータは最初の 3 万人の後、Discord コミュニティに段階的に開放すると告知した。", k: claim, who: "Illuvium（プレスリリース）", s: [src-illuvium-techbullion-2022]}
+    - {id: platform-distribution, t: "2023-11 に Epic Games Store へ掲載し、2024-07 の公開も同ストアで行った。", k: fact, s: [src-illuvium-decrypt-preview, src-illuvium-decrypt-launch]}
+    - {id: creator-stream, t: "2021 年に影響力のある人物向けの特製 NFT を作り、予告映像とともに期待を高めたと報じられた。", k: fact, s: [src-illuvium-cointelegraph-2021]}
+  cost:
+    - {t: "保有者の獲得はトークン放出（ステーキング報酬）で賄われ、土地購入者が 7,200 万ドル超を払った。そのうち 4,018 ETH はステーク中の ILV 保有者へ配られた。2024-03 には 1,200 万ドルのシリーズ A を発表した。", k: fact, s: [src-illuvium-cointelegraph-2021, src-illuvium-decrypt-land, src-illuvium-bg-openbeta]}
+  after:
+    - {t: "公開後の利用者数・継続率は公表されていない。2024-12 時点で ILV は高値から 98% 下落し、運営は支出削減と Overworld への集中を発表、2026 年には縮小した MMO が主な賭けになった。", k: fact, s: [src-illuvium-bg-2025, src-illuvium-cryptoslate-2026]}
+  counter:
+    - {t: "200 万超の「登録」は、報酬や将来のエアドロップを期待した登録を含む可能性があり、遊ぶ意思のある人数を示さない。非公開ベータの 3 万〜7.5 万人の実際のプレイ人数も公表されていない。", k: analysis, s: [src-illuvium-techbullion-2022, src-illuvium-dailycoin-2023]}
+    - {t: "2021 年の ILV 保有者の急増は NFT・ゲーム系トークン全体の上昇期と重なり、記事自身も市場全体の好調を要因に挙げる。ステーキング施策の効果だけを取り出せない。", k: analysis, s: [src-illuvium-cointelegraph-2021]}
+  lessons:
+    - {t: "他トークン保有者向けのステーキング枠（flash pool）: 他コミュニティの資金を短期に集められるが、集まるのは利回りを求める資金で、ゲームのプレイヤーにはならない。利回りが下がれば去る。", k: analysis}
+    - {t: "大規模事前登録から段階的に選ぶ非公開ベータ: サーバー負荷と品質を管理しながら熱を保てるが、進行が引き継がれないベータを長く続けると、登録者の熱が公開時まで持たない。", k: analysis}
+  metrics: [m-illuvium-staking-apr-2021, m-illuvium-registered-2022, m-illuvium-beta-2022-12, m-illuvium-beta2-2023-05, m-illuvium-land-sale-2022]
+  unknowns: ["ILV の 2021-03 のトークン販売（Balancer の流動性ブートストラップと報じられる）の一次資料と調達額", "非公開ベータ参加者の選び方（NFT・ILV 保有者の優遇の有無）と実際のプレイ人数", "公開後の利用者数"]
+
 metrics:
   - {id: m-illuvium-land-sale-2022, type: nft_sales, value: 72000000, value_text: "7,200 万ドル超", unit: USD, period: "2022-06", definition: "土地 NFT のダッチオークションの売上総額（顧客への販売であり資金調達とは別）", nature: reported, s: [src-illuvium-decrypt-land]}
   - {id: m-illuvium-burn-2024-12, type: other, value: 900000, value_text: "月約 90 万ドル（年 1,100 万ドル）", unit: USD/month, period: "2024-12", definition: "公表された支出（バーンレート）", nature: reported, s: [src-illuvium-cryptoslate-2026, src-illuvium-bg-2025]}
+  - {id: m-illuvium-staking-apr-2021, type: other, value: 39.77, value_text: "柔軟型 39.77%、52 週ロック 79.53%", unit: "%", period: "2021-08", definition: "ILV ステーキングの年利回りの表示（Cointelegraph）", nature: reported, s: [src-illuvium-cointelegraph-2021]}
+  - {id: m-illuvium-registered-2022, type: players, value: 2000000, value_text: "200 万超", unit: registrations, period: "2022-12", definition: "ゲームに登録した人数（運営のプレスリリース。2023-05 の DailyCoin はベータの登録者と表現）", nature: reported, s: [src-illuvium-techbullion-2022, src-illuvium-dailycoin-2023]}
+  - {id: m-illuvium-beta-2022-12, type: players, value: 30000, unit: players, period: "2022-12-12〜", definition: "Overworld 非公開ベータの最初の参加枠（The Block、運営プレスリリース）", nature: reported, s: [src-illuvium-theblock-2022, src-illuvium-techbullion-2022]}
+  - {id: m-illuvium-beta2-2023-05, type: players, value: 75000, unit: players, period: "2023-05-18〜", definition: "Overworld Beta 2 の参加上限（DailyCoin）", nature: reported, s: [src-illuvium-dailycoin-2023]}
 
 events:
   - {id: ev-illuvium-land-sale, date: "2022-06", type: funding, title: "土地 NFT 販売で 7,200 万ドル超", s: [src-illuvium-decrypt-land]}
@@ -97,3 +132,9 @@ sources:
   - {id: src-illuvium-bg-2025, title: "Illuvium refocuses on MMOG lite Overworld for 2025", url: "https://www.blockchaingamer.biz/?p=36322", publisher: "BlockchainGamer.biz", author: "Jon Jordan", type: news, primary: false, published: "2024-12-20", accessed: "2026-10-23", access: fetched, lang: en, note: "Overworld 最優先、ILV 98% 下落、年 1,100 万ドルの支出、マイクロトランザクション依存の反省"}
   - {id: src-illuvium-cryptoslate-2026, title: "Illuvium says six months of cuts bought it another year as MMO becomes its main remaining bet", url: "https://cryptoslate.com/illuvium-says-six-months-of-cuts-bought-it-another-year-as-mmo-becomes-its-main-remaining-bet/", publisher: "CryptoSlate", author: "Liam 'Akiba' Wright", type: news, primary: false, published: "2026-08-22", accessed: "2026-10-23", access: fetched, lang: en, note: "削減と 12 か月超の運転資金、MMO の範囲縮小、NDA 下の議事"}
   - {id: src-illuvium-decrypt-launch, title: "Long-Awaited ‘Illuvium’ Ethereum Games Launch on Epic Store", url: "https://decrypt.co/241678/long-awaited-illuvium-ethereum-games-launch-epic-store", publisher: "Decrypt", author: "Ryan S. Gladwin", type: news, primary: false, published: "2024-07-25", accessed: "2026-10-23", access: fetched, lang: en, note: "3 作を Epic Games Store で公開、運営は「official game launch」と呼称、Zero はモバイル・PC・Mac"}
+  - {id: src-illuvium-cointelegraph-2021, title: "Illuvium hits new highs as interest in NFT-based blockchain gaming skyrockets", url: "https://cointelegraph.com/markets/illuvium-hits-new-highs-as-interest-in-nft-based-blockchain-gaming-skyrockets", publisher: "Cointelegraph", author: "Jordan Finneseth", type: news, primary: false, published: "2021-08-31", accessed: "2026-10-24", access: fetched, lang: en, note: "ステーキング開始 6/30、利回り（39.77% / 79.53% / LP 283〜566%）、Axie flash pool 7/28、AXS・SNX 枠は満杯、ILV 1,765% 上昇、上昇要因"}
+  - {id: src-illuvium-theblock-2022, title: "Illuvium releases Overworld as it attempts to bring AAA quality to web3 gaming", url: "https://www.theblock.co/post/194026/illuvium-releases-overworld-as-it-attempts-to-bring-aaa-quality-to-web3-gaming", publisher: "The Block", author: "Callan Quinn", type: news, primary: false, published: "2022-12-12", accessed: "2026-10-24", access: fetched, lang: en, note: "3 万人のコミュニティ参加者が非公開ベータに選ばれた、Arena も非公開ベータ中"}
+  - {id: src-illuvium-techbullion-2022, title: "AAA NFT Game Illuvium Set to Release Highly Anticipated Illuvium Overworld Beta on December 12 at 1900 UTC", url: "https://techbullion.com/aaa-nft-game-illuvium-set-to-release-highly-anticipated-illuvium-overworld-beta-on-december-12-at-1900-utc/", publisher: "TechBullion (press release)", type: news, primary: true, published: "2022-12", accessed: "2026-10-24", access: fetched, lang: en, note: "運営のプレスリリース。3 万人に公開後 Discord コミュニティへ段階的に開放、登録 200 万超、play.illuvium.io で登録"}
+  - {id: src-illuvium-playtoearn-2022, title: "Illuvium Launches Overworld Private Beta", url: "https://playtoearn.com/news/illuvium-launches-overworld-private-beta", publisher: "PlayToEarn", type: news, primary: false, published: "2022-12-11", accessed: "2026-10-24", access: fetched, lang: en, note: "Arena 非公開ベータ（PB2）の参加者は Overworld にも参加可、最初の招待はメールで通知"}
+  - {id: src-illuvium-dailycoin-2023, title: "Illuvium Update Adds Exciting Features and NFTs to Flagship Game", url: "https://dailycoin.com/illuvium-update-adds-exciting-features-and-nfts-to-flagship-game/", publisher: "DailyCoin", author: "Insha Zia", type: news, primary: false, published: "2023-05-18", accessed: "2026-10-24", access: fetched, lang: en, note: "Beta 2 で 3 万人から 7.5 万人へ、登録 200 万超、ベータの進行は消去"}
+  - {id: src-illuvium-decrypt-preview, title: "Illuvium Preview: Everything You Need to Know About the NFT Games", url: "https://decrypt.co/207455/illuvium-preview-everything-need-know-about-nft-games", publisher: "Decrypt", author: "Kate Irwin, Andrew Hayward", type: news, primary: false, published: "2023-11-26", accessed: "2026-10-24", access: fetched, lang: en, note: "Zero のアルファは土地 NFT 所有者のみ、Overworld と Arena を 2023-11 に Epic Games Store へ掲載（2024-03-31 更新）"}
